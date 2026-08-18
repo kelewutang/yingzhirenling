@@ -1102,6 +1102,9 @@ body.theme-light .back-to-top { background: #fff; }
 }
 .print-btn:hover { background: var(--bg-card); color: var(--text-primary); }
 
+/* ===== 评论区暂时隐藏 ===== */
+.comments-section { display: none !important; }
+
 /* ===== 打印样式 ===== */
 @media print {
   .navbar, .footer, .back-to-top, .nav-search-btn, .theme-switcher, .nav-toggle, .print-btn, .beginner-banner, .difficulty-tags { display: none !important; }
