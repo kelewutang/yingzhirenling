@@ -100,10 +100,10 @@ function initCountdown() {
 // 4. 访问 https://giscus.app 获取 repo-id 和 category-id，替换下面两行
 // 5. 评论区会自动出现在每个内容页底部
 const GISCUS_CONFIG = {
-  repo: 'your-name/your-repo',       // 改成你的GitHub仓库，如 'username/yingzhirenling'
-  repoId: 'R_kgDOxxxxxx',             // 从giscus.app获取
-  category: 'General',                // Discussion分类名
-  categoryId: 'DIC_kwDOxxxxxx'        // 从giscus.app获取
+  repo: 'kelewutang/yingzhirenling',
+  repoId: 'R_kgDOT8TPFg',
+  category: 'General',
+  categoryId: 'DIC_kwDOT8TPFs4DDo9Q'
 };
 
 function initComments() {
