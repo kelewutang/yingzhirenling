@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boss攻略 - 影之刃零攻略站</title>
+  <meta name="description" content="影之刃零Boss攻略大全，荒行子、魔渊、舞狮尊主等全Boss招式拆解与打法解析。">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo"><span>影之刃零</span></a>
+      <button class="nav-toggle" aria-label="菜单">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="guide.html">攻略中心</a></li>
+        <li><a href="weapons.html">武器图鉴</a></li>
+        <li><a href="characters.html">角色图鉴</a></li>
+        <li><a href="bosses.html" class="active">Boss攻略</a></li>
+        <li><a href="world.html">世界观</a></li>
+        <li><a href="videos.html">视频中心</a></li>
+        <li><a href="about.html">购买指南</a></li>
+      </ul>
+      <button class="nav-search-btn" onclick="openSearch()" aria-label="搜索">🔍</button>
+      <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="default" title="赤焰（默认）" onclick="switchTheme('default')"></button>
+        <button class="theme-btn" data-theme="qing" title="墨青" onclick="switchTheme('qing')"></button>
+        <button class="theme-btn" data-theme="light" title="昼白（浅色）" onclick="switchTheme('light')"></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <div class="page-breadcrumb"><a href="../index.html">首页</a> / Boss攻略</div>
+      <h1 class="page-title">Boss攻略</h1>
+      <p style="color:var(--text-secondary);margin-top:8px;">招式拆解 · 应对策略 · 推荐武器 · 无伤技巧</p>
+    </div>
+
+    <div class="article">
+
+      <div class="alert alert-warning">
+        以下Boss信息基于官方试玩版和实机演示整理，完整Boss列表与详细打法将在游戏发售后持续更新。
+      </div>
+
+      <h2>已确认Boss列表</h2>
+
+      <table class="data-table" style="margin:20px 0;">
+        <thead><tr><th>Boss名称</th><th>身份</th><th>出现阶段</th><th>难度</th></tr></thead>
+        <tbody>
+          <tr><td>癫狂暴徒铁杀</td><td>狂暴型敌人</td><td>试玩版</td><td><span class="tag tag-cyan">★★</span></td></tr>
+          <tr><td>横刀队长</td><td>势力军官</td><td>试玩版</td><td><span class="tag tag-cyan">★★</span></td></tr>
+          <tr><td>痴狂暴徒残钢</td><td>狂暴型敌人</td><td>试玩版</td><td><span class="tag tag-gold">★★★</span></td></tr>
+          <tr><td>玉面郎君</td><td>未知</td><td>试玩版</td><td><span class="tag tag-gold">★★★</span></td></tr>
+          <tr><td>荒行子</td><td>昆仑叛教者</td><td>试玩版+正式版</td><td><span class="tag tag-red">★★★★</span></td></tr>
+          <tr><td>舞狮尊主</td><td>特色Boss</td><td>TGA PV登场</td><td><span class="tag tag-gold">★★★</span></td></tr>
+          <tr><td>剑痴</td><td>特色Boss</td><td>TGA PV登场</td><td><span class="tag tag-gold">★★★</span></td></tr>
+          <tr><td>双刀倒挂女Boss</td><td>未知</td><td>11分钟PV再度现身</td><td><span class="tag tag-red">★★★★</span></td></tr>
+          <tr><td>组织极端追击者</td><td>组织精英杀手</td><td>11分钟PV庞镇篇</td><td><span class="tag tag-gold">★★★</span></td></tr>
+          <tr><td>暗魔天堡之主：魔渊</td><td>魂的父亲（甄子丹动捕）</td><td>正式版关键Boss</td><td><span class="tag tag-red">★★★★★</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2>荒行子 · 详细打法</h2>
+
+      <div class="card" style="margin:20px 0;">
+        <h3 class="card-title">基本信息</h3>
+        <p class="card-text">
+          原昆仑派"昆仑三杰"之一，后下落不明，《影之刃零》中再度出现，疑似听命于左殇。<br>
+          <strong>外貌</strong>：头戴尖顶铁盔，脸戴铁面，左手安装血滴子，右手持剑。<br>
+          <strong>人物关系</strong>：玉音子（师姐）、墨玑子（师弟）、紫英（师侄）。
+        </p>
+      </div>
+
+      <h3>一阶段打法</h3>
+      <ul>
+        <li>荒行子以剑术为主，攻击多为蓝光判定，可用完美格挡触发鬼步</li>
+        <li>左手血滴子会进行远程投掷，红光判定，需闪避</li>
+        <li>推荐保持中距离，等其出刀后用鬼步绕后输出</li>
+        <li>推荐武器：唐横刀/长形黑伤，副武器带弓箭消耗</li>
+      </ul>
+
+      <h3>二阶段：杀气暴走形态</h3>
+      <div class="alert alert-danger">
+        二阶段荒行子头部爆开变成圆锯形态，是接受完全杀气改造后的最终形态，攻击范围和速度大幅提升。11分钟PV中其台词暗藏深意，暗示此时的荒行子已然彻底堕落、坠入邪道。
+      </div>
+      <ul>
+        <li>圆锯头部会进行旋转横扫，范围极大，建议向远处闪避而非格挡</li>
+        <li>推荐使用<strong>偃月刀</strong>，重攻击派生的大范围刀气可轻松将其打出硬直</li>
+        <li>虎炮3段蓄力在其硬直时释放，可造成大量伤害</li>
+        <li>台词暗藏深意，可能与昆仑派往事和左殇的计划有关</li>
+      </ul>
+
+      <h2>暗魔天堡之主：魔渊 · 详细打法</h2>
+
+      <div class="card" style="margin:20px 0;">
+        <h3 class="card-title">基本信息</h3>
+        <p class="card-text">
+          暗魔天堡之主，主角魂的生父。由国际动作巨星<strong>甄子丹</strong>担任面部与动作捕捉。<br>
+          <strong>战斗特点</strong>：招式干脆凌厉，有明显的"甄子丹风格"，战斗中甚至有余力对魂指点一二。<br>
+          <strong>实力定位</strong>：碾压级，魂在其面前如同初入江湖的愣头青，招式屡屡被轻松化解。
+        </p>
+      </div>
+
+      <h3>战斗要点（前瞻）</h3>
+      <ul>
+        <li>魔渊的攻击速度极快，蓝光攻击窗口很短，需要极高的格挡精度</li>
+        <li>大量使用近身格斗技（甄子丹武术风格），红光投技无法格挡</li>
+        <li>可能存在多阶段战斗，随血量降低解锁更多招式</li>
+        <li>这场战斗更可能是剧情演出型Boss，未必是传统意义上的"击败"</li>
+        <li>推荐配装：高机动武器组合，副武器带控制类奇术</li>
+      </ul>
+
+      <h2>通用Boss战技巧</h2>
+
+      <h3>观察双色攻击</h3>
+      <p>所有Boss的攻击都分蓝光（可格挡）和红光（必须闪避）。开战前先观察Boss的攻击习惯，记住哪些招式是红光。无UI模式下完全靠视觉观察，蓝光和红光的视觉特效有明显区别。</p>
+
+      <h3>杀气管理</h3>
+      <p>Boss战中杀气管理是关键。不要盲目用重击消耗杀气，保持至少半管杀气用于应急格挡。打空Boss杀气后触发处决是最佳输出窗口。</p>
+
+      <h3>武器切换爆发</h3>
+      <p>利用鬼步绕后 → 切换重武器（偃月刀）→ 重攻击打硬直 → 副武器蓄力爆发，这套组合是应对大多数Boss的通用高伤害连招。</p>
+
+      <h2>更多Boss（发售后更新）</h2>
+      <div class="card-grid" style="margin:20px 0;">
+        <div class="card"><h3 class="card-title">舞狮尊主</h3><p class="card-text">TGA定档PV登场的特色Boss，舞狮造型，具体打法待更新。</p><div class="card-meta"><span class="tag tag-gray">待更新</span></div></div>
+        <div class="card"><h3 class="card-title">剑痴</h3><p class="card-text">TGA PV登场，剑术型Boss，可能与环境交互战斗相关。</p><div class="card-meta"><span class="tag tag-gray">待更新</span></div></div>
+        <div class="card"><h3 class="card-title">双刀倒挂女Boss</h3><p class="card-text">State of Play登场，倒挂战斗风格，双刀高速攻击。</p><div class="card-meta"><span class="tag tag-gray">待更新</span></div></div>
+        <div class="card"><h3 class="card-title">持琵琶女性人偶</h3><p class="card-text">6月先导PV登场，手持琵琶参与战斗，可能是音波攻击型。</p><div class="card-meta"><span class="tag tag-gray">待更新</span></div></div>
+      </div>
+
+    </div>
+
+    <div class="comments-section" id="comments">
+      <h3>评论与讨论</h3>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="footer-logo">影之刃零攻略站</div><p>非官方玩家攻略站，游戏版权归北京灵游坊网络科技有限公司所有。</p></div>
+      <div class="footer-col"><h4>攻略</h4><ul><li><a href="guide.html">攻略中心</a></li><li><a href="weapons.html">武器图鉴</a></li><li><a href="bosses.html">Boss攻略</a></li><li><a href="characters.html">角色图鉴</a></li></ul></div>
+      <div class="footer-col"><h4>资料</h4><ul><li><a href="world.html">世界观设定</a></li><li><a href="videos.html">视频中心</a></li><li><a href="about.html">购买指南</a></li><li><a href="about-site.html">关于本站</a></li></ul></div>
+      <div class="footer-col"><h4>官方渠道</h4><ul><li><a href="https://www.taptap.cn/app/358885" target="_blank" rel="noopener">TapTap</a></li><li><a href="https://store.steampowered.com/app/4115450/" target="_blank" rel="noopener">Steam</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 影之刃零攻略站 · yingzhirenling.cn</span><span>玩家公益站点</span></div>
+  </footer>
+
+  <button class="back-to-top" aria-label="回到顶部">↑</button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

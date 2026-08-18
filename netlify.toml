@@ -1,0 +1,50 @@
+[build]
+  publish = "."
+  command = "echo 'Static site - no build needed'"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[redirects]]
+  from = "/home"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide"
+  to = "/pages/guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons"
+  to = "/pages/weapons.html"
+  status = 200
+
+[[redirects]]
+  from = "/characters"
+  to = "/pages/characters.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses"
+  to = "/pages/bosses.html"
+  status = 200
+
+[[redirects]]
+  from = "/world"
+  to = "/pages/world.html"
+  status = 200
+
+[[redirects]]
+  from = "/videos"
+  to = "/pages/videos.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/pages/about.html"
+  status = 200
