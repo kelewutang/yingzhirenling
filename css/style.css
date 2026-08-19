@@ -1105,6 +1105,81 @@ body.theme-light .back-to-top { background: #fff; }
 /* ===== 评论区暂时隐藏 ===== */
 .comments-section { display: none !important; }
 
+/* ===== 地图展示卡片 ===== */
+.map-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+.map-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.map-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.map-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.map-info {
+  padding: 16px;
+}
+.map-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-primary);
+}
+.map-tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: rgba(196,30,58,0.15);
+  color: var(--accent-red-light);
+  margin-bottom: 10px;
+}
+.map-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+.map-unknown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 2px dashed var(--border-color);
+}
+.map-unknown-content {
+  text-align: center;
+  color: var(--text-muted);
+}
+.map-unknown-content h3 {
+  font-size: 32px;
+  margin: 0 0 8px;
+  color: var(--text-muted);
+}
+.map-unknown-content p {
+  font-size: 14px;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .map-grid { grid-template-columns: 1fr; }
+  .map-image { height: 160px; }
+}
+
 /* ===== 打印样式 ===== */
 @media print {
   .navbar, .footer, .back-to-top, .nav-search-btn, .theme-switcher, .nav-toggle, .print-btn, .beginner-banner, .difficulty-tags { display: none !important; }
