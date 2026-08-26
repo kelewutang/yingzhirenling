@@ -189,14 +189,14 @@ function initBaiduPush() {
 
 // ===== 全站搜索 =====
 var SEARCH_INDEX = [
-  { title: '首页', url: 'index.html', desc: '影之刃零攻略站首页，游戏简介、最新资讯、核心数据、攻略导航', tag: '首页', keywords: '影之刃零 攻略 首页 简介 资讯 数据 发售 预售' },
-  { title: '攻略中心', url: 'pages/guide.html', desc: '新手入门、难度选择、开荒推荐、主线流程、探索系统、武器构筑系统', tag: '攻略', keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 主线 探索 构筑 build' },
-  { title: '武器图鉴', url: 'pages/weapons.html', desc: '30种主武器+25种副武器大全，含获取方式、连招技巧、强度排行、配装推荐', tag: '武器', keywords: '武器 唐横刀 黑伤 残钢刃 偃月刀 青龙掠月刀 拳套 大盾 链钩 手甲 醉剑 白蛇 赤蛇 软蛇剑 虎炮 副武器 影之武装 配装' },
-  { title: '角色图鉴', url: 'pages/characters.html', desc: '魂、左殇、瞳媚、沐小葵、魔渊、玄玉、眼镜女、炼邪、妙手小张等全角色背景与关系', tag: '角色', keywords: '角色 魂 左殇 瞳媚 沐小葵 魔渊 甄子丹 玄玉 玄鱼 剑玄 沐天邈 眼镜女 炼邪 妙手小张 人物关系' },
-  { title: 'Boss攻略', url: 'pages/bosses.html', desc: '荒行子、魔渊、残钢、舞狮尊主、剑痴等全Boss招式拆解与打法解析', tag: 'Boss', keywords: 'Boss 荒行子 魔渊 残钢 舞狮尊主 剑痴 双刀女 极端追击者 打法 招式 二阶段 杀气暴走' },
-  { title: '世界观设定', url: 'pages/world.html', desc: '影境世界、功夫朋克、杀气改造、六大势力、编年史、前作回顾、8幅水墨地图', tag: '世界观', keywords: '世界观 影境 功夫朋克 武侠朋克 杀气 改造 怪面 组织 正道联盟 十一人阁 蜃楼 暗魔天堡 圣母娘娘 编年史 雨血 水墨地图' },
-  { title: '视频中心', url: 'pages/videos.html', desc: '官方PV、实机演示、State of Play专场、甄子丹动捕特辑，B站高清视频一站式观看', tag: '视频', keywords: '视频 PV 实机 演示 State of Play 甄子丹 预告 B站 11分钟 20分钟' },
-  { title: '购买指南', url: 'pages/about.html', desc: '各平台售价对比、版本区别、预购特典、PC配置要求、实体收藏版、预售数据', tag: '购买', keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame 预售 销量' }
+  { title: '首页', url: '/', desc: '影之刃零攻略站首页，游戏简介、最新资讯、核心数据、攻略导航', tag: '首页', keywords: '影之刃零 攻略 首页 简介 资讯 数据 发售 预售' },
+  { title: '攻略中心', url: '/guide', desc: '新手入门、难度选择、开荒推荐、主线流程、探索系统、武器构筑系统', tag: '攻略', keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 主线 探索 构筑 build' },
+  { title: '武器图鉴', url: '/weapons', desc: '30种主武器+25种副武器大全，含获取方式、连招技巧、强度排行、配装推荐', tag: '武器', keywords: '武器 唐横刀 黑伤 残钢刃 偃月刀 青龙掠月刀 拳套 大盾 链钩 手甲 醉剑 白蛇 赤蛇 软蛇剑 虎炮 副武器 影之武装 配装' },
+  { title: '角色图鉴', url: '/characters', desc: '魂、左殇、瞳媚、沐小葵、魔渊、玄玉、眼镜女、炼邪、妙手小张等全角色背景与关系', tag: '角色', keywords: '角色 魂 左殇 瞳媚 沐小葵 魔渊 甄子丹 玄玉 玄鱼 剑玄 沐天邈 眼镜女 炼邪 妙手小张 人物关系' },
+  { title: 'Boss攻略', url: '/bosses', desc: '荒行子、魔渊、残钢、舞狮尊主、剑痴等全Boss招式拆解与打法解析', tag: 'Boss', keywords: 'Boss 荒行子 魔渊 残钢 舞狮尊主 剑痴 双刀女 极端追击者 打法 招式 二阶段 杀气暴走' },
+  { title: '世界观设定', url: '/world', desc: '影境世界、功夫朋克、杀气改造、六大势力、编年史、前作回顾、8幅水墨地图', tag: '世界观', keywords: '世界观 影境 功夫朋克 武侠朋克 杀气 改造 怪面 组织 正道联盟 十一人阁 蜃楼 暗魔天堡 圣母娘娘 编年史 雨血 水墨地图' },
+  { title: '视频中心', url: '/videos', desc: '官方PV、实机演示、State of Play专场、甄子丹动捕特辑，B站高清视频一站式观看', tag: '视频', keywords: '视频 PV 实机 演示 State of Play 甄子丹 预告 B站 11分钟 20分钟' },
+  { title: '购买指南', url: '/about', desc: '各平台售价对比、版本区别、预购特典、PC配置要求、实体收藏版、预售数据', tag: '购买', keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame 预售 销量' }
 ];
 
 var searchOverlay = null;

@@ -7,45 +7,51 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.yingzhirenling.cn/pages/guide.html</loc>
+    <loc>https://www.yingzhirenling.cn/guide</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.yingzhirenling.cn/pages/weapons.html</loc>
+    <loc>https://www.yingzhirenling.cn/weapons</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.yingzhirenling.cn/pages/characters.html</loc>
+    <loc>https://www.yingzhirenling.cn/characters</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yingzhirenling.cn/pages/bosses.html</loc>
+    <loc>https://www.yingzhirenling.cn/bosses</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.yingzhirenling.cn/pages/world.html</loc>
+    <loc>https://www.yingzhirenling.cn/world</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.yingzhirenling.cn/pages/videos.html</loc>
+    <loc>https://www.yingzhirenling.cn/videos</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yingzhirenling.cn/pages/about.html</loc>
+    <loc>https://www.yingzhirenling.cn/about</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.yingzhirenling.cn/about-site</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

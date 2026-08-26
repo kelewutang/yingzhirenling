@@ -11,8 +11,116 @@
 
 [[redirects]]
   from = "/home"
-  to = "/index.html"
-  status = 200
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/guide.html"
+  to = "/guide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/guide"
+  to = "/guide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/weapons.html"
+  to = "/weapons"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/weapons"
+  to = "/weapons"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/characters.html"
+  to = "/characters"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/characters"
+  to = "/characters"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/bosses.html"
+  to = "/bosses"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/bosses"
+  to = "/bosses"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/world.html"
+  to = "/world"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/world"
+  to = "/world"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/videos.html"
+  to = "/videos"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/videos"
+  to = "/videos"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/about"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/about-site.html"
+  to = "/about-site"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/about-site"
+  to = "/about-site"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/guide"
@@ -48,3 +156,13 @@
   from = "/about"
   to = "/pages/about.html"
   status = 200
+
+[[redirects]]
+  from = "/about-site"
+  to = "/pages/about-site.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

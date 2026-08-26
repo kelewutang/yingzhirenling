@@ -20,7 +20,10 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  max-width: 100%;
+}
 
 body {
   font-family: var(--font-ui);
@@ -34,12 +37,48 @@ body {
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 a { color: var(--accent-gold); text-decoration: none; transition: color 0.2s; }
 a:hover { color: var(--accent-gold-light); }
 
-img { max-width: 100%; height: auto; }
+img, video, iframe {
+  max-width: 100%;
+}
+
+img { height: auto; }
+
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+pre code {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.nav-inner > *,
+.search-modal-header > *,
+.hero-buttons > *,
+.card-grid > *,
+.stats-bar > *,
+.two-col > *,
+.footer-inner > *,
+.footer-bottom > *,
+.beginner-banner-inner > *,
+.difficulty-tags > *,
+.map-grid > * {
+  min-width: 0;
+}
 
 /* ===== 导航栏 ===== */
 .navbar {
@@ -158,6 +197,8 @@ img { max-width: 100%; height: auto; }
 }
 .search-modal-header input {
   flex: 1;
+  min-width: 0;
+  width: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -465,6 +506,8 @@ img { max-width: 100%; height: auto; }
 /* ===== 表格 ===== */
 .data-table {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border-collapse: collapse;
   background: var(--bg-card);
   border-radius: 10px;
@@ -483,6 +526,7 @@ img { max-width: 100%; height: auto; }
   font-weight: 600;
   color: var(--accent-gold);
   border-bottom: 1px solid var(--border-color);
+  overflow-wrap: anywhere;
 }
 
 .data-table td {
@@ -490,6 +534,7 @@ img { max-width: 100%; height: auto; }
   font-size: 14px;
   color: var(--text-secondary);
   border-bottom: 1px solid var(--border-color);
+  overflow-wrap: anywhere;
 }
 
 .data-table tr:last-child td { border-bottom: none; }
@@ -590,6 +635,15 @@ img { max-width: 100%; height: auto; }
 .article {
   max-width: 860px;
   margin: 0 auto;
+  min-width: 0;
+}
+
+.article a,
+.card-text,
+.footer a,
+.result-desc {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .article h2 {
@@ -893,8 +947,7 @@ img { max-width: 100%; height: auto; }
   .hero-title { letter-spacing: 6px; }
   .hero-subtitle { letter-spacing: 3px; font-size: 14px; }
   .hero-tagline { font-size: 16px; }
-  .data-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .data-table { min-width: 600px; }
+  .data-table-wrapper { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
 }
 
@@ -908,7 +961,7 @@ img { max-width: 100%; height: auto; }
   .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .stat-number { font-size: 28px; }
   .stat-label { font-size: 12px; }
-  .data-table { font-size: 13px; min-width: 560px; }
+  .data-table { font-size: 13px; }
   .data-table th, .data-table td { padding: 10px 8px; }
   .hero { min-height: 380px; }
   .hero-title { font-size: 36px; letter-spacing: 4px; margin-bottom: 12px; }
