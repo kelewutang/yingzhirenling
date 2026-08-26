@@ -738,6 +738,146 @@ pre code {
   color: var(--accent-red-light);
 }
 
+/* ===== 信息状态与来源 ===== */
+.info-provenance {
+  max-width: 860px;
+  margin: 0 auto 32px;
+  padding: 20px 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-card);
+  min-width: 0;
+}
+
+.info-provenance--home {
+  margin-top: 32px;
+}
+
+.info-provenance__intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.info-provenance__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.info-provenance__title {
+  margin: 0 0 6px;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 17px;
+  letter-spacing: 1px;
+}
+
+.info-provenance__description {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.info-status {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.info-status[data-status="official"] {
+  color: var(--accent-gold-light);
+  background: rgba(201, 169, 97, 0.1);
+}
+
+.info-status[data-status="observation"] {
+  color: var(--accent-cyan);
+  background: rgba(74, 158, 168, 0.1);
+}
+
+.info-status[data-status="third-party"] {
+  color: var(--text-secondary);
+  background: rgba(106, 104, 100, 0.1);
+}
+
+.info-status[data-status="editorial"] {
+  color: var(--accent-red-light);
+  background: rgba(196, 30, 58, 0.1);
+}
+
+.info-status[data-status="release-verified"] {
+  color: var(--accent-gold-light);
+  background: rgba(201, 169, 97, 0.1);
+}
+
+.info-status[data-status="pending-review"] {
+  color: var(--text-muted);
+  background: rgba(106, 104, 100, 0.08);
+}
+
+.info-provenance__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 20px;
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
+}
+
+.info-source {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.info-source dt {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+}
+
+.info-source dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.info-source a {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .info-provenance {
+    margin-bottom: 24px;
+    padding: 16px;
+  }
+
+  .info-provenance--home {
+    margin-top: 24px;
+  }
+
+  .info-provenance__intro {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info-provenance__meta {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== 底部 ===== */
 .footer {
   border-top: 1px solid var(--border-color);
