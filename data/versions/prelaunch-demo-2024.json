@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "version:prelaunch-demo-2024",
+  "stage": "prelaunch-demo",
+  "displayName": "2024 公开试玩阶段",
+  "versionLabel": null,
+  "track": "prelaunch",
+  "sequence": 10,
+  "platformIds": [],
+  "releasedAt": null,
+  "sourceIds": [
+    "source:ucg-demo-report-2024-06-08"
+  ],
+  "checkedAt": "2026-08-27",
+  "supersedesVersionId": null,
+  "supersededBy": null
+}

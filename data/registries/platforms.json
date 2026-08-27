@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "platforms": [
+    {
+      "id": "platform:pc",
+      "displayName": "PC"
+    },
+    {
+      "id": "platform:playstation-5",
+      "displayName": "PlayStation 5"
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:qinglong-lueyue-dao",
+  "entityType": "weapon",
+  "slug": "qinglong-lueyue-dao",
+  "displayName": "青龙掠月刀",
+  "aliases": [
+    {
+      "value": "偃月刀",
+      "locale": "zh-CN",
+      "kind": "descriptive",
+      "status": "pending-review",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "reviewNote": "当前 HTML 以括号称呼保留该描述；尚未确认它是正式别名、通用兵器类型还是发售前暂称。"
+    }
+  ],
+  "summary": "发售前预告片中展示的长柄重武器；画面中可见较大范围挥砍与刀气动作，获取方式仍待确认。",
+  "summaryFactIds": [
+    "fact:weapon:qinglong-lueyue-dao:exists",
+    "fact:weapon:qinglong-lueyue-dao:kind",
+    "fact:weapon:qinglong-lueyue-dao:public-appearance",
+    "fact:weapon:qinglong-lueyue-dao:observed-trait",
+    "fact:weapon:qinglong-lueyue-dao:acquisition"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:qinglong-lueyue-dao:exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-26",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:qinglong-lueyue-dao:name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "青龙掠月刀",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-26",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "名称来自当前页面对公开材料的整理，尚未提升为官方文字确认。"
+    },
+    {
+      "id": "fact:weapon:qinglong-lueyue-dao:kind",
+      "key": "weapon.kind",
+      "valueType": "string",
+      "value": "长柄重武器",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-26",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:qinglong-lueyue-dao:public-appearance",
+      "key": "weapon.publicAppearance",
+      "valueType": "enum",
+      "value": "trailer",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-26",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:qinglong-lueyue-dao:observed-trait",
+      "key": "weapon.observedTrait",
+      "valueType": "string",
+      "value": "演示中具有较大攻击范围与刀气动作",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-26",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:qinglong-lueyue-dao:editor-rating",
+      "key": "weapon.editorRating",
+      "valueType": "rating",
+      "value": {"score": 5, "max": 5},
+      "status": "editorial",
+      "sourceIds": [],
+      "basisFactIds": ["fact:weapon:qinglong-lueyue-dao:observed-trait"],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "来自现有页面的五星编辑预估，不是官方评级或试玩数值。"
+    },
+    {
+      "id": "fact:weapon:qinglong-lueyue-dao:acquisition",
+      "key": "weapon.acquisition",
+      "valueType": "string",
+      "value": null,
+      "status": "pending-review",
+      "sourceIds": [],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "现有预告片只能支持武器出现和动作观察，不能确认正式版获取方式。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-08-27",
+  "recordState": "draft",
+  "resolution": null
+}

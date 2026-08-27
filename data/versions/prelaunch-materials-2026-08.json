@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "version:prelaunch-materials-2026-08",
+  "stage": "prelaunch-materials",
+  "displayName": "2026 年 8 月 State of Play 公开材料阶段",
+  "versionLabel": null,
+  "track": "prelaunch",
+  "sequence": 20,
+  "platformIds": [],
+  "releasedAt": "2026-08-17",
+  "sourceIds": [
+    "source:playstation-blog-state-of-play-2026-08-17"
+  ],
+  "checkedAt": "2026-08-26",
+  "supersedesVersionId": "version:prelaunch-demo-2024",
+  "supersededBy": null
+}

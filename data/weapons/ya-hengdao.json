@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:ya-hengdao",
+  "entityType": "weapon",
+  "slug": "ya-hengdao",
+  "displayName": "牙横刀",
+  "aliases": [],
+  "summary": "发售前媒体试玩记录中出现的刀类武器；详细特点和获取方式尚待可靠资料确认。",
+  "summaryFactIds": [
+    "fact:weapon:ya-hengdao:exists",
+    "fact:weapon:ya-hengdao:kind",
+    "fact:weapon:ya-hengdao:public-appearance",
+    "fact:weapon:ya-hengdao:observed-trait",
+    "fact:weapon:ya-hengdao:acquisition"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:ya-hengdao:exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:ya-hengdao:name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "牙横刀",
+      "status": "observation",
+      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "名称来自媒体试玩记录，尚未取得官方文字来源。"
+    },
+    {
+      "id": "fact:weapon:ya-hengdao:kind",
+      "key": "weapon.kind",
+      "valueType": "string",
+      "value": "刀类",
+      "status": "observation",
+      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:ya-hengdao:public-appearance",
+      "key": "weapon.publicAppearance",
+      "valueType": "enum",
+      "value": "demo",
+      "status": "observation",
+      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:ya-hengdao:observed-trait",
+      "key": "weapon.observedTrait",
+      "valueType": "string",
+      "value": null,
+      "status": "pending-review",
+      "sourceIds": [],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "当前 HTML 仅写明“待详细信息”，没有迁移未经核查的性能或动作描述。"
+    },
+    {
+      "id": "fact:weapon:ya-hengdao:acquisition",
+      "key": "weapon.acquisition",
+      "valueType": "string",
+      "value": null,
+      "status": "pending-review",
+      "sourceIds": [],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售前报道存在获取过程描述，但当前 P0 页面未将其作为已确认获取方式，继续等待正式或更直接来源。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-08-27",
+  "recordState": "draft",
+  "resolution": null
+}

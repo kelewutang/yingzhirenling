@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "factKeys": [
+    {
+      "key": "weapon.exists",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["boolean"],
+      "description": "该武器实体是否已在可核查材料中出现。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.name",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["string"],
+      "description": "材料中出现或当前整理采用的武器名称；是否属于官方正式名称由 Fact status 决定。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.kind",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["string"],
+      "description": "当前材料能够支持的武器类型描述。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.publicAppearance",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["enum"],
+      "enumValues": ["demo", "trailer", "promotional-material", "state-of-play"],
+      "description": "武器在当前发售前材料中的公开出现方式，用一个枚举避免 displayedInDemo 等近义 key 扩散。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.observedTrait",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["string"],
+      "description": "可从公开试玩或实机材料直接观察到的特点；未知时允许 pending-review 的 null 值。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.editorRating",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["rating"],
+      "description": "本站编辑评价，必须保持 editorial，不能被解释为官方或试玩数值。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.acquisition",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["string"],
+      "description": "武器获取方式；未有可靠来源时使用 pending-review、null 和 reviewNote。",
+      "requiresAsOf": false
+    }
+  ]
+}

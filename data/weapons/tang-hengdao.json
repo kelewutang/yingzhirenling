@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:tang-hengdao",
+  "entityType": "weapon",
+  "slug": "tang-hengdao",
+  "displayName": "唐横刀",
+  "aliases": [],
+  "summary": "发售前公开试玩中出现的单手刀；当前演示整理认为其攻防节奏较均衡，获取方式仍待确认。",
+  "summaryFactIds": [
+    "fact:weapon:tang-hengdao:exists",
+    "fact:weapon:tang-hengdao:kind",
+    "fact:weapon:tang-hengdao:public-appearance",
+    "fact:weapon:tang-hengdao:observed-trait",
+    "fact:weapon:tang-hengdao:acquisition"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:tang-hengdao:exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tang-hengdao:name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "唐横刀",
+      "status": "observation",
+      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tang-hengdao:kind",
+      "key": "weapon.kind",
+      "valueType": "string",
+      "value": "单手刀",
+      "status": "observation",
+      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tang-hengdao:public-appearance",
+      "key": "weapon.publicAppearance",
+      "valueType": "enum",
+      "value": "demo",
+      "status": "observation",
+      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tang-hengdao:observed-trait",
+      "key": "weapon.observedTrait",
+      "valueType": "string",
+      "value": "演示中呈现较均衡的攻防节奏",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-26",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tang-hengdao:editor-rating",
+      "key": "weapon.editorRating",
+      "valueType": "rating",
+      "value": {"score": 4, "max": 5},
+      "status": "editorial",
+      "sourceIds": [],
+      "basisFactIds": ["fact:weapon:tang-hengdao:observed-trait"],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "来自现有页面的四星编辑预估，不是官方评级或试玩数值。"
+    },
+    {
+      "id": "fact:weapon:tang-hengdao:acquisition",
+      "key": "weapon.acquisition",
+      "valueType": "string",
+      "value": null,
+      "status": "pending-review",
+      "sourceIds": [],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "当前页面只确认试玩展示，未有可靠来源确认获取方式。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-08-27",
+  "recordState": "draft",
+  "resolution": null
+}

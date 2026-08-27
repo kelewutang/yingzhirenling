@@ -1,0 +1,147 @@
+{
+  "fixtureNotice": "架构测试数据：全部名称和事实均为虚构，不是《影之刃零》生产事实，不得进入 data/。",
+  "cases": [
+    {
+      "name": "official-valid",
+      "expected": "pass",
+      "sources": [
+        {
+          "id": "source:fixture-official",
+          "authority": "official"
+        }
+      ],
+      "entities": [
+        {
+          "id": "weapon:fixture-official-valid",
+          "recordState": "draft",
+          "resolution": null,
+          "facts": [
+            {
+              "id": "fact:fixture-official-valid:exists",
+              "status": "official",
+              "sourceIds": ["source:fixture-official"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "official-invalid-authority",
+      "expected": "fail",
+      "expectedErrorIncludes": "authority=official",
+      "sources": [
+        {
+          "id": "source:fixture-third-party",
+          "authority": "third-party"
+        }
+      ],
+      "entities": [
+        {
+          "id": "weapon:fixture-official-invalid",
+          "recordState": "draft",
+          "resolution": null,
+          "facts": [
+            {
+              "id": "fact:fixture-official-invalid:exists",
+              "status": "official",
+              "sourceIds": ["source:fixture-third-party"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "entity-split-valid",
+      "expected": "pass",
+      "sources": [],
+      "entities": [
+        {
+          "id": "weapon:fixture-combined-old",
+          "recordState": "archived",
+          "resolution": {
+            "type": "split",
+            "targetEntityIds": [
+              "weapon:fixture-split-a",
+              "weapon:fixture-split-b"
+            ],
+            "reason": "测试：旧记录后来确认包含两个独立装备身份。"
+          },
+          "facts": []
+        },
+        {
+          "id": "weapon:fixture-split-a",
+          "recordState": "draft",
+          "resolution": null,
+          "facts": []
+        },
+        {
+          "id": "weapon:fixture-split-b",
+          "recordState": "draft",
+          "resolution": null,
+          "facts": []
+        }
+      ]
+    },
+    {
+      "name": "entity-merge-valid",
+      "expected": "pass",
+      "sources": [],
+      "entities": [
+        {
+          "id": "weapon:fixture-merge-old-a",
+          "recordState": "archived",
+          "resolution": {
+            "type": "merge",
+            "targetEntityIds": ["weapon:fixture-merge-canonical"],
+            "reason": "测试：两个旧身份后来确认属于同一个装备实体。"
+          },
+          "facts": []
+        },
+        {
+          "id": "weapon:fixture-merge-old-b",
+          "recordState": "archived",
+          "resolution": {
+            "type": "merge",
+            "targetEntityIds": ["weapon:fixture-merge-canonical"],
+            "reason": "测试：两个旧身份后来确认属于同一个装备实体。"
+          },
+          "facts": []
+        },
+        {
+          "id": "weapon:fixture-merge-canonical",
+          "recordState": "draft",
+          "resolution": null,
+          "facts": []
+        }
+      ]
+    },
+    {
+      "name": "entity-resolution-cycle-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "形成循环",
+      "sources": [],
+      "entities": [
+        {
+          "id": "weapon:fixture-cycle-a",
+          "recordState": "archived",
+          "resolution": {
+            "type": "duplicate",
+            "targetEntityIds": ["weapon:fixture-cycle-b"],
+            "reason": "测试循环的第一条边。"
+          },
+          "facts": []
+        },
+        {
+          "id": "weapon:fixture-cycle-b",
+          "recordState": "archived",
+          "resolution": {
+            "type": "duplicate",
+            "targetEntityIds": ["weapon:fixture-cycle-a"],
+            "reason": "测试循环的第二条边。"
+          },
+          "facts": []
+        }
+      ]
+    }
+  ]
+}
