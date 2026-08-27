@@ -1,0 +1,58 @@
+[
+  {
+    "id": "weapon:qinglong-lueyue-dao",
+    "entityType": "weapon",
+    "slug": "qinglong-lueyue-dao",
+    "route": "/weapons",
+    "displayName": "青龙掠月刀",
+    "aliases": [
+      "偃月刀"
+    ],
+    "displayAliases": [],
+    "keywords": [
+      "trailer",
+      "武器",
+      "长柄重武器",
+      "预告片"
+    ],
+    "summary": "发售前预告片中展示的长柄重武器；画面中可见较大范围挥砍与刀气动作，获取方式仍待确认。",
+    "recordState": "draft",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:tang-hengdao",
+    "entityType": "weapon",
+    "slug": "tang-hengdao",
+    "route": "/weapons",
+    "displayName": "唐横刀",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "单手刀",
+      "武器",
+      "试玩"
+    ],
+    "summary": "发售前公开试玩中出现的单手刀；当前演示整理认为其攻防节奏较均衡，获取方式仍待确认。",
+    "recordState": "draft",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:ya-hengdao",
+    "entityType": "weapon",
+    "slug": "ya-hengdao",
+    "route": "/weapons",
+    "displayName": "牙横刀",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "刀类",
+      "武器",
+      "试玩"
+    ],
+    "summary": "发售前媒体试玩记录中出现的刀类武器；详细特点和获取方式尚待可靠资料确认。",
+    "recordState": "draft",
+    "sourceSchemaVersion": "1.0-implementation"
+  }
+]
