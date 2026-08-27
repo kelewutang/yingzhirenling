@@ -51,6 +51,30 @@
   force = true
 
 [[redirects]]
+  from = "/pages/generated/weapons/tang-hengdao.html"
+  to = "/weapons/tang-hengdao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/generated/weapons/tang-hengdao"
+  to = "/weapons/tang-hengdao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/generated/weapons/ya-hengdao.html"
+  to = "/weapons/ya-hengdao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/generated/weapons/ya-hengdao"
+  to = "/weapons/ya-hengdao"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/pages/characters.html"
   to = "/characters"
   status = 301
@@ -130,6 +154,16 @@
 [[redirects]]
   from = "/weapons"
   to = "/pages/weapons.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/tang-hengdao"
+  to = "/pages/generated/weapons/tang-hengdao.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/ya-hengdao"
+  to = "/pages/generated/weapons/ya-hengdao.html"
   status = 200
 
 [[redirects]]

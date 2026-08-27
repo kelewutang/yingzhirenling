@@ -7,10 +7,13 @@ const SCRIPT_FILE = fileURLToPath(import.meta.url);
 const SCRIPT_DIR = path.dirname(SCRIPT_FILE);
 const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
 const WEAPONS_DIR = path.join(ROOT_DIR, 'data', 'weapons');
+const WEAPON_PAGES_DIR = path.join(ROOT_DIR, 'pages', 'generated', 'weapons');
 const VALIDATOR_FILE = path.join(SCRIPT_DIR, 'validate-data.mjs');
 
 const SCHEMA_VERSION = '1.0-implementation';
 const WEAPON_ROUTE = '/weapons';
+const WEAPON_PAGE_MARKER = '<!-- generated-by: build-weapon-pages.mjs -->';
+const SITE_ORIGIN = 'https://www.yingzhirenling.cn';
 const MODE_CONFIG = new Map([
   ['shadow', {
     includedStates: new Set(['draft', 'published']),
@@ -170,7 +173,14 @@ function deriveKeywords(weapon) {
   return uniqueSortedStrings(keywords);
 }
 
-function buildSearchDocument(weapon, file) {
+function deriveWeaponRoute(weapon, detailPageSlugs) {
+  if (weapon.recordState === 'published' && detailPageSlugs.has(weapon.slug)) {
+    return `${WEAPON_ROUTE}/${weapon.slug}`;
+  }
+  return WEAPON_ROUTE;
+}
+
+function buildSearchDocument(weapon, file, detailPageSlugs) {
   validateSummarySupport(weapon, file);
   const { aliases, displayAliases } = deriveAliases(weapon, file);
 
@@ -179,7 +189,7 @@ function buildSearchDocument(weapon, file) {
     documentType: 'entity',
     entityType: weapon.entityType,
     slug: weapon.slug,
-    route: WEAPON_ROUTE,
+    route: deriveWeaponRoute(weapon, detailPageSlugs),
     displayName: weapon.displayName,
     aliases,
     displayAliases,
@@ -190,7 +200,7 @@ function buildSearchDocument(weapon, file) {
   };
 }
 
-function assertUniqueDocuments(documents) {
+function assertUniqueDocuments(documents, detailPageSlugs) {
   for (const field of ['id', 'slug', 'displayName']) {
     const owners = new Map();
     for (const document of documents) {
@@ -203,15 +213,19 @@ function assertUniqueDocuments(documents) {
   }
 
   for (const document of documents) {
-    if (document.route !== WEAPON_ROUTE) {
-      throw new Error(`${document.id}: route 必须指向当前真实路由 ${WEAPON_ROUTE}`);
+    const expectedRoute = document.recordState === 'published' && detailPageSlugs.has(document.slug)
+      ? `${WEAPON_ROUTE}/${document.slug}`
+      : WEAPON_ROUTE;
+    if (document.route !== expectedRoute) {
+      throw new Error(`${document.id}: route 必须指向当前真实路由 ${expectedRoute}`);
     }
   }
 }
 
-export function buildSearchDocuments(records, mode) {
+export function buildSearchDocuments(records, mode, detailPageSlugs = new Set()) {
   const config = MODE_CONFIG.get(mode);
   if (!config) throw new Error(`未知 mode：${mode}`);
+  if (!(detailPageSlugs instanceof Set)) throw new Error('detailPageSlugs 必须是 Set');
 
   const documents = [];
   const skippedByState = new Map();
@@ -221,16 +235,43 @@ export function buildSearchDocuments(records, mode) {
       skippedByState.set(weapon.recordState, (skippedByState.get(weapon.recordState) ?? 0) + 1);
       continue;
     }
-    documents.push(buildSearchDocument(weapon, file));
+    documents.push(buildSearchDocument(weapon, file, detailPageSlugs));
   }
 
   documents.sort((left, right) =>
     compareText(left.entityType, right.entityType) ||
     compareText(left.slug, right.slug) ||
     compareText(left.id, right.id));
-  assertUniqueDocuments(documents);
+  assertUniqueDocuments(documents, detailPageSlugs);
 
   return { documents, skippedByState };
+}
+
+async function resolvePublishedDetailPageSlugs(records) {
+  const slugs = new Set();
+  for (const { file, weapon } of records) {
+    requireSearchShape(weapon, file);
+    if (weapon.recordState !== 'published') continue;
+    const pageFile = path.join(WEAPON_PAGES_DIR, `${weapon.slug}.html`);
+    let html;
+    try {
+      html = await fs.readFile(pageFile, 'utf8');
+    } catch (cause) {
+      if (cause.code === 'ENOENT') {
+        throw new Error(`${file}: 已发布 Entity 缺少详情页 pages/generated/weapons/${weapon.slug}.html；请先运行 build-weapon-pages.mjs`);
+      }
+      throw cause;
+    }
+    const canonical = `${SITE_ORIGIN}${WEAPON_ROUTE}/${weapon.slug}`;
+    if (!html.includes(WEAPON_PAGE_MARKER)) {
+      throw new Error(`${file}: 详情页缺少生成标记：pages/generated/weapons/${weapon.slug}.html`);
+    }
+    if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
+      throw new Error(`${file}: 详情页 canonical 与搜索 route 不一致：${canonical}`);
+    }
+    slugs.add(weapon.slug);
+  }
+  return slugs;
 }
 
 async function writeDeterministicJson(documents, outputFile) {
@@ -254,7 +295,8 @@ async function main() {
   const config = MODE_CONFIG.get(mode);
   runSchemaValidator();
   const records = await readWeaponRecords();
-  const { documents, skippedByState } = buildSearchDocuments(records, mode);
+  const detailPageSlugs = await resolvePublishedDetailPageSlugs(records);
+  const { documents, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs);
   const changed = await writeDeterministicJson(documents, config.outputFile);
   const relativeOutput = path.relative(ROOT_DIR, config.outputFile).replaceAll('\\', '/');
 
@@ -265,7 +307,7 @@ async function main() {
   for (const state of [...KNOWN_RECORD_STATES].sort(compareText)) {
     console.log(`Skipped ${state}: ${skippedByState.get(state) ?? 0}`);
   }
-  console.log(`Shared route: ${WEAPON_ROUTE}`);
+  console.log(`Entity routes: ${uniqueSortedStrings(documents.map((document) => document.route)).join(', ') || '(none)'}`);
   console.log(`Output: ${relativeOutput} (${changed ? 'updated' : 'unchanged'})`);
 }
 
