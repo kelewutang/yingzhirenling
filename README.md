@@ -1,29 +1,51 @@
-# 影之刃零攻略站 - 部署到 Netlify 指南
+# 影之刃零攻略站
+
+yingzhirenling.cn 当前采用 Static HTML/CSS/Vanilla JavaScript、Knowledge JSON、零依赖 Node.js validator/generator、生成后的静态产物和 Netlify static hosting。
+
+生产页面最终都是静态文件；部分 Search JSON 和 Weapon Detail HTML 需要在提交前由 Node.js 脚本生成并验证。当前 Netlify 直接发布仓库中已经提交的静态产物，不自动运行完整 generator pipeline。
+
+详细说明：
+
+- [项目目标与阶段](docs/PROJECT.md)
+- [当前生产架构](docs/ARCHITECTURE.md)
+- [Knowledge Schema 1.0](docs/knowledge-schema-1.0.md)
+- [项目级开发入口](AGENTS.md)
+- [详细开发规则](docs/DEVELOPMENT-RULES.md)
 
 ## 项目结构
 
 ```
 yingzhirenling-site/
-├── index.html          # 首页
-├── netlify.toml        # Netlify 配置（含重定向规则）
+├── index.html                    # 首页
+├── netlify.toml                  # Netlify 配置（含路由与重定向）
 ├── css/
-│   └── style.css       # 全站样式
+│   └── style.css                 # 全站样式
 ├── js/
-│   └── main.js         # 交互脚本（导航、倒计时、回到顶部、评论、主题切换）
+│   └── main.js                   # 渐进增强（导航、搜索、主题等）
+├── data/                         # Knowledge JSON Source of Truth
+├── generated/                    # 派生 Search JSON
+├── scripts/                      # Validator 与静态生成器
+├── docs/                         # Schema、架构、标准与阶段记录
 ├── pages/
-│   ├── guide.html      # 攻略中心
-│   ├── weapons.html    # 武器图鉴
-│   ├── characters.html # 角色图鉴
-│   ├── bosses.html     # Boss攻略
-│   ├── world.html      # 世界观设定
-│   ├── videos.html     # 视频中心
-│   └── about.html      # 购买指南
-└── assets/             # 图片资源目录（预留）
+│   ├── guide.html                # 攻略中心
+│   ├── weapons.html              # 武器图鉴
+│   ├── characters.html           # 角色图鉴
+│   ├── bosses.html               # Boss攻略
+│   ├── world.html                # 世界观设定
+│   ├── videos.html               # 视频中心
+│   ├── about.html                # 购买指南
+│   ├── about-site.html           # 关于本站
+│   └── generated/weapons/*.html  # 生成的 Weapon Detail HTML
+└── assets/                       # 静态资源
 ```
 
 ## 部署方法
 
+部署前必须确认需要更新的派生产物已经在本地完成生成、验证和审查。具体命令和验证范围以 [开发规则](docs/DEVELOPMENT-RULES.md) 及当前阶段任务为准。
+
 ### 方法一：拖拽部署（最简单）
+
+此方式只适用于已经在本地完成生成和验证的完整静态目录。
 
 1. 登录 https://app.netlify.com
 2. 进入 Sites 页面
@@ -35,9 +57,10 @@ yingzhirenling-site/
 1. 将本项目推送到 GitHub 仓库
 2. 在 Netlify 点击 "Add new site" → "Import an existing project"
 3. 选择对应的 GitHub 仓库
-4. 构建设置：
-   - Build command: 留空（静态站不需要构建）
+4. 构建设置由仓库中的 `netlify.toml` 管理：
    - Publish directory: `.`（根目录）
+   - 当前 Netlify 构建命令不执行 Knowledge validator 或 generator
+   - Search JSON、Weapon Detail HTML 等派生产物必须在提交前生成并提交
 5. 点击 "Deploy site"
 
 ### 方法三：Netlify CLI
@@ -74,7 +97,7 @@ netlify.toml 中已配置以下短链接重定向：
 
 - **发售倒计时**：首页实时显示距2026年10月29日的天数
 - **武器搜索筛选**：武器图鉴页支持关键词搜索 + 主/副武器/四大类筛选
-- **评论系统**：基于Giscus（GitHub Discussions），需配置后启用，见下方说明
+- **评论系统**：当前停用/未启用，不属于现有生产能力
 - **主题切换**：导航栏右侧3套配色——赤焰（红金默认）、墨青（青银）、昼白（浅色阅读），自动记忆选择
 - **百度统计**：已预埋代码，配置ID后自动启用，见下方说明
 - **百度自动推送**：已内置，站点验证通过后自动生效，用户访问页面时自动推送给百度加快收录
@@ -82,26 +105,9 @@ netlify.toml 中已配置以下短链接重定向：
 - **响应式布局**：手机端汉堡菜单，自适应各尺寸
 - **短链接重定向**：/guide、/weapons等简洁URL
 
-## 评论系统配置（Giscus）
+## 评论系统状态
 
-本站使用 Giscus——基于 GitHub Discussions 的免费评论系统，无需后端、无广告。
-
-**配置步骤（5分钟）：**
-
-1. 创建一个公开的 GitHub 仓库（如 `yingzhirenling-site`）
-2. 进入仓库 Settings → Features → 勾选 **Discussions** 并保存
-3. 安装 Giscus App：访问 https://github.com/apps/giscus ，点 Install，选择刚才的仓库
-4. 访问 https://giscus.app ，在页面中：
-   - 仓库：填 `你的用户名/仓库名`
-   - 页面映射：选 `pathname`
-   - 讨论分类：选 `General`（或新建一个）
-   - 主题：选 `dark`
-   - 语言：`zh-CN`
-5. 页面下方会生成代码，复制其中的 `data-repo-id` 和 `data-category-id`
-6. 编辑 `js/main.js`，找到 `GISCUS_CONFIG`，填入你的 repo、repoId、category、categoryId
-7. 保存后评论区自动出现在所有内容页底部
-
-未配置时，评论区会显示配置提示，不影响网站运行。
+评论系统当前停用/未启用。仓库和生产运行时不把 Giscus 作为现有能力，也不承诺恢复时间；未来如需重新引入，应作为独立阶段审查隐私、依赖、可用性和页面影响。
 
 ## 百度统计配置
 

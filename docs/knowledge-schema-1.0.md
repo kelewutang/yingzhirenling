@@ -117,7 +117,11 @@ Entity 不保留一对一 `supersededBy`，避免 replacement 与 resolution 同
 
 ## 14. 发布与迁移边界
 
-当前 JSON 是 shadow data，生产 HTML 仍是唯一渲染来源。长篇攻略、论证和编辑文章继续使用 Markdown/HTML；JSON 只承载可校验的结构化事实、来源、关系、版本和搜索字段。
+Knowledge JSON 是结构化事实的 Source of Truth，generated artifacts 是可重建的派生产物。当前 Weapon JSON 已用于派生 Production Entity Search Index 和静态 Weapon Detail HTML；只有 `recordState=published` 的 Weapon 可以进入对应生产输出。
+
+Weapon 详情页的核心 SEO 内容在构建时写入静态 HTML，浏览器不会 runtime fetch Weapon Knowledge JSON 后再生成 H1、summary、Fact 或 Source。当前只有 Weapon 完成了这条生产派生链，Boss、Character 等 Entity 类型尚未全面迁移。
+
+长篇攻略、论证和编辑文章继续使用 HTML，未来出现真实需求时可以采用可选 Markdown；JSON 只承载可校验的结构化事实、来源、关系、版本和搜索字段。
 
 扩大数据或生成搜索索引前，必须先通过：
 
