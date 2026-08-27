@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initBaiduTongji();
   initBaiduPush();
   initPageMeta();
+  initEntitySearchIndex();
 });
 
 // 移动端导航切换
@@ -161,6 +162,103 @@ var SEARCH_INDEX = [
   { title: '购买指南', url: '/about', desc: '汇总官方商店发售、版本、预购与PC配置，并单独标注价格快照和第三方估算', tag: '购买', keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame TapTap 第三方数据' }
 ];
 
+var ENTITY_SEARCH_INDEX_URL = '/generated/search-index.production.json';
+var entitySearchIndex = [];
+var entitySearchState = 'idle';
+
+function isStringArray(value) {
+  return Array.isArray(value) && value.every(function(item) {
+    return typeof item === 'string';
+  });
+}
+
+function validateEntitySearchDocuments(documents) {
+  if (!Array.isArray(documents)) return false;
+  var ids = {};
+
+  return documents.every(function(document) {
+    if (!document || typeof document !== 'object' || Array.isArray(document)) return false;
+    if (typeof document.id !== 'string' || !document.id.trim() || ids[document.id]) return false;
+    ids[document.id] = true;
+    return document.documentType === 'entity' &&
+      document.entityType === 'weapon' &&
+      typeof document.route === 'string' && document.route.trim() !== '' &&
+      typeof document.displayName === 'string' && document.displayName.trim() !== '' &&
+      typeof document.summary === 'string' &&
+      isStringArray(document.aliases) &&
+      isStringArray(document.displayAliases) &&
+      isStringArray(document.keywords) &&
+      document.recordState === 'published' &&
+      document.sourceSchemaVersion === '1.0-implementation';
+  });
+}
+
+function normalizePageSearchDocument(item) {
+  return {
+    id: 'page:' + item.url,
+    documentType: 'page',
+    title: item.title,
+    url: item.url,
+    desc: item.desc,
+    tag: item.tag,
+    keywords: item.keywords
+  };
+}
+
+function normalizeEntitySearchDocument(document) {
+  return {
+    id: document.id,
+    documentType: document.documentType,
+    entityType: document.entityType,
+    title: document.displayName,
+    url: document.route,
+    desc: document.summary,
+    tag: '武器',
+    keywords: document.aliases.concat(document.keywords).join(' ')
+  };
+}
+
+function getSearchDocuments() {
+  var pageDocuments = SEARCH_INDEX.map(normalizePageSearchDocument);
+  return pageDocuments.concat(entitySearchIndex);
+}
+
+function refreshCurrentSearch() {
+  var input = document.getElementById('searchInput');
+  if (input && input.value.trim() !== '') doSearch();
+}
+
+function initEntitySearchIndex() {
+  if (entitySearchState !== 'idle') return;
+  if (typeof fetch !== 'function') {
+    entitySearchState = 'failed';
+    console.warn('Entity search enhancement unavailable');
+    return;
+  }
+  entitySearchState = 'loading';
+
+  fetch(ENTITY_SEARCH_INDEX_URL)
+    .then(function(response) {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.json();
+    })
+    .then(function(documents) {
+      if (!validateEntitySearchDocuments(documents)) {
+        throw new Error('Invalid entity search document contract');
+      }
+      entitySearchIndex = documents.map(normalizeEntitySearchDocument);
+      entitySearchState = 'ready';
+    })
+    .catch(function() {
+      entitySearchIndex = [];
+      entitySearchState = 'failed';
+      console.warn('Entity search enhancement unavailable');
+    })
+    .then(function() {
+      if (entitySearchState === 'ready') refreshCurrentSearch();
+    });
+}
+
 var searchOverlay = null;
 var searchReturnFocus = null;
 
@@ -217,7 +315,7 @@ function doSearch() {
     resultsEl.innerHTML = '<div class="search-empty">输入关键词搜索，如"荒行子"、"偃月刀"、"六十六天"</div>';
     return;
   }
-  var results = SEARCH_INDEX.filter(function(item) {
+  var results = getSearchDocuments().filter(function(item) {
     return item.title.toLowerCase().indexOf(q) > -1 ||
            item.desc.toLowerCase().indexOf(q) > -1 ||
            item.keywords.toLowerCase().indexOf(q) > -1 ||
