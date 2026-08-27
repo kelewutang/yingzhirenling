@@ -6,6 +6,7 @@
   <title>关于本站 - 影之刃零攻略站</title>
   <meta name="description" content="影之刃零攻略站关于页面，说明非官方定位、内容来源、更新原则与当前功能状态。">
   <link rel="canonical" href="https://www.yingzhirenling.cn/about-site">
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -82,7 +83,7 @@
       </table>
 
       <h2>纠错与反馈</h2>
-      <p>本站内容可能存在疏漏或版本滞后。目前页面底部评论功能尚不能作为可靠反馈渠道，本站也不承诺固定核实时效。</p>
+      <p>本站内容可能存在疏漏或版本滞后。目前不提供页面评论功能，也尚未提供可靠反馈渠道；本站不承诺固定核实时效。</p>
       <ul>
         <li><strong>站内搜索</strong>：导航栏搜索按钮（或按 Ctrl+K）快速定位内容</li>
         <li><strong>反馈渠道</strong>：公开反馈方式尚在整理；可用渠道上线后会在本页明确列出</li>
@@ -98,7 +99,7 @@
       </ol>
 
       <h2>技术说明</h2>
-      <p>本站采用 HTML、CSS 与 JavaScript 构建的静态网站架构，并部署于 Netlify。当前页面提供主题切换、站内搜索与响应式布局；评论功能仍需后续单独修复和验证。</p>
+      <p>本站采用 HTML、CSS 与 JavaScript 构建的静态网站架构，并部署于 Netlify。当前页面提供主题切换、站内搜索与响应式布局；暂不提供评论系统。</p>
 
       <div style="text-align:center;margin-top:40px;padding:24px;background:var(--bg-card);border-radius:10px;border:1px solid var(--border-color);">
         <p style="font-size:18px;font-weight:600;margin-bottom:8px;">以可核验来源为先</p>
@@ -107,10 +108,6 @@
 
     </div>
 
-    <div class="comments-section" id="comments">
-      <h3>评论功能（暂不可用）</h3>
-      <p>当前评论组件存在既有配置问题，暂不作为纠错或联系渠道。</p>
-    </div>
   </div>
 
   <footer class="footer">
@@ -143,7 +140,7 @@
     </div>
   </footer>
 
-  <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <button class="back-to-top" aria-label="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
   <script src="../js/main.js"></script>
 </body>
 </html>

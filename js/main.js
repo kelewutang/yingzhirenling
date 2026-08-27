@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
   initBackToTop();
   initActiveNav();
   initCountdown();
-  initComments();
   initThemeSwitcher();
   initBaiduTongji();
   initBaiduPush();
@@ -18,9 +17,17 @@ function initMobileNav() {
   const links = document.querySelector('.nav-links');
   if (!toggle || !links) return;
 
+  if (!links.id) links.id = 'primary-navigation';
+  toggle.setAttribute('aria-controls', links.id);
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-label', '打开菜单');
+
   toggle.addEventListener('click', function () {
     links.classList.toggle('open');
-    toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
+    const isOpen = links.classList.contains('open');
+    toggle.textContent = isOpen ? '✕' : '☰';
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? '关闭菜单' : '打开菜单');
   });
 
   // 点击链接后关闭菜单
@@ -28,6 +35,8 @@ function initMobileNav() {
     a.addEventListener('click', function () {
       links.classList.remove('open');
       toggle.textContent = '☰';
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', '打开菜单');
     });
   });
 }
@@ -92,53 +101,6 @@ function initCountdown() {
   setInterval(update, 60000);
 }
 
-// ===== Giscus 评论系统 =====
-// 配置说明：
-// 1. 创建一个公开的 GitHub 仓库
-// 2. 在仓库 Settings → Features 中开启 Discussions
-// 3. 安装 https://github.com/apps/giscus 到该仓库
-// 4. 访问 https://giscus.app 获取 repo-id 和 category-id，替换下面两行
-// 5. 评论区会自动出现在每个内容页底部
-const GISCUS_CONFIG = {
-  repo: 'kelewutang/yingzhirenling',
-  repoId: 'R_kgDOT8TPFg',
-  category: 'General',
-  categoryId: 'DIC_kwDOT8TPFs4DDo9Q'
-};
-
-function initComments() {
-  const container = document.getElementById('comments');
-  if (!container) return;
-
-  // 如果未配置，显示提示
-  if (GISCUS_CONFIG.repo === 'your-name/your-repo') {
-    container.innerHTML =
-      '<div class="alert alert-info" style="margin:0;">' +
-      '<strong>评论区待配置：</strong>本站使用 Giscus（基于GitHub Discussions的免费评论系统）。' +
-      '请编辑 <code>js/main.js</code> 中的 <code>GISCUS_CONFIG</code>，填入你的GitHub仓库信息即可启用。' +
-      '详细步骤见项目 README.md。' +
-      '</div>';
-    return;
-  }
-
-  const script = document.createElement('script');
-  script.src = 'https://giscus.app/client.js';
-  script.setAttribute('data-repo', GISCUS_CONFIG.repo);
-  script.setAttribute('data-repo-id', GISCUS_CONFIG.repoId);
-  script.setAttribute('data-category', GISCUS_CONFIG.category);
-  script.setAttribute('data-category-id', GISCUS_CONFIG.categoryId);
-  script.setAttribute('data-mapping', 'pathname');
-  script.setAttribute('data-strict', '0');
-  script.setAttribute('data-reactions-enabled', '1');
-  script.setAttribute('data-emit-metadata', '0');
-  script.setAttribute('data-input-position', 'bottom');
-  script.setAttribute('data-theme', 'dark');
-  script.setAttribute('data-lang', 'zh-CN');
-  script.setAttribute('crossorigin', 'anonymous');
-  script.async = true;
-  container.appendChild(script);
-}
-
 // ===== 主题切换 =====
 function switchTheme(theme) {
   var body = document.body;
@@ -189,19 +151,21 @@ function initBaiduPush() {
 
 // ===== 全站搜索 =====
 var SEARCH_INDEX = [
-  { title: '首页', url: '/', desc: '影之刃零攻略站首页，游戏简介、最新资讯、核心数据、攻略导航', tag: '首页', keywords: '影之刃零 攻略 首页 简介 资讯 数据 发售 预售' },
-  { title: '攻略中心', url: '/guide', desc: '新手入门、难度选择、开荒推荐、主线流程、探索系统、武器构筑系统', tag: '攻略', keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 主线 探索 构筑 build' },
-  { title: '武器图鉴', url: '/weapons', desc: '30种主武器+25种副武器大全，含获取方式、连招技巧、强度排行、配装推荐', tag: '武器', keywords: '武器 唐横刀 黑伤 残钢刃 偃月刀 青龙掠月刀 拳套 大盾 链钩 手甲 醉剑 白蛇 赤蛇 软蛇剑 虎炮 副武器 影之武装 配装' },
-  { title: '角色图鉴', url: '/characters', desc: '魂、左殇、瞳媚、沐小葵、魔渊、玄玉、眼镜女、炼邪、妙手小张等全角色背景与关系', tag: '角色', keywords: '角色 魂 左殇 瞳媚 沐小葵 魔渊 甄子丹 玄玉 玄鱼 剑玄 沐天邈 眼镜女 炼邪 妙手小张 人物关系' },
-  { title: 'Boss攻略', url: '/bosses', desc: '荒行子、魔渊、残钢、舞狮尊主、剑痴等全Boss招式拆解与打法解析', tag: 'Boss', keywords: 'Boss 荒行子 魔渊 残钢 舞狮尊主 剑痴 双刀女 极端追击者 打法 招式 二阶段 杀气暴走' },
-  { title: '世界观设定', url: '/world', desc: '影境世界、功夫朋克、杀气改造、六大势力、编年史、前作回顾、8幅水墨地图', tag: '世界观', keywords: '世界观 影境 功夫朋克 武侠朋克 杀气 改造 怪面 组织 正道联盟 十一人阁 蜃楼 暗魔天堡 圣母娘娘 编年史 雨血 水墨地图' },
-  { title: '视频中心', url: '/videos', desc: '官方PV、实机演示、State of Play专场、甄子丹动捕特辑，B站高清视频一站式观看', tag: '视频', keywords: '视频 PV 实机 演示 State of Play 甄子丹 预告 B站 11分钟 20分钟' },
-  { title: '购买指南', url: '/about', desc: '各平台售价对比、版本区别、预购特典、PC配置要求、实体收藏版、预售数据', tag: '购买', keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame 预售 销量' }
+  { title: '首页', url: '/', desc: '影之刃零发售前玩家资料站，汇总官方信息、公开实机观察、第三方动态与栏目导航', tag: '首页', keywords: '影之刃零 攻略 首页 简介 资讯 数据 发售 预售' },
+  { title: '攻略中心', url: '/guide', desc: '整理官方公开的难度与武器构筑信息、试玩观察及发售前入门建议，完整流程待发售后验证', tag: '攻略', keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 探索 构筑 build' },
+  { title: '武器图鉴', url: '/weapons', desc: '整理官方确认的武器系统与公开实机观察；官方称超过30种主要武器及25种影之武，获取与强度待正式版验证', tag: '武器', keywords: '武器 唐横刀 黑伤 残钢刃 偃月刀 青龙掠月刀 拳套 大盾 链钩 手甲 醉剑 白蛇 赤蛇 软蛇剑 虎炮 影之武 配装' },
+  { title: '角色图鉴', url: '/characters', desc: '整理当前已公开角色资料，并区分《影之刃零》确认信息、宣传素材观察与系列旧作待核资料', tag: '角色', keywords: '角色 魂 左殇 瞳媚 沐小葵 魔渊 甄子丹 玄玉 玄鱼 剑玄 沐天邈 眼镜女 炼邪 妙手小张 旧作 人物关系' },
+  { title: 'Boss攻略', url: '/bosses', desc: '整理公开实机中的Boss与敌人、招式观察和发售前应对思路，正式打法待发售后验证', tag: 'Boss', keywords: 'Boss 荒行子 魔渊 残钢 舞狮尊主 剑痴 双刀女 组织追击者 打法 招式 状态变化' },
+  { title: '世界观设定', url: '/world', desc: '整理当前公开的武林世界观、场景观察，并单独标注系列旧作设定与待核内容', tag: '世界观', keywords: '世界观 影境 功夫朋克 武侠朋克 杀气 改造 怪面 组织 正道联盟 十一人阁 蜃楼 暗魔天堡 圣母娘娘 旧作 雨血 场景' },
+  { title: '视频中心', url: '/videos', desc: '索引官方预告、实机演示、State of Play与甄子丹相关公开影像，并附具体来源链接', tag: '视频', keywords: '视频 PV 实机 演示 State of Play 甄子丹 预告 B站 11分钟 20分钟' },
+  { title: '购买指南', url: '/about', desc: '汇总官方商店发售、版本、预购与PC配置，并单独标注价格快照和第三方估算', tag: '购买', keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame TapTap 第三方数据' }
 ];
 
 var searchOverlay = null;
+var searchReturnFocus = null;
 
 function openSearch() {
+  searchReturnFocus = document.activeElement;
   if (searchOverlay) {
     searchOverlay.classList.add('active');
     searchOverlay.querySelector('input').focus();
@@ -210,10 +174,10 @@ function openSearch() {
   searchOverlay = document.createElement('div');
   searchOverlay.className = 'search-overlay';
   searchOverlay.innerHTML =
-    '<div class="search-modal">' +
+    '<div class="search-modal" role="dialog" aria-modal="true" aria-label="站内搜索">' +
       '<div class="search-modal-header">' +
-        '<input type="text" id="searchInput" placeholder="搜索Boss、武器、角色、攻略..." autocomplete="off">' +
-        '<button class="search-close" onclick="closeSearch()">✕</button>' +
+        '<input type="text" id="searchInput" aria-label="输入站内搜索关键词" placeholder="搜索Boss、武器、角色、攻略..." autocomplete="off">' +
+        '<button type="button" class="search-close" onclick="closeSearch()" aria-label="关闭搜索">✕</button>' +
       '</div>' +
       '<div class="search-results" id="searchResults"></div>' +
     '</div>';
@@ -231,7 +195,16 @@ function openSearch() {
 function closeSearch() {
   if (searchOverlay) {
     searchOverlay.classList.remove('active');
-    setTimeout(function() { if (searchOverlay) { searchOverlay.remove(); searchOverlay = null; } }, 200);
+    setTimeout(function() {
+      if (searchOverlay) {
+        searchOverlay.remove();
+        searchOverlay = null;
+      }
+      if (searchReturnFocus && searchReturnFocus.focus && document.contains(searchReturnFocus)) {
+        searchReturnFocus.focus();
+      }
+      searchReturnFocus = null;
+    }, 200);
   }
 }
 

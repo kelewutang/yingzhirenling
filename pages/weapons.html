@@ -6,6 +6,7 @@
   <title>武器图鉴 - 影之刃零攻略站</title>
   <meta name="description" content="影之刃零发售前武器资料，整理官方确认的武器系统与公开实机中出现的武器；获取方式和强度待正式版验证。">
   <link rel="canonical" href="https://www.yingzhirenling.cn/weapons">
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -65,29 +66,29 @@
 
       <!-- 搜索与筛选 -->
       <div class="search-box">
-        <input type="text" id="weaponSearch" placeholder="搜索武器名称、类型、特点..." oninput="filterWeapons()">
+        <input type="text" id="weaponSearch" aria-label="搜索武器名称、类型或特点" placeholder="搜索武器名称、类型、特点..." oninput="filterWeapons()">
       </div>
       <div class="filter-tags" id="weaponFilters">
-        <span class="filter-tag active" data-filter="all" onclick="setFilter('all')">全部</span>
-        <span class="filter-tag" data-filter="primary" onclick="setFilter('primary')">主武器</span>
-        <span class="filter-tag" data-filter="secondary" onclick="setFilter('secondary')">副武器</span>
-        <span class="filter-tag" data-filter="power" onclick="setFilter('power')">力量类</span>
-        <span class="filter-tag" data-filter="ranged" onclick="setFilter('ranged')">远程类</span>
-        <span class="filter-tag" data-filter="martial" onclick="setFilter('martial')">武学类</span>
-        <span class="filter-tag" data-filter="mystic" onclick="setFilter('mystic')">奇术类</span>
+        <button type="button" class="filter-tag active" data-filter="all" aria-pressed="true" onclick="setFilter('all')">全部</button>
+        <button type="button" class="filter-tag" data-filter="primary" aria-pressed="false" onclick="setFilter('primary')">主武器</button>
+        <button type="button" class="filter-tag" data-filter="secondary" aria-pressed="false" onclick="setFilter('secondary')">副武器</button>
+        <button type="button" class="filter-tag" data-filter="power" aria-pressed="false" onclick="setFilter('power')">力量类</button>
+        <button type="button" class="filter-tag" data-filter="ranged" aria-pressed="false" onclick="setFilter('ranged')">远程类</button>
+        <button type="button" class="filter-tag" data-filter="martial" aria-pressed="false" onclick="setFilter('martial')">武学类</button>
+        <button type="button" class="filter-tag" data-filter="mystic" aria-pressed="false" onclick="setFilter('mystic')">奇术类</button>
       </div>
       <div class="search-result-count" id="weaponCount">共 20 条发售前记录</div>
 
       <h2>公开展示的主要武器</h2>
 
       <aside class="info-provenance" data-info-scope="section" data-status="observation" aria-label="武器清单信息状态">
-        <div class="info-provenance__intro"><span class="info-status" data-status="observation">试玩观察</span><div class="info-provenance__content"><p class="info-provenance__description">名称与特点按公开试玩、预告片和专场画面整理；星级为本站发售前编辑预估，不代表官方评级。</p></div></div>
+        <div class="info-provenance__intro"><span class="info-status" data-status="observation">试玩观察</span><div class="info-provenance__content"><p class="info-provenance__description">名称与特点按公开试玩、预告片和专场画面整理。<br><span class="info-status info-status--inline" data-status="editorial">编辑推测</span>星级是本站发售前主观预估，不是试玩数据或官方评级。</p></div></div>
         <dl class="info-provenance__meta"><div class="info-source"><dt>来源</dt><dd><a href="https://blog.playstation.com/2026/08/17/phantom-blade-zero-state-of-play-dives-deep-into-combat-and-the-wulin-world/" target="_blank" rel="noopener noreferrer">官方 State of Play 总结与内嵌实机</a></dd></div><div class="info-source"><dt>观察更新</dt><dd><time datetime="2026-08-26">2026年8月26日</time></dd></div></dl>
       </aside>
 
       <table class="data-table" style="margin:20px 0;" id="primaryTable">
         <thead>
-          <tr><th>武器名称</th><th>类型</th><th>公开情况</th><th>演示中观察到的特点</th><th>编辑预估</th></tr>
+          <tr><th>武器名称</th><th>类型</th><th>公开情况</th><th>演示中观察到的特点</th><th>编辑预估（非官方评级）</th></tr>
         </thead>
         <tbody>
           <tr data-type="primary" data-keywords="唐横刀 单手刀 试玩 平衡 攻速 连招"><td>唐横刀</td><td>单手刀</td><td>试玩展示</td><td>演示中呈现较均衡的攻防节奏</td><td><span class="tag tag-gold">★★★★</span></td></tr>
@@ -168,9 +169,6 @@
 
     </div>
 
-    <div class="comments-section" id="comments">
-      <h3>评论与讨论</h3>
-    </div>
   </div>
 
   <footer class="footer">
@@ -192,7 +190,9 @@
     function setFilter(filter) {
       currentFilter = filter;
       document.querySelectorAll('.filter-tag').forEach(function(tag) {
-        tag.classList.toggle('active', tag.dataset.filter === filter);
+        var isActive = tag.dataset.filter === filter;
+        tag.classList.toggle('active', isActive);
+        tag.setAttribute('aria-pressed', String(isActive));
       });
       filterWeapons();
     }

@@ -824,6 +824,13 @@ pre code {
   background: rgba(106, 104, 100, 0.08);
 }
 
+.info-status--inline {
+  margin-right: 6px;
+  padding: 2px 7px;
+  font-size: 11px;
+  vertical-align: middle;
+}
+
 .info-provenance__meta {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1024,6 +1031,7 @@ pre code {
   cursor: pointer;
   transition: all 0.2s;
   user-select: none;
+  font-family: inherit;
 }
 
 .filter-tag:hover {
@@ -1048,21 +1056,6 @@ pre code {
   padding: 40px;
   color: var(--text-muted);
   font-size: 14px;
-}
-
-/* ===== 评论区 ===== */
-.comments-section {
-  max-width: 860px;
-  margin: 48px auto 0;
-  padding-top: 32px;
-  border-top: 1px solid var(--border-color);
-}
-
-.comments-section h3 {
-  font-family: var(--font-main);
-  font-size: 20px;
-  margin-bottom: 16px;
-  color: var(--text-primary);
 }
 
 /* ===== 响应式 ===== */
@@ -1294,9 +1287,6 @@ body.theme-light .back-to-top { background: #fff; }
   transition: all 0.2s;
 }
 .print-btn:hover { background: var(--bg-card); color: var(--text-primary); }
-
-/* ===== 评论区暂时隐藏 ===== */
-.comments-section { display: none !important; }
 
 /* ===== 地图展示卡片 ===== */
 .map-grid {
