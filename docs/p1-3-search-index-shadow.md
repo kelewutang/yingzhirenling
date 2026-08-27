@@ -1,5 +1,7 @@
 # P1-3 Search Index Shadow Generation
 
+> P1-4A 后续说明：生成器现要求显式 `--mode=shadow|production`，原 `generated/search-index.json` 已迁移为 `generated/search-index.shadow.json`；生产快照使用 `generated/search-index.production.json`。本文件其余内容保留 P1-3 的验证背景。
+
 ## 1. 范围与输入
 
 本轮只验证以下 shadow 链路：
@@ -7,7 +9,7 @@
 ```text
 data/weapons/*.json
   -> scripts/build-search-index.mjs
-  -> generated/search-index.json
+  -> generated/search-index.shadow.json
   -> 与 js/main.js 中现有 SEARCH_INDEX 只读比较
 ```
 
@@ -22,6 +24,7 @@ data/weapons/*.json
 ```json
 {
   "id": "weapon:tang-hengdao",
+  "documentType": "entity",
   "entityType": "weapon",
   "slug": "tang-hengdao",
   "route": "/weapons",
@@ -46,6 +49,7 @@ data/weapons/*.json
 | Search 字段 | 来源/规则 |
 | --- | --- |
 | `id` | `Weapon.id`，不推导 |
+| `documentType` | 搜索派生常量 `entity`，不写回 Weapon |
 | `entityType` | `Weapon.entityType`，当前必须为 `weapon` |
 | `slug` | `Weapon.slug`，不从文件名或显示名推导 |
 | `route` | 当前真实集合路由常量 `/weapons` |
@@ -57,7 +61,7 @@ data/weapons/*.json
 | `recordState` | 直接使用 `Weapon.recordState` |
 | `sourceSchemaVersion` | 直接使用 `Weapon.schemaVersion` |
 
-生成器处理 `draft` 和 `published`，跳过 `archived`。这是 shadow 阶段为了审查 3 个 draft 样本的策略，不自动决定 P1-4 的生产发布门槛。未知 recordState 会报错。
+P1-4A 已冻结双模式：shadow 处理 `draft`、`published` 并跳过 `archived`；production 只处理 `published`。未知 recordState 会报错。命令必须显式使用 `--mode=shadow` 或 `--mode=production`，不再接受无参数调用。
 
 生成器检查重复 `id`、`slug`、`displayName`。当前没有实体详情页，所有条目按要求共享 `/weapons`；因此 route 重复是有意的集合页行为，不能当作实体重复。生成器会拒绝任何不等于真实 `/weapons` 的 Weapon route。
 

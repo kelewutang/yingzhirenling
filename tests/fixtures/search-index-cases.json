@@ -1,0 +1,367 @@
+{
+  "fixtureOnly": true,
+  "description": "P1-4A 搜索派生契约的虚构测试数据；不得作为游戏事实或生产数据使用。",
+  "cases": [
+    {
+      "name": "draft-shadow-visible",
+      "mode": "shadow",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-draft",
+          "entityType": "weapon",
+          "slug": "fixture-draft",
+          "displayName": "测试草稿武器",
+          "aliases": [],
+          "summary": "仅用于验证草稿实体可进入 shadow。",
+          "summaryFactIds": ["fact:weapon:fixture-draft:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-draft:kind",
+              "key": "weapon.kind",
+              "value": "测试武器类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "draft",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": ["weapon:fixture-draft"]
+      }
+    },
+    {
+      "name": "draft-production-hidden",
+      "mode": "production",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-draft",
+          "entityType": "weapon",
+          "slug": "fixture-draft",
+          "displayName": "测试草稿武器",
+          "aliases": [],
+          "summary": "仅用于验证草稿实体不会进入 production。",
+          "summaryFactIds": ["fact:weapon:fixture-draft:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-draft:kind",
+              "key": "weapon.kind",
+              "value": "测试武器类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "draft",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": []
+      }
+    },
+    {
+      "name": "published-production-visible-entity-type-pending-not-leaked",
+      "mode": "production",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-published",
+          "entityType": "weapon",
+          "slug": "fixture-published",
+          "displayName": "测试已发布武器",
+          "aliases": [
+            {
+              "value": "测试待核旧称",
+              "kind": "community-temporary",
+              "status": "pending-review",
+              "reviewNote": "仅供内部核查的别名说明"
+            }
+          ],
+          "summary": "仅用于验证已批准实体可进入 production。",
+          "summaryFactIds": ["fact:weapon:fixture-published:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-published:kind",
+              "key": "weapon.kind",
+              "value": "测试武器类型",
+              "status": "observation"
+            },
+            {
+              "id": "fact:weapon:fixture-published:rating",
+              "key": "weapon.editorRating",
+              "value": {"score": 5, "max": 5},
+              "status": "editorial",
+              "reviewNote": "仅供内部核查：不要生成最强或T0"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": ["weapon:fixture-published"],
+        "documents": {
+          "weapon:fixture-published": {
+            "documentType": "entity",
+            "route": "/weapons",
+            "aliases": ["测试待核旧称"],
+            "displayAliases": []
+          }
+        },
+        "forbiddenText": ["仅供内部核查", "最强", "T0"]
+      }
+    },
+    {
+      "name": "archived-resolution-hidden",
+      "mode": "production",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-archived-old",
+          "entityType": "weapon",
+          "slug": "fixture-archived-old",
+          "displayName": "测试旧实体",
+          "aliases": [],
+          "summary": "仅用于验证 archived 实体不会成为活跃结果。",
+          "summaryFactIds": ["fact:weapon:fixture-archived-old:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-archived-old:kind",
+              "key": "weapon.kind",
+              "value": "测试旧类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "archived",
+          "resolution": {
+            "type": "duplicate",
+            "targetEntityIds": ["weapon:fixture-canonical"],
+            "reason": "虚构 fixture：旧记录与 canonical 重复。"
+          }
+        },
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-canonical",
+          "entityType": "weapon",
+          "slug": "fixture-canonical",
+          "displayName": "测试规范实体",
+          "aliases": [],
+          "summary": "仅用于验证 canonical 实体仍可检索。",
+          "summaryFactIds": ["fact:weapon:fixture-canonical:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-canonical:kind",
+              "key": "weapon.kind",
+              "value": "测试规范类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": ["weapon:fixture-canonical"],
+        "forbiddenText": ["测试旧实体"]
+      }
+    },
+    {
+      "name": "shared-route-valid",
+      "mode": "production",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-shared-a",
+          "entityType": "weapon",
+          "slug": "fixture-shared-a",
+          "displayName": "测试共享路由甲",
+          "aliases": [],
+          "summary": "仅用于验证多个实体可以共享集合路由。",
+          "summaryFactIds": ["fact:weapon:fixture-shared-a:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-shared-a:kind",
+              "key": "weapon.kind",
+              "value": "测试甲类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        },
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-shared-b",
+          "entityType": "weapon",
+          "slug": "fixture-shared-b",
+          "displayName": "测试共享路由乙",
+          "aliases": [],
+          "summary": "仅用于验证共享 route 不会被错误去重。",
+          "summaryFactIds": ["fact:weapon:fixture-shared-b:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-shared-b:kind",
+              "key": "weapon.kind",
+              "value": "测试乙类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": ["weapon:fixture-shared-a", "weapon:fixture-shared-b"],
+        "sharedRoute": "/weapons"
+      }
+    },
+    {
+      "name": "duplicate-id-invalid",
+      "mode": "production",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-duplicate",
+          "entityType": "weapon",
+          "slug": "fixture-duplicate-a",
+          "displayName": "测试重复实体甲",
+          "aliases": [],
+          "summary": "仅用于验证重复 id 失败。",
+          "summaryFactIds": ["fact:weapon:fixture-duplicate-a:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-duplicate-a:kind",
+              "key": "weapon.kind",
+              "value": "测试甲类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        },
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-duplicate",
+          "entityType": "weapon",
+          "slug": "fixture-duplicate-b",
+          "displayName": "测试重复实体乙",
+          "aliases": [],
+          "summary": "仅用于验证重复 id 不能静默输出。",
+          "summaryFactIds": ["fact:weapon:fixture-duplicate-b:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-duplicate-b:kind",
+              "key": "weapon.kind",
+              "value": "测试乙类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "errorIncludes": "重复 Search Document id"
+      }
+    },
+    {
+      "name": "duplicate-slug-invalid",
+      "mode": "production",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-slug-a",
+          "entityType": "weapon",
+          "slug": "fixture-same-slug",
+          "displayName": "测试重复 Slug 甲",
+          "aliases": [],
+          "summary": "仅用于验证重复 slug 失败。",
+          "summaryFactIds": ["fact:weapon:fixture-slug-a:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-slug-a:kind",
+              "key": "weapon.kind",
+              "value": "测试甲类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        },
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-slug-b",
+          "entityType": "weapon",
+          "slug": "fixture-same-slug",
+          "displayName": "测试重复 Slug 乙",
+          "aliases": [],
+          "summary": "仅用于验证重复 slug 不能静默输出。",
+          "summaryFactIds": ["fact:weapon:fixture-slug-b:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-slug-b:kind",
+              "key": "weapon.kind",
+              "value": "测试乙类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "errorIncludes": "重复 Search Document slug"
+      }
+    },
+    {
+      "name": "duplicate-display-name-invalid",
+      "mode": "production",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-name-a",
+          "entityType": "weapon",
+          "slug": "fixture-name-a",
+          "displayName": "测试同名武器",
+          "aliases": [],
+          "summary": "仅用于验证重复 displayName 失败。",
+          "summaryFactIds": ["fact:weapon:fixture-name-a:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-name-a:kind",
+              "key": "weapon.kind",
+              "value": "测试甲类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        },
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-name-b",
+          "entityType": "weapon",
+          "slug": "fixture-name-b",
+          "displayName": "测试同名武器",
+          "aliases": [],
+          "summary": "仅用于验证重复 displayName 不能静默输出。",
+          "summaryFactIds": ["fact:weapon:fixture-name-b:kind"],
+          "facts": [
+            {
+              "id": "fact:weapon:fixture-name-b:kind",
+              "key": "weapon.kind",
+              "value": "测试乙类型",
+              "status": "observation"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "errorIncludes": "重复 Search Document displayName"
+      }
+    }
+  ]
+}

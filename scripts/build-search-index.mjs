@@ -3,16 +3,25 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const SCRIPT_FILE = fileURLToPath(import.meta.url);
+const SCRIPT_DIR = path.dirname(SCRIPT_FILE);
 const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
 const WEAPONS_DIR = path.join(ROOT_DIR, 'data', 'weapons');
 const VALIDATOR_FILE = path.join(SCRIPT_DIR, 'validate-data.mjs');
-const OUTPUT_FILE = path.join(ROOT_DIR, 'generated', 'search-index.json');
 
 const SCHEMA_VERSION = '1.0-implementation';
 const WEAPON_ROUTE = '/weapons';
-const INDEXABLE_RECORD_STATES = new Set(['draft', 'published']);
-const SKIPPED_RECORD_STATES = new Set(['archived']);
+const MODE_CONFIG = new Map([
+  ['shadow', {
+    includedStates: new Set(['draft', 'published']),
+    outputFile: path.join(ROOT_DIR, 'generated', 'search-index.shadow.json')
+  }],
+  ['production', {
+    includedStates: new Set(['published']),
+    outputFile: path.join(ROOT_DIR, 'generated', 'search-index.production.json')
+  }]
+]);
+const KNOWN_RECORD_STATES = new Set(['draft', 'published', 'archived']);
 const SEARCHABLE_ALIAS_KINDS = new Set([
   'official-zh',
   'official-en',
@@ -32,11 +41,7 @@ const DISPLAY_ALIAS_KINDS = new Set([
   'descriptive'
 ]);
 const DISPLAY_ALIAS_STATUSES = new Set(['official', 'observation']);
-const SEARCHABLE_FACT_STATUSES = new Set([
-  'official',
-  'observation',
-  'third-party'
-]);
+const SEARCHABLE_FACT_STATUSES = new Set(['official', 'observation', 'third-party']);
 const APPEARANCE_KEYWORDS = new Map([
   ['demo', ['demo', '试玩']],
   ['trailer', ['trailer', '预告片']],
@@ -58,6 +63,17 @@ function uniqueSortedStrings(values) {
     if (!unique.has(key)) unique.set(key, trimmed);
   }
   return [...unique.values()].sort(compareText);
+}
+
+function parseMode(args) {
+  if (args.length !== 1 || !args[0].startsWith('--mode=')) {
+    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production');
+  }
+  const mode = args[0].slice('--mode='.length);
+  if (!MODE_CONFIG.has(mode)) {
+    throw new Error(`未知 mode：${mode || '(empty)'}；只允许 shadow 或 production`);
+  }
+  return mode;
 }
 
 function runSchemaValidator() {
@@ -104,7 +120,7 @@ function requireSearchShape(weapon, file) {
   if (weapon.summaryFactIds.length === 0) {
     throw new Error(`${file}: summary 必须至少有一个 summaryFactId 支持`);
   }
-  if (!INDEXABLE_RECORD_STATES.has(weapon.recordState) && !SKIPPED_RECORD_STATES.has(weapon.recordState)) {
+  if (!KNOWN_RECORD_STATES.has(weapon.recordState)) {
     throw new Error(`${file}: 不支持 recordState=${weapon.recordState}`);
   }
 }
@@ -155,12 +171,12 @@ function deriveKeywords(weapon) {
 }
 
 function buildSearchDocument(weapon, file) {
-  requireSearchShape(weapon, file);
   validateSummarySupport(weapon, file);
   const { aliases, displayAliases } = deriveAliases(weapon, file);
 
   return {
     id: weapon.id,
+    documentType: 'entity',
     entityType: weapon.entityType,
     slug: weapon.slug,
     route: WEAPON_ROUTE,
@@ -193,32 +209,16 @@ function assertUniqueDocuments(documents) {
   }
 }
 
-async function writeDeterministicJson(documents) {
-  const output = `${JSON.stringify(documents, null, 2)}\n`;
-  await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
+export function buildSearchDocuments(records, mode) {
+  const config = MODE_CONFIG.get(mode);
+  if (!config) throw new Error(`未知 mode：${mode}`);
 
-  let previous = null;
-  try {
-    previous = await fs.readFile(OUTPUT_FILE, 'utf8');
-  } catch (cause) {
-    if (cause.code !== 'ENOENT') throw cause;
-  }
-
-  if (previous === output) return false;
-  await fs.writeFile(OUTPUT_FILE, output, 'utf8');
-  return true;
-}
-
-async function main() {
-  runSchemaValidator();
-  const records = await readWeaponRecords();
-  const skipped = [];
   const documents = [];
-
+  const skippedByState = new Map();
   for (const { file, weapon } of records) {
     requireSearchShape(weapon, file);
-    if (SKIPPED_RECORD_STATES.has(weapon.recordState)) {
-      skipped.push(weapon.id);
+    if (!config.includedStates.has(weapon.recordState)) {
+      skippedByState.set(weapon.recordState, (skippedByState.get(weapon.recordState) ?? 0) + 1);
       continue;
     }
     documents.push(buildSearchDocument(weapon, file));
@@ -230,16 +230,49 @@ async function main() {
     compareText(left.id, right.id));
   assertUniqueDocuments(documents);
 
-  const changed = await writeDeterministicJson(documents);
-  console.log('Search index shadow generation passed.');
-  console.log(`Weapon records read: ${records.length}`);
-  console.log(`Search documents written: ${documents.length}`);
-  console.log(`Archived records skipped: ${skipped.length}`);
-  console.log(`Shared route: ${WEAPON_ROUTE}`);
-  console.log(`Output: generated/search-index.json (${changed ? 'updated' : 'unchanged'})`);
+  return { documents, skippedByState };
 }
 
-main().catch((cause) => {
-  console.error(`Search index shadow generation failed: ${cause.message}`);
-  process.exitCode = 1;
-});
+async function writeDeterministicJson(documents, outputFile) {
+  const output = `${JSON.stringify(documents, null, 2)}\n`;
+  await fs.mkdir(path.dirname(outputFile), { recursive: true });
+
+  let previous = null;
+  try {
+    previous = await fs.readFile(outputFile, 'utf8');
+  } catch (cause) {
+    if (cause.code !== 'ENOENT') throw cause;
+  }
+
+  if (previous === output) return false;
+  await fs.writeFile(outputFile, output, 'utf8');
+  return true;
+}
+
+async function main() {
+  const mode = parseMode(process.argv.slice(2));
+  const config = MODE_CONFIG.get(mode);
+  runSchemaValidator();
+  const records = await readWeaponRecords();
+  const { documents, skippedByState } = buildSearchDocuments(records, mode);
+  const changed = await writeDeterministicJson(documents, config.outputFile);
+  const relativeOutput = path.relative(ROOT_DIR, config.outputFile).replaceAll('\\', '/');
+
+  console.log('Search index generation passed.');
+  console.log(`Mode: ${mode}`);
+  console.log(`Weapon records read: ${records.length}`);
+  console.log(`Search documents written: ${documents.length}`);
+  for (const state of [...KNOWN_RECORD_STATES].sort(compareText)) {
+    console.log(`Skipped ${state}: ${skippedByState.get(state) ?? 0}`);
+  }
+  console.log(`Shared route: ${WEAPON_ROUTE}`);
+  console.log(`Output: ${relativeOutput} (${changed ? 'updated' : 'unchanged'})`);
+}
+
+const isMain = process.argv[1] && path.resolve(process.argv[1]) === SCRIPT_FILE;
+if (isMain) {
+  main().catch((cause) => {
+    console.error(`Search index generation failed: ${cause.message}`);
+    process.exitCode = 1;
+  });
+}

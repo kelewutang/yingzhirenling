@@ -1,6 +1,7 @@
 [
   {
     "id": "weapon:qinglong-lueyue-dao",
+    "documentType": "entity",
     "entityType": "weapon",
     "slug": "qinglong-lueyue-dao",
     "route": "/weapons",
@@ -21,6 +22,7 @@
   },
   {
     "id": "weapon:tang-hengdao",
+    "documentType": "entity",
     "entityType": "weapon",
     "slug": "tang-hengdao",
     "route": "/weapons",
@@ -39,6 +41,7 @@
   },
   {
     "id": "weapon:ya-hengdao",
+    "documentType": "entity",
     "entityType": "weapon",
     "slug": "ya-hengdao",
     "route": "/weapons",
