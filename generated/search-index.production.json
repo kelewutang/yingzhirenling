@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "id": "weapon:tang-hengdao",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "tang-hengdao",
+    "route": "/weapons",
+    "displayName": "唐横刀",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "单手刀",
+      "武器",
+      "试玩"
+    ],
+    "summary": "发售前公开试玩中出现的单手刀；当前演示整理认为其攻防节奏较均衡，获取方式仍待确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:ya-hengdao",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "ya-hengdao",
+    "route": "/weapons",
+    "displayName": "牙横刀",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "刀类",
+      "武器",
+      "试玩"
+    ],
+    "summary": "发售前媒体试玩记录中出现的刀类武器；详细特点和获取方式尚待可靠资料确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  }
+]

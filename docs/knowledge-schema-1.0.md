@@ -12,6 +12,8 @@ Entity 至少包含：`schemaVersion`、`id`、`entityType`、显式 `slug`、`d
 
 `recordState` 使用 `draft`、`published`、`archived`。没有身份修正时必须显式使用 `resolution: null`。
 
+`publishedAt` 表示 Entity 首次进入本站生产数据的日期。`recordState=published` 时必须是合法的 `YYYY-MM-DD` 日期，且不得晚于 `updatedAt`；draft 可以使用 `null`；archived 可以保留合法历史发布日期，也可以为 `null`（未发布即归档）。
+
 ## 2. Fact
 
 Fact 是最小可信度单元。一个 Entity 的存在、名称、类型、获取方式、强度评价等必须能够分别拥有 `value`、`valueType`、`status`、`sourceIds`、`basisFactIds`、`checkedAt`、`gameVersionId` 和适用 scope。

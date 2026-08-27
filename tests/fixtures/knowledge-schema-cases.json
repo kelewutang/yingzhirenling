@@ -142,6 +142,84 @@
           "facts": []
         }
       ]
+    },
+    {
+      "name": "published-valid-published-at",
+      "expected": "pass",
+      "sources": [],
+      "entities": [
+        {
+          "id": "weapon:fixture-published-date-valid",
+          "recordState": "published",
+          "publishedAt": "2026-08-27",
+          "updatedAt": "2026-08-27",
+          "resolution": null,
+          "facts": []
+        }
+      ]
+    },
+    {
+      "name": "published-null-published-at-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "首次生产发布日期",
+      "sources": [],
+      "entities": [
+        {
+          "id": "weapon:fixture-published-date-null",
+          "recordState": "published",
+          "publishedAt": null,
+          "updatedAt": "2026-08-27",
+          "resolution": null,
+          "facts": []
+        }
+      ]
+    },
+    {
+      "name": "draft-null-published-at-valid",
+      "expected": "pass",
+      "sources": [],
+      "entities": [
+        {
+          "id": "weapon:fixture-draft-date-null",
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-27",
+          "resolution": null,
+          "facts": []
+        }
+      ]
+    },
+    {
+      "name": "published-invalid-date-format",
+      "expected": "fail",
+      "expectedErrorIncludes": "合法的 YYYY-MM-DD",
+      "sources": [],
+      "entities": [
+        {
+          "id": "weapon:fixture-published-date-format",
+          "recordState": "published",
+          "publishedAt": "2026-02-30",
+          "updatedAt": "2026-08-27",
+          "resolution": null,
+          "facts": []
+        }
+      ]
+    },
+    {
+      "name": "published-at-after-updated-at-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "不得晚于 updatedAt",
+      "sources": [],
+      "entities": [
+        {
+          "id": "weapon:fixture-published-date-order",
+          "recordState": "published",
+          "publishedAt": "2026-08-28",
+          "updatedAt": "2026-08-27",
+          "resolution": null,
+          "facts": []
+        }
+      ]
     }
   ]
 }

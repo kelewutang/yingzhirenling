@@ -206,6 +206,25 @@ function validateEntityResolutions(entityIndex, report) {
   }
 }
 
+function validatePublicationMetadata(entity, location, report) {
+  if (!Object.hasOwn(entity, 'publishedAt')) {
+    report(`${location}.publishedAt`, '必须显式提供 publishedAt，未发布时使用 null');
+    return;
+  }
+  if (entity.recordState === 'published' && entity.publishedAt === null) {
+    report(`${location}.publishedAt`, 'published 状态必须有首次生产发布日期');
+    return;
+  }
+  if (entity.publishedAt !== null && !isValidDate(entity.publishedAt)) {
+    report(`${location}.publishedAt`, '必须是合法的 YYYY-MM-DD 日期或 null');
+    return;
+  }
+  if (isValidDate(entity.publishedAt) && isValidDate(entity.updatedAt) &&
+      entity.publishedAt > entity.updatedAt) {
+    report(`${location}.publishedAt`, '不得晚于 updatedAt');
+  }
+}
+
 async function runFixtures() {
   let fixtureDocument;
   try {
@@ -235,6 +254,10 @@ async function runFixtures() {
     );
 
     for (const { location, entity } of fixtureEntities.values()) {
+      if (Object.hasOwn(entity, 'publishedAt') || Object.hasOwn(entity, 'updatedAt') ||
+          entity.recordState === 'published') {
+        validatePublicationMetadata(entity, location, report);
+      }
       for (const [factIndex, fact] of (Array.isArray(entity.facts) ? entity.facts : []).entries()) {
         validateOfficialSourceRule(fact, fixtureSources, `${location}.facts[${factIndex}]`, report);
       }
@@ -409,7 +432,7 @@ for (const { relative, value: weapon } of weaponFiles) {
   if (!Array.isArray(weapon.aliases)) error(`${relative}.aliases`, '必须是数组');
   validateStringArray(weapon.summaryFactIds, `${relative}.summaryFactIds`);
   validateStringArray(weapon.taxonomyIds, `${relative}.taxonomyIds`);
-  validateDate(weapon.publishedAt, `${relative}.publishedAt`, { nullable: true });
+  validatePublicationMetadata(weapon, relative, error);
   validateDate(weapon.updatedAt, `${relative}.updatedAt`);
   if (!Array.isArray(weapon.facts)) {
     error(`${relative}.facts`, '必须是数组');

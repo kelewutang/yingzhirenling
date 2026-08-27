@@ -1,5 +1,7 @@
 # P1-4A Production Search Contract & Publication Gate
 
+> P1-4A.1 后续批准：唐横刀与牙横刀于 `2026-08-27` 首次获准进入生产派生层；青龙掠月刀继续保持 draft。P1-4A.2 将该日期落实为必需的 publication metadata。
+
 ## 1. 契约状态与范围
 
 本文件冻结结构化 Entity 进入生产搜索派生层的最低规则。它不修改生产 `js/main.js`、搜索 UI、排序、URL 或页面内容，也不批准任何真实 Weapon 发布。
@@ -25,6 +27,7 @@ Production Publication Gate 与 Fact 可信度是两个独立维度：
 2. `published` 必须由明确的人工发布动作产生，生成器不得修改 `recordState`。
 3. `archived` 不成为正常 active result。
 4. `pending-review` Fact 本身不是自动阻止 Entity 发布的条件；是否会让公开标题或摘要误导用户才是发布审核重点。
+5. `published` Entity 必须记录首次进入本站生产数据的 `publishedAt`；该日期不得晚于 `updatedAt`。draft 可以为 `null`，未发布即归档的 Entity 也可以为 `null`。
 
 ## 3. Shadow / Production CLI
 
@@ -172,7 +175,8 @@ P1-4B 应采用 Progressive Enhancement：
 11. route 指向真实生产 URL；
 12. active Entity 的 `resolution=null`；
 13. 审核开始时 recordState 仍为 `draft`；
-14. 只有明确人工批准后才把 recordState 改为 `published`。
+14. 获批发布时记录首次进入生产派生层的 `publishedAt`，并确认它不晚于 `updatedAt`；
+15. 只有明确人工批准后才把 recordState 改为 `published`。
 
 `pending-review` Fact 可以与 published Entity 共存，但公开 summary 必须清楚表达未知边界。
 
@@ -232,7 +236,7 @@ Production Search Contract 不需要修改 Weapon、Fact、Source、Entity resol
 - mode 与 publication filtering 属于构建流程层；
 - Page + Entity 合并和 runtime fallback 属于生产搜索集成层。
 
-当前 production entity output 合法地为 `[]`，因为三个真实 Weapon 均为 draft。P1-4B 之前应先完成人工 Publication Approval，并只修改获得批准实体的 recordState；本轮不执行该动作。
+P1-4A.1 已批准唐横刀与牙横刀，当前 production entity output 为这两个 Entity；青龙掠月刀仍因显示名边界保持 draft。P1-4A.2 补齐二者的 `publishedAt=2026-08-27`，在进入 P1-4B 前落实首次生产发布日期约束。
 
 最终结论：
 
