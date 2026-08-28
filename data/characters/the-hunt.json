@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "character:the-hunt",
+  "entityType": "character",
+  "slug": "the-hunt",
+  "displayName": "The Hunt",
+  "aliases": [],
+  "summary": "官方材料在魂的冒险叙述中提及 The Hunt。",
+  "summaryFactIds": [
+    "fact:character:the-hunt:exists",
+    "fact:character:the-hunt:name"
+  ],
+  "facts": [
+    {
+      "id": "fact:character:the-hunt:exists",
+      "key": "character.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-preorder-2026-08-12"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:the-hunt:name",
+      "key": "character.name",
+      "valueType": "string",
+      "value": "The Hunt",
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-preorder-2026-08-12"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "当前官方繁体中文文章直接使用 The Hunt，未提供可核验的中文译名。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-08-28",
+  "recordState": "draft",
+  "resolution": null
+}

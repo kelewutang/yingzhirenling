@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "relation:character:the-hunt:formerCompanionOf:character:soul",
+  "sourceEntityId": "character:the-hunt",
+  "relationType": "formerCompanionOf",
+  "targetEntityId": "character:soul",
+  "status": "official",
+  "sourceIds": ["source:playstation-blog-preorder-2026-08-12"],
+  "checkedAt": "2026-08-28",
+  "gameVersionId": "version:prelaunch-materials-2026-08",
+  "scope": {
+    "platforms": {"mode": "all", "ids": []},
+    "difficulties": {"mode": "all", "ids": []}
+  },
+  "validFromVersionId": null,
+  "validToVersionId": null,
+  "reviewNote": null
+}

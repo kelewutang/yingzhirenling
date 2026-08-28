@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "character:soul",
+  "entityType": "character",
+  "slug": "soul",
+  "displayName": "魂",
+  "aliases": [
+    {
+      "value": "Soul",
+      "locale": "en",
+      "kind": "official-en",
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "reviewNote": null
+    }
+  ],
+  "summary": "官方材料称魂为《影之刃零》的主角。",
+  "summaryFactIds": [
+    "fact:character:soul:exists",
+    "fact:character:soul:role"
+  ],
+  "facts": [
+    {
+      "id": "fact:character:soul:exists",
+      "key": "character.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:soul:name",
+      "key": "character.name",
+      "valueType": "string",
+      "value": "魂",
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-preorder-2026-08-12"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:soul:role",
+      "key": "character.role",
+      "valueType": "string",
+      "value": "主角",
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-preorder-2026-08-12"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-08-28",
+  "recordState": "draft",
+  "resolution": null
+}

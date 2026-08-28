@@ -1,0 +1,161 @@
+{
+  "fixtureNotice": "Relation Schema 测试数据：全部 Entity、来源和关系均为虚构，不是《影之刃零》生产事实，不得进入 data/。",
+  "cases": [
+    {
+      "name": "relation-valid-official-parent",
+      "expected": "pass",
+      "sources": [{"id": "source:fixture-official", "authority": "official"}],
+      "entities": [
+        {"id": "character:fixture-parent", "recordState": "draft", "resolution": null},
+        {"id": "character:fixture-child", "recordState": "draft", "resolution": null}
+      ],
+      "relations": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "relation:fixture-parent",
+          "sourceEntityId": "character:fixture-parent",
+          "relationType": "parentOf",
+          "targetEntityId": "character:fixture-child",
+          "status": "official",
+          "sourceIds": ["source:fixture-official"],
+          "checkedAt": "2026-08-28",
+          "gameVersionId": "version:fixture",
+          "validFromVersionId": null,
+          "validToVersionId": null
+        }
+      ]
+    },
+    {
+      "name": "relation-invalid-target",
+      "expected": "fail",
+      "expectedErrorIncludes": "Entity 不存在",
+      "sources": [{"id": "source:fixture-official", "authority": "official"}],
+      "entities": [{"id": "character:fixture-parent", "recordState": "draft", "resolution": null}],
+      "relations": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "relation:fixture-invalid-target",
+          "sourceEntityId": "character:fixture-parent",
+          "relationType": "parentOf",
+          "targetEntityId": "character:fixture-missing",
+          "status": "official",
+          "sourceIds": ["source:fixture-official"],
+          "checkedAt": "2026-08-28",
+          "gameVersionId": "version:fixture",
+          "validFromVersionId": null,
+          "validToVersionId": null
+        }
+      ]
+    },
+    {
+      "name": "relation-self-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "不得指向自身",
+      "sources": [{"id": "source:fixture-official", "authority": "official"}],
+      "entities": [{"id": "character:fixture-self", "recordState": "draft", "resolution": null}],
+      "relations": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "relation:fixture-self",
+          "sourceEntityId": "character:fixture-self",
+          "relationType": "parentOf",
+          "targetEntityId": "character:fixture-self",
+          "status": "official",
+          "sourceIds": ["source:fixture-official"],
+          "checkedAt": "2026-08-28",
+          "gameVersionId": "version:fixture",
+          "validFromVersionId": null,
+          "validToVersionId": null
+        }
+      ]
+    },
+    {
+      "name": "relation-duplicate-tuple-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "重复",
+      "sources": [{"id": "source:fixture-official", "authority": "official"}],
+      "entities": [
+        {"id": "character:fixture-left", "recordState": "draft", "resolution": null},
+        {"id": "character:fixture-right", "recordState": "draft", "resolution": null}
+      ],
+      "relations": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "relation:fixture-duplicate-a",
+          "sourceEntityId": "character:fixture-left",
+          "relationType": "formerCompanionOf",
+          "targetEntityId": "character:fixture-right",
+          "status": "official",
+          "sourceIds": ["source:fixture-official"],
+          "checkedAt": "2026-08-28",
+          "gameVersionId": "version:fixture",
+          "validFromVersionId": null,
+          "validToVersionId": null
+        },
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "relation:fixture-duplicate-b",
+          "sourceEntityId": "character:fixture-left",
+          "relationType": "formerCompanionOf",
+          "targetEntityId": "character:fixture-right",
+          "status": "official",
+          "sourceIds": ["source:fixture-official"],
+          "checkedAt": "2026-08-28",
+          "gameVersionId": "version:fixture",
+          "validFromVersionId": null,
+          "validToVersionId": null
+        }
+      ]
+    },
+    {
+      "name": "relation-unsupported-type-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "不支持 relationType",
+      "sources": [{"id": "source:fixture-official", "authority": "official"}],
+      "entities": [
+        {"id": "character:fixture-left", "recordState": "draft", "resolution": null},
+        {"id": "character:fixture-right", "recordState": "draft", "resolution": null}
+      ],
+      "relations": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "relation:fixture-unsupported",
+          "sourceEntityId": "character:fixture-left",
+          "relationType": "uses",
+          "targetEntityId": "character:fixture-right",
+          "status": "official",
+          "sourceIds": ["source:fixture-official"],
+          "checkedAt": "2026-08-28",
+          "gameVersionId": "version:fixture",
+          "validFromVersionId": null,
+          "validToVersionId": null
+        }
+      ]
+    },
+    {
+      "name": "relation-official-source-required",
+      "expected": "fail",
+      "expectedErrorIncludes": "authority=official",
+      "sources": [{"id": "source:fixture-third-party", "authority": "third-party"}],
+      "entities": [
+        {"id": "character:fixture-left", "recordState": "draft", "resolution": null},
+        {"id": "character:fixture-right", "recordState": "draft", "resolution": null}
+      ],
+      "relations": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "relation:fixture-source-required",
+          "sourceEntityId": "character:fixture-left",
+          "relationType": "parentOf",
+          "targetEntityId": "character:fixture-right",
+          "status": "official",
+          "sourceIds": ["source:fixture-third-party"],
+          "checkedAt": "2026-08-28",
+          "gameVersionId": "version:fixture",
+          "validFromVersionId": null,
+          "validToVersionId": null
+        }
+      ]
+    }
+  ]
+}

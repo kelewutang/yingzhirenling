@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "character:mo-yuan",
+  "entityType": "character",
+  "slug": "mo-yuan",
+  "displayName": "魔渊",
+  "aliases": [
+    {
+      "value": "Mó Yuan",
+      "locale": "en",
+      "kind": "official-en",
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "reviewNote": null
+    }
+  ],
+  "summary": "官方材料在《影之刃零》公开资料中提及魔渊。",
+  "summaryFactIds": [
+    "fact:character:mo-yuan:exists",
+    "fact:character:mo-yuan:name"
+  ],
+  "facts": [
+    {
+      "id": "fact:character:mo-yuan:exists",
+      "key": "character.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-state-of-play-2026-08-17"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:mo-yuan:name",
+      "key": "character.name",
+      "valueType": "string",
+      "value": "魔渊",
+      "status": "official",
+      "sourceIds": ["source:playstation-blog-preorder-2026-08-12"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-28",
+      "gameVersionId": "version:prelaunch-materials-2026-08",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "来源使用繁体字“魔淵”；本站主显示沿用现有简体页面写法“魔渊”。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-08-28",
+  "recordState": "draft",
+  "resolution": null
+}

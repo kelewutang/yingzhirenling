@@ -1,0 +1,199 @@
+{
+  "fixtureNotice": "Character Schema 测试数据：全部名称和事实均为虚构，不是《影之刃零》生产事实，不得进入 data/。",
+  "cases": [
+    {
+      "name": "character-valid-draft",
+      "expected": "pass",
+      "sources": [
+        {"id": "source:fixture-character-official", "authority": "official"}
+      ],
+      "entities": [
+        {
+          "id": "character:fixture-valid",
+          "entityType": "character",
+          "slug": "fixture-valid",
+          "summaryFactIds": ["fact:character:fixture-valid:exists"],
+          "facts": [
+            {
+              "id": "fact:character:fixture-valid:exists",
+              "status": "official",
+              "sourceIds": ["source:fixture-character-official"]
+            }
+          ],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        }
+      ]
+    },
+    {
+      "name": "character-draft-historical-published-at-allowed",
+      "expected": "pass",
+      "sources": [],
+      "entities": [
+        {
+          "id": "character:fixture-draft-history",
+          "entityType": "character",
+          "slug": "fixture-draft-history",
+          "summaryFactIds": [],
+          "facts": [],
+          "recordState": "draft",
+          "publishedAt": "2026-08-27",
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        }
+      ]
+    },
+    {
+      "name": "character-invalid-slug",
+      "expected": "fail",
+      "expectedErrorIncludes": "ASCII kebab-case",
+      "sources": [],
+      "entities": [
+        {
+          "id": "character:fixture-invalid-slug",
+          "entityType": "character",
+          "slug": "Fixture Invalid",
+          "summaryFactIds": [],
+          "facts": [],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        }
+      ]
+    },
+    {
+      "name": "character-duplicate-id",
+      "expected": "fail",
+      "expectedErrorIncludes": "重复",
+      "sources": [],
+      "entities": [
+        {
+          "id": "character:fixture-duplicate-id",
+          "entityType": "character",
+          "slug": "fixture-duplicate-id-a",
+          "summaryFactIds": [],
+          "facts": [],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        },
+        {
+          "id": "character:fixture-duplicate-id",
+          "entityType": "character",
+          "slug": "fixture-duplicate-id-b",
+          "summaryFactIds": [],
+          "facts": [],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        }
+      ]
+    },
+    {
+      "name": "character-duplicate-slug",
+      "expected": "fail",
+      "expectedErrorIncludes": "重复",
+      "sources": [],
+      "entities": [
+        {
+          "id": "character:fixture-duplicate-slug-a",
+          "entityType": "character",
+          "slug": "fixture-duplicate-slug",
+          "summaryFactIds": [],
+          "facts": [],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        },
+        {
+          "id": "character:fixture-duplicate-slug-b",
+          "entityType": "character",
+          "slug": "fixture-duplicate-slug",
+          "summaryFactIds": [],
+          "facts": [],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        }
+      ]
+    },
+    {
+      "name": "character-summary-fact-must-be-owned",
+      "expected": "fail",
+      "expectedErrorIncludes": "不属于当前 Character",
+      "sources": [],
+      "entities": [
+        {
+          "id": "character:fixture-summary-owner",
+          "entityType": "character",
+          "slug": "fixture-summary-owner",
+          "summaryFactIds": ["fact:character:other:exists"],
+          "facts": [],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        }
+      ]
+    },
+    {
+      "name": "character-missing-source",
+      "expected": "fail",
+      "expectedErrorIncludes": "Source 不存在",
+      "sources": [],
+      "entities": [
+        {
+          "id": "character:fixture-missing-source",
+          "entityType": "character",
+          "slug": "fixture-missing-source",
+          "summaryFactIds": [],
+          "facts": [
+            {
+              "id": "fact:character:fixture-missing-source:exists",
+              "status": "official",
+              "sourceIds": ["source:fixture-missing"]
+            }
+          ],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        }
+      ]
+    },
+    {
+      "name": "character-release-verified-prelaunch-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "禁止 release-verified",
+      "sources": [
+        {"id": "source:fixture-character-official", "authority": "official"}
+      ],
+      "entities": [
+        {
+          "id": "character:fixture-release-verified",
+          "entityType": "character",
+          "slug": "fixture-release-verified",
+          "summaryFactIds": [],
+          "facts": [
+            {
+              "id": "fact:character:fixture-release-verified:exists",
+              "status": "release-verified",
+              "sourceIds": ["source:fixture-character-official"]
+            }
+          ],
+          "recordState": "draft",
+          "publishedAt": null,
+          "updatedAt": "2026-08-28",
+          "resolution": null
+        }
+      ]
+    }
+  ]
+}

@@ -6,6 +6,8 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'knowledge-schema-cases.json');
+const CHARACTER_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'character-schema-cases.json');
+const RELATION_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'relation-schema-cases.json');
 const FIXTURE_MODE = process.argv.includes('--fixtures');
 const SCHEMA_VERSION = '1.0-implementation';
 const STATUS_VALUES = new Set([
@@ -17,7 +19,8 @@ const STATUS_VALUES = new Set([
   'pending-review'
 ]);
 const AUTHORITY_VALUES = new Set(['official', 'third-party', 'community', 'internal']);
-const ENTITY_TYPES = new Set(['weapon']);
+const ENTITY_TYPES = new Set(['weapon', 'character']);
+const RELATION_TYPES = new Set(['parentOf', 'formerCompanionOf']);
 const RECORD_STATES = new Set(['draft', 'published', 'archived']);
 const RESOLUTION_TYPES = new Set(['duplicate', 'merge', 'split', 'misidentified']);
 const VERSION_STAGES = new Set(['prelaunch-materials', 'prelaunch-demo']);
@@ -106,10 +109,10 @@ function validateStringArray(value, location) {
   return true;
 }
 
-function validateOfficialSourceRule(fact, sourceIndex, location, report) {
-  const sourceIds = Array.isArray(fact.sourceIds) ? fact.sourceIds : [];
-  if (fact.status === 'official' && !sourceIds.some((id) => sourceIndex.get(id)?.authority === 'official')) {
-    report(`${location}.sourceIds`, 'official Fact 至少需要一个 authority=official Source');
+function validateOfficialSourceRule(record, sourceIndex, location, report, recordLabel = 'Fact') {
+  const sourceIds = Array.isArray(record.sourceIds) ? record.sourceIds : [];
+  if (record.status === 'official' && !sourceIds.some((id) => sourceIndex.get(id)?.authority === 'official')) {
+    report(`${location}.sourceIds`, `official ${recordLabel} 至少需要一个 authority=official Source`);
   }
 }
 
@@ -225,12 +228,12 @@ function validatePublicationMetadata(entity, location, report) {
   }
 }
 
-async function runFixtures() {
+async function runFixtureFile(fixtureFile) {
   let fixtureDocument;
   try {
-    fixtureDocument = JSON.parse(await fs.readFile(FIXTURE_FILE, 'utf8'));
+    fixtureDocument = JSON.parse(await fs.readFile(fixtureFile, 'utf8'));
   } catch (cause) {
-    console.error(`Fixture JSON 无法解析：${cause.message}`);
+    console.error(`${path.relative(ROOT_DIR, fixtureFile)} 无法解析：${cause.message}`);
     return false;
   }
   if (!isObject(fixtureDocument) || typeof fixtureDocument.fixtureNotice !== 'string' ||
@@ -246,12 +249,29 @@ async function runFixtures() {
     const fixtureSources = new Map(
       (Array.isArray(fixtureCase.sources) ? fixtureCase.sources : []).map((source) => [source.id, source])
     );
-    const fixtureEntities = new Map(
-      (Array.isArray(fixtureCase.entities) ? fixtureCase.entities : []).map((entity, index) => [
-        entity.id,
-        { location: `${fixtureCase.name}.entities[${index}]`, entity }
-      ])
-    );
+    const fixtureEntities = new Map();
+    const fixtureSlugs = new Map();
+    for (const [index, entity] of (Array.isArray(fixtureCase.entities) ? fixtureCase.entities : []).entries()) {
+      const location = `${fixtureCase.name}.entities[${index}]`;
+      if (!isObject(entity)) {
+        report(location, 'Entity 必须是对象');
+        continue;
+      }
+      if (fixtureEntities.has(entity.id)) {
+        report(`${location}.id`, `id 与 ${fixtureEntities.get(entity.id).location}.id 重复：${entity.id}`);
+      } else {
+        fixtureEntities.set(entity.id, { location, entity });
+      }
+      if (entity.entityType === 'character') {
+        if (typeof entity.slug !== 'string' || !SLUG_PATTERN.test(entity.slug)) {
+          report(`${location}.slug`, '必须是 ASCII kebab-case');
+        } else if (fixtureSlugs.has(entity.slug)) {
+          report(`${location}.slug`, `与 ${fixtureSlugs.get(entity.slug)} 重复`);
+        } else {
+          fixtureSlugs.set(entity.slug, location);
+        }
+      }
+    }
 
     for (const { location, entity } of fixtureEntities.values()) {
       if (Object.hasOwn(entity, 'publishedAt') || Object.hasOwn(entity, 'updatedAt') ||
@@ -260,9 +280,46 @@ async function runFixtures() {
       }
       for (const [factIndex, fact] of (Array.isArray(entity.facts) ? entity.facts : []).entries()) {
         validateOfficialSourceRule(fact, fixtureSources, `${location}.facts[${factIndex}]`, report);
+        validateReferences(fact.sourceIds, `${location}.facts[${factIndex}].sourceIds`, fixtureSources, 'Source', report);
+        if (fact.status === 'release-verified') {
+          report(`${location}.facts[${factIndex}].status`, '当前发售前阶段禁止 release-verified');
+        }
+      }
+      if (entity.entityType === 'character') {
+        const ownedFacts = new Set((Array.isArray(entity.facts) ? entity.facts : []).map((fact) => fact.id));
+        validateStringArray(entity.summaryFactIds, `${location}.summaryFactIds`);
+        for (const factId of entity.summaryFactIds ?? []) {
+          if (!ownedFacts.has(factId)) report(`${location}.summaryFactIds`, `Fact 不属于当前 Character：${factId}`);
+        }
       }
     }
     validateEntityResolutions(fixtureEntities, report);
+
+    const fixtureVersions = new Map(
+      (Array.isArray(fixtureCase.versions) ? fixtureCase.versions : [{ id: 'version:fixture' }])
+        .map((version) => [version.id, version])
+    );
+    const fixtureRelations = new Map();
+    const fixtureRelationTuples = new Map();
+    for (const [index, relation] of (Array.isArray(fixtureCase.relations) ? fixtureCase.relations : []).entries()) {
+      const location = `${fixtureCase.name}.relations[${index}]`;
+      if (!isObject(relation)) {
+        report(location, 'Relation 顶层必须是对象');
+        continue;
+      }
+      if (fixtureRelations.has(relation.id)) {
+        report(`${location}.id`, `id 与 ${fixtureRelations.get(relation.id).location}.id 重复：${relation.id}`);
+      } else {
+        fixtureRelations.set(relation.id, { location, relation });
+      }
+      validateRelation(relation, location, fixtureEntities, fixtureSources, fixtureVersions, report, { checkScope: false });
+      const tuple = `${relation.sourceEntityId}|${relation.relationType}|${relation.targetEntityId}`;
+      if (fixtureRelationTuples.has(tuple)) {
+        report(location, `Relation 与 ${fixtureRelationTuples.get(tuple)} 重复`);
+      } else {
+        fixtureRelationTuples.set(tuple, location);
+      }
+    }
 
     const actual = caseErrors.length === 0 ? 'pass' : 'fail';
     const expectedErrorPresent = fixtureCase.expectedErrorIncludes === undefined ||
@@ -274,8 +331,17 @@ async function runFixtures() {
       for (const item of caseErrors) console.log(`  - ${item}`);
     }
   }
-  console.log(`Fixture cases: ${fixtureDocument.cases.length}`);
+  console.log(`${path.relative(ROOT_DIR, fixtureFile).replaceAll('\\', '/')}: ${fixtureDocument.cases.length} fixture cases`);
   return allMatched;
+}
+
+async function runFixtures() {
+  const results = await Promise.all([
+    runFixtureFile(FIXTURE_FILE),
+    runFixtureFile(CHARACTER_FIXTURE_FILE),
+    runFixtureFile(RELATION_FIXTURE_FILE)
+  ]);
+  return results.every(Boolean);
 }
 
 if (FIXTURE_MODE) {
@@ -283,10 +349,12 @@ if (FIXTURE_MODE) {
   process.exit(fixturesPassed ? 0 : 1);
 }
 
-const [sourceFiles, versionFiles, weaponFiles, factRegistryFile, platformRegistryFile] = await Promise.all([
+const [sourceFiles, versionFiles, weaponFiles, characterFiles, relationFiles, factRegistryFile, platformRegistryFile] = await Promise.all([
   readRecordDirectory('sources'),
   readRecordDirectory('versions'),
   readRecordDirectory('weapons'),
+  readRecordDirectory('characters'),
+  readRecordDirectory('relations'),
   readJson(path.join(DATA_DIR, 'registries', 'fact-keys.json')),
   readJson(path.join(DATA_DIR, 'registries', 'platforms.json'))
 ]);
@@ -403,42 +471,47 @@ for (const { relative, value: version } of versionFiles) {
   validateStringArray(version.sourceIds, `${relative}.sourceIds`);
 }
 
-const weapons = new Map();
+const entities = new Map();
 const facts = new Map();
 const factOwners = new Map();
-const weaponSlugs = new Map();
+const entitySlugs = new Map([...ENTITY_TYPES].map((entityType) => [entityType, new Map()]));
 
-for (const { relative, value: weapon } of weaponFiles) {
-  if (!isObject(weapon)) {
-    error(relative, 'Weapon 顶层必须是对象');
+for (const { relative, value: entity } of [...weaponFiles, ...characterFiles]) {
+  if (!isObject(entity)) {
+    error(relative, 'Entity 顶层必须是对象');
     continue;
   }
-  validateSchemaVersion(weapon, relative);
-  registerId(weapon.id, `${relative}.id`);
-  if (typeof weapon.id === 'string') weapons.set(weapon.id, { relative, weapon });
-  if (!ENTITY_TYPES.has(weapon.entityType)) error(`${relative}.entityType`, 'entityType 必须为 weapon');
-  if (typeof weapon.slug !== 'string' || !SLUG_PATTERN.test(weapon.slug)) {
+  validateSchemaVersion(entity, relative);
+  registerId(entity.id, `${relative}.id`);
+  if (typeof entity.id === 'string') entities.set(entity.id, { relative, entity });
+  if (!ENTITY_TYPES.has(entity.entityType)) {
+    error(`${relative}.entityType`, 'entityType 必须为 weapon 或 character');
+  }
+  if (typeof entity.slug !== 'string' || !SLUG_PATTERN.test(entity.slug)) {
     error(`${relative}.slug`, '必须是 ASCII kebab-case');
-  } else if (weaponSlugs.has(weapon.slug)) {
-    error(`${relative}.slug`, `与 ${weaponSlugs.get(weapon.slug)} 重复`);
-  } else {
-    weaponSlugs.set(weapon.slug, relative);
+  } else if (ENTITY_TYPES.has(entity.entityType)) {
+    const slugs = entitySlugs.get(entity.entityType);
+    if (slugs.has(entity.slug)) {
+      error(`${relative}.slug`, `与 ${slugs.get(entity.slug)} 重复`);
+    } else {
+      slugs.set(entity.slug, relative);
+    }
   }
   for (const field of ['displayName', 'summary']) {
-    if (typeof weapon[field] !== 'string' || weapon[field].length === 0) {
+    if (typeof entity[field] !== 'string' || entity[field].length === 0) {
       error(`${relative}.${field}`, '必须是非空字符串');
     }
   }
-  if (!Array.isArray(weapon.aliases)) error(`${relative}.aliases`, '必须是数组');
-  validateStringArray(weapon.summaryFactIds, `${relative}.summaryFactIds`);
-  validateStringArray(weapon.taxonomyIds, `${relative}.taxonomyIds`);
-  validatePublicationMetadata(weapon, relative, error);
-  validateDate(weapon.updatedAt, `${relative}.updatedAt`);
-  if (!Array.isArray(weapon.facts)) {
+  if (!Array.isArray(entity.aliases)) error(`${relative}.aliases`, '必须是数组');
+  validateStringArray(entity.summaryFactIds, `${relative}.summaryFactIds`);
+  validateStringArray(entity.taxonomyIds, `${relative}.taxonomyIds`);
+  validatePublicationMetadata(entity, relative, error);
+  validateDate(entity.updatedAt, `${relative}.updatedAt`);
+  if (!Array.isArray(entity.facts)) {
     error(`${relative}.facts`, '必须是数组');
     continue;
   }
-  for (const [index, fact] of weapon.facts.entries()) {
+  for (const [index, fact] of entity.facts.entries()) {
     const location = `${relative}.facts[${index}]`;
     if (!isObject(fact)) {
       error(location, 'Fact 必须是对象');
@@ -447,20 +520,41 @@ for (const { relative, value: weapon } of weaponFiles) {
     registerId(fact.id, `${location}.id`);
     if (typeof fact.id === 'string') {
       facts.set(fact.id, { relative: location, fact });
-      factOwners.set(fact.id, weapon.id);
+      factOwners.set(fact.id, entity.id);
     }
   }
 }
 
 validateEntityResolutions(
-  new Map([...weapons].map(([id, { relative, weapon }]) => [id, { location: relative, entity: weapon }])),
+  new Map([...entities].map(([id, { relative, entity }]) => [id, { location: relative, entity }])),
   error
 );
 
-function validateReferences(ids, location, index, label) {
-  if (!validateStringArray(ids, location)) return;
+const relations = new Map();
+const relationTuples = new Map();
+for (const { relative, value: relation } of relationFiles) {
+  if (!isObject(relation)) {
+    error(relative, 'Relation 顶层必须是对象');
+    continue;
+  }
+  registerId(relation.id, `${relative}.id`);
+  if (typeof relation.id === 'string') relations.set(relation.id, { relative, relation });
+  validateRelation(relation, relative, entities, sources, versions, error);
+  const tuple = `${relation.sourceEntityId}|${relation.relationType}|${relation.targetEntityId}`;
+  if (relationTuples.has(tuple)) {
+    error(relative, `Relation 与 ${relationTuples.get(tuple)} 重复`);
+  } else {
+    relationTuples.set(tuple, relative);
+  }
+}
+
+function validateReferences(ids, location, index, label, report = error) {
+  if (!Array.isArray(ids) || ids.some((id) => typeof id !== 'string' || id.length === 0)) {
+    report(location, '必须是非空字符串组成的数组（数组本身可以为空）');
+    return;
+  }
   for (const id of ids) {
-    if (!index.has(id)) error(location, `${label} 不存在：${id}`);
+    if (!index.has(id)) report(location, `${label} 不存在：${id}`);
   }
 }
 
@@ -490,6 +584,62 @@ function validateScope(scope, location) {
     } else if (entry.mode === 'include') {
       error(entryLocation, '当前试点未建立 difficulty Registry，不能使用难度限定');
     }
+  }
+}
+
+function validateRelation(relation, location, entityIndex, sourceIndex, versionIndex, report, { checkScope = true } = {}) {
+  if (!isObject(relation)) {
+    report(location, 'Relation 顶层必须是对象');
+    return;
+  }
+  validateSchemaVersion(relation, location);
+  for (const field of ['sourceEntityId', 'targetEntityId', 'relationType', 'status', 'checkedAt', 'gameVersionId']) {
+    if (typeof relation[field] !== 'string' || relation[field].length === 0) {
+      report(`${location}.${field}`, '必须是非空字符串');
+    }
+  }
+  if (!entityIndex.has(relation.sourceEntityId)) {
+    report(`${location}.sourceEntityId`, `Entity 不存在：${relation.sourceEntityId}`);
+  }
+  if (!entityIndex.has(relation.targetEntityId)) {
+    report(`${location}.targetEntityId`, `Entity 不存在：${relation.targetEntityId}`);
+  }
+  if (relation.sourceEntityId === relation.targetEntityId) {
+    report(location, 'Relation 不得指向自身');
+  }
+  if (!RELATION_TYPES.has(relation.relationType)) {
+    report(`${location}.relationType`, `不支持 relationType：${relation.relationType}`);
+  }
+  for (const [field, entityId] of [['sourceEntityId', relation.sourceEntityId], ['targetEntityId', relation.targetEntityId]]) {
+    const entityType = entityIndex.get(entityId)?.entity.entityType ?? entityId?.split(':')[0];
+    if (entityIndex.has(entityId) && entityType !== 'character') {
+      report(`${location}.${field}`, `${relation.relationType} 仅适用于 Character Entity`);
+    }
+  }
+  if (!STATUS_VALUES.has(relation.status)) report(`${location}.status`, 'status 不合法');
+  if (relation.status === 'release-verified') report(`${location}.status`, '当前发售前阶段禁止 release-verified');
+  validateReferences(relation.sourceIds, `${location}.sourceIds`, sourceIndex, 'Source', report);
+  validateDate(relation.checkedAt, `${location}.checkedAt`);
+  if (!versionIndex.has(relation.gameVersionId)) {
+    report(`${location}.gameVersionId`, `GameVersion 不存在：${relation.gameVersionId}`);
+  }
+  if (checkScope) validateScope(relation.scope, `${location}.scope`);
+  for (const field of ['validFromVersionId', 'validToVersionId']) {
+    const target = relation[field];
+    if (target !== null && !versionIndex.has(target)) {
+      report(`${location}.${field}`, `GameVersion 不存在：${target}`);
+    }
+  }
+  const sourceIds = Array.isArray(relation.sourceIds) ? relation.sourceIds : [];
+  validateOfficialSourceRule(relation, sourceIndex, location, report, 'Relation');
+  if (relation.status === 'observation' && sourceIds.length === 0) {
+    report(`${location}.sourceIds`, 'observation Relation 必须有 Source');
+  }
+  if (relation.status === 'third-party' && !sourceIds.some((id) => sourceIndex.get(id)?.authority === 'third-party')) {
+    report(`${location}.sourceIds`, 'third-party Relation 至少需要一个 authority=third-party Source');
+  }
+  if (relation.status === 'pending-review' && (typeof relation.reviewNote !== 'string' || relation.reviewNote.length === 0)) {
+    report(`${location}.reviewNote`, 'pending-review Relation 必须说明待核查原因');
   }
 }
 
@@ -525,8 +675,8 @@ for (const [versionId, version] of versions) {
   }
 }
 
-for (const [weaponId, { relative, weapon }] of weapons) {
-  for (const [index, alias] of (Array.isArray(weapon.aliases) ? weapon.aliases : []).entries()) {
+for (const [entityId, { relative, entity }] of entities) {
+  for (const [index, alias] of (Array.isArray(entity.aliases) ? entity.aliases : []).entries()) {
     const location = `${relative}.aliases[${index}]`;
     if (!isObject(alias)) {
       error(location, 'Alias 必须是对象');
@@ -544,10 +694,10 @@ for (const [weaponId, { relative, weapon }] of weapons) {
     validateDate(alias.checkedAt, `${location}.checkedAt`);
     if (!versions.has(alias.gameVersionId)) error(`${location}.gameVersionId`, `GameVersion 不存在：${alias.gameVersionId}`);
   }
-  validateReferences(weapon.summaryFactIds, `${relative}.summaryFactIds`, facts, 'Fact');
-  for (const factId of weapon.summaryFactIds ?? []) {
-    if (facts.has(factId) && factOwners.get(factId) !== weaponId) {
-      error(`${relative}.summaryFactIds`, `Summary 不能引用其他 Weapon 的 Fact：${factId}`);
+  validateReferences(entity.summaryFactIds, `${relative}.summaryFactIds`, facts, 'Fact');
+  for (const factId of entity.summaryFactIds ?? []) {
+    if (facts.has(factId) && factOwners.get(factId) !== entityId) {
+      error(`${relative}.summaryFactIds`, `Summary 不能引用其他 Entity 的 Fact：${factId}`);
     }
   }
 }
@@ -564,7 +714,7 @@ for (const [factId, { relative: location, fact }] of facts) {
   if (!registryEntry) {
     error(`${location}.key`, `Fact key 未注册：${fact.key}`);
   } else {
-    const ownerType = weapons.get(factOwners.get(factId))?.weapon.entityType;
+    const ownerType = entities.get(factOwners.get(factId))?.entity.entityType;
     if (!registryEntry.applicableEntityTypes.includes(ownerType)) {
       error(`${location}.key`, `Fact key 不适用于 ${ownerType}`);
     }
@@ -626,7 +776,9 @@ if (errors.length > 0) {
   console.log('Data validation passed.');
   console.log(`Sources: ${sources.size}`);
   console.log(`GameVersions: ${versions.size}`);
-  console.log(`Weapons: ${weapons.size}`);
+  console.log(`Weapons: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'weapon').length}`);
+  console.log(`Characters: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'character').length}`);
+  console.log(`Relations: ${relations.size}`);
   console.log(`Facts: ${facts.size}`);
   console.log(`Fact keys: ${factRegistry.size}`);
   console.log(`Platforms: ${platforms.size}`);

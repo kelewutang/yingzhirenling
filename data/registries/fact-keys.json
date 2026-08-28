@@ -50,6 +50,27 @@
       "allowedValueTypes": ["string"],
       "description": "武器获取方式；未有可靠来源时使用 pending-review、null 和 reviewNote。",
       "requiresAsOf": false
+    },
+    {
+      "key": "character.exists",
+      "applicableEntityTypes": ["character"],
+      "allowedValueTypes": ["boolean"],
+      "description": "该角色实体是否已在可核查材料中明确出现或被提及。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "character.name",
+      "applicableEntityTypes": ["character"],
+      "allowedValueTypes": ["string"],
+      "description": "材料中直接使用的角色名称；语言形式与来源保持一致，不据此推定其他本地化名称。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "character.role",
+      "applicableEntityTypes": ["character"],
+      "allowedValueTypes": ["string"],
+      "description": "当前材料直接说明的角色身份、剧情定位或关系定位，不包含推断的阵营、强度或玩法职责。",
+      "requiresAsOf": false
     }
   ]
 }

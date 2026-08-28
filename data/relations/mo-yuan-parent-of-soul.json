@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "relation:character:mo-yuan:parentOf:character:soul",
+  "sourceEntityId": "character:mo-yuan",
+  "relationType": "parentOf",
+  "targetEntityId": "character:soul",
+  "status": "official",
+  "sourceIds": ["source:playstation-blog-preorder-2026-08-12"],
+  "checkedAt": "2026-08-28",
+  "gameVersionId": "version:prelaunch-materials-2026-08",
+  "scope": {
+    "platforms": {"mode": "all", "ids": []},
+    "difficulties": {"mode": "all", "ids": []}
+  },
+  "validFromVersionId": null,
+  "validToVersionId": null,
+  "reviewNote": null
+}

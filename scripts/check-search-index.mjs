@@ -9,9 +9,10 @@ const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
 const FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'search-index-cases.json');
 
 function fixtureRecords(testCase) {
-  return testCase.weapons.map((weapon, index) => ({
+  const entities = testCase.entities ?? testCase.weapons;
+  return entities.map((entity, index) => ({
     file: `fixture:${testCase.name}[${index}]`,
-    weapon
+    entity
   }));
 }
 

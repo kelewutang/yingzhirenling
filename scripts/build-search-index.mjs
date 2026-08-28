@@ -7,11 +7,13 @@ const SCRIPT_FILE = fileURLToPath(import.meta.url);
 const SCRIPT_DIR = path.dirname(SCRIPT_FILE);
 const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
 const WEAPONS_DIR = path.join(ROOT_DIR, 'data', 'weapons');
+const CHARACTERS_DIR = path.join(ROOT_DIR, 'data', 'characters');
 const WEAPON_PAGES_DIR = path.join(ROOT_DIR, 'pages', 'generated', 'weapons');
 const VALIDATOR_FILE = path.join(SCRIPT_DIR, 'validate-data.mjs');
 
 const SCHEMA_VERSION = '1.0-implementation';
 const WEAPON_ROUTE = '/weapons';
+const CHARACTER_ROUTE = '/characters';
 const WEAPON_PAGE_MARKER = '<!-- generated-by: build-weapon-pages.mjs -->';
 const SITE_ORIGIN = 'https://www.yingzhirenling.cn';
 const MODE_CONFIG = new Map([
@@ -90,58 +92,58 @@ function runSchemaValidator() {
   }
 }
 
-async function readWeaponRecords() {
-  const entries = await fs.readdir(WEAPONS_DIR, { withFileTypes: true });
+async function readEntityRecords(directory, relativeDirectory) {
+  const entries = await fs.readdir(directory, { withFileTypes: true });
   const files = entries
     .filter((entry) => entry.isFile() && entry.name.endsWith('.json'))
     .map((entry) => entry.name)
     .sort(compareText);
 
   return Promise.all(files.map(async (name) => {
-    const file = path.join(WEAPONS_DIR, name);
+    const file = path.join(directory, name);
     const raw = await fs.readFile(file, 'utf8');
-    return { file: path.posix.join('data/weapons', name), weapon: JSON.parse(raw) };
+    return { file: path.posix.join(relativeDirectory, name), entity: JSON.parse(raw) };
   }));
 }
 
-function requireSearchShape(weapon, file) {
-  if (weapon.schemaVersion !== SCHEMA_VERSION) {
+function requireSearchShape(entity, file) {
+  if (entity.schemaVersion !== SCHEMA_VERSION) {
     throw new Error(`${file}: schemaVersion 必须为 ${SCHEMA_VERSION}`);
   }
-  if (weapon.entityType !== 'weapon') {
-    throw new Error(`${file}: entityType 必须为 weapon`);
+  if (!['weapon', 'character'].includes(entity.entityType)) {
+    throw new Error(`${file}: entityType 必须为 weapon 或 character`);
   }
   for (const field of ['id', 'slug', 'displayName', 'summary', 'recordState']) {
-    if (typeof weapon[field] !== 'string' || weapon[field].trim().length === 0) {
+    if (typeof entity[field] !== 'string' || entity[field].trim().length === 0) {
       throw new Error(`${file}: ${field} 必须是非空字符串`);
     }
   }
-  if (!Array.isArray(weapon.aliases) || !Array.isArray(weapon.facts) ||
-      !Array.isArray(weapon.summaryFactIds)) {
+  if (!Array.isArray(entity.aliases) || !Array.isArray(entity.facts) ||
+      !Array.isArray(entity.summaryFactIds)) {
     throw new Error(`${file}: aliases、facts、summaryFactIds 必须是数组`);
   }
-  if (weapon.summaryFactIds.length === 0) {
+  if (entity.summaryFactIds.length === 0) {
     throw new Error(`${file}: summary 必须至少有一个 summaryFactId 支持`);
   }
-  if (!KNOWN_RECORD_STATES.has(weapon.recordState)) {
-    throw new Error(`${file}: 不支持 recordState=${weapon.recordState}`);
+  if (!KNOWN_RECORD_STATES.has(entity.recordState)) {
+    throw new Error(`${file}: 不支持 recordState=${entity.recordState}`);
   }
 }
 
-function validateSummarySupport(weapon, file) {
-  const facts = new Map(weapon.facts.map((fact) => [fact.id, fact]));
-  for (const factId of weapon.summaryFactIds) {
+function validateSummarySupport(entity, file) {
+  const facts = new Map(entity.facts.map((fact) => [fact.id, fact]));
+  for (const factId of entity.summaryFactIds) {
     if (!facts.has(factId)) {
-      throw new Error(`${file}: summaryFactId 不属于当前 Weapon：${factId}`);
+      throw new Error(`${file}: summaryFactId 不属于当前 Entity：${factId}`);
     }
   }
 }
 
-function deriveAliases(weapon, file) {
+function deriveAliases(entity, file) {
   const searchable = [];
   const displayable = [];
 
-  for (const alias of weapon.aliases) {
+  for (const alias of entity.aliases) {
     if (!SEARCHABLE_ALIAS_KINDS.has(alias.kind)) {
       throw new Error(`${file}: Alias kind 尚无搜索策略：${alias.kind}`);
     }
@@ -157,12 +159,12 @@ function deriveAliases(weapon, file) {
   };
 }
 
-function deriveKeywords(weapon) {
-  const keywords = ['武器'];
+function deriveKeywords(entity) {
+  const keywords = [entity.entityType === 'character' ? '角色' : '武器'];
 
-  for (const fact of weapon.facts) {
+  for (const fact of entity.facts) {
     if (!SEARCHABLE_FACT_STATUSES.has(fact.status) || fact.value === null) continue;
-    if (fact.key === 'weapon.kind' && typeof fact.value === 'string') {
+    if ((fact.key === 'weapon.kind' || fact.key === 'character.role') && typeof fact.value === 'string') {
       keywords.push(fact.value);
     }
     if (fact.key === 'weapon.publicAppearance' && typeof fact.value === 'string') {
@@ -173,30 +175,31 @@ function deriveKeywords(weapon) {
   return uniqueSortedStrings(keywords);
 }
 
-function deriveWeaponRoute(weapon, detailPageSlugs) {
-  if (weapon.recordState === 'published' && detailPageSlugs.has(weapon.slug)) {
-    return `${WEAPON_ROUTE}/${weapon.slug}`;
+function deriveEntityRoute(entity, detailPageSlugs) {
+  if (entity.entityType === 'character') return CHARACTER_ROUTE;
+  if (entity.recordState === 'published' && detailPageSlugs.has(entity.slug)) {
+    return `${WEAPON_ROUTE}/${entity.slug}`;
   }
   return WEAPON_ROUTE;
 }
 
-function buildSearchDocument(weapon, file, detailPageSlugs) {
-  validateSummarySupport(weapon, file);
-  const { aliases, displayAliases } = deriveAliases(weapon, file);
+function buildSearchDocument(entity, file, detailPageSlugs) {
+  validateSummarySupport(entity, file);
+  const { aliases, displayAliases } = deriveAliases(entity, file);
 
   return {
-    id: weapon.id,
+    id: entity.id,
     documentType: 'entity',
-    entityType: weapon.entityType,
-    slug: weapon.slug,
-    route: deriveWeaponRoute(weapon, detailPageSlugs),
-    displayName: weapon.displayName,
+    entityType: entity.entityType,
+    slug: entity.slug,
+    route: deriveEntityRoute(entity, detailPageSlugs),
+    displayName: entity.displayName,
     aliases,
     displayAliases,
-    keywords: deriveKeywords(weapon),
-    summary: weapon.summary,
-    recordState: weapon.recordState,
-    sourceSchemaVersion: weapon.schemaVersion
+    keywords: deriveKeywords(entity),
+    summary: entity.summary,
+    recordState: entity.recordState,
+    sourceSchemaVersion: entity.schemaVersion
   };
 }
 
@@ -213,9 +216,11 @@ function assertUniqueDocuments(documents, detailPageSlugs) {
   }
 
   for (const document of documents) {
-    const expectedRoute = document.recordState === 'published' && detailPageSlugs.has(document.slug)
-      ? `${WEAPON_ROUTE}/${document.slug}`
-      : WEAPON_ROUTE;
+    const expectedRoute = document.entityType === 'character'
+      ? CHARACTER_ROUTE
+      : document.recordState === 'published' && detailPageSlugs.has(document.slug)
+        ? `${WEAPON_ROUTE}/${document.slug}`
+        : WEAPON_ROUTE;
     if (document.route !== expectedRoute) {
       throw new Error(`${document.id}: route 必须指向当前真实路由 ${expectedRoute}`);
     }
@@ -229,13 +234,17 @@ export function buildSearchDocuments(records, mode, detailPageSlugs = new Set())
 
   const documents = [];
   const skippedByState = new Map();
-  for (const { file, weapon } of records) {
-    requireSearchShape(weapon, file);
-    if (!config.includedStates.has(weapon.recordState)) {
-      skippedByState.set(weapon.recordState, (skippedByState.get(weapon.recordState) ?? 0) + 1);
+  for (const record of records) {
+    const entity = record.entity ?? record.weapon;
+    requireSearchShape(entity, record.file);
+    if (mode === 'production' && entity.entityType === 'character' && entity.recordState === 'published') {
+      throw new Error(`${record.file}: Character 尚无 production Detail Page，不能生成 production Search Document`);
+    }
+    if (!config.includedStates.has(entity.recordState)) {
+      skippedByState.set(entity.recordState, (skippedByState.get(entity.recordState) ?? 0) + 1);
       continue;
     }
-    documents.push(buildSearchDocument(weapon, file, detailPageSlugs));
+    documents.push(buildSearchDocument(entity, record.file, detailPageSlugs));
   }
 
   documents.sort((left, right) =>
@@ -247,29 +256,30 @@ export function buildSearchDocuments(records, mode, detailPageSlugs = new Set())
   return { documents, skippedByState };
 }
 
-async function resolvePublishedDetailPageSlugs(records) {
+async function resolvePublishedWeaponDetailPageSlugs(records) {
   const slugs = new Set();
-  for (const { file, weapon } of records) {
-    requireSearchShape(weapon, file);
-    if (weapon.recordState !== 'published') continue;
-    const pageFile = path.join(WEAPON_PAGES_DIR, `${weapon.slug}.html`);
+  for (const record of records) {
+    const entity = record.entity ?? record.weapon;
+    requireSearchShape(entity, record.file);
+    if (entity.entityType !== 'weapon' || entity.recordState !== 'published') continue;
+    const pageFile = path.join(WEAPON_PAGES_DIR, `${entity.slug}.html`);
     let html;
     try {
       html = await fs.readFile(pageFile, 'utf8');
     } catch (cause) {
       if (cause.code === 'ENOENT') {
-        throw new Error(`${file}: 已发布 Entity 缺少详情页 pages/generated/weapons/${weapon.slug}.html；请先运行 build-weapon-pages.mjs`);
+        throw new Error(`${record.file}: 已发布 Weapon 缺少详情页 pages/generated/weapons/${entity.slug}.html；请先运行 build-weapon-pages.mjs`);
       }
       throw cause;
     }
-    const canonical = `${SITE_ORIGIN}${WEAPON_ROUTE}/${weapon.slug}`;
+    const canonical = `${SITE_ORIGIN}${WEAPON_ROUTE}/${entity.slug}`;
     if (!html.includes(WEAPON_PAGE_MARKER)) {
-      throw new Error(`${file}: 详情页缺少生成标记：pages/generated/weapons/${weapon.slug}.html`);
+      throw new Error(`${record.file}: 详情页缺少生成标记：pages/generated/weapons/${entity.slug}.html`);
     }
     if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
-      throw new Error(`${file}: 详情页 canonical 与搜索 route 不一致：${canonical}`);
+      throw new Error(`${record.file}: 详情页 canonical 与搜索 route 不一致：${canonical}`);
     }
-    slugs.add(weapon.slug);
+    slugs.add(entity.slug);
   }
   return slugs;
 }
@@ -294,15 +304,20 @@ async function main() {
   const mode = parseMode(process.argv.slice(2));
   const config = MODE_CONFIG.get(mode);
   runSchemaValidator();
-  const records = await readWeaponRecords();
-  const detailPageSlugs = await resolvePublishedDetailPageSlugs(records);
+  const records = [
+    ...await readEntityRecords(WEAPONS_DIR, 'data/weapons'),
+    ...await readEntityRecords(CHARACTERS_DIR, 'data/characters')
+  ];
+  const detailPageSlugs = await resolvePublishedWeaponDetailPageSlugs(records);
   const { documents, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs);
   const changed = await writeDeterministicJson(documents, config.outputFile);
   const relativeOutput = path.relative(ROOT_DIR, config.outputFile).replaceAll('\\', '/');
 
   console.log('Search index generation passed.');
   console.log(`Mode: ${mode}`);
-  console.log(`Weapon records read: ${records.length}`);
+  console.log(`Entity records read: ${records.length}`);
+  console.log(`Weapon records read: ${records.filter(({ entity }) => entity.entityType === 'weapon').length}`);
+  console.log(`Character records read: ${records.filter(({ entity }) => entity.entityType === 'character').length}`);
   console.log(`Search documents written: ${documents.length}`);
   for (const state of [...KNOWN_RECORD_STATES].sort(compareText)) {
     console.log(`Skipped ${state}: ${skippedByState.get(state) ?? 0}`);

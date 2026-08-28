@@ -362,6 +362,71 @@
       "expected": {
         "errorIncludes": "重复 Search Document displayName"
       }
+    },
+    {
+      "name": "character-draft-shadow-visible-at-collection-route",
+      "mode": "shadow",
+      "entities": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "character:fixture-shadow",
+          "entityType": "character",
+          "slug": "fixture-shadow",
+          "displayName": "测试角色",
+          "aliases": [],
+          "summary": "仅用于验证草稿角色可进入 shadow。",
+          "summaryFactIds": ["fact:character:fixture-shadow:role"],
+          "facts": [
+            {
+              "id": "fact:character:fixture-shadow:role",
+              "key": "character.role",
+              "value": "测试身份",
+              "status": "official"
+            }
+          ],
+          "recordState": "draft",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": ["character:fixture-shadow"],
+        "documents": {
+          "character:fixture-shadow": {
+            "entityType": "character",
+            "route": "/characters",
+            "keywords": ["测试身份", "角色"]
+          }
+        }
+      }
+    },
+    {
+      "name": "character-draft-production-hidden",
+      "mode": "production",
+      "entities": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "character:fixture-production-hidden",
+          "entityType": "character",
+          "slug": "fixture-production-hidden",
+          "displayName": "测试草稿角色",
+          "aliases": [],
+          "summary": "仅用于验证草稿角色不会进入 production。",
+          "summaryFactIds": ["fact:character:fixture-production-hidden:exists"],
+          "facts": [
+            {
+              "id": "fact:character:fixture-production-hidden:exists",
+              "key": "character.exists",
+              "value": true,
+              "status": "official"
+            }
+          ],
+          "recordState": "draft",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": []
+      }
     }
   ]
 }
