@@ -1,0 +1,21 @@
+{
+  "name": "yingzhirenling-site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@11.17.0",
+  "engines": {
+    "node": "24.19.0"
+  },
+  "scripts": {
+    "build": "node scripts/validate-data.mjs && astro build && node scripts/build-search-index.mjs --mode=production --detail-pages-dir=dist/weapons && node scripts/astro/copy-legacy-static.mjs && node scripts/astro/verify-dist.mjs",
+    "preview": "astro preview",
+    "test:astro": "node scripts/astro/check-search-route-guard.mjs"
+  },
+  "devDependencies": {
+    "astro": "7.2.8"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

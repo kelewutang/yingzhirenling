@@ -2,6 +2,12 @@
   publish = "."
   command = "echo 'Static site - no build needed'"
 
+# P1-10 migration candidate only. Production remains the committed root static
+# site until a separate Production Switch Gate is explicitly approved.
+[context.deploy-preview]
+  publish = "dist"
+  command = "npm ci && npm run build"
+
 [[headers]]
   for = "/*"
   [headers.values]
