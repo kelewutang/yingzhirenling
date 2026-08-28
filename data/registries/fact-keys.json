@@ -69,7 +69,7 @@
       "key": "character.role",
       "applicableEntityTypes": ["character"],
       "allowedValueTypes": ["string"],
-      "description": "当前材料直接说明的角色身份、剧情定位或关系定位，不包含推断的阵营、强度或玩法职责。",
+      "description": "角色在作品中的身份或叙事定位，例如主角；不得用于表达 Character-to-Character 关系，父子、同伴、师徒等关系应使用 Relation 表达。",
       "requiresAsOf": false
     }
   ]
