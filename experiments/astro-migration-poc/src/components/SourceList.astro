@@ -1,0 +1,24 @@
+---
+import { safeExternalUrl, sourceTypeLabel } from '../lib/knowledge.mjs';
+const { sources } = Astro.props;
+---
+{sources.length > 0 && <section aria-labelledby="sources-title">
+  <h2 id="sources-title">本页来源</h2>
+  <p>这里只列出本页事实与已展示关系实际引用的来源；来源类型与事实可信状态分别标记。</p>
+  {sources.map((source) => {
+    const url = safeExternalUrl(source.url);
+    return <aside class="info-provenance" data-info-scope="source" id={`source-${source.id.replaceAll(':', '-')}`} aria-label={`${source.title}来源`}>
+      <div class="info-provenance__intro">
+        <span class="tag tag-gold">{sourceTypeLabel(source.sourceType)}</span>
+        <div class="info-provenance__content">
+          <h3 class="info-provenance__title">{source.title}</h3>
+          <p class="info-provenance__description">{source.publisher}</p>
+        </div>
+      </div>
+      <dl class="info-provenance__meta">
+        {source.publishedAt && <div class="info-source"><dt>发布日期</dt><dd><time datetime={source.publishedAt}>{source.publishedAt}</time></dd></div>}
+        {url && <div class="info-source"><dt>原始来源</dt><dd><a href={url} target="_blank" rel="noopener noreferrer">查看来源页面</a></dd></div>}
+      </dl>
+    </aside>;
+  })}
+</section>}

@@ -1,0 +1,21 @@
+{
+  "name": "yingzhirenling-astro-migration-poc",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@11.17.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "validate": "node ./scripts/run-root-validator.mjs",
+    "build": "node ./scripts/run-root-validator.mjs && astro build && node ./scripts/copy-static-assets.mjs",
+    "preview": "astro preview"
+  },
+  "devDependencies": {
+    "astro": "7.2.8"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

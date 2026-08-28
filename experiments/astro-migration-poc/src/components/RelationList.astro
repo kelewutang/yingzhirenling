@@ -1,0 +1,21 @@
+---
+const { relations } = Astro.props;
+---
+{relations.length > 0 && <section aria-labelledby="relations-title">
+  <h2 id="relations-title">关系预览</h2>
+  <p>仅用于 POC publication candidate preview；该预览不代表 production Relation projection。</p>
+  {relations.map((relation) => (
+    <aside class="info-provenance" data-info-scope="relation" data-status={relation.status}>
+      <div class="info-provenance__intro">
+        <span class="info-status" data-status={relation.status}>官方确认</span>
+        <div class="info-provenance__content">
+          <h3 class="info-provenance__title">{relation.label}</h3>
+          <p class="info-provenance__description">{relation.otherEntity?.displayName || relation.otherEntityId}</p>
+        </div>
+      </div>
+      <dl class="info-provenance__meta">
+        <div class="info-source"><dt>核验时间</dt><dd><time datetime={relation.checkedAt}>{relation.checkedAt}</time></dd></div>
+      </dl>
+    </aside>
+  ))}
+</section>}

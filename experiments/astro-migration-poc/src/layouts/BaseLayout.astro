@@ -1,0 +1,62 @@
+---
+const {
+  title,
+  description,
+  canonical,
+  activeSection,
+  noindex = false,
+  productionRelationCount = null
+} = Astro.props;
+const navigation = [
+  ['/', '首页', 'home'],
+  ['/guide', '攻略中心', 'guide'],
+  ['/weapons', '武器图鉴', 'weapons'],
+  ['/characters', '角色图鉴', 'characters'],
+  ['/bosses', 'Boss攻略', 'bosses'],
+  ['/world', '世界观', 'world'],
+  ['/videos', '视频中心', 'videos'],
+  ['/about', '购买指南', 'about']
+];
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body data-production-relation-count={productionRelationCount}>
+    <nav class="navbar" aria-label="主导航">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo"><span>影之刃零</span></a>
+        <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <ul class="nav-links" id="primary-navigation">
+          {navigation.map(([href, label, section]) => <li><a href={href} class:list={{ active: section === activeSection }}>{label}</a></li>)}
+        </ul>
+        <button class="nav-search-btn" type="button" onclick="openSearch()" aria-label="搜索">🔍</button>
+        <div class="theme-switcher" aria-label="主题切换">
+          <button class="theme-btn active" type="button" data-theme="default" title="赤焰（默认）" aria-label="使用赤焰主题" onclick="switchTheme('default')"></button>
+          <button class="theme-btn" type="button" data-theme="qing" title="墨青" aria-label="使用墨青主题" onclick="switchTheme('qing')"></button>
+          <button class="theme-btn" type="button" data-theme="light" title="昼白（浅色）" aria-label="使用昼白主题" onclick="switchTheme('light')"></button>
+        </div>
+      </div>
+    </nav>
+    <main class="container"><slot /></main>
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand"><div class="footer-logo">影之刃零攻略站</div><p>非官方玩家攻略站，游戏版权归北京灵游坊网络科技有限公司所有。</p></div>
+        <div class="footer-col"><h4>攻略</h4><ul><li><a href="/guide">攻略中心</a></li><li><a href="/weapons">武器图鉴</a></li><li><a href="/bosses">Boss攻略</a></li><li><a href="/characters">角色图鉴</a></li></ul></div>
+        <div class="footer-col"><h4>资料</h4><ul><li><a href="/world">世界观设定</a></li><li><a href="/videos">视频中心</a></li><li><a href="/about">购买指南</a></li><li><a href="/about-site">关于本站</a></li></ul></div>
+        <div class="footer-col"><h4>官方渠道</h4><ul><li><a href="https://www.taptap.cn/app/358885" target="_blank" rel="noopener noreferrer">TapTap</a></li><li><a href="https://store.steampowered.com/app/4115450/" target="_blank" rel="noopener noreferrer">Steam</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 影之刃零攻略站 · yingzhirenling.cn</span><span>玩家公益站点</span></div>
+    </footer>
+    <button class="back-to-top" type="button" aria-label="回到顶部">↑</button>
+    <script is:inline src="/js/main.js"></script>
+  </body>
+</html>

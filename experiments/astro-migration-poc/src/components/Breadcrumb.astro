@@ -1,0 +1,6 @@
+---
+const { collectionHref, collectionLabel, currentLabel } = Astro.props;
+---
+<div class="page-breadcrumb">
+  <a href="/">首页</a> &gt; <a href={collectionHref}>{collectionLabel}</a> &gt; {currentLabel}
+</div>
