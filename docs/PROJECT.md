@@ -121,9 +121,11 @@ Weapon Detail Page Pilot 已上线并完成 production verification。唐横刀�
 
 # Next Direction
 
-下一阶段计划为 **P1-7：Character Shadow Data + Relation Boundary Pilot**。
+P1-7 Character Shadow + Relation Pilot、P1-8 Character Publication Readiness Gate 和 P1-9 Astro Migration Preparation Gate 已完成。
 
-这是 planned work，尚未实现、未发布，也不表示 Character 详情路由或生产 Relation 已存在。进入该阶段前应重新检查来源质量、Entity identity、Relation 最小边界，以及第二个 Entity 类型是否触发 Astro static-output 迁移评估。
+下一阶段计划为 **P1-10：Astro Production Migration Candidate + Deploy Preview Gate**。该阶段只验证 Astro static output 候选方案在 Deploy Preview 中的 URL、canonical、redirect、SEO、搜索与回滚边界，不表示 Astro 已成为生产架构。
+
+当前 production 仍是现有 **static site + Knowledge JSON + Node generator + Netlify**；只有 P1-10 Gate 通过并完成单独的生产切换决策后，才能更新生产架构声明。
 
 # Related Sources of Truth
 
