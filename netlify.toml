@@ -1,9 +1,8 @@
 [build]
-  publish = "."
-  command = "echo 'Static site - no build needed'"
+  publish = "dist"
+  command = "npm ci && npm run build"
 
-# P1-10 migration candidate only. Production remains the committed root static
-# site until a separate Production Switch Gate is explicitly approved.
+# Deploy Preview uses the same static build pipeline as Production.
 [context.deploy-preview]
   publish = "dist"
   command = "npm ci && npm run build"
