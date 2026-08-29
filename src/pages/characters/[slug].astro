@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EntityHeader from '../../components/EntityHeader.astro';
+import FactList from '../../components/FactList.astro';
+import RelationList from '../../components/RelationList.astro';
+import SourceList from '../../components/SourceList.astro';
+import { aliasValues, collectDisplayedSources, getProductionRelationsForEntity, getPublishedCharacters, loadKnowledge } from '../../lib/knowledge.mjs';
+import { projectCharacterFacts } from '../../lib/projections.mjs';
+import { projectRelationsForEntity } from '../../lib/relations.mjs';
+
+export async function getStaticPaths() {
+  const knowledge = await loadKnowledge();
+  return getPublishedCharacters(knowledge).map((character) => ({ params: { slug: character.slug }, props: { character } }));
+}
+
+const { character } = Astro.props;
+const knowledge = await loadKnowledge();
+const facts = projectCharacterFacts(character, knowledge);
+const relations = projectRelationsForEntity(character.id, getProductionRelationsForEntity(character.id, knowledge), knowledge);
+const sources = collectDisplayedSources(facts, knowledge, relations);
+const canonical = `https://www.yingzhirenling.cn/characters/${character.slug}`;
+const description = `${character.displayName}：${character.summary}`;
+---
+<BaseLayout title={`${character.displayName} - 影之刃零角色资料 | 影之刃零攻略站`} description={description} canonical={canonical} activeSection="characters">
+  <EntityHeader entity={character} aliases={aliasValues(character)}>
+    <Fragment slot="breadcrumb"><Breadcrumb collectionHref="/characters" collectionLabel="角色图鉴" currentLabel={character.displayName} /></Fragment>
+  </EntityHeader>
+  <article class="article">
+    <div class="alert alert-info">本页整理发售前已公开信息。每条事实与人物关系单独标注资料状态和来源，后续仍会随官方资料更新核查。</div>
+    <FactList facts={facts} sourceById={knowledge.sourceById} />
+    <RelationList relations={relations} sourceById={knowledge.sourceById} />
+    <SourceList sources={sources} />
+    <p><a class="btn btn-outline" href="/characters">返回角色图鉴</a></p>
+  </article>
+</BaseLayout>

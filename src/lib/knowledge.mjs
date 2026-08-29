@@ -49,6 +49,10 @@ export function getPublishedWeapons(knowledge) {
   return knowledge.weapons.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
 }
 
+export function getPublishedCharacters(knowledge) {
+  return knowledge.characters.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
+}
+
 export function statusLabel(status) {
   if (status === 'release-verified') throw new Error('release-verified is prohibited before release');
   if (!statusLabels[status]) throw new Error(`Unsupported status: ${status}`);
@@ -80,12 +84,27 @@ export function versionLabel(id, knowledge) {
   return knowledge.versionById.get(id)?.displayName || '当前公开资料阶段';
 }
 
-export function collectDisplayedSources(facts, knowledge) {
-  const ids = [...new Set(facts.flatMap((fact) => fact.sourceIds))].sort();
+export function collectDisplayedSources(facts, knowledge, relations = []) {
+  const ids = [...new Set([
+    ...facts.flatMap((fact) => fact.sourceIds),
+    ...relations.flatMap((relation) => relation.sourceIds)
+  ])].sort();
   const urls = new Set();
   return ids.map((id) => knowledge.sourceById.get(id)).filter((source) => {
     if (!source || urls.has(source.url)) return false;
     urls.add(source.url);
     return true;
   });
+}
+
+export function getProductionRelationsForEntity(entityId, knowledge) {
+  return knowledge.relations
+    .filter((relation) => relation.validToVersionId === null)
+    .filter((relation) => relation.sourceEntityId === entityId || relation.targetEntityId === entityId)
+    .filter((relation) => {
+      const source = knowledge.entityById.get(relation.sourceEntityId);
+      const target = knowledge.entityById.get(relation.targetEntityId);
+      return source?.recordState === 'published' && target?.recordState === 'published';
+    })
+    .sort((a, b) => a.id.localeCompare(b.id));
 }

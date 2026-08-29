@@ -121,11 +121,11 @@ Weapon Detail Page Pilot 已上线并完成 production verification。唐横刀�
 
 # Next Direction
 
-P1-7 Character Shadow + Relation Pilot、P1-8 Character Publication Readiness Gate 和 P1-9 Astro Migration Preparation Gate 已完成。
+P1-10 Astro Production Migration Candidate 与 P1-11 Astro Production Switch Gate 已通过，当前生产构建使用 Astro static output，并继续保留 Knowledge JSON、构建时静态 SEO 与 Vanilla JavaScript progressive enhancement 边界。
 
-下一阶段计划为 **P1-10：Astro Production Migration Candidate + Deploy Preview Gate**。该阶段只验证 Astro static output 候选方案在 Deploy Preview 中的 URL、canonical、redirect、SEO、搜索与回滚边界，不表示 Astro 已成为生产架构。
+P1-12 Character Publication Batch 已完成：魂、魔渊和 The Hunt 的角色详情、两条已验证人物关系、集合页入口、Production Search 与 sitemap 已进入生产派生链。
 
-当前 production 仍是现有 **static site + Knowledge JSON + Node generator + Netlify**；只有 P1-10 Gate 通过并完成单独的生产切换决策后，才能更新生产架构声明。
+后续阶段进入 **Content Expansion**，按现有可信资料量在 Boss Entity Batch 与 Weapon Expansion Batch 之间选择；不在本阶段预建新 Schema。
 
 # Related Sources of Truth
 

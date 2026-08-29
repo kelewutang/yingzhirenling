@@ -1,5 +1,62 @@
 [
   {
+    "id": "character:mo-yuan",
+    "documentType": "entity",
+    "entityType": "character",
+    "slug": "mo-yuan",
+    "route": "/characters/mo-yuan",
+    "displayName": "魔渊",
+    "aliases": [
+      "Mó Yuan"
+    ],
+    "displayAliases": [
+      "Mó Yuan"
+    ],
+    "keywords": [
+      "角色"
+    ],
+    "summary": "官方材料在《影之刃零》公开资料中提及魔渊。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "character:soul",
+    "documentType": "entity",
+    "entityType": "character",
+    "slug": "soul",
+    "route": "/characters/soul",
+    "displayName": "魂",
+    "aliases": [
+      "Soul"
+    ],
+    "displayAliases": [
+      "Soul"
+    ],
+    "keywords": [
+      "主角",
+      "角色"
+    ],
+    "summary": "官方材料称魂为《影之刃零》的主角。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "character:the-hunt",
+    "documentType": "entity",
+    "entityType": "character",
+    "slug": "the-hunt",
+    "route": "/characters/the-hunt",
+    "displayName": "The Hunt",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "角色"
+    ],
+    "summary": "官方材料在魂的冒险叙述中提及 The Hunt。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:tang-hengdao",
     "documentType": "entity",
     "entityType": "weapon",
