@@ -38,3 +38,23 @@ export function projectWeaponFacts(weapon, knowledge) {
     };
   }).filter(Boolean);
 }
+
+export function projectCharacterFacts(character, knowledge) {
+  const characterSpecs = [
+    ['character.exists', '公开记录'],
+    ['character.name', '名称记录'],
+    ['character.role', '身份定位']
+  ];
+  return characterSpecs.map(([key, title]) => {
+    const fact = getFact(character, key);
+    return fact && {
+      ...fact,
+      section: '核心资料',
+      title,
+      valueText: fact.key === 'character.exists' ? '已在可核查的发售前官方材料中出现。' : String(fact.value),
+      description: null,
+      statusText: statusLabel(fact.status),
+      versionText: versionLabel(fact.gameVersionId, knowledge)
+    };
+  }).filter(Boolean);
+}

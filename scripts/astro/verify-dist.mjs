@@ -9,7 +9,10 @@ const canonicalRoutes = [
   ['characters.html', '/characters'], ['bosses.html', '/bosses'], ['world.html', '/world'],
   ['videos.html', '/videos'], ['about.html', '/about'], ['about-site.html', '/about-site'],
   ['weapons/tang-hengdao.html', '/weapons/tang-hengdao'],
-  ['weapons/ya-hengdao.html', '/weapons/ya-hengdao']
+  ['weapons/ya-hengdao.html', '/weapons/ya-hengdao'],
+  ['characters/soul.html', '/characters/soul'],
+  ['characters/mo-yuan.html', '/characters/mo-yuan'],
+  ['characters/the-hunt.html', '/characters/the-hunt']
 ];
 
 for (const [file] of canonicalRoutes) assert((await stat(resolve(dist, file))).isFile(), `Missing dist/${file}`);
@@ -49,15 +52,34 @@ for (const slug of ['tang-hengdao', 'ya-hengdao']) {
   }
 }
 
-for (const path of ['weapons/qinglong-lueyue-dao.html', 'characters/soul.html', 'characters/mo-yuan.html', 'characters/the-hunt.html']) {
+for (const path of ['weapons/qinglong-lueyue-dao.html', 'characters/not-real.html']) {
   await assert.rejects(() => stat(resolve(dist, path)), { code: 'ENOENT' });
 }
 
+for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
+  const html = await readFile(resolve(dist, 'characters', `${slug}.html`), 'utf8');
+  const canonical = `https://www.yingzhirenling.cn/characters/${slug}`;
+  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回角色图鉴']) {
+    assert(html.includes(token), `${slug}: missing static Character contract token ${token}`);
+  }
+  assert(!html.includes('noindex'), `${slug}: published Character must be indexable`);
+}
+const soul = await readFile(resolve(dist, 'characters/soul.html'), 'utf8');
+assert.equal((soul.match(/data-relation-id=/g) || []).length, 2, 'Soul must render two unique Relations');
+for (const wording of ['魔渊', '父亲', 'The Hunt', '曾经的同伴']) assert(soul.includes(wording), `Soul Relation presentation missing: ${wording}`);
+const hunt = await readFile(resolve(dist, 'characters/the-hunt.html'), 'utf8');
+assert(!hunt.includes('猎杀'), 'The Hunt must not gain an invented Chinese name');
+
+const collection = await readFile(resolve(dist, 'characters.html'), 'utf8');
+for (const slug of ['soul', 'mo-yuan', 'the-hunt']) assert(collection.includes(`href="/characters/${slug}"`), `Character collection missing ${slug}`);
+
 const search = JSON.parse(await readFile(resolve(dist, 'generated/search-index.production.json'), 'utf8'));
-assert.deepEqual(search.map((item) => item.id), ['weapon:tang-hengdao', 'weapon:ya-hengdao']);
+assert.deepEqual(search.map((item) => item.id), ['character:mo-yuan', 'character:soul', 'character:the-hunt', 'weapon:tang-hengdao', 'weapon:ya-hengdao']);
+for (const document of search.filter((item) => item.entityType === 'character')) assert.equal(document.route, `/characters/${document.slug}`);
 const sitemap = await readFile(resolve(dist, 'sitemap.xml'), 'utf8');
-assert.equal((sitemap.match(/<url>/g) || []).length, 11, 'Sitemap must contain 11 URLs');
-for (const forbidden of ['qinglong-lueyue-dao', '/characters/soul', '/characters/mo-yuan', '/characters/the-hunt']) assert(!sitemap.includes(forbidden));
+assert.equal((sitemap.match(/<url>/g) || []).length, 14, 'Sitemap must contain 14 URLs');
+for (const route of ['/characters/soul', '/characters/mo-yuan', '/characters/the-hunt']) assert(sitemap.includes(route), `Sitemap missing ${route}`);
+assert(!sitemap.includes('qinglong-lueyue-dao'));
 assert.equal((await readdir(dist)).includes('_astro'), false, 'Unexpected Astro client assets');
 
 async function walk(directory) {
@@ -74,4 +96,4 @@ for (const file of await walk(dist)) {
   const text = content.toString('utf8');
   for (const forbidden of ['/home/mok', '/mnt/c/', 'astro-island', 'client:load']) assert(!text.includes(forbidden), `${file}: forbidden build output`);
 }
-console.log(`Astro dist verification passed: ${canonicalRoutes.length} canonical routes, 2 Weapon pages, 0 draft detail routes.`);
+console.log(`Astro dist verification passed: ${canonicalRoutes.length} canonical routes, 2 Weapon pages, 3 Character pages, 0 draft detail routes.`);

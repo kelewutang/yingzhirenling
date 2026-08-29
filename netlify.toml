@@ -93,6 +93,25 @@
   status = 301
   force = true
 
+# Character file output uses the same published-only canonicalization rule.
+[[redirects]]
+  from = "/characters/soul.html"
+  to = "/characters/soul"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/characters/mo-yuan.html"
+  to = "/characters/mo-yuan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/characters/the-hunt.html"
+  to = "/characters/the-hunt"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/pages/characters.html"
   to = "/characters"
@@ -188,6 +207,21 @@
 [[redirects]]
   from = "/characters"
   to = "/pages/characters.html"
+  status = 200
+
+[[redirects]]
+  from = "/characters/soul"
+  to = "/characters/soul.html"
+  status = 200
+
+[[redirects]]
+  from = "/characters/mo-yuan"
+  to = "/characters/mo-yuan.html"
+  status = 200
+
+[[redirects]]
+  from = "/characters/the-hunt"
+  to = "/characters/the-hunt.html"
   status = 200
 
 [[redirects]]

@@ -36,6 +36,15 @@ for (const slug of publishedSlugs) {
   }
 }
 
+assert(!indexByFrom.has('/characters/:slug.html'), 'Parameterized Character .html redirect would change unknown/draft 404 behavior');
+for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
+  const htmlRoute = `/characters/${slug}.html`;
+  const canonicalRoute = `/characters/${slug}`;
+  assert.deepEqual(blocks[indexByFrom.get(htmlRoute)], { from: htmlRoute, to: canonicalRoute, status: 301, force: true });
+  assert.equal(blocks[indexByFrom.get(canonicalRoute)].status, 200, `${canonicalRoute} must remain an extensionless 200 rewrite`);
+  assert(indexByFrom.get(htmlRoute) < indexByFrom.get(canonicalRoute), `${htmlRoute} redirect must precede its 200 rewrite`);
+}
+
 assert.equal(blocks.at(-1).from, '/*');
 assert.equal(blocks.at(-1).status, 404);
 console.log('Netlify Weapon redirect regression checks passed.');

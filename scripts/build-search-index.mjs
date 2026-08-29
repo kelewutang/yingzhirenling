@@ -9,6 +9,7 @@ const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
 const WEAPONS_DIR = path.join(ROOT_DIR, 'data', 'weapons');
 const CHARACTERS_DIR = path.join(ROOT_DIR, 'data', 'characters');
 const WEAPON_PAGES_DIR = path.join(ROOT_DIR, 'pages', 'generated', 'weapons');
+const CHARACTER_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'characters');
 const VALIDATOR_FILE = path.join(SCRIPT_DIR, 'validate-data.mjs');
 
 const SCHEMA_VERSION = '1.0-implementation';
@@ -73,8 +74,9 @@ function uniqueSortedStrings(values) {
 function parseOptions(args) {
   const modeArgument = args.find((argument) => argument.startsWith('--mode='));
   const detailPagesArgument = args.find((argument) => argument.startsWith('--detail-pages-dir='));
-  if (!modeArgument || args.some((argument) => argument !== modeArgument && argument !== detailPagesArgument)) {
-    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production [--detail-pages-dir=目录]');
+  const characterPagesArgument = args.find((argument) => argument.startsWith('--character-detail-pages-dir='));
+  if (!modeArgument || args.some((argument) => ![modeArgument, detailPagesArgument, characterPagesArgument].includes(argument))) {
+    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production [--detail-pages-dir=目录] [--character-detail-pages-dir=目录]');
   }
   const mode = modeArgument.slice('--mode='.length);
   if (!MODE_CONFIG.has(mode)) {
@@ -83,10 +85,13 @@ function parseOptions(args) {
   const detailPagesDir = detailPagesArgument
     ? path.resolve(ROOT_DIR, detailPagesArgument.slice('--detail-pages-dir='.length))
     : WEAPON_PAGES_DIR;
-  if (detailPagesArgument && mode !== 'production') {
-    throw new Error('--detail-pages-dir 只允许用于 production mode');
+  const characterDetailPagesDir = characterPagesArgument
+    ? path.resolve(ROOT_DIR, characterPagesArgument.slice('--character-detail-pages-dir='.length))
+    : CHARACTER_PAGES_DIR;
+  if ((detailPagesArgument || characterPagesArgument) && mode !== 'production') {
+    throw new Error('详情页目录参数只允许用于 production mode');
   }
-  return { mode, detailPagesDir, requireLegacyMarker: !detailPagesArgument };
+  return { mode, detailPagesDir, characterDetailPagesDir, requireLegacyMarker: !detailPagesArgument };
 }
 
 function runSchemaValidator() {
@@ -183,12 +188,17 @@ function deriveKeywords(entity) {
   return uniqueSortedStrings(keywords);
 }
 
+function hasDetailPage(entity, detailPageSlugs) {
+  if (detailPageSlugs instanceof Set) return entity.entityType === 'weapon' && detailPageSlugs.has(entity.slug);
+  return detailPageSlugs.get(entity.entityType)?.has(entity.slug) ?? false;
+}
+
 function deriveEntityRoute(entity, detailPageSlugs) {
-  if (entity.entityType === 'character') return CHARACTER_ROUTE;
-  if (entity.recordState === 'published' && detailPageSlugs.has(entity.slug)) {
-    return `${WEAPON_ROUTE}/${entity.slug}`;
+  const collectionRoute = entity.entityType === 'character' ? CHARACTER_ROUTE : WEAPON_ROUTE;
+  if (entity.recordState === 'published' && hasDetailPage(entity, detailPageSlugs)) {
+    return `${collectionRoute}/${entity.slug}`;
   }
-  return WEAPON_ROUTE;
+  return collectionRoute;
 }
 
 function buildSearchDocument(entity, file, detailPageSlugs) {
@@ -224,11 +234,10 @@ function assertUniqueDocuments(documents, detailPageSlugs) {
   }
 
   for (const document of documents) {
-    const expectedRoute = document.entityType === 'character'
-      ? CHARACTER_ROUTE
-      : document.recordState === 'published' && detailPageSlugs.has(document.slug)
-        ? `${WEAPON_ROUTE}/${document.slug}`
-        : WEAPON_ROUTE;
+    const collectionRoute = document.entityType === 'character' ? CHARACTER_ROUTE : WEAPON_ROUTE;
+    const expectedRoute = document.recordState === 'published' && hasDetailPage(document, detailPageSlugs)
+      ? `${collectionRoute}/${document.slug}`
+      : collectionRoute;
     if (document.route !== expectedRoute) {
       throw new Error(`${document.id}: route 必须指向当前真实路由 ${expectedRoute}`);
     }
@@ -238,16 +247,13 @@ function assertUniqueDocuments(documents, detailPageSlugs) {
 export function buildSearchDocuments(records, mode, detailPageSlugs = new Set()) {
   const config = MODE_CONFIG.get(mode);
   if (!config) throw new Error(`未知 mode：${mode}`);
-  if (!(detailPageSlugs instanceof Set)) throw new Error('detailPageSlugs 必须是 Set');
+  if (!(detailPageSlugs instanceof Set) && !(detailPageSlugs instanceof Map)) throw new Error('detailPageSlugs 必须是 Set 或 Map');
 
   const documents = [];
   const skippedByState = new Map();
   for (const record of records) {
     const entity = record.entity ?? record.weapon;
     requireSearchShape(entity, record.file);
-    if (mode === 'production' && entity.entityType === 'character' && entity.recordState === 'published') {
-      throw new Error(`${record.file}: Character 尚无 production Detail Page，不能生成 production Search Document`);
-    }
     if (!config.includedStates.has(entity.recordState)) {
       skippedByState.set(entity.recordState, (skippedByState.get(entity.recordState) ?? 0) + 1);
       continue;
@@ -292,6 +298,29 @@ export async function resolvePublishedWeaponDetailPageSlugs(records, detailPages
   return slugs;
 }
 
+export async function resolvePublishedCharacterDetailPageSlugs(records, detailPagesDir = CHARACTER_PAGES_DIR) {
+  const slugs = new Set();
+  for (const record of records) {
+    const entity = record.entity ?? record.weapon;
+    requireSearchShape(entity, record.file);
+    if (entity.entityType !== 'character' || entity.recordState !== 'published') continue;
+    const pageFile = path.join(detailPagesDir, `${entity.slug}.html`);
+    let html;
+    try {
+      html = await fs.readFile(pageFile, 'utf8');
+    } catch (cause) {
+      if (cause.code === 'ENOENT') throw new Error(`${record.file}: 已发布 Character 缺少详情页 ${path.relative(ROOT_DIR, pageFile).replaceAll('\\', '/')}`);
+      throw cause;
+    }
+    const canonical = `${SITE_ORIGIN}${CHARACTER_ROUTE}/${entity.slug}`;
+    if (!html.includes(`<link rel="canonical" href="${canonical}"`)) {
+      throw new Error(`${record.file}: 详情页 canonical 与搜索 route 不一致：${canonical}`);
+    }
+    slugs.add(entity.slug);
+  }
+  return slugs;
+}
+
 async function writeDeterministicJson(documents, outputFile) {
   const output = `${JSON.stringify(documents, null, 2)}\n`;
   await fs.mkdir(path.dirname(outputFile), { recursive: true });
@@ -309,14 +338,17 @@ async function writeDeterministicJson(documents, outputFile) {
 }
 
 async function main() {
-  const { mode, detailPagesDir, requireLegacyMarker } = parseOptions(process.argv.slice(2));
+  const { mode, detailPagesDir, characterDetailPagesDir, requireLegacyMarker } = parseOptions(process.argv.slice(2));
   const config = MODE_CONFIG.get(mode);
   runSchemaValidator();
   const records = [
     ...await readEntityRecords(WEAPONS_DIR, 'data/weapons'),
     ...await readEntityRecords(CHARACTERS_DIR, 'data/characters')
   ];
-  const detailPageSlugs = await resolvePublishedWeaponDetailPageSlugs(records, detailPagesDir, requireLegacyMarker);
+  const detailPageSlugs = new Map([
+    ['weapon', await resolvePublishedWeaponDetailPageSlugs(records, detailPagesDir, requireLegacyMarker)],
+    ['character', await resolvePublishedCharacterDetailPageSlugs(records, characterDetailPagesDir)]
+  ]);
   const { documents, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs);
   const changed = await writeDeterministicJson(documents, config.outputFile);
   const relativeOutput = path.relative(ROOT_DIR, config.outputFile).replaceAll('\\', '/');

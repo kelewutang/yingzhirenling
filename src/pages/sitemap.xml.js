@@ -1,4 +1,4 @@
-import { getPublishedWeapons, loadKnowledge } from '../lib/knowledge.mjs';
+import { getPublishedCharacters, getPublishedWeapons, loadKnowledge } from '../lib/knowledge.mjs';
 
 export const prerender = true;
 const site = 'https://www.yingzhirenling.cn';
@@ -10,7 +10,11 @@ const legacyPages = [
 
 export async function GET() {
   const knowledge = await loadKnowledge();
-  const entries = [...legacyPages, ...getPublishedWeapons(knowledge).map((weapon) => [`/weapons/${weapon.slug}`, weapon.updatedAt])];
+  const entries = [
+    ...legacyPages,
+    ...getPublishedWeapons(knowledge).map((weapon) => [`/weapons/${weapon.slug}`, weapon.updatedAt]),
+    ...getPublishedCharacters(knowledge).map((character) => [`/characters/${character.slug}`, character.updatedAt])
+  ];
   const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.map(([route, lastmod]) => `  <url><loc>${site}${route}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n')}\n</urlset>\n`;
   return new Response(body, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
 }
