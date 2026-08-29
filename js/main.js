@@ -280,7 +280,7 @@ function openSearch() {
       '<div class="search-results" id="searchResults"></div>' +
     '</div>';
   document.body.appendChild(searchOverlay);
-  setTimeout(function() { searchOverlay.classList.add('active'); }, 10);
+  searchOverlay.classList.add('active');
   var input = searchOverlay.querySelector('#searchInput');
   input.focus();
   input.addEventListener('input', doSearch);
@@ -303,6 +303,22 @@ function closeSearch() {
       }
       searchReturnFocus = null;
     }, 200);
+  }
+}
+
+function containSearchFocus(e) {
+  if (e.key !== 'Tab' || !searchOverlay || !searchOverlay.classList.contains('active')) return;
+  var focusable = searchOverlay.querySelectorAll('input, button, a[href], [tabindex]:not([tabindex="-1"])');
+  if (focusable.length === 0) return;
+  var first = focusable[0];
+  var last = focusable[focusable.length - 1];
+
+  if (e.shiftKey && (document.activeElement === first || !searchOverlay.contains(document.activeElement))) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && (document.activeElement === last || !searchOverlay.contains(document.activeElement))) {
+    e.preventDefault();
+    first.focus();
   }
 }
 
@@ -335,6 +351,7 @@ function doSearch() {
 }
 
 document.addEventListener('keydown', function(e) {
+  containSearchFocus(e);
   if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
     e.preventDefault();
     openSearch();

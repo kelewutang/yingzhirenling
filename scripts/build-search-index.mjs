@@ -70,15 +70,23 @@ function uniqueSortedStrings(values) {
   return [...unique.values()].sort(compareText);
 }
 
-function parseMode(args) {
-  if (args.length !== 1 || !args[0].startsWith('--mode=')) {
-    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production');
+function parseOptions(args) {
+  const modeArgument = args.find((argument) => argument.startsWith('--mode='));
+  const detailPagesArgument = args.find((argument) => argument.startsWith('--detail-pages-dir='));
+  if (!modeArgument || args.some((argument) => argument !== modeArgument && argument !== detailPagesArgument)) {
+    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production [--detail-pages-dir=目录]');
   }
-  const mode = args[0].slice('--mode='.length);
+  const mode = modeArgument.slice('--mode='.length);
   if (!MODE_CONFIG.has(mode)) {
     throw new Error(`未知 mode：${mode || '(empty)'}；只允许 shadow 或 production`);
   }
-  return mode;
+  const detailPagesDir = detailPagesArgument
+    ? path.resolve(ROOT_DIR, detailPagesArgument.slice('--detail-pages-dir='.length))
+    : WEAPON_PAGES_DIR;
+  if (detailPagesArgument && mode !== 'production') {
+    throw new Error('--detail-pages-dir 只允许用于 production mode');
+  }
+  return { mode, detailPagesDir, requireLegacyMarker: !detailPagesArgument };
 }
 
 function runSchemaValidator() {
@@ -256,24 +264,24 @@ export function buildSearchDocuments(records, mode, detailPageSlugs = new Set())
   return { documents, skippedByState };
 }
 
-async function resolvePublishedWeaponDetailPageSlugs(records) {
+export async function resolvePublishedWeaponDetailPageSlugs(records, detailPagesDir = WEAPON_PAGES_DIR, requireLegacyMarker = true) {
   const slugs = new Set();
   for (const record of records) {
     const entity = record.entity ?? record.weapon;
     requireSearchShape(entity, record.file);
     if (entity.entityType !== 'weapon' || entity.recordState !== 'published') continue;
-    const pageFile = path.join(WEAPON_PAGES_DIR, `${entity.slug}.html`);
+    const pageFile = path.join(detailPagesDir, `${entity.slug}.html`);
     let html;
     try {
       html = await fs.readFile(pageFile, 'utf8');
     } catch (cause) {
       if (cause.code === 'ENOENT') {
-        throw new Error(`${record.file}: 已发布 Weapon 缺少详情页 pages/generated/weapons/${entity.slug}.html；请先运行 build-weapon-pages.mjs`);
+        throw new Error(`${record.file}: 已发布 Weapon 缺少详情页 ${path.relative(ROOT_DIR, pageFile).replaceAll('\\', '/')}`);
       }
       throw cause;
     }
     const canonical = `${SITE_ORIGIN}${WEAPON_ROUTE}/${entity.slug}`;
-    if (!html.includes(WEAPON_PAGE_MARKER)) {
+    if (requireLegacyMarker && !html.includes(WEAPON_PAGE_MARKER)) {
       throw new Error(`${record.file}: 详情页缺少生成标记：pages/generated/weapons/${entity.slug}.html`);
     }
     if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
@@ -301,14 +309,14 @@ async function writeDeterministicJson(documents, outputFile) {
 }
 
 async function main() {
-  const mode = parseMode(process.argv.slice(2));
+  const { mode, detailPagesDir, requireLegacyMarker } = parseOptions(process.argv.slice(2));
   const config = MODE_CONFIG.get(mode);
   runSchemaValidator();
   const records = [
     ...await readEntityRecords(WEAPONS_DIR, 'data/weapons'),
     ...await readEntityRecords(CHARACTERS_DIR, 'data/characters')
   ];
-  const detailPageSlugs = await resolvePublishedWeaponDetailPageSlugs(records);
+  const detailPageSlugs = await resolvePublishedWeaponDetailPageSlugs(records, detailPagesDir, requireLegacyMarker);
   const { documents, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs);
   const changed = await writeDeterministicJson(documents, config.outputFile);
   const relativeOutput = path.relative(ROOT_DIR, config.outputFile).replaceAll('\\', '/');

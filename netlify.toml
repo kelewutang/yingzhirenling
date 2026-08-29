@@ -1,6 +1,11 @@
 [build]
-  publish = "."
-  command = "echo 'Static site - no build needed'"
+  publish = "dist"
+  command = "npm ci && npm run build"
+
+# Deploy Preview uses the same static build pipeline as Production.
+[context.deploy-preview]
+  publish = "dist"
+  command = "npm ci && npm run build"
 
 [[headers]]
   for = "/*"
@@ -70,6 +75,20 @@
 
 [[redirects]]
   from = "/pages/generated/weapons/ya-hengdao"
+  to = "/weapons/ya-hengdao"
+  status = 301
+  force = true
+
+# Astro file output exists physically at /weapons/<slug>.html. Keep these
+# published-only rules explicit so draft and unknown .html routes remain 404.
+[[redirects]]
+  from = "/weapons/tang-hengdao.html"
+  to = "/weapons/tang-hengdao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/ya-hengdao.html"
   to = "/weapons/ya-hengdao"
   status = 301
   force = true
