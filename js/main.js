@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
   initBackToTop();
   initActiveNav();
   initCountdown();
-  initThemeSwitcher();
   initBaiduTongji();
   initBaiduPush();
   initPageMeta();
@@ -23,22 +22,47 @@ function initMobileNav() {
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-label', '打开菜单');
 
-  toggle.addEventListener('click', function () {
-    links.classList.toggle('open');
-    const isOpen = links.classList.contains('open');
-    toggle.textContent = isOpen ? '✕' : '☰';
+  function setOpen(isOpen, returnFocus) {
+    links.classList.toggle('open', isOpen);
+    toggle.classList.toggle('is-open', isOpen);
+    document.body.classList.toggle('nav-open', isOpen);
     toggle.setAttribute('aria-expanded', String(isOpen));
     toggle.setAttribute('aria-label', isOpen ? '关闭菜单' : '打开菜单');
+    if (isOpen) {
+      const firstLink = links.querySelector('a');
+      if (firstLink) firstLink.focus();
+    } else if (returnFocus) {
+      toggle.focus();
+    }
+  }
+
+  toggle.addEventListener('click', function () {
+    setOpen(!links.classList.contains('open'), false);
   });
 
-  // 点击链接后关闭菜单
   links.querySelectorAll('a').forEach(function (a) {
     a.addEventListener('click', function () {
-      links.classList.remove('open');
-      toggle.textContent = '☰';
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', '打开菜单');
+      setOpen(false, false);
     });
+  });
+
+  document.addEventListener('click', function (event) {
+    if (links.classList.contains('open') && !links.contains(event.target) && !toggle.contains(event.target)) {
+      setOpen(false, false);
+    }
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && links.classList.contains('open')) {
+      event.preventDefault();
+      setOpen(false, true);
+    }
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.matchMedia('(min-width: 901px)').matches && links.classList.contains('open')) {
+      setOpen(false, false);
+    }
   });
 }
 
@@ -62,14 +86,13 @@ function initBackToTop() {
 
 // 高亮当前导航
 function initActiveNav() {
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a').forEach(function (link) {
-    const href = link.getAttribute('href');
-    if (!href) return;
-    const linkPage = href.split('/').pop();
-    if (linkPage === currentPage) {
-      link.classList.add('active');
-    }
+  const route = window.location.pathname.replace(/\/+$/, '') || '/';
+  const section = route === '/' ? 'home' : route.split('/')[1];
+  document.querySelectorAll('.nav-links a[data-nav-section]').forEach(function (link) {
+    const isActive = link.dataset.navSection === section;
+    link.classList.toggle('active', isActive);
+    if (isActive) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
   });
 }
 
@@ -100,26 +123,6 @@ function initCountdown() {
 
   update();
   setInterval(update, 60000);
-}
-
-// ===== 主题切换 =====
-function switchTheme(theme) {
-  var body = document.body;
-  body.classList.remove('theme-qing', 'theme-light');
-  if (theme === 'qing') body.classList.add('theme-qing');
-  if (theme === 'light') body.classList.add('theme-light');
-
-  document.querySelectorAll('.theme-btn').forEach(function(btn) {
-    btn.classList.toggle('active', btn.dataset.theme === theme);
-  });
-
-  try { localStorage.setItem('pbz_theme', theme); } catch(e) {}
-}
-
-function initThemeSwitcher() {
-  var saved = 'default';
-  try { saved = localStorage.getItem('pbz_theme') || 'default'; } catch(e) {}
-  switchTheme(saved);
 }
 
 // ===== 百度统计 =====
@@ -268,25 +271,46 @@ function initEntitySearchIndex() {
 var searchOverlay = null;
 var searchReturnFocus = null;
 
+function escapeSearchHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function setSearchBackgroundInert(isInert) {
+  document.querySelectorAll('body > .site-header, body > .navbar, body > main, body > .footer, body > .back-to-top, body > .skip-link').forEach(function (element) {
+    element.inert = isInert;
+  });
+}
+
 function openSearch() {
-  searchReturnFocus = document.activeElement;
   if (searchOverlay) {
     searchOverlay.classList.add('active');
+    document.body.classList.add('search-open');
+    setSearchBackgroundInert(true);
     searchOverlay.querySelector('input').focus();
     return;
   }
+  searchReturnFocus = document.activeElement;
   searchOverlay = document.createElement('div');
   searchOverlay.className = 'search-overlay';
   searchOverlay.innerHTML =
-    '<div class="search-modal" role="dialog" aria-modal="true" aria-label="站内搜索">' +
+    '<div class="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-dialog-title">' +
       '<div class="search-modal-header">' +
-        '<input type="text" id="searchInput" aria-label="输入站内搜索关键词" placeholder="搜索Boss、武器、角色、攻略..." autocomplete="off">' +
-        '<button type="button" class="search-close" onclick="closeSearch()" aria-label="关闭搜索">✕</button>' +
+        '<div><p class="search-dialog-eyebrow">KNOWLEDGE SEARCH</p><h2 id="search-dialog-title">搜索知识库</h2></div>' +
+        '<button type="button" class="search-close" onclick="closeSearch()" aria-label="关闭搜索">✕<span>关闭</span></button>' +
       '</div>' +
-      '<div class="search-results" id="searchResults"></div>' +
+      '<div class="search-modal-input"><input type="search" id="searchInput" aria-label="输入站内搜索关键词" placeholder="搜索武器、角色、Boss、地点…" autocomplete="off"></div>' +
+      '<div class="search-results" id="searchResults" aria-live="polite"></div>' +
+      '<p class="search-dialog-hint">按 Esc 关闭，Entity 搜索加载失败时仍可搜索静态页面。</p>' +
     '</div>';
   document.body.appendChild(searchOverlay);
   searchOverlay.classList.add('active');
+  document.body.classList.add('search-open');
+  setSearchBackgroundInert(true);
   var input = searchOverlay.querySelector('#searchInput');
   input.focus();
   input.addEventListener('input', doSearch);
@@ -299,16 +323,14 @@ function openSearch() {
 function closeSearch() {
   if (searchOverlay) {
     searchOverlay.classList.remove('active');
-    setTimeout(function() {
-      if (searchOverlay) {
-        searchOverlay.remove();
-        searchOverlay = null;
-      }
-      if (searchReturnFocus && searchReturnFocus.focus && document.contains(searchReturnFocus)) {
-        searchReturnFocus.focus();
-      }
-      searchReturnFocus = null;
-    }, 200);
+    searchOverlay.remove();
+    searchOverlay = null;
+    document.body.classList.remove('search-open');
+    setSearchBackgroundInert(false);
+    if (searchReturnFocus && searchReturnFocus.focus && document.contains(searchReturnFocus)) {
+      searchReturnFocus.focus();
+    }
+    searchReturnFocus = null;
   }
 }
 
@@ -348,10 +370,11 @@ function doSearch() {
     return;
   }
   resultsEl.innerHTML = results.map(function(item) {
-    return '<a class="search-result-item" href="' + item.url + '" onclick="closeSearch()">' +
-      '<span class="result-tag">' + item.tag + '</span>' +
-      '<div class="result-title">' + item.title + '</div>' +
-      '<div class="result-desc">' + item.desc + '</div>' +
+    var url = typeof item.url === 'string' && item.url.startsWith('/') ? item.url : '#';
+    return '<a class="search-result-item" href="' + escapeSearchHtml(url) + '" onclick="closeSearch()">' +
+      '<span class="result-tag">' + escapeSearchHtml(item.tag) + '</span>' +
+      '<div class="result-title">' + escapeSearchHtml(item.title) + '</div>' +
+      '<div class="result-desc">' + escapeSearchHtml(item.desc) + '</div>' +
     '</a>';
   }).join('');
 }

@@ -1,0 +1,39 @@
+---
+import { primaryNavigation, secondaryNavigation } from '../../scripts/astro/site-shell.mjs';
+
+const { activeSection = '' } = Astro.props;
+const isActive = (section) => section === activeSection;
+const hasSecondaryActive = secondaryNavigation.some(({ section }) => isActive(section));
+---
+<a class="skip-link" href="#main-content">跳至主要内容</a>
+<header class="site-header">
+  <nav class="navbar" aria-label="主导航">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="影之刃零攻略站首页">
+        <span class="nav-logo__mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 18 17.5 6.5l-1.8 6.1L20 14l-6 1.5L6 18Z" fill="currentColor" /></svg></span>
+        <span>影之刃零</span>
+      </a>
+      <ul class="nav-links" id="primary-navigation">
+        {primaryNavigation.map(({ href, label, section }) => <li><a href={href} data-nav-section={section} class:list={{ active: isActive(section) }} aria-current={isActive(section) ? 'page' : undefined}>{label}</a></li>)}
+        <li class:list={{ 'nav-more': true, 'is-active': hasSecondaryActive }}>
+          <details>
+            <summary>更多<span aria-hidden="true">⌄</span></summary>
+            <ul class="nav-more__menu">
+              {secondaryNavigation.map(({ href, label, section }) => <li><a href={href} data-nav-section={section} class:list={{ active: isActive(section) }} aria-current={isActive(section) ? 'page' : undefined}>{label}</a></li>)}
+            </ul>
+          </details>
+        </li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-search-btn" type="button" onclick="openSearch()" aria-label="搜索知识库">
+          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><circle cx="10.8" cy="10.8" r="5.8" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="m15.3 15.3 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+          <span class="search-trigger__label">搜索</span><kbd class="search-key">⌘K</kbd>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="primary-navigation">
+          <span class="nav-toggle__open" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg></span>
+          <span class="nav-toggle__close" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>

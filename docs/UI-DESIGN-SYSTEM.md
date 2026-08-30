@@ -1,6 +1,6 @@
 # P2 UI Design System Proposal
 
-Status: proposal, not yet implemented
+Status: approved direction; P2-UI-1 implements the token and shared-shell foundation, while Entity/media components remain phased work
 
 Recommended direction: **Ink & Steel / 墨锋铁骨**
 
