@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "location:pangzhen",
+  "entityType": "location",
+  "slug": "pangzhen",
+  "displayName": "庞镇",
+  "aliases": [
+    {
+      "value": "Pangzhen Township",
+      "locale": "en",
+      "kind": "official-en",
+      "status": "official",
+      "sourceIds": ["source:s-game-pangzhen-rtx-2025-08-18-en"],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "reviewNote": null
+    },
+    {
+      "value": "Pang Town",
+      "locale": "en",
+      "kind": "official-en",
+      "status": "official",
+      "sourceIds": ["source:s-game-pangzhen-rtx-2025-08-18-en"],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "reviewNote": null
+    }
+  ],
+  "summary": "S-GAME 官方资料将庞镇称为一座小镇，并在 2025 年 RTX 光线追踪演示中首次公开其游戏场景。",
+  "summaryFactIds": [
+    "fact:location:pangzhen:exists",
+    "fact:location:pangzhen:name",
+    "fact:location:pangzhen:kind",
+    "fact:location:pangzhen:public-appearance"
+  ],
+  "facts": [
+    {
+      "id": "fact:location:pangzhen:exists",
+      "key": "location.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "official",
+      "sourceIds": ["source:s-game-pangzhen-rtx-2025-08-18-zh"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:pangzhen:name",
+      "key": "location.name",
+      "valueType": "string",
+      "value": "庞镇",
+      "status": "official",
+      "sourceIds": ["source:s-game-pangzhen-rtx-2025-08-18-zh"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:pangzhen:kind",
+      "key": "location.kind",
+      "valueType": "string",
+      "value": "小镇",
+      "status": "official",
+      "sourceIds": ["source:s-game-pangzhen-rtx-2025-08-18-zh"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:pangzhen:public-appearance",
+      "key": "location.publicAppearance",
+      "valueType": "enum",
+      "value": "official-showcase",
+      "status": "official",
+      "sourceIds": ["source:s-game-pangzhen-rtx-2025-08-18-zh"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:pangzhen:observed-trait",
+      "key": "location.observedTrait",
+      "valueType": "string",
+      "value": "公开场景呈现持续降雨的古镇建筑环境。",
+      "status": "observation",
+      "sourceIds": [
+        "source:s-game-pangzhen-rtx-2025-08-18-zh",
+        "source:s-game-pangzhen-rtx-2025-08-18-en"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-08-30",
+  "updatedAt": "2026-08-30",
+  "recordState": "published",
+  "resolution": null
+}

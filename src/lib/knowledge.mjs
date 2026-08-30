@@ -31,15 +31,17 @@ export async function loadKnowledge() {
     readDirectory('data/weapons'),
     readDirectory('data/characters'),
     readDirectory('data/bosses'),
+    readDirectory('data/locations'),
     readDirectory('data/relations'),
     readDirectory('data/sources'),
     readDirectory('data/versions')
-  ]).then(([weapons, characters, bosses, relations, sources, versions]) => {
-    const entities = [...weapons, ...characters, ...bosses];
+  ]).then(([weapons, characters, bosses, locations, relations, sources, versions]) => {
+    const entities = [...weapons, ...characters, ...bosses, ...locations];
     return {
       weapons,
       characters,
       bosses,
+      locations,
       relations,
       sourceById: new Map(sources.map((item) => [item.id, item])),
       versionById: new Map(versions.map((item) => [item.id, item])),
@@ -59,6 +61,10 @@ export function getPublishedCharacters(knowledge) {
 
 export function getPublishedBosses(knowledge) {
   return knowledge.bosses.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
+}
+
+export function getPublishedLocations(knowledge) {
+  return knowledge.locations.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
 }
 
 export function statusLabel(status) {

@@ -1,0 +1,71 @@
+{
+  "fixtureNotice": "Location Schema 测试数据：全部名称和事实均为虚构，不是《影之刃零》生产事实，不得进入 data/。",
+  "cases": [
+    {
+      "name": "location-valid-published",
+      "expected": "pass",
+      "sources": [{"id": "source:fixture-location-official", "authority": "official"}],
+      "entities": [{
+        "id": "location:fixture-published",
+        "entityType": "location",
+        "slug": "fixture-published",
+        "summaryFactIds": ["fact:location:fixture-published:exists"],
+        "facts": [{"id": "fact:location:fixture-published:exists", "key": "location.exists", "status": "official", "sourceIds": ["source:fixture-location-official"]}],
+        "recordState": "published",
+        "publishedAt": "2026-08-30",
+        "updatedAt": "2026-08-30",
+        "resolution": null
+      }]
+    },
+    {
+      "name": "location-valid-draft",
+      "expected": "pass",
+      "sources": [{"id": "source:fixture-location-official", "authority": "official"}],
+      "entities": [{
+        "id": "location:fixture-draft",
+        "entityType": "location",
+        "slug": "fixture-draft",
+        "summaryFactIds": ["fact:location:fixture-draft:name"],
+        "facts": [{"id": "fact:location:fixture-draft:name", "key": "location.name", "status": "official", "sourceIds": ["source:fixture-location-official"]}],
+        "recordState": "draft",
+        "publishedAt": null,
+        "updatedAt": "2026-08-30",
+        "resolution": null
+      }]
+    },
+    {
+      "name": "location-invalid-fact-key",
+      "expected": "fail",
+      "expectedErrorIncludes": "Location Fact key 未注册",
+      "sources": [],
+      "entities": [{
+        "id": "location:fixture-invalid-key",
+        "entityType": "location",
+        "slug": "fixture-invalid-key",
+        "summaryFactIds": [],
+        "facts": [{"id": "fact:location:fixture-invalid-key:unknown", "key": "location.unknown", "status": "observation", "sourceIds": []}],
+        "recordState": "draft",
+        "publishedAt": null,
+        "updatedAt": "2026-08-30",
+        "resolution": null
+      }]
+    },
+    {
+      "name": "location-invalid-source-reference",
+      "expected": "fail",
+      "expectedErrorIncludes": "Source 不存在",
+      "sources": [],
+      "entities": [{
+        "id": "location:fixture-missing-source",
+        "entityType": "location",
+        "slug": "fixture-missing-source",
+        "summaryFactIds": [],
+        "facts": [{"id": "fact:location:fixture-missing-source:exists", "key": "location.exists", "status": "official", "sourceIds": ["source:fixture-missing"]}],
+        "recordState": "draft",
+        "publishedAt": null,
+        "updatedAt": "2026-08-30",
+        "resolution": null
+      }]
+    }
+  ]
+}

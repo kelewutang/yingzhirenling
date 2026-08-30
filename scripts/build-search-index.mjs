@@ -9,26 +9,31 @@ const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
 const WEAPONS_DIR = path.join(ROOT_DIR, 'data', 'weapons');
 const CHARACTERS_DIR = path.join(ROOT_DIR, 'data', 'characters');
 const BOSSES_DIR = path.join(ROOT_DIR, 'data', 'bosses');
+const LOCATIONS_DIR = path.join(ROOT_DIR, 'data', 'locations');
 const WEAPON_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'weapons');
 const CHARACTER_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'characters');
 const BOSS_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'bosses');
+const LOCATION_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'world');
 const VALIDATOR_FILE = path.join(SCRIPT_DIR, 'validate-data.mjs');
 
 const SCHEMA_VERSION = '1.0-implementation';
 const WEAPON_ROUTE = '/weapons';
 const CHARACTER_ROUTE = '/characters';
 const BOSS_ROUTE = '/bosses';
+const LOCATION_ROUTE = '/world';
 const WEAPON_PAGE_MARKER = '<!-- generated-by: build-weapon-pages.mjs -->';
 const SITE_ORIGIN = 'https://www.yingzhirenling.cn';
 const ENTITY_ROUTES = new Map([
   ['weapon', WEAPON_ROUTE],
   ['character', CHARACTER_ROUTE],
-  ['boss', BOSS_ROUTE]
+  ['boss', BOSS_ROUTE],
+  ['location', LOCATION_ROUTE]
 ]);
 const ENTITY_LABELS = new Map([
   ['weapon', '武器'],
   ['character', '角色'],
-  ['boss', 'Boss']
+  ['boss', 'Boss'],
+  ['location', '地点']
 ]);
 const MODE_CONFIG = new Map([
   ['shadow', {
@@ -65,7 +70,8 @@ const APPEARANCE_KEYWORDS = new Map([
   ['demo', ['demo', '试玩']],
   ['trailer', ['trailer', '预告片']],
   ['promotional-material', ['宣传材料']],
-  ['state-of-play', ['State of Play']]
+  ['state-of-play', ['State of Play']],
+  ['official-showcase', ['官方展示']]
 ]);
 
 function compareText(left, right) {
@@ -89,8 +95,9 @@ function parseOptions(args) {
   const detailPagesArgument = args.find((argument) => argument.startsWith('--detail-pages-dir='));
   const characterPagesArgument = args.find((argument) => argument.startsWith('--character-detail-pages-dir='));
   const bossPagesArgument = args.find((argument) => argument.startsWith('--boss-detail-pages-dir='));
-  if (!modeArgument || args.some((argument) => ![modeArgument, detailPagesArgument, characterPagesArgument, bossPagesArgument].includes(argument))) {
-    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production [--detail-pages-dir=目录] [--character-detail-pages-dir=目录] [--boss-detail-pages-dir=目录]');
+  const locationPagesArgument = args.find((argument) => argument.startsWith('--location-detail-pages-dir='));
+  if (!modeArgument || args.some((argument) => ![modeArgument, detailPagesArgument, characterPagesArgument, bossPagesArgument, locationPagesArgument].includes(argument))) {
+    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production [--detail-pages-dir=目录] [--character-detail-pages-dir=目录] [--boss-detail-pages-dir=目录] [--location-detail-pages-dir=目录]');
   }
   const mode = modeArgument.slice('--mode='.length);
   if (!MODE_CONFIG.has(mode)) {
@@ -105,10 +112,13 @@ function parseOptions(args) {
   const bossDetailPagesDir = bossPagesArgument
     ? path.resolve(ROOT_DIR, bossPagesArgument.slice('--boss-detail-pages-dir='.length))
     : BOSS_PAGES_DIR;
-  if ((detailPagesArgument || characterPagesArgument || bossPagesArgument) && mode !== 'production') {
+  const locationDetailPagesDir = locationPagesArgument
+    ? path.resolve(ROOT_DIR, locationPagesArgument.slice('--location-detail-pages-dir='.length))
+    : LOCATION_PAGES_DIR;
+  if ((detailPagesArgument || characterPagesArgument || bossPagesArgument || locationPagesArgument) && mode !== 'production') {
     throw new Error('详情页目录参数只允许用于 production mode');
   }
-  return { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, requireLegacyMarker: false };
+  return { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, locationDetailPagesDir, requireLegacyMarker: false };
 }
 
 function runSchemaValidator() {
@@ -141,7 +151,7 @@ function requireSearchShape(entity, file) {
     throw new Error(`${file}: schemaVersion 必须为 ${SCHEMA_VERSION}`);
   }
   if (!ENTITY_ROUTES.has(entity.entityType)) {
-    throw new Error(`${file}: entityType 必须为 weapon、character 或 boss`);
+    throw new Error(`${file}: entityType 必须为 weapon、character、boss 或 location`);
   }
   for (const field of ['id', 'slug', 'displayName', 'summary', 'recordState']) {
     if (typeof entity[field] !== 'string' || entity[field].trim().length === 0) {
@@ -194,10 +204,10 @@ function deriveKeywords(entity) {
 
   for (const fact of entity.facts) {
     if (!SEARCHABLE_FACT_STATUSES.has(fact.status) || fact.value === null) continue;
-    if ((fact.key === 'weapon.kind' || fact.key === 'character.role') && typeof fact.value === 'string') {
+    if ((fact.key === 'weapon.kind' || fact.key === 'character.role' || fact.key === 'location.kind') && typeof fact.value === 'string') {
       keywords.push(fact.value);
     }
-    if (fact.key === 'weapon.publicAppearance' && typeof fact.value === 'string') {
+    if ((fact.key === 'weapon.publicAppearance' || fact.key === 'location.publicAppearance') && typeof fact.value === 'string') {
       keywords.push(...(APPEARANCE_KEYWORDS.get(fact.value) ?? [fact.value]));
     }
   }
@@ -361,6 +371,29 @@ export async function resolvePublishedBossDetailPageSlugs(records, detailPagesDi
   return slugs;
 }
 
+export async function resolvePublishedLocationDetailPageSlugs(records, detailPagesDir = LOCATION_PAGES_DIR) {
+  const slugs = new Set();
+  for (const record of records) {
+    const entity = record.entity ?? record.weapon;
+    requireSearchShape(entity, record.file);
+    if (entity.entityType !== 'location' || entity.recordState !== 'published') continue;
+    const pageFile = path.join(detailPagesDir, `${entity.slug}.html`);
+    let html;
+    try {
+      html = await fs.readFile(pageFile, 'utf8');
+    } catch (cause) {
+      if (cause.code === 'ENOENT') throw new Error(`${record.file}: 已发布 Location 缺少详情页 ${path.relative(ROOT_DIR, pageFile).replaceAll('\\', '/')}`);
+      throw cause;
+    }
+    const canonical = `${SITE_ORIGIN}${LOCATION_ROUTE}/${entity.slug}`;
+    if (!html.includes(`<link rel="canonical" href="${canonical}"`)) {
+      throw new Error(`${record.file}: 详情页 canonical 与搜索 route 不一致：${canonical}`);
+    }
+    slugs.add(entity.slug);
+  }
+  return slugs;
+}
+
 async function writeDeterministicJson(documents, outputFile) {
   const output = `${JSON.stringify(documents, null, 2)}\n`;
   await fs.mkdir(path.dirname(outputFile), { recursive: true });
@@ -378,18 +411,20 @@ async function writeDeterministicJson(documents, outputFile) {
 }
 
 async function main() {
-  const { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, requireLegacyMarker } = parseOptions(process.argv.slice(2));
+  const { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, locationDetailPagesDir, requireLegacyMarker } = parseOptions(process.argv.slice(2));
   const config = MODE_CONFIG.get(mode);
   runSchemaValidator();
   const records = [
     ...await readEntityRecords(WEAPONS_DIR, 'data/weapons'),
     ...await readEntityRecords(CHARACTERS_DIR, 'data/characters'),
-    ...await readEntityRecords(BOSSES_DIR, 'data/bosses')
+    ...await readEntityRecords(BOSSES_DIR, 'data/bosses'),
+    ...await readEntityRecords(LOCATIONS_DIR, 'data/locations')
   ];
   const detailPageSlugs = new Map([
     ['weapon', await resolvePublishedWeaponDetailPageSlugs(records, detailPagesDir, requireLegacyMarker)],
     ['character', await resolvePublishedCharacterDetailPageSlugs(records, characterDetailPagesDir)],
-    ['boss', await resolvePublishedBossDetailPageSlugs(records, bossDetailPagesDir)]
+    ['boss', await resolvePublishedBossDetailPageSlugs(records, bossDetailPagesDir)],
+    ['location', await resolvePublishedLocationDetailPageSlugs(records, locationDetailPagesDir)]
   ]);
   const { documents, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs);
   const changed = await writeDeterministicJson(documents, config.outputFile);
@@ -401,6 +436,7 @@ async function main() {
   console.log(`Weapon records read: ${records.filter(({ entity }) => entity.entityType === 'weapon').length}`);
   console.log(`Character records read: ${records.filter(({ entity }) => entity.entityType === 'character').length}`);
   console.log(`Boss records read: ${records.filter(({ entity }) => entity.entityType === 'boss').length}`);
+  console.log(`Location records read: ${records.filter(({ entity }) => entity.entityType === 'location').length}`);
   console.log(`Search documents written: ${documents.length}`);
   for (const state of [...KNOWN_RECORD_STATES].sort(compareText)) {
     console.log(`Skipped ${state}: ${skippedByState.get(state) ?? 0}`);

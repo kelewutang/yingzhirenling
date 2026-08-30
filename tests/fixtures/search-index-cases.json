@@ -427,6 +427,56 @@
       "expected": {
         "documentIds": []
       }
+    },
+    {
+      "name": "location-published-production-visible-at-collection-route",
+      "mode": "production",
+      "entities": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "location:fixture-published",
+          "entityType": "location",
+          "slug": "fixture-published",
+          "displayName": "测试地点",
+          "aliases": [
+            {
+              "value": "Fixture Place",
+              "kind": "official-en",
+              "status": "official"
+            }
+          ],
+          "summary": "仅用于验证已发布地点进入统一搜索派生。",
+          "summaryFactIds": ["fact:location:fixture-published:kind"],
+          "facts": [
+            {
+              "id": "fact:location:fixture-published:kind",
+              "key": "location.kind",
+              "value": "测试区域",
+              "status": "official"
+            },
+            {
+              "id": "fact:location:fixture-published:appearance",
+              "key": "location.publicAppearance",
+              "value": "official-showcase",
+              "status": "official"
+            }
+          ],
+          "recordState": "published",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": ["location:fixture-published"],
+        "documents": {
+          "location:fixture-published": {
+            "entityType": "location",
+            "route": "/world",
+            "aliases": ["Fixture Place"],
+            "displayAliases": ["Fixture Place"],
+            "keywords": ["地点", "官方展示", "测试区域"]
+          }
+        }
+      }
     }
   ]
 }

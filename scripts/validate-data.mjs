@@ -8,6 +8,7 @@ const DATA_DIR = path.join(ROOT_DIR, 'data');
 const FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'knowledge-schema-cases.json');
 const CHARACTER_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'character-schema-cases.json');
 const BOSS_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'boss-schema-cases.json');
+const LOCATION_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'location-schema-cases.json');
 const RELATION_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'relation-schema-cases.json');
 const FIXTURE_MODE = process.argv.includes('--fixtures');
 const SCHEMA_VERSION = '1.0-implementation';
@@ -20,7 +21,7 @@ const STATUS_VALUES = new Set([
   'pending-review'
 ]);
 const AUTHORITY_VALUES = new Set(['official', 'third-party', 'community', 'internal']);
-const ENTITY_TYPES = new Set(['weapon', 'character', 'boss']);
+const ENTITY_TYPES = new Set(['weapon', 'character', 'boss', 'location']);
 const RELATION_TYPES = new Set(['parentOf', 'formerCompanionOf']);
 const RECORD_STATES = new Set(['draft', 'published', 'archived']);
 const RESOLUTION_TYPES = new Set(['duplicate', 'merge', 'split', 'misidentified']);
@@ -304,6 +305,23 @@ async function runFixtureFile(fixtureFile) {
           if (!ownedFacts.has(factId)) report(`${location}.summaryFactIds`, `Fact 不属于当前 Character：${factId}`);
         }
       }
+      if (entity.entityType === 'location') {
+        const ownedFacts = new Set((Array.isArray(entity.facts) ? entity.facts : []).map((fact) => fact.id));
+        const locationFactKeys = new Set([
+          'location.exists',
+          'location.name',
+          'location.kind',
+          'location.publicAppearance',
+          'location.observedTrait'
+        ]);
+        validateStringArray(entity.summaryFactIds, `${location}.summaryFactIds`);
+        for (const factId of entity.summaryFactIds ?? []) {
+          if (!ownedFacts.has(factId)) report(`${location}.summaryFactIds`, `Fact 不属于当前 Location：${factId}`);
+        }
+        for (const [factIndex, fact] of (Array.isArray(entity.facts) ? entity.facts : []).entries()) {
+          if (!locationFactKeys.has(fact.key)) report(`${location}.facts[${factIndex}].key`, `Location Fact key 未注册：${fact.key}`);
+        }
+      }
     }
     validateEntityResolutions(fixtureEntities, report);
 
@@ -352,6 +370,7 @@ async function runFixtures() {
     runFixtureFile(FIXTURE_FILE),
     runFixtureFile(CHARACTER_FIXTURE_FILE),
     runFixtureFile(BOSS_FIXTURE_FILE),
+    runFixtureFile(LOCATION_FIXTURE_FILE),
     runFixtureFile(RELATION_FIXTURE_FILE)
   ]);
   return results.every(Boolean);
@@ -362,12 +381,13 @@ if (FIXTURE_MODE) {
   process.exit(fixturesPassed ? 0 : 1);
 }
 
-const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, relationFiles, factRegistryFile, platformRegistryFile] = await Promise.all([
+const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locationFiles, relationFiles, factRegistryFile, platformRegistryFile] = await Promise.all([
   readRecordDirectory('sources'),
   readRecordDirectory('versions'),
   readRecordDirectory('weapons'),
   readRecordDirectory('characters'),
   readRecordDirectory('bosses'),
+  readRecordDirectory('locations'),
   readRecordDirectory('relations'),
   readJson(path.join(DATA_DIR, 'registries', 'fact-keys.json')),
   readJson(path.join(DATA_DIR, 'registries', 'platforms.json'))
@@ -490,7 +510,7 @@ const facts = new Map();
 const factOwners = new Map();
 const entitySlugs = new Map([...ENTITY_TYPES].map((entityType) => [entityType, new Map()]));
 
-for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ...bossFiles]) {
+for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ...bossFiles, ...locationFiles]) {
   if (!isObject(entity)) {
     error(relative, 'Entity 顶层必须是对象');
     continue;
@@ -499,7 +519,7 @@ for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ..
   registerId(entity.id, `${relative}.id`);
   if (typeof entity.id === 'string') entities.set(entity.id, { relative, entity });
   if (!ENTITY_TYPES.has(entity.entityType)) {
-    error(`${relative}.entityType`, 'entityType 必须为 weapon、character 或 boss');
+    error(`${relative}.entityType`, 'entityType 必须为 weapon、character、boss 或 location');
   }
   if (typeof entity.slug !== 'string' || !SLUG_PATTERN.test(entity.slug)) {
     error(`${relative}.slug`, '必须是 ASCII kebab-case');
@@ -793,6 +813,7 @@ if (errors.length > 0) {
   console.log(`Weapons: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'weapon').length}`);
   console.log(`Characters: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'character').length}`);
   console.log(`Bosses: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'boss').length}`);
+  console.log(`Locations: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'location').length}`);
   console.log(`Relations: ${relations.size}`);
   console.log(`Facts: ${facts.size}`);
   console.log(`Fact keys: ${factRegistry.size}`);

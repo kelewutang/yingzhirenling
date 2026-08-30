@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EntityHeader from '../../components/EntityHeader.astro';
+import FactList from '../../components/FactList.astro';
+import SourceList from '../../components/SourceList.astro';
+import { aliasValues, collectDisplayedSources, getPublishedLocations, loadKnowledge } from '../../lib/knowledge.mjs';
+import { projectLocationFacts } from '../../lib/projections.mjs';
+
+export async function getStaticPaths() {
+  const knowledge = await loadKnowledge();
+  return getPublishedLocations(knowledge).map((location) => ({ params: { slug: location.slug }, props: { location } }));
+}
+
+const { location } = Astro.props;
+const knowledge = await loadKnowledge();
+const facts = projectLocationFacts(location, knowledge);
+const sources = collectDisplayedSources(facts, knowledge);
+const canonical = `https://www.yingzhirenling.cn/world/${location.slug}`;
+const description = `${location.displayName}：${location.summary}`;
+---
+<BaseLayout title={`${location.displayName} - 影之刃零世界与地点`} description={description} canonical={canonical} activeSection="world">
+  <EntityHeader entity={location} aliases={aliasValues(location)}>
+    <Fragment slot="breadcrumb"><Breadcrumb collectionHref="/world" collectionLabel="世界与地点" currentLabel={location.displayName} /></Fragment>
+  </EntityHeader>
+  <article class="article">
+    <div class="alert alert-info">本页只整理公开资料能够稳定识别的地点名称、类型与场景特征；不根据预告片顺序推断地图相邻关系、主线流程或隐藏内容。</div>
+    <FactList facts={facts} sourceById={knowledge.sourceById} />
+    <SourceList sources={sources} />
+    <p><a class="btn btn-outline" href="/world">返回世界与地点</a></p>
+  </article>
+</BaseLayout>

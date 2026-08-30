@@ -52,6 +52,21 @@ ${bosses.map((boss) => `          <a class="card" href="/bosses/${escapeHtml(bos
       </section>`;
 }
 
+async function renderPublishedLocationCards() {
+  const directory = resolve(root, 'data/locations');
+  const names = (await readdir(directory)).filter((name) => name.endsWith('.json')).sort();
+  const locations = (await Promise.all(names.map(async (name) => JSON.parse(await readFile(resolve(directory, name), 'utf8')))))
+    .filter((location) => location.recordState === 'published')
+    .sort((a, b) => a.id.localeCompare(b.id));
+  return `<section aria-labelledby="published-locations-title">
+        <h2 id="published-locations-title">已发布地点资料</h2>
+        <p>以下条目只收录名称与地点 identity 有可靠公开依据的场所；描述性场景不会自动成为正式地点名。</p>
+        <div class="card-grid" style="margin:20px 0;">
+${locations.map((location) => `          <a class="card" href="/world/${escapeHtml(location.slug)}"><h3 class="card-title">${escapeHtml(location.displayName)}</h3><p class="card-text">${escapeHtml(location.summary)}</p><span class="btn btn-outline">查看地点资料</span></a>`).join('\n')}
+        </div>
+      </section>`;
+}
+
 // Migration bridge only. Delete after every legacy page is owned by Astro.
 const targets = [
   ['css', 'css'],
@@ -97,6 +112,12 @@ const bossCollection = await readFile(bossCollectionFile, 'utf8');
 const bossCards = await renderPublishedBossCards();
 if (!bossCollection.includes('<!-- published-boss-cards -->')) throw new Error('Boss collection projection marker missing');
 await writeFile(bossCollectionFile, bossCollection.replace('<!-- published-boss-cards -->', bossCards), 'utf8');
+
+const locationCollectionFile = resolve(dist, 'world.html');
+const locationCollection = await readFile(locationCollectionFile, 'utf8');
+const locationCards = await renderPublishedLocationCards();
+if (!locationCollection.includes('<!-- published-location-cards -->')) throw new Error('Location collection projection marker missing');
+await writeFile(locationCollectionFile, locationCollection.replace('<!-- published-location-cards -->', locationCards), 'utf8');
 
 // Preserve the existing exact Netlify rewrites while making their targets
 // Astro-generated. This compatibility copy disappears with the migration bridge.
