@@ -1,0 +1,71 @@
+{
+  "fixtureNotice": "Boss Schema 测试数据：全部名称和事实均为虚构，不是《影之刃零》生产事实，不得进入 data/。",
+  "cases": [
+    {
+      "name": "boss-valid-published",
+      "expected": "pass",
+      "sources": [{"id": "source:fixture-boss-media", "authority": "third-party"}],
+      "entities": [{
+        "id": "boss:fixture-published",
+        "entityType": "boss",
+        "slug": "fixture-published",
+        "summaryFactIds": ["fact:boss:fixture-published:exists"],
+        "facts": [{"id": "fact:boss:fixture-published:exists", "key": "boss.exists", "status": "third-party", "sourceIds": ["source:fixture-boss-media"]}],
+        "recordState": "published",
+        "publishedAt": "2026-08-30",
+        "updatedAt": "2026-08-30",
+        "resolution": null
+      }]
+    },
+    {
+      "name": "boss-valid-draft",
+      "expected": "pass",
+      "sources": [{"id": "source:fixture-boss-media", "authority": "third-party"}],
+      "entities": [{
+        "id": "boss:fixture-draft",
+        "entityType": "boss",
+        "slug": "fixture-draft",
+        "summaryFactIds": ["fact:boss:fixture-draft:name"],
+        "facts": [{"id": "fact:boss:fixture-draft:name", "key": "boss.name", "status": "third-party", "sourceIds": ["source:fixture-boss-media"]}],
+        "recordState": "draft",
+        "publishedAt": null,
+        "updatedAt": "2026-08-30",
+        "resolution": null
+      }]
+    },
+    {
+      "name": "boss-invalid-fact-key",
+      "expected": "fail",
+      "expectedErrorIncludes": "Boss Fact key 未注册",
+      "sources": [],
+      "entities": [{
+        "id": "boss:fixture-invalid-key",
+        "entityType": "boss",
+        "slug": "fixture-invalid-key",
+        "summaryFactIds": [],
+        "facts": [{"id": "fact:boss:fixture-invalid-key:unknown", "key": "boss.unknown", "status": "observation", "sourceIds": []}],
+        "recordState": "draft",
+        "publishedAt": null,
+        "updatedAt": "2026-08-30",
+        "resolution": null
+      }]
+    },
+    {
+      "name": "boss-invalid-source-reference",
+      "expected": "fail",
+      "expectedErrorIncludes": "Source 不存在",
+      "sources": [],
+      "entities": [{
+        "id": "boss:fixture-missing-source",
+        "entityType": "boss",
+        "slug": "fixture-missing-source",
+        "summaryFactIds": [],
+        "facts": [{"id": "fact:boss:fixture-missing-source:exists", "key": "boss.exists", "status": "third-party", "sourceIds": ["source:fixture-missing"]}],
+        "recordState": "draft",
+        "publishedAt": null,
+        "updatedAt": "2026-08-30",
+        "resolution": null
+      }]
+    }
+  ]
+}

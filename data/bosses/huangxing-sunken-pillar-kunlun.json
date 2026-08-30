@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "boss:huangxing-sunken-pillar-kunlun",
+  "entityType": "boss",
+  "slug": "huangxing-sunken-pillar-kunlun",
+  "displayName": "Huangxing, the Sunken Pillar of Kunlun",
+  "aliases": [],
+  "summary": "IGN 的独家实机视频说明将 Huangxing, the Sunken Pillar of Kunlun 列为一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
+  "summaryFactIds": ["fact:boss:huangxing-sunken-pillar-kunlun:exists", "fact:boss:huangxing-sunken-pillar-kunlun:kind"],
+  "facts": [
+    {"id":"fact:boss:huangxing-sunken-pillar-kunlun:exists","key":"boss.exists","valueType":"boolean","value":true,"status":"third-party","sourceIds":["source:ign-exclusive-gameplay-2024-06-09"],"basisFactIds":[],"checkedAt":"2026-08-30","gameVersionId":"version:prelaunch-demo-2024","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":null},
+    {"id":"fact:boss:huangxing-sunken-pillar-kunlun:name","key":"boss.name","valueType":"string","value":"Huangxing, the Sunken Pillar of Kunlun","status":"third-party","sourceIds":["source:ign-exclusive-gameplay-2024-06-09"],"basisFactIds":[],"checkedAt":"2026-08-30","gameVersionId":"version:prelaunch-demo-2024","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":null},
+    {"id":"fact:boss:huangxing-sunken-pillar-kunlun:kind","key":"boss.kind","valueType":"string","value":"Boss","status":"third-party","sourceIds":["source:ign-exclusive-gameplay-2024-06-09"],"basisFactIds":[],"checkedAt":"2026-08-30","gameVersionId":"version:prelaunch-demo-2024","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":null},
+    {"id":"fact:boss:huangxing-sunken-pillar-kunlun:public-appearance","key":"boss.publicAppearance","valueType":"enum","value":"gameplay-video","status":"third-party","sourceIds":["source:ign-exclusive-gameplay-2024-06-09"],"basisFactIds":[],"checkedAt":"2026-08-30","gameVersionId":"version:prelaunch-demo-2024","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":null}
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-08-30",
+  "updatedAt": "2026-08-30",
+  "recordState": "published",
+  "resolution": null
+}

@@ -125,6 +125,8 @@ P1-10 Astro Production Migration Candidate 与 P1-11 Astro Production Switch Gat
 
 P1-12 Character Publication Batch 已完成：魂、魔渊和 The Hunt 的角色详情、两条已验证人物关系、集合页入口、Production Search 与 sitemap 已进入生产派生链。
 
+P1-13 Boss Entity Batch 已完成：Tie Sha the Frenzy、Commander Cleave 与 Huangxing, the Sunken Pillar of Kunlun 以第三方实机视频明确标注的 Boss 身份接入同一生产派生链；页面不推断打法、阶段、弱点、掉落或位置。
+
 后续阶段进入 **Content Expansion**，按现有可信资料量在 Boss Entity Batch 与 Weapon Expansion Batch 之间选择；不在本阶段预建新 Schema。
 
 # Related Sources of Truth

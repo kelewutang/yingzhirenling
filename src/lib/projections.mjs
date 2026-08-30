@@ -58,3 +58,24 @@ export function projectCharacterFacts(character, knowledge) {
     };
   }).filter(Boolean);
 }
+
+export function projectBossFacts(boss, knowledge) {
+  const bossSpecs = [
+    ['boss.exists', '核心资料', '公开记录'],
+    ['boss.name', '核心资料', '名称记录'],
+    ['boss.kind', '核心资料', '敌人类型'],
+    ['boss.publicAppearance', '公开资料', '公开出现方式']
+  ];
+  return bossSpecs.map(([key, section, title]) => {
+    const fact = getFact(boss, key);
+    return fact && {
+      ...fact,
+      section,
+      title,
+      valueText: fact.key === 'boss.exists' ? '已在可核查的发售前公开资料中作为 Boss 战出现。' : String(fact.value),
+      description: null,
+      statusText: statusLabel(fact.status),
+      versionText: versionLabel(fact.gameVersionId, knowledge)
+    };
+  }).filter(Boolean);
+}

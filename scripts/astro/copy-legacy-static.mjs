@@ -22,6 +22,21 @@ ${characters.map((character) => `          <a class="card" href="/characters/${e
       </section>`;
 }
 
+async function renderPublishedBossCards() {
+  const directory = resolve(root, 'data/bosses');
+  const names = (await readdir(directory)).filter((name) => name.endsWith('.json')).sort();
+  const bosses = (await Promise.all(names.map(async (name) => JSON.parse(await readFile(resolve(directory, name), 'utf8')))))
+    .filter((boss) => boss.recordState === 'published')
+    .sort((a, b) => a.id.localeCompare(b.id));
+  return `<section aria-labelledby="published-bosses-title">
+        <h2 id="published-bosses-title">已发布 Boss 资料</h2>
+        <p>以下条目来自可核查的公开资料；详情页仅展示目前有来源支持的信息。</p>
+        <div class="card-grid" style="margin:20px 0;">
+${bosses.map((boss) => `          <a class="card" href="/bosses/${escapeHtml(boss.slug)}"><h3 class="card-title">${escapeHtml(boss.displayName)}</h3><p class="card-text">${escapeHtml(boss.summary)}</p><span class="btn btn-outline">查看 Boss 资料</span></a>`).join('\n')}
+        </div>
+      </section>`;
+}
+
 // Migration bridge only. Delete after every legacy page is owned by Astro.
 const targets = [
   ['css', 'css'],
@@ -55,6 +70,12 @@ const characterCollection = await readFile(characterCollectionFile, 'utf8');
 const characterCards = await renderPublishedCharacterCards();
 if (!characterCollection.includes('<!-- published-character-cards -->')) throw new Error('Character collection projection marker missing');
 await writeFile(characterCollectionFile, characterCollection.replace('<!-- published-character-cards -->', characterCards), 'utf8');
+
+const bossCollectionFile = resolve(dist, 'bosses.html');
+const bossCollection = await readFile(bossCollectionFile, 'utf8');
+const bossCards = await renderPublishedBossCards();
+if (!bossCollection.includes('<!-- published-boss-cards -->')) throw new Error('Boss collection projection marker missing');
+await writeFile(bossCollectionFile, bossCollection.replace('<!-- published-boss-cards -->', bossCards), 'utf8');
 
 // Preserve the existing exact Netlify rewrites while making their targets
 // Astro-generated. This compatibility copy disappears with the migration bridge.

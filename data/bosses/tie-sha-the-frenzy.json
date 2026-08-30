@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "boss:tie-sha-the-frenzy",
+  "entityType": "boss",
+  "slug": "tie-sha-the-frenzy",
+  "displayName": "Tie Sha the Frenzy",
+  "aliases": [],
+  "summary": "IGN 的独家实机视频说明将 Tie Sha the Frenzy 列为其中一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
+  "summaryFactIds": ["fact:boss:tie-sha-the-frenzy:exists", "fact:boss:tie-sha-the-frenzy:kind"],
+  "facts": [
+    {"id":"fact:boss:tie-sha-the-frenzy:exists","key":"boss.exists","valueType":"boolean","value":true,"status":"third-party","sourceIds":["source:ign-exclusive-gameplay-2024-06-09"],"basisFactIds":[],"checkedAt":"2026-08-30","gameVersionId":"version:prelaunch-demo-2024","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":null},
+    {"id":"fact:boss:tie-sha-the-frenzy:name","key":"boss.name","valueType":"string","value":"Tie Sha the Frenzy","status":"third-party","sourceIds":["source:ign-exclusive-gameplay-2024-06-09"],"basisFactIds":[],"checkedAt":"2026-08-30","gameVersionId":"version:prelaunch-demo-2024","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":null},
+    {"id":"fact:boss:tie-sha-the-frenzy:kind","key":"boss.kind","valueType":"string","value":"Boss","status":"third-party","sourceIds":["source:ign-exclusive-gameplay-2024-06-09"],"basisFactIds":[],"checkedAt":"2026-08-30","gameVersionId":"version:prelaunch-demo-2024","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":null},
+    {"id":"fact:boss:tie-sha-the-frenzy:public-appearance","key":"boss.publicAppearance","valueType":"enum","value":"gameplay-video","status":"third-party","sourceIds":["source:ign-exclusive-gameplay-2024-06-09"],"basisFactIds":[],"checkedAt":"2026-08-30","gameVersionId":"version:prelaunch-demo-2024","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":null}
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-08-30",
+  "updatedAt": "2026-08-30",
+  "recordState": "published",
+  "resolution": null
+}
