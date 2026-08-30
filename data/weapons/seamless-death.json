@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:seamless-death",
+  "entityType": "weapon",
+  "slug": "seamless-death",
+  "displayName": "Seamless Death",
+  "aliases": [],
+  "summary": "Gamescom 2025 公开试玩将 Seamless Death 列为可装备的主武器，并标注为投掷武器；目前不扩展正式版动作、强度或获取结论。",
+  "summaryFactIds": [
+    "fact:weapon:seamless-death:exists",
+    "fact:weapon:seamless-death:name",
+    "fact:weapon:seamless-death:kind",
+    "fact:weapon:seamless-death:public-appearance"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:seamless-death:exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:seamless-death:name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "Seamless Death",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "保留试玩记录直接使用的英文名称，不自行添加中文译名。"
+    },
+    {
+      "id": "fact:weapon:seamless-death:kind",
+      "key": "weapon.kind",
+      "valueType": "string",
+      "value": "主武器（投掷武器）",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:seamless-death:public-appearance",
+      "key": "weapon.publicAppearance",
+      "valueType": "enum",
+      "value": "demo",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-08-30",
+  "updatedAt": "2026-08-30",
+  "recordState": "published",
+  "resolution": null
+}

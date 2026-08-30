@@ -8,6 +8,21 @@ function escapeHtml(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 }
 
+async function renderPublishedWeaponCards() {
+  const directory = resolve(root, 'data/weapons');
+  const names = (await readdir(directory)).filter((name) => name.endsWith('.json')).sort();
+  const weapons = (await Promise.all(names.map(async (name) => JSON.parse(await readFile(resolve(directory, name), 'utf8')))))
+    .filter((weapon) => weapon.recordState === 'published')
+    .sort((a, b) => a.id.localeCompare(b.id));
+  return `<section aria-labelledby="published-weapons-title">
+        <h2 id="published-weapons-title">已发布武器资料</h2>
+        <p>以下条目来自可核查的公开资料；详情页只展示当前有 Fact 与 Source 支持的信息。</p>
+        <div class="card-grid" style="margin:20px 0;">
+${weapons.map((weapon) => `          <a class="card" href="/weapons/${escapeHtml(weapon.slug)}"><h3 class="card-title">${escapeHtml(weapon.displayName)}</h3><p class="card-text">${escapeHtml(weapon.summary)}</p><span class="btn btn-outline">查看武器资料</span></a>`).join('\n')}
+        </div>
+      </section>`;
+}
+
 async function renderPublishedCharacterCards() {
   const directory = resolve(root, 'data/characters');
   const names = (await readdir(directory)).filter((name) => name.endsWith('.json')).sort();
@@ -64,6 +79,12 @@ for (const [sourcePath, destinationPath] of targets) {
   await rm(destination, { recursive: true, force: true });
   await cp(source, destination, { recursive: true });
 }
+
+const weaponCollectionFile = resolve(dist, 'weapons.html');
+const weaponCollection = await readFile(weaponCollectionFile, 'utf8');
+const weaponCards = await renderPublishedWeaponCards();
+if (!weaponCollection.includes('<!-- published-weapon-cards -->')) throw new Error('Weapon collection projection marker missing');
+await writeFile(weaponCollectionFile, weaponCollection.replace('<!-- published-weapon-cards -->', weaponCards), 'utf8');
 
 const characterCollectionFile = resolve(dist, 'characters.html');
 const characterCollection = await readFile(characterCollectionFile, 'utf8');

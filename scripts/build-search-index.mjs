@@ -9,7 +9,7 @@ const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
 const WEAPONS_DIR = path.join(ROOT_DIR, 'data', 'weapons');
 const CHARACTERS_DIR = path.join(ROOT_DIR, 'data', 'characters');
 const BOSSES_DIR = path.join(ROOT_DIR, 'data', 'bosses');
-const WEAPON_PAGES_DIR = path.join(ROOT_DIR, 'pages', 'generated', 'weapons');
+const WEAPON_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'weapons');
 const CHARACTER_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'characters');
 const BOSS_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'bosses');
 const VALIDATOR_FILE = path.join(SCRIPT_DIR, 'validate-data.mjs');
@@ -108,7 +108,7 @@ function parseOptions(args) {
   if ((detailPagesArgument || characterPagesArgument || bossPagesArgument) && mode !== 'production') {
     throw new Error('详情页目录参数只允许用于 production mode');
   }
-  return { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, requireLegacyMarker: !detailPagesArgument };
+  return { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, requireLegacyMarker: false };
 }
 
 function runSchemaValidator() {

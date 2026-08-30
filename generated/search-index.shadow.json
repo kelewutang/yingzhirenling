@@ -105,6 +105,63 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:bashpole",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "bashpole",
+    "route": "/weapons/bashpole",
+    "displayName": "Bashpole",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "次要武器（影之武，大锤）",
+      "武器",
+      "试玩"
+    ],
+    "summary": "Gamescom 2025 公开试玩将 Bashpole 列为可装备的次要武器（影之武），并标注为大锤；目前不扩展正式版动作、强度或获取结论。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:jagged-steel",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "jagged-steel",
+    "route": "/weapons/jagged-steel",
+    "displayName": "Jagged Steel",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "主武器（剑）",
+      "武器",
+      "试玩"
+    ],
+    "summary": "Gamescom 2025 公开试玩将 Jagged Steel 列为可装备的主武器，并标注为剑；目前不扩展正式版动作、强度或获取结论。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:night-owl",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "night-owl",
+    "route": "/weapons/night-owl",
+    "displayName": "Night Owl",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "次要武器（影之武，弓）",
+      "武器",
+      "试玩"
+    ],
+    "summary": "Gamescom 2025 公开试玩将 Night Owl 列为可装备的次要武器（影之武），并标注为弓；目前不扩展正式版动作、强度或获取结论。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:qinglong-lueyue-dao",
     "documentType": "entity",
     "entityType": "weapon",
@@ -126,6 +183,44 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:seamless-death",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "seamless-death",
+    "route": "/weapons/seamless-death",
+    "displayName": "Seamless Death",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "主武器（投掷武器）",
+      "武器",
+      "试玩"
+    ],
+    "summary": "Gamescom 2025 公开试玩将 Seamless Death 列为可装备的主武器，并标注为投掷武器；目前不扩展正式版动作、强度或获取结论。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:soft-snake-sword",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "soft-snake-sword",
+    "route": "/weapons/soft-snake-sword",
+    "displayName": "Soft Snake Sword",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "主武器（剑）",
+      "武器",
+      "试玩"
+    ],
+    "summary": "Gamescom 2025 公开试玩将 Soft Snake Sword 列为可装备的主武器，并标注为剑；目前不扩展正式版动作、强度或获取结论。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:tang-hengdao",
     "documentType": "entity",
     "entityType": "weapon",
@@ -141,6 +236,25 @@
       "试玩"
     ],
     "summary": "发售前公开试玩中出现的单手刀；当前演示整理认为其攻防节奏较均衡，获取方式仍待确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:white-serpent-crimson-viper",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "white-serpent-crimson-viper",
+    "route": "/weapons/white-serpent-crimson-viper",
+    "displayName": "White Serpent & Crimson Viper",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "demo",
+      "主武器（双剑）",
+      "武器",
+      "试玩"
+    ],
+    "summary": "Gamescom 2025 公开试玩将 White Serpent & Crimson Viper 作为一组可装备的主武器列出，并标注为双剑；目前不扩展正式版动作、强度或获取结论。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

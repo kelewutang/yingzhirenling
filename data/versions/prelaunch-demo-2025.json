@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "version:prelaunch-demo-2025",
+  "stage": "prelaunch-demo",
+  "displayName": "2025 Gamescom 公开试玩阶段",
+  "versionLabel": null,
+  "track": "prelaunch",
+  "sequence": 15,
+  "platformIds": [],
+  "releasedAt": "2025-08-28",
+  "sourceIds": [
+    "source:playstation-blog-de-gamescom-hands-on-2025-08-28"
+  ],
+  "checkedAt": "2026-08-30",
+  "supersedesVersionId": "version:prelaunch-demo-2024",
+  "supersededBy": null
+}

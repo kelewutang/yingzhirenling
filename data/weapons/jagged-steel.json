@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:jagged-steel",
+  "entityType": "weapon",
+  "slug": "jagged-steel",
+  "displayName": "Jagged Steel",
+  "aliases": [],
+  "summary": "Gamescom 2025 公开试玩将 Jagged Steel 列为可装备的主武器，并标注为剑；目前不扩展正式版动作、强度或获取结论。",
+  "summaryFactIds": [
+    "fact:weapon:jagged-steel:exists",
+    "fact:weapon:jagged-steel:name",
+    "fact:weapon:jagged-steel:kind",
+    "fact:weapon:jagged-steel:public-appearance"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:jagged-steel:exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "Jagged Steel",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "保留试玩记录直接使用的英文名称，不自行添加中文译名。"
+    },
+    {
+      "id": "fact:weapon:jagged-steel:kind",
+      "key": "weapon.kind",
+      "valueType": "string",
+      "value": "主武器（剑）",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:public-appearance",
+      "key": "weapon.publicAppearance",
+      "valueType": "enum",
+      "value": "demo",
+      "status": "observation",
+      "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-30",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {"mode": "all", "ids": []},
+        "difficulties": {"mode": "all", "ids": []}
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-08-30",
+  "updatedAt": "2026-08-30",
+  "recordState": "published",
+  "resolution": null
+}
