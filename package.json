@@ -8,7 +8,7 @@
     "node": "24.19.0"
   },
   "scripts": {
-    "build": "node scripts/validate-data.mjs && node scripts/astro/check-netlify-redirects.mjs && node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs && astro build && node scripts/build-search-index.mjs --mode=production --detail-pages-dir=dist/weapons --character-detail-pages-dir=dist/characters --boss-detail-pages-dir=dist/bosses && node scripts/astro/copy-legacy-static.mjs && node scripts/astro/verify-dist.mjs",
+    "build": "node scripts/validate-data.mjs && node scripts/astro/check-netlify-redirects.mjs && node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs && astro build && node scripts/build-search-index.mjs --mode=production --detail-pages-dir=dist/weapons --character-detail-pages-dir=dist/characters --boss-detail-pages-dir=dist/bosses --location-detail-pages-dir=dist/world && node scripts/astro/copy-legacy-static.mjs && node scripts/astro/verify-dist.mjs",
     "preview": "astro preview",
     "test:astro": "node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs"
   },

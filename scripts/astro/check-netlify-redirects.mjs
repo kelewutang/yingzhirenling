@@ -25,6 +25,13 @@ const publishedBosses = (await Promise.all(
   (await readdir(bossDirectory)).filter((name) => name.endsWith('.json')).sort()
     .map(async (name) => JSON.parse(await readFile(resolve(bossDirectory, name), 'utf8')))
 )).filter((boss) => boss.recordState === 'published');
+const locationDirectory = resolve(root, 'data/locations');
+const locations = await Promise.all(
+  (await readdir(locationDirectory)).filter((name) => name.endsWith('.json')).sort()
+    .map(async (name) => JSON.parse(await readFile(resolve(locationDirectory, name), 'utf8')))
+);
+const publishedLocations = locations.filter((location) => location.recordState === 'published');
+const draftLocations = locations.filter((location) => location.recordState === 'draft');
 const historicalWeaponSlugs = new Set(['tang-hengdao', 'ya-hengdao']);
 
 assert(!indexByFrom.has('/weapons/:slug.html'), 'Parameterized .html redirect would change unknown/draft 404 behavior');
@@ -73,6 +80,19 @@ for (const boss of publishedBosses) {
   assert(indexByFrom.get(htmlRoute) < indexByFrom.get(canonicalRoute), `${htmlRoute} redirect must precede its 200 rewrite`);
 }
 
+assert(!indexByFrom.has('/world/:slug.html'), 'Parameterized Location .html redirect would change unknown/draft 404 behavior');
+for (const location of publishedLocations) {
+  const htmlRoute = `/world/${location.slug}.html`;
+  const canonicalRoute = `/world/${location.slug}`;
+  assert.deepEqual(blocks[indexByFrom.get(htmlRoute)], { from: htmlRoute, to: canonicalRoute, status: 301, force: true });
+  assert.equal(blocks[indexByFrom.get(canonicalRoute)].status, 200, `${canonicalRoute} must remain an extensionless 200 rewrite`);
+  assert(indexByFrom.get(htmlRoute) < indexByFrom.get(canonicalRoute), `${htmlRoute} redirect must precede its 200 rewrite`);
+}
+for (const location of draftLocations) {
+  assert(!indexByFrom.has(`/world/${location.slug}`), `Draft Location canonical route must remain 404: ${location.slug}`);
+  assert(!indexByFrom.has(`/world/${location.slug}.html`), `Draft Location .html route must remain 404: ${location.slug}`);
+}
+
 assert.equal(blocks.at(-1).from, '/*');
 assert.equal(blocks.at(-1).status, 404);
-console.log(`Netlify redirect regression checks passed: ${publishedWeapons.length} published Weapon and ${publishedBosses.length} published Boss routes.`);
+console.log(`Netlify redirect regression checks passed: ${publishedWeapons.length} published Weapon, ${publishedBosses.length} published Boss, and ${publishedLocations.length} published Location routes.`);

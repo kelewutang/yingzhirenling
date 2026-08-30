@@ -100,6 +100,42 @@
       "enumValues": ["gameplay-video", "demo", "trailer", "official-showcase"],
       "description": "Boss 在发售前材料中的公开出现方式。",
       "requiresAsOf": false
+    },
+    {
+      "key": "location.exists",
+      "applicableEntityTypes": ["location"],
+      "allowedValueTypes": ["boolean"],
+      "description": "该地点 identity 是否已在可核查的公开资料中出现或被明确提及。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.name",
+      "applicableEntityTypes": ["location"],
+      "allowedValueTypes": ["string"],
+      "description": "资料中直接使用的地点名称；不根据描述性场景或非官方翻译创造专名。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.kind",
+      "applicableEntityTypes": ["location"],
+      "allowedValueTypes": ["string"],
+      "description": "来源明确支持的地点类别，例如小镇或建筑；不建立多级地图 taxonomy。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.publicAppearance",
+      "applicableEntityTypes": ["location"],
+      "allowedValueTypes": ["enum"],
+      "enumValues": ["official-showcase"],
+      "description": "地点在当前发售前材料中的公开出现方式。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.observedTrait",
+      "applicableEntityTypes": ["location"],
+      "allowedValueTypes": ["string"],
+      "description": "可从公开实机或场景展示直接观察到的地点特征，不用于推断地图结构或流程位置。",
+      "requiresAsOf": false
     }
   ]
 }

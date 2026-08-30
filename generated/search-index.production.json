@@ -105,6 +105,30 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "location:pangzhen",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "pangzhen",
+    "route": "/world/pangzhen",
+    "displayName": "庞镇",
+    "aliases": [
+      "Pang Town",
+      "Pangzhen Township"
+    ],
+    "displayAliases": [
+      "Pang Town",
+      "Pangzhen Township"
+    ],
+    "keywords": [
+      "地点",
+      "官方展示",
+      "小镇"
+    ],
+    "summary": "S-GAME 官方资料将庞镇称为一座小镇，并在 2025 年 RTX 光线追踪演示中首次公开其游戏场景。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:bashpole",
     "documentType": "entity",
     "entityType": "weapon",

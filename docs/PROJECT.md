@@ -129,7 +129,9 @@ P1-13 Boss Entity Batch 已完成：Tie Sha the Frenzy、Commander Cleave 与 Hu
 
 P1-14 Weapon Expansion Batch 已完成：基于 PlayStation 官方博客发布的 Gamescom 2025 直接试玩记录，新增 6 个 published Weapon identity，并通过现有 Astro、Collection、Search、Sitemap 与 redirect pipeline 批量发布；青龙掠月刀因名称与独立身份仍缺直接文字依据而继续保持 draft。
 
-后续阶段继续 **Content Expansion**；不在没有真实资料需求时预建新 Schema。
+P1-15 World / Location Entity Batch 已完成：庞镇基于 S-GAME 官方中英文资料，以首个 published Location identity 接入 `/world/{slug}`、Collection、Production Search、sitemap 与 explicit redirect pipeline；官方解说中的山谷、仓库、铁塔和大湖仍是描述性场景，不建立未经命名依据支持的 Location Entity。
+
+四类核心 Entity（Weapon、Character、Boss、Location）已进入统一 production pipeline。下一阶段优先进入 **UI Refresh Preparation**，不继续预建新的基础 Entity 类型。
 
 # Related Sources of Truth
 

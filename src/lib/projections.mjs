@@ -79,3 +79,28 @@ export function projectBossFacts(boss, knowledge) {
     };
   }).filter(Boolean);
 }
+
+export function projectLocationFacts(location, knowledge) {
+  const locationSpecs = [
+    ['location.exists', '核心资料', '公开记录'],
+    ['location.name', '核心资料', '名称记录'],
+    ['location.kind', '核心资料', '地点类型'],
+    ['location.publicAppearance', '公开资料', '公开出现方式'],
+    ['location.observedTrait', '公开场景观察', '场景特征']
+  ];
+  return locationSpecs.map(([key, section, title]) => {
+    const fact = getFact(location, key);
+    let valueText = fact ? String(fact.value) : '';
+    if (fact?.key === 'location.exists') valueText = '已在可核查的发售前官方资料中作为地点出现。';
+    if (fact?.key === 'location.publicAppearance') valueText = '已在官方场景展示中公开';
+    return fact && {
+      ...fact,
+      section,
+      title,
+      valueText,
+      description: null,
+      statusText: statusLabel(fact.status),
+      versionText: versionLabel(fact.gameVersionId, knowledge)
+    };
+  }).filter(Boolean);
+}
