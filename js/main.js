@@ -166,7 +166,8 @@ var ENTITY_SEARCH_INDEX_URL = '/generated/search-index.production.json';
 var ENTITY_TYPE_TAGS = {
   weapon: '武器',
   character: '角色',
-  boss: 'Boss'
+  boss: 'Boss',
+  location: '地点'
 };
 var entitySearchIndex = [];
 var entitySearchState = 'idle';
