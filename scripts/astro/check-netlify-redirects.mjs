@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
@@ -13,6 +13,11 @@ const blocks = config.split('[[redirects]]').slice(1).map((text) => {
 });
 
 const indexByFrom = new Map(blocks.map((block, index) => [block.from, index]));
+const bossDirectory = resolve(root, 'data/bosses');
+const publishedBosses = (await Promise.all(
+  (await readdir(bossDirectory)).filter((name) => name.endsWith('.json')).sort()
+    .map(async (name) => JSON.parse(await readFile(resolve(bossDirectory, name), 'utf8')))
+)).filter((boss) => boss.recordState === 'published');
 const publishedSlugs = ['tang-hengdao', 'ya-hengdao'];
 
 assert(!indexByFrom.has('/weapons/:slug.html'), 'Parameterized .html redirect would change unknown/draft 404 behavior');
@@ -45,6 +50,15 @@ for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
   assert(indexByFrom.get(htmlRoute) < indexByFrom.get(canonicalRoute), `${htmlRoute} redirect must precede its 200 rewrite`);
 }
 
+assert(!indexByFrom.has('/bosses/:slug.html'), 'Parameterized Boss .html redirect would change unknown/draft 404 behavior');
+for (const boss of publishedBosses) {
+  const htmlRoute = `/bosses/${boss.slug}.html`;
+  const canonicalRoute = `/bosses/${boss.slug}`;
+  assert.deepEqual(blocks[indexByFrom.get(htmlRoute)], { from: htmlRoute, to: canonicalRoute, status: 301, force: true });
+  assert.equal(blocks[indexByFrom.get(canonicalRoute)].status, 200, `${canonicalRoute} must remain an extensionless 200 rewrite`);
+  assert(indexByFrom.get(htmlRoute) < indexByFrom.get(canonicalRoute), `${htmlRoute} redirect must precede its 200 rewrite`);
+}
+
 assert.equal(blocks.at(-1).from, '/*');
 assert.equal(blocks.at(-1).status, 404);
-console.log('Netlify Weapon redirect regression checks passed.');
+console.log(`Netlify redirect regression checks passed: ${publishedBosses.length} published Boss routes.`);

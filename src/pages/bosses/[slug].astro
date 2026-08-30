@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EntityHeader from '../../components/EntityHeader.astro';
+import FactList from '../../components/FactList.astro';
+import SourceList from '../../components/SourceList.astro';
+import { aliasValues, collectDisplayedSources, getPublishedBosses, loadKnowledge } from '../../lib/knowledge.mjs';
+import { projectBossFacts } from '../../lib/projections.mjs';
+
+export async function getStaticPaths() {
+  const knowledge = await loadKnowledge();
+  return getPublishedBosses(knowledge).map((boss) => ({ params: { slug: boss.slug }, props: { boss } }));
+}
+
+const { boss } = Astro.props;
+const knowledge = await loadKnowledge();
+const facts = projectBossFacts(boss, knowledge);
+const sources = collectDisplayedSources(facts, knowledge);
+const canonical = `https://www.yingzhirenling.cn/bosses/${boss.slug}`;
+const description = `${boss.displayName}：${boss.summary}`;
+---
+<BaseLayout title={`${boss.displayName} - 影之刃零 Boss 图鉴`} description={description} canonical={canonical} activeSection="bosses">
+  <EntityHeader entity={boss} aliases={aliasValues(boss)}>
+    <Fragment slot="breadcrumb"><Breadcrumb collectionHref="/bosses" collectionLabel="Boss 图鉴" currentLabel={boss.displayName} /></Fragment>
+  </EntityHeader>
+  <article class="article">
+    <div class="alert alert-info">本页仅整理发售前可核查的 Boss 资料。名称、身份与公开出现方式分别标注来源状态；没有可靠依据时不会推断打法、弱点、阶段、掉落或位置。</div>
+    <FactList facts={facts} sourceById={knowledge.sourceById} />
+    <SourceList sources={sources} />
+    <p><a class="btn btn-outline" href="/bosses">返回 Boss 图鉴</a></p>
+  </article>
+</BaseLayout>

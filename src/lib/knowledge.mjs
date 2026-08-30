@@ -11,7 +11,8 @@ const statusLabels = {
 };
 const sourceTypeLabels = {
   'official-article': '官方发布材料',
-  'media-demo-report': '媒体试玩'
+  'media-demo-report': '媒体试玩',
+  'media-gameplay-video': '媒体实机视频'
 };
 let cached;
 
@@ -28,14 +29,16 @@ export async function loadKnowledge() {
   cached ??= Promise.all([
     readDirectory('data/weapons'),
     readDirectory('data/characters'),
+    readDirectory('data/bosses'),
     readDirectory('data/relations'),
     readDirectory('data/sources'),
     readDirectory('data/versions')
-  ]).then(([weapons, characters, relations, sources, versions]) => {
-    const entities = [...weapons, ...characters];
+  ]).then(([weapons, characters, bosses, relations, sources, versions]) => {
+    const entities = [...weapons, ...characters, ...bosses];
     return {
       weapons,
       characters,
+      bosses,
       relations,
       sourceById: new Map(sources.map((item) => [item.id, item])),
       versionById: new Map(versions.map((item) => [item.id, item])),
@@ -51,6 +54,10 @@ export function getPublishedWeapons(knowledge) {
 
 export function getPublishedCharacters(knowledge) {
   return knowledge.characters.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
+}
+
+export function getPublishedBosses(knowledge) {
+  return knowledge.bosses.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
 }
 
 export function statusLabel(status) {

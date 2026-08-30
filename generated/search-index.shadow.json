@@ -1,10 +1,58 @@
 [
   {
+    "id": "boss:commander-cleave",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "commander-cleave",
+    "route": "/bosses/commander-cleave",
+    "displayName": "Commander Cleave",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "IGN 的独家实机视频说明将 Commander Cleave 列为其中一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:huangxing-sunken-pillar-kunlun",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "huangxing-sunken-pillar-kunlun",
+    "route": "/bosses/huangxing-sunken-pillar-kunlun",
+    "displayName": "Huangxing, the Sunken Pillar of Kunlun",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "IGN 的独家实机视频说明将 Huangxing, the Sunken Pillar of Kunlun 列为一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:tie-sha-the-frenzy",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "tie-sha-the-frenzy",
+    "route": "/bosses/tie-sha-the-frenzy",
+    "displayName": "Tie Sha the Frenzy",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "IGN 的独家实机视频说明将 Tie Sha the Frenzy 列为其中一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "character:mo-yuan",
     "documentType": "entity",
     "entityType": "character",
     "slug": "mo-yuan",
-    "route": "/characters",
+    "route": "/characters/mo-yuan",
     "displayName": "魔渊",
     "aliases": [
       "Mó Yuan"
@@ -16,7 +64,7 @@
       "角色"
     ],
     "summary": "官方材料在《影之刃零》公开资料中提及魔渊。",
-    "recordState": "draft",
+    "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
@@ -24,7 +72,7 @@
     "documentType": "entity",
     "entityType": "character",
     "slug": "soul",
-    "route": "/characters",
+    "route": "/characters/soul",
     "displayName": "魂",
     "aliases": [
       "Soul"
@@ -37,7 +85,7 @@
       "角色"
     ],
     "summary": "官方材料称魂为《影之刃零》的主角。",
-    "recordState": "draft",
+    "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
@@ -45,7 +93,7 @@
     "documentType": "entity",
     "entityType": "character",
     "slug": "the-hunt",
-    "route": "/characters",
+    "route": "/characters/the-hunt",
     "displayName": "The Hunt",
     "aliases": [],
     "displayAliases": [],
@@ -53,7 +101,7 @@
       "角色"
     ],
     "summary": "官方材料在魂的冒险叙述中提及 The Hunt。",
-    "recordState": "draft",
+    "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
   {

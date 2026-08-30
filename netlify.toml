@@ -100,6 +100,25 @@
   status = 301
   force = true
 
+# Boss file output uses the same published-only canonicalization rule.
+[[redirects]]
+  from = "/bosses/commander-cleave.html"
+  to = "/bosses/commander-cleave"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/huangxing-sunken-pillar-kunlun.html"
+  to = "/bosses/huangxing-sunken-pillar-kunlun"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/tie-sha-the-frenzy.html"
+  to = "/bosses/tie-sha-the-frenzy"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/characters/mo-yuan.html"
   to = "/characters/mo-yuan"
@@ -227,6 +246,21 @@
 [[redirects]]
   from = "/bosses"
   to = "/pages/bosses.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/commander-cleave"
+  to = "/bosses/commander-cleave.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/huangxing-sunken-pillar-kunlun"
+  to = "/bosses/huangxing-sunken-pillar-kunlun.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/tie-sha-the-frenzy"
+  to = "/bosses/tie-sha-the-frenzy.html"
   status = 200
 
 [[redirects]]

@@ -71,6 +71,35 @@
       "allowedValueTypes": ["string"],
       "description": "角色在作品中的身份或叙事定位，例如主角；不得用于表达 Character-to-Character 关系，父子、同伴、师徒等关系应使用 Relation 表达。",
       "requiresAsOf": false
+    },
+    {
+      "key": "boss.exists",
+      "applicableEntityTypes": ["boss"],
+      "allowedValueTypes": ["boolean"],
+      "description": "该 Boss identity 是否已在可核查的公开资料中出现。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "boss.name",
+      "applicableEntityTypes": ["boss"],
+      "allowedValueTypes": ["string"],
+      "description": "资料中直接使用的 Boss 名称；不据此推定其他本地化名称。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "boss.kind",
+      "applicableEntityTypes": ["boss"],
+      "allowedValueTypes": ["string"],
+      "description": "来源明确支持的 Boss 或敌人类型描述。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "boss.publicAppearance",
+      "applicableEntityTypes": ["boss"],
+      "allowedValueTypes": ["enum"],
+      "enumValues": ["gameplay-video", "demo", "trailer", "official-showcase"],
+      "description": "Boss 在发售前材料中的公开出现方式。",
+      "requiresAsOf": false
     }
   ]
 }
