@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+import vm from 'node:vm';
 import { resolvePublishedCharacterDetailPageSlugs, resolvePublishedWeaponDetailPageSlugs } from '../build-search-index.mjs';
 
 const records = [{ file: 'fixture.json', entity: {
@@ -28,3 +29,20 @@ try {
 } finally {
   await rm(directory, { recursive: true, force: true });
 }
+
+const mainJs = await readFile(join(import.meta.dirname, '../../js/main.js'), 'utf8');
+const entitySearchSource = mainJs.slice(mainJs.indexOf('var ENTITY_SEARCH_INDEX_URL'), mainJs.indexOf('function getSearchDocuments()'));
+const context = {};
+vm.runInNewContext(entitySearchSource, context);
+const entityDocuments = ['weapon', 'character', 'boss'].map((entityType) => ({
+  id: `${entityType}:fixture`, documentType: 'entity', entityType, route: `/${entityType}s/fixture`,
+  displayName: `${entityType} Fixture`, summary: 'Fixture summary', aliases: [], displayAliases: [], keywords: [],
+  recordState: 'published', sourceSchemaVersion: '1.0-implementation'
+}));
+assert.equal(context.validateEntitySearchDocuments(entityDocuments), true, 'Entity Search must accept Weapon, Character, and Boss documents');
+assert.equal(context.validateEntitySearchDocuments([{ ...entityDocuments[0], entityType: 'unknown' }]), false, 'Entity Search must reject unknown Entity types');
+assert.equal(
+  JSON.stringify(entityDocuments.map((document) => context.normalizeEntitySearchDocument(document).tag)),
+  JSON.stringify(['武器', '角色', 'Boss']),
+  'Entity Search labels must match Entity types'
+);

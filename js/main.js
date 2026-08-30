@@ -163,6 +163,11 @@ var SEARCH_INDEX = [
 ];
 
 var ENTITY_SEARCH_INDEX_URL = '/generated/search-index.production.json';
+var ENTITY_TYPE_TAGS = {
+  weapon: '武器',
+  character: '角色',
+  boss: 'Boss'
+};
 var entitySearchIndex = [];
 var entitySearchState = 'idle';
 
@@ -181,7 +186,7 @@ function validateEntitySearchDocuments(documents) {
     if (typeof document.id !== 'string' || !document.id.trim() || ids[document.id]) return false;
     ids[document.id] = true;
     return document.documentType === 'entity' &&
-      document.entityType === 'weapon' &&
+      Object.prototype.hasOwnProperty.call(ENTITY_TYPE_TAGS, document.entityType) &&
       typeof document.route === 'string' && document.route.trim() !== '' &&
       typeof document.displayName === 'string' && document.displayName.trim() !== '' &&
       typeof document.summary === 'string' &&
@@ -213,7 +218,7 @@ function normalizeEntitySearchDocument(document) {
     title: document.displayName,
     url: document.route,
     desc: document.summary,
-    tag: '武器',
+    tag: ENTITY_TYPE_TAGS[document.entityType],
     keywords: document.aliases.concat(document.keywords).join(' ')
   };
 }
