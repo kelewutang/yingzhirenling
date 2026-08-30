@@ -93,6 +93,42 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/weapons/bashpole.html"
+  to = "/weapons/bashpole"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/jagged-steel.html"
+  to = "/weapons/jagged-steel"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/night-owl.html"
+  to = "/weapons/night-owl"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/seamless-death.html"
+  to = "/weapons/seamless-death"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/soft-snake-sword.html"
+  to = "/weapons/soft-snake-sword"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/white-serpent-crimson-viper.html"
+  to = "/weapons/white-serpent-crimson-viper"
+  status = 301
+  force = true
+
 # Character file output uses the same published-only canonicalization rule.
 [[redirects]]
   from = "/characters/soul.html"
@@ -221,6 +257,36 @@
 [[redirects]]
   from = "/weapons/ya-hengdao"
   to = "/pages/generated/weapons/ya-hengdao.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/bashpole"
+  to = "/weapons/bashpole.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/jagged-steel"
+  to = "/weapons/jagged-steel.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/night-owl"
+  to = "/weapons/night-owl.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/seamless-death"
+  to = "/weapons/seamless-death.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/soft-snake-sword"
+  to = "/weapons/soft-snake-sword.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/white-serpent-crimson-viper"
+  to = "/weapons/white-serpent-crimson-viper.html"
   status = 200
 
 [[redirects]]

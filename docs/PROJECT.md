@@ -127,7 +127,9 @@ P1-12 Character Publication Batch 已完成：魂、魔渊和 The Hunt 的角色
 
 P1-13 Boss Entity Batch 已完成：Tie Sha the Frenzy、Commander Cleave 与 Huangxing, the Sunken Pillar of Kunlun 以第三方实机视频明确标注的 Boss 身份接入同一生产派生链；页面不推断打法、阶段、弱点、掉落或位置。
 
-后续阶段进入 **Content Expansion**，按现有可信资料量在 Boss Entity Batch 与 Weapon Expansion Batch 之间选择；不在本阶段预建新 Schema。
+P1-14 Weapon Expansion Batch 已完成：基于 PlayStation 官方博客发布的 Gamescom 2025 直接试玩记录，新增 6 个 published Weapon identity，并通过现有 Astro、Collection、Search、Sitemap 与 redirect pipeline 批量发布；青龙掠月刀因名称与独立身份仍缺直接文字依据而继续保持 draft。
+
+后续阶段继续 **Content Expansion**；不在没有真实资料需求时预建新 Schema。
 
 # Related Sources of Truth
 

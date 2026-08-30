@@ -4,11 +4,17 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
+function escapeHtml(value) {
+  return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+}
 async function readEntities(relativeDirectory) {
   const directory = resolve(root, relativeDirectory);
   const names = (await readdir(directory)).filter((name) => name.endsWith('.json')).sort();
   return Promise.all(names.map(async (name) => JSON.parse(await readFile(resolve(directory, name), 'utf8'))));
 }
+const weapons = await readEntities('data/weapons');
+const publishedWeapons = weapons.filter((weapon) => weapon.recordState === 'published');
+const draftWeapons = weapons.filter((weapon) => weapon.recordState === 'draft');
 const bosses = await readEntities('data/bosses');
 const publishedBosses = bosses.filter((boss) => boss.recordState === 'published');
 const draftBosses = bosses.filter((boss) => boss.recordState === 'draft');
@@ -16,8 +22,7 @@ const canonicalRoutes = [
   ['index.html', '/'], ['guide.html', '/guide'], ['weapons.html', '/weapons'],
   ['characters.html', '/characters'], ['bosses.html', '/bosses'], ['world.html', '/world'],
   ['videos.html', '/videos'], ['about.html', '/about'], ['about-site.html', '/about-site'],
-  ['weapons/tang-hengdao.html', '/weapons/tang-hengdao'],
-  ['weapons/ya-hengdao.html', '/weapons/ya-hengdao'],
+  ...publishedWeapons.map((weapon) => [`weapons/${weapon.slug}.html`, `/weapons/${weapon.slug}`]),
   ['characters/soul.html', '/characters/soul'],
   ['characters/mo-yuan.html', '/characters/mo-yuan'],
   ['characters/the-hunt.html', '/characters/the-hunt'],
@@ -61,9 +66,27 @@ for (const slug of ['tang-hengdao', 'ya-hengdao']) {
   }
 }
 
-for (const path of ['weapons/qinglong-lueyue-dao.html', 'characters/not-real.html', ...draftBosses.map((boss) => `bosses/${boss.slug}.html`)]) {
+for (const path of [
+  'weapons/not-real.html',
+  'characters/not-real.html',
+  ...draftWeapons.map((weapon) => `weapons/${weapon.slug}.html`),
+  ...draftBosses.map((boss) => `bosses/${boss.slug}.html`)
+]) {
   await assert.rejects(() => stat(resolve(dist, path)), { code: 'ENOENT' });
 }
+
+for (const weapon of publishedWeapons) {
+  const html = await readFile(resolve(dist, 'weapons', `${weapon.slug}.html`), 'utf8');
+  const canonical = `https://www.yingzhirenling.cn/weapons/${weapon.slug}`;
+  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回武器图鉴']) {
+    assert(html.includes(token), `${weapon.slug}: missing static Weapon contract token ${token}`);
+  }
+  assert(html.includes(escapeHtml(weapon.summary)), `${weapon.slug}: summary missing from static Weapon page`);
+  assert(!html.includes('noindex'), `${weapon.slug}: published Weapon must be indexable`);
+}
+const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');
+for (const weapon of publishedWeapons) assert(weaponCollection.includes(`href="/weapons/${weapon.slug}"`), `Weapon collection missing ${weapon.slug}`);
+for (const weapon of draftWeapons) assert(!weaponCollection.includes(`href="/weapons/${weapon.slug}"`), `Weapon collection must exclude draft ${weapon.slug}`);
 
 for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
   const html = await readFile(resolve(dist, 'characters', `${slug}.html`), 'utf8');
@@ -98,9 +121,18 @@ for (const boss of draftBosses) assert(!bossCollection.includes(`/bosses/${boss.
 const search = JSON.parse(await readFile(resolve(dist, 'generated/search-index.production.json'), 'utf8'));
 assert.deepEqual(search.map((item) => item.id), [
   ...publishedBosses.map((boss) => boss.id),
-  'character:mo-yuan', 'character:soul', 'character:the-hunt', 'weapon:tang-hengdao', 'weapon:ya-hengdao'
+  ...publishedWeapons.map((weapon) => weapon.id),
+  'character:mo-yuan', 'character:soul', 'character:the-hunt'
 ].sort());
 for (const document of search.filter((item) => item.entityType === 'character')) assert.equal(document.route, `/characters/${document.slug}`);
+const weaponDocuments = search.filter((item) => item.entityType === 'weapon');
+assert.equal(weaponDocuments.length, publishedWeapons.length, 'Production Search Weapon count must match published Weapon data');
+for (const weapon of publishedWeapons) {
+  const document = weaponDocuments.find((item) => item.id === weapon.id);
+  assert(document, `Production Search missing ${weapon.id}`);
+  assert.equal(document.route, `/weapons/${weapon.slug}`, `${weapon.id}: Search route must be canonical`);
+}
+for (const weapon of draftWeapons) assert(!search.some((item) => item.id === weapon.id), `Production Search must exclude draft ${weapon.id}`);
 const bossDocuments = search.filter((item) => item.entityType === 'boss');
 assert.equal(bossDocuments.length, publishedBosses.length, 'Production Search Boss count must match published Boss data');
 for (const boss of publishedBosses) {
@@ -110,11 +142,16 @@ for (const boss of publishedBosses) {
 }
 for (const boss of draftBosses) assert(!search.some((item) => item.id === boss.id), `Production Search must exclude draft ${boss.id}`);
 const sitemap = await readFile(resolve(dist, 'sitemap.xml'), 'utf8');
-assert.equal((sitemap.match(/<url>/g) || []).length, 14 + publishedBosses.length, 'Sitemap URL count must include published Bosses only');
+assert.equal(
+  (sitemap.match(/<url>/g) || []).length,
+  9 + publishedWeapons.length + 3 + publishedBosses.length,
+  'Sitemap URL count must match published Entity data'
+);
+for (const weapon of publishedWeapons) assert(sitemap.includes(`/weapons/${weapon.slug}`), `Sitemap missing Weapon ${weapon.slug}`);
+for (const weapon of draftWeapons) assert(!sitemap.includes(`/weapons/${weapon.slug}`), `Sitemap must exclude draft Weapon ${weapon.slug}`);
 for (const route of ['/characters/soul', '/characters/mo-yuan', '/characters/the-hunt']) assert(sitemap.includes(route), `Sitemap missing ${route}`);
 for (const boss of publishedBosses) assert(sitemap.includes(`/bosses/${boss.slug}`), `Sitemap missing Boss ${boss.slug}`);
 for (const boss of draftBosses) assert(!sitemap.includes(`/bosses/${boss.slug}`), `Sitemap must exclude draft Boss ${boss.slug}`);
-assert(!sitemap.includes('qinglong-lueyue-dao'));
 assert.equal((await readdir(dist)).includes('_astro'), false, 'Unexpected Astro client assets');
 
 async function walk(directory) {
@@ -131,4 +168,4 @@ for (const file of await walk(dist)) {
   const text = content.toString('utf8');
   for (const forbidden of ['/home/mok', '/mnt/c/', 'astro-island', 'client:load']) assert(!text.includes(forbidden), `${file}: forbidden build output`);
 }
-console.log(`Astro dist verification passed: ${canonicalRoutes.length} canonical routes, 2 Weapon pages, 3 Character pages, ${publishedBosses.length} Boss pages, ${draftBosses.length} draft Boss detail routes.`);
+console.log(`Astro dist verification passed: ${canonicalRoutes.length} canonical routes, ${publishedWeapons.length} Weapon pages, 3 Character pages, ${publishedBosses.length} Boss pages, ${draftWeapons.length} draft Weapon and ${draftBosses.length} draft Boss detail routes.`);

@@ -13,15 +13,23 @@ const blocks = config.split('[[redirects]]').slice(1).map((text) => {
 });
 
 const indexByFrom = new Map(blocks.map((block, index) => [block.from, index]));
+const weaponDirectory = resolve(root, 'data/weapons');
+const weapons = await Promise.all(
+  (await readdir(weaponDirectory)).filter((name) => name.endsWith('.json')).sort()
+    .map(async (name) => JSON.parse(await readFile(resolve(weaponDirectory, name), 'utf8')))
+);
+const publishedWeapons = weapons.filter((weapon) => weapon.recordState === 'published');
+const draftWeapons = weapons.filter((weapon) => weapon.recordState === 'draft');
 const bossDirectory = resolve(root, 'data/bosses');
 const publishedBosses = (await Promise.all(
   (await readdir(bossDirectory)).filter((name) => name.endsWith('.json')).sort()
     .map(async (name) => JSON.parse(await readFile(resolve(bossDirectory, name), 'utf8')))
 )).filter((boss) => boss.recordState === 'published');
-const publishedSlugs = ['tang-hengdao', 'ya-hengdao'];
+const historicalWeaponSlugs = new Set(['tang-hengdao', 'ya-hengdao']);
 
 assert(!indexByFrom.has('/weapons/:slug.html'), 'Parameterized .html redirect would change unknown/draft 404 behavior');
-for (const slug of publishedSlugs) {
+for (const weapon of publishedWeapons) {
+  const slug = weapon.slug;
   const htmlRoute = `/weapons/${slug}.html`;
   const canonicalRoute = `/weapons/${slug}`;
   const htmlRule = blocks[indexByFrom.get(htmlRoute)];
@@ -30,15 +38,21 @@ for (const slug of publishedSlugs) {
   assert.equal(canonicalRule.status, 200, `${canonicalRoute} must remain an extensionless 200 rewrite`);
   assert(indexByFrom.get(htmlRoute) < indexByFrom.get(canonicalRoute), `${htmlRoute} redirect must precede its 200 rewrite`);
 
-  const historicalRoutes = [
-    `/pages/generated/weapons/${slug}.html`,
-    `/pages/generated/weapons/${slug}`
-  ];
-  for (const route of historicalRoutes) {
-    const rule = blocks[indexByFrom.get(route)];
-    assert.deepEqual(rule, { from: route, to: canonicalRoute, status: 301, force: true });
-    assert(indexByFrom.get(route) < indexByFrom.get(canonicalRoute), `${route} must stay a single-hop canonical redirect`);
+  if (historicalWeaponSlugs.has(slug)) {
+    const historicalRoutes = [
+      `/pages/generated/weapons/${slug}.html`,
+      `/pages/generated/weapons/${slug}`
+    ];
+    for (const route of historicalRoutes) {
+      const rule = blocks[indexByFrom.get(route)];
+      assert.deepEqual(rule, { from: route, to: canonicalRoute, status: 301, force: true });
+      assert(indexByFrom.get(route) < indexByFrom.get(canonicalRoute), `${route} must stay a single-hop canonical redirect`);
+    }
   }
+}
+for (const weapon of draftWeapons) {
+  assert(!indexByFrom.has(`/weapons/${weapon.slug}`), `Draft Weapon canonical route must remain 404: ${weapon.slug}`);
+  assert(!indexByFrom.has(`/weapons/${weapon.slug}.html`), `Draft Weapon .html route must remain 404: ${weapon.slug}`);
 }
 
 assert(!indexByFrom.has('/characters/:slug.html'), 'Parameterized Character .html redirect would change unknown/draft 404 behavior');
@@ -61,4 +75,4 @@ for (const boss of publishedBosses) {
 
 assert.equal(blocks.at(-1).from, '/*');
 assert.equal(blocks.at(-1).status, 404);
-console.log(`Netlify redirect regression checks passed: ${publishedBosses.length} published Boss routes.`);
+console.log(`Netlify redirect regression checks passed: ${publishedWeapons.length} published Weapon and ${publishedBosses.length} published Boss routes.`);
