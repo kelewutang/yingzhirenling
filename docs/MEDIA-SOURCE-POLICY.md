@@ -162,6 +162,8 @@ Credit follows the recorded rights/press requirement and links to the exact sour
 
 ## 7. Fallback system
 
+P2-UI-2 implementation note: the Tang Hengdao Hero uses this fallback because no cleared media record is available. The temporary presentation adapter accepts the proposed display fields but does not publish a Media record, alter Fact data, or treat a cited Source as media permission.
+
 Pages must remain visually complete when no lawful image exists.
 
 The fallback should be deterministic and generated from local code/assets:

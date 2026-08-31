@@ -128,6 +128,8 @@ Rules:
 
 ## 4. Weapon detail pilot
 
+Implementation note: P2-UI-2 applies this frame only to `/weapons/tang-hengdao`. It deliberately uses the no-media fallback shown below; no external or unreviewed asset is introduced.
+
 ### Desktop
 
 ```text

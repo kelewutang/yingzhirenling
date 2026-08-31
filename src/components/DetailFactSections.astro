@@ -1,0 +1,32 @@
+---
+const { facts, sourceById } = Astro.props;
+const sections = [...new Set(facts.map((fact) => fact.section))];
+---
+{sections.map((section, index) => (
+  <section class="detail-fact-section" aria-labelledby={`detail-fact-section-${index}`}>
+    <div class="detail-section-heading">
+      <p class="detail-section-heading__eyebrow">EVIDENCE</p>
+      <h2 id={`detail-fact-section-${index}`}>{section}</h2>
+    </div>
+    <div class="detail-fact-list">
+      {facts.filter((fact) => fact.section === section).map((fact) => (
+        <article class="detail-fact" data-info-scope="fact" data-fact-id={fact.id} data-status={fact.status}>
+          <div class="detail-fact__main">
+            <div class="detail-fact__heading">
+              <h3>{fact.title}</h3>
+              <span class="info-status" data-status={fact.status}>{fact.statusText}</span>
+            </div>
+            <p class="detail-fact__value">{fact.valueText}</p>
+            {fact.description && <p class="detail-fact__description">{fact.description}</p>}
+          </div>
+          <dl class="detail-fact__provenance">
+            {fact.sourceIds.length > 0 && <div><dt>来源</dt><dd>{fact.sourceIds.map((id) => sourceById.get(id)?.publisher || id).join('、')}</dd></div>}
+            {fact.status === 'editorial' && <div><dt>判断依据</dt><dd>{fact.basisFactIds.length > 0 ? '已展示的公开资料观察' : '本站编辑分析'}</dd></div>}
+            <div><dt>资料阶段</dt><dd>{fact.versionText}</dd></div>
+            <div><dt>核验</dt><dd><time datetime={fact.checkedAt}>{fact.checkedAt}</time></dd></div>
+          </dl>
+        </article>
+      ))}
+    </div>
+  </section>
+))}
