@@ -6,7 +6,7 @@
 import { safeExternalUrl } from '../lib/knowledge.mjs';
 
 const { entity, media = null } = Astro.props;
-const hasMedia = media && media.src && media.alt && media.width && media.height;
+const hasMedia = media && media.src && media.alt && media.width && media.height && media.usage?.includes('hero');
 const mediaSourceUrl = hasMedia ? safeExternalUrl(media.sourceUrl) : null;
 ---
 <figure class="entity-media" data-media-state={hasMedia ? 'ready' : 'fallback'}>
@@ -18,6 +18,8 @@ const mediaSourceUrl = hasMedia ? safeExternalUrl(media.sourceUrl) : null;
       height={media.height}
       loading="eager"
       decoding="async"
+      sizes="(max-width: 719px) calc(100vw - 2rem), 50vw"
+      style={media.objectFit ? `object-fit:${media.objectFit};${media.objectPosition ? `object-position:${media.objectPosition};` : ''}` : undefined}
     />
   ) : (
     <div class="entity-media__fallback" aria-hidden="true">

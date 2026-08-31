@@ -1,6 +1,6 @@
-# Media Source Policy Proposal
+# Media Source Policy
 
-Status: lightweight proposal; not a legal opinion and not a frozen Knowledge Schema
+Status: P2-UI-3 Media Contract implementation; not a legal opinion and not a frozen Knowledge Schema
 
 Scope: Entity hero, card, gallery, inline, and thumbnail media
 
@@ -78,14 +78,18 @@ Media
   entityIds[]
   mediaType             image | video-poster | illustration | screenshot
   localPath OR remoteSrc
-  sourceId              optional link to a governed Source
+  sourceId              optional link to a governed Fact Source
   sourceUrl
+  owner                 publisher / rights holder context
   creditLine
   caption
   alt
   usage[]               hero | card | gallery | inline | thumbnail
   rightsStatus
   rightsEvidence
+  retrievedAt
+  processing
+  mimeType
   width
   height
   recordState           draft | published | retired
@@ -228,7 +232,18 @@ Before a media batch is proposed:
 
 ## 11. Approval gate
 
-This proposal does not authorize downloading, copying, converting, or publishing media. Before P2-UI-6, approve:
+The P2-UI-3 contract is implemented independently in `data/media.json`, validated by `scripts/validate-media.mjs`, and read only at build time. It does not change Knowledge Schema 1.0 or the Fact model. A record must use a stable local `assets/media/` filename; retain source URL, owner, retrieval, rights, credit, and processing metadata; and pass signature, MIME, dimensions, path, and payload validation before it can render. A Knowledge `sourceId` is optional and never substitutes for the media-specific rights record. Only `permission-recorded`, `official-press-use-reviewed`, and `self-captured-reviewed` are production-eligible; `review-required`, `do-not-use`, and any unknown status cannot render.
+
+P2-UI-3 source audit, retrieved 2026-08-31:
+
+- Tang Hengdao has no independently identified first-party press asset or explicit reuse permission. Its existing appearance evidence is third-party hands-on reporting, which is not reusable media permission.
+- The official [Phantom Blade Zero site](https://pbz.s-game.com/en-US/) identifies PARAWULIN PRODUCTION LIMITED as the rights holder and reserves rights, but does not provide a press-asset license or reuse terms.
+- The [PlayStation website terms](https://www.playstation.com/en-us/legal/website-terms-of-use/) permit browsing and personal non-commercial use but do not permit distributing or publicly displaying site content on another website.
+- Existing repository bitmaps lack required rights records; they are excluded. No image was downloaded, copied, converted, or published for this stage.
+
+Result: **NO CLEARED MEDIA CANDIDATE**. `data/media.json` intentionally has no records, so the Tang Hengdao Hero remains the deterministic fallback. A future real asset must have a separately reviewable record before it is introduced.
+
+This stage authorizes the Media layer and validation mechanism, not media reuse. Before a real asset is added, approve:
 
 - Media as a separate governed data layer
 - fields and rights-status vocabulary
