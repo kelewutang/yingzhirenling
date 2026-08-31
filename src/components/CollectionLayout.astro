@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EntityCard from './EntityCard.astro';
+
+const { pageTitle, title, description, canonical, activeSection, entityType, eyebrow, intro, inventoryLabel, cards, supportingTitle, supportingText } = Astro.props;
+---
+<BaseLayout title={pageTitle} description={description} canonical={canonical} activeSection={activeSection}>
+  <article class="collection-page" data-collection-system="rollout" data-entity-type={entityType}>
+    <header class="collection-hero">
+      <p class="collection-hero__eyebrow">{eyebrow}</p>
+      <div class="collection-hero__heading">
+        <h1>{title}</h1>
+        <p class="collection-hero__count"><strong>{cards.length}</strong> 个已发布{inventoryLabel}</p>
+      </div>
+      <p class="collection-hero__intro">{intro}</p>
+    </header>
+
+    <section class="collection-inventory" aria-labelledby={`${entityType}-inventory-title`}>
+      <header class="collection-section-heading">
+        <p>实体资料</p>
+        <h2 id={`${entityType}-inventory-title`}>已发布{inventoryLabel}</h2>
+      </header>
+      <div class:list={['entity-grid', cards.length === 1 && 'entity-grid--sparse']}>
+        {cards.map(({ card, media }) => <EntityCard card={card} media={media} />)}
+      </div>
+    </section>
+
+    <section class="collection-supporting" aria-labelledby={`${entityType}-scope-title`}>
+      <h2 id={`${entityType}-scope-title`}>{supportingTitle}</h2>
+      <p>{supportingText}</p>
+    </section>
+  </article>
+</BaseLayout>

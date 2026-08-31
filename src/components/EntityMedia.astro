@@ -5,21 +5,22 @@
  */
 import { safeExternalUrl } from '../lib/knowledge.mjs';
 
-const { entity, media = null } = Astro.props;
-const hasMedia = media && media.src && media.alt && media.width && media.height && media.usage?.includes('hero');
+const { entity, media = null, variant = 'hero' } = Astro.props;
+const usage = variant === 'card' ? 'card' : 'hero';
+const hasMedia = media && media.src && media.alt && media.width && media.height && media.usage?.includes(usage);
 const mediaSourceUrl = hasMedia ? safeExternalUrl(media.sourceUrl) : null;
 const fallbackMarks = { weapon: '兵', character: '人', boss: '敌', location: '地' };
 ---
-<figure class="entity-media" data-media-state={hasMedia ? 'ready' : 'fallback'}>
+<figure class:list={['entity-media', variant === 'card' && 'entity-media--card']} data-media-state={hasMedia ? 'ready' : 'fallback'}>
   {hasMedia ? (
     <img
       src={media.src}
       alt={media.alt}
       width={media.width}
       height={media.height}
-      loading="eager"
+      loading={variant === 'card' ? 'lazy' : 'eager'}
       decoding="async"
-      sizes="(max-width: 719px) calc(100vw - 2rem), 50vw"
+      sizes={variant === 'card' ? '(max-width: 700px) calc(100vw - 2rem), (max-width: 1023px) calc(50vw - 2.25rem), 22rem' : '(max-width: 719px) calc(100vw - 2rem), 50vw'}
       style={media.objectFit ? `object-fit:${media.objectFit};${media.objectPosition ? `object-position:${media.objectPosition};` : ''}` : undefined}
     />
   ) : (
