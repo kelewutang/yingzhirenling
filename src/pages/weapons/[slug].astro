@@ -2,6 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import EntityHeader from '../../components/EntityHeader.astro';
+import EntityHero from '../../components/EntityHero.astro';
+import QuickFacts from '../../components/QuickFacts.astro';
+import DetailFactSections from '../../components/DetailFactSections.astro';
+import SourcePanel from '../../components/SourcePanel.astro';
 import FactList from '../../components/FactList.astro';
 import SourceList from '../../components/SourceList.astro';
 import { aliasValues, collectDisplayedSources, getPublishedWeapons, loadKnowledge } from '../../lib/knowledge.mjs';
@@ -18,15 +22,36 @@ const facts = projectWeaponFacts(weapon, knowledge);
 const sources = collectDisplayedSources(facts, knowledge);
 const canonical = `https://www.yingzhirenling.cn/weapons/${weapon.slug}`;
 const description = `${weapon.displayName}：${weapon.summary}`;
+const isDetailPilot = weapon.slug === 'tang-hengdao';
+const kindFact = facts.find((fact) => fact.key === 'weapon.kind') || null;
+const quickFacts = facts.filter((fact) => [
+  'weapon.kind',
+  'weapon.publicAppearance',
+  'weapon.observedTrait'
+].includes(fact.key));
 ---
 <BaseLayout title={`${weapon.displayName} - 影之刃零武器资料 | 影之刃零攻略站`} description={description} canonical={canonical} activeSection="weapons">
-  <EntityHeader entity={weapon} aliases={aliasValues(weapon)}>
-    <Fragment slot="breadcrumb"><Breadcrumb collectionHref="/weapons" collectionLabel="武器图鉴" currentLabel={weapon.displayName} /></Fragment>
-  </EntityHeader>
-  <article class="article">
-    <div class="alert alert-info">本页整理发售前公开资料。每条事实单独标注“官方确认、试玩观察、第三方信息、编辑推测或待后续核查”；官方来源中的画面观察不自动等同于官方文字确认。</div>
-    <FactList facts={facts} sourceById={knowledge.sourceById} />
-    <SourceList sources={sources} />
-    <p><a class="btn btn-outline" href="/weapons">返回武器图鉴</a></p>
-  </article>
+  {isDetailPilot ? (
+    <article class="entity-detail entity-detail--pilot" data-detail-pilot="weapon">
+      <Breadcrumb collectionHref="/weapons" collectionLabel="武器图鉴" currentLabel={weapon.displayName} />
+      <EntityHero entity={weapon} aliases={aliasValues(weapon)} kindFact={kindFact} />
+      <div class="entity-detail__scope alert alert-info">本页整理发售前公开资料。每条事实单独标注“官方确认、试玩观察、第三方信息、编辑推测或待后续核查”；官方来源中的画面观察不自动等同于官方文字确认。</div>
+      <QuickFacts facts={quickFacts} />
+      <DetailFactSections facts={facts} sourceById={knowledge.sourceById} />
+      <SourcePanel sources={sources} />
+      <p class="entity-detail__return"><a class="btn btn-outline" href="/weapons">返回武器图鉴</a></p>
+    </article>
+  ) : (
+    <>
+      <EntityHeader entity={weapon} aliases={aliasValues(weapon)}>
+        <Fragment slot="breadcrumb"><Breadcrumb collectionHref="/weapons" collectionLabel="武器图鉴" currentLabel={weapon.displayName} /></Fragment>
+      </EntityHeader>
+      <article class="article">
+        <div class="alert alert-info">本页整理发售前公开资料。每条事实单独标注“官方确认、试玩观察、第三方信息、编辑推测或待后续核查”；官方来源中的画面观察不自动等同于官方文字确认。</div>
+        <FactList facts={facts} sourceById={knowledge.sourceById} />
+        <SourceList sources={sources} />
+        <p><a class="btn btn-outline" href="/weapons">返回武器图鉴</a></p>
+      </article>
+    </>
+  )}
 </BaseLayout>

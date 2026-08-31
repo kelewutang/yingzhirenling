@@ -1,0 +1,38 @@
+---
+/**
+ * Presentation-only media contract. It intentionally stays outside Knowledge
+ * Facts: a cleared asset can be supplied later without changing the hero frame.
+ */
+import { safeExternalUrl } from '../lib/knowledge.mjs';
+
+const { entity, media = null } = Astro.props;
+const hasMedia = media && media.src && media.alt && media.width && media.height;
+const mediaSourceUrl = hasMedia ? safeExternalUrl(media.sourceUrl) : null;
+---
+<figure class="entity-media" data-media-state={hasMedia ? 'ready' : 'fallback'}>
+  {hasMedia ? (
+    <img
+      src={media.src}
+      alt={media.alt}
+      width={media.width}
+      height={media.height}
+      loading="eager"
+      decoding="async"
+    />
+  ) : (
+    <div class="entity-media__fallback" aria-hidden="true">
+      <span class="entity-media__mark">兵</span>
+      <span class="entity-media__type">{entity.entityType}</span>
+      <span class="entity-media__name">{entity.displayName}</span>
+      <svg class="entity-media__blade" viewBox="0 0 240 96" focusable="false">
+        <path d="M25 70 178 23l36 5-34 13 35 11-14 8-39-12-129 34z" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <path d="m44 65 19-5 12 14-21 6z" fill="none" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+    </div>
+  )}
+  {(hasMedia && (media.caption || media.credit || mediaSourceUrl)) && <figcaption class="entity-media__caption">
+    {media.caption && <span>{media.caption}</span>}
+    {media.credit && <span>{media.credit}</span>}
+    {mediaSourceUrl && <a href={mediaSourceUrl} target="_blank" rel="noopener noreferrer">查看媒体来源</a>}
+  </figcaption>}
+</figure>

@@ -1,0 +1,15 @@
+---
+import EntityMedia from './EntityMedia.astro';
+
+const { entity, aliases = [], kindFact = null, media = null } = Astro.props;
+---
+<header class="entity-hero">
+  <EntityMedia entity={entity} media={media} />
+  <div class="entity-hero__identity">
+    <p class="entity-hero__eyebrow">武器{kindFact ? ` · ${kindFact.valueText}` : ''}</p>
+    <h1 class="entity-hero__title">{entity.displayName}</h1>
+    {aliases.length > 0 && <p class="entity-hero__aliases">{aliases.join('、')}</p>}
+    <p class="entity-hero__summary">{entity.summary}</p>
+    <p class="entity-hero__updated">资料更新：<time datetime={entity.updatedAt}>{entity.updatedAt}</time></p>
+  </div>
+</header>

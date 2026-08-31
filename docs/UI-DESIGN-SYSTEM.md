@@ -275,6 +275,12 @@ All four Entity types share this frame:
 
 The shared frame does not require identical fields.
 
+### 9.0 P2-UI-2 Weapon pilot convention
+
+`/weapons/tang-hengdao` is the sole P2-UI-2 opt-in detail pilot. Its Entity Hero combines the existing static identity/summary with `EntityMedia`, a presentation-only contract that accepts `src`, `alt`, `caption`, `credit`, `sourceUrl`/`sourceId`, `usage`, `width`, `height`, and `rightsStatus`. It does not add fields to Facts or the Knowledge Schema.
+
+No cleared Tang Hengdao media is used in this pilot. The same reserved Hero slot instead renders a deterministic Weapon fallback: typographic identity, type marker, abstract blade mark, and restrained Ink & Steel texture. Quick Facts are limited to existing scan-friendly facts; detailed facts retain a value-first presentation with status and provenance kept secondary. Sources remain static and visible at the end of the evidence chain.
+
 ### 9.1 Weapon
 
 - Identity: name, English/aliases, weapon category, summary, updated context
