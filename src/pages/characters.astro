@@ -1,0 +1,10 @@
+---
+import CollectionLayout from '../components/CollectionLayout.astro';
+import { buildCharacterCollectionCard } from '../lib/collection-models.mjs';
+import { getPublishedCharacters, loadKnowledge } from '../lib/knowledge.mjs';
+import { getProductionCardMedia } from '../lib/media.mjs';
+
+const characters = getPublishedCharacters(await loadKnowledge());
+const cards = await Promise.all(characters.map(async (entity) => ({ card: buildCharacterCollectionCard(entity), media: await getProductionCardMedia(entity.id) })));
+---
+<CollectionLayout pageTitle="角色图鉴 - 影之刃零攻略站" title="角色" description="影之刃零当前公开角色资料，区分官方确认、宣传素材观察与系列旧作待核信息。" canonical="https://www.yingzhirenling.cn/characters" activeSection="characters" entityType="character" eyebrow="角色图鉴" intro="当前已确认并整理的公开角色实体。角色关系、身份与公开材料的边界会在各自详情页保持独立展示。" inventoryLabel="角色" cards={cards} supportingTitle="资料范围" supportingText="本集合仅呈现当前已发布的角色资料，不将系列旧作线索或未核验的人物关系扩展为《影之刃零》的既定事实。" />

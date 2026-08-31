@@ -1,0 +1,10 @@
+---
+import CollectionLayout from '../components/CollectionLayout.astro';
+import { buildLocationCollectionCard } from '../lib/collection-models.mjs';
+import { getPublishedLocations, loadKnowledge } from '../lib/knowledge.mjs';
+import { getProductionCardMedia } from '../lib/media.mjs';
+
+const locations = getPublishedLocations(await loadKnowledge());
+const cards = await Promise.all(locations.map(async (entity) => ({ card: buildLocationCollectionCard(entity), media: await getProductionCardMedia(entity.id) })));
+---
+<CollectionLayout pageTitle="世界观设定 - 影之刃零攻略站" title="世界" description="影之刃零当前公开世界观资料，区分官方术语、实机观察与系列旧作待核设定。" canonical="https://www.yingzhirenling.cn/world" activeSection="world" entityType="location" eyebrow="世界与地点" intro="当前已确认并整理的公开地点实体。描述性场景不会因为出现在画面中就自动成为可发布的地点资料。" inventoryLabel="地点" cards={cards} supportingTitle="资料范围" supportingText="目前仅收录有可靠名称与地点 identity 依据的庞镇；公开场景与世界观线索会在资料充分后再进入生产实体。" />

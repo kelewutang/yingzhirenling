@@ -1,0 +1,10 @@
+---
+import CollectionLayout from '../components/CollectionLayout.astro';
+import { buildWeaponCollectionCard } from '../lib/collection-models.mjs';
+import { getPublishedWeapons, loadKnowledge } from '../lib/knowledge.mjs';
+import { getProductionCardMedia } from '../lib/media.mjs';
+
+const weapons = getPublishedWeapons(await loadKnowledge());
+const cards = await Promise.all(weapons.map(async (entity) => ({ card: buildWeaponCollectionCard(entity), media: await getProductionCardMedia(entity.id) })));
+---
+<CollectionLayout pageTitle="武器图鉴 - 影之刃零攻略站" title="武器" description="影之刃零发售前武器资料，整理官方确认的武器系统与公开实机中出现的武器；获取方式和强度待正式版验证。" canonical="https://www.yingzhirenling.cn/weapons" activeSection="weapons" entityType="weapon" eyebrow="武器图鉴" intro="当前已确认并整理的公开武器实体。每个条目只展示已有 Fact 与 Source 支持的资料，获取方式与强度不作正式版推断。" inventoryLabel="武器" cards={cards} supportingTitle="资料范围" supportingText="本集合只收录当前可发布的武器实体；公开试玩与演示中的观察会在详情页按事实状态和来源分别呈现。" />

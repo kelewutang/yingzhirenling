@@ -1,0 +1,10 @@
+---
+import CollectionLayout from '../components/CollectionLayout.astro';
+import { buildBossCollectionCard } from '../lib/collection-models.mjs';
+import { getPublishedBosses, loadKnowledge } from '../lib/knowledge.mjs';
+import { getProductionCardMedia } from '../lib/media.mjs';
+
+const bosses = getPublishedBosses(await loadKnowledge());
+const cards = await Promise.all(bosses.map(async (entity) => ({ card: buildBossCollectionCard(entity), media: await getProductionCardMedia(entity.id) })));
+---
+<CollectionLayout pageTitle="Boss攻略 - 影之刃零攻略站" title="Boss" description="影之刃零发售前Boss资料，整理公开试玩与实机演示中的敌人和战斗观察；完整名单与打法待正式版验证。" canonical="https://www.yingzhirenling.cn/bosses" activeSection="bosses" entityType="boss" eyebrow="Boss 图鉴" intro="当前已确认并整理的公开 Boss 实体。集合页只帮助浏览已发布身份，不推断弱点、掉落、打法或正式版战斗机制。" inventoryLabel="Boss" cards={cards} supportingTitle="资料范围" supportingText="Boss 身份与公开出现方式均以现有可核查材料为界；策略、战利品和战斗阶段会等待可靠资料后再单独建立。" />
