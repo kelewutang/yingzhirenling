@@ -33,6 +33,16 @@ const canonicalRoutes = [
   ...publishedLocations.map((location) => [`world/${location.slug}.html`, `/world/${location.slug}`])
 ];
 
+async function assertDetailVisualContract(file, entityType) {
+  const html = await readFile(resolve(dist, file), 'utf8');
+  assert.equal((html.match(/<h1\b/g) || []).length, 1, `${file}: detail page must have one H1`);
+  assert(html.includes('data-detail-system="rollout"'), `${file}: shared detail system missing`);
+  assert(html.includes(`data-entity-type="${entityType}"`), `${file}: entity type marker missing`);
+  assert(html.includes('class="entity-hero"'), `${file}: Entity Hero missing`);
+  assert(html.includes('data-media-state="fallback"'), `${file}: production no-media fallback missing`);
+  assert(!html.includes('<img'), `${file}: no Media record must not emit an image`);
+}
+
 for (const [file] of canonicalRoutes) assert((await stat(resolve(dist, file))).isFile(), `Missing dist/${file}`);
 assert((await stat(resolve(dist, '404.html'))).isFile(), 'Missing custom 404');
 if (process.env.CONTEXT === 'deploy-preview') {
@@ -84,6 +94,7 @@ for (const path of [
 
 for (const weapon of publishedWeapons) {
   const html = await readFile(resolve(dist, 'weapons', `${weapon.slug}.html`), 'utf8');
+  await assertDetailVisualContract(`weapons/${weapon.slug}.html`, 'weapon');
   const canonical = `https://www.yingzhirenling.cn/weapons/${weapon.slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回武器图鉴']) {
     assert(html.includes(token), `${weapon.slug}: missing static Weapon contract token ${token}`);
@@ -97,6 +108,7 @@ for (const weapon of draftWeapons) assert(!weaponCollection.includes(`href="/wea
 
 for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
   const html = await readFile(resolve(dist, 'characters', `${slug}.html`), 'utf8');
+  await assertDetailVisualContract(`characters/${slug}.html`, 'character');
   const canonical = `https://www.yingzhirenling.cn/characters/${slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回角色图鉴']) {
     assert(html.includes(token), `${slug}: missing static Character contract token ${token}`);
@@ -114,6 +126,7 @@ for (const slug of ['soul', 'mo-yuan', 'the-hunt']) assert(collection.includes(`
 
 for (const boss of publishedBosses) {
   const html = await readFile(resolve(dist, 'bosses', `${boss.slug}.html`), 'utf8');
+  await assertDetailVisualContract(`bosses/${boss.slug}.html`, 'boss');
   const canonical = `https://www.yingzhirenling.cn/bosses/${boss.slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回 Boss 图鉴']) {
     assert(html.includes(token), `${boss.slug}: missing static Boss contract token ${token}`);
@@ -127,6 +140,7 @@ for (const boss of draftBosses) assert(!bossCollection.includes(`/bosses/${boss.
 
 for (const location of publishedLocations) {
   const html = await readFile(resolve(dist, 'world', `${location.slug}.html`), 'utf8');
+  await assertDetailVisualContract(`world/${location.slug}.html`, 'location');
   const canonical = `https://www.yingzhirenling.cn/world/${location.slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回世界与地点']) {
     assert(html.includes(token), `${location.slug}: missing static Location contract token ${token}`);

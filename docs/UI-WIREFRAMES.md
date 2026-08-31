@@ -179,6 +179,8 @@ SiteFooter
 
 The hero media and identity columns are peers, but the H1 and summary remain HTML outside the bitmap. Without approved media, the fallback occupies the same space and the page keeps its identity.
 
+P2-UI-4 applies this frame to every published Entity detail route. The order remains Hero, scope, Quick Facts when supported, Facts, Character-only Relations when present, and Sources. Type-specific adapters choose labels and scan facts; they do not create empty sections or convert Relations into Facts.
+
 ### Mobile-first detail at 390 px
 
 ```text

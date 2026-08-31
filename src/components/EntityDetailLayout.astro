@@ -1,0 +1,20 @@
+---
+import Breadcrumb from './Breadcrumb.astro';
+import EntityHero from './EntityHero.astro';
+import QuickFacts from './QuickFacts.astro';
+import DetailFactSections from './DetailFactSections.astro';
+import SourcePanel from './SourcePanel.astro';
+import RelationList from './RelationList.astro';
+
+const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, facts, sources, sourceById, media, relations = [] } = Astro.props;
+---
+<article class="entity-detail entity-detail--pilot" data-detail-system="rollout" data-detail-pilot={entity.id === 'weapon:tang-hengdao' ? 'weapon' : undefined} data-entity-type={entity.entityType}>
+  <Breadcrumb collectionHref={collectionHref} collectionLabel={collectionLabel} currentLabel={entity.displayName} />
+  <EntityHero entity={entity} aliases={aliases} eyebrow={eyebrow} media={media} />
+  <div class="entity-detail__scope alert alert-info">本页整理发售前公开资料。每条事实与关系均单独标注来源状态；公开画面观察不自动等同于官方文字确认。</div>
+  <QuickFacts facts={facts.quick} />
+  <DetailFactSections facts={facts.detail} sourceById={sourceById} />
+  <RelationList relations={relations} sourceById={sourceById} />
+  <SourcePanel sources={sources} />
+  <p class="entity-detail__return"><a class="btn btn-outline" href={collectionHref}>返回{entity.entityType === 'boss' ? ' ' : ''}{returnLabel}</a></p>
+</article>
