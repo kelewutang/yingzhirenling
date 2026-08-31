@@ -8,6 +8,7 @@ import { safeExternalUrl } from '../lib/knowledge.mjs';
 const { entity, media = null } = Astro.props;
 const hasMedia = media && media.src && media.alt && media.width && media.height && media.usage?.includes('hero');
 const mediaSourceUrl = hasMedia ? safeExternalUrl(media.sourceUrl) : null;
+const fallbackMarks = { weapon: '兵', character: '人', boss: '敌', location: '地' };
 ---
 <figure class="entity-media" data-media-state={hasMedia ? 'ready' : 'fallback'}>
   {hasMedia ? (
@@ -22,14 +23,12 @@ const mediaSourceUrl = hasMedia ? safeExternalUrl(media.sourceUrl) : null;
       style={media.objectFit ? `object-fit:${media.objectFit};${media.objectPosition ? `object-position:${media.objectPosition};` : ''}` : undefined}
     />
   ) : (
-    <div class="entity-media__fallback" aria-hidden="true">
-      <span class="entity-media__mark">兵</span>
+    <div class={`entity-media__fallback entity-media__fallback--${entity.entityType}`} aria-hidden="true">
+      <span class="entity-media__mark">{fallbackMarks[entity.entityType] || '影'}</span>
       <span class="entity-media__type">{entity.entityType}</span>
       <span class="entity-media__name">{entity.displayName}</span>
-      <svg class="entity-media__blade" viewBox="0 0 240 96" focusable="false">
-        <path d="M25 70 178 23l36 5-34 13 35 11-14 8-39-12-129 34z" fill="none" stroke="currentColor" stroke-width="1.5" />
-        <path d="m44 65 19-5 12 14-21 6z" fill="none" stroke="currentColor" stroke-width="1.5" />
-      </svg>
+      {entity.entityType === 'weapon' && <svg class="entity-media__blade" viewBox="0 0 240 96" focusable="false"><path d="M25 70 178 23l36 5-34 13 35 11-14 8-39-12-129 34z" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="m44 65 19-5 12 14-21 6z" fill="none" stroke="currentColor" stroke-width="1.5" /></svg>}
+      {entity.entityType !== 'weapon' && <span class="entity-media__motif" />}
     </div>
   )}
   {(hasMedia && (media.caption || media.credit || mediaSourceUrl)) && <figcaption class="entity-media__caption">

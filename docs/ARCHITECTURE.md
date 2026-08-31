@@ -38,6 +38,8 @@ Netlify 当前 `build.command` 不执行 Knowledge validator 或 generator。生
 
 `data/` 是结构化知识 Source of Truth。`generated/` 和 `pages/generated/` 是派生产物，不得被反向当作 Fact 或 Source 的证据。
 
+P2-UI-4 uses a shared Astro `EntityDetailLayout` with small type adapters in `src/lib/detail-models.mjs`. The layout owns the static breadcrumb, Hero/media fallback, Quick Facts, Fact sections, Relation slot, Source Panel, and return link; adapters only select type-appropriate Fact emphasis. Media remains a build-time presentation lookup, not a Knowledge or Fact field.
+
 # Knowledge Layer
 
 当前核心类型：

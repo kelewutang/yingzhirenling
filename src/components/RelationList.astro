@@ -2,11 +2,11 @@
 import { statusLabel } from '../lib/knowledge.mjs';
 const { relations, sourceById } = Astro.props;
 ---
-{relations.length > 0 && <section aria-labelledby="relations-title">
-  <h2 id="relations-title">人物关系</h2>
-  <p>仅展示关系两端均已发布且仍有效的可核查关系。</p>
+{relations.length > 0 && <section class="relation-panel" aria-labelledby="relations-title">
+  <div class="detail-section-heading"><p class="detail-section-heading__eyebrow">RELATIONSHIPS</p><h2 id="relations-title">人物关系</h2></div>
+  <p class="relation-panel__intro">仅展示关系两端均已发布且仍有效的可核查关系。</p>
   {relations.map((relation) => (
-    <aside class="info-provenance" data-info-scope="relation" data-relation-id={relation.id} data-status={relation.status}>
+    <article class="relation-panel__item" data-info-scope="relation" data-relation-id={relation.id} data-status={relation.status}>
       <div class="info-provenance__intro">
         <span class="info-status" data-status={relation.status}>{statusLabel(relation.status)}</span>
         <div class="info-provenance__content">
@@ -19,6 +19,6 @@ const { relations, sourceById } = Astro.props;
         <div class="info-source"><dt>资料阶段</dt><dd>{relation.versionText}</dd></div>
         <div class="info-source"><dt>核验时间</dt><dd><time datetime={relation.checkedAt}>{relation.checkedAt}</time></dd></div>
       </dl>
-    </aside>
+    </article>
   ))}
 </section>}

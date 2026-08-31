@@ -281,6 +281,10 @@ The shared frame does not require identical fields.
 
 No cleared Tang Hengdao media is used in this pilot. The same reserved Hero slot instead renders a deterministic Weapon fallback: typographic identity, type marker, abstract blade mark, and restrained Ink & Steel texture. Quick Facts are limited to existing scan-friendly facts; detailed facts retain a value-first presentation with status and provenance kept secondary. Sources remain static and visible at the end of the evidence chain.
 
+### 9.0.1 P2-UI-4 detail rollout
+
+All published Weapon, Character, Boss, and Location details use the same static Entity Detail frame. Type adapters select Quick Facts and Hero eyebrow context without changing Fact data. The shared fallback keeps the same geometry while using an abstract type mark and motif for Weapon, Character, Boss, and Location; it is not game artwork. Character Relations remain a distinct presentation section between Facts and Sources.
+
 ### 9.1 Weapon
 
 - Identity: name, English/aliases, weapon category, summary, updated context
