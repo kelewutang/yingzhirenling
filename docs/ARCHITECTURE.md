@@ -29,6 +29,7 @@ Netlify 当前 `build.command` 不执行 Knowledge validator 或 generator。生
 | Hand-authored pages | `index.html`, `pages/*.html` | 现有页面与长篇内容 |
 | Styles/runtime | `css/`, `js/` | 全站视觉和渐进增强 |
 | Knowledge source | `data/` | Entity、Fact、Source、Version、Registry |
+| Media source | `data/media.json` + `assets/media/` | 独立、经审核的 Entity presentation media；不属于 Fact 或 Knowledge Schema |
 | Validation/build | `scripts/` | 严格校验和 deterministic 派生 |
 | Derived search | `generated/` | shadow/production Search Documents |
 | Derived pages | `pages/generated/` | published Entity 静态详情页 |

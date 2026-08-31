@@ -10,6 +10,7 @@ import FactList from '../../components/FactList.astro';
 import SourceList from '../../components/SourceList.astro';
 import { aliasValues, collectDisplayedSources, getPublishedWeapons, loadKnowledge } from '../../lib/knowledge.mjs';
 import { projectWeaponFacts } from '../../lib/projections.mjs';
+import { getProductionHeroMedia } from '../../lib/media.mjs';
 
 export async function getStaticPaths() {
   const knowledge = await loadKnowledge();
@@ -29,12 +30,13 @@ const quickFacts = facts.filter((fact) => [
   'weapon.publicAppearance',
   'weapon.observedTrait'
 ].includes(fact.key));
+const media = await getProductionHeroMedia(weapon.id);
 ---
 <BaseLayout title={`${weapon.displayName} - 影之刃零武器资料 | 影之刃零攻略站`} description={description} canonical={canonical} activeSection="weapons">
   {isDetailPilot ? (
     <article class="entity-detail entity-detail--pilot" data-detail-pilot="weapon">
       <Breadcrumb collectionHref="/weapons" collectionLabel="武器图鉴" currentLabel={weapon.displayName} />
-      <EntityHero entity={weapon} aliases={aliasValues(weapon)} kindFact={kindFact} />
+      <EntityHero entity={weapon} aliases={aliasValues(weapon)} kindFact={kindFact} media={media} />
       <div class="entity-detail__scope alert alert-info">本页整理发售前公开资料。每条事实单独标注“官方确认、试玩观察、第三方信息、编辑推测或待后续核查”；官方来源中的画面观察不自动等同于官方文字确认。</div>
       <QuickFacts facts={quickFacts} />
       <DetailFactSections facts={facts} sourceById={knowledge.sourceById} />

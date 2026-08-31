@@ -14,6 +14,7 @@ assert(!page.includes('noindex'), 'Published Tang Hengdao page must remain index
 assert(page.includes('data-detail-pilot="weapon"'), 'Tang Hengdao pilot marker missing');
 assert(page.includes('entity-hero'), 'Tang Hengdao entity hero missing');
 assert(page.includes('entity-media__fallback'), 'Tang Hengdao no-media fallback missing');
+assert(!page.includes('<img'), 'No cleared Media record must not emit an image for Tang Hengdao');
 assert(page.includes(weapon.summary), 'Tang Hengdao summary missing');
 assert(page.includes('id="quick-facts-title"'), 'Tang Hengdao Quick Facts missing');
 assert(page.includes('id="sources-title"'), 'Tang Hengdao Sources missing');
