@@ -47,6 +47,7 @@ async function assertDetailVisualContract(file, entityType) {
 
 for (const [file] of canonicalRoutes) assert((await stat(resolve(dist, file))).isFile(), `Missing dist/${file}`);
 assert((await stat(resolve(dist, '404.html'))).isFile(), 'Missing custom 404');
+await assert.rejects(() => stat(resolve(dist, 'assets')), { code: 'ENOENT' });
 if (process.env.CONTEXT === 'deploy-preview') {
   assert.match(await readFile(resolve(dist, '_headers'), 'utf8'), /X-Robots-Tag: noindex, nofollow/);
 } else {
@@ -234,9 +235,21 @@ async function walk(directory) {
   }
   return files;
 }
+const retiredLegacyAssets = [
+  'bg-texture.jpg',
+  'hero-bg.jpg',
+  'hero-logo.png',
+  'map-lake.jpg',
+  'map-pangzhen.jpg',
+  'map-snow.jpg',
+  'map-street.jpg',
+  'map-tower.jpg',
+  'map-valley.jpg'
+];
 for (const file of await walk(dist)) {
   const content = await readFile(file);
   const text = content.toString('utf8');
   for (const forbidden of ['/home/mok', '/mnt/c/', 'astro-island', 'client:load']) assert(!text.includes(forbidden), `${file}: forbidden build output`);
+  for (const asset of retiredLegacyAssets) assert(!text.includes(asset), `${file}: retired legacy asset reference remains: ${asset}`);
 }
 console.log(`Astro dist verification passed: ${canonicalRoutes.length} canonical routes, ${publishedWeapons.length} Weapon pages, 3 Character pages, ${publishedBosses.length} Boss pages, ${publishedLocations.length} Location pages, ${draftWeapons.length} draft Weapon, ${draftBosses.length} draft Boss, and ${draftLocations.length} draft Location detail routes.`);
