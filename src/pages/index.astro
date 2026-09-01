@@ -1,0 +1,74 @@
+---
+import CategoryCard from '../components/CategoryCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildHomepageModel } from '../lib/homepage-model.mjs';
+
+const { categories, secondaryLinks } = await buildHomepageModel();
+---
+<BaseLayout title="影之刃零攻略站 - 发售前可核验资料库" description="影之刃零非官方玩家知识库，整理可核验的公开武器、角色、Boss 与世界资料，明确区分官方资料、公开素材观察与第三方信息。" canonical="https://www.yingzhirenling.cn/" activeSection="home">
+  <script slot="head" type="application/ld+json">{JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: '影之刃零攻略站',
+    url: 'https://www.yingzhirenling.cn/',
+    description: '影之刃零中文玩家资料站，整理官方公开资料、公开实机观察、武器、角色、Boss 与世界资料。'
+  })}</script>
+
+  <article class="home-page">
+    <header class="home-hero">
+      <div class="home-hero__copy">
+        <p class="home-hero__eyebrow">PRE-RELEASE KNOWLEDGE BASE</p>
+        <h1>影之刃零攻略站</h1>
+        <p class="home-hero__summary">整理官方公开信息与可核验资料，持续收录武器、角色、Boss 与世界条目。</p>
+      </div>
+      <p class="home-hero__state">游戏尚未正式发售；当前内容以官方公开资料、公开素材观察与明确标注的第三方资料为基础。</p>
+      <button class="home-search" type="button" onclick="openSearch()" data-home-search-trigger aria-label="搜索影之刃零知识库">
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><circle cx="10.8" cy="10.8" r="5.8" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="m15.3 15.3 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+        <span>搜索武器、角色、Boss、地点…</span><kbd>⌘K / Ctrl+K</kbd>
+      </button>
+    </header>
+
+    <section class="home-categories" aria-labelledby="home-categories-title">
+      <header class="home-section-heading">
+        <p>EXPLORE THE KNOWLEDGE BASE</p>
+        <h2 id="home-categories-title">从资料分类开始</h2>
+      </header>
+      <div class="home-categories__grid">
+        {categories.map((category) => <CategoryCard category={category} />)}
+      </div>
+    </section>
+
+    <section class="home-coverage" aria-labelledby="home-coverage-title">
+      <div>
+        <p class="home-section-heading__eyebrow">CURRENT COVERAGE</p>
+        <h2 id="home-coverage-title">当前已发布收录</h2>
+        <p>只计算当前可进入生产页面与全站搜索的条目；草稿资料不会在这里显示。</p>
+      </div>
+      <ul class="home-coverage__list">
+        {categories.map((category) => <li><strong>{category.count}</strong><span>{category.label}</span></li>)}
+      </ul>
+    </section>
+
+    <section class="home-trust" aria-labelledby="home-trust-title">
+      <div>
+        <p class="home-section-heading__eyebrow">SOURCE &amp; STATUS</p>
+        <h2 id="home-trust-title">资料如何标注</h2>
+        <p>每条资料按来源和事实状态保留边界，避免把公开画面、第三方报道或编辑整理混作同一种结论。</p>
+        <a href="/about-site">查看本站资料说明 <span aria-hidden="true">→</span></a>
+      </div>
+      <ul class="home-trust__labels" aria-label="资料类型示例">
+        <li>官方资料</li><li>公开素材观察</li><li>第三方资料</li><li>编辑整理</li>
+      </ul>
+    </section>
+
+    <section class="home-secondary" aria-labelledby="home-secondary-title">
+      <header class="home-section-heading">
+        <p>MORE TO EXPLORE</p>
+        <h2 id="home-secondary-title">继续浏览</h2>
+      </header>
+      <div class="home-secondary__grid">
+        {secondaryLinks.map((link) => <a href={link.href} class="home-secondary__link"><h3>{link.label}</h3><p>{link.description}</p><span aria-hidden="true">→</span></a>)}
+      </div>
+    </section>
+  </article>
+</BaseLayout>

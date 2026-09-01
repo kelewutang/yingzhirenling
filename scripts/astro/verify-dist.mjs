@@ -15,6 +15,8 @@ async function readEntities(relativeDirectory) {
 const weapons = await readEntities('data/weapons');
 const publishedWeapons = weapons.filter((weapon) => weapon.recordState === 'published');
 const draftWeapons = weapons.filter((weapon) => weapon.recordState === 'draft');
+const characters = await readEntities('data/characters');
+const publishedCharacters = characters.filter((character) => character.recordState === 'published');
 const bosses = await readEntities('data/bosses');
 const publishedBosses = bosses.filter((boss) => boss.recordState === 'published');
 const draftBosses = bosses.filter((boss) => boss.recordState === 'draft');
@@ -49,6 +51,24 @@ if (process.env.CONTEXT === 'deploy-preview') {
   assert.match(await readFile(resolve(dist, '_headers'), 'utf8'), /X-Robots-Tag: noindex, nofollow/);
 } else {
   await assert.rejects(() => stat(resolve(dist, '_headers')), { code: 'ENOENT' });
+}
+
+const homepage = await readFile(resolve(dist, 'index.html'), 'utf8');
+assert.equal((homepage.match(/<h1\b/g) || []).length, 1, 'Homepage must have one H1');
+assert(homepage.includes('<link rel="canonical" href="https://www.yingzhirenling.cn/"'), 'Homepage canonical missing');
+assert(homepage.includes('data-home-search-trigger'), 'Homepage primary Search trigger missing');
+assert(!homepage.includes('noindex'), 'Homepage must be indexable');
+assert(homepage.includes('class="footer site-footer"'), 'Homepage shared footer missing');
+assert(!homepage.includes('qinglong-lueyue-dao') && !homepage.includes('青龙掠月刀'), 'Homepage must exclude draft Qinglong');
+const homepageCategoryAssertions = [
+  ['/weapons', '武器', publishedWeapons.length],
+  ['/characters', '角色', publishedCharacters.length],
+  ['/bosses', 'Boss', publishedBosses.length],
+  ['/world', '世界', publishedLocations.length]
+];
+for (const [route, label, count] of homepageCategoryAssertions) {
+  assert(homepage.includes(`href="${route}"`), `Homepage category link missing: ${route}`);
+  assert(homepage.includes(`<strong>${count}</strong> 个已发布条目`), `Homepage published count missing: ${label}`);
 }
 
 for (const slug of ['tang-hengdao', 'ya-hengdao']) {

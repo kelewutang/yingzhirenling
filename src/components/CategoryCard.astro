@@ -1,0 +1,12 @@
+---
+const { category } = Astro.props;
+---
+<a class:list={['category-card', `category-card--${category.variant}`]} href={category.href} data-category-card={category.id} aria-label={`浏览${category.label}资料`}>
+  <span class="category-card__motif" aria-hidden="true"><span>{category.marker}</span></span>
+  <span class="category-card__content">
+    <span class="category-card__eyebrow">{category.eyebrow}</span>
+    <h3>{category.label}</h3>
+    <span class="category-card__description">{category.description}</span>
+    <span class="category-card__count"><strong>{category.count}</strong> 个已发布条目</span>
+  </span>
+</a>
