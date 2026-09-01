@@ -97,7 +97,8 @@ const [entityGroups, sources, document] = await Promise.all([
     return null;
   })
 ]);
-const entityIds = new Set(entityGroups.flat().map((entity) => entity.id));
+const entityById = new Map(entityGroups.flat().map((entity) => [entity.id, entity]));
+const entityIds = new Set(entityById.keys());
 const sourceIds = new Set(sources.map((source) => source.id));
 
 if (!isObject(document)) {
@@ -117,7 +118,9 @@ if (!isObject(document)) {
       if (typeof media.id !== 'string' || !idPattern.test(media.id)) error(`${location}.id`, '必须是稳定的 media: kebab-case ID');
       else if (ids.has(media.id)) error(`${location}.id`, `重复 ID：${media.id}`);
       else ids.add(media.id);
+      const entity = entityById.get(media.entityId);
       if (typeof media.entityId !== 'string' || !entityIds.has(media.entityId)) error(`${location}.entityId`, '必须引用存在的 Entity');
+      else if (media.recordState === 'published' && entity.recordState !== 'published') error(`${location}.entityId`, 'published Media 必须引用 published Entity，draft 或 archived Entity 不得进入 production');
       if (typeof media.src !== 'string' || !filenamePattern.test(media.src)) error(`${location}.src`, '必须是 assets/media 下的小写 ASCII 图像文件名');
       if (typeof media.alt !== 'string' || !media.alt.trim()) error(`${location}.alt`, 'Hero 媒体必须提供非空、描述画面的 alt');
       if (typeof media.caption !== 'string') error(`${location}.caption`, '必须是字符串');
