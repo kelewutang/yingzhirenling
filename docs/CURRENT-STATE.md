@@ -7,7 +7,7 @@
 - **Repository:** `git@github.com:kelewutang/yingzhirenling.git`
 - **Formal local repo:** `/home/mok/projects/yingzhirenling-site`
 - **Branch:** `main`
-- **Baseline commit:** `ee09a49aa76965078c81264242afacb1303ec96e`
+- **Baseline commit:** `342b711d8bf02b3c4a09f7b35ac359105614166a`
 - **Hosting:** Netlify static hosting
 - **Architecture:** Astro static output, native CSS, native JavaScript, and build-time Knowledge data
 
@@ -69,6 +69,9 @@ Read [Knowledge Schema 1.0](knowledge-schema-1.0.md) before changing any data or
 - Production runtime loads only `generated/search-index.production.json`; Page Search remains usable if the Entity enhancement fails.
 - Do not introduce Next.js, React, Tailwind, a database, CMS, Server API, or account system without an explicit approved need.
 - Netlify publishes `dist/`; its build command runs the repository validation and generation chain.
+- Astro natively emits the homepage, four collection pages, 15 published Entity detail pages, and the sitemap.
+- The retained legacy bridge serves `/guide`, `/videos`, `/about`, `/about-site`, and `/404`. Legacy `/pages/*.html` compatibility redirects remain in place.
+- Obsolete legacy source files removed in P2-UI-8 are root `index.html` and `pages/weapons.html`, `pages/characters.html`, `pages/bosses.html`, and `pages/world.html`.
 
 ## 7. UI System
 
@@ -96,12 +99,14 @@ Shared production systems are:
 | P2-UI-5 Collection Pages | PASS |
 | P2-UI-6 Homepage | PASS |
 | P2-UI-7 Media Readiness + Performance QA | PASS |
+| P2-UI-8 Legacy Bridge + CSS Consolidation | PASS |
 
 Known merge baselines:
 
 - P2-UI-5: `093a6f614d0d08e80d1804c46126f288f1ecd015`
 - P2-UI-6, including the Homepage structured-data hotfix: `b0ecacfc7e84439deb0b27b3f9494598dc13989f`
 - P2-UI-7 merge: `ee09a49aa76965078c81264242afacb1303ec96e`
+- P2-UI-8 merge: `342b711d8bf02b3c4a09f7b35ac359105614166a`
 
 ## 9. Current User Journey
 
@@ -127,7 +132,16 @@ Published Media may only target a published Entity; draft or archived Entity tar
 
 ## 10.1 Performance Baseline
 
-P2-UI-7 records a reproducible static baseline in [Performance Baseline](PERFORMANCE-BASELINE.md): `dist/` 2,598,387 B; CSS 66,155 B; JavaScript 16,403 B; Production Search index 8,498 B / 15 Entity documents; legacy images 9 files / 2,190,224 B; Production Media 0.
+[Performance Baseline](PERFORMANCE-BASELINE.md) retains the historical P2-UI-7 production-build measurement. The P2-UI-8 post-cleanup measurement supersedes that size snapshot for current operational state:
+
+- `dist/`: 403,085 B
+- CSS: 61,077 B
+- JavaScript: 16,403 B
+- Production Search index: 8,498 B / 15 Entity documents
+- Legacy images: 0 files / 0 B
+- Production Media: 0
+
+All nine retired legacy bitmaps were removed after reference, build, and runtime verification. This was legacy cleanup, not a Media rollout.
 
 ## 11. SEO and Routing State
 
@@ -164,7 +178,7 @@ No homepage-specific runtime Search implementation was added.
 
 ## 13. Validation Baseline
 
-At baseline `ee09a49`, the main build passed:
+At baseline `342b711`, the main build passed:
 
 - `git diff --check`
 - Knowledge validator
@@ -225,22 +239,36 @@ Do not merge directly because `gh` is unavailable. Do not force-push, rewrite hi
 ## 17. Current Technical Debt and Deferred Work
 
 - Production media rollout is deferred until cleared assets exist.
-- Legacy CSS and legacy asset review remain for P2-UI-8.
-- The legacy static-copy bridge remains while older hand-authored pages are still served through it.
+- Major legacy CSS cleanup, obsolete legacy homepage/collection source cleanup, and legacy bitmap cleanup completed in P2-UI-8.
+- The legacy static-copy bridge remains for `/guide`, `/videos`, `/about`, `/about-site`, and `/404`.
 - Post-release content expansion, search scaling, and Build tools are future scope.
 - Accounts, UGC, and backend services are future scope.
 
-## 18. Next Planned Stage
+## 18. P2 Foundation Status
 
-The next main stage is **P2-UI-8 Legacy Bridge + CSS Consolidation**.
+P2-UI-0 through P2-UI-8 foundational UI and architecture cleanup is complete. This is foundation completion, not product completion.
 
-Cleared Media Asset Admission remains deferred. Visual Atmosphere / Background Layer is planned after legacy cleanup and is not part of P2-UI-8 unless separately authorized. Do not begin P2-UI-8 without a separate approved prompt.
+## 19. Next Planned Stage
 
-## 19. Future Reusable Starter
+The next main stage is **Visual Atmosphere / Background Layer**.
+
+Its objective is to reduce the current visually empty dark-background feeling while preserving Ink & Steel hierarchy and readability. This stage may use original CSS atmosphere, SVG decorative layers, self-created texture or pattern systems, and type-specific page atmosphere. It does not automatically authorize real game screenshots, uncleared artwork, or Media admission; Production Media remains 0.
+
+- Homepage: restrained Ink & Steel atmospheric layer.
+- Weapons: cold steel / cut-line language.
+- Characters: ink / vertical silhouette language.
+- Bosses: darker pressure / restrained cinnabar.
+- World: mist / terrain / landscape-line language.
+
+Background atmosphere is not Entity Media.
+
+Cleared Media Asset Admission remains deferred.
+
+## 20. Future Reusable Starter
 
 Do not blindly clone the current content repository for future game-guide sites. After the architecture is mature and legacy consolidation is complete, extract a clean reusable starter/template from the proven architecture. Future projects should start natively in WSL.
 
-## 20. Source-of-Truth Rule
+## 21. Source-of-Truth Rule
 
 This file is a current operational snapshot, not the ultimate source of truth.
 
