@@ -60,6 +60,12 @@ assert(homepage.includes('data-home-search-trigger'), 'Homepage primary Search t
 assert(!homepage.includes('noindex'), 'Homepage must be indexable');
 assert(homepage.includes('class="footer site-footer"'), 'Homepage shared footer missing');
 assert(!homepage.includes('qinglong-lueyue-dao') && !homepage.includes('青龙掠月刀'), 'Homepage must exclude draft Qinglong');
+assert(!homepage.includes('JSON.stringify'), 'Homepage must not emit a literal JSON.stringify expression');
+const homepageJsonLd = [...homepage.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+assert.equal(homepageJsonLd.length, 1, 'Homepage must render one WebSite JSON-LD script');
+const homepageStructuredData = JSON.parse(homepageJsonLd[0][1]);
+assert.equal(homepageStructuredData['@context'], 'https://schema.org', 'Homepage JSON-LD context must be schema.org');
+assert.equal(homepageStructuredData['@type'], 'WebSite', 'Homepage JSON-LD type must be WebSite');
 const homepageCategoryAssertions = [
   ['/weapons', '武器', publishedWeapons.length],
   ['/characters', '角色', publishedCharacters.length],
