@@ -108,5 +108,6 @@ Netlify 当前不运行数据生成器；生成和验证在提交前完成，Net
 - [UI 与模板标准](docs/UI-TEMPLATE-STANDARD.md)
 - [开发执行规则](docs/DEVELOPMENT-RULES.md)
 - [Git 工作流](docs/GIT-WORKFLOW.md)
+- [当前项目快照](docs/CURRENT-STATE.md)
 
 上述文档各自是对应主题的主要 Source of Truth。阶段 Prompt 只应描述当前 scope、gate、允许文件和验证要求。
