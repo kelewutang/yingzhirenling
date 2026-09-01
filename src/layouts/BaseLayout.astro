@@ -2,7 +2,7 @@
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 
-const { title, description, canonical, activeSection } = Astro.props;
+const { title, description, canonical, activeSection, atmosphere } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -16,7 +16,7 @@ const { title, description, canonical, activeSection } = Astro.props;
     <link rel="stylesheet" href="/css/style.css" />
     <slot name="head" />
   </head>
-  <body>
+  <body data-atmosphere={atmosphere}>
     <SiteHeader activeSection={activeSection} />
     <main class="container site-main" id="main-content"><slot /></main>
     <SiteFooter />
