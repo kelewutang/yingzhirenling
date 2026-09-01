@@ -9,7 +9,6 @@ const dist = resolve(root, 'dist');
 const targets = [
   ['css', 'css'],
   ['js', 'js'],
-  ['assets', 'assets'],
   ['generated/search-index.production.json', 'generated/search-index.production.json'],
   ['favicon.ico', 'favicon.ico'],
   ['robots.txt', 'robots.txt'],
@@ -51,6 +50,15 @@ for (const [sourcePath, destinationPath] of targets) {
   await mkdir(dirname(destination), { recursive: true });
   await rm(destination, { recursive: true, force: true });
   await cp(source, destination, { recursive: true });
+}
+
+// Entity Media remains a separately governed future path. Do not copy the
+// retired legacy bitmap directory; when reviewed Media assets exist, copy only
+// their dedicated local directory.
+try {
+  await cp(resolve(root, 'assets', 'media'), resolve(dist, 'assets', 'media'), { recursive: true });
+} catch (cause) {
+  if (cause?.code !== 'ENOENT') throw cause;
 }
 
 for (const [destinationPath, route] of legacyShellPages) {
