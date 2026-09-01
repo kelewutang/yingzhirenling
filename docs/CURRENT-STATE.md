@@ -7,7 +7,7 @@
 - **Repository:** `git@github.com:kelewutang/yingzhirenling.git`
 - **Formal local repo:** `/home/mok/projects/yingzhirenling-site`
 - **Branch:** `main`
-- **Baseline commit:** `b0ecacfc7e84439deb0b27b3f9494598dc13989f`
+- **Baseline commit:** `ee09a49aa76965078c81264242afacb1303ec96e`
 - **Hosting:** Netlify static hosting
 - **Architecture:** Astro static output, native CSS, native JavaScript, and build-time Knowledge data
 
@@ -95,11 +95,13 @@ Shared production systems are:
 | P2-UI-4 Entity Detail Rollout | PASS |
 | P2-UI-5 Collection Pages | PASS |
 | P2-UI-6 Homepage | PASS |
+| P2-UI-7 Media Readiness + Performance QA | PASS |
 
 Known merge baselines:
 
 - P2-UI-5: `093a6f614d0d08e80d1804c46126f288f1ecd015`
 - P2-UI-6, including the Homepage structured-data hotfix: `b0ecacfc7e84439deb0b27b3f9494598dc13989f`
+- P2-UI-7 merge: `ee09a49aa76965078c81264242afacb1303ec96e`
 
 ## 9. Current User Journey
 
@@ -119,7 +121,13 @@ The Media contract exists in `data/media.json` and is validated at build time. P
 
 Production UI therefore uses deterministic abstract CSS/SVG fallbacks. Do not scrape, hotlink, download, or casually reuse screenshots. A Media asset may enter production only after its source, rights evidence, eligibility, local path, dimensions, and usage meet the Media policy.
 
+Published Media may only target a published Entity; draft or archived Entity targets are rejected by the Media validator.
+
 **Cleared Media Asset Admission: DEFERRED.**
+
+## 10.1 Performance Baseline
+
+P2-UI-7 records a reproducible static baseline in [Performance Baseline](PERFORMANCE-BASELINE.md): `dist/` 2,598,387 B; CSS 66,155 B; JavaScript 16,403 B; Production Search index 8,498 B / 15 Entity documents; legacy images 9 files / 2,190,224 B; Production Media 0.
 
 ## 11. SEO and Routing State
 
@@ -156,7 +164,7 @@ No homepage-specific runtime Search implementation was added.
 
 ## 13. Validation Baseline
 
-At baseline `b0ecacf`, the main build passed:
+At baseline `ee09a49`, the main build passed:
 
 - `git diff --check`
 - Knowledge validator
@@ -217,16 +225,16 @@ Do not merge directly because `gh` is unavailable. Do not force-push, rewrite hi
 ## 17. Current Technical Debt and Deferred Work
 
 - Production media rollout is deferred until cleared assets exist.
-- Legacy CSS and old-asset consolidation remain.
+- Legacy CSS and legacy asset review remain for P2-UI-8.
 - The legacy static-copy bridge remains while older hand-authored pages are still served through it.
 - Post-release content expansion, search scaling, and Build tools are future scope.
 - Accounts, UGC, and backend services are future scope.
 
 ## 18. Next Planned Stage
 
-The next main stage is **P2-UI-7 Media Rollout + Performance QA**, followed by **P2-UI-8 Legacy Bridge + CSS Consolidation**.
+The next main stage is **P2-UI-8 Legacy Bridge + CSS Consolidation**.
 
-Production Media remains 0. P2-UI-7 must not fabricate or admit uncleared assets; if no eligible assets exist, it should focus on performance and Media-pipeline readiness rather than force an asset rollout. Do not begin either stage without a separate approved prompt.
+Cleared Media Asset Admission remains deferred. Visual Atmosphere / Background Layer is planned after legacy cleanup and is not part of P2-UI-8 unless separately authorized. Do not begin P2-UI-8 without a separate approved prompt.
 
 ## 19. Future Reusable Starter
 
