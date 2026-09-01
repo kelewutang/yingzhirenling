@@ -1275,13 +1275,15 @@ body::before {
 }
 
 .home-page,
-body[data-atmosphere="weapon"] .entity-detail--pilot {
+body[data-atmosphere] .collection-page,
+body[data-atmosphere] .entity-detail--pilot {
   position: relative;
   isolation: isolate;
 }
 
 .home-page::before,
-body[data-atmosphere="weapon"] .entity-detail--pilot::before {
+body[data-atmosphere] .collection-page::before,
+body[data-atmosphere] .entity-detail--pilot::before {
   position: absolute;
   inset: -2rem 0 auto;
   z-index: -1;
@@ -1293,12 +1295,43 @@ body[data-atmosphere="weapon"] .entity-detail--pilot::before {
     radial-gradient(70% 70% at 10% 12%, var(--atmosphere-haze), transparent 72%);
 }
 
+body[data-atmosphere] .collection-page::before {
+  inset-block-start: -1rem;
+  height: 18rem;
+  opacity: 0.58;
+}
+
 body[data-atmosphere="weapon"] .entity-detail--pilot::before {
   height: 28rem;
   background:
     linear-gradient(108deg, transparent 0 48%, var(--atmosphere-steel) 48.08%, transparent 48.16%),
     linear-gradient(128deg, transparent 0 65%, var(--atmosphere-line) 65.08%, transparent 65.16%),
     radial-gradient(70% 72% at 88% 8%, var(--atmosphere-haze), transparent 72%);
+}
+
+body[data-atmosphere="character"] .entity-detail--pilot::before {
+  height: 30rem;
+  background:
+    linear-gradient(90deg, transparent 0 23%, var(--atmosphere-line) 23.08%, transparent 23.16%),
+    linear-gradient(90deg, transparent 0 72%, var(--atmosphere-steel) 72.08%, transparent 72.16%),
+    radial-gradient(16rem 30rem at 26% 4%, var(--atmosphere-haze), transparent 74%);
+}
+
+body[data-atmosphere="boss"] .entity-detail--pilot::before {
+  height: 28rem;
+  background:
+    radial-gradient(74% 78% at 50% -12%, rgb(0 0 0 / 0.34), transparent 72%),
+    radial-gradient(34% 24% at 87% 14%, var(--atmosphere-accent), transparent 72%),
+    linear-gradient(180deg, rgb(241 237 228 / 0.02), transparent 56%);
+}
+
+body[data-atmosphere="world"] .entity-detail--pilot::before {
+  height: 30rem;
+  background:
+    linear-gradient(180deg, transparent 0 43%, var(--atmosphere-line) 43.12%, transparent 43.24%),
+    linear-gradient(180deg, transparent 0 65%, var(--atmosphere-steel) 65.12%, transparent 65.24%),
+    radial-gradient(68% 36% at 16% 22%, var(--atmosphere-haze), transparent 72%),
+    radial-gradient(70% 40% at 90% 14%, rgb(241 237 228 / 0.025), transparent 74%);
 }
 
 :focus-visible {
@@ -2267,6 +2300,30 @@ body[data-atmosphere="weapon"] .entity-hero {
     var(--color-surface);
 }
 
+body[data-atmosphere="character"] .entity-hero {
+  background:
+    linear-gradient(90deg, transparent 0 26%, var(--atmosphere-line) 26.1%, transparent 26.2%),
+    radial-gradient(28% 120% at 80% 0, var(--atmosphere-haze), transparent 72%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 52%),
+    var(--color-surface);
+}
+
+body[data-atmosphere="boss"] .entity-hero {
+  background:
+    radial-gradient(76% 115% at 52% -20%, rgb(0 0 0 / 0.26), transparent 72%),
+    radial-gradient(24% 36% at 88% 18%, var(--atmosphere-accent), transparent 74%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.025), transparent 52%),
+    var(--color-surface);
+}
+
+body[data-atmosphere="world"] .entity-hero {
+  background:
+    linear-gradient(180deg, transparent 0 63%, var(--atmosphere-line) 63.1%, transparent 63.2%),
+    radial-gradient(74% 72% at 16% 0, var(--atmosphere-haze), transparent 74%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 52%),
+    var(--color-surface);
+}
+
 .home-hero__eyebrow,
 .home-section-heading > p,
 .home-section-heading__eyebrow,
@@ -2463,6 +2520,37 @@ body[data-atmosphere="weapon"] .entity-hero {
   background: linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 58%), var(--color-surface);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-lg);
+}
+
+body[data-atmosphere="weapon"] .collection-hero {
+  background:
+    linear-gradient(111deg, transparent 0 62%, var(--atmosphere-steel) 62.08%, transparent 62.16%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 58%),
+    var(--color-surface);
+}
+
+body[data-atmosphere="character"] .collection-hero {
+  background:
+    linear-gradient(90deg, transparent 0 76%, var(--atmosphere-line) 76.08%, transparent 76.16%),
+    radial-gradient(22% 120% at 20% 0, var(--atmosphere-haze), transparent 74%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 58%),
+    var(--color-surface);
+}
+
+body[data-atmosphere="boss"] .collection-hero {
+  background:
+    radial-gradient(78% 125% at 52% -35%, rgb(0 0 0 / 0.2), transparent 72%),
+    radial-gradient(20% 38% at 90% 12%, var(--atmosphere-accent), transparent 74%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.025), transparent 58%),
+    var(--color-surface);
+}
+
+body[data-atmosphere="world"] .collection-hero {
+  background:
+    linear-gradient(180deg, transparent 0 68%, var(--atmosphere-line) 68.1%, transparent 68.2%),
+    radial-gradient(76% 68% at 18% 0, var(--atmosphere-haze), transparent 74%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 58%),
+    var(--color-surface);
 }
 
 .collection-hero__eyebrow,

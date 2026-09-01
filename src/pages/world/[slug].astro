@@ -20,6 +20,6 @@ const detail = buildEntityDetailModel(location, facts);
 const canonical = `https://www.yingzhirenling.cn/world/${location.slug}`;
 const description = `${location.displayName}：${location.summary}`;
 ---
-<BaseLayout title={`${location.displayName} - 影之刃零世界与地点`} description={description} canonical={canonical} activeSection="world">
+<BaseLayout title={`${location.displayName} - 影之刃零世界与地点`} description={description} canonical={canonical} activeSection="world" atmosphere="world">
   <EntityDetailLayout entity={location} collectionHref="/world" collectionLabel="世界与地点" returnLabel="世界与地点" eyebrow={detail.eyebrow} aliases={aliasValues(location)} facts={detail.facts} sources={sources} sourceById={knowledge.sourceById} media={media} />
 </BaseLayout>
