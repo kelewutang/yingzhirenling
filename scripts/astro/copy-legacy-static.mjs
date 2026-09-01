@@ -14,7 +14,6 @@ const targets = [
   ['favicon.ico', 'favicon.ico'],
   ['robots.txt', 'robots.txt'],
   ['404.html', '404.html'],
-  ['index.html', 'index.html'],
   ['pages/guide.html', 'guide.html'],
   ['pages/videos.html', 'videos.html'],
   ['pages/about.html', 'about.html'],
@@ -22,7 +21,6 @@ const targets = [
 ];
 
 const legacyShellPages = [
-  ['index.html', '/'],
   ['guide.html', '/guide'],
   ['videos.html', '/videos'],
   ['about.html', '/about'],
