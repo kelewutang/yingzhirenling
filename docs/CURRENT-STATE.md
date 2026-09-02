@@ -7,7 +7,8 @@
 - **Repository:** `git@github.com:kelewutang/yingzhirenling.git`
 - **Formal local repo:** `/home/mok/projects/yingzhirenling-site`
 - **Branch:** `main`
-- **Baseline commit:** `342b711d8bf02b3c4a09f7b35ac359105614166a`
+- **Baseline commit:** `7cdfd5180c26e6bd8831b40ec4b4fc3f4fb4ad92`
+- **Baseline meaning:** Visual Atmosphere / Background Layer — Full Rollout merge baseline
 - **Hosting:** Netlify static hosting
 - **Architecture:** Astro static output, native CSS, native JavaScript, and build-time Knowledge data
 
@@ -87,6 +88,22 @@ Shared production systems are:
 - Collection system and Entity cards
 - Homepage knowledge entry
 
+### Visual Atmosphere Status
+
+- Visual Atmosphere Pilot: **PASS**
+- Visual Atmosphere Full Rollout: **PASS**
+- Visual Atmosphere stage: **COMPLETE**
+
+Background Atmosphere is not Entity Media.
+
+- **Global:** Ink & Steel / 墨锋铁骨 foundation: charcoal base, restrained haze, and steel-line atmosphere.
+- **Homepage:** home atmosphere.
+- **Weapons:** Collection and all published details use weapon atmosphere: cold steel and diagonal cut-line language.
+- **Characters:** Collection and all published details use character atmosphere: vertical ink-flow language.
+- **Bosses:** Collection and all published details use boss atmosphere: weighted darkness and restrained cinnabar.
+- **World:** Collection and published Location details use world atmosphere: mist and horizontal terrain rhythm.
+- **Bridge pages:** `/guide`, `/videos`, `/about`, `/about-site`, and `/404` remain global-foundation only; they do not receive type-specific atmosphere.
+
 ## 8. Completed UI Refresh Stages
 
 | Stage | State |
@@ -100,6 +117,8 @@ Shared production systems are:
 | P2-UI-6 Homepage | PASS |
 | P2-UI-7 Media Readiness + Performance QA | PASS |
 | P2-UI-8 Legacy Bridge + CSS Consolidation | PASS |
+| Visual Atmosphere Pilot | PASS |
+| Visual Atmosphere Full Rollout | PASS |
 
 Known merge baselines:
 
@@ -107,6 +126,7 @@ Known merge baselines:
 - P2-UI-6, including the Homepage structured-data hotfix: `b0ecacfc7e84439deb0b27b3f9494598dc13989f`
 - P2-UI-7 merge: `ee09a49aa76965078c81264242afacb1303ec96e`
 - P2-UI-8 merge: `342b711d8bf02b3c4a09f7b35ac359105614166a`
+- Visual Atmosphere / Background Layer — Full Rollout merge: `7cdfd5180c26e6bd8831b40ec4b4fc3f4fb4ad92`
 
 ## 9. Current User Journey
 
@@ -130,18 +150,18 @@ Published Media may only target a published Entity; draft or archived Entity tar
 
 **Cleared Media Asset Admission: DEFERRED.**
 
-## 10.1 Performance Baseline
+## 10.1 Current Performance Values
 
-[Performance Baseline](PERFORMANCE-BASELINE.md) retains the historical P2-UI-7 production-build measurement. The P2-UI-8 post-cleanup measurement supersedes that size snapshot for current operational state:
+[Performance Baseline](PERFORMANCE-BASELINE.md) is the historical P2-UI-7 baseline, not the current runtime-size record. The Visual Atmosphere Full Rollout current operational measurement is:
 
-- `dist/`: 403,085 B
-- CSS: 61,077 B
+- `dist/`: 409,353 B
+- CSS: 66,795 B
 - JavaScript: 16,403 B
 - Production Search index: 8,498 B / 15 Entity documents
-- Legacy images: 0 files / 0 B
+- Legacy raster assets: 0 files / 0 B
 - Production Media: 0
 
-All nine retired legacy bitmaps were removed after reference, build, and runtime verification. This was legacy cleanup, not a Media rollout.
+All nine retired legacy bitmaps were removed after reference, build, and runtime verification. Background atmosphere remains CSS-only; it is not a Media rollout.
 
 ## 11. SEO and Routing State
 
@@ -178,7 +198,7 @@ No homepage-specific runtime Search implementation was added.
 
 ## 13. Validation Baseline
 
-At baseline `342b711`, the main build passed:
+At baseline `7cdfd518`, the main build passed:
 
 - `git diff --check`
 - Knowledge validator
@@ -189,6 +209,7 @@ At baseline `342b711`, the main build passed:
 - Search route and modal-focus regression checks
 - Collection verification
 - Entity-detail verification
+- Search-index fixture verification
 
 This records a completed baseline, not a claim that future browsers or deploys need no re-testing.
 
@@ -244,25 +265,35 @@ Do not merge directly because `gh` is unavailable. Do not force-push, rewrite hi
 - Post-release content expansion, search scaling, and Build tools are future scope.
 - Accounts, UGC, and backend services are future scope.
 
-## 18. P2 Foundation Status
+### Deferred UX/UI Backlog
 
-P2-UI-0 through P2-UI-8 foundational UI and architecture cleanup is complete. This is foundation completion, not product completion.
+The following are deferred polish or debt. They do not block or take priority over English Site Phase 1:
+
+- navigation simplification audit;
+- Search discoverability;
+- Collection-card information hierarchy and exploration;
+- stronger Phantom Blade Zero-specific identity without breaking the Media policy;
+- font strategy and cross-platform display consistency;
+- typography token consolidation;
+- color, radius, and shadow token cleanup;
+- motif refinement for 兵 / 人 / 敌 / 地;
+- breakpoint and responsive technical-debt audit.
+
+## 18. Foundation and Visual System Status
+
+P2-UI-0 through P2-UI-8 are complete. Visual Atmosphere Pilot and Visual Atmosphere Full Rollout are complete. The foundation and current visual system are complete; this does not mean the product, content, or release-guide work is complete.
 
 ## 19. Next Planned Stage
 
-The next main stage is **Visual Atmosphere / Background Layer**.
+The next main stage is **English Site Phase 1**.
 
-Its objective is to reduce the current visually empty dark-background feeling while preserving Ink & Steel hierarchy and readability. This stage may use original CSS atmosphere, SVG decorative layers, self-created texture or pattern systems, and type-specific page atmosphere. It does not automatically authorize real game screenshots, uncleared artwork, or Media admission; Production Media remains 0.
+- Reuse the mature Chinese architecture; do not rebuild from zero.
+- Extract and reuse stable Astro/static patterns.
+- Build the English site skeleton, English SEO/canonical/sitemap, and English Search.
+- Publish a first English Weapon, Character, Boss, and World content batch.
+- Go online early to establish indexing history.
 
-- Homepage: restrained Ink & Steel atmospheric layer.
-- Weapons: cold steel / cut-line language.
-- Characters: ink / vertical silhouette language.
-- Bosses: darker pressure / restrained cinnabar.
-- World: mist / terrain / landscape-line language.
-
-Background atmosphere is not Entity Media.
-
-Cleared Media Asset Admission remains deferred.
+The Chinese site continues content expansion in parallel.
 
 ## 20. Future Reusable Starter
 
