@@ -68,7 +68,9 @@ git diff --cached --check
 
 - `generated/search-index.shadow.json`
 - `generated/search-index.production.json`
-- `pages/generated/weapons/*.html`
+`pages/generated/weapons/*.html` 是历史 compatibility artifact；除非任务明确涉及对应旧路径，不得把它作为当前 primary Entity page output 修改或提交。
+
+`dist/` 是 Netlify build 产生的 derived deployment output，并由 `.gitignore` 排除；不得作为正常 Git artifact 提交。
 
 提交前必须由对应 generator 重新生成并验证 deterministic。不要手工编辑后伪装成生成结果。
 
@@ -76,18 +78,14 @@ git diff --cached --check
 
 # Push
 
-只有用户明确批准后才执行：
-
-```text
-git push origin main
-```
+只有用户明确批准后才执行 push。Feature work 默认推送当前获批准的 feature branch；`main` 只在明确授权的 merge / post-merge workflow 中推送。
 
 push 后至少核对：
 
 - 命令结果成功；
-- `origin/main` 指向预期 commit；
+- 对应 remote branch 指向预期 commit；
 - 工作区状态；
-- 需要时等待 Netlify 并执行 production verification。
+- 需要时等待 Netlify 并执行 Deploy Preview 或 production verification。
 
 commit 授权不自动包含 push 授权。
 
@@ -108,15 +106,23 @@ commit 授权不自动包含 push 授权。
 标准生产阶段：
 
 ```text
-implementation
+main
+→ approved feature branch
+→ implementation
 → local verification
 → human review
 → commit
-→ push
-→ Netlify deploy
-→ production verification
+→ push feature branch
+→ PR
+→ Netlify Deploy Preview
+→ applicable independent browser QA / Gate
+→ explicit merge authorization
+→ merge
+→ post-merge verification
 → phase close
 ```
+
+PR 可合并不等于获得 merge 授权。Gate 后如果实现、数据、route 或 deploy-relevant output 发生变化，必须重新判断适用 Gate；不得自行 merge、force-push shared production history 或 rewrite `main`。
 
 如果 production verification 发现问题，只在用户授权的新修复阶段修改；不要在只读验收中直接热修。
 

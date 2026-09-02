@@ -1,42 +1,48 @@
 # High-Level Architecture
 
-当前生产架构是静态优先的数据派生链：
+当前生产架构是 Astro static output 的静态优先数据派生链：
 
 ```text
-Knowledge JSON
+Knowledge JSON + Media contract
     ↓
-Validator
+Validators
     ↓
-Node Generators
+Astro build-time loaders / projections
     ↓
-Generated Static Artifacts
+Astro static pages + generated Production Search index + generated sitemap
     ↓
-Git / Netlify Static Hosting
+legacy static-copy bridge
+    ↓
+dist verification
+    ↓
+Netlify static hosting
     ↓
 Browser
 ```
 
-浏览器运行时由静态 HTML、CSS 和 Vanilla JavaScript 组成，JavaScript 只提供导航、主题、搜索等 progressive enhancement。
+浏览器运行时由静态 HTML、native CSS 和 Vanilla JavaScript 组成，JavaScript 只提供导航、主题、搜索等 progressive enhancement。核心 SEO 内容不依赖 runtime Knowledge JSON fetch。
 
-Netlify 当前 `build.command` 不执行 Knowledge validator 或 generator。生成器在提交前运行，经过审查的 JSON 和 HTML 派生产物与源代码一起提交，Netlify 直接发布仓库静态文件。
+Netlify production 和 Deploy Preview 都运行 `npm ci && npm run build`，发布 `dist/`。该 build chain 包含 Knowledge / Media validation、Astro static build、Production Search generation、legacy bridge copy 和 static output verification。
 
-当前生产栈不是 Next.js、React、Vue、Svelte、Astro production、Tailwind、shadcn/ui、SSR、SPA、CMS 或数据库应用。
+当前生产栈不是 Next.js、React、Vue、Svelte、Tailwind、shadcn/ui、SSR、SPA、CMS 或数据库应用。
 
 # Repository Layers
 
 | Layer | Current location | Responsibility |
 | --- | --- | --- |
-| Hand-authored pages | `index.html`, `pages/*.html` | 现有页面与长篇内容 |
-| Styles/runtime | `css/`, `js/` | 全站视觉和渐进增强 |
+| Astro production implementation | `src/layouts/`, `src/components/`, `src/lib/`, `src/pages/` | shared layout/components, Knowledge loaders/projections, Collection/detail routes and sitemap |
+| Styles/runtime | `css/`, `js/` | 全站视觉和 progressive enhancement |
 | Knowledge source | `data/` | Entity、Fact、Source、Version、Registry |
 | Media source | `data/media.json` + `assets/media/` | 独立、经审核的 Entity presentation media；不属于 Fact 或 Knowledge Schema |
-| Validation/build | `scripts/` | 严格校验和 deterministic 派生 |
+| Validation/build | `scripts/`, `scripts/astro/` | validators, Search generation, bridge copy and static output checks |
 | Derived search | `generated/` | shadow/production Search Documents |
-| Derived pages | `pages/generated/` | published Entity 静态详情页 |
+| Legacy bridge inputs | `pages/*.html`, `404.html` | guide/videos/about/about-site/404 compatibility pages copied into `dist/` |
+| Legacy compatibility artifacts | `pages/generated/` | historical Weapon paths retained only for explicit redirects/compatibility |
+| Deployment output | `dist/` | derived static output published by Netlify; never a Knowledge source |
 | Contracts/history | `docs/` | 架构、Schema、阶段契约与治理规则 |
 | Hosting/routing | `netlify.toml` | 静态发布、headers、rewrite、redirect、404 |
 
-`data/` 是结构化知识 Source of Truth。`generated/` 和 `pages/generated/` 是派生产物，不得被反向当作 Fact 或 Source 的证据。
+`data/` 是结构化知识 Source of Truth。`generated/`、legacy compatibility artifacts 和 `dist/` 都是派生产物，不得被反向当作 Fact 或 Source 的证据。
 
 P2-UI-4 uses a shared Astro `EntityDetailLayout` with small type adapters in `src/lib/detail-models.mjs`. The layout owns the static breadcrumb, Hero/media fallback, Quick Facts, Fact sections, Relation slot, Source Panel, and return link; adapters only select type-appropriate Fact emphasis. Media remains a build-time presentation lookup, not a Knowledge or Fact field.
 
@@ -74,13 +80,7 @@ Source.authority ≠ Fact.status
 | `published` | 校验 | 进入 | 进入 |
 | `archived` | 校验 | 排除 active output | 排除 active output |
 
-状态变更由人工 Publication Gate 批准，generator 不得自动修改 `recordState`。
-
-当前：
-
-- `weapon:tang-hengdao`：published；
-- `weapon:ya-hengdao`：published；
-- `weapon:qinglong-lueyue-dao`：draft，不得进入生产详情页、Production Entity Search 或 sitemap。
+状态变更由人工 Publication Gate 批准，build-time projection 不得自动修改 `recordState`。当前四类 Entity 都使用此 contract；draft 不得进入 Production Search、static detail output 或 sitemap。精确 operational inventory 以 [CURRENT-STATE.md](CURRENT-STATE.md) 为准。
 
 # Search Architecture
 
@@ -92,41 +92,35 @@ js/main.js 内的 Page Search Documents
 /generated/search-index.production.json
 ```
 
-页面加载后最多 fetch 一次 production Entity index，再把合法 Entity 文档映射到现有搜索结果结构。Page 和 Entity 使用各自 identity，不按 route 强制去重，因此“武器图鉴”页面结果可以与唐横刀、牙横刀 Entity 结果同时存在。
+页面加载后最多 fetch 一次 production Entity index，再把合法 Entity 文档映射到现有搜索结果结构。Page 和 Entity 使用各自 identity，不按 route 强制去重，因此 Collection Page result 可以与其 Entity result 同时存在。
 
 Entity index 的网络、HTTP、JSON 或 contract 错误只使 enhancement 进入 failed；Page Search 必须继续工作。成功进入 ready 后的搜索渲染错误不得被误报为 Entity loader 错误。
 
 `generated/search-index.shadow.json` 只供构建和审查，生产运行时从不加载。
 
-# Weapon Detail Architecture
+# Entity Detail Architecture
 
-已验证链路：
+所有四类 Entity 使用 shared Astro detail architecture：
 
 ```text
-data/weapons/*.json
-  + data/sources/*.json
-  + data/versions/*.json
-  + data/registries/*.json
+data/<entity-type>/*.json + Sources / Relations / Versions / Registries
         ↓
-scripts/validate-data.mjs
+validators
         ↓
-scripts/build-weapon-pages.mjs
+src/lib/ Knowledge loaders + type projections
         ↓
-pages/generated/weapons/<slug>.html
+src/pages/<collection>/[slug].astro + published-only getStaticPaths
         ↓
-Netlify exact rewrite
+BaseLayout + EntityDetailLayout + type-appropriate detail model
         ↓
-/weapons/<slug>
+dist/<collection>/<slug>.html
+        ↓
+Netlify canonical rewrite
 ```
 
-生成器只为 `recordState=published` 的 Weapon 输出页面。核心 Fact、Source、title、description、canonical、H1 和 summary 已存在于静态 HTML；浏览器不 fetch Weapon Knowledge JSON 来生成核心内容。
+`BaseLayout` owns static document structure and shared shell. `EntityDetailLayout` owns breadcrumb, Hero/media fallback, Quick Facts, Fact sections, Relation slot, Source Panel and return link; detail-model adapters select type-appropriate Fact emphasis. `CollectionLayout` and `EntityCard` provide the matching Collection pattern. Media remains a build-time presentation lookup, not a Knowledge or Fact field.
 
-当前 production canonical routes：
-
-- `/weapons/tang-hengdao`
-- `/weapons/ya-hengdao`
-
-青龙掠月刀保持 draft，没有生产详情页。
+Only `recordState=published` records receive static detail output. Core Fact, Source, title, description, canonical, H1 and summary are present in static HTML; browsers do not fetch Knowledge JSON to render them.
 
 # Rendering Principle
 
@@ -154,60 +148,41 @@ Entity.slug
 
 # Routing Principle
 
-- Collection route：`/weapons`
-- Weapon Entity detail：`/weapons/{slug}`
+- Collection routes：`/weapons`、`/characters`、`/bosses`、`/world`
+- Entity detail routes：`/weapons/{slug}`、`/characters/{slug}`、`/bosses/{slug}`、`/world/{slug}`
 - `slug` 来自显式 `Entity.slug`
 - `displayName` 改变不自动改变稳定 Entity ID 或 slug
 - `.html` 物理路径不是独立 SEO 页面，应单跳归一到 canonical
 - canonical 使用无尾斜杠短路由
 
-Boss 和 Character 详情路由尚未上线，不得把候选模式写成 current production。
+legacy bridge routes remain for `/guide`, `/videos`, `/about`, `/about-site` and `/404`; they are not the primary Astro Entity architecture.
 
 # Sitemap and Metadata
 
-当前 sitemap 共 11 个 URL：原有 9 个页面加 2 个 published Weapon 详情页。Weapon `lastmod` 来自 `updatedAt`，不使用 build 当前时间。
-
-当前 sitemap 仍人工同步。生成器数量扩大后，应让同一 published Entity projection 派生页面、Search route 和 sitemap，避免多处漂移。
+Astro sitemap route combines stable legacy canonical pages with the same published Entity projection used by static details and Production Search. Entity `lastmod` comes from `updatedAt`, never build current time. Draft and archived active records are excluded. Use [CURRENT-STATE.md](CURRENT-STATE.md) for the current URL count.
 
 # Long-form Content Boundary
 
 结构化事实留在 JSON。攻略长文、论证和编辑内容继续使用现有 HTML，未来出现真实需求时可增加可选 Markdown。
 
-唐横刀和牙横刀当前仅凭 summary、Fact 与 Source 已构成完整最小详情页，因此没有 Markdown layer。不要为了架构对称创建空 Markdown 文件。
+当前 Entity details use summary, Fact and Source without a required Markdown layer. Do not create empty Markdown merely for architectural symmetry.
 
 # Known Non-blocking Technical Debt
 
-1. **Header/Footer template duplication**：Weapon generator 复制现有结构；跨 Entity 类型继续复制前应抽共享模板或重评 Astro。
-2. **Fact renderer growth**：已处理 status、value type、pending-review、editorial、observation、Source 和 basis Fact；继续分叉会模糊模板边界。
-3. **Manual sitemap**：当前 11 个 URL 可控，Entity 增长时优先自动生成。
-4. **Explicit Netlify Entity routes**：Pilot 的两条精确规则可接受，不适合几十或几百实体。
-5. **Trailing-slash duplicate 200**：部分 `/weapons/{slug}/` 也能返回 200，canonical 已统一到无尾斜杠；这是全站 URL normalization 技术债。
-6. **Third-party Baidu failures**：`hm.baidu.com`、`zz.bdstatic.com` 在部分网络环境可能失败或拖延 load；不能自动归因于 Knowledge、Search 或 Weapon 架构。
+1. **Legacy bridge**：五个 bridge pages and explicit compatibility redirects remain until separately migrated.
+2. **Netlify explicit Entity rewrites**：published-only route rules protect unknown/draft 404 behavior; future route-scale changes require a dedicated audit.
+3. **Trailing-slash duplicate 200**：部分 detail trailing-slash aliases may remain reachable; canonical is the no-trailing-slash short route.
+4. **Third-party Baidu failures**：`hm.baidu.com`、`zz.bdstatic.com` 在部分网络环境可能失败或拖延 load；不能自动归因于 Knowledge、Search 或 Entity architecture。
 
-这些问题当前不阻塞 P1-6，不应在无关阶段顺手修改。
+这些问题不应在无关阶段顺手修改。
 
 # Migration Direction
 
 ## Current
 
-继续 JSON + zero-dependency Node generator + static HTML。
+继续保护 Astro static output、Knowledge JSON、build-time projection、static SEO 与 Vanilla JavaScript progressive enhancement。不要在 English Site Phase 1 重新建设平行 production architecture。
 
-## Candidate: Astro Static Output
-
-出现下列信号时重新评估，而不是自动迁移：
-
-- 第二个 Entity 类型进入详情页；
-- 详情页接近或超过 20 个；
-- Header/Footer 复制明显；
-- Fact renderer 持续膨胀；
-- route、canonical、metadata 和 sitemap 多处重复维护；
-- JSON + Markdown 成为真实需求；
-- generator 开始演变成自制静态站框架；
-- Boss/Character 需要共享详情模板。
-
-Astro 候选必须保持 static output、现有 URL 和静态 SEO 内容。
-
-## Future Server Framework
+## Future Server Architecture Triggers
 
 只有用户账号、跨设备 Build 保存、数据库、服务端 API、私有后台、UGC、个性化推荐、服务端计算或动态排行榜等真实需求出现后，才重新评估 Next.js 等服务端框架。
 

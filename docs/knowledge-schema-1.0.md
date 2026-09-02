@@ -117,9 +117,9 @@ Entity 不保留一对一 `supersededBy`，避免 replacement 与 resolution 同
 
 ## 14. 发布与迁移边界
 
-Knowledge JSON 是结构化事实的 Source of Truth，generated artifacts 是可重建的派生产物。当前 Weapon JSON 已用于派生 Production Entity Search Index 和静态 Weapon Detail HTML；只有 `recordState=published` 的 Weapon 可以进入对应生产输出。
+Knowledge JSON 是结构化事实的 Source of Truth，generated artifacts 和 `dist/` 是可重建的派生产物。Weapon、Character、Boss 和 Location 都在同一冻结的 Knowledge contract 下进入 production projection；只有 `recordState=published` 的 Entity 可以进入对应的 Production Search、static detail output 和 sitemap。
 
-Weapon 详情页的核心 SEO 内容在构建时写入静态 HTML，浏览器不会 runtime fetch Weapon Knowledge JSON 后再生成 H1、summary、Fact 或 Source。当前只有 Weapon 完成了这条生产派生链，Boss、Character 等 Entity 类型尚未全面迁移。
+Entity detail 的核心 SEO 内容在构建时写入静态 HTML，浏览器不会 runtime fetch Knowledge JSON 后再生成 H1、summary、Fact 或 Source。四类 Entity 都使用这一 production chain；这只是 implementation / migration status 更新，不构成 Schema version、field、enum、publication 或 validation semantics 的变化。
 
 长篇攻略、论证和编辑文章继续使用 HTML，未来出现真实需求时可以采用可选 Markdown；JSON 只承载可校验的结构化事实、来源、关系、版本和搜索字段。
 

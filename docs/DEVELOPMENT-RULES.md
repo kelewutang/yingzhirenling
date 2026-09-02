@@ -40,9 +40,10 @@ git log -1 --oneline
 
 # 5. Architecture Protection
 
-未经当前任务明确批准，不得引入：
+未经当前任务明确批准，不得：
 
-- Next.js、Astro、React、Vue 或 Svelte；
+- 迁移或重写现有 Astro static output，或转换为 SSR / SPA；
+- 引入 Next.js、React、Vue、Svelte 或其他新的 production framework；
 - Tailwind 或 shadcn/ui；
 - production database、CMS 或 Server API；
 - npm runtime dependency；
@@ -95,8 +96,10 @@ Research/Audit/Review 如果要求只读，不得为了“顺便完成”修改�
 
 ```text
 data/ = structured Knowledge Source of Truth
+src/ = Astro production layouts, components, loaders, projections and routes
 generated/ = derived Search artifacts
-pages/generated/ = derived static page artifacts
+dist/ = derived deployment output
+legacy pages/generated artifacts = compatibility-only outputs, not the primary Entity page architecture
 ```
 
 不得手工把 generated output 当作 Fact 证据。需要更正事实时修改并验证 Knowledge source，再重新生成派生产物。
@@ -157,10 +160,12 @@ Generator 必须：
 - Knowledge validator；
 - fixtures；
 - Search contract tests；
-- deterministic rebuild；
+- `npm run build`（validators、Astro static build、Search generation、bridge copy 与 dist verification）；
+- 对 generator、projection 或 derived artifact 变更按风险执行 deterministic rebuild / byte-stability check；
 - `git diff --check`；
 - local HTTP route；
 - 404、redirect 和 canonical；
+- Collection、Entity Detail 与 shared-shell verification；
 - 390px / 1280px browser；
 - no-JS/static HTML；
 - Deploy Preview；
@@ -195,13 +200,13 @@ Research
 
 # 17. Production File Safety
 
-修改 generator、Schema、data 或 route 前先确认任务是否允许影响：
+修改 build、Schema、data、route 或 production presentation 前先确认任务是否允许影响：
 
-- `index.html` 与 `pages/*.html`；
-- `pages/generated/`；
+- `src/layouts/`、`src/components/`、`src/lib/` 与 `src/pages/`；
+- legacy bridge inputs（`pages/*.html`、`404.html`）及 compatibility artifacts；
 - `css/`、`js/`；
-- `data/`、`generated/`；
-- `netlify.toml`、`sitemap.xml`、`robots.txt`、`404.html`。
+- `data/`、`generated/`、`dist/`；
+- `netlify.toml`、`robots.txt`。
 
 只读任务不得触碰这些文件内容。
 
