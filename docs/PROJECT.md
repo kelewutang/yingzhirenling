@@ -92,19 +92,19 @@ Build 工具是长期方向，不是当前已实现能力。它需要正式版�
 
 Weapon Detail Page Pilot 已上线并完成 production verification。唐横刀与牙横刀使用 Knowledge JSON 生成静态详情页，canonical 为 `/weapons/{slug}`；青龙掠月刀不生成生产页面。
 
-阶段结论：继续 **JSON + generator**，当前不迁 Astro。实施边界见 [P1-6 Weapon Detail Page Pilot](p1-6-weapon-detail-pilot.md)。
+这是当时的 Weapon-only pilot 结论。后续 P1-10 / P1-11 已完成 Astro static production switch；P1-6 不再描述当前架构。实施边界见 [P1-6 Weapon Detail Page Pilot](p1-6-weapon-detail-pilot.md)。
 
 # Current Production Capabilities
 
-- 现有静态页面与 Page Search；
-- 两条 published Weapon Entity 的 Production Search；
-- `/weapons/tang-hengdao` 与 `/weapons/ya-hengdao` 静态详情页；
-- Fact-level status 与实际引用 Source 展示；
-- canonical 短路由和物理路径单跳归一；
-- published Entity 搜索结果指向详情页；
-- `/weapons` 页面级搜索结果继续存在；
-- 含 9 个原页面和 2 个 Weapon 详情页的 11-URL sitemap；
-- 无 runtime Weapon Knowledge JSON 渲染依赖。
+- Astro static production with build-time Knowledge validation, projection, static SEO and Netlify `dist/` publishing;
+- unified production pipeline for Weapon, Character, Boss and Location Collections and Entity Details;
+- Fact-level status, actual cited Sources, verified Relations where data exists, and stable canonical routes;
+- Page Search plus progressive-enhancement Production Entity Search, with published-only and draft-isolation enforcement;
+- sitemap derived from published Entity projection;
+- deterministic no-media fallback while Production Media remains separately governed;
+- legacy static-copy bridge for guide, videos, about, about-site and 404.
+
+For current operational counts and completed-stage status, use [CURRENT-STATE.md](CURRENT-STATE.md) rather than duplicating a mutable snapshot here.
 
 # Explicit Non-goals Now
 
@@ -131,7 +131,15 @@ P1-14 Weapon Expansion Batch 已完成：基于 PlayStation 官方博客发布�
 
 P1-15 World / Location Entity Batch 已完成：庞镇基于 S-GAME 官方中英文资料，以首个 published Location identity 接入 `/world/{slug}`、Collection、Production Search、sitemap 与 explicit redirect pipeline；官方解说中的山谷、仓库、铁塔和大湖仍是描述性场景，不建立未经命名依据支持的 Location Entity。
 
-四类核心 Entity（Weapon、Character、Boss、Location）已进入统一 production pipeline。下一阶段优先进入 **UI Refresh Preparation**，不继续预建新的基础 Entity 类型。
+四类核心 Entity（Weapon、Character、Boss、Location）已进入统一 production pipeline。P2-UI-0 through P2-UI-8 and Visual Atmosphere stages are completed historical milestones.
+
+The next main stage is **English Site Phase 1**. It must reuse the mature Chinese Astro/static architecture rather than rebuild it from zero, while the Chinese site remains the active production site and continues content expansion in parallel.
+
+The approved English deployment direction is a separate English site at `pbzguides.com`, using a separate GitHub repository and a separate Netlify site.
+
+Chinese and English pages remain self-canonical. Where an approved corresponding page exists, the two sites may declare language alternates through `hreflang`; this does not imply automatic language redirect.
+
+Knowledge sharing/localization, locale abstraction, English Search contract, sitemap implementation details, exact hreflang language codes, missing-translation behavior, `x-default`, and page-mapping mechanism still require a separate architecture decision before implementation.
 
 # Related Sources of Truth
 

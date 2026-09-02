@@ -1,6 +1,6 @@
 # Scope
 
-当前项目不是 React/Astro component system。本文件定义现有 Static HTML 与 Node generator 的 UI/Template 行为，不声明已经存在组件库。
+当前生产是 Astro static component system。本文件定义共享布局、组件、build-time static HTML 与 progressive enhancement 的 UI/Template 行为；它不批准引入平行 UI framework。
 
 # Shared Page Anatomy
 
@@ -18,11 +18,19 @@
 
 不要为单个 Entity 引入全新视觉主题。优先复用现有 `css/style.css` 和语义结构。
 
+# Shared Production System
+
+- `BaseLayout`、shared Header / Footer and Global Search;
+- `CollectionLayout` and `EntityCard` for the four Entity Collections;
+- `EntityDetailLayout`, type-appropriate detail-model adapters and shared Fact/Source/Relation presentation;
+- deterministic no-media fallback backed by the separate Media contract;
+- Ink & Steel design system and CSS-only global/type-specific atmosphere layers.
+
 # Entity Page
 
-当前经过生产验证的 Weapon Detail 包含：
+Weapon、Character、Boss 和 Location 都使用统一的生产 detail pattern，包含：
 
-- 首页、武器图鉴、当前 Weapon 的 breadcrumb；
+- 首页、对应 Collection、当前 Entity 的 breadcrumb；
 - 唯一 H1；
 - summary 和资料更新时间；
 - 发售前资料边界说明；
@@ -49,7 +57,7 @@
 
 不要显示 Entity-level 或 Page-level 的“整体官方”“整页试玩观察”“全部已验证”。
 
-Fact status 才是可信度边界。同一个 Weapon 可以同时具有 official、observation、editorial 和 pending-review Fact。
+Fact status 才是可信度边界。同一个 Entity 可以同时具有 official、observation、editorial 和 pending-review Fact。
 
 Source 是官方主体，也不自动把画面观察升级为 official；`recordState=published` 也不能显示成官方确认。
 
@@ -147,15 +155,16 @@ Fact status 与 Source type/authority 必须分开。不要直接向用户显示
 - Source renderer；
 - route/sitemap projection。
 
-第三次复制是 Astro static-output migration signal 之一，但不等于自动迁移。应结合页面数量、第二 Entity 类型、Markdown 和维护成本一起评估。
+第三次复制是评估现有 Astro helper/component 抽取边界的信号，不等于建立新的 UI framework。
 
 # Current Boundary
 
-- 两个 Weapon 详情页共用 `scripts/build-weapon-pages.mjs` 中的模板逻辑。
-- 当前仍存在 Header/Footer 结构复制技术债。
-- 当前没有需要 Markdown 的 Weapon 长篇内容。
-- 当前没有生产 Relation，因此不显示 Related 区块。
-- 本规范不批准修改现有视觉风格或引入 UI framework。
+- 四类 published Entity 使用 shared Astro Collection and Detail patterns；published-only routes 在 build time 生成静态 HTML。
+- Relation 区只在有经过 Schema 校验的 production Relation 时输出；当前已有该条件下的展示。
+- Current Production Media inventory is recorded in `CURRENT-STATE.md`; when no eligible Entity Media exists, the deterministic fallback is intentional. Background atmosphere is not Entity Media.
+- Visual Atmosphere stages are complete. Bridge pages remain global-foundation only.
+- English Site Phase 1 应复用稳定的 Astro/UI component architecture。已批准的 deployment direction 是独立 `pbzguides.com`、独立 GitHub repository 与独立 Netlify site；中文和英文页面保持 self-canonical，并在存在已批准页面映射时通过 `hreflang` 建立语言对应关系，不进行自动语言跳转。
+- Knowledge localization、locale abstraction、具体 hreflang mapping、missing-translation behavior、English Search 和 sitemap implementation 仍需单独 architecture decision；本规范不预先实现这些能力。
 
 # Related Sources of Truth
 

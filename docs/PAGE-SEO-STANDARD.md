@@ -15,13 +15,16 @@
 /{entity-type-plural}/{slug}
 ```
 
-当前唯一经过生产验证的 Entity detail pattern 是：
+当前生产的四类 Entity detail patterns 是：
 
 ```text
 /weapons/{slug}
+/characters/{slug}
+/bosses/{slug}
+/world/{slug}
 ```
 
-Boss 和 Character 详情页尚未上线，不得将候选 route 写成 current production。
+Collection routes are `/weapons`, `/characters`, `/bosses`, and `/world`. All routes retain explicit stable slugs and canonical short routes.
 
 # Head Requirements
 
@@ -40,7 +43,7 @@ metadata 应从同一内容或 Entity projection 派生，避免 title、H1、ca
 - 每页一个主要 H1。
 - H2 表达主要内容区，H3 表达其内部 Fact、Source 或小节。
 - 不为视觉字号跳级，不用多个 H1 代替布局。
-- 生成器必须防止空标题和内部 key 直接泄漏到用户界面。
+- build-time templates and projections 必须防止空标题和内部 key 直接泄漏到用户界面。
 
 # Breadcrumb
 
@@ -75,7 +78,7 @@ Entity Detail Page 使用：
 - published Entity 可以进入 sitemap；draft 和 archived active records 必须排除。
 - `lastmod` 来自数据中的 `updatedAt` 或页面真实内容更新时间。
 - 不使用 build 当前时间，也不在内容未变化时批量刷新日期。
-- 当前 sitemap 是人工同步的 11 URL 文件；Entity 数量增加后应自动派生。
+- 当前 sitemap 由 Astro route and published Entity projection 在 build time 生成。容易变化的 URL/count snapshot 以 [CURRENT-STATE.md](CURRENT-STATE.md) 为准。
 
 # Internal Linking
 
@@ -101,6 +104,14 @@ Page Search 文档可以继续指向 collection；Page 与 Entity 不因 route �
 Open Graph 可以在形成统一 metadata 模板后逐步加入。本治理阶段不要求修改现有页面，也不鼓励只给少量页面添加不一致实现。
 
 新增 OG 字段必须来自已有内容，不得编造发布日期、图片权属或官方身份。
+
+# Locale Boundary
+
+当前中文 production locale 是 `zh-CN`。
+
+已批准的 English SEO deployment direction 是独立站点 `pbzguides.com`。中文页面与英文页面分别 self-canonical；存在已批准对应页面时，可通过 `hreflang` 声明 language alternates，不进行自动语言跳转。
+
+English routes、具体 hreflang implementation、精确语言代码、page-mapping、missing-translation behavior、`x-default` 与 English sitemap organization 尚未实现，仍需单独的 architecture / SEO Gate。
 
 # JSON-LD
 
