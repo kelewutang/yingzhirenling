@@ -40,6 +40,32 @@ try {
 }
 
 const mainJs = await readFile(join(import.meta.dirname, '../../js/main.js'), 'utf8');
+const pageSearchSource = mainJs.slice(mainJs.indexOf('var SEARCH_INDEX'), mainJs.indexOf('function refreshCurrentSearch()'));
+const pageSearchContext = {};
+vm.runInNewContext(pageSearchSource, pageSearchContext);
+
+assert.ok(Array.isArray(pageSearchContext.SEARCH_INDEX), 'Page Search documents must remain available');
+const pageSearchSerialized = JSON.stringify(pageSearchContext.SEARCH_INDEX);
+for (const forbidden of ['青龙掠月刀', 'qinglong-lueyue-dao', '偃月刀']) {
+  assert(!pageSearchSerialized.includes(forbidden), `Page Search must exclude draft Qinglong: ${forbidden}`);
+}
+assert(!mainJs.includes('偃月刀'), 'Search UI must not expose the draft Qinglong alias');
+const pageSearchDocuments = pageSearchContext.getSearchDocuments();
+assert.equal(pageSearchDocuments.length, pageSearchContext.SEARCH_INDEX.length, 'Page Search must remain available while Entity Search is unavailable');
+function searchPageDocuments(query) {
+  const normalizedQuery = query.toLowerCase();
+  return pageSearchDocuments.filter((document) =>
+    document.title.toLowerCase().includes(normalizedQuery) ||
+    document.desc.toLowerCase().includes(normalizedQuery) ||
+    document.keywords.toLowerCase().includes(normalizedQuery) ||
+    document.tag.toLowerCase().includes(normalizedQuery)
+  );
+}
+assert.equal(searchPageDocuments('青龙掠月刀').length, 0, 'Draft Qinglong must not produce a Page Search result');
+assert.equal(searchPageDocuments('qinglong-lueyue-dao').length, 0, 'Draft Qinglong slug must not produce a Page Search result');
+assert.equal(searchPageDocuments('偃月刀').length, 0, 'Draft Qinglong alias must not produce a Page Search result');
+assert(searchPageDocuments('武器').some((document) => document.url === '/weapons'), 'Weapon category search must retain the /weapons Page Search result');
+
 const entitySearchSource = mainJs.slice(mainJs.indexOf('var ENTITY_SEARCH_INDEX_URL'), mainJs.indexOf('function getSearchDocuments()'));
 const context = {};
 vm.runInNewContext(entitySearchSource, context);
@@ -55,3 +81,8 @@ assert.equal(
   JSON.stringify(['武器', '角色', 'Boss', '地点']),
   'Entity Search labels must match Entity types'
 );
+
+const productionSearch = JSON.parse(await readFile(join(import.meta.dirname, '../../generated/search-index.production.json'), 'utf8'));
+assert(productionSearch.every((document) => document.recordState === 'published'), 'Production Entity Search must contain only published documents');
+assert(!productionSearch.some((document) => document.id === 'weapon:qinglong-lueyue-dao'), 'Production Entity Search must exclude draft Qinglong');
+assert(productionSearch.some((document) => document.id === 'weapon:tang-hengdao'), 'Production Entity Search must retain published Tang Hengdao');
