@@ -156,13 +156,13 @@ function initBaiduPush() {
 // ===== 全站搜索 =====
 var SEARCH_INDEX = [
   { title: '影之刃零攻略站', url: '/', desc: '影之刃零非官方玩家知识库，整理可核验的公开资料，并明确区分官方资料、公开素材观察与第三方信息。', tag: '首页', keywords: '影之刃零 首页 知识库 玩家资料站 发售前资料 资料来源' },
-  { title: '攻略中心', url: '/guide', desc: '整理官方公开的难度与武器构筑信息、试玩观察及发售前入门建议，完整流程待发售后验证', tag: '攻略', keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 探索 构筑 build' },
-  { title: '武器图鉴', url: '/weapons', desc: '影之刃零发售前武器资料，整理官方确认的武器系统与公开实机中出现的武器；获取方式和强度待正式版验证。', tag: '武器', keywords: '武器 图鉴 武器系统 主武器 影之武 公开试玩 实机观察' },
-  { title: '角色图鉴', url: '/characters', desc: '影之刃零当前公开角色资料，区分官方确认、宣传素材观察与系列旧作待核信息。', tag: '角色', keywords: '角色 图鉴 人物 主角 角色关系 公开资料 宣传素材' },
-  { title: 'Boss攻略', url: '/bosses', desc: '影之刃零发售前Boss资料，整理公开试玩与实机演示中的敌人和战斗观察；完整名单与打法待正式版验证。', tag: 'Boss', keywords: 'Boss 图鉴 敌人 公开试玩 实机演示 战斗观察' },
-  { title: '世界观设定', url: '/world', desc: '影之刃零当前公开世界观资料，区分官方术语、实机观察与系列旧作待核设定。', tag: '世界观', keywords: '世界 世界观 地点 世界与地点 场景 公开资料' },
-  { title: '视频中心', url: '/videos', desc: '索引官方预告、实机演示、State of Play与甄子丹相关公开影像，并附具体来源链接', tag: '视频', keywords: '视频 PV 实机 演示 State of Play 甄子丹 预告 B站 11分钟 20分钟' },
-  { title: '购买指南', url: '/about', desc: '汇总官方商店发售、版本、预购与PC配置，并单独标注价格快照和第三方估算', tag: '购买', keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame TapTap 第三方数据' }
+  { title: '攻略中心', url: '/guide', desc: '整理官方公开的难度与武器构筑信息、试玩观察及发售前入门建议，完整流程待发售后验证', tag: '攻略', categoryTerms: ['攻略'], keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 探索 构筑 build' },
+  { title: '武器图鉴', url: '/weapons', desc: '影之刃零发售前武器资料，整理官方确认的武器系统与公开实机中出现的武器；获取方式和强度待正式版验证。', tag: '武器', categoryTerms: ['武器'], keywords: '武器 图鉴 武器系统 主武器 影之武 公开试玩 实机观察' },
+  { title: '角色图鉴', url: '/characters', desc: '影之刃零当前公开角色资料，区分官方确认、宣传素材观察与系列旧作待核信息。', tag: '角色', categoryTerms: ['角色'], keywords: '角色 图鉴 人物 主角 角色关系 公开资料 宣传素材' },
+  { title: 'Boss攻略', url: '/bosses', desc: '影之刃零发售前Boss资料，整理公开试玩与实机演示中的敌人和战斗观察；完整名单与打法待正式版验证。', tag: 'Boss', categoryTerms: ['Boss'], keywords: 'Boss 图鉴 敌人 公开试玩 实机演示 战斗观察' },
+  { title: '世界观设定', url: '/world', desc: '影之刃零当前公开世界观资料，区分官方术语、实机观察与系列旧作待核设定。', tag: '世界观', categoryTerms: ['世界', '地点'], keywords: '世界 世界观 地点 世界与地点 场景 公开资料' },
+  { title: '视频中心', url: '/videos', desc: '索引官方预告、实机演示、State of Play与甄子丹相关公开影像，并附具体来源链接', tag: '视频', categoryTerms: ['视频'], keywords: '视频 PV 实机 演示 State of Play 甄子丹 预告 B站 11分钟 20分钟' },
+  { title: '购买指南', url: '/about', desc: '汇总官方商店发售、版本、预购与PC配置，并单独标注价格快照和第三方估算', tag: '购买', categoryTerms: ['购买'], keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame TapTap 第三方数据' }
 ];
 
 var ENTITY_SEARCH_INDEX_URL = '/generated/search-index.production.json';
@@ -210,6 +210,8 @@ function normalizePageSearchDocument(item) {
     url: item.url,
     desc: item.desc,
     tag: item.tag,
+    categoryTerms: item.categoryTerms || [],
+    aliases: [],
     keywords: item.keywords
   };
 }
@@ -223,13 +225,84 @@ function normalizeEntitySearchDocument(document) {
     url: document.route,
     desc: document.summary,
     tag: ENTITY_TYPE_TAGS[document.entityType],
-    keywords: document.aliases.concat(document.keywords).join(' ')
+    categoryTerms: [],
+    aliases: document.aliases,
+    keywords: document.keywords
   };
 }
 
 function getSearchDocuments() {
   var pageDocuments = SEARCH_INDEX.map(normalizePageSearchDocument);
   return pageDocuments.concat(entitySearchIndex);
+}
+
+function normalizeSearchText(value) {
+  var text = String(value == null ? '' : value);
+  if (typeof text.normalize === 'function') text = text.normalize('NFKC');
+  return text.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-US');
+}
+
+function hasExactSearchMatch(values, query) {
+  var list = Array.isArray(values) ? values : [values];
+  return list.some(function(value) {
+    return normalizeSearchText(value) === query;
+  });
+}
+
+function hasPartialSearchMatch(values, query) {
+  var list = Array.isArray(values) ? values : [values];
+  return list.some(function(value) {
+    return normalizeSearchText(value).indexOf(query) > -1;
+  });
+}
+
+function getSearchScore(item, query) {
+  if (!query) return 0;
+
+  if (hasExactSearchMatch(item.title, query)) return 1000;
+  if (item.documentType === 'entity' && hasExactSearchMatch(item.aliases, query)) return 950;
+  if (item.documentType === 'page' && (hasExactSearchMatch(item.tag, query) || hasExactSearchMatch(item.categoryTerms, query))) return 900;
+  if (item.documentType === 'entity' && hasExactSearchMatch(item.tag, query)) return 850;
+  if (hasPartialSearchMatch(item.title, query)) return 750;
+  if (item.documentType === 'entity' && hasPartialSearchMatch(item.aliases, query)) return 700;
+  if (item.documentType === 'page' && (hasPartialSearchMatch(item.tag, query) || hasPartialSearchMatch(item.categoryTerms, query))) return 650;
+  if (hasPartialSearchMatch(item.keywords, query)) return 500;
+  if (hasPartialSearchMatch(item.desc, query)) return 100;
+  return 0;
+}
+
+function compareSearchIds(left, right) {
+  // Stable document IDs make equal-score ordering deterministic across browsers.
+  var leftId = String(left.id);
+  var rightId = String(right.id);
+  return leftId < rightId ? -1 : leftId > rightId ? 1 : 0;
+}
+
+function findSearchResults(query, documents) {
+  var normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) return [];
+
+  var results = documents.map(function(item) {
+    return { item: item, score: getSearchScore(item, normalizedQuery) };
+  }).filter(function(result) {
+    return result.score > 0;
+  });
+  var hasStrongerMatch = results.some(function(result) {
+    return result.score > 100;
+  });
+
+  if (hasStrongerMatch) {
+    // Description-only results are fallback-only to avoid weak incidental matches.
+    results = results.filter(function(result) {
+      return result.score > 100;
+    });
+  }
+
+  return results.sort(function(left, right) {
+    return right.score - left.score || compareSearchIds(left.item, right.item);
+  }).map(function(result) {
+    return result.item;
+  });
 }
 
 function refreshCurrentSearch() {
@@ -303,9 +376,9 @@ function openSearch() {
         '<div><p class="search-dialog-eyebrow">KNOWLEDGE SEARCH</p><h2 id="search-dialog-title">搜索知识库</h2></div>' +
         '<button type="button" class="search-close" onclick="closeSearch()" aria-label="关闭搜索">✕<span>关闭</span></button>' +
       '</div>' +
-      '<div class="search-modal-input"><input type="search" id="searchInput" aria-label="输入站内搜索关键词" placeholder="搜索武器、角色、Boss、地点…" autocomplete="off"></div>' +
+      '<div class="search-modal-input"><input type="search" id="searchInput" aria-label="输入站内搜索关键词" placeholder="搜索栏目、武器、角色、Boss、地点…" autocomplete="off"></div>' +
       '<div class="search-results" id="searchResults" aria-live="polite"></div>' +
-      '<p class="search-dialog-hint">按 Esc 关闭，Entity 搜索加载失败时仍可搜索静态页面。</p>' +
+      '<p class="search-dialog-hint">可搜索站内栏目，以及已收录的武器、角色、Boss 和地点。按 Esc 关闭。</p>' +
     '</div>';
   document.body.appendChild(searchOverlay);
   searchOverlay.classList.add('active');
@@ -354,25 +427,21 @@ function doSearch() {
   var input = document.getElementById('searchInput');
   var resultsEl = document.getElementById('searchResults');
   if (!input || !resultsEl) return;
-  var q = input.value.trim().toLowerCase();
+  var q = normalizeSearchText(input.value);
   if (!q) {
-    resultsEl.innerHTML = '<div class="search-empty">输入关键词搜索，如"武器"、"角色"、"六十六天"</div>';
+    resultsEl.innerHTML = '<div class="search-empty">搜索站内栏目和已收录资料，如“唐横刀”或“攻略”。</div>';
     return;
   }
-  var results = getSearchDocuments().filter(function(item) {
-    return item.title.toLowerCase().indexOf(q) > -1 ||
-           item.desc.toLowerCase().indexOf(q) > -1 ||
-           item.keywords.toLowerCase().indexOf(q) > -1 ||
-           item.tag.toLowerCase().indexOf(q) > -1;
-  });
+  var results = findSearchResults(q, getSearchDocuments());
   if (results.length === 0) {
     resultsEl.innerHTML = '<div class="search-empty">未找到相关内容，试试其他关键词</div>';
     return;
   }
   resultsEl.innerHTML = results.map(function(item) {
     var url = typeof item.url === 'string' && item.url.startsWith('/') ? item.url : '#';
+    var tag = item.documentType === 'page' ? '栏目 · ' + item.tag : item.tag;
     return '<a class="search-result-item" href="' + escapeSearchHtml(url) + '" onclick="closeSearch()">' +
-      '<span class="result-tag">' + escapeSearchHtml(item.tag) + '</span>' +
+      '<span class="result-tag">' + escapeSearchHtml(tag) + '</span>' +
       '<div class="result-title">' + escapeSearchHtml(item.title) + '</div>' +
       '<div class="result-desc">' + escapeSearchHtml(item.desc) + '</div>' +
     '</a>';

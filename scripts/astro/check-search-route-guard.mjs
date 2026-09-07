@@ -53,13 +53,7 @@ assert(!mainJs.includes('偃月刀'), 'Search UI must not expose the draft Qingl
 const pageSearchDocuments = pageSearchContext.getSearchDocuments();
 assert.equal(pageSearchDocuments.length, pageSearchContext.SEARCH_INDEX.length, 'Page Search must remain available while Entity Search is unavailable');
 function searchPageDocuments(query) {
-  const normalizedQuery = query.toLowerCase();
-  return pageSearchDocuments.filter((document) =>
-    document.title.toLowerCase().includes(normalizedQuery) ||
-    document.desc.toLowerCase().includes(normalizedQuery) ||
-    document.keywords.toLowerCase().includes(normalizedQuery) ||
-    document.tag.toLowerCase().includes(normalizedQuery)
-  );
+  return Array.from(pageSearchContext.findSearchResults(query, pageSearchDocuments));
 }
 assert.equal(searchPageDocuments('青龙掠月刀').length, 0, 'Draft Qinglong must not produce a Page Search result');
 assert.equal(searchPageDocuments('qinglong-lueyue-dao').length, 0, 'Draft Qinglong slug must not produce a Page Search result');
@@ -81,6 +75,12 @@ assert(!hasPageSearchResult('世界', '/'), 'World category search must exclude 
 assert(hasPageSearchResult('地点', '/world'), 'Location category search must retain the /world Page Search result');
 assert(!hasPageSearchResult('地点', '/'), 'Location category search must exclude the homepage Page Search result');
 
+assert.equal(
+  pageSearchContext.normalizeSearchText('  Commander   Cleave  '),
+  'commander cleave',
+  'Search normalization must normalize whitespace and case'
+);
+
 const entitySearchSource = mainJs.slice(mainJs.indexOf('var ENTITY_SEARCH_INDEX_URL'), mainJs.indexOf('function getSearchDocuments()'));
 const context = {};
 vm.runInNewContext(entitySearchSource, context);
@@ -101,3 +101,75 @@ const productionSearch = JSON.parse(await readFile(join(import.meta.dirname, '..
 assert(productionSearch.every((document) => document.recordState === 'published'), 'Production Entity Search must contain only published documents');
 assert(!productionSearch.some((document) => document.id === 'weapon:qinglong-lueyue-dao'), 'Production Entity Search must exclude draft Qinglong');
 assert(productionSearch.some((document) => document.id === 'weapon:tang-hengdao'), 'Production Entity Search must retain published Tang Hengdao');
+
+function publishedEntityResultKeys(entityType) {
+  return productionSearch
+    .filter((document) => document.entityType === entityType)
+    .sort((left, right) => left.id < right.id ? -1 : left.id > right.id ? 1 : 0)
+    .map((document) => `${document.displayName}\t${document.route}\tentity`);
+}
+
+pageSearchContext.entitySearchIndex = productionSearch.map((document) => pageSearchContext.normalizeEntitySearchDocument(document));
+const allSearchDocuments = pageSearchContext.getSearchDocuments();
+
+function resultKeys(query) {
+  return Array.from(pageSearchContext.findSearchResults(query, allSearchDocuments), (document) =>
+    `${document.title}\t${document.url}\t${document.documentType}`
+  );
+}
+
+function assertResultKeys(query, expected) {
+  assert.deepEqual(resultKeys(query), expected, `${query}: Search ranking or result suppression changed`);
+}
+
+assertResultKeys('武器', [
+  '武器图鉴\t/weapons\tpage',
+  ...publishedEntityResultKeys('weapon')
+]);
+assertResultKeys('角色', [
+  '角色图鉴\t/characters\tpage',
+  ...publishedEntityResultKeys('character')
+]);
+assertResultKeys('Boss', [
+  'Boss攻略\t/bosses\tpage',
+  ...publishedEntityResultKeys('boss')
+]);
+assertResultKeys('世界', ['世界观设定\t/world\tpage']);
+assertResultKeys('地点', [
+  '世界观设定\t/world\tpage',
+  ...publishedEntityResultKeys('location')
+]);
+assertResultKeys('攻略', [
+  '攻略中心\t/guide\tpage',
+  '影之刃零攻略站\t/\tpage',
+  'Boss攻略\t/bosses\tpage'
+]);
+assertResultKeys('视频', ['视频中心\t/videos\tpage']);
+assertResultKeys('购买', ['购买指南\t/about\tpage']);
+assertResultKeys('唐横刀', ['唐横刀\t/weapons/tang-hengdao\tentity']);
+assertResultKeys('魂', ['魂\t/characters/soul\tentity']);
+assertResultKeys('Soul', ['魂\t/characters/soul\tentity']);
+assertResultKeys('Commander Cleave', ['Commander Cleave\t/bosses/commander-cleave\tentity']);
+assertResultKeys('  commander   cleave  ', ['Commander Cleave\t/bosses/commander-cleave\tentity']);
+assertResultKeys('庞镇', ['庞镇\t/world/pangzhen\tentity']);
+assertResultKeys('青龙掠月刀', []);
+
+const deterministicTieDocuments = [
+  { id: 'entity:z', documentType: 'entity', title: 'Z', aliases: [], tag: '武器', keywords: [], desc: '' },
+  { id: 'entity:a', documentType: 'entity', title: 'A', aliases: [], tag: '武器', keywords: [], desc: '' }
+];
+assert.deepEqual(
+  Array.from(pageSearchContext.findSearchResults('武器', deterministicTieDocuments), (document) => document.id),
+  ['entity:a', 'entity:z'],
+  'Equal scores must use stable lexical document id ordering'
+);
+
+const descriptionFallbackDocuments = [
+  { id: 'page:strong', documentType: 'page', title: '武器图鉴', tag: '武器', categoryTerms: ['武器'], aliases: [], keywords: '', desc: '' },
+  { id: 'entity:description', documentType: 'entity', title: 'Other', tag: '角色', categoryTerms: [], aliases: [], keywords: [], desc: '武器构筑' }
+];
+assert.deepEqual(
+  Array.from(pageSearchContext.findSearchResults('武器', descriptionFallbackDocuments), (document) => document.id),
+  ['page:strong'],
+  'Description-only matches must be suppressed when a stronger match exists'
+);

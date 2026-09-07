@@ -29,6 +29,7 @@ for (const page of pages) {
   assert.match(html, /id="main-content"/, `${page} must expose the main skip target`);
   assert.match(html, /class="footer site-footer"/, `${page} must use the shared footer shell`);
   assert.match(html, /aria-label="搜索知识库"/, `${page} must provide the shared Search trigger`);
+  assert.match(html, /⌘K \/ Ctrl\+K/, `${page} must display the cross-platform Search shortcut`);
   assert.doesNotMatch(html, /theme-switcher|theme-btn|🔍/, `${page} must not expose legacy theme or emoji Search controls`);
   assert.equal((html.match(/class="site-header"/g) || []).length, 1, `${page} must render one header shell`);
   assert.equal((html.match(/id="main-content"/g) || []).length, 1, `${page} must render one main skip target`);
