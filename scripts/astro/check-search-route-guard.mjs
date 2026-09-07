@@ -64,7 +64,22 @@ function searchPageDocuments(query) {
 assert.equal(searchPageDocuments('青龙掠月刀').length, 0, 'Draft Qinglong must not produce a Page Search result');
 assert.equal(searchPageDocuments('qinglong-lueyue-dao').length, 0, 'Draft Qinglong slug must not produce a Page Search result');
 assert.equal(searchPageDocuments('偃月刀').length, 0, 'Draft Qinglong alias must not produce a Page Search result');
-assert(searchPageDocuments('武器').some((document) => document.url === '/weapons'), 'Weapon category search must retain the /weapons Page Search result');
+function hasPageSearchResult(query, url) {
+  return searchPageDocuments(query).some((document) => document.url === url);
+}
+
+assert(hasPageSearchResult('影之刃零', '/'), 'Site-name search must retain the homepage Page Search result');
+assert(hasPageSearchResult('首页', '/'), 'Homepage search must retain the homepage Page Search result');
+assert(hasPageSearchResult('武器', '/weapons'), 'Weapon category search must retain the /weapons Page Search result');
+assert(!hasPageSearchResult('武器', '/'), 'Weapon category search must exclude the homepage Page Search result');
+assert(hasPageSearchResult('角色', '/characters'), 'Character category search must retain the /characters Page Search result');
+assert(!hasPageSearchResult('角色', '/'), 'Character category search must exclude the homepage Page Search result');
+assert(hasPageSearchResult('Boss', '/bosses'), 'Boss category search must retain the /bosses Page Search result');
+assert(!hasPageSearchResult('Boss', '/'), 'Boss category search must exclude the homepage Page Search result');
+assert(hasPageSearchResult('世界', '/world'), 'World category search must retain the /world Page Search result');
+assert(!hasPageSearchResult('世界', '/'), 'World category search must exclude the homepage Page Search result');
+assert(hasPageSearchResult('地点', '/world'), 'Location category search must retain the /world Page Search result');
+assert(!hasPageSearchResult('地点', '/'), 'Location category search must exclude the homepage Page Search result');
 
 const entitySearchSource = mainJs.slice(mainJs.indexOf('var ENTITY_SEARCH_INDEX_URL'), mainJs.indexOf('function getSearchDocuments()'));
 const context = {};
