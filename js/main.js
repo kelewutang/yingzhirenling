@@ -155,12 +155,12 @@ function initBaiduPush() {
 
 // ===== 全站搜索 =====
 var SEARCH_INDEX = [
-  { title: '首页', url: '/', desc: '影之刃零发售前玩家资料站，汇总官方信息、公开实机观察、第三方动态与栏目导航', tag: '首页', keywords: '影之刃零 攻略 首页 简介 资讯 数据 发售 预售' },
+  { title: '影之刃零攻略站', url: '/', desc: '影之刃零非官方玩家知识库，整理可核验的公开资料，并明确区分官方资料、公开素材观察与第三方信息。', tag: '首页', keywords: '影之刃零 首页 知识库 玩家资料站 发售前资料 资料来源' },
   { title: '攻略中心', url: '/guide', desc: '整理官方公开的难度与武器构筑信息、试玩观察及发售前入门建议，完整流程待发售后验证', tag: '攻略', keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 探索 构筑 build' },
-  { title: '武器图鉴', url: '/weapons', desc: '整理官方确认的武器系统与公开实机观察；官方称超过30种主要武器及25种影之武，获取与强度待正式版验证', tag: '武器', keywords: '武器 唐横刀 黑伤 残钢刃 偃月刀 青龙掠月刀 拳套 大盾 链钩 手甲 醉剑 白蛇 赤蛇 软蛇剑 虎炮 影之武 配装' },
-  { title: '角色图鉴', url: '/characters', desc: '整理当前已公开角色资料，并区分《影之刃零》确认信息、宣传素材观察与系列旧作待核资料', tag: '角色', keywords: '角色 魂 左殇 瞳媚 沐小葵 魔渊 甄子丹 玄玉 玄鱼 剑玄 沐天邈 眼镜女 炼邪 妙手小张 旧作 人物关系' },
-  { title: 'Boss攻略', url: '/bosses', desc: '整理公开实机中的Boss与敌人、招式观察和发售前应对思路，正式打法待发售后验证', tag: 'Boss', keywords: 'Boss 荒行子 魔渊 残钢 舞狮尊主 剑痴 双刀女 组织追击者 打法 招式 状态变化' },
-  { title: '世界观设定', url: '/world', desc: '整理当前公开的武林世界观、场景观察，并单独标注系列旧作设定与待核内容', tag: '世界观', keywords: '世界观 影境 功夫朋克 武侠朋克 杀气 改造 怪面 组织 正道联盟 十一人阁 蜃楼 暗魔天堡 圣母娘娘 旧作 雨血 场景' },
+  { title: '武器图鉴', url: '/weapons', desc: '影之刃零发售前武器资料，整理官方确认的武器系统与公开实机中出现的武器；获取方式和强度待正式版验证。', tag: '武器', keywords: '武器 图鉴 武器系统 主武器 影之武 公开试玩 实机观察' },
+  { title: '角色图鉴', url: '/characters', desc: '影之刃零当前公开角色资料，区分官方确认、宣传素材观察与系列旧作待核信息。', tag: '角色', keywords: '角色 图鉴 人物 主角 角色关系 公开资料 宣传素材' },
+  { title: 'Boss攻略', url: '/bosses', desc: '影之刃零发售前Boss资料，整理公开试玩与实机演示中的敌人和战斗观察；完整名单与打法待正式版验证。', tag: 'Boss', keywords: 'Boss 图鉴 敌人 公开试玩 实机演示 战斗观察' },
+  { title: '世界观设定', url: '/world', desc: '影之刃零当前公开世界观资料，区分官方术语、实机观察与系列旧作待核设定。', tag: '世界观', keywords: '世界 世界观 地点 世界与地点 场景 公开资料' },
   { title: '视频中心', url: '/videos', desc: '索引官方预告、实机演示、State of Play与甄子丹相关公开影像，并附具体来源链接', tag: '视频', keywords: '视频 PV 实机 演示 State of Play 甄子丹 预告 B站 11分钟 20分钟' },
   { title: '购买指南', url: '/about', desc: '汇总官方商店发售、版本、预购与PC配置，并单独标注价格快照和第三方估算', tag: '购买', keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame TapTap 第三方数据' }
 ];
@@ -356,7 +356,7 @@ function doSearch() {
   if (!input || !resultsEl) return;
   var q = input.value.trim().toLowerCase();
   if (!q) {
-    resultsEl.innerHTML = '<div class="search-empty">输入关键词搜索，如"荒行子"、"偃月刀"、"六十六天"</div>';
+    resultsEl.innerHTML = '<div class="search-empty">输入关键词搜索，如"武器"、"角色"、"六十六天"</div>';
     return;
   }
   var results = getSearchDocuments().filter(function(item) {
