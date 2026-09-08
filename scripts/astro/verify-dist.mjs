@@ -78,6 +78,18 @@ for (const [route, label, count] of homepageCategoryAssertions) {
   assert(homepage.includes(`<strong>${count}</strong> 个已发布条目`), `Homepage published count missing: ${label}`);
 }
 
+const guide = await readFile(resolve(dist, 'guide.html'), 'utf8');
+const videos = await readFile(resolve(dist, 'videos.html'), 'utf8');
+const purchase = await readFile(resolve(dist, 'about.html'), 'utf8');
+const steamProductUrl = 'https://store.steampowered.com/app/4115450/Phantom_Blade_Zero/';
+assert(videos.includes('以及<a href="/characters/soul">魂</a>与<a href="/characters/mo-yuan">魔渊</a>交手的片段'), 'Videos must link the explicit Soul and Mo Yuan appearance context');
+assert(purchase.includes('<a href="/characters/soul">魂</a>1/12可动人偶及配件'), 'Purchase must link the explicit Soul collector-edition mention');
+const guideLaunchDateCitation = `游戏计划于2026年10月29日发售（见 <a href="${steamProductUrl}" target="_blank" rel="noopener noreferrer">Steam 官方商品页</a>）。以下内容来自官方发布材料与公开试玩`;
+assert(guide.includes(guideLaunchDateCitation), 'Guide launch-date alert must place the official Steam link adjacent to the release-date statement');
+assert(guide.includes(`预购特典"聚宝盆"可提升意识尘埃掉落率+10%；<a href="${steamProductUrl}"`), 'Guide preorder accessory claim must cite the official Steam product page');
+assert(guide.includes(`<strong>隐藏路径与机关</strong>：<a href="${steamProductUrl}"`), 'Guide hidden-path claim must cite the official Steam product page');
+for (const page of [guide, videos, purchase]) assert(!page.includes('href="/weapons/qinglong-lueyue-dao"'), 'Legacy content must not link draft Qinglong');
+
 for (const slug of ['tang-hengdao', 'ya-hengdao']) {
   const candidate = await readFile(resolve(dist, 'weapons', `${slug}.html`), 'utf8');
   const legacy = await readFile(resolve(root, 'pages/generated/weapons', `${slug}.html`), 'utf8');
@@ -164,6 +176,7 @@ for (const boss of publishedBosses) {
 const bossCollection = await readFile(resolve(dist, 'bosses.html'), 'utf8');
 for (const boss of publishedBosses) assert(bossCollection.includes(`href="/bosses/${boss.slug}"`), `Boss collection missing ${boss.slug}`);
 for (const boss of draftBosses) assert(!bossCollection.includes(`/bosses/${boss.slug}`), `Boss collection must exclude draft ${boss.slug}`);
+assert(bossCollection.includes('名称与 Boss 身份均保持为引用第三方来源的信息'), 'Boss collection must preserve third-party evidence framing');
 
 for (const location of publishedLocations) {
   const html = await readFile(resolve(dist, 'world', `${location.slug}.html`), 'utf8');
@@ -178,6 +191,7 @@ for (const location of publishedLocations) {
 const locationCollection = await readFile(resolve(dist, 'world.html'), 'utf8');
 for (const location of publishedLocations) assert(locationCollection.includes(`href="/world/${location.slug}"`), `Location collection missing ${location.slug}`);
 for (const location of draftLocations) assert(!locationCollection.includes(`href="/world/${location.slug}"`), `Location collection must exclude draft ${location.slug}`);
+assert(locationCollection.includes('现有官方资料明确提供地点名称'), 'World collection must explain Pangzhen inclusion from official naming evidence');
 
 const search = JSON.parse(await readFile(resolve(dist, 'generated/search-index.production.json'), 'utf8'));
 assert.deepEqual(search.map((item) => item.id), [
