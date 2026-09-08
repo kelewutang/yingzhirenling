@@ -1,4 +1,12 @@
 /* ===== 影之刃零攻略站 - 全站样式 ===== */
+@font-face {
+  font-family: "PBZ Serif";
+  src: url("/fonts/pbz-serif/PBZSerif-Display-Subset.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 :root {
   color-scheme: dark;
   --color-bg: #0c0e0e;
@@ -49,7 +57,7 @@
   --z-dialog: 100;
   --z-skip-link: 120;
   --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  --font-display: "Songti SC", "STSong", "SimSun", serif;
+  --font-display: "PBZ Serif", "Songti SC", "STSong", "SimSun", serif;
   --bg-primary: var(--color-bg);
   --bg-secondary: var(--color-surface);
   --bg-card: var(--color-surface-raised);
