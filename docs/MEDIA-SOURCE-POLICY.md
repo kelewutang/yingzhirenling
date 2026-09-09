@@ -68,6 +68,8 @@ Every production Media record should declare one or more approved usages:
 
 Do not hard-code a remote URL independently into several page templates. A derived thumbnail remains governed by the source asset's rights and credit requirements.
 
+Current production rendering implements only the singular Entity `hero` and `card` slots. A production-eligible record may therefore declare only `hero` and/or `card`; `gallery`, `inline`, and `thumbnail` remain valid future vocabulary, but must stay in a non-production state until a corresponding renderer and admission review exist. A given published Entity may have at most one production-eligible record for each singular slot.
+
 ## 4. Proposed Media data model
 
 This is a design proposal only. It does not modify or freeze Knowledge Schema 1.0.
@@ -124,6 +126,8 @@ A Media record should reach production only when:
 - alt and caption rules have been applied
 - the asset passes file-type, decode, and performance checks
 
+The initial rendered-slot admission rules also require a Hero to be a 640×360-or-larger landscape image with an aspect ratio from 1:1 through 3:1, and a Card to be at least 320×180 with an aspect ratio from 1:2 through 3:1. These bounds preserve practical source quality and CSS cropping flexibility; they are not fixed output-crop requirements. The existing 650 KB published-resource safety ceiling remains in force. Usage-specific payload targets remain guidance until they can be calibrated against reviewed real assets.
+
 Draft or `review-required` media must stay out of production pages, Search thumbnails, social metadata, and sitemap-related output.
 
 ## 5. Hosting and file handling
@@ -147,6 +151,10 @@ The current repository bitmap assets are not automatically grandfathered into th
 - Do not include uncertain lore, identity, location, or action.
 - Use `alt=""` for truly decorative texture that is adjacent to complete textual identity.
 - Do not prefix with “图片：” or repeat an adjacent caption verbatim.
+
+### Focal position
+
+`objectPosition` is limited to a safe subset of CSS `object-position`: `center`, `top`, `bottom`, `left`, `right`, `center top`, `center bottom`, `left center`, `right center`, or a two-value percentage pair from `0% 0%` through `100% 100%` (for example, `50% 40%`). Arbitrary CSS expressions and declarations are not accepted.
 
 Example:
 

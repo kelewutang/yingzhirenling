@@ -2,7 +2,9 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = process.env.MEDIA_VALIDATION_ROOT
+  ? path.resolve(process.env.MEDIA_VALIDATION_ROOT)
+  : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const mediaFile = path.join(root, 'data', 'media.json');
 const assetsDirectory = path.join(root, 'assets', 'media');
 const entityDirectories = ['weapons', 'characters', 'bosses', 'locations'];
@@ -23,6 +25,7 @@ const productionRightsStatuses = new Set([
 ]);
 const sourceTypes = new Set(['official-promotional', 'press-asset', 'self-captured', 'third-party-permitted']);
 const usages = new Set(['hero', 'card', 'gallery', 'inline', 'thumbnail']);
+const productionUsages = new Set(['hero', 'card']);
 const mimeTypes = new Map([
   ['image/jpeg', 'jpg'],
   ['image/png', 'png'],
@@ -31,6 +34,8 @@ const mimeTypes = new Map([
 const idPattern = /^media:[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const filenamePattern = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(?:jpg|png|webp)$/;
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+const percentagePattern = /^(?:(?:0|[1-9]\d?)(?:\.\d+)?|100)% (?:(?:0|[1-9]\d?)(?:\.\d+)?|100)%$/;
+const namedObjectPositions = new Set(['center', 'top', 'bottom', 'left', 'right', 'center top', 'center bottom', 'left center', 'right center']);
 const errors = [];
 
 function error(location, message) {
@@ -54,6 +59,14 @@ function isDate(value) {
   if (typeof value !== 'string' || !datePattern.test(value)) return false;
   const date = new Date(`${value}T00:00:00Z`);
   return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
+}
+
+function isSafeObjectPosition(value) {
+  return typeof value === 'string' && (namedObjectPositions.has(value) || percentagePattern.test(value));
+}
+
+function isProductionEligible(media) {
+  return isObject(media) && media.recordState === 'published' && productionRightsStatuses.has(media.rightsStatus);
 }
 
 function imageInfo(buffer) {
@@ -138,8 +151,11 @@ if (!isObject(document)) {
       if (typeof media.rightsEvidence !== 'string' || !media.rightsEvidence.trim()) error(`${location}.rightsEvidence`, '必须记录审核依据');
       if (typeof media.processing !== 'string' || !media.processing.trim()) error(`${location}.processing`, '必须记录处理过程；未处理时写明 original');
       if (media.objectFit !== 'cover' && media.objectFit !== 'contain') error(`${location}.objectFit`, '必须为 cover 或 contain');
-      if (media.objectPosition !== undefined && (typeof media.objectPosition !== 'string' || !media.objectPosition.trim())) error(`${location}.objectPosition`, '如提供必须是非空字符串');
+      if (media.objectPosition !== undefined && !isSafeObjectPosition(media.objectPosition)) error(`${location}.objectPosition`, '如提供仅可为 center、方位关键字组合或 0%–100% 的百分比对');
       if (media.recordState === 'published' && !productionRightsStatuses.has(media.rightsStatus)) error(`${location}.rightsStatus`, 'published Media 必须具有 production-eligible rightsStatus；review-required、do-not-use 和 unknown 均不得渲染');
+      if (isProductionEligible(media) && Array.isArray(media.usage) && media.usage.some((usage) => !productionUsages.has(usage))) error(`${location}.usage`, 'production-eligible Media 当前仅可使用已渲染的 hero 或 card usage；未来 usage 必须保持非 production state');
+      if (Array.isArray(media.usage) && media.usage.includes('hero') && Number.isInteger(media.width) && Number.isInteger(media.height) && (media.width < 640 || media.height < 360 || media.width < media.height || media.width / media.height > 3)) error(`${location}.usage`, 'hero 必须至少为 640×360 的合理横向图像（宽高比 1:1 至 3:1）');
+      if (Array.isArray(media.usage) && media.usage.includes('card') && Number.isInteger(media.width) && Number.isInteger(media.height) && (media.width < 320 || media.height < 180 || media.width / media.height < 0.5 || media.width / media.height > 3)) error(`${location}.usage`, 'card 必须至少为 320×180，且宽高比在 1:2 至 3:1 之间');
       if (typeof media.src !== 'string' || !filenamePattern.test(media.src) || !mimeTypes.has(media.mimeType)) continue;
       const assetPath = path.join(assetsDirectory, media.src);
       try {
@@ -159,10 +175,40 @@ if (!isObject(document)) {
   }
 }
 
+if (isObject(document) && Array.isArray(document.records)) {
+  const singularSlots = new Map();
+  const trackedSources = new Set();
+
+  for (const [index, media] of document.records.entries()) {
+    if (!isObject(media)) continue;
+    if (typeof media.src === 'string') trackedSources.add(media.src);
+    if (!isProductionEligible(media) || typeof media.entityId !== 'string' || !Array.isArray(media.usage)) continue;
+    for (const usage of media.usage) {
+      if (!productionUsages.has(usage)) continue;
+      const key = `${media.entityId}\u0000${usage}`;
+      const first = singularSlots.get(key);
+      if (first !== undefined) error(`data/media.json.records[${index}].usage`, `与 records[${first}] 形成重复的 production ${usage} mapping：${media.entityId}`);
+      else singularSlots.set(key, index);
+    }
+  }
+
+  try {
+    const entries = await fs.readdir(assetsDirectory, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isFile() || entry.name.startsWith('.')) continue;
+      if (!/\.(?:jpg|png|webp)$/i.test(entry.name)) continue;
+      if (!trackedSources.has(entry.name)) error(`assets/media/${entry.name}`, '生产位图必须由 data/media.json 中的 Media record 表示');
+    }
+  } catch (cause) {
+    if (cause?.code !== 'ENOENT') throw cause;
+  }
+}
+
 if (errors.length) {
   console.error(`Media validation failed with ${errors.length} error(s):`);
   for (const item of errors) console.error(`- ${item}`);
   process.exitCode = 1;
 } else {
-  console.log(`Media validation passed: ${document.records.length} record(s), ${document.records.filter((item) => item.recordState === 'published').length} production-eligible record(s).`);
+  const records = document?.records || [];
+  console.log(`Media validation passed: ${records.length} record(s), ${records.filter(isProductionEligible).length} production-eligible record(s).`);
 }

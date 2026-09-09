@@ -4,7 +4,7 @@ import EntityMedia from './EntityMedia.astro';
 const { card, media = null } = Astro.props;
 ---
 <a class="entity-card" href={card.href} data-entity-card="true" data-entity-type={card.entity.entityType} aria-label={`查看${card.displayName}详情`}>
-  <EntityMedia entity={card.entity} media={media} variant="card" />
+  <EntityMedia entity={card.entity} media={media} variant="card" showSourceLink={false} />
   <span class="entity-card__body">
     <span class="entity-card__eyebrow">{card.typeLabel}</span>
     <h3 class="entity-card__title">{card.displayName}</h3>

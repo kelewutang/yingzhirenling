@@ -52,13 +52,25 @@ for (const [sourcePath, destinationPath] of targets) {
   await cp(source, destination, { recursive: true });
 }
 
-// Entity Media remains a separately governed future path. Do not copy the
-// retired legacy bitmap directory; when reviewed Media assets exist, copy only
-// their dedicated local directory.
-try {
-  await cp(resolve(root, 'assets', 'media'), resolve(dist, 'assets', 'media'), { recursive: true });
-} catch (cause) {
-  if (cause?.code !== 'ENOENT') throw cause;
+// Entity Media remains a separately governed path. The validator has already
+// admitted these records, so only eligible local files may enter dist; draft,
+// review-required, retired, and orphan files must never be copied.
+const media = JSON.parse(await readFile(resolve(root, 'data', 'media.json'), 'utf8')).records;
+const productionRightsStatuses = new Set([
+  'permission-recorded',
+  'official-press-use-reviewed',
+  'self-captured-reviewed'
+]);
+const mediaDestination = resolve(dist, 'assets', 'media');
+const productionMediaSources = [...new Set(media
+  .filter((record) => record.recordState === 'published' && productionRightsStatuses.has(record.rightsStatus))
+  .map((record) => record.src))];
+await rm(mediaDestination, { recursive: true, force: true });
+if (productionMediaSources.length > 0) {
+  await mkdir(mediaDestination, { recursive: true });
+  for (const source of productionMediaSources) {
+    await cp(resolve(root, 'assets', 'media', source), resolve(mediaDestination, source));
+  }
 }
 
 for (const [destinationPath, route] of legacyShellPages) {

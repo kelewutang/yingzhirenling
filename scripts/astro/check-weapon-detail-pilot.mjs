@@ -6,6 +6,10 @@ const root = resolve(process.cwd());
 const dist = resolve(root, 'dist');
 const page = await readFile(resolve(dist, 'weapons/tang-hengdao.html'), 'utf8');
 const weapon = JSON.parse(await readFile(resolve(root, 'data/weapons/tang-hengdao.json'), 'utf8'));
+const mediaRecords = JSON.parse(await readFile(resolve(root, 'data/media.json'), 'utf8')).records;
+const productionRightsStatuses = new Set(['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed']);
+const heroMedia = mediaRecords.find((media) => media.entityId === weapon.id && media.recordState === 'published' && productionRightsStatuses.has(media.rightsStatus) && media.usage.includes('hero'));
+const escapeHtml = (value) => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 
 assert.equal((page.match(/<h1\b/g) || []).length, 1, 'Tang Hengdao pilot must render exactly one H1');
 assert.match(page, /<h1[^>]*>唐横刀<\/h1>/, 'Tang Hengdao H1 missing');
@@ -13,8 +17,15 @@ assert(page.includes('<link rel="canonical" href="https://www.yingzhirenling.cn/
 assert(!page.includes('noindex'), 'Published Tang Hengdao page must remain indexable');
 assert(page.includes('data-detail-pilot="weapon"'), 'Tang Hengdao pilot marker missing');
 assert(page.includes('entity-hero'), 'Tang Hengdao entity hero missing');
-assert(page.includes('entity-media__fallback'), 'Tang Hengdao no-media fallback missing');
-assert(!page.includes('<img'), 'No cleared Media record must not emit an image for Tang Hengdao');
+if (heroMedia) {
+  assert(page.includes('data-media-state="ready"'), 'Admitted Tang Hengdao hero Media must render ready state');
+  assert(page.includes(`src="/assets/media/${heroMedia.src}"`), 'Admitted Tang Hengdao hero Media src missing');
+  assert(page.includes(`alt="${escapeHtml(heroMedia.alt)}"`), 'Admitted Tang Hengdao hero Media alt missing');
+  assert(page.includes(`<a href="${escapeHtml(new URL(heroMedia.sourceUrl).href)}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), 'Tang Hengdao hero Media source link missing');
+} else {
+  assert(page.includes('entity-media__fallback'), 'Tang Hengdao fallback missing without admitted hero Media');
+  assert(!page.includes('<img'), 'Tang Hengdao must not emit an image without admitted hero Media');
+}
 assert(page.includes(weapon.summary), 'Tang Hengdao summary missing');
 assert(page.includes('id="quick-facts-title"'), 'Tang Hengdao Quick Facts missing');
 assert(page.includes('id="sources-title"'), 'Tang Hengdao Sources missing');

@@ -4,6 +4,32 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
+const productionRightsStatuses = new Set([
+  'permission-recorded',
+  'official-press-use-reviewed',
+  'self-captured-reviewed'
+]);
+
+function escapeHtml(value) {
+  return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+}
+
+function isProductionMedia(record) {
+  return record.recordState === 'published' && productionRightsStatuses.has(record.rightsStatus);
+}
+
+const mediaRecords = JSON.parse(await readFile(resolve(root, 'data/media.json'), 'utf8')).records;
+
+function getProductionCardMedia(entityId) {
+  return mediaRecords.find((record) => isProductionMedia(record) && record.entityId === entityId && record.usage.includes('card')) || null;
+}
+
+function assertMediaImage(html, media, location) {
+  assert(html.includes(`src="/assets/media/${media.src}"`), `${location}: admitted Media src missing`);
+  assert(html.includes(`alt="${escapeHtml(media.alt)}"`), `${location}: admitted Media alt missing`);
+  assert(html.includes(`width="${media.width}"`), `${location}: admitted Media intrinsic width missing`);
+  assert(html.includes(`height="${media.height}"`), `${location}: admitted Media intrinsic height missing`);
+}
 
 async function publishedEntities(directory) {
   const names = (await readdir(resolve(root, directory))).filter((name) => name.endsWith('.json')).sort();
@@ -29,8 +55,16 @@ for (const collection of collections) {
   assert(html.includes('data-collection-system="rollout"'), `${collection.route}: shared collection system missing`);
   assert(html.includes(`data-entity-type="${collection.type}"`), `${collection.route}: type marker missing`);
   assert.equal((html.match(/data-entity-card="true"/g) || []).length, entities.length, `${collection.route}: published card count mismatch`);
-  assert.equal((html.match(/data-media-state="fallback"/g) || []).length, entities.length, `${collection.route}: fallback count mismatch`);
-  assert.equal((html.match(/<img\b/g) || []).length, 0, `${collection.route}: no production Media record must not emit an image`);
+  const expectedCardMedia = entities.map((entity) => [entity, getProductionCardMedia(entity.id)]);
+  assert.equal((html.match(/data-media-state="fallback"/g) || []).length, expectedCardMedia.filter(([, media]) => !media).length, `${collection.route}: fallback count must match Entities without admitted card Media`);
+  assert.equal((html.match(/<img\b/g) || []).length, expectedCardMedia.filter(([, media]) => media).length, `${collection.route}: image count must match admitted card Media`);
+  assert.equal((html.match(/<figure class="entity-media entity-media--card"/g) || []).length, entities.length, `${collection.route}: every card must use card Media mode`);
+  for (const [entity, media] of expectedCardMedia) {
+    if (media) assertMediaImage(html, media, `${collection.route}: ${entity.id}`);
+  }
+  for (const figure of html.matchAll(/<figure class="entity-media entity-media--card"[\s\S]*?<\/figure>/g)) {
+    assert(!figure[0].includes('<a '), `${collection.route}: card Media must not contain a nested source anchor`);
+  }
   assert(html.indexOf('class="entity-grid') < html.indexOf('class="collection-supporting"'), `${collection.route}: inventory must precede supporting content`);
   for (const entity of entities) assert(html.includes(`href="${collection.detailRoute(entity)}"`), `${collection.route}: missing card href for ${entity.id}`);
 }

@@ -4,7 +4,7 @@ import EntityMedia from './EntityMedia.astro';
 const { entity, aliases = [], eyebrow, media = null } = Astro.props;
 ---
 <header class="entity-hero">
-  <EntityMedia entity={entity} media={media} />
+  <EntityMedia entity={entity} media={media} variant="hero" showSourceLink={true} />
   <div class="entity-hero__identity">
     <p class="entity-hero__eyebrow">{eyebrow}</p>
     <h1 class="entity-hero__title">{entity.displayName}</h1>
