@@ -7,7 +7,7 @@ const dist = resolve(root, 'dist');
 const page = await readFile(resolve(dist, 'weapons/tang-hengdao.html'), 'utf8');
 const weapon = JSON.parse(await readFile(resolve(root, 'data/weapons/tang-hengdao.json'), 'utf8'));
 const mediaRecords = JSON.parse(await readFile(resolve(root, 'data/media.json'), 'utf8')).records;
-const productionRightsStatuses = new Set(['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed']);
+const productionRightsStatuses = new Set(['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed', 'official-promotional-risk-accepted']);
 const heroMedia = mediaRecords.find((media) => media.entityId === weapon.id && media.recordState === 'published' && productionRightsStatuses.has(media.rightsStatus) && media.usage.includes('hero'));
 const escapeHtml = (value) => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 

@@ -92,45 +92,87 @@ async function expectValidation(name, fixtureOptions, expectedCode, expectedText
 }
 
 const base = mediaRecord();
+const riskAccepted = mediaRecord({ rightsStatus: 'official-promotional-risk-accepted' });
 await expectValidation('zero Media remains valid', {}, 0);
-await expectValidation('valid objectPosition remains valid', { records: [base], assets: [{ name: base.src }] }, 0);
+await expectValidation('official press use reviewed remains valid', { records: [base], assets: [{ name: base.src }] }, 0);
+await expectValidation('permission recorded remains valid', {
+  records: [mediaRecord({ rightsStatus: 'permission-recorded' })], assets: [{ name: base.src }]
+}, 0);
+await expectValidation('self captured reviewed remains valid', {
+  records: [mediaRecord({ rightsStatus: 'self-captured-reviewed' })], assets: [{ name: base.src }]
+}, 0);
+await expectValidation('official promotional risk accepted remains valid with complete provenance', {
+  records: [riskAccepted], assets: [{ name: riskAccepted.src }]
+}, 0);
+for (const [field, overrides] of [
+  ['alt', { alt: '' }],
+  ['caption', { caption: null }],
+  ['credit', { credit: '' }],
+  ['owner', { owner: '' }],
+  ['sourceUrl', { sourceUrl: '' }],
+  ['sourceType', { sourceType: '' }],
+  ['retrievedAt', { retrievedAt: 'not-a-date' }],
+  ['rightsEvidence', { rightsEvidence: '' }],
+  ['processing', { processing: '' }]
+]) {
+  await expectValidation(`risk accepted Media still requires ${field}`, {
+    records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', ...overrides })], assets: [{ name: riskAccepted.src }]
+  }, 1, new RegExp(`\\.${field}`));
+}
 await expectValidation('duplicate hero target is rejected', {
-  records: [base, mediaRecord({ id: 'media:tang-hero-duplicate' })],
-  assets: [{ name: base.src }]
+  records: [riskAccepted, mediaRecord({ id: 'media:tang-hero-duplicate', rightsStatus: 'official-promotional-risk-accepted' })],
+  assets: [{ name: riskAccepted.src }]
 }, 1, /重复的 production hero mapping/);
 await expectValidation('duplicate card target is rejected', {
-  records: [mediaRecord({ id: 'media:tang-card', usage: ['card'] }), mediaRecord({ id: 'media:tang-card-duplicate', usage: ['card'] })],
-  assets: [{ name: base.src }]
+  records: [mediaRecord({ id: 'media:tang-card', rightsStatus: 'official-promotional-risk-accepted', usage: ['card'] }), mediaRecord({ id: 'media:tang-card-duplicate', rightsStatus: 'official-promotional-risk-accepted', usage: ['card'] })],
+  assets: [{ name: riskAccepted.src }]
 }, 1, /重复的 production card mapping/);
 await expectValidation('unsupported production usage is rejected', {
-  records: [mediaRecord({ usage: ['gallery'] })],
-  assets: [{ name: base.src }]
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['gallery'] })],
+  assets: [{ name: riskAccepted.src }]
 }, 1, /当前仅可使用已渲染的 hero 或 card usage/);
 await expectValidation('future usage remains valid outside production', {
   records: [mediaRecord({ id: 'media:tang-gallery-draft', recordState: 'draft', rightsStatus: 'review-required', usage: ['gallery'] })],
   assets: [{ name: base.src }]
 }, 0);
+await expectValidation('review required remains production ineligible', {
+  records: [mediaRecord({ rightsStatus: 'review-required' })], assets: [{ name: base.src }]
+}, 1, /published Media 必须具有 production-eligible rightsStatus/);
+await expectValidation('do not use remains production ineligible', {
+  records: [mediaRecord({ rightsStatus: 'do-not-use' })], assets: [{ name: base.src }]
+}, 1, /published Media 必须具有 production-eligible rightsStatus/);
 await expectValidation('unsafe objectPosition is rejected', {
-  records: [mediaRecord({ objectPosition: 'center; background:url(https://invalid.example)' })],
-  assets: [{ name: base.src }]
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', objectPosition: 'center; background:url(https://invalid.example)' })],
+  assets: [{ name: riskAccepted.src }]
 }, 1, /objectPosition/);
 await expectValidation('portrait hero is rejected by the rendered-slot rule', {
-  records: [mediaRecord({ width: 640, height: 900 })],
-  assets: [{ name: base.src, contents: bitmap(640, 900) }]
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', width: 640, height: 900 })],
+  assets: [{ name: riskAccepted.src, contents: bitmap(640, 900) }]
+}, 1, /hero 必须至少为 640×360 的合理横向图像/);
+await expectValidation('overwide risk accepted hero is rejected by the rendered-slot rule', {
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', width: 1204, height: 400 })],
+  assets: [{ name: riskAccepted.src, contents: bitmap(1204, 400) }]
 }, 1, /hero 必须至少为 640×360 的合理横向图像/);
 await expectValidation('undersized card is rejected by the rendered-slot rule', {
-  records: [mediaRecord({ usage: ['card'], width: 300, height: 180 })],
-  assets: [{ name: base.src, contents: bitmap(300, 180) }]
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['card'], width: 300, height: 180 })],
+  assets: [{ name: riskAccepted.src, contents: bitmap(300, 180) }]
 }, 1, /card 必须至少为 320×180/);
-await expectValidation('missing file is rejected', { records: [base] }, 1, /本地资源不存在/);
+await expectValidation('overportrait risk accepted card is rejected by the rendered-slot rule', {
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['card'], width: 320, height: 700 })],
+  assets: [{ name: riskAccepted.src, contents: bitmap(320, 700) }]
+}, 1, /card 必须至少为 320×180/);
+await expectValidation('missing risk accepted file is rejected', { records: [riskAccepted] }, 1, /本地资源不存在/);
 await expectValidation('MIME mismatch is rejected', {
-  records: [mediaRecord({ src: 'tang-hengdao.jpg', mimeType: 'image/jpeg' })],
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', src: 'tang-hengdao.jpg', mimeType: 'image/jpeg' })],
   assets: [{ name: 'tang-hengdao.jpg' }]
 }, 1, /与文件编码不符/);
 await expectValidation('dimension mismatch is rejected', {
-  records: [mediaRecord({ width: 1199 })],
-  assets: [{ name: base.src }]
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', width: 1199 })],
+  assets: [{ name: riskAccepted.src }]
 }, 1, /与文件尺寸不符/);
+await expectValidation('unrecognized risk accepted image signature is rejected', {
+  records: [riskAccepted], assets: [{ name: riskAccepted.src, contents: Buffer.from('not an image') }]
+}, 1, /图像签名无法识别或不受支持/);
 await expectValidation('orphan production bitmap is rejected', {
   assets: [{ name: 'orphan.png' }]
 }, 1, /生产位图必须由 data\/media\.json 中的 Media record 表示/);
@@ -146,7 +188,7 @@ try {
     }
   });
   await symlink(resolve(root, 'node_modules'), join(fixture, 'node_modules'), 'dir');
-  const admitted = mediaRecord({ usage: ['hero', 'card'] });
+  const admitted = mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['hero', 'card'] });
   const draft = mediaRecord({
     id: 'media:ya-card-review',
     entityId: 'weapon:ya-hengdao',
@@ -155,11 +197,20 @@ try {
     recordState: 'draft',
     usage: ['card']
   });
+  const doNotUse = mediaRecord({
+    id: 'media:ya-card-do-not-use',
+    entityId: 'weapon:ya-hengdao',
+    src: 'ya-hengdao-do-not-use.png',
+    rightsStatus: 'do-not-use',
+    recordState: 'draft',
+    usage: ['card']
+  });
   await mkdir(join(fixture, 'assets', 'media'), { recursive: true });
   await Promise.all([
-    writeFile(join(fixture, 'data', 'media.json'), JSON.stringify({ schemaVersion: '1.0-media-pilot', records: [admitted, draft] })),
+    writeFile(join(fixture, 'data', 'media.json'), JSON.stringify({ schemaVersion: '1.0-media-pilot', records: [admitted, draft, doNotUse] })),
     writeFile(join(fixture, 'assets', 'media', admitted.src), bitmap()),
-    writeFile(join(fixture, 'assets', 'media', draft.src), bitmap())
+    writeFile(join(fixture, 'assets', 'media', draft.src), bitmap()),
+    writeFile(join(fixture, 'assets', 'media', doNotUse.src), bitmap())
   ]);
   const validation = await validate(fixture);
   assert.equal(validation.code, 0, `render fixture validation failed\n${validation.output}`);
@@ -182,10 +233,12 @@ try {
   assert(!tangCard.match(/<figure[\s\S]*?<\/figure>/)?.[0].includes('<a '), 'admitted card Media must not create a nested source anchor');
   const yaCardStart = collection.indexOf('href="/weapons/ya-hengdao"');
   const yaCard = collection.slice(yaCardStart, collection.indexOf('</a>', yaCardStart));
-  assert(yaCard.includes('data-media-state="fallback"'), 'draft/review-required card Media must leave its Entity fallback intact');
+  assert(yaCard.includes('data-media-state="fallback"'), 'draft/review-required/do-not-use card Media must leave its Entity fallback intact');
   assert(!collection.includes(draft.src), 'draft/review-required Media src must not project into collection HTML');
+  assert(!collection.includes(doNotUse.src), 'draft/do-not-use Media src must not project into collection HTML');
   await readFile(join(fixture, 'dist', 'assets', 'media', admitted.src));
   await assert.rejects(() => readFile(join(fixture, 'dist', 'assets', 'media', draft.src)), { code: 'ENOENT' });
+  await assert.rejects(() => readFile(join(fixture, 'dist', 'assets', 'media', doNotUse.src)), { code: 'ENOENT' });
 } finally {
   await rm(fixtureParent, { recursive: true, force: true });
 }

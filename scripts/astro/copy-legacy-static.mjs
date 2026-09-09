@@ -59,7 +59,8 @@ const media = JSON.parse(await readFile(resolve(root, 'data', 'media.json'), 'ut
 const productionRightsStatuses = new Set([
   'permission-recorded',
   'official-press-use-reviewed',
-  'self-captured-reviewed'
+  'self-captured-reviewed',
+  'official-promotional-risk-accepted'
 ]);
 const mediaDestination = resolve(dist, 'assets', 'media');
 const productionMediaSources = [...new Set(media

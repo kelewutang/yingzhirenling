@@ -148,7 +148,7 @@ Production UI therefore uses deterministic abstract CSS/SVG fallbacks. Do not sc
 
 Published Media may only target a published Entity; draft or archived Entity targets are rejected by the Media validator.
 
-**Cleared Media Asset Admission: DEFERRED.**
+**First Production Entity Media admission: DEFERRED.**
 
 ## 10.1 Current Performance Values
 
@@ -259,7 +259,7 @@ Do not merge directly because `gh` is unavailable. Do not force-push, rewrite hi
 
 ## 17. Current Technical Debt and Deferred Work
 
-- Production media rollout is deferred until cleared assets exist.
+- Production media rollout is deferred until reviewed production-eligible assets exist.
 - Major legacy CSS cleanup, obsolete legacy homepage/collection source cleanup, and legacy bitmap cleanup completed in P2-UI-8.
 - The legacy static-copy bridge remains for `/guide`, `/videos`, `/about`, `/about-site`, and `/404`.
 - Post-release content expansion, search scaling, and Build tools are future scope.
