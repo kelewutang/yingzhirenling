@@ -7,7 +7,8 @@ const dist = resolve(root, 'dist');
 const productionRightsStatuses = new Set([
   'permission-recorded',
   'official-press-use-reviewed',
-  'self-captured-reviewed'
+  'self-captured-reviewed',
+  'official-promotional-risk-accepted'
 ]);
 
 function escapeHtml(value) {

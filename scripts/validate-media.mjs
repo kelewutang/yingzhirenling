@@ -15,13 +15,15 @@ const rightsStatuses = new Set([
   'permission-recorded',
   'official-press-use-reviewed',
   'self-captured-reviewed',
+  'official-promotional-risk-accepted',
   'review-required',
   'do-not-use'
 ]);
 const productionRightsStatuses = new Set([
   'permission-recorded',
   'official-press-use-reviewed',
-  'self-captured-reviewed'
+  'self-captured-reviewed',
+  'official-promotional-risk-accepted'
 ]);
 const sourceTypes = new Set(['official-promotional', 'press-asset', 'self-captured', 'third-party-permitted']);
 const usages = new Set(['hero', 'card', 'gallery', 'inline', 'thumbnail']);

@@ -21,7 +21,7 @@ async function getProductionMedia(entityId, usage) {
     media.entityId === entityId &&
     media.recordState === 'published' &&
     media.usage.includes(usage) &&
-    ['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed'].includes(media.rightsStatus)
+    ['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed', 'official-promotional-risk-accepted'].includes(media.rightsStatus)
   ));
   return media ? { ...media, src: `/assets/media/${media.src}` } : null;
 }

@@ -6,9 +6,9 @@ Scope: Entity hero, card, gallery, inline, and thumbnail media
 
 ## 1. Purpose
 
-Media must improve Entity identity without weakening data trust, copyright discipline, page performance, or no-image usability. A public URL or an official factual source is not automatically permission to copy and republish an image.
+Media must improve Entity identity without weakening data trust, copyright discipline, page performance, or no-image usability. Visual and editorial quality are the primary project priority. A public URL or an official factual source is not automatically permission to copy and republish an image.
 
-Until a Media record and rights review are approved, an asset must not be promoted into the production Entity media system merely because it is visually suitable.
+Visual suitability alone is insufficient: production Media requires a record with truthfully reviewed and recorded provenance and rights/risk information, plus a production-eligible `rightsStatus`; explicit reuse permission is not required for `official-promotional-risk-accepted`.
 
 ## 2. Source priority
 
@@ -102,6 +102,7 @@ Proposed `rightsStatus` vocabulary:
 - `permission-recorded`
 - `official-press-use-reviewed`
 - `self-captured-reviewed`
+- `official-promotional-risk-accepted`
 - `review-required`
 - `do-not-use`
 
@@ -112,6 +113,12 @@ The final vocabulary requires project review. It must remain independent from:
 - Entity `recordState`
 
 A published Entity does not make all media about it publishable. A high-authority Source does not automatically grant image reuse rights.
+
+### 4.0.1 Official promotional risk acceptance
+
+`official-promotional-risk-accepted` is a production-eligible editorial policy status for official developer/publisher promotional material with traceable provenance. No explicit reuse permission has been established. The known rights risk must be recorded in `rightsEvidence` and reviewed and accepted by the project owner for production editorial use.
+
+This status is not a statement of copyright ownership, a license grant, fair-use certainty, permission, or press-use clearance. It must not be used for third-party, unknown-origin, or merely alleged official material. The record must retain the exact first-party source URL, owner/publisher context, retrieval date, credit, and processing history; all ordinary source, local-file, signature, MIME, dimension, payload, usage, and publication gates still apply.
 
 ### 4.1 Proposed production gate
 
@@ -128,7 +135,7 @@ A Media record should reach production only when:
 
 The initial rendered-slot admission rules also require a Hero to be a 640×360-or-larger landscape image with an aspect ratio from 1:1 through 3:1, and a Card to be at least 320×180 with an aspect ratio from 1:2 through 3:1. These bounds preserve practical source quality and CSS cropping flexibility; they are not fixed output-crop requirements. The existing 650 KB published-resource safety ceiling remains in force. Usage-specific payload targets remain guidance until they can be calibrated against reviewed real assets.
 
-Draft or `review-required` media must stay out of production pages, Search thumbnails, social metadata, and sitemap-related output.
+Draft, `review-required`, and `do-not-use` media must stay out of production pages, Search thumbnails, social metadata, and sitemap-related output.
 
 ## 5. Hosting and file handling
 
@@ -240,7 +247,7 @@ Before a media batch is proposed:
 
 ## 11. Approval gate
 
-The P2-UI-3 contract is implemented independently in `data/media.json`, validated by `scripts/validate-media.mjs`, and read only at build time. It does not change Knowledge Schema 1.0 or the Fact model. A record must use a stable local `assets/media/` filename; retain source URL, owner, retrieval, rights, credit, and processing metadata; and pass signature, MIME, dimensions, path, and payload validation before it can render. A Knowledge `sourceId` is optional and never substitutes for the media-specific rights record. Only `permission-recorded`, `official-press-use-reviewed`, and `self-captured-reviewed` are production-eligible; `review-required`, `do-not-use`, and any unknown status cannot render.
+The P2-UI-3 contract is implemented independently in `data/media.json`, validated by `scripts/validate-media.mjs`, and read only at build time. It does not change Knowledge Schema 1.0 or the Fact model. A record must use a stable local `assets/media/` filename; retain source URL, owner, retrieval, rights, credit, and processing metadata; and pass signature, MIME, dimensions, path, and payload validation before it can render. A Knowledge `sourceId` is optional and never substitutes for the media-specific rights record. `permission-recorded`, `official-press-use-reviewed`, `self-captured-reviewed`, and the explicitly risk-accepted `official-promotional-risk-accepted` are production-eligible. The last status records owner acceptance of known risk for traceable official promotional material; it does not mean permission or press-use clearance. `review-required`, `do-not-use`, and any unknown status cannot render.
 
 P2-UI-3 source audit, retrieved 2026-08-31:
 
