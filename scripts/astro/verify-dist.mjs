@@ -4,8 +4,16 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
+const productionRightsStatuses = new Set([
+  'permission-recorded',
+  'official-press-use-reviewed',
+  'self-captured-reviewed'
+]);
 function escapeHtml(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+}
+function renderedExternalUrl(value) {
+  return escapeHtml(new URL(value).href);
 }
 async function readEntities(relativeDirectory) {
   const directory = resolve(root, relativeDirectory);
@@ -23,6 +31,16 @@ const draftBosses = bosses.filter((boss) => boss.recordState === 'draft');
 const locations = await readEntities('data/locations');
 const publishedLocations = locations.filter((location) => location.recordState === 'published');
 const draftLocations = locations.filter((location) => location.recordState === 'draft');
+const mediaRecords = JSON.parse(await readFile(resolve(root, 'data/media.json'), 'utf8')).records;
+const isProductionMedia = (record) => record.recordState === 'published' && productionRightsStatuses.has(record.rightsStatus);
+const getProductionMedia = (entityId, usage) => mediaRecords.find((record) => isProductionMedia(record) && record.entityId === entityId && record.usage.includes(usage)) || null;
+
+function assertMediaImage(html, media, location) {
+  assert(html.includes(`src="/assets/media/${media.src}"`), `${location}: admitted Media src missing`);
+  assert(html.includes(`alt="${escapeHtml(media.alt)}"`), `${location}: admitted Media alt missing`);
+  assert(html.includes(`width="${media.width}"`), `${location}: admitted Media intrinsic width missing`);
+  assert(html.includes(`height="${media.height}"`), `${location}: admitted Media intrinsic height missing`);
+}
 const canonicalRoutes = [
   ['index.html', '/'], ['guide.html', '/guide'], ['weapons.html', '/weapons'],
   ['characters.html', '/characters'], ['bosses.html', '/bosses'], ['world.html', '/world'],
@@ -35,19 +53,42 @@ const canonicalRoutes = [
   ...publishedLocations.map((location) => [`world/${location.slug}.html`, `/world/${location.slug}`])
 ];
 
-async function assertDetailVisualContract(file, entityType) {
+async function assertDetailVisualContract(file, entity) {
   const html = await readFile(resolve(dist, file), 'utf8');
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${file}: detail page must have one H1`);
   assert(html.includes('data-detail-system="rollout"'), `${file}: shared detail system missing`);
-  assert(html.includes(`data-entity-type="${entityType}"`), `${file}: entity type marker missing`);
+  assert(html.includes(`data-entity-type="${entity.entityType}"`), `${file}: entity type marker missing`);
   assert(html.includes('class="entity-hero"'), `${file}: Entity Hero missing`);
-  assert(html.includes('data-media-state="fallback"'), `${file}: production no-media fallback missing`);
-  assert(!html.includes('<img'), `${file}: no Media record must not emit an image`);
+  const media = getProductionMedia(entity.id, 'hero');
+  if (!media) {
+    assert(html.includes('data-media-state="fallback"'), `${file}: fallback required without admitted hero Media`);
+    assert(!html.includes('<img'), `${file}: Entity without admitted hero Media must not emit an image`);
+  } else {
+    assert(html.includes('data-media-state="ready"'), `${file}: admitted hero Media must render ready state`);
+    assertMediaImage(html, media, file);
+    assert(html.includes(`<a href="${renderedExternalUrl(media.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), `${file}: hero Media source link missing`);
+  }
 }
 
 for (const [file] of canonicalRoutes) assert((await stat(resolve(dist, file))).isFile(), `Missing dist/${file}`);
 assert((await stat(resolve(dist, '404.html'))).isFile(), 'Missing custom 404');
-await assert.rejects(() => stat(resolve(dist, 'assets')), { code: 'ENOENT' });
+const productionMediaSources = [...new Set(mediaRecords.filter(isProductionMedia).map((record) => record.src))];
+const mediaDistDirectory = resolve(dist, 'assets', 'media');
+if (productionMediaSources.length === 0) {
+  await assert.rejects(() => stat(mediaDistDirectory), { code: 'ENOENT' });
+} else {
+  assert((await stat(mediaDistDirectory)).isDirectory(), 'Admitted local Media requires dist/assets/media');
+  for (const source of productionMediaSources) {
+    const sourcePath = resolve(root, 'assets', 'media', source);
+    const distPath = resolve(mediaDistDirectory, source);
+    assert((await stat(distPath)).isFile(), `Admitted Media asset missing from dist: ${source}`);
+    assert.deepEqual(await readFile(distPath), await readFile(sourcePath), `Admitted Media asset differs from source: ${source}`);
+  }
+}
+for (const record of mediaRecords.filter((record) => !isProductionMedia(record) && !productionMediaSources.includes(record.src))) {
+  if (typeof record.src !== 'string') continue;
+  await assert.rejects(() => stat(resolve(mediaDistDirectory, record.src)), { code: 'ENOENT' });
+}
 if (process.env.CONTEXT === 'deploy-preview') {
   assert.match(await readFile(resolve(dist, '_headers'), 'utf8'), /X-Robots-Tag: noindex, nofollow/);
 } else {
@@ -133,7 +174,7 @@ for (const path of [
 
 for (const weapon of publishedWeapons) {
   const html = await readFile(resolve(dist, 'weapons', `${weapon.slug}.html`), 'utf8');
-  await assertDetailVisualContract(`weapons/${weapon.slug}.html`, 'weapon');
+  await assertDetailVisualContract(`weapons/${weapon.slug}.html`, weapon);
   const canonical = `https://www.yingzhirenling.cn/weapons/${weapon.slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回武器图鉴']) {
     assert(html.includes(token), `${weapon.slug}: missing static Weapon contract token ${token}`);
@@ -147,7 +188,7 @@ for (const weapon of draftWeapons) assert(!weaponCollection.includes(`href="/wea
 
 for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
   const html = await readFile(resolve(dist, 'characters', `${slug}.html`), 'utf8');
-  await assertDetailVisualContract(`characters/${slug}.html`, 'character');
+  await assertDetailVisualContract(`characters/${slug}.html`, characters.find((character) => character.slug === slug));
   const canonical = `https://www.yingzhirenling.cn/characters/${slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回角色图鉴']) {
     assert(html.includes(token), `${slug}: missing static Character contract token ${token}`);
@@ -165,7 +206,7 @@ for (const slug of ['soul', 'mo-yuan', 'the-hunt']) assert(collection.includes(`
 
 for (const boss of publishedBosses) {
   const html = await readFile(resolve(dist, 'bosses', `${boss.slug}.html`), 'utf8');
-  await assertDetailVisualContract(`bosses/${boss.slug}.html`, 'boss');
+  await assertDetailVisualContract(`bosses/${boss.slug}.html`, boss);
   const canonical = `https://www.yingzhirenling.cn/bosses/${boss.slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回 Boss 图鉴']) {
     assert(html.includes(token), `${boss.slug}: missing static Boss contract token ${token}`);
@@ -180,7 +221,7 @@ assert(bossCollection.includes('名称与 Boss 身份均保持为引用第三方
 
 for (const location of publishedLocations) {
   const html = await readFile(resolve(dist, 'world', `${location.slug}.html`), 'utf8');
-  await assertDetailVisualContract(`world/${location.slug}.html`, 'location');
+  await assertDetailVisualContract(`world/${location.slug}.html`, location);
   const canonical = `https://www.yingzhirenling.cn/world/${location.slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回世界与地点']) {
     assert(html.includes(token), `${location.slug}: missing static Location contract token ${token}`);
