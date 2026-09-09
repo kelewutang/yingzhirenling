@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { execFile as execFileCallback, spawn } from 'node:child_process';
 import { cp, mkdir, mkdtemp, open, readFile, rm, symlink, writeFile } from 'node:fs/promises';
 import { promisify } from 'node:util';
-import { join, relative, resolve } from 'node:path';
+import { join, relative, resolve, sep } from 'node:path';
 import { tmpdir } from 'node:os';
 
 const execFile = promisify(execFileCallback);
@@ -183,8 +183,11 @@ try {
   await cp(root, fixture, {
     recursive: true,
     filter(source) {
-      const firstSegment = relative(root, source).split('/')[0];
-      return !['.git', 'node_modules', 'dist'].includes(firstSegment);
+      const relativeSource = relative(root, source);
+      const firstSegment = relativeSource.split(sep)[0];
+      const productionMediaDirectory = join('assets', 'media');
+      const isProductionMedia = relativeSource === productionMediaDirectory || relativeSource.startsWith(`${productionMediaDirectory}${sep}`);
+      return !['.git', 'node_modules', 'dist'].includes(firstSegment) && !isProductionMedia;
     }
   });
   await symlink(resolve(root, 'node_modules'), join(fixture, 'node_modules'), 'dir');

@@ -38,7 +38,7 @@ The current static build and its verification derive the following production in
 | Location detail pages | 1 |
 | Production Search documents | 15 |
 | URLs in the generated sitemap | 24 |
-| Production-eligible Media records | 0 |
+| Production-eligible Media records | 1 |
 
 Counts must be re-derived from `data/` and the static build when precision matters; they are not homepage copy constants.
 
@@ -142,24 +142,24 @@ Production Search has 15 Entity documents in addition to the existing Page Searc
 
 ## 10. Media State
 
-The Media contract exists in `data/media.json` and is validated at build time. Production-eligible Media records are currently **0**.
+The Media contract exists in `data/media.json` and is validated at build time. Production-eligible Media records are currently **1**.
 
-Production UI therefore uses deterministic abstract CSS/SVG fallbacks. Do not scrape, hotlink, download, or casually reuse screenshots. A Media asset may enter production only after its source, rights evidence, eligibility, local path, dimensions, and usage meet the Media policy.
+The first Production Entity Media is `character:soul`: one admitted local JPEG record backs both the `/characters/soul` Hero and the Soul Card in `/characters`. Other Entities continue to use deterministic abstract CSS/SVG fallbacks. Scraping is not an admission method, and production Media must not hotlink or casually reuse unreviewed media. Deliberate local acquisition is allowed only when a Media record passes the current provenance, rights-risk, eligibility, file, and quality contract.
 
 Published Media may only target a published Entity; draft or archived Entity targets are rejected by the Media validator.
 
-**First Production Entity Media admission: DEFERRED.**
+**First Production Entity Media: `character:soul` (Hero and Card).**
 
 ## 10.1 Current Performance Values
 
 [Performance Baseline](PERFORMANCE-BASELINE.md) is the historical P2-UI-7 baseline, not the current runtime-size record. The Visual Atmosphere Full Rollout current operational measurement is:
 
-- `dist/`: 409,353 B
+- `dist/`: 942,109 B
 - CSS: 66,795 B
 - JavaScript: 16,403 B
 - Production Search index: 8,498 B / 15 Entity documents
 - Legacy raster assets: 0 files / 0 B
-- Production Media: 0
+- Production Media: 1 / 280,910 B
 
 All nine retired legacy bitmaps were removed after reference, build, and runtime verification. Background atmosphere remains CSS-only; it is not a Media rollout.
 
@@ -259,7 +259,7 @@ Do not merge directly because `gh` is unavailable. Do not force-push, rewrite hi
 
 ## 17. Current Technical Debt and Deferred Work
 
-- Production media rollout is deferred until reviewed production-eligible assets exist.
+- Broader production media rollout remains deferred; `character:soul` is the sole admitted Hero/Card Media record.
 - Major legacy CSS cleanup, obsolete legacy homepage/collection source cleanup, and legacy bitmap cleanup completed in P2-UI-8.
 - The legacy static-copy bridge remains for `/guide`, `/videos`, `/about`, `/about-site`, and `/404`.
 - Post-release content expansion, search scaling, and Build tools are future scope.

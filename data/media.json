@@ -1,4 +1,27 @@
 {
   "schemaVersion": "1.0-media-pilot",
-  "records": []
+  "records": [
+    {
+      "id": "media:soul-steam-promo",
+      "entityId": "character:soul",
+      "src": "soul-steam-promo.jpg",
+      "alt": "《影之刃零》主角魂持刀的官方宣传画面",
+      "caption": "Phantom Blade Zero Steam Store 宣传资产中的魂持刀画面。",
+      "credit": "S-GAME Publishing / Phantom Blade Zero Steam Store",
+      "owner": "S-GAME Publishing（Steam Store 发布方）",
+      "sourceUrl": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4115450/98af27aecb2eedd674e4e18b5fb3e58754729589/capsule_616x353_2x.jpg",
+      "sourceType": "official-promotional",
+      "rightsStatus": "official-promotional-risk-accepted",
+      "recordState": "published",
+      "usage": ["hero", "card"],
+      "width": 1232,
+      "height": 706,
+      "mimeType": "image/jpeg",
+      "retrievedAt": "2026-09-09",
+      "rightsEvidence": "Official Phantom Blade Zero Steam Store promotional asset for app 4115450, published by S-GAME Publishing; the product page identifies Soul as the playable protagonist. Explicit reuse permission has not been established. The project owner reviewed and accepted the known rights risk for production editorial use.",
+      "processing": "original download; no crop, resize, metadata stripping, recompression, or format conversion",
+      "objectFit": "cover",
+      "objectPosition": "right center"
+    }
+  ]
 }
