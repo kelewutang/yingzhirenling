@@ -5,10 +5,10 @@ export const primaryNavigation = [
   { href: '/world', label: '世界', section: 'world' }
 ];
 
-const headerPrimarySectionOrder = ['characters', 'bosses', 'weapons', 'world'];
+const approvedCollectionSectionOrder = ['characters', 'bosses', 'weapons', 'world'];
 const primaryNavigationBySection = new Map(primaryNavigation.map((item) => [item.section, item]));
 
-export const headerPrimaryNavigation = headerPrimarySectionOrder.map((section) => {
+export const approvedCollectionNavigation = approvedCollectionSectionOrder.map((section) => {
   const item = primaryNavigationBySection.get(section);
   if (!item) throw new Error(`Missing primary navigation section: ${section}`);
   return item;
@@ -25,7 +25,7 @@ export const secondaryNavigation = [
 export const footerGroups = [
   {
     title: '资料库',
-    links: primaryNavigation
+    links: approvedCollectionNavigation
   },
   {
     title: '内容与项目',
@@ -60,7 +60,7 @@ function renderFooterLink({ href, label, external = false }) {
 }
 
 export function renderLegacyHeader(activeSection = '') {
-  const primaryLinks = headerPrimaryNavigation.map((item) => renderNavLink(item, activeSection)).join('');
+  const primaryLinks = approvedCollectionNavigation.map((item) => renderNavLink(item, activeSection)).join('');
   const secondaryLinks = secondaryNavigation.map((item) => renderNavLink(item, activeSection)).join('');
   const secondaryActive = secondaryNavigation.some(({ section }) => section === activeSection);
 

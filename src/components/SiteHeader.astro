@@ -1,5 +1,5 @@
 ---
-import { headerPrimaryNavigation, secondaryNavigation } from '../../scripts/astro/site-shell.mjs';
+import { approvedCollectionNavigation, secondaryNavigation } from '../../scripts/astro/site-shell.mjs';
 
 const { activeSection = '' } = Astro.props;
 const isActive = (section) => section === activeSection;
@@ -13,7 +13,7 @@ const hasSecondaryActive = secondaryNavigation.some(({ section }) => isActive(se
         <img class="nav-logo__title-lockup" src="/brand/phantom-blade-zero-cn-title.svg" width="112" height="51" alt="" />
       </a>
       <ul class="nav-links" id="primary-navigation">
-        {headerPrimaryNavigation.map(({ href, label, section }) => <li><a href={href} data-nav-section={section} class:list={{ active: isActive(section) }} aria-current={isActive(section) ? 'page' : undefined}>{label}</a></li>)}
+        {approvedCollectionNavigation.map(({ href, label, section }) => <li><a href={href} data-nav-section={section} class:list={{ active: isActive(section) }} aria-current={isActive(section) ? 'page' : undefined}>{label}</a></li>)}
         <li class:list={{ 'nav-more': true, 'is-active': hasSecondaryActive }}>
           <details>
             <summary>更多<span aria-hidden="true">⌄</span></summary>
