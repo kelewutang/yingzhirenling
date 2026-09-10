@@ -56,6 +56,7 @@ const canonicalRoutes = [
 
 async function assertDetailVisualContract(file, entity) {
   const html = await readFile(resolve(dist, file), 'utf8');
+  const entityHero = html.match(/<header class="entity-hero">[\s\S]*?<\/header>/)?.[0] || '';
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${file}: detail page must have one H1`);
   assert(html.includes('data-detail-system="rollout"'), `${file}: shared detail system missing`);
   assert(html.includes(`data-entity-type="${entity.entityType}"`), `${file}: entity type marker missing`);
@@ -63,7 +64,7 @@ async function assertDetailVisualContract(file, entity) {
   const media = getProductionMedia(entity.id, 'hero');
   if (!media) {
     assert(html.includes('data-media-state="fallback"'), `${file}: fallback required without admitted hero Media`);
-    assert(!html.includes('<img'), `${file}: Entity without admitted hero Media must not emit an image`);
+    assert(!entityHero.includes('<img'), `${file}: Entity Hero without admitted hero Media must not emit an image`);
   } else {
     assert(html.includes('data-media-state="ready"'), `${file}: admitted hero Media must render ready state`);
     assertMediaImage(html, media, file);

@@ -68,7 +68,7 @@ export function renderLegacyHeader(activeSection = '') {
 <header class="site-header">
   <nav class="navbar" aria-label="主导航">
     <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="影之刃零攻略站首页"><span class="nav-logo__mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path class="nav-logo__blade" d="m3.25 19.35 12.7-13.6 4.8-1.7-2.95 4.25 2.15 1.55-11.4 7.95-4.5 1.55Zm11.15-5.95 1.7-1.15-1.1-.8-1.75 1.9 1.15.05Z" fill-rule="evenodd"/><circle class="nav-logo__pivot" cx="7.7" cy="16.6" r="1.45"/></svg></span><span class="nav-logo__wordmark">影之刃零</span></a>
+      <a href="/" class="nav-logo" aria-label="影之刃零攻略站首页"><img class="nav-logo__title-lockup" src="/brand/phantom-blade-zero-cn-title.svg" width="112" height="51" alt=""></a>
       <ul class="nav-links" id="primary-navigation">
         ${primaryLinks}
         <li class="nav-more${secondaryActive ? ' is-active' : ''}"><details><summary>更多<span aria-hidden="true">⌄</span></summary><ul class="nav-more__menu">${secondaryLinks}</ul></details></li>
