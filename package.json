@@ -11,6 +11,7 @@
     "build": "node scripts/validate-display-font.mjs && node scripts/validate-data.mjs && node scripts/validate-media.mjs && node scripts/validate-videos.mjs && node scripts/astro/check-netlify-redirects.mjs && node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs && astro build && node scripts/validate-display-font.mjs --require-dist && node scripts/build-search-index.mjs --mode=production --detail-pages-dir=dist/weapons --character-detail-pages-dir=dist/characters --boss-detail-pages-dir=dist/bosses --location-detail-pages-dir=dist/world && node scripts/astro/copy-legacy-static.mjs && node scripts/astro/check-shared-shell.mjs && node scripts/astro/check-weapon-detail-pilot.mjs && node scripts/astro/verify-collections.mjs && node scripts/astro/verify-dist.mjs",
     "preview": "astro preview",
     "test:media": "node scripts/test-media.mjs",
+    "test:gameplay-foundation": "node scripts/validate-data.mjs --fixtures",
     "test:font": "node scripts/validate-display-font.mjs",
     "test:astro": "node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs",
     "test:videos": "node scripts/test-videos.mjs"
