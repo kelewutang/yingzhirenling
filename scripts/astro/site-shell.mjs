@@ -5,6 +5,15 @@ export const primaryNavigation = [
   { href: '/world', label: '世界', section: 'world' }
 ];
 
+const approvedCollectionSectionOrder = ['characters', 'bosses', 'weapons', 'world'];
+const primaryNavigationBySection = new Map(primaryNavigation.map((item) => [item.section, item]));
+
+export const approvedCollectionNavigation = approvedCollectionSectionOrder.map((section) => {
+  const item = primaryNavigationBySection.get(section);
+  if (!item) throw new Error(`Missing primary navigation section: ${section}`);
+  return item;
+});
+
 export const secondaryNavigation = [
   { href: '/', label: '首页', section: 'home' },
   { href: '/guide', label: '攻略中心', section: 'guide' },
@@ -16,7 +25,7 @@ export const secondaryNavigation = [
 export const footerGroups = [
   {
     title: '资料库',
-    links: primaryNavigation
+    links: approvedCollectionNavigation
   },
   {
     title: '内容与项目',
@@ -51,7 +60,7 @@ function renderFooterLink({ href, label, external = false }) {
 }
 
 export function renderLegacyHeader(activeSection = '') {
-  const primaryLinks = primaryNavigation.map((item) => renderNavLink(item, activeSection)).join('');
+  const primaryLinks = approvedCollectionNavigation.map((item) => renderNavLink(item, activeSection)).join('');
   const secondaryLinks = secondaryNavigation.map((item) => renderNavLink(item, activeSection)).join('');
   const secondaryActive = secondaryNavigation.some(({ section }) => section === activeSection);
 
@@ -59,7 +68,7 @@ export function renderLegacyHeader(activeSection = '') {
 <header class="site-header">
   <nav class="navbar" aria-label="主导航">
     <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="影之刃零攻略站首页"><span class="nav-logo__mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 18 17.5 6.5l-1.8 6.1L20 14l-6 1.5L6 18Z" fill="currentColor"/></svg></span><span>影之刃零</span></a>
+      <a href="/" class="nav-logo" aria-label="影之刃零攻略站首页"><img class="nav-logo__title-lockup" src="/brand/phantom-blade-zero-cn-title.svg" width="112" height="51" alt=""></a>
       <ul class="nav-links" id="primary-navigation">
         ${primaryLinks}
         <li class="nav-more${secondaryActive ? ' is-active' : ''}"><details><summary>更多<span aria-hidden="true">⌄</span></summary><ul class="nav-more__menu">${secondaryLinks}</ul></details></li>

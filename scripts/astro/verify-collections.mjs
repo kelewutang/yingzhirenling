@@ -57,13 +57,14 @@ for (const collection of collections) {
   assert(html.includes(`data-entity-type="${collection.type}"`), `${collection.route}: type marker missing`);
   assert.equal((html.match(/data-entity-card="true"/g) || []).length, entities.length, `${collection.route}: published card count mismatch`);
   const expectedCardMedia = entities.map((entity) => [entity, getProductionCardMedia(entity.id)]);
+  const cardMediaFigures = [...html.matchAll(/<figure class="entity-media entity-media--card"[\s\S]*?<\/figure>/g)];
   assert.equal((html.match(/data-media-state="fallback"/g) || []).length, expectedCardMedia.filter(([, media]) => !media).length, `${collection.route}: fallback count must match Entities without admitted card Media`);
-  assert.equal((html.match(/<img\b/g) || []).length, expectedCardMedia.filter(([, media]) => media).length, `${collection.route}: image count must match admitted card Media`);
-  assert.equal((html.match(/<figure class="entity-media entity-media--card"/g) || []).length, entities.length, `${collection.route}: every card must use card Media mode`);
+  assert.equal(cardMediaFigures.reduce((count, figure) => count + (figure[0].match(/<img\b/g) || []).length, 0), expectedCardMedia.filter(([, media]) => media).length, `${collection.route}: card image count must match admitted card Media`);
+  assert.equal(cardMediaFigures.length, entities.length, `${collection.route}: every card must use card Media mode`);
   for (const [entity, media] of expectedCardMedia) {
     if (media) assertMediaImage(html, media, `${collection.route}: ${entity.id}`);
   }
-  for (const figure of html.matchAll(/<figure class="entity-media entity-media--card"[\s\S]*?<\/figure>/g)) {
+  for (const figure of cardMediaFigures) {
     assert(!figure[0].includes('<a '), `${collection.route}: card Media must not contain a nested source anchor`);
   }
   assert(html.indexOf('class="entity-grid') < html.indexOf('class="collection-supporting"'), `${collection.route}: inventory must precede supporting content`);

@@ -8,16 +8,6 @@ import {
 
 const categoryDefinitions = [
   {
-    id: 'weapons',
-    label: '武器',
-    eyebrow: '兵 / WEAPON',
-    href: '/weapons',
-    description: '浏览当前已发布的武器身份与公开资料。',
-    variant: 'weapon',
-    marker: '兵',
-    getEntities: getPublishedWeapons
-  },
-  {
     id: 'characters',
     label: '角色',
     eyebrow: '人 / CHARACTER',
@@ -36,6 +26,16 @@ const categoryDefinitions = [
     variant: 'boss',
     marker: '敌',
     getEntities: getPublishedBosses
+  },
+  {
+    id: 'weapons',
+    label: '武器',
+    eyebrow: '兵 / WEAPON',
+    href: '/weapons',
+    description: '浏览当前已发布的武器身份与公开资料。',
+    variant: 'weapon',
+    marker: '兵',
+    getEntities: getPublishedWeapons
   },
   {
     id: 'world',

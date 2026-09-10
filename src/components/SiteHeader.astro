@@ -1,5 +1,5 @@
 ---
-import { primaryNavigation, secondaryNavigation } from '../../scripts/astro/site-shell.mjs';
+import { approvedCollectionNavigation, secondaryNavigation } from '../../scripts/astro/site-shell.mjs';
 
 const { activeSection = '' } = Astro.props;
 const isActive = (section) => section === activeSection;
@@ -10,11 +10,10 @@ const hasSecondaryActive = secondaryNavigation.some(({ section }) => isActive(se
   <nav class="navbar" aria-label="主导航">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="影之刃零攻略站首页">
-        <span class="nav-logo__mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 18 17.5 6.5l-1.8 6.1L20 14l-6 1.5L6 18Z" fill="currentColor" /></svg></span>
-        <span>影之刃零</span>
+        <img class="nav-logo__title-lockup" src="/brand/phantom-blade-zero-cn-title.svg" width="112" height="51" alt="" />
       </a>
       <ul class="nav-links" id="primary-navigation">
-        {primaryNavigation.map(({ href, label, section }) => <li><a href={href} data-nav-section={section} class:list={{ active: isActive(section) }} aria-current={isActive(section) ? 'page' : undefined}>{label}</a></li>)}
+        {approvedCollectionNavigation.map(({ href, label, section }) => <li><a href={href} data-nav-section={section} class:list={{ active: isActive(section) }} aria-current={isActive(section) ? 'page' : undefined}>{label}</a></li>)}
         <li class:list={{ 'nav-more': true, 'is-active': hasSecondaryActive }}>
           <details>
             <summary>更多<span aria-hidden="true">⌄</span></summary>

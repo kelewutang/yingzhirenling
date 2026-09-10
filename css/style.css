@@ -1386,29 +1386,15 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 
 .nav-logo {
   flex: 0 0 auto;
-  gap: var(--space-2);
-  color: var(--color-text);
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  letter-spacing: var(--tracking-brand);
+  min-height: 2.75rem;
 }
 
-.nav-logo:hover {
-  color: var(--color-text);
+.nav-logo__title-lockup {
+  display: block;
+  width: 7rem;
+  height: auto;
 }
 
-.nav-logo__mark {
-  display: grid;
-  width: 2rem;
-  height: 2rem;
-  place-items: center;
-  color: var(--color-accent);
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, rgb(222 102 88 / 0.16), transparent 70%);
-}
-
-.nav-logo__mark svg,
 .nav-search-btn svg,
 .nav-toggle svg {
   width: 1.25rem;
@@ -1816,14 +1802,8 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
     padding-inline: var(--gutter-mobile);
   }
 
-  .nav-logo {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-  }
-
-  .nav-logo__mark {
-    width: 1.75rem;
-    height: 1.75rem;
+  .nav-logo__title-lockup {
+    width: 5.25rem;
   }
 
   .search-trigger__label,
