@@ -230,10 +230,12 @@ try {
   const cardFigure = collection.match(new RegExp('<figure class="entity-media entity-media--card"[\\s\\S]*?</figure>'))?.[0];
   assert(cardFigure, 'collection cards must use card Media mode');
   assert(!cardFigure.includes('<a '), 'card Media must not create a nested source anchor');
+  assert(!cardFigure.includes('entity-media__caption'), 'card Media must not render caption, credit, or source presentation');
   const tangCardStart = collection.indexOf('href="/weapons/tang-hengdao"');
   const tangCard = collection.slice(tangCardStart, collection.indexOf('</a>', tangCardStart));
   assert(tangCard.includes(`src="/assets/media/${admitted.src}"`), 'admitted card Media must render in its Entity card');
   assert(!tangCard.match(/<figure[\s\S]*?<\/figure>/)?.[0].includes('<a '), 'admitted card Media must not create a nested source anchor');
+  assert(!tangCard.match(/<figure[\s\S]*?<\/figure>/)?.[0].includes('entity-media__caption'), 'admitted card Media must not render caption, credit, or source presentation');
   const yaCardStart = collection.indexOf('href="/weapons/ya-hengdao"');
   const yaCard = collection.slice(yaCardStart, collection.indexOf('</a>', yaCardStart));
   assert(yaCard.includes('data-media-state="fallback"'), 'draft/review-required/do-not-use card Media must leave its Entity fallback intact');

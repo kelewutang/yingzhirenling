@@ -32,7 +32,7 @@ const fallbackMarks = { weapon: '兵', character: '人', boss: '敌', location: 
       {entity.entityType !== 'weapon' && <span class="entity-media__motif" />}
     </div>
   )}
-  {(hasMedia && (media.caption || media.credit || mediaSourceUrl)) && <figcaption class="entity-media__caption">
+  {(variant !== 'card' && hasMedia && (media.caption || media.credit || mediaSourceUrl)) && <figcaption class="entity-media__caption">
     {media.caption && <span>{media.caption}</span>}
     {media.credit && <span>{media.credit}</span>}
     {mediaSourceUrl && <a href={mediaSourceUrl} target="_blank" rel="noopener noreferrer">查看媒体来源</a>}
