@@ -1,4 +1,54 @@
 {
   "schemaVersion": "1.0-video",
-  "records": []
+  "records": [
+    {
+      "id": "video:state-of-play-2026-08-18",
+      "recordState": "published",
+      "title": "《影之刃零》State of Play 专场",
+      "description": "PlayStation 发布的《影之刃零》State of Play 专场，含故事、世界、战斗系统与 PS5/DualSense 特性。",
+      "platform": "bilibili",
+      "platformVideoId": "BV1Zdbi6rER9",
+      "sourceUrl": "https://www.bilibili.com/video/BV1Zdbi6rER9/",
+      "owner": "PlayStation",
+      "sourceType": "official-promotional",
+      "rightsStatus": "official-promotional-risk-accepted",
+      "rightsEvidence": "Verified Bilibili provenance: published by PlayStation on 2026-08-18 as the dedicated Phantom Blade Zero State of Play. This is official platform promotional/editorial material. No explicit reuse permission has been established. The project owner reviewed and accepted the known rights risk for production editorial use.",
+      "retrievedAt": "2026-09-10",
+      "publishedAt": "2026-08-18",
+      "kind": "showcase"
+    },
+    {
+      "id": "video:preorder-gameplay-2026-08-12",
+      "recordState": "published",
+      "title": "《影之刃零》11分钟全新实机演示",
+      "description": "在《影之刃零》预购开放时发布的 11 分钟新实机宣传视频，展示故事、场景、角色与战斗内容。",
+      "platform": "bilibili",
+      "platformVideoId": "BV1Hmuv68EWW",
+      "sourceUrl": "https://www.bilibili.com/video/BV1Hmuv68EWW/",
+      "owner": "S-GAME / Phantom Blade Zero official promotional release",
+      "sourceType": "official-promotional",
+      "rightsStatus": "official-promotional-risk-accepted",
+      "rightsEvidence": "Verified candidate evidence and contemporary reports identify BV1Hmuv68EWW as the official Phantom Blade Zero new gameplay PV released alongside preorders on 2026-08-12. This is traceable S-GAME / Phantom Blade Zero promotional material. No explicit reuse permission has been established. The project owner reviewed and accepted the known rights risk for production editorial use.",
+      "retrievedAt": "2026-09-10",
+      "publishedAt": "2026-08-12",
+      "kind": "gameplay",
+      "relatedEntityIds": ["character:soul"]
+    },
+    {
+      "id": "video:state-of-play-teaser-2026-06-03",
+      "recordState": "published",
+      "title": "《影之刃零》State of Play 先导短片",
+      "description": "50 秒 State of Play 先导预告片，与官方发售日期更新公告相关的宣传材料。",
+      "platform": "bilibili",
+      "platformVideoId": "BV1VtVr6GE5H",
+      "sourceUrl": "https://www.bilibili.com/video/BV1VtVr6GE5H/",
+      "owner": "S-GAME / Phantom Blade Zero official promotional release",
+      "sourceType": "official-promotional",
+      "rightsStatus": "official-promotional-risk-accepted",
+      "rightsEvidence": "Verified candidate evidence identifies BV1VtVr6GE5H as the approximately 50-second Phantom Blade Zero State of Play teaser published on 2026-06-03 in official promotional context. No explicit reuse permission has been established. The project owner reviewed and accepted the known rights risk for production editorial use.",
+      "retrievedAt": "2026-09-10",
+      "publishedAt": "2026-06-03",
+      "kind": "trailer"
+    }
+  ]
 }
