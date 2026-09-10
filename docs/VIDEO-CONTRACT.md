@@ -2,7 +2,7 @@
 
 Status: P3-CN-4B3-A foundation. This is a separate Video system, not an extension of the Image Media contract in `data/media.json`.
 
-`data/videos.json` is the Video source of truth. It is validated at build time by `scripts/validate-videos.mjs`; this foundation does not yet migrate or render the legacy `/videos` bridge page.
+`data/videos.json` is the Video source of truth. It is validated at build time by `scripts/validate-videos.mjs` and projected into the static Astro `/videos` route; the legacy bridge page is not a Video data source.
 
 ## V1 record
 

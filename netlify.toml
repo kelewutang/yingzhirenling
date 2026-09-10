@@ -217,10 +217,16 @@
   force = true
 
 [[redirects]]
-  from = "/pages/videos"
-  to = "/videos"
-  status = 301
-  force = true
+from = "/pages/videos"
+to = "/videos"
+status = 301
+force = true
+
+[[redirects]]
+from = "/videos.html"
+to = "/videos"
+status = 301
+force = true
 
 [[redirects]]
   from = "/pages/about.html"
@@ -347,9 +353,9 @@
   status = 200
 
 [[redirects]]
-  from = "/videos"
-  to = "/pages/videos.html"
-  status = 200
+from = "/videos"
+to = "/videos.html"
+status = 200
 
 [[redirects]]
   from = "/about"

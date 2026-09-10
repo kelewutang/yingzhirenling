@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadPublishedVideos } from '../lib/videos.mjs';
+
+const videos = await loadPublishedVideos();
+---
+<BaseLayout title="视频中心 - 影之刃零攻略站" description="影之刃零已发布公开视频索引，提供资料与可选的 Bilibili 打开入口。" canonical="https://www.yingzhirenling.cn/videos" activeSection="videos">
+  <article class="videos-page" data-videos-system="click-to-load">
+    <header class="videos-hero">
+      <p class="videos-hero__eyebrow">视频资料</p>
+      <div class="videos-hero__heading">
+        <h1>视频中心</h1>
+        <p><strong>{videos.length}</strong> 个已发布视频</p>
+      </div>
+        <p class="videos-hero__intro">本页收录《影之刃零》官方公开视频。点击“打开视频”即可查看，也可直接打开 Bilibili 原视频页面。</p>
+    </header>
+
+    <section class="videos-inventory" aria-labelledby="videos-inventory-title">
+      <header class="videos-section-heading">
+          <p>官方视频</p>
+        <h2 id="videos-inventory-title">公开视频</h2>
+      </header>
+      <div class="video-grid">
+        {videos.map((video) => {
+          const playerId = `video-player-${video.id.slice('video:'.length)}`;
+          return <article class="video-card" data-video-card data-video-id={video.id}>
+            <header class="video-card__header">
+              <dl class="video-card__meta">
+                <div><dt>平台</dt><dd>{video.platformLabel}</dd></div>
+                <div><dt>类型</dt><dd>{video.kindLabel}</dd></div>
+                <div><dt>发布日期</dt><dd><time datetime={video.publishedAt}>{video.publishedLabel}</time></dd></div>
+              </dl>
+              <h2>{video.title}</h2>
+              <p>{video.description}</p>
+            </header>
+            <div class="video-card__player" id={playerId} data-video-player>
+              <div class="video-card__facade" aria-hidden="true"><span>Bilibili</span></div>
+                  <p class="video-card__facade-note">点击“打开视频”即可查看。</p>
+            </div>
+            <div class="video-card__actions">
+              <button class="video-card__load" type="button" data-video-load data-video-embed-url={video.embedUrl} data-video-title={video.title} aria-controls={playerId}>打开视频</button>
+              <a class="video-card__source" href={video.sourceUrl} target="_blank" rel="noopener noreferrer">打开 Bilibili<span aria-hidden="true"> ↗</span></a>
+            </div>
+          </article>;
+        })}
+      </div>
+    </section>
+  </article>
+
+  <script is:inline>
+    document.querySelectorAll('[data-video-load]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const player = document.getElementById(button.getAttribute('aria-controls'));
+        const embedUrl = button.dataset.videoEmbedUrl;
+        if (!player || !embedUrl || player.dataset.loaded === 'true') return;
+        const iframe = document.createElement('iframe');
+        iframe.src = embedUrl;
+        iframe.title = button.dataset.videoTitle || 'Bilibili 视频';
+        iframe.loading = 'lazy';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.allowFullscreen = true;
+        player.replaceChildren(iframe);
+        player.dataset.loaded = 'true';
+        button.disabled = true;
+        button.textContent = '视频已打开';
+      });
+    });
+  </script>
+</BaseLayout>

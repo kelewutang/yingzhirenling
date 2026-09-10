@@ -102,7 +102,7 @@ Weapon Detail Page Pilot 已上线并完成 production verification。唐横刀�
 - Page Search plus progressive-enhancement Production Entity Search, with published-only and draft-isolation enforcement;
 - sitemap derived from published Entity projection;
 - deterministic no-media fallback while Production Media remains separately governed;
-- legacy static-copy bridge for guide, videos, about, about-site and 404.
+- legacy static-copy bridge for guide, about, about-site and 404; static Astro `/videos` backed by the separate Video contract.
 
 For current operational counts and completed-stage status, use [CURRENT-STATE.md](CURRENT-STATE.md) rather than duplicating a mutable snapshot here.
 

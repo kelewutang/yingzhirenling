@@ -71,7 +71,7 @@ Read [Knowledge Schema 1.0](knowledge-schema-1.0.md) before changing any data or
 - Do not introduce Next.js, React, Tailwind, a database, CMS, Server API, or account system without an explicit approved need.
 - Netlify publishes `dist/`; its build command runs the repository validation and generation chain.
 - Astro natively emits the homepage, four collection pages, 15 published Entity detail pages, and the sitemap.
-- The retained legacy bridge serves `/guide`, `/videos`, `/about`, `/about-site`, and `/404`. Legacy `/pages/*.html` compatibility redirects remain in place.
+- The retained legacy bridge serves `/guide`, `/about`, `/about-site`, and `/404`; `/videos` is a static Astro route backed by production Video records. Legacy `/pages/*.html` compatibility redirects remain in place.
 - Obsolete legacy source files removed in P2-UI-8 are root `index.html` and `pages/weapons.html`, `pages/characters.html`, `pages/bosses.html`, and `pages/world.html`.
 
 ## 7. UI System
@@ -102,7 +102,7 @@ Background Atmosphere is not Entity Media.
 - **Characters:** Collection and all published details use character atmosphere: vertical ink-flow language.
 - **Bosses:** Collection and all published details use boss atmosphere: weighted darkness and restrained cinnabar.
 - **World:** Collection and published Location details use world atmosphere: mist and horizontal terrain rhythm.
-- **Bridge pages:** `/guide`, `/videos`, `/about`, `/about-site`, and `/404` remain global-foundation only; they do not receive type-specific atmosphere.
+- **Global-foundation pages:** `/guide`, `/videos`, `/about`, `/about-site`, and `/404` do not receive type-specific atmosphere.
 
 ## 8. Completed UI Refresh Stages
 
@@ -261,7 +261,7 @@ Do not merge directly because `gh` is unavailable. Do not force-push, rewrite hi
 
 - Broader production media rollout remains deferred; `character:soul` is the sole admitted Hero/Card Media record.
 - Major legacy CSS cleanup, obsolete legacy homepage/collection source cleanup, and legacy bitmap cleanup completed in P2-UI-8.
-- The legacy static-copy bridge remains for `/guide`, `/videos`, `/about`, `/about-site`, and `/404`.
+- The legacy static-copy bridge remains for `/guide`, `/about`, `/about-site`, and `/404`; `/videos` no longer uses the bridge.
 - Post-release content expansion, search scaling, and Build tools are future scope.
 - Accounts, UGC, and backend services are future scope.
 

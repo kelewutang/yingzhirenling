@@ -93,6 +93,12 @@ for (const location of draftLocations) {
   assert(!indexByFrom.has(`/world/${location.slug}.html`), `Draft Location .html route must remain 404: ${location.slug}`);
 }
 
+assert.deepEqual(blocks[indexByFrom.get('/pages/videos.html')], { from: '/pages/videos.html', to: '/videos', status: 301, force: true });
+assert.deepEqual(blocks[indexByFrom.get('/pages/videos')], { from: '/pages/videos', to: '/videos', status: 301, force: true });
+assert.deepEqual(blocks[indexByFrom.get('/videos.html')], { from: '/videos.html', to: '/videos', status: 301, force: true });
+assert.deepEqual(blocks[indexByFrom.get('/videos')], { from: '/videos', to: '/videos.html', status: 200, force: false });
+assert(indexByFrom.get('/videos.html') < indexByFrom.get('/videos'), '/videos.html redirect must precede the canonical /videos rewrite');
+
 assert.equal(blocks.at(-1).from, '/*');
 assert.equal(blocks.at(-1).status, 404);
 console.log(`Netlify redirect regression checks passed: ${publishedWeapons.length} published Weapon, ${publishedBosses.length} published Boss, and ${publishedLocations.length} published Location routes.`);

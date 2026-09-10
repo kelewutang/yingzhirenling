@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { isMatchingVideoSourceUrl, isValidPlatformVideoId, videoPlatforms } from '../src/lib/video.mjs';
+import { isMatchingVideoSourceUrl, isValidPlatformVideoId, productionVideoRightsStatuses, videoPlatforms } from '../src/lib/video.mjs';
 
 const root = process.env.VIDEO_VALIDATION_ROOT
   ? path.resolve(process.env.VIDEO_VALIDATION_ROOT)
@@ -19,12 +19,7 @@ const rightsStatuses = new Set([
   'review-required',
   'do-not-use'
 ]);
-const productionRightsStatuses = new Set([
-  'permission-recorded',
-  'official-press-use-reviewed',
-  'self-captured-reviewed',
-  'official-promotional-risk-accepted'
-]);
+const productionRightsStatuses = productionVideoRightsStatuses;
 const kinds = new Set(['gameplay', 'trailer', 'showcase']);
 const idPattern = /^video:[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
