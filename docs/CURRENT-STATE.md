@@ -58,6 +58,7 @@ Knowledge data is composed of Entities, Facts (claims), Sources, Relations, Game
 - Editorial claims may cite `basisFactIds`; old HTML is not evidence for an editorial claim.
 - Relations are independent, directed, sourced, status-bearing, versioned records rather than implied Facts.
 - `recordState=published` grants production eligibility only; it does not mean official or verified.
+- `system` Entities are knowledge-only anchors for cross-cutting gameplay Facts; they do not enter public routes, collection cards, Production Search, or the sitemap.
 
 Read [Knowledge Schema 1.0](knowledge-schema-1.0.md) before changing any data or validation rule.
 

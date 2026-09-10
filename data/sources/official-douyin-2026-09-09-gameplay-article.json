@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:official-douyin-2026-09-09-gameplay-article",
+  "sourceType": "official-article",
+  "authority": "official",
+  "publisher": "Phantom Blade Zero official Douyin account",
+  "title": "《难度，武器，玩家》",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-screenshot",
+    "platform": "Douyin",
+    "account": "Phantom Blade Zero official Douyin account",
+    "contentTitle": "《难度，武器，玩家》",
+    "suppliedAt": "2026-09-10",
+    "originalPublishedAt": "2026-09-09",
+    "urlAvailability": "no-stable-canonical-url",
+    "evidenceItems": [
+      {
+        "id": "douyin-gameplay-article-page-04-of-14",
+        "page": 4,
+        "totalPages": 14,
+        "label": "Directly supplied official article screenshot, page 4/14"
+      },
+      {
+        "id": "douyin-gameplay-article-page-05-of-14",
+        "page": 5,
+        "totalPages": 14,
+        "label": "Directly supplied official article screenshot, page 5/14"
+      },
+      {
+        "id": "douyin-gameplay-article-page-06-of-14",
+        "page": 6,
+        "totalPages": 14,
+        "label": "Directly supplied official article screenshot, page 6/14"
+      },
+      {
+        "id": "douyin-gameplay-article-page-07-of-14",
+        "page": 7,
+        "totalPages": 14,
+        "label": "Directly supplied official article screenshot, page 7/14"
+      }
+    ]
+  },
+  "language": "zh-CN",
+  "publishedAt": "2026-09-09",
+  "checkedAt": "2026-09-10",
+  "archivedUrl": null,
+  "notes": "Directly supplied screenshot evidence from the official Douyin article. A stable canonical post URL was not available for checking, so url is explicitly null; no URL was guessed, assembled, or rehosted. This record does not claim site ownership or publication of the screenshot files."
+}

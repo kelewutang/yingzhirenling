@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "system:gameplay",
+  "entityType": "system",
+  "slug": "gameplay",
+  "displayName": "游戏玩法系统",
+  "aliases": [],
+  "summary": "用于记录难度、玩法、成就与整体武器成长等不属于单一实体的可核验玩法事实；本知识专用实体不生成页面、搜索文档或站点地图条目。",
+  "summaryFactIds": [],
+  "facts": [],
+  "taxonomyIds": [],
+  "publishedAt": "2026-09-10",
+  "updatedAt": "2026-09-10",
+  "recordState": "published",
+  "resolution": null
+}

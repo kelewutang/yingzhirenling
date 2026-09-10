@@ -14,17 +14,23 @@ Entity 至少包含：`schemaVersion`、`id`、`entityType`、显式 `slug`、`d
 
 `publishedAt` 表示 Entity 首次进入本站生产数据的日期。`recordState=published` 时必须是合法的 `YYYY-MM-DD` 日期，且不得晚于 `updatedAt`；draft 可以使用 `null`；archived 可以保留合法历史发布日期，也可以为 `null`（未发布即归档）。
 
+`system` 是唯一的知识专用 Entity 类型，用于难度、模式、成就路径和整体武器成长等不归属于单件 Weapon、Character、Boss 或 Location 的事实。它不生成公共详情页、Collection 卡片、Production Search Document 或 sitemap URL；不得为难度、成就、存档等概念各自扩展新的 Entity 类型。
+
 ## 2. Fact
 
 Fact 是最小可信度单元。一个 Entity 的存在、名称、类型、获取方式、强度评价等必须能够分别拥有 `value`、`valueType`、`status`、`sourceIds`、`basisFactIds`、`checkedAt`、`gameVersionId` 和适用 scope。
 
 Fact 的更新使用单值 `supersededBy` 指向直接替代它的新 Fact。它只表达“同一事实位的新陈替换”，不处理 Entity 身份拆分或合并。
 
+`weapon.previewStat` 是受限的 `object` Fact：必须同时包含 `statName`、`displayedValue`、`displayedLevel` 与 `displayContext: "official-pre-release-ui"`，且必须是 `observation`。它只记录发售前官方 UI 的显示观察，不能表示正式版固定属性。`weapon.mechanic` 与 `weapon.progressionNode` 只记录可独立核验的名称；后者不承载效果推断或完整技能树。
+
 ## 3. Source
 
 Source 独立存储，并由多个 Fact 引用。Source 的 `authority` 只描述来源主体：`official`、`third-party`、`community`、`internal`。
 
 `authority` 不自动决定 Fact `status`。官方视频画面中直接观察到的信息通常仍是 `observation`；`official` Fact 必须有官方文字或其他满足官方确认标准的直接来源。
+
+常规 Source 继续要求 HTTP(S) `url`。当用户直接提供官方截图、且无法可靠取得稳定 canonical URL 时，Source 可以使用 `locator.type: "user-supplied-screenshot"` 并将 `url: null`。该 locator 必须明确平台、官方账号/内容语境、内容标题、提供日期、原始发布时间、`no-stable-canonical-url` 原因和稳定截图页标识；它不表示本站拥有、重托管或发布截图。未知 locator 类型、缺失 URL 的 URL Source，以及为截图猜测的 URL 均为无效数据。
 
 ## 4. Relation
 
@@ -117,7 +123,7 @@ Entity 不保留一对一 `supersededBy`，避免 replacement 与 resolution 同
 
 ## 14. 发布与迁移边界
 
-Knowledge JSON 是结构化事实的 Source of Truth，generated artifacts 和 `dist/` 是可重建的派生产物。Weapon、Character、Boss 和 Location 都在同一冻结的 Knowledge contract 下进入 production projection；只有 `recordState=published` 的 Entity 可以进入对应的 Production Search、static detail output 和 sitemap。
+Knowledge JSON 是结构化事实的 Source of Truth，generated artifacts 和 `dist/` 是可重建的派生产物。Weapon、Character、Boss 和 Location 都在同一冻结的 Knowledge contract 下进入 production projection；这些类型中只有 `recordState=published` 的 Entity 可以进入对应的 Production Search、static detail output 和 sitemap。`system` 即使为 published 也始终只保留在 Knowledge 层。
 
 Entity detail 的核心 SEO 内容在构建时写入静态 HTML，浏览器不会 runtime fetch Knowledge JSON 后再生成 H1、summary、Fact 或 Source。四类 Entity 都使用这一 production chain；这只是 implementation / migration status 更新，不构成 Schema version、field、enum、publication 或 validation semantics 的变化。
 

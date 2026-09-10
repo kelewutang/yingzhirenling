@@ -32,16 +32,18 @@ export async function loadKnowledge() {
     readDirectory('data/characters'),
     readDirectory('data/bosses'),
     readDirectory('data/locations'),
+    readDirectory('data/systems'),
     readDirectory('data/relations'),
     readDirectory('data/sources'),
     readDirectory('data/versions')
-  ]).then(([weapons, characters, bosses, locations, relations, sources, versions]) => {
-    const entities = [...weapons, ...characters, ...bosses, ...locations];
+  ]).then(([weapons, characters, bosses, locations, systems, relations, sources, versions]) => {
+    const entities = [...weapons, ...characters, ...bosses, ...locations, ...systems];
     return {
       weapons,
       characters,
       bosses,
       locations,
+      systems,
       relations,
       sourceById: new Map(sources.map((item) => [item.id, item])),
       versionById: new Map(versions.map((item) => [item.id, item])),

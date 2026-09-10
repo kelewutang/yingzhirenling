@@ -1,0 +1,208 @@
+{
+  "fixtureNotice": "仅用于 Gameplay Fact 与 Screenshot Evidence Foundation 校验的测试数据，不得作为生产知识来源。",
+  "cases": [
+    {
+      "name": "url-source-valid",
+      "expected": "pass",
+      "source": {
+        "url": "https://example.com/source"
+      }
+    },
+    {
+      "name": "url-source-malformed-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "HTTP(S) URL",
+      "source": {
+        "url": "not-a-url"
+      }
+    },
+    {
+      "name": "url-locator-missing-url-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "HTTP(S) URL",
+      "source": {
+        "url": null,
+        "locator": { "type": "url" }
+      }
+    },
+    {
+      "name": "screenshot-source-valid",
+      "expected": "pass",
+      "source": {
+        "url": null,
+        "locator": {
+          "type": "user-supplied-screenshot",
+          "platform": "Douyin",
+          "account": "官方账号",
+          "contentTitle": "测试文章",
+          "suppliedAt": "2026-09-10",
+          "originalPublishedAt": "2026-09-09",
+          "urlAvailability": "no-stable-canonical-url",
+          "evidenceItems": [
+            {
+              "id": "test-page-01-of-01",
+              "page": 1,
+              "totalPages": 1,
+              "label": "测试截图"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "screenshot-source-missing-provenance-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".account",
+      "source": {
+        "url": null,
+        "locator": {
+          "type": "user-supplied-screenshot",
+          "platform": "Douyin",
+          "contentTitle": "测试文章",
+          "suppliedAt": "2026-09-10",
+          "originalPublishedAt": "2026-09-09",
+          "urlAvailability": "no-stable-canonical-url",
+          "evidenceItems": []
+        }
+      }
+    },
+    {
+      "name": "source-locator-unknown-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "仅支持 url 或 user-supplied-screenshot",
+      "source": {
+        "url": null,
+        "locator": { "type": "unknown" }
+      }
+    },
+    {
+      "name": "system-fact-valid",
+      "expected": "pass",
+      "ownerType": "system",
+      "fact": {
+        "key": "difficulty.option",
+        "valueType": "string",
+        "value": "测试难度",
+        "status": "official"
+      }
+    },
+    {
+      "name": "system-fact-on-weapon-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "Fact key 不适用于 weapon",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "difficulty.option",
+        "valueType": "string",
+        "value": "测试难度",
+        "status": "official"
+      }
+    },
+    {
+      "name": "unknown-system-fact-key-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "Fact key 未注册",
+      "ownerType": "system",
+      "fact": {
+        "key": "system.unknown",
+        "valueType": "string",
+        "value": "测试",
+        "status": "official"
+      }
+    },
+    {
+      "name": "weapon-kind-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.kind",
+        "valueType": "string",
+        "value": "测试武器类型",
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-mechanic-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "string",
+        "value": "测试机制",
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "string",
+        "value": "测试节点",
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-preview-stat-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.previewStat",
+        "valueType": "object",
+        "value": {
+          "statName": "测试属性",
+          "displayedValue": 1443,
+          "displayedLevel": 30,
+          "displayContext": "official-pre-release-ui"
+        },
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-preview-stat-missing-context-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "displayContext",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.previewStat",
+        "valueType": "object",
+        "value": {
+          "statName": "测试属性",
+          "displayedValue": 1443,
+          "displayedLevel": 30
+        },
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-preview-stat-numeric-masquerade-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "number 不符合 Registry",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.previewStat",
+        "valueType": "number",
+        "value": 1443,
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-preview-stat-non-observation-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "必须保持 observation",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.previewStat",
+        "valueType": "object",
+        "value": {
+          "statName": "测试属性",
+          "displayedValue": 1443,
+          "displayedLevel": 30,
+          "displayContext": "official-pre-release-ui"
+        },
+        "status": "official"
+      }
+    }
+  ]
+}

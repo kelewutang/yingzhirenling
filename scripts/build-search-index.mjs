@@ -10,6 +10,7 @@ const WEAPONS_DIR = path.join(ROOT_DIR, 'data', 'weapons');
 const CHARACTERS_DIR = path.join(ROOT_DIR, 'data', 'characters');
 const BOSSES_DIR = path.join(ROOT_DIR, 'data', 'bosses');
 const LOCATIONS_DIR = path.join(ROOT_DIR, 'data', 'locations');
+const SYSTEMS_DIR = path.join(ROOT_DIR, 'data', 'systems');
 const WEAPON_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'weapons');
 const CHARACTER_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'characters');
 const BOSS_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'bosses');
@@ -167,6 +168,15 @@ function requireSearchShape(entity, file) {
   }
   if (!KNOWN_RECORD_STATES.has(entity.recordState)) {
     throw new Error(`${file}: 不支持 recordState=${entity.recordState}`);
+  }
+}
+
+function requireKnowledgeOnlySystemShape(entity, file) {
+  if (entity.entityType !== 'system') {
+    throw new Error(`${file}: data/systems 只能包含 entityType=system 的知识专用实体`);
+  }
+  if (entity.recordState === 'published' && entity.publishedAt === null) {
+    throw new Error(`${file}: 已发布 system 必须有 publishedAt`);
   }
 }
 
@@ -420,6 +430,8 @@ async function main() {
     ...await readEntityRecords(BOSSES_DIR, 'data/bosses'),
     ...await readEntityRecords(LOCATIONS_DIR, 'data/locations')
   ];
+  const systemRecords = await readEntityRecords(SYSTEMS_DIR, 'data/systems');
+  for (const record of systemRecords) requireKnowledgeOnlySystemShape(record.entity, record.file);
   const detailPageSlugs = new Map([
     ['weapon', await resolvePublishedWeaponDetailPageSlugs(records, detailPagesDir, requireLegacyMarker)],
     ['character', await resolvePublishedCharacterDetailPageSlugs(records, characterDetailPagesDir)],
@@ -437,6 +449,7 @@ async function main() {
   console.log(`Character records read: ${records.filter(({ entity }) => entity.entityType === 'character').length}`);
   console.log(`Boss records read: ${records.filter(({ entity }) => entity.entityType === 'boss').length}`);
   console.log(`Location records read: ${records.filter(({ entity }) => entity.entityType === 'location').length}`);
+  console.log(`System records excluded: ${systemRecords.length}`);
   console.log(`Search documents written: ${documents.length}`);
   for (const state of [...KNOWN_RECORD_STATES].sort(compareText)) {
     console.log(`Skipped ${state}: ${skippedByState.get(state) ?? 0}`);

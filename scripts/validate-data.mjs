@@ -4,12 +4,16 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
-const DATA_DIR = path.join(ROOT_DIR, 'data');
+const DATA_DIR_ARGUMENT = process.argv.find((argument) => argument.startsWith('--data-dir='));
+const DATA_DIR = DATA_DIR_ARGUMENT
+  ? path.resolve(ROOT_DIR, DATA_DIR_ARGUMENT.slice('--data-dir='.length))
+  : path.join(ROOT_DIR, 'data');
 const FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'knowledge-schema-cases.json');
 const CHARACTER_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'character-schema-cases.json');
 const BOSS_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'boss-schema-cases.json');
 const LOCATION_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'location-schema-cases.json');
 const RELATION_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'relation-schema-cases.json');
+const GAMEPLAY_FOUNDATION_FIXTURE_FILE = path.join(ROOT_DIR, 'tests', 'fixtures', 'gameplay-foundation-cases.json');
 const FIXTURE_MODE = process.argv.includes('--fixtures');
 const SCHEMA_VERSION = '1.0-implementation';
 const STATUS_VALUES = new Set([
@@ -21,13 +25,15 @@ const STATUS_VALUES = new Set([
   'pending-review'
 ]);
 const AUTHORITY_VALUES = new Set(['official', 'third-party', 'community', 'internal']);
-const ENTITY_TYPES = new Set(['weapon', 'character', 'boss', 'location']);
+const ENTITY_TYPES = new Set(['weapon', 'character', 'boss', 'location', 'system']);
 const RELATION_TYPES = new Set(['parentOf', 'formerCompanionOf']);
 const RECORD_STATES = new Set(['draft', 'published', 'archived']);
 const RESOLUTION_TYPES = new Set(['duplicate', 'merge', 'split', 'misidentified']);
 const VERSION_STAGES = new Set(['prelaunch-materials', 'prelaunch-demo']);
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot']);
+const PREVIEW_STAT_CONTEXT = 'official-pre-release-ui';
 
 const errors = [];
 const idOwners = new Map();
@@ -46,18 +52,18 @@ function isValidDate(value) {
   return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }
 
-function validateDate(value, location, { nullable = false } = {}) {
+function validateDate(value, location, { nullable = false, report = error } = {}) {
   if (value === null && nullable) return;
-  if (!isValidDate(value)) error(location, '必须是合法的 YYYY-MM-DD 日期');
+  if (!isValidDate(value)) report(location, '必须是合法的 YYYY-MM-DD 日期');
 }
 
-function validateUrl(value, location, { nullable = false } = {}) {
+function validateUrl(value, location, { nullable = false, report = error } = {}) {
   if (value === null && nullable) return;
   try {
     const url = new URL(value);
     if (!['http:', 'https:'].includes(url.protocol)) throw new Error('unsupported protocol');
   } catch {
-    error(location, '必须是合法的 HTTP(S) URL');
+    report(location, '必须是合法的 HTTP(S) URL');
   }
 }
 
@@ -116,6 +122,72 @@ function validateOfficialSourceRule(record, sourceIndex, location, report, recor
   if (record.status === 'official' && !sourceIds.some((id) => sourceIndex.get(id)?.authority === 'official')) {
     report(`${location}.sourceIds`, `official ${recordLabel} 至少需要一个 authority=official Source`);
   }
+}
+
+function validateUserSuppliedScreenshotLocator(locator, location, report = error) {
+  for (const field of ['platform', 'account', 'contentTitle', 'urlAvailability']) {
+    if (typeof locator[field] !== 'string' || locator[field].trim().length === 0) {
+      report(`${location}.${field}`, '必须是非空字符串');
+    }
+  }
+  if (locator.urlAvailability !== 'no-stable-canonical-url') {
+    report(`${location}.urlAvailability`, '用户提供截图证据必须明确为 no-stable-canonical-url');
+  }
+  for (const field of ['suppliedAt', 'originalPublishedAt']) {
+    validateDate(locator[field], `${location}.${field}`, { report });
+  }
+  if (!Array.isArray(locator.evidenceItems) || locator.evidenceItems.length === 0) {
+    report(`${location}.evidenceItems`, '必须是至少包含一项的截图证据数组');
+    return;
+  }
+  const ids = new Set();
+  for (const [index, item] of locator.evidenceItems.entries()) {
+    const itemLocation = `${location}.evidenceItems[${index}]`;
+    if (!isObject(item)) {
+      report(itemLocation, '必须是对象');
+      continue;
+    }
+    if (typeof item.id !== 'string' || !SLUG_PATTERN.test(item.id)) {
+      report(`${itemLocation}.id`, '必须是稳定的 ASCII kebab-case 标识');
+    } else if (ids.has(item.id)) {
+      report(`${itemLocation}.id`, '不得重复');
+    } else {
+      ids.add(item.id);
+    }
+    if (!Number.isInteger(item.page) || item.page < 1) {
+      report(`${itemLocation}.page`, '必须是大于 0 的整数');
+    }
+    if (!Number.isInteger(item.totalPages) || item.totalPages < item.page) {
+      report(`${itemLocation}.totalPages`, '必须是不小于 page 的整数');
+    }
+    if (typeof item.label !== 'string' || item.label.trim().length === 0) {
+      report(`${itemLocation}.label`, '必须是非空字符串');
+    }
+  }
+}
+
+function validateSourceLocator(source, location, report = error) {
+  if (source.locator === undefined) {
+    validateUrl(source.url, `${location}.url`, { report });
+    return;
+  }
+  if (!isObject(source.locator)) {
+    report(`${location}.locator`, '必须是对象');
+    return;
+  }
+  const locator = source.locator;
+  if (!SOURCE_LOCATOR_TYPES.has(locator.type)) {
+    report(`${location}.locator.type`, '仅支持 url 或 user-supplied-screenshot');
+    return;
+  }
+  if (locator.type === 'url') {
+    validateUrl(source.url, `${location}.url`, { report });
+    return;
+  }
+  if (source.url !== null) {
+    report(`${location}.url`, '用户提供截图证据不得填写或猜测 URL，必须为 null');
+  }
+  validateUserSuppliedScreenshotLocator(locator, `${location}.locator`, report);
 }
 
 function validateEntityResolutions(entityIndex, report) {
@@ -365,13 +437,63 @@ async function runFixtureFile(fixtureFile) {
   return allMatched;
 }
 
+async function runGameplayFoundationFixtures() {
+  const [fixtureDocument, registryDocument] = await Promise.all([
+    readJson(GAMEPLAY_FOUNDATION_FIXTURE_FILE),
+    readJson(path.join(DATA_DIR, 'registries', 'fact-keys.json'))
+  ]);
+  if (!isObject(fixtureDocument.value) || typeof fixtureDocument.value.fixtureNotice !== 'string' ||
+      !fixtureDocument.value.fixtureNotice.includes('测试数据') || !Array.isArray(fixtureDocument.value.cases)) {
+    console.error('Gameplay foundation Fixture 必须明确标记为测试数据，并包含 cases 数组。');
+    return false;
+  }
+  const registry = new Map((registryDocument.value?.factKeys ?? []).map((entry) => [entry.key, entry]));
+  let allMatched = true;
+  for (const fixtureCase of fixtureDocument.value.cases) {
+    const caseErrors = [];
+    const report = (location, message) => caseErrors.push(`${location}: ${message}`);
+    const location = `gameplay-foundation:${fixtureCase.name}`;
+    if (fixtureCase.source) validateSourceLocator(fixtureCase.source, `${location}.source`, report);
+    if (fixtureCase.fact) {
+      const { fact, ownerType } = fixtureCase;
+      const registryEntry = registry.get(fact.key);
+      if (!registryEntry) {
+        report(`${location}.fact.key`, `Fact key 未注册：${fact.key}`);
+      } else {
+        if (!registryEntry.applicableEntityTypes.includes(ownerType)) {
+          report(`${location}.fact.key`, `Fact key 不适用于 ${ownerType}`);
+        }
+        if (!registryEntry.allowedValueTypes.includes(fact.valueType)) {
+          report(`${location}.fact.valueType`, `${fact.valueType} 不符合 Registry`);
+        }
+        validateFactValue(fact, registryEntry, `${location}.fact`, report);
+      }
+      if (fact.key === 'weapon.previewStat' && fact.status !== 'observation') {
+        report(`${location}.fact.status`, 'weapon.previewStat 必须保持 observation，不能作为正式版固定数值');
+      }
+    }
+    const actual = caseErrors.length === 0 ? 'pass' : 'fail';
+    const expectedErrorPresent = fixtureCase.expectedErrorIncludes === undefined ||
+      caseErrors.some((item) => item.includes(fixtureCase.expectedErrorIncludes));
+    const matched = actual === fixtureCase.expected && expectedErrorPresent;
+    allMatched &&= matched;
+    console.log(`${matched ? 'PASS' : 'FAIL'} ${fixtureCase.name}: expected ${fixtureCase.expected}, got ${actual}`);
+    if (!matched || fixtureCase.expected === 'fail') {
+      for (const item of caseErrors) console.log(`  - ${item}`);
+    }
+  }
+  console.log(`${path.relative(ROOT_DIR, GAMEPLAY_FOUNDATION_FIXTURE_FILE).replaceAll('\\', '/')}: ${fixtureDocument.value.cases.length} fixture cases`);
+  return allMatched;
+}
+
 async function runFixtures() {
   const results = await Promise.all([
     runFixtureFile(FIXTURE_FILE),
     runFixtureFile(CHARACTER_FIXTURE_FILE),
     runFixtureFile(BOSS_FIXTURE_FILE),
     runFixtureFile(LOCATION_FIXTURE_FILE),
-    runFixtureFile(RELATION_FIXTURE_FILE)
+    runFixtureFile(RELATION_FIXTURE_FILE),
+    runGameplayFoundationFixtures()
   ]);
   return results.every(Boolean);
 }
@@ -381,13 +503,14 @@ if (FIXTURE_MODE) {
   process.exit(fixturesPassed ? 0 : 1);
 }
 
-const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locationFiles, relationFiles, factRegistryFile, platformRegistryFile] = await Promise.all([
+const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locationFiles, systemFiles, relationFiles, factRegistryFile, platformRegistryFile] = await Promise.all([
   readRecordDirectory('sources'),
   readRecordDirectory('versions'),
   readRecordDirectory('weapons'),
   readRecordDirectory('characters'),
   readRecordDirectory('bosses'),
   readRecordDirectory('locations'),
+  readRecordDirectory('systems'),
   readRecordDirectory('relations'),
   readJson(path.join(DATA_DIR, 'registries', 'fact-keys.json')),
   readJson(path.join(DATA_DIR, 'registries', 'platforms.json'))
@@ -413,7 +536,7 @@ for (const { relative, value: source } of sourceFiles) {
       error(`${relative}.${field}`, '必须是非空字符串');
     }
   }
-  validateUrl(source.url, `${relative}.url`);
+  validateSourceLocator(source, relative);
   validateDate(source.publishedAt, `${relative}.publishedAt`, { nullable: true });
   validateDate(source.checkedAt, `${relative}.checkedAt`);
   validateUrl(source.archivedUrl, `${relative}.archivedUrl`, { nullable: true });
@@ -510,7 +633,7 @@ const facts = new Map();
 const factOwners = new Map();
 const entitySlugs = new Map([...ENTITY_TYPES].map((entityType) => [entityType, new Map()]));
 
-for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ...bossFiles, ...locationFiles]) {
+for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ...bossFiles, ...locationFiles, ...systemFiles]) {
   if (!isObject(entity)) {
     error(relative, 'Entity 顶层必须是对象');
     continue;
@@ -519,7 +642,7 @@ for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ..
   registerId(entity.id, `${relative}.id`);
   if (typeof entity.id === 'string') entities.set(entity.id, { relative, entity });
   if (!ENTITY_TYPES.has(entity.entityType)) {
-    error(`${relative}.entityType`, 'entityType 必须为 weapon、character、boss 或 location');
+    error(`${relative}.entityType`, 'entityType 必须为 weapon、character、boss、location 或 system');
   }
   if (typeof entity.slug !== 'string' || !SLUG_PATTERN.test(entity.slug)) {
     error(`${relative}.slug`, '必须是 ASCII kebab-case');
@@ -677,24 +800,45 @@ function validateRelation(relation, location, entityIndex, sourceIndex, versionI
   }
 }
 
-function validateFactValue(fact, registryEntry, location) {
+function validateFactValue(fact, registryEntry, location, report = error) {
   if (fact.value === null) {
-    if (fact.status !== 'pending-review') error(`${location}.value`, '只有 pending-review Fact 可以使用 null');
+    if (fact.status !== 'pending-review') report(`${location}.value`, '只有 pending-review Fact 可以使用 null');
     return;
   }
   if (fact.valueType === 'string' && typeof fact.value !== 'string') {
-    error(`${location}.value`, 'valueType=string 时 value 必须是字符串');
+    report(`${location}.value`, 'valueType=string 时 value 必须是字符串');
   } else if (fact.valueType === 'boolean' && typeof fact.value !== 'boolean') {
-    error(`${location}.value`, 'valueType=boolean 时 value 必须是布尔值');
+    report(`${location}.value`, 'valueType=boolean 时 value 必须是布尔值');
   } else if (fact.valueType === 'enum') {
     if (typeof fact.value !== 'string' || !registryEntry.enumValues?.includes(fact.value)) {
-      error(`${location}.value`, 'enum value 不在 Registry 允许值中');
+      report(`${location}.value`, 'enum value 不在 Registry 允许值中');
     }
   } else if (fact.valueType === 'rating') {
     const rating = fact.value;
     if (!isObject(rating) || typeof rating.score !== 'number' || typeof rating.max !== 'number' ||
         rating.max <= 0 || rating.score < 0 || rating.score > rating.max) {
-      error(`${location}.value`, 'rating 必须包含合法的 score 和 max');
+      report(`${location}.value`, 'rating 必须包含合法的 score 和 max');
+    }
+  } else if (fact.valueType === 'object' && !isObject(fact.value)) {
+    report(`${location}.value`, 'valueType=object 时 value 必须是对象');
+  }
+
+  if (fact.key === 'weapon.previewStat' && isObject(fact.value)) {
+    const expectedKeys = new Set(['statName', 'displayedValue', 'displayedLevel', 'displayContext']);
+    for (const key of Object.keys(fact.value)) {
+      if (!expectedKeys.has(key)) report(`${location}.value.${key}`, 'previewStat 不允许未定义字段');
+    }
+    if (typeof fact.value.statName !== 'string' || fact.value.statName.trim().length === 0) {
+      report(`${location}.value.statName`, '必须是非空字符串');
+    }
+    if (!Number.isFinite(fact.value.displayedValue) || fact.value.displayedValue < 0) {
+      report(`${location}.value.displayedValue`, '必须是非负数值');
+    }
+    if (!Number.isInteger(fact.value.displayedLevel) || fact.value.displayedLevel < 1) {
+      report(`${location}.value.displayedLevel`, '必须是大于 0 的整数');
+    }
+    if (fact.value.displayContext !== PREVIEW_STAT_CONTEXT) {
+      report(`${location}.value.displayContext`, `必须为 ${PREVIEW_STAT_CONTEXT}`);
     }
   }
 }
@@ -774,6 +918,9 @@ for (const [factId, { relative: location, fact }] of facts) {
   if (fact.status === 'pending-review' && (typeof fact.reviewNote !== 'string' || fact.reviewNote.length === 0)) {
     error(`${location}.reviewNote`, 'pending-review 必须说明待核查原因');
   }
+  if (fact.key === 'weapon.previewStat' && fact.status !== 'observation') {
+    error(`${location}.status`, 'weapon.previewStat 必须保持 observation，不能作为正式版固定数值');
+  }
   validateOfficialSourceRule(fact, sources, location, error);
   if (fact.status === 'observation' && sourceIds.length === 0) {
     error(`${location}.sourceIds`, 'observation Fact 必须有 Source');
@@ -814,6 +961,7 @@ if (errors.length > 0) {
   console.log(`Characters: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'character').length}`);
   console.log(`Bosses: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'boss').length}`);
   console.log(`Locations: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'location').length}`);
+  console.log(`Systems: ${[...entities.values()].filter(({ entity }) => entity.entityType === 'system').length}`);
   console.log(`Relations: ${relations.size}`);
   console.log(`Facts: ${facts.size}`);
   console.log(`Fact keys: ${factRegistry.size}`);
