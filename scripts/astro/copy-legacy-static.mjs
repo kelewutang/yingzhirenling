@@ -14,14 +14,12 @@ const targets = [
   ['robots.txt', 'robots.txt'],
   ['404.html', '404.html'],
   ['pages/guide.html', 'guide.html'],
-  ['pages/videos.html', 'videos.html'],
   ['pages/about.html', 'about.html'],
   ['pages/about-site.html', 'about-site.html']
 ];
 
 const legacyShellPages = [
   ['guide.html', '/guide'],
-  ['videos.html', '/videos'],
   ['about.html', '/about'],
   ['about-site.html', '/about-site'],
   ['404.html', '']

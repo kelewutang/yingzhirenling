@@ -36,7 +36,8 @@ Netlify production 和 Deploy Preview 都运行 `npm ci && npm run build`，发�
 | Media source | `data/media.json` + `assets/media/` | 独立、经审核的 Entity presentation media；不属于 Fact 或 Knowledge Schema |
 | Validation/build | `scripts/`, `scripts/astro/` | validators, Search generation, bridge copy and static output checks |
 | Derived search | `generated/` | shadow/production Search Documents |
-| Legacy bridge inputs | `pages/*.html`, `404.html` | guide/videos/about/about-site/404 compatibility pages copied into `dist/` |
+| Legacy bridge inputs | `pages/*.html`, `404.html` | guide/about/about-site/404 compatibility pages copied into `dist/` |
+| Video route | `data/videos.json`, `src/lib/videos.mjs`, `src/pages/videos.astro` | build-time production Video projection and static `/videos` output |
 | Legacy compatibility artifacts | `pages/generated/` | historical Weapon paths retained only for explicit redirects/compatibility |
 | Deployment output | `dist/` | derived static output published by Netlify; never a Knowledge source |
 | Contracts/history | `docs/` | 架构、Schema、阶段契约与治理规则 |
@@ -155,7 +156,7 @@ Entity.slug
 - `.html` 物理路径不是独立 SEO 页面，应单跳归一到 canonical
 - canonical 使用无尾斜杠短路由
 
-legacy bridge routes remain for `/guide`, `/videos`, `/about`, `/about-site` and `/404`; they are not the primary Astro Entity architecture.
+legacy bridge routes remain for `/guide`, `/about`, `/about-site` and `/404`; `/videos` is an Astro static route backed by the separate Video contract.
 
 # Sitemap and Metadata
 
@@ -169,7 +170,7 @@ Astro sitemap route combines stable legacy canonical pages with the same publish
 
 # Known Non-blocking Technical Debt
 
-1. **Legacy bridge**：五个 bridge pages and explicit compatibility redirects remain until separately migrated.
+1. **Legacy bridge**：四个 bridge pages and explicit compatibility redirects remain until separately migrated.
 2. **Netlify explicit Entity rewrites**：published-only route rules protect unknown/draft 404 behavior; future route-scale changes require a dedicated audit.
 3. **Trailing-slash duplicate 200**：部分 detail trailing-slash aliases may remain reachable; canonical is the no-trailing-slash short route.
 4. **Third-party Baidu failures**：`hm.baidu.com`、`zz.bdstatic.com` 在部分网络环境可能失败或拖延 load；不能自动归因于 Knowledge、Search 或 Entity architecture。

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { getVideoUrls, isProductionEligibleVideo } from '../../src/lib/video.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
@@ -33,6 +34,7 @@ const locations = await readEntities('data/locations');
 const publishedLocations = locations.filter((location) => location.recordState === 'published');
 const draftLocations = locations.filter((location) => location.recordState === 'draft');
 const mediaRecords = JSON.parse(await readFile(resolve(root, 'data/media.json'), 'utf8')).records;
+const videoRecords = JSON.parse(await readFile(resolve(root, 'data/videos.json'), 'utf8')).records;
 const isProductionMedia = (record) => record.recordState === 'published' && productionRightsStatuses.has(record.rightsStatus);
 const getProductionMedia = (entityId, usage) => mediaRecords.find((record) => isProductionMedia(record) && record.entityId === entityId && record.usage.includes(usage)) || null;
 
@@ -125,7 +127,27 @@ const guide = await readFile(resolve(dist, 'guide.html'), 'utf8');
 const videos = await readFile(resolve(dist, 'videos.html'), 'utf8');
 const purchase = await readFile(resolve(dist, 'about.html'), 'utf8');
 const steamProductUrl = 'https://store.steampowered.com/app/4115450/Phantom_Blade_Zero/';
-assert(videos.includes('以及<a href="/characters/soul">魂</a>与<a href="/characters/mo-yuan">魔渊</a>交手的片段'), 'Videos must link the explicit Soul and Mo Yuan appearance context');
+const productionVideos = videoRecords.filter(isProductionEligibleVideo);
+assert.equal((videos.match(/data-video-card/g) || []).length, productionVideos.length, 'Videos must render exactly the production-eligible Video records');
+assert.equal((videos.match(/<iframe\b/gi) || []).length, 0, 'Videos static HTML must not instantiate third-party iframes before explicit user action');
+assert(videos.includes('data-videos-system="click-to-load"'), 'Videos must expose the click-to-load system marker');
+assert.match(videos, /document\.createElement\('iframe'\)/, 'Videos must create an iframe only after explicit user action');
+assert(!videos.includes('autoplay'), 'Videos must not opt into autoplay');
+assert(!videos.includes('BV1VVM166Evb'), 'Videos must exclude unverified legacy Bilibili content');
+assert(!videos.includes('csuFGspAe6s') && !videos.includes('mOncuUWLipQ'), 'Videos must exclude legacy YouTube links without Video records');
+for (const video of productionVideos) {
+  const urls = getVideoUrls(video.platform, video.platformVideoId);
+  const escapedEmbedUrl = urls.embedUrl.replaceAll('&', '&amp;');
+  assert(videos.includes(`data-video-id="${video.id}"`), `Videos must render ${video.id}`);
+  assert(videos.includes(video.title), `Videos must render ${video.id} title`);
+  assert(videos.includes(`href="${urls.sourceUrl}"`), `Videos must provide ${video.id} canonical source link`);
+  assert(videos.includes(`data-video-embed-url="${escapedEmbedUrl}"`), `Videos must derive ${video.id} embed URL`);
+}
+assert.equal((videos.match(/<button class="video-card__load" type="button" data-video-load/g) || []).length, productionVideos.length, 'Videos must provide one accessible load control per record');
+assert.match(videos, /<button class="video-card__load" type="button"[^>]*aria-controls=/, 'Videos load controls must be buttons with aria-controls');
+assert.match(videos, /<a class="video-card__source" href="https:\/\/www\.bilibili\.com\/video\//, 'Videos source fallback must be a canonical anchor');
+assert(!videos.includes('embedHtml') && !videos.includes('embedUrl"'), 'Videos must not project arbitrary embed fields');
+await assert.rejects(() => stat(resolve(dist, 'pages', 'videos.html')), { code: 'ENOENT' });
 assert(purchase.includes('<a href="/characters/soul">魂</a>1/12可动人偶及配件'), 'Purchase must link the explicit Soul collector-edition mention');
 const guideLaunchDateCitation = `游戏计划于2026年10月29日发售（见 <a href="${steamProductUrl}" target="_blank" rel="noopener noreferrer">Steam 官方商品页</a>）。以下内容来自官方发布材料与公开试玩`;
 assert(guide.includes(guideLaunchDateCitation), 'Guide launch-date alert must place the official Steam link adjacent to the release-date statement');

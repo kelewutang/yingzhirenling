@@ -2,6 +2,12 @@ const bilibiliBvidPattern = /^BV[1-9A-HJ-NP-Za-km-z]{10}$/;
 const youtubeVideoIdPattern = /^[A-Za-z0-9_-]{11}$/;
 
 export const videoPlatforms = new Set(['bilibili', 'youtube']);
+export const productionVideoRightsStatuses = new Set([
+  'permission-recorded',
+  'official-press-use-reviewed',
+  'self-captured-reviewed',
+  'official-promotional-risk-accepted'
+]);
 
 function isHttpsUrl(value) {
   try {
@@ -39,4 +45,8 @@ export function getVideoUrls(platform, platformVideoId) {
 export function isMatchingVideoSourceUrl(platform, platformVideoId, sourceUrl) {
   if (!isHttpsUrl(sourceUrl) || !isValidPlatformVideoId(platform, platformVideoId)) return false;
   return sourceUrl === getVideoUrls(platform, platformVideoId).sourceUrl;
+}
+
+export function isProductionEligibleVideo(record) {
+  return record?.recordState === 'published' && productionVideoRightsStatuses.has(record.rightsStatus);
 }
