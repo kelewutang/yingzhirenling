@@ -1,8 +1,8 @@
 # Media Source Policy
 
-Status: P2-UI-3 Media Contract implementation; not a legal opinion and not a frozen Knowledge Schema
+Status: P2-UI-3 Image Media Contract implementation; not a legal opinion and not a frozen Knowledge Schema
 
-Scope: Entity hero, card, gallery, inline, and thumbnail media
+Scope: Image Media for Entity hero, card, gallery, inline, and thumbnail presentation. Video records are governed separately by [Video Contract](VIDEO-CONTRACT.md); they must not be added to `data/media.json`.
 
 ## 1. Purpose
 
