@@ -3,14 +3,16 @@
   "id": "weapon:white-serpent-crimson-viper",
   "entityType": "weapon",
   "slug": "white-serpent-crimson-viper",
-  "displayName": "White Serpent & Crimson Viper",
-  "aliases": [],
-  "summary": "Gamescom 2025 公开试玩将 White Serpent & Crimson Viper 作为一组可装备的主武器列出，并标注为双剑；目前不扩展正式版动作、强度或获取结论。",
+  "displayName": "白蟒赤练",
+  "aliases": [{"value": "White Serpent & Crimson Viper", "locale": "en", "kind": "legacy-title", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-demo-2025", "reviewNote": "2025 Gamescom 试玩记录使用的英文条目名称；保留为历史检索别名，不改变稳定 Entity identity。"}],
+  "summary": "白蟒赤练是一组双持武器；已公开的预发布界面可见普通连招、杀气连招与赤练环身等机制。",
   "summaryFactIds": [
     "fact:weapon:white-serpent-crimson-viper:exists",
-    "fact:weapon:white-serpent-crimson-viper:name",
-    "fact:weapon:white-serpent-crimson-viper:kind",
-    "fact:weapon:white-serpent-crimson-viper:public-appearance"
+    "fact:weapon:white-serpent-crimson-viper:name-zh",
+    "fact:weapon:white-serpent-crimson-viper:kind-dual-wield",
+    "fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo",
+    "fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo",
+    "fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround"
   ],
   "facts": [
     {
@@ -88,11 +90,21 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": null
-    }
+    },
+    {"id": "fact:weapon:white-serpent-crimson-viper:name-zh", "key": "weapon.name", "valueType": "string", "value": "白蟒赤练", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:kind-dual-wield", "key": "weapon.kind", "valueType": "string", "value": "双持武器", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo", "key": "weapon.mechanic", "valueType": "string", "value": "普通连招", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo", "key": "weapon.mechanic", "valueType": "string", "value": "杀气连招", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround", "key": "weapon.mechanic", "valueType": "string", "value": "赤练环身", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit", "key": "weapon.progressionNode", "valueType": "string", "value": "赤练追魂", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:node-phantom-crimson-viper", "key": "weapon.progressionNode", "valueType": "string", "value": "幻化赤练", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:node-hold-tight", "key": "weapon.progressionNode", "valueType": "string", "value": "死死咬住", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:preview-damage-ability-lv30", "key": "weapon.previewStat", "valueType": "object", "value": {"statName": "伤害能力", "displayedValue": 1217, "displayedLevel": 30, "displayContext": "official-pre-release-ui"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:preview-break-ability-lv30", "key": "weapon.previewStat", "valueType": "object", "value": {"statName": "破防能力", "displayedValue": 640, "displayedLevel": 30, "displayContext": "official-pre-release-ui"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null}
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-08-30",
-  "updatedAt": "2026-08-30",
+  "updatedAt": "2026-09-10",
   "recordState": "published",
   "resolution": null
 }

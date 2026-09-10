@@ -6,6 +6,9 @@ const specs = [
   ['weapon.kind', '核心资料', '武器类型'],
   ['weapon.publicAppearance', '核心资料', '公开出现方式'],
   ['weapon.observedTrait', '试玩与公开实机观察', '演示观察'],
+  ['weapon.mechanic', '战斗机制', '机制名称'],
+  ['weapon.progressionNode', '武器成长', '成长节点'],
+  ['weapon.previewStat', '预发布界面观察', 'Lv30 显示属性'],
   ['weapon.editorRating', '编辑评价', '发售前编辑预估'],
   ['weapon.acquisition', '获取方式', '获取方式']
 ];
@@ -21,22 +24,26 @@ function displayValue(fact) {
   if (fact.key === 'weapon.editorRating') {
     return '★'.repeat(fact.value.score) + '☆'.repeat(fact.value.max - fact.value.score) + `（${fact.value.score}/${fact.value.max}）`;
   }
+  if (fact.key === 'weapon.previewStat') {
+    return `Lv${fact.value.displayedLevel}：${fact.value.statName} ${fact.value.displayedValue}`;
+  }
   return String(fact.value);
 }
 
 export function projectWeaponFacts(weapon, knowledge) {
-  return specs.map(([key, section, title]) => {
-    const fact = getFact(weapon, key);
-    return fact && {
+  return specs.flatMap(([key, section, title]) =>
+    weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null).map((fact) => ({
       ...fact,
       section,
       title,
       valueText: displayValue(fact),
-      description: fact.status === 'editorial' ? '本站发售前编辑判断，不是官方评分或试玩客观数值。' : null,
+      description: fact.key === 'weapon.previewStat'
+        ? '官方预发布界面观察，数值可能随正式版平衡调整。'
+        : fact.status === 'editorial' ? '本站发售前编辑判断，不是官方评分或试玩客观数值。' : null,
       statusText: statusLabel(fact.status),
       versionText: versionLabel(fact.gameVersionId, knowledge)
-    };
-  }).filter(Boolean);
+    }))
+  );
 }
 
 export function projectCharacterFacts(character, knowledge) {

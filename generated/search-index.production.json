@@ -248,16 +248,38 @@
     "entityType": "weapon",
     "slug": "white-serpent-crimson-viper",
     "route": "/weapons/white-serpent-crimson-viper",
-    "displayName": "White Serpent & Crimson Viper",
-    "aliases": [],
-    "displayAliases": [],
+    "displayName": "白蟒赤练",
+    "aliases": [
+      "White Serpent & Crimson Viper"
+    ],
+    "displayAliases": [
+      "White Serpent & Crimson Viper"
+    ],
     "keywords": [
       "demo",
       "主武器（双剑）",
+      "双持武器",
       "武器",
       "试玩"
     ],
-    "summary": "Gamescom 2025 公开试玩将 White Serpent & Crimson Viper 作为一组可装备的主武器列出，并标注为双剑；目前不扩展正式版动作、强度或获取结论。",
+    "summary": "白蟒赤练是一组双持武器；已公开的预发布界面可见普通连招、杀气连招与赤练环身等机制。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:white-shadow",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "white-shadow",
+    "route": "/weapons/white-shadow",
+    "displayName": "白影",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "双手武器",
+      "武器"
+    ],
+    "summary": "白影是一把双手武器，以冰冻相关机制为主要特色。刀身无影，寒光似雪。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

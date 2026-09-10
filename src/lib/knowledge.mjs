@@ -89,7 +89,7 @@ export function safeExternalUrl(value) {
 }
 
 export function getFact(entity, key) {
-  return entity.facts.find((fact) => fact.key === key) || null;
+  return entity.facts.find((fact) => fact.key === key && fact.supersededBy === null) || null;
 }
 
 export function aliasValues(entity) {

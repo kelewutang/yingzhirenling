@@ -24,20 +24,20 @@ The current static build and its verification derive the following production in
 
 | Item | Count |
 | --- | ---: |
-| Published Weapons | 8 |
+| Published Weapons | 9 |
 | Published Characters | 3 |
 | Published Bosses | 3 |
 | Published Locations | 1 |
-| Weapon collection cards | 8 |
+| Weapon collection cards | 9 |
 | Character collection cards | 3 |
 | Boss collection cards | 3 |
 | Location collection cards | 1 |
-| Weapon detail pages | 8 |
+| Weapon detail pages | 9 |
 | Character detail pages | 3 |
 | Boss detail pages | 3 |
 | Location detail pages | 1 |
-| Production Search documents | 15 |
-| URLs in the generated sitemap | 24 |
+| Production Search documents | 16 |
+| URLs in the generated sitemap | 25 |
 | Production-eligible Media records | 1 |
 
 Counts must be re-derived from `data/` and the static build when precision matters; they are not homepage copy constants.
@@ -139,7 +139,7 @@ Homepage
   → Facts / Relations / Sources
 ```
 
-Production Search has 15 Entity documents in addition to the existing Page Search documents. The homepage presents brand and pre-release state, a primary Search trigger, Weapons/Characters/Bosses/World entrances, current coverage, trust context, and subordinate guide/video/about links.
+Production Search has 16 Entity documents in addition to the existing Page Search documents. The homepage presents brand and pre-release state, a primary Search trigger, Weapons/Characters/Bosses/World entrances, current coverage, trust context, and subordinate guide/video/about links.
 
 ## 10. Media State
 
@@ -155,10 +155,10 @@ Published Media may only target a published Entity; draft or archived Entity tar
 
 [Performance Baseline](PERFORMANCE-BASELINE.md) is the historical P2-UI-7 baseline, not the current runtime-size record. The Visual Atmosphere Full Rollout current operational measurement is:
 
-- `dist/`: 942,109 B
-- CSS: 66,795 B
-- JavaScript: 16,403 B
-- Production Search index: 8,498 B / 15 Entity documents
+- `dist/`: 1,013,803 B
+- CSS: 73,118 B
+- JavaScript: 18,962 B
+- Production Search index: 9,017 B / 16 Entity documents
 - Legacy raster assets: 0 files / 0 B
 - Production Media: 1 / 280,910 B
 
@@ -182,7 +182,7 @@ Core canonical routes are:
 
 Published Entity details use their type and stable slug below the relevant collection route. Legacy `/pages/*.html` aliases redirect to canonical routes. A custom 404 exists, and draft production route isolation is verified.
 
-The generated sitemap has 24 canonical URLs. Homepage canonical is `https://www.yingzhirenling.cn/`.
+The generated sitemap has 25 canonical URLs. Homepage canonical is `https://www.yingzhirenling.cn/`.
 
 ## 12. Homepage State
 
