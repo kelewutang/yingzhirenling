@@ -1,0 +1,65 @@
+---
+const { detail } = Astro.props;
+const { overview, mechanics, progressionNodes } = detail;
+---
+<section class="weapon-detail-section weapon-detail-overview" aria-labelledby="weapon-overview-title" data-weapon-section="overview">
+  <div class="detail-section-heading">
+    <p class="detail-section-heading__eyebrow">WEAPON GUIDE</p>
+    <h2 id="weapon-overview-title">武器概览</h2>
+  </div>
+  <dl class="weapon-overview__primary">
+    <div data-weapon-overview-field="name">
+      <dt>武器名称</dt>
+      <dd>{overview.displayName}</dd>
+    </div>
+    {overview.type && <div data-weapon-overview-field="type" data-fact-id={overview.type.id}>
+      <dt>武器类型</dt>
+      <dd>{overview.type.valueText}</dd>
+    </div>}
+  </dl>
+  {overview.notes.length > 0 && <dl class="weapon-overview__notes">
+    {overview.notes.map((fact) => <div data-weapon-overview-note={fact.key} data-fact-id={fact.id}>
+      <dt>{fact.title}</dt>
+      <dd>{fact.valueText}{fact.description && <span>{fact.description}</span>}</dd>
+    </div>)}
+  </dl>}
+  {overview.previewStats.length > 0 && <section class="weapon-preview-stats" aria-labelledby="weapon-preview-stats-title" data-weapon-preview-stats>
+    <h3 id="weapon-preview-stats-title">预发布 Lv30 展示</h3>
+    <dl>
+      {overview.previewStats.map((fact) => <div data-preview-stat-id={fact.id}>
+        <dt>{fact.value.statName}</dt>
+        <dd>{fact.value.displayedValue}</dd>
+      </div>)}
+    </dl>
+    <p>官方预发布界面展示值，正式版可能调整。</p>
+  </section>}
+</section>
+
+{mechanics.length > 0 && <section class="weapon-detail-section" aria-labelledby="weapon-mechanics-title" data-weapon-section="mechanics">
+  <div class="detail-section-heading">
+    <p class="detail-section-heading__eyebrow">MOVES</p>
+    <h2 id="weapon-mechanics-title">招式与机制</h2>
+  </div>
+  <ol class="weapon-detail-list">
+    {mechanics.map((fact) => <li data-weapon-mechanic-id={fact.id}>
+      <h3>{fact.valueText}</h3>
+      {fact.input && <p class="weapon-detail-input" data-weapon-input-for={fact.id}>输入：{fact.input}</p>}
+      {fact.description && <p>{fact.description}</p>}
+    </li>)}
+  </ol>
+</section>}
+
+{progressionNodes.length > 0 && <section class="weapon-detail-section" aria-labelledby="weapon-progression-title" data-weapon-section="progression">
+  <div class="detail-section-heading">
+    <p class="detail-section-heading__eyebrow">PROGRESSION</p>
+    <h2 id="weapon-progression-title">武器成长</h2>
+  </div>
+  <ol class="weapon-detail-list">
+    {progressionNodes.map((fact) => <li data-weapon-progression-node-id={fact.id}>
+      {fact.level && <p class="weapon-progression-level" data-weapon-progression-level-for={fact.id}>Lv{fact.level}</p>}
+      <h3>{fact.valueText}</h3>
+      {fact.input && <p class="weapon-detail-input" data-weapon-input-for={fact.id}>输入：{fact.input}</p>}
+      {fact.description && <p>{fact.description}</p>}
+    </li>)}
+  </ol>
+</section>}

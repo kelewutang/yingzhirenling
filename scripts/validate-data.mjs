@@ -34,6 +34,9 @@ const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot']);
 const PREVIEW_STAT_CONTEXT = 'official-pre-release-ui';
+const WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH = 280;
+const WEAPON_DETAIL_INPUT_MAX_LENGTH = 80;
+const NAMED_WEAPON_DETAIL_KEYS = new Set(['weapon.mechanic', 'weapon.progressionNode']);
 
 const errors = [];
 const idOwners = new Map();
@@ -839,6 +842,36 @@ function validateFactValue(fact, registryEntry, location, report = error) {
     }
     if (fact.value.displayContext !== PREVIEW_STAT_CONTEXT) {
       report(`${location}.value.displayContext`, `必须为 ${PREVIEW_STAT_CONTEXT}`);
+    }
+  }
+
+  if (NAMED_WEAPON_DETAIL_KEYS.has(fact.key) && fact.valueType === 'object' && isObject(fact.value)) {
+    const allowedKeys = fact.key === 'weapon.mechanic'
+      ? new Set(['name', 'description', 'input'])
+      : new Set(['name', 'level', 'description', 'input']);
+    for (const key of Object.keys(fact.value)) {
+      if (!allowedKeys.has(key)) report(`${location}.value.${key}`, '武器招式或成长节点不允许未定义字段');
+    }
+    if (typeof fact.value.name !== 'string' || fact.value.name.trim().length === 0) {
+      report(`${location}.value.name`, '必须是非空字符串');
+    }
+    if (Object.hasOwn(fact.value, 'description')) {
+      if (typeof fact.value.description !== 'string' || fact.value.description.trim().length === 0) {
+        report(`${location}.value.description`, '必须是非空字符串');
+      } else if (fact.value.description.length > WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH) {
+        report(`${location}.value.description`, `不得超过 ${WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH} 个字符`);
+      }
+    }
+    if (Object.hasOwn(fact.value, 'input')) {
+      if (typeof fact.value.input !== 'string' || fact.value.input.trim().length === 0) {
+        report(`${location}.value.input`, '必须是非空字符串');
+      } else if (fact.value.input.length > WEAPON_DETAIL_INPUT_MAX_LENGTH) {
+        report(`${location}.value.input`, `不得超过 ${WEAPON_DETAIL_INPUT_MAX_LENGTH} 个字符`);
+      }
+    }
+    if (fact.key === 'weapon.progressionNode' && Object.hasOwn(fact.value, 'level') &&
+        (!Number.isInteger(fact.value.level) || fact.value.level < 1)) {
+      report(`${location}.value.level`, '必须是大于 0 的整数');
     }
   }
 }

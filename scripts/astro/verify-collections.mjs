@@ -74,7 +74,7 @@ for (const collection of collections) {
 const weapons = await publishedEntities('data/weapons');
 const draftWeapons = (await Promise.all((await readdir(resolve(root, 'data/weapons'))).filter((name) => name.endsWith('.json')).map(async (name) => JSON.parse(await readFile(resolve(root, 'data/weapons', name), 'utf8'))))).filter((entity) => entity.recordState === 'draft');
 const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');
-assert.equal(weapons.length, 8, 'Expected 8 published Weapons');
+assert.equal(weapons.length, 9, 'Expected 9 published Weapons');
 for (const weapon of draftWeapons) assert(!weaponCollection.includes(`/weapons/${weapon.slug}`), `Draft Weapon must not appear in collection: ${weapon.id}`);
 
 console.log(`Collection verification passed: ${collections.length} collections, ${weapons.length} Weapon, 3 Character, 3 Boss, and 1 Location cards.`);

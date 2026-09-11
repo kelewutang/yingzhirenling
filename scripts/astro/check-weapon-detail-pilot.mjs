@@ -28,15 +28,14 @@ if (heroMedia) {
   assert(!entityHero.includes('<img'), 'Tang Hengdao Entity Hero must not emit an image without admitted hero Media');
 }
 assert(page.includes(weapon.summary), 'Tang Hengdao summary missing');
-assert(page.includes('id="quick-facts-title"'), 'Tang Hengdao Quick Facts missing');
+assert(page.includes('id="weapon-overview-title"'), 'Tang Hengdao Weapon overview missing');
 assert(page.includes('id="sources-title"'), 'Tang Hengdao Sources missing');
 assert(page.includes('class="footer site-footer"'), 'Tang Hengdao shared footer missing');
 
-for (const factId of [
-  'fact:weapon:tang-hengdao:kind',
-  'fact:weapon:tang-hengdao:public-appearance',
-  'fact:weapon:tang-hengdao:observed-trait'
-]) assert(page.includes(`data-quick-fact-id="${factId}"`), `Tang Hengdao Quick Fact missing: ${factId}`);
+assert(page.includes('data-weapon-overview-field="type" data-fact-id="fact:weapon:tang-hengdao:kind"'), 'Tang Hengdao overview type missing');
+assert(page.includes('data-weapon-overview-note="weapon.observedTrait" data-fact-id="fact:weapon:tang-hengdao:observed-trait"'), 'Tang Hengdao observed trait missing from overview');
+assert(!page.includes('data-weapon-section="mechanics"'), 'Sparse Tang Hengdao must not emit an empty mechanics section');
+assert(!page.includes('data-weapon-section="progression"'), 'Sparse Tang Hengdao must not emit an empty progression section');
 
 for (const [file, canonical] of [
   ['weapons/ya-hengdao.html', 'https://www.yingzhirenling.cn/weapons/ya-hengdao'],
@@ -50,4 +49,4 @@ for (const [file, canonical] of [
   assert(html.includes(`<link rel="canonical" href="${canonical}">`), `Regression route canonical missing: ${file}`);
 }
 
-console.log('Weapon detail pilot verification passed: Tang Hengdao hero, fallback, facts, sources, and static regression routes.');
+console.log('Weapon detail verification passed: Tang Hengdao hero, sparse overview, sources, and static regression routes.');

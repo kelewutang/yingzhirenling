@@ -2064,6 +2064,90 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
   margin-top: var(--space-16);
 }
 
+.weapon-detail-section {
+  max-width: var(--width-reading);
+  margin: var(--space-16) auto 0;
+}
+
+.weapon-overview__primary,
+.weapon-overview__notes,
+.weapon-preview-stats dl {
+  margin: 0;
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.weapon-overview__primary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.weapon-overview__primary > div,
+.weapon-overview__notes > div,
+.weapon-preview-stats dl > div {
+  min-width: 0;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.weapon-overview__primary > div + div {
+  padding-left: var(--space-6);
+  border-left: 1px solid var(--color-border);
+}
+
+.weapon-overview__primary dt,
+.weapon-overview__notes dt,
+.weapon-preview-stats dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-caption);
+  line-height: 1.5;
+}
+
+.weapon-overview__primary dd,
+.weapon-overview__notes dd,
+.weapon-preview-stats dd {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.weapon-overview__primary dd { font-weight: 650; }
+.weapon-overview__notes dd span { display: block; margin-top: var(--space-1); color: var(--color-text-muted); font-size: var(--text-sm); }
+
+.weapon-preview-stats {
+  margin-top: var(--space-8);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  background: rgb(255 255 255 / 0.03);
+}
+
+.weapon-preview-stats h3 { margin: 0 0 var(--space-3); color: var(--color-text); font-family: var(--font-body); font-size: var(--text-base); }
+.weapon-preview-stats dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.weapon-preview-stats dl > div + div { padding-left: var(--space-5); border-left: 1px solid var(--color-border); }
+.weapon-preview-stats dd { font-weight: 650; }
+.weapon-preview-stats > p { margin: var(--space-4) 0 0; color: var(--color-text-muted); font-size: var(--text-sm); line-height: 1.6; }
+
+.weapon-detail-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weapon-detail-list > li {
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  background: rgb(255 255 255 / 0.02);
+}
+
+.weapon-detail-list h3 { margin: 0; color: var(--color-text); font-family: var(--font-body); font-size: var(--text-base); line-height: 1.5; }
+.weapon-detail-list p { margin: var(--space-2) 0 0; color: var(--color-text-muted); font-size: var(--text-sm); line-height: 1.65; }
+.weapon-detail-list .weapon-detail-input,
+.weapon-detail-list .weapon-progression-level { margin: var(--space-1) 0 0; color: var(--color-text-muted); font-size: var(--text-caption); line-height: 1.5; }
+.weapon-detail-list .weapon-detail-input + p { margin-top: var(--space-2); }
+
 .detail-section-heading {
   margin-bottom: var(--space-6);
 }
@@ -2216,11 +2300,13 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
   .entity-hero { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-4); }
   .entity-media > img, .entity-media__fallback { aspect-ratio: 16 / 9; }
   .entity-hero__identity { padding: var(--space-2); }
-  .quick-facts, .detail-fact-section, .source-panel, .relation-panel { margin-top: var(--space-12); }
+  .quick-facts, .detail-fact-section, .source-panel, .relation-panel, .weapon-detail-section { margin-top: var(--space-12); }
   .quick-facts__grid { grid-template-columns: 1fr; }
   .quick-fact, .quick-fact:first-child, .quick-fact:last-child { padding: var(--space-4) 0; border-right: 0; border-bottom: 1px solid var(--color-border); }
   .quick-fact:last-child { border-bottom: 0; }
   .detail-fact { grid-template-columns: 1fr; gap: var(--space-4); }
+  .weapon-overview__primary, .weapon-preview-stats dl { grid-template-columns: 1fr; }
+  .weapon-overview__primary > div + div, .weapon-preview-stats dl > div + div { padding-left: 0; border-left: 0; }
   .source-panel__item { align-items: flex-start; flex-direction: column; gap: var(--space-3); }
 }
 
