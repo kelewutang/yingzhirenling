@@ -144,6 +144,17 @@
       }
     },
     {
+      "name": "weapon-mechanic-detail-with-input-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "object",
+        "value": {"name": "测试机制", "input": "□ □ □"},
+        "status": "observation"
+      }
+    },
+    {
       "name": "weapon-mechanic-detail-missing-name-invalid",
       "expected": "fail",
       "expectedErrorIncludes": ".value.name",
@@ -168,6 +179,18 @@
       }
     },
     {
+      "name": "weapon-mechanic-detail-empty-input-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.input",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "object",
+        "value": {"name": "测试机制", "input": ""},
+        "status": "observation"
+      }
+    },
+    {
       "name": "weapon-progression-node-valid",
       "expected": "pass",
       "ownerType": "weapon",
@@ -175,6 +198,100 @@
         "key": "weapon.progressionNode",
         "valueType": "string",
         "value": "测试节点",
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-detail-with-level-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "测试节点", "level": 5, "description": "截图中可明确读出的简短说明。"},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-detail-with-input-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "测试节点", "level": 5, "input": "L1 + △"},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-empty-name-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.name",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "", "level": 5},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-empty-description-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.description",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "测试节点", "description": ""},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-empty-input-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.input",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "测试节点", "input": ""},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-level-zero-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.level",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "测试节点", "level": 0},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-negative-level-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.level",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "测试节点", "level": -1},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-non-integer-level-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.level",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "测试节点", "level": 2.5},
         "status": "observation"
       }
     },

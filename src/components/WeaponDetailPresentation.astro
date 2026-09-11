@@ -43,6 +43,7 @@ const { overview, mechanics, progressionNodes } = detail;
   <ol class="weapon-detail-list">
     {mechanics.map((fact) => <li data-weapon-mechanic-id={fact.id}>
       <h3>{fact.valueText}</h3>
+      {fact.input && <p class="weapon-detail-input" data-weapon-input-for={fact.id}>输入：{fact.input}</p>}
       {fact.description && <p>{fact.description}</p>}
     </li>)}
   </ol>
@@ -55,7 +56,9 @@ const { overview, mechanics, progressionNodes } = detail;
   </div>
   <ol class="weapon-detail-list">
     {progressionNodes.map((fact) => <li data-weapon-progression-node-id={fact.id}>
+      {fact.level && <p class="weapon-progression-level" data-weapon-progression-level-for={fact.id}>Lv{fact.level}</p>}
       <h3>{fact.valueText}</h3>
+      {fact.input && <p class="weapon-detail-input" data-weapon-input-for={fact.id}>输入：{fact.input}</p>}
       {fact.description && <p>{fact.description}</p>}
     </li>)}
   </ol>

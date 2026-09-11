@@ -55,14 +55,14 @@
       "key": "weapon.mechanic",
       "applicableEntityTypes": ["weapon"],
       "allowedValueTypes": ["string", "object"],
-      "description": "公开材料明确命名的武器战斗机制；可使用受限 object 记录名称和截图中可明确读出的简短说明，不推断完整机制。",
+      "description": "公开材料明确命名的武器战斗机制；可使用受限 object 记录名称、截图中可明确读出的简短说明和可确认的控制器输入，不推断完整机制或其他平台映射。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.progressionNode",
       "applicableEntityTypes": ["weapon"],
       "allowedValueTypes": ["string", "object"],
-      "description": "公开武器界面中可明确读出的成长或特性节点名称；可使用受限 object 记录名称和截图中可明确读出的简短说明，不推断完整节点图。",
+      "description": "公开武器界面中可明确读出的成长或特性节点名称；可使用受限 object 记录名称、可见解锁等级、截图中可明确读出的简短说明和可确认的控制器输入，不推断完整节点图或其他平台映射。",
       "requiresAsOf": false
     },
     {

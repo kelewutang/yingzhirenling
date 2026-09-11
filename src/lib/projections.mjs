@@ -42,6 +42,18 @@ function detailDescription(fact) {
   return null;
 }
 
+function detailInput(fact) {
+  return ['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) && fact.valueType === 'object'
+    ? fact.value.input || null
+    : null;
+}
+
+function progressionLevel(fact) {
+  return fact.key === 'weapon.progressionNode' && fact.valueType === 'object'
+    ? fact.value.level || null
+    : null;
+}
+
 function projectWeaponFact(fact, section, title, knowledge) {
   return {
     ...fact,
@@ -49,6 +61,8 @@ function projectWeaponFact(fact, section, title, knowledge) {
     title,
     valueText: displayValue(fact),
     description: detailDescription(fact),
+    input: detailInput(fact),
+    level: progressionLevel(fact),
     statusText: statusLabel(fact.status),
     versionText: versionLabel(fact.gameVersionId, knowledge)
   };

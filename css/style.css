@@ -2144,6 +2144,9 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 
 .weapon-detail-list h3 { margin: 0; color: var(--color-text); font-family: var(--font-body); font-size: var(--text-base); line-height: 1.5; }
 .weapon-detail-list p { margin: var(--space-2) 0 0; color: var(--color-text-muted); font-size: var(--text-sm); line-height: 1.65; }
+.weapon-detail-list .weapon-detail-input,
+.weapon-detail-list .weapon-progression-level { margin: var(--space-1) 0 0; color: var(--color-text-muted); font-size: var(--text-caption); line-height: 1.5; }
+.weapon-detail-list .weapon-detail-input + p { margin-top: var(--space-2); }
 
 .detail-section-heading {
   margin-bottom: var(--space-6);
