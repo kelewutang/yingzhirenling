@@ -1,0 +1,10 @@
+---
+import ControllerInput from './ControllerInput.astro';
+import { parseInlineControllerText } from '../lib/controller-inputs.mjs';
+
+const { description } = Astro.props;
+const segments = parseInlineControllerText(description);
+---
+<p class="weapon-detail-description">{segments.map((segment) => segment.kind === 'input'
+  ? <ControllerInput input={segment.value} inline={true} />
+  : segment.value)}</p>

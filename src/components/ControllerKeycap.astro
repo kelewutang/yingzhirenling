@@ -1,0 +1,4 @@
+---
+const { token } = Astro.props;
+---
+<span class="controller-input__keycap" data-controller-token={token.value} role="img" aria-label={token.label}><span aria-hidden="true">{token.value}</span></span>
