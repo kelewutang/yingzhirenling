@@ -59,7 +59,32 @@ Registry 管理 Fact key、平台、难度等受控词表。Fact key 至少声�
 
 发售前生产数据禁止 `release-verified`。
 
-## 8. Editorial 规则
+## 8. Weapon 内容保真与准入流程
+
+Weapon 的玩法信息以可取得的官方材料为事实基线，包括官方游戏内截图、实机视频、文章和宣传 UI。官方 UI 文本清晰可读时，本站保留其术语和玩法含义，不为制造不同措辞而改写。
+
+以下已准入字段必须与官方证据完全一致，除非后续官方证据明确替代：Weapon 名称、招式/技能名称、成长节点名称、等级、控制器按键、数值、资源量、触发条件、状态名称、命名机制及 canonical Weapon 术语。术语变更必须有证据，不能由编辑偏好决定；例如 `赤练短刃` 不能写为 `赤练短刀`，`白蟒长刃` 不能写为 `白蟒长刀`，`敛刃` 不能写为 `纹刃`，`刺骨·之三` 不能写为 `剥骨·之三`。
+
+技能说明以官方玩法文本为事实基础，不必机械复制 UI 的换行、布局碎片、重复句式或由布局造成的标点。仅可为网页可读性作最小规范化：合并明显重复句、改善句间连接、统一标点、删除冗余重复用语，或把已确认按键移至更清楚的句中位置。不得改变机制含义、条件、先后顺序、强度、持续时间、资源消耗、按键、状态交互、影响目标或成长含义；官方文案已经清楚自然时，应少改或不改，不能只为原创而释义。
+
+“技能说明”只呈现来源支持的玩法描述；“攻略说明/攻略提示”才是本站的解释、建议、连招或战术。未有已批准的编辑洞见时不得编造，也不得混入技能说明；本阶段不新增攻略说明 schema。
+
+截图或视频文字被裁切、遮挡、模糊、含义不明或不可读时，只记录可自信支持的内容，不得补全或猜测。例如 White Shadow 7/14 在“寒冰击”上方被裁切，本站只能称已确认可见的成长节点，不能声称完整成长树、全部成长节点或白影只有四个成长节点。发售前 UI 数值始终是观察值，保持既有预览提示，不得静默变为最终、基础或正式版数值。
+
+新 Weapon Fact、截图、玩法说明、按键、属性、成长节点或术语的准入固定按以下顺序执行：
+
+```text
+原始材料/截图/官方来源
+→ 内容审阅与措辞定稿（确认准确术语、数值、等级、按键、证据支持含义、可见/裁切/歧义限制、本站最终文案及禁止推断项）
+→ 项目负责人确认
+→ Codex 一次性实现已批准内容
+→ 只读 Work/diff 审阅（证据保真、实现正确性、回归、schema/展示边界）
+→ Browser Gate（实际渲染、移动端、视觉层级、字体、按键和玩家可用性）
+```
+
+未提供已批准内容规格时，Codex 不得自行重新解释新材料或发明最终站点文案；实现中遇到规格未覆盖的实质歧义必须停止并报告，不得猜测。
+
+## 9. Editorial 规则
 
 普通 editorial Fact 默认使用：
 
@@ -73,17 +98,17 @@ Registry 管理 Fact key、平台、难度等受控词表。Fact key 至少声�
 
 只有 Source 记录独立方法论、原创调查、可复现测试或内部测量时，才允许用 `authority=internal` Source 作为没有 `basisFactIds` 的例外。旧 HTML 中曾出现某个判断，不构成证明该判断正确的证据。
 
-## 9. Alias 与 rename
+## 10. Alias 与 rename
 
 Alias 自身携带 value、locale、kind、status、sourceIds、checkedAt、gameVersionId；待确认别名还必须有 reviewNote。
 
 普通改名不创建新 Entity：保持 id，更新 `displayName`，旧名称进入 aliases，`resolution` 保持 null。禁止使用 `resolution.type=rename`。
 
-## 10. ID 与 slug
+## 11. ID 与 slug
 
 所有 id 全局唯一且稳定。slug 必须显式提供，在同一 Entity 类型内唯一，并使用 ASCII kebab-case。更改显示名不能隐式改变 id 或 slug。
 
-## 11. Entity identity resolution
+## 12. Entity identity resolution
 
 Entity 顶层不使用 `supersededBy`。身份判断修正统一使用：
 
@@ -110,18 +135,18 @@ Entity 顶层不使用 `supersededBy`。身份判断修正统一使用：
 
 有 resolution 的 Entity 必须 archived；target 必须存在、不得指向自身、不得重复；resolution 链不得形成循环。链式修正可以存在，但应最终收敛到有效 Entity。
 
-## 12. Entity resolution 与 Fact supersession 分工
+## 13. Entity resolution 与 Fact supersession 分工
 
 - Entity `resolution`：修正“这个记录究竟代表哪个游戏实体”，支持 duplicate、merge、split、misidentified。
 - Fact `supersededBy`：修正“同一实体的某条事实后来被哪条新事实替代”，保持单目标。
 
 Entity 不保留一对一 `supersededBy`，避免 replacement 与 resolution 同时表达同一身份变化。
 
-## 13. checkedAt 与 asOf
+## 14. checkedAt 与 asOf
 
 `checkedAt` 表示本站最后核查时间。`asOf` 只对会随时间、补丁、市场、排名或重新计算自然变化的数据强制，例如价格、销量、播放量、版本伤害和 Build 计算结果。普通静态编辑评价不因 `editorial` 自动要求 `asOf`。`asOf` 不得晚于 `checkedAt`。
 
-## 14. 发布与迁移边界
+## 15. 发布与迁移边界
 
 Knowledge JSON 是结构化事实的 Source of Truth，generated artifacts 和 `dist/` 是可重建的派生产物。Weapon、Character、Boss 和 Location 都在同一冻结的 Knowledge contract 下进入 production projection；这些类型中只有 `recordState=published` 的 Entity 可以进入对应的 Production Search、static detail output 和 sitemap。`system` 即使为 published 也始终只保留在 Knowledge 层。
 
