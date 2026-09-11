@@ -48,6 +48,12 @@ function detailInput(fact) {
     : null;
 }
 
+function detailDerivedInputs(fact) {
+  return ['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) && fact.valueType === 'object'
+    ? fact.value.derivedInputs || []
+    : [];
+}
+
 function progressionLevel(fact) {
   return fact.key === 'weapon.progressionNode' && fact.valueType === 'object'
     ? fact.value.level || null
@@ -62,6 +68,7 @@ function projectWeaponFact(fact, section, title, knowledge) {
     valueText: displayValue(fact),
     description: detailDescription(fact),
     input: detailInput(fact),
+    derivedInputs: detailDerivedInputs(fact),
     level: progressionLevel(fact),
     statusText: statusLabel(fact.status),
     versionText: versionLabel(fact.gameVersionId, knowledge)

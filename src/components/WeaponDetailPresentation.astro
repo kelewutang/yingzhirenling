@@ -48,6 +48,23 @@ const { overview, mechanics, progressionNodes } = detail;
       <h3>{fact.valueText}</h3>
       {fact.input && <ControllerInput input={fact.input} factId={fact.id} />}
       {fact.description && <WeaponDescription description={fact.description} />}
+      {fact.derivedInputs.length > 0 && <section class="weapon-derived-inputs" aria-labelledby={`weapon-derived-inputs-title-${fact.id}`} data-weapon-derived-inputs-for={fact.id}>
+        <h4 id={`weapon-derived-inputs-title-${fact.id}`}>派生按键</h4>
+        <ul>
+          {fact.derivedInputs.map((derivedInput) => <li data-weapon-derived-input-label={derivedInput.label} data-weapon-derived-input-label-kind={derivedInput.labelKind}>
+            <div class="weapon-derived-inputs__controls">
+              {derivedInput.inputs.map((input, index) => <>
+                {index > 0 && <span class="weapon-derived-inputs__separator" aria-hidden="true">/</span>}
+                <ControllerInput input={input} inline={true} />
+              </>)}
+            </div>
+            <div class="weapon-derived-inputs__content">
+              <h5>{derivedInput.label}</h5>
+              {derivedInput.description && <WeaponDescription description={derivedInput.description} />}
+            </div>
+          </li>)}
+        </ul>
+      </section>}
     </li>)}
   </ol>
 </section>}

@@ -155,6 +155,41 @@
       }
     },
     {
+      "name": "weapon-mechanic-detail-with-derived-inputs-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "object",
+        "value": {"name": "测试机制", "derivedInputs": [{"inputs": ["□ △", "△ □"], "label": "测试派生", "labelKind": "official", "description": "测试说明。"}]},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-mechanic-derived-inputs-unsupported-control-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "控制器输入语法",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "object",
+        "value": {"name": "测试机制", "derivedInputs": [{"inputs": ["R1"], "label": "测试派生", "labelKind": "official"}]},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-mechanic-derived-inputs-unknown-field-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "派生按键不允许未定义字段",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "object",
+        "value": {"name": "测试机制", "derivedInputs": [{"inputs": ["○"], "label": "测试派生", "labelKind": "functional", "status": "unsupported"}]},
+        "status": "observation"
+      }
+    },
+    {
       "name": "weapon-mechanic-detail-missing-name-invalid",
       "expected": "fail",
       "expectedErrorIncludes": ".value.name",

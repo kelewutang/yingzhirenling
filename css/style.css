@@ -2148,6 +2148,16 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 .weapon-detail-list .weapon-progression-level { margin: var(--space-1) 0 0; color: var(--color-text-muted); font-size: var(--text-caption); line-height: 1.5; }
 .weapon-detail-list .weapon-detail-input + p { margin-top: var(--space-2); }
 
+.weapon-derived-inputs { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.weapon-derived-inputs > h4 { margin: 0; color: var(--color-text-muted); font-family: var(--font-body); font-size: var(--text-caption); font-weight: 650; line-height: 1.5; }
+.weapon-derived-inputs > ul { display: grid; gap: var(--space-3); margin: var(--space-3) 0 0; padding: 0; list-style: none; }
+.weapon-derived-inputs > ul > li { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); align-items: start; gap: var(--space-3); padding: 0; border: 0; background: none; }
+.weapon-derived-inputs__controls { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); max-inline-size: 100%; }
+.weapon-derived-inputs__separator { color: var(--color-text-muted); font-size: var(--text-caption); line-height: 1.55; }
+.weapon-derived-inputs__content { min-inline-size: 0; }
+.weapon-derived-inputs h5 { margin: 0; color: var(--color-text); font-family: var(--font-body); font-size: var(--text-sm); line-height: 1.55; }
+.weapon-derived-inputs .weapon-detail-description { margin-top: var(--space-1); }
+
 .weapon-detail-input {
   display: flex;
   flex-wrap: wrap;
@@ -2354,6 +2364,8 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
   .weapon-overview__primary, .weapon-preview-stats dl { grid-template-columns: 1fr; }
   .weapon-overview__primary > div + div, .weapon-preview-stats dl > div + div { padding-left: 0; border-left: 0; }
   .weapon-detail-input { gap: var(--space-1); }
+  .weapon-derived-inputs > ul > li { grid-template-columns: 1fr; gap: var(--space-1); }
+  .weapon-derived-inputs__controls { gap: var(--space-1); }
   .controller-input { gap: 0.22rem; }
   .controller-input__keycap { min-inline-size: 1.6rem; padding-inline: 0.26rem; }
   .source-panel__item { align-items: flex-start; flex-direction: column; gap: var(--space-3); }

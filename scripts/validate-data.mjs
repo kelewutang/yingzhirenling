@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parseControllerInput } from '../src/lib/controller-inputs.mjs';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
@@ -36,7 +37,10 @@ const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot']);
 const PREVIEW_STAT_CONTEXT = 'official-pre-release-ui';
 const WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH = 280;
 const WEAPON_DETAIL_INPUT_MAX_LENGTH = 80;
+const WEAPON_DERIVED_INPUTS_MAX_ITEMS = 8;
+const WEAPON_DERIVED_INPUT_VARIANTS_MAX_ITEMS = 4;
 const NAMED_WEAPON_DETAIL_KEYS = new Set(['weapon.mechanic', 'weapon.progressionNode']);
+const DERIVED_INPUT_LABEL_KINDS = new Set(['official', 'functional']);
 
 const errors = [];
 const idOwners = new Map();
@@ -847,8 +851,8 @@ function validateFactValue(fact, registryEntry, location, report = error) {
 
   if (NAMED_WEAPON_DETAIL_KEYS.has(fact.key) && fact.valueType === 'object' && isObject(fact.value)) {
     const allowedKeys = fact.key === 'weapon.mechanic'
-      ? new Set(['name', 'description', 'input'])
-      : new Set(['name', 'level', 'description', 'input']);
+      ? new Set(['name', 'description', 'input', 'derivedInputs'])
+      : new Set(['name', 'level', 'description', 'input', 'derivedInputs']);
     for (const key of Object.keys(fact.value)) {
       if (!allowedKeys.has(key)) report(`${location}.value.${key}`, '武器招式或成长节点不允许未定义字段');
     }
@@ -872,6 +876,58 @@ function validateFactValue(fact, registryEntry, location, report = error) {
     if (fact.key === 'weapon.progressionNode' && Object.hasOwn(fact.value, 'level') &&
         (!Number.isInteger(fact.value.level) || fact.value.level < 1)) {
       report(`${location}.value.level`, '必须是大于 0 的整数');
+    }
+    if (Object.hasOwn(fact.value, 'derivedInputs')) {
+      const derivedInputs = fact.value.derivedInputs;
+      if (!Array.isArray(derivedInputs) || derivedInputs.length === 0 || derivedInputs.length > WEAPON_DERIVED_INPUTS_MAX_ITEMS) {
+        report(`${location}.value.derivedInputs`, `必须是包含 1 至 ${WEAPON_DERIVED_INPUTS_MAX_ITEMS} 项的数组`);
+      } else {
+        const seenInputs = new Set();
+        for (const [index, derivedInput] of derivedInputs.entries()) {
+          const derivedLocation = `${location}.value.derivedInputs[${index}]`;
+          if (!isObject(derivedInput)) {
+            report(derivedLocation, '必须是对象');
+            continue;
+          }
+          const allowedDerivedKeys = new Set(['inputs', 'label', 'labelKind', 'description']);
+          for (const key of Object.keys(derivedInput)) {
+            if (!allowedDerivedKeys.has(key)) report(`${derivedLocation}.${key}`, '派生按键不允许未定义字段');
+          }
+          if (!Array.isArray(derivedInput.inputs) || derivedInput.inputs.length === 0 || derivedInput.inputs.length > WEAPON_DERIVED_INPUT_VARIANTS_MAX_ITEMS) {
+            report(`${derivedLocation}.inputs`, `必须是包含 1 至 ${WEAPON_DERIVED_INPUT_VARIANTS_MAX_ITEMS} 项的数组`);
+          } else {
+            for (const [inputIndex, input] of derivedInput.inputs.entries()) {
+              const inputLocation = `${derivedLocation}.inputs[${inputIndex}]`;
+              if (typeof input !== 'string' || input.trim().length === 0) {
+                report(inputLocation, '必须是非空字符串');
+              } else if (input.length > WEAPON_DETAIL_INPUT_MAX_LENGTH) {
+                report(inputLocation, `不得超过 ${WEAPON_DETAIL_INPUT_MAX_LENGTH} 个字符`);
+              } else {
+                try {
+                  const normalized = parseControllerInput(input).input;
+                  if (seenInputs.has(normalized)) report(inputLocation, '不得重复使用派生按键输入');
+                  seenInputs.add(normalized);
+                } catch {
+                  report(inputLocation, '必须符合现有控制器输入语法');
+                }
+              }
+            }
+          }
+          if (typeof derivedInput.label !== 'string' || derivedInput.label.trim().length === 0) {
+            report(`${derivedLocation}.label`, '必须是非空字符串');
+          }
+          if (!DERIVED_INPUT_LABEL_KINDS.has(derivedInput.labelKind)) {
+            report(`${derivedLocation}.labelKind`, '必须为 official 或 functional');
+          }
+          if (Object.hasOwn(derivedInput, 'description')) {
+            if (typeof derivedInput.description !== 'string' || derivedInput.description.trim().length === 0) {
+              report(`${derivedLocation}.description`, '必须是非空字符串');
+            } else if (derivedInput.description.length > WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH) {
+              report(`${derivedLocation}.description`, `不得超过 ${WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH} 个字符`);
+            }
+          }
+        }
+      }
     }
   }
 }
