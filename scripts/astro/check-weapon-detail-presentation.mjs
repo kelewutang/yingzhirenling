@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { parseControllerInput, parseInlineControllerText } from '../../src/lib/controller-inputs.mjs';
 
 const root = resolve(process.cwd());
 const dist = resolve(root, 'dist', 'weapons');
@@ -31,17 +32,34 @@ function entry(html, attribute, id) {
 
 function assertEffect(html, attribute, id, description) {
   const rendered = entry(html, attribute, id);
-  assert(rendered.includes(`<p>${description}</p>`), `Effect description missing or detached: ${id}`);
-  assert.equal(count(rendered, description), 1, `Effect description must render once: ${id}`);
+  const text = rendered.replace(/<[^>]*>/gu, '');
+  const renderedDescription = parseInlineControllerText(description)
+    .map((segment) => segment.kind === 'input' ? segment.parsed.tokens.map((token) => token.value).join('') : segment.value)
+    .join('');
+  assert(rendered.includes('class="weapon-detail-description"'), `Official description missing or detached: ${id}`);
+  assert(text.includes(renderedDescription), `Official description wording changed: ${id}`);
+  assert.equal(count(text, renderedDescription), 1, `Official description must render once: ${id}`);
 }
 
 function assertInput(html, attribute, fact) {
   const rendered = entry(html, attribute, fact.id);
   const input = fact.valueType === 'object' ? fact.value.input : undefined;
   if (input) {
+    const parsed = parseControllerInput(input);
     assert(rendered.includes(`data-weapon-input-for="${fact.id}"`), `Input row missing: ${fact.id}`);
-    assert(rendered.includes(`输入：${input}`), `Input value missing: ${fact.id}`);
-    assert.equal(count(rendered, `输入：${input}`), 1, `Input must render once: ${fact.id}`);
+    const row = rendered.match(new RegExp(`<p class="weapon-detail-input" data-weapon-input-for="${fact.id}">[\\s\\S]*?</p>`))?.[0];
+    assert(row, `Controller input row markup missing: ${fact.id}`);
+    assert(row.includes(`data-controller-input="${input}"`), `Input value missing: ${fact.id}`);
+    assert(row.includes(`aria-label="${parsed.accessibleText}"`), `Accessible input text missing: ${fact.id}`);
+    assert.equal(count(row, 'class="controller-input__keycap"'), parsed.tokens.filter((token) => token.kind === 'control').length, `Keycap count changed: ${fact.id}`);
+    for (const token of parsed.tokens.filter((token) => token.kind === 'control')) {
+      assert(row.includes(`data-controller-token="${token.value}"`), `Controller token missing: ${fact.id} ${token.value}`);
+      assert(row.includes(`aria-label="${token.label}"`), `Controller token label missing: ${fact.id} ${token.value}`);
+    }
+    if (parsed.tokens.some((token) => token.kind === 'connector')) {
+      assert(row.includes('class="controller-input__connector"'), `Controller combination separator missing: ${fact.id}`);
+    }
+    assert(!row.includes(`输入：${input}`), `Raw controller input must not render as unstyled text: ${fact.id}`);
   } else {
     assert(!rendered.includes('data-weapon-input-for'), `Input must not be invented: ${fact.id}`);
   }
@@ -104,7 +122,12 @@ assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crim
 assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', '掷出赤练短刃时会标记敌人，提高其受到的伤害和杀气削减；若目标处于破防状态，标记还会延长破防时间。短刃脱手期间持续消耗杀气，杀气不足时强制回收。再次按下 L1 + △ 可回收脱手的赤练短刃。');
 assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-phantom-crimson-viper', '通过“赤练环身”或“赤练追魂”扔出赤练短刃后，手中会幻化出另一把赤练短刃，可继续使用“双蛇共舞”和赤练普通连招。');
 assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-hold-tight', '通过“赤练环身”或“赤练追魂”扔出的赤练短刃，在切换武器后仍会继续存在。');
-assert(serpent.includes('衍生输入：□ △ / △ □：循环连招；□ □ / △ △：双蛇共舞中的变招；○：掷出赤练短刃并结束双蛇共舞。'), 'White Serpent killing-intent derivative controls must remain concise and complete');
+const whiteSerpentDerivativeText = '衍生输入：□ △ / △ □：循环连招；□ □ / △ △：双蛇共舞中的变招；○：掷出赤练短刃并结束双蛇共舞。';
+const renderedWhiteSerpentDerivativeText = parseInlineControllerText(whiteSerpentDerivativeText)
+  .map((segment) => segment.kind === 'input' ? segment.parsed.tokens.map((token) => token.value).join('') : segment.value)
+  .join('');
+assert(serpent.replace(/<[^>]*>/gu, '').includes(renderedWhiteSerpentDerivativeText), 'White Serpent killing-intent derivative controls must remain concise and complete');
+assert(serpent.includes('data-controller-input="□ △"') && serpent.includes('data-controller-input="△ □"'), 'White Serpent derivative controls must use inline keycaps');
 for (const [attribute, id, input] of [
   ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '□ □ □'],
   ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '△ △'],
@@ -178,6 +201,7 @@ for (const [html, data] of [[serpent, whiteSerpentData], [shadow, whiteShadowDat
     assertInput(html, 'data-weapon-progression-node-id', fact);
   }
   assert(!html.includes('键盘') && !html.includes('PC') && !html.includes('Xbox'), 'Weapon page must not invent PC or Xbox mappings');
+  assert(!html.includes('输入：□') && !html.includes('输入：△') && !html.includes('输入：○') && !html.includes('输入：L1') && !html.includes('输入：L2'), 'Weapon controls must not regress to raw visual input text');
 }
 
 assert.equal(count(sparse, 'data-weapon-section="overview"'), 1, 'Sparse Weapon overview missing');
@@ -210,7 +234,13 @@ assert(source.locator.evidenceItems.some((item) => item.page === 6 && item.total
 assert(source.locator.evidenceItems.some((item) => item.page === 7 && item.totalPages === 14 && item.label.includes('cropped above 寒冰击')), 'White Shadow cropped 7/14 evidence mapping missing');
 assert(whiteShadowData.facts.find((fact) => fact.id === 'fact:weapon:white-shadow:node-ice-strike')?.reviewNote?.includes('可能还有其他成长内容'), 'White Shadow cropped-evidence limitation must remain in Knowledge');
 
-console.log('Weapon detail presentation verification passed: source-backed effect text, grouped preview observations, historical de-duplication, sparse Weapon content, screenshot limits, and non-Weapon detail isolation.');
+const css = await readFile(resolve(root, 'css', 'style.css'), 'utf8');
+for (const selector of ['.controller-input {', '.controller-input__keycap {', '.controller-input__connector {']) {
+  assert(css.includes(selector), `Controller input desktop styling missing: ${selector}`);
+}
+assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.controller-input \{/, 'Controller input mobile styling missing');
+
+console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, and non-Weapon detail isolation.');
 
 async function readJson(path) {
   return JSON.parse(await readFile(resolve(root, path), 'utf8'));

@@ -2148,6 +2148,52 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 .weapon-detail-list .weapon-progression-level { margin: var(--space-1) 0 0; color: var(--color-text-muted); font-size: var(--text-caption); line-height: 1.5; }
 .weapon-detail-list .weapon-detail-input + p { margin-top: var(--space-2); }
 
+.weapon-detail-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.weapon-detail-input__label { flex: 0 0 auto; }
+
+.controller-input {
+  display: inline-flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  max-inline-size: 100%;
+  gap: 0.28rem;
+  vertical-align: middle;
+}
+
+.controller-input--inline { margin-inline: 0.14em; }
+
+.controller-input__keycap {
+  display: inline-grid;
+  min-inline-size: 1.7rem;
+  block-size: 1.55rem;
+  place-items: center;
+  padding-inline: 0.3rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0.2rem;
+  background: rgb(255 255 255 / 0.045);
+  box-shadow: inset 0 -1px rgb(0 0 0 / 0.22);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.controller-input__connector {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .detail-section-heading {
   margin-bottom: var(--space-6);
 }
@@ -2307,6 +2353,9 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
   .detail-fact { grid-template-columns: 1fr; gap: var(--space-4); }
   .weapon-overview__primary, .weapon-preview-stats dl { grid-template-columns: 1fr; }
   .weapon-overview__primary > div + div, .weapon-preview-stats dl > div + div { padding-left: 0; border-left: 0; }
+  .weapon-detail-input { gap: var(--space-1); }
+  .controller-input { gap: 0.22rem; }
+  .controller-input__keycap { min-inline-size: 1.6rem; padding-inline: 0.26rem; }
   .source-panel__item { align-items: flex-start; flex-direction: column; gap: var(--space-3); }
 }
 

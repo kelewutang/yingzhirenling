@@ -1,0 +1,19 @@
+---
+import ControllerKeycap from './ControllerKeycap.astro';
+import { parseControllerInput } from '../lib/controller-inputs.mjs';
+
+const { input, inline = false } = Astro.props;
+const parsed = parseControllerInput(input);
+---
+{inline ? <span class="controller-input controller-input--inline" data-controller-input={parsed.input} role="group" aria-label={parsed.accessibleText}>
+  {parsed.tokens.map((token) => token.kind === 'control'
+    ? <ControllerKeycap token={token} />
+    : <span class="controller-input__connector" aria-hidden="true">{token.value}</span>)}
+</span> : <p class="weapon-detail-input" data-weapon-input-for={Astro.props.factId}>
+  <span class="weapon-detail-input__label">输入：</span>
+  <span class="controller-input" data-controller-input={parsed.input} role="group" aria-label={parsed.accessibleText}>
+    {parsed.tokens.map((token) => token.kind === 'control'
+      ? <ControllerKeycap token={token} />
+      : <span class="controller-input__connector" aria-hidden="true">{token.value}</span>)}
+  </span>
+</p>}
