@@ -49,6 +49,8 @@ function assertInput(html, attribute, fact) {
     assert(rendered.includes(`data-weapon-input-for="${fact.id}"`), `Input row missing: ${fact.id}`);
     const row = rendered.match(new RegExp(`<p class="weapon-detail-input" data-weapon-input-for="${fact.id}">[\\s\\S]*?</p>`))?.[0];
     assert(row, `Controller input row markup missing: ${fact.id}`);
+    assert(row.includes('<span class="weapon-detail-input__label">按键：</span>'), `Player-facing controller label must be 按键: ${fact.id}`);
+    assert(!row.includes('<span class="weapon-detail-input__label">输入：</span>'), `Old player-facing controller label must be absent: ${fact.id}`);
     assert(row.includes(`data-controller-input="${input}"`), `Input value missing: ${fact.id}`);
     assert(row.includes(`aria-label="${parsed.accessibleText}"`), `Accessible input text missing: ${fact.id}`);
     assert.equal(count(row, 'class="controller-input__keycap"'), parsed.tokens.filter((token) => token.kind === 'control').length, `Keycap count changed: ${fact.id}`);
@@ -117,9 +119,9 @@ assert(whiteSerpentSearchDocument.aliases.includes(historicalAlias), 'Historical
 assert(whiteSerpentSearchDocument.displayAliases.includes(historicalAlias), 'Historical English alias must remain in production search display aliases');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '使用赤练短刃进行凌厉攻击。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '使用白蟒长刃进行斩击；交替输入可循环连招。“双蛇共舞”状态下伤害显著提升，并可在连招中穿插赤练短刃攻击。衍生输入：□ △ / △ □：循环连招；□ □ / △ △：双蛇共舞中的变招；○：掷出赤练短刃并结束双蛇共舞。');
-assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround', '让赤练短刃围绕自身持续旋转；旋转期间持续消耗杀气，杀气不足时会强制回收，也可主动回收。再次按下 L1 + △ 可回收。');
+assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround', '让赤练短刃围绕自身持续旋转；旋转期间持续消耗杀气，杀气不足时会强制回收，也可再次按下 L1 + △ 主动回收。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-ranged-execution', '当远距离敌人残血时，可进行处决。');
-assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', '掷出赤练短刃时会标记敌人，提高其受到的伤害和杀气削减；若目标处于破防状态，标记还会延长破防时间。短刃脱手期间持续消耗杀气，杀气不足时强制回收。再次按下 L1 + △ 可回收脱手的赤练短刃。');
+assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', '掷出赤练短刃时会标记敌人，提高其受到的伤害和杀气削减；若目标处于破防状态，标记还会延长破防时间。短刃脱手期间持续消耗杀气，杀气不足时强制回收，也可再次按下 L1 + △ 回收脱手的赤练短刃。');
 assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-phantom-crimson-viper', '通过“赤练环身”或“赤练追魂”扔出赤练短刃后，手中会幻化出另一把赤练短刃，可继续使用“双蛇共舞”和赤练普通连招。');
 assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-hold-tight', '通过“赤练环身”或“赤练追魂”扔出的赤练短刃，在切换武器后仍会继续存在。');
 const whiteSerpentDerivativeText = '衍生输入：□ △ / △ □：循环连招；□ □ / △ △：双蛇共舞中的变招；○：掷出赤练短刃并结束双蛇共舞。';
