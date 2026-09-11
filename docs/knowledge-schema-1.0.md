@@ -22,7 +22,7 @@ Fact 是最小可信度单元。一个 Entity 的存在、名称、类型、获�
 
 Fact 的更新使用单值 `supersededBy` 指向直接替代它的新 Fact。它只表达“同一事实位的新陈替换”，不处理 Entity 身份拆分或合并。
 
-`weapon.previewStat` 是受限的 `object` Fact：必须同时包含 `statName`、`displayedValue`、`displayedLevel` 与 `displayContext: "official-pre-release-ui"`，且必须是 `observation`。它只记录发售前官方 UI 的显示观察，不能表示正式版固定属性。`weapon.mechanic` 与 `weapon.progressionNode` 只记录可独立核验的名称；后者不承载效果推断或完整技能树。
+`weapon.previewStat` 是受限的 `object` Fact：必须同时包含 `statName`、`displayedValue`、`displayedLevel` 与 `displayContext: "official-pre-release-ui"`，且必须是 `observation`。它只记录发售前官方 UI 的显示观察，不能表示正式版固定属性。`weapon.mechanic` 与 `weapon.progressionNode` 可以保留兼容的字符串名称，或使用受限 object：`name` 必填，`description` 可选且只能记录截图中可明确读出的简短说明。不得推断效果、数值、持续时间或完整技能树。
 
 ## 3. Source
 

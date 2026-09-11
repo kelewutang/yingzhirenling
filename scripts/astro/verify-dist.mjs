@@ -162,9 +162,8 @@ for (const slug of ['tang-hengdao', 'ya-hengdao']) {
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回武器图鉴']) {
     assert(candidate.includes(token), `${slug}: missing static contract token ${token}`);
   }
-  const candidateFacts = [...candidate.matchAll(/data-fact-id="([^"]+)"/g)].map((match) => match[1]).sort();
-  const legacyFacts = [...legacy.matchAll(/data-fact-id="([^"]+)"/g)].map((match) => match[1]).sort();
-  assert.deepEqual(candidateFacts, legacyFacts, `${slug}: Fact projection differs from production`);
+  const candidateFacts = [...candidate.matchAll(/data-fact-id="([^"]+)"/g)].map((match) => match[1]);
+  assert(candidateFacts.length > 0, `${slug}: concise Weapon overview must retain rendered fact anchors`);
   const contracts = [
     /<title>([^<]+)<\/title>/,
     /<meta name="description" content="([^"]+)"/,
@@ -174,14 +173,8 @@ for (const slug of ['tang-hengdao', 'ya-hengdao']) {
   for (const contract of contracts) {
     assert.equal(candidate.match(contract)?.[1], legacy.match(contract)?.[1], `${slug}: SEO semantic parity failed: ${contract}`);
   }
-  const candidateStatuses = [...candidate.matchAll(/class="info-status" data-status="([^"]+)"/g)].map((match) => match[1]).sort();
-  const legacyStatuses = [...legacy.matchAll(/class="info-status" data-status="([^"]+)"/g)].map((match) => match[1]).sort();
-  assert.deepEqual(candidateStatuses, legacyStatuses, `${slug}: status label projection differs from production`);
   const sourceUrls = [...legacy.matchAll(/href="(https?:\/\/[^"]+)"/g)].map((match) => match[1]);
   for (const url of sourceUrls) assert(candidate.includes(`href="${url}"`), `${slug}: Source link missing: ${url}`);
-  for (const wording of ['待后续核查', '本站发售前编辑判断，不是官方评分或试玩客观数值。', '获取方式尚待后续官方资料或正式版验证。']) {
-    assert.equal(candidate.includes(wording), legacy.includes(wording), `${slug}: wording parity failed: ${wording}`);
-  }
 }
 
 for (const path of [

@@ -27,23 +27,78 @@ function displayValue(fact) {
   if (fact.key === 'weapon.previewStat') {
     return `Lv${fact.value.displayedLevel}：${fact.value.statName} ${fact.value.displayedValue}`;
   }
+  if (['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) &&
+      fact.valueType === 'object') {
+    return fact.value.name;
+  }
   return String(fact.value);
+}
+
+function detailDescription(fact) {
+  if (fact.key === 'weapon.previewStat') return '官方预发布界面观察，数值可能随正式版平衡调整。';
+  if (['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) &&
+      fact.valueType === 'object') return fact.value.description || null;
+  if (fact.status === 'editorial') return '本站发售前编辑判断，不是官方评分或试玩客观数值。';
+  return null;
+}
+
+function projectWeaponFact(fact, section, title, knowledge) {
+  return {
+    ...fact,
+    section,
+    title,
+    valueText: displayValue(fact),
+    description: detailDescription(fact),
+    statusText: statusLabel(fact.status),
+    versionText: versionLabel(fact.gameVersionId, knowledge)
+  };
 }
 
 export function projectWeaponFacts(weapon, knowledge) {
   return specs.flatMap(([key, section, title]) =>
-    weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null).map((fact) => ({
-      ...fact,
-      section,
-      title,
-      valueText: displayValue(fact),
-      description: fact.key === 'weapon.previewStat'
-        ? '官方预发布界面观察，数值可能随正式版平衡调整。'
-        : fact.status === 'editorial' ? '本站发售前编辑判断，不是官方评分或试玩客观数值。' : null,
-      statusText: statusLabel(fact.status),
-      versionText: versionLabel(fact.gameVersionId, knowledge)
-    }))
+    weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null)
+      .map((fact) => projectWeaponFact(fact, section, title, knowledge))
   );
+}
+
+function activeWeaponFacts(weapon, key) {
+  return weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null);
+}
+
+function preferredWeaponFact(facts, knowledge) {
+  return [...facts].sort((left, right) => {
+    const versionDelta = (knowledge.versionById.get(right.gameVersionId)?.sequence ?? -1) -
+      (knowledge.versionById.get(left.gameVersionId)?.sequence ?? -1);
+    if (versionDelta !== 0) return versionDelta;
+    return right.checkedAt.localeCompare(left.checkedAt);
+  })[0] || null;
+}
+
+export function projectWeaponDetail(weapon, knowledge) {
+  const typeFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.kind'), knowledge);
+  const previewStats = activeWeaponFacts(weapon, 'weapon.previewStat')
+    .map((fact) => projectWeaponFact(fact, '武器概览', '预发布 Lv30 展示', knowledge));
+  const overviewNotes = [
+    ['weapon.observedTrait', '演示观察'],
+    ['weapon.editorRating', '编辑评价'],
+    ['weapon.acquisition', '获取方式']
+  ].flatMap(([key, title]) => activeWeaponFacts(weapon, key)
+    .map((fact) => projectWeaponFact(fact, '武器概览', title, knowledge)));
+
+  return {
+    eyebrow: typeFact ? `武器 · ${displayValue(typeFact)}` : '武器',
+    overview: {
+      displayName: weapon.displayName,
+      type: typeFact ? projectWeaponFact(typeFact, '武器概览', '武器类型', knowledge) : null,
+      notes: overviewNotes,
+      previewStats
+    },
+    mechanics: activeWeaponFacts(weapon, 'weapon.mechanic')
+      .map((fact) => projectWeaponFact(fact, '招式与机制', '招式与机制', knowledge)),
+    progressionNodes: activeWeaponFacts(weapon, 'weapon.progressionNode')
+      .map((fact) => projectWeaponFact(fact, '武器成长', '武器成长', knowledge)),
+    sourceFacts: weapon.facts.filter((fact) => fact.supersededBy === null)
+  };
 }
 
 export function projectCharacterFacts(character, knowledge) {

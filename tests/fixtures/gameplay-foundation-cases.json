@@ -133,6 +133,41 @@
       }
     },
     {
+      "name": "weapon-mechanic-detail-valid",
+      "expected": "pass",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "object",
+        "value": {"name": "测试机制", "description": "截图中可明确读出的简短说明。"},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-mechanic-detail-missing-name-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.name",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "object",
+        "value": {"description": "缺少名称。"},
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-mechanic-detail-empty-description-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".value.description",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.mechanic",
+        "valueType": "object",
+        "value": {"name": "测试机制", "description": ""},
+        "status": "observation"
+      }
+    },
+    {
       "name": "weapon-progression-node-valid",
       "expected": "pass",
       "ownerType": "weapon",
@@ -140,6 +175,18 @@
         "key": "weapon.progressionNode",
         "valueType": "string",
         "value": "测试节点",
+        "status": "observation"
+      }
+    },
+    {
+      "name": "weapon-progression-node-detail-unknown-field-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "不允许未定义字段",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "weapon.progressionNode",
+        "valueType": "object",
+        "value": {"name": "测试节点", "effect": "不允许使用未定义字段。"},
         "status": "observation"
       }
     },

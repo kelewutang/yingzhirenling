@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { getFact } from '../src/lib/knowledge.mjs';
-import { projectWeaponFacts } from '../src/lib/projections.mjs';
+import { projectWeaponDetail, projectWeaponFacts } from '../src/lib/projections.mjs';
 
 test('getFact returns the active replacement without removing historical Fact evidence', () => {
   const entity = {
@@ -76,4 +76,35 @@ test('weapon projection retains every active mechanic and progression node', () 
     facts.filter((fact) => fact.key === 'weapon.progressionNode').map((fact) => fact.value),
     ['赤练追魂', '幻化赤练']
   );
+});
+
+test('weapon detail prefers current overview values and groups active guide content', () => {
+  const weapon = {
+    displayName: '白蟒赤练',
+    facts: [
+      { id: 'fact:weapon:test:name-historical', key: 'weapon.name', valueType: 'string', value: 'White Serpent & Crimson Viper', status: 'observation', gameVersionId: 'version:demo', checkedAt: '2026-08-30', supersededBy: null },
+      { id: 'fact:weapon:test:name-current', key: 'weapon.name', valueType: 'string', value: '白蟒赤练', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:kind-historical', key: 'weapon.kind', valueType: 'string', value: '主武器（双剑）', status: 'observation', gameVersionId: 'version:demo', checkedAt: '2026-08-30', supersededBy: null },
+      { id: 'fact:weapon:test:kind-current', key: 'weapon.kind', valueType: 'string', value: '双持武器', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:mechanic-string', key: 'weapon.mechanic', valueType: 'string', value: '普通连招', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:mechanic-detail', key: 'weapon.mechanic', valueType: 'object', value: { name: '冰冻', description: '累计至满时触发冰冻。' }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:node-string', key: 'weapon.progressionNode', valueType: 'string', value: '赤练追魂', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:node-detail', key: 'weapon.progressionNode', valueType: 'object', value: { name: '幻化赤练', description: '截图中可确认的节点说明。' }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:preview-damage', key: 'weapon.previewStat', valueType: 'object', value: { statName: '伤害能力', displayedValue: 1217, displayedLevel: 30, displayContext: 'official-pre-release-ui' }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:preview-break', key: 'weapon.previewStat', valueType: 'object', value: { statName: '破防能力', displayedValue: 640, displayedLevel: 30, displayContext: 'official-pre-release-ui' }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null }
+    ]
+  };
+  const knowledge = { versionById: new Map([['version:demo', { sequence: 20 }], ['version:current', { sequence: 25 }]]) };
+
+  const detail = projectWeaponDetail(weapon, knowledge);
+  assert.equal(detail.overview.displayName, '白蟒赤练');
+  assert.equal(detail.overview.type?.valueText, '双持武器');
+  assert.equal(detail.overview.type?.id, 'fact:weapon:test:kind-current');
+  assert.equal(detail.sourceFacts.filter((fact) => fact.key === 'weapon.name').length, 2);
+  assert.deepEqual(detail.mechanics.map((fact) => fact.valueText), ['普通连招', '冰冻']);
+  assert.equal(detail.mechanics[0].description, null);
+  assert.equal(detail.mechanics[1].description, '累计至满时触发冰冻。');
+  assert.deepEqual(detail.progressionNodes.map((fact) => fact.valueText), ['赤练追魂', '幻化赤练']);
+  assert.equal(detail.progressionNodes[1].description, '截图中可确认的节点说明。');
+  assert.equal(detail.overview.previewStats.length, 2);
 });
