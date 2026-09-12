@@ -22,7 +22,7 @@ Fact 是最小可信度单元。一个 Entity 的存在、名称、类型、获�
 
 Fact 的更新使用单值 `supersededBy` 指向直接替代它的新 Fact。它只表达“同一事实位的新陈替换”，不处理 Entity 身份拆分或合并。
 
-`weapon.previewStat` 是受限的 `object` Fact：必须同时包含 `statName`、`displayedValue`、`displayedLevel` 与 `displayContext: "official-pre-release-ui"`，且必须是 `observation`。它只记录发售前官方 UI 的显示观察，不能表示正式版固定属性。只有官方或正式版证据明确显示该等级为实际最高 Weapon 等级时，才可在页面称为“满级属性”；其余一律使用“LvX 预览属性”或等价的预发布措辞。`weapon.mechanic` 与 `weapon.progressionNode` 可以保留兼容的字符串名称，或使用受限 object。两者的 `name` 必填，`description` 可选且只能记录截图中可明确读出的简短说明；两者都可额外有已明确读出的控制器 `input`，`weapon.progressionNode` 还可额外有正整数 `level`。两者可选用有上限的 `derivedInputs`：每项仅允许已验证输入的 `inputs`、非空 `label`、`labelKind: "official" | "functional"` 与可选简短 `description`，用于从该招式派生的后续操作；输入继续遵守现有控制器语法。页面将 primary `input` 标为“按键”，将 `derivedInputs` 标为“派生按键”。官方已有动作/招式名时使用 `official` 标签；未确认正式名称时使用 `functional` 的简洁功能标签，不能为补全 UI 而虚构技能名或把功能标签当作官方术语。不得推断效果、数值、持续时间、其他平台映射或完整技能树。
+`weapon.previewStat` 是受限的 `object` Fact：必须同时包含 `statName`、`displayedValue`、`displayedLevel` 与 `displayContext: "official-pre-release-ui"`，且必须是 `observation`。它只记录发售前官方 UI 的显示观察，不能表示正式版固定属性。只有官方或正式版证据明确显示该等级为实际最高 Weapon 等级时，才可在页面称为“满级属性”；其余一律使用“LvX 预览属性”或等价的预发布措辞。`weapon.mechanic` 与 `weapon.progressionNode` 可以保留兼容的字符串名称，或使用受限 object。两者的 `name` 必填，`description` 可选且只能记录截图中可明确读出的简短说明；两者都可额外有已明确读出的控制器 `input`，`weapon.progressionNode` 还可额外有正整数 `level`。两者可选用有上限的 `derivedInputs`：每项仅允许已验证输入的 `inputs`、非空 `label`、`labelKind: "official" | "functional"` 与可选简短 `description`，用于从该招式派生的后续操作；输入继续遵守现有控制器语法。派生按键默认只展示控制器输入和动作/功能标签；仅当说明补充 primary description 未覆盖的信息时才展示 `description`。页面将 primary `input` 标为“按键”，将 `derivedInputs` 标为“派生按键”。官方已有动作/招式名时使用 `official` 标签；未确认正式名称时使用 `functional` 的简洁功能标签，不能为补全 UI 而虚构技能名或把功能标签当作官方术语。不得推断效果、数值、持续时间、其他平台映射或完整技能树。
 
 ## 3. Source
 

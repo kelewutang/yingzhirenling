@@ -158,9 +158,12 @@ assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serp
 const killingIntentFactId = 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo';
 const derivedControls = derivedInputBlock(serpent, killingIntentFactId);
 assert(derivedControls.includes('>派生按键</h4>'), 'Derived-control block must use the approved player-facing label');
-assertDerivedInput(derivedControls, { label: '双蛇共舞', labelKind: 'official', inputs: ['□ △', '△ □'], description: '交替点按可循环连招。' });
+assertDerivedInput(derivedControls, { label: '双蛇共舞', labelKind: 'official', inputs: ['□ △', '△ □'] });
 assertDerivedInput(derivedControls, { label: '变招', labelKind: 'functional', inputs: ['□ □', '△ △'] });
-assertDerivedInput(derivedControls, { label: '结束双蛇共舞', labelKind: 'functional', inputs: ['○'], description: '掷出赤练短刃并结束“双蛇共舞”。' });
+assertDerivedInput(derivedControls, { label: '结束双蛇共舞', labelKind: 'functional', inputs: ['○'] });
+for (const redundantDescription of ['交替点按可循环连招。', '掷出赤练短刃并结束“双蛇共舞”。']) {
+  assert(!derivedControls.includes(redundantDescription), `Derived controls must not repeat the primary description: ${redundantDescription}`);
+}
 for (const [attribute, id, input] of [
   ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '□ □ □'],
   ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '△ △'],
@@ -276,7 +279,9 @@ const css = await readFile(resolve(root, 'css', 'style.css'), 'utf8');
 for (const selector of ['.controller-input {', '.controller-input__keycap {', '.controller-input__connector {', '.weapon-derived-inputs {', '.weapon-derived-inputs__controls {']) {
   assert(css.includes(selector), `Controller input desktop styling missing: ${selector}`);
 }
+assert(css.includes('grid-template-columns: minmax(9.5rem, 10.25rem) minmax(0, 1fr);'), 'Derived controls must reserve a bounded desktop input column');
 assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.controller-input \{/, 'Controller input mobile styling missing');
+assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.weapon-derived-inputs > ul > li \{ grid-template-columns: 1fr;/, 'Derived controls must preserve their stacked mobile layout');
 
 console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, and non-Weapon detail isolation.');
 
