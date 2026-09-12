@@ -87,7 +87,7 @@ test('weapon detail prefers current overview values and groups active guide cont
       { id: 'fact:weapon:test:kind-historical', key: 'weapon.kind', valueType: 'string', value: '主武器（双剑）', status: 'observation', gameVersionId: 'version:demo', checkedAt: '2026-08-30', supersededBy: null },
       { id: 'fact:weapon:test:kind-current', key: 'weapon.kind', valueType: 'string', value: '双持武器', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
       { id: 'fact:weapon:test:mechanic-string', key: 'weapon.mechanic', valueType: 'string', value: '普通连招', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
-      { id: 'fact:weapon:test:mechanic-detail', key: 'weapon.mechanic', valueType: 'object', value: { name: '冰冻', input: '□ △', description: '累计至满时触发冰冻。' }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:mechanic-detail', key: 'weapon.mechanic', valueType: 'object', value: { name: '冰冻', input: '□ △', description: '累计至满时触发冰冻。', derivedInputs: [{ inputs: ['○'], label: '结束冰冻', labelKind: 'functional' }] }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
       { id: 'fact:weapon:test:node-string', key: 'weapon.progressionNode', valueType: 'string', value: '赤练追魂', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
       { id: 'fact:weapon:test:node-detail', key: 'weapon.progressionNode', valueType: 'object', value: { name: '幻化赤练', level: 15, description: '截图中可确认的节点说明。', input: '○' }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
       { id: 'fact:weapon:test:preview-damage', key: 'weapon.previewStat', valueType: 'object', value: { statName: '伤害能力', displayedValue: 1217, displayedLevel: 30, displayContext: 'official-pre-release-ui' }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
@@ -105,6 +105,8 @@ test('weapon detail prefers current overview values and groups active guide cont
   assert.equal(detail.mechanics[0].description, null);
   assert.equal(detail.mechanics[1].description, '累计至满时触发冰冻。');
   assert.equal(detail.mechanics[1].input, '□ △');
+  assert.deepEqual(detail.mechanics[1].derivedInputs, [{ inputs: ['○'], label: '结束冰冻', labelKind: 'functional' }]);
+  assert.deepEqual(detail.mechanics[0].derivedInputs, []);
   assert.deepEqual(detail.progressionNodes.map((fact) => fact.valueText), ['赤练追魂', '幻化赤练']);
   assert.equal(detail.progressionNodes[1].description, '截图中可确认的节点说明。');
   assert.equal(detail.progressionNodes[1].level, 15);

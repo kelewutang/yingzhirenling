@@ -77,6 +77,37 @@ function assertProgressionLevel(html, id, level, name) {
   assert(rendered.includes(`<h3>${name}</h3>`), `Progression name missing: ${name}`);
 }
 
+function derivedInputBlock(html, factId) {
+  const match = html.match(new RegExp(`<section class="weapon-derived-inputs"[^>]*data-weapon-derived-inputs-for="${factId}"[^>]*>[\\s\\S]*?</section>`));
+  assert(match, `Derived-control block missing: ${factId}`);
+  return match[0];
+}
+
+function assertDerivedInput(block, { label, labelKind, inputs, description }) {
+  const match = block.match(new RegExp(`<li data-weapon-derived-input-label="${label}" data-weapon-derived-input-label-kind="${labelKind}">[\\s\\S]*?</li>`));
+  assert(match, `Derived control missing: ${label}`);
+  const rendered = match[0];
+  assert(rendered.includes(`<h5>${label}</h5>`), `Derived control label missing: ${label}`);
+  for (const input of inputs) {
+    const parsed = parseControllerInput(input);
+    assert(rendered.includes(`data-controller-input="${input}"`), `Derived controller input missing: ${label} ${input}`);
+    assert(rendered.includes(`aria-label="${parsed.accessibleText}"`), `Derived controller accessibility missing: ${label} ${input}`);
+    for (const token of parsed.tokens.filter((token) => token.kind === 'control')) {
+      assert(rendered.includes(`data-controller-token="${token.value}"`), `Derived keycap missing: ${label} ${token.value}`);
+    }
+  }
+  if (inputs.length > 1) assert.equal(count(rendered, 'class="weapon-derived-inputs__separator"'), inputs.length - 1, `Derived variants must retain slash separators: ${label}`);
+  if (description) {
+    const renderedDescription = parseInlineControllerText(description)
+      .map((segment) => segment.kind === 'input' ? segment.parsed.tokens.map((token) => token.value).join('') : segment.value)
+      .join('');
+    assert(rendered.includes('class="weapon-detail-description"'), `Derived description missing: ${label}`);
+    assert(rendered.replace(/<[^>]*>/gu, '').includes(renderedDescription), `Derived description changed: ${label}`);
+  } else {
+    assert(!rendered.includes('class="weapon-detail-description"'), `Derived description must not be invented: ${label}`);
+  }
+}
+
 function assertOverview(html, { name, type, typeFactId, historicalNameFactId, historicalTypeFactId, previewStats }) {
   const rendered = overview(html);
   assert.equal(count(html, 'data-weapon-section="overview"'), 1, 'Weapon overview must render once');
@@ -95,7 +126,7 @@ function assertOverview(html, { name, type, typeFactId, historicalNameFactId, hi
     assert(rendered.includes(`<dt>${label}</dt><dd>${value}</dd>`), `Preview stat value missing: ${label} ${value}`);
   }
   assert.equal(count(html, '官方预发布界面展示值，正式版可能调整。'), 1, 'Preview caveat must appear once');
-  assert(!rendered.includes('基础属性') && !rendered.includes('永久属性'), 'Preview values must not be presented as permanent base stats');
+  assert(!rendered.includes('基础属性') && !rendered.includes('永久属性') && !rendered.includes('满级属性'), 'Preview values must not be presented as permanent or max-level stats');
 }
 
 assertOverview(serpent, {
@@ -118,18 +149,21 @@ assert(whiteSerpentSearchDocument, 'White Serpent production search document mis
 assert(whiteSerpentSearchDocument.aliases.includes(historicalAlias), 'Historical English alias must remain searchable through production index aliases');
 assert(whiteSerpentSearchDocument.displayAliases.includes(historicalAlias), 'Historical English alias must remain in production search display aliases');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '使用赤练短刃进行凌厉攻击。');
-assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '使用白蟒长刃进行斩击；交替输入可循环连招。“双蛇共舞”状态下伤害显著提升，并可在连招中穿插赤练短刃攻击。衍生输入：□ △ / △ □：循环连招；□ □ / △ △：双蛇共舞中的变招；○：掷出赤练短刃并结束双蛇共舞。');
+assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '使用白蟒长刃进行斩击；交替点按可循环连招并进入“双蛇共舞”状态，期间伤害不断提升，可穿插变招，也可掷出赤练短刃结束“双蛇共舞”。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround', '让赤练短刃围绕自身持续旋转；旋转期间持续消耗杀气，杀气不足时会强制回收，也可再次按下 L1 + △ 主动回收。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-ranged-execution', '当远距离敌人残血时，可进行处决。');
 assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', '掷出赤练短刃时会标记敌人，提高其受到的伤害和杀气削减；若目标处于破防状态，标记还会延长破防时间。短刃脱手期间持续消耗杀气，杀气不足时强制回收，也可再次按下 L1 + △ 回收脱手的赤练短刃。');
 assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-phantom-crimson-viper', '通过“赤练环身”或“赤练追魂”扔出赤练短刃后，手中会幻化出另一把赤练短刃，可继续使用“双蛇共舞”和赤练普通连招。');
 assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-hold-tight', '通过“赤练环身”或“赤练追魂”扔出的赤练短刃，在切换武器后仍会继续存在。');
-const whiteSerpentDerivativeText = '衍生输入：□ △ / △ □：循环连招；□ □ / △ △：双蛇共舞中的变招；○：掷出赤练短刃并结束双蛇共舞。';
-const renderedWhiteSerpentDerivativeText = parseInlineControllerText(whiteSerpentDerivativeText)
-  .map((segment) => segment.kind === 'input' ? segment.parsed.tokens.map((token) => token.value).join('') : segment.value)
-  .join('');
-assert(serpent.replace(/<[^>]*>/gu, '').includes(renderedWhiteSerpentDerivativeText), 'White Serpent killing-intent derivative controls must remain concise and complete');
-assert(serpent.includes('data-controller-input="□ △"') && serpent.includes('data-controller-input="△ □"'), 'White Serpent derivative controls must use inline keycaps');
+const killingIntentFactId = 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo';
+const derivedControls = derivedInputBlock(serpent, killingIntentFactId);
+assert(derivedControls.includes('>派生按键</h4>'), 'Derived-control block must use the approved player-facing label');
+assertDerivedInput(derivedControls, { label: '双蛇共舞', labelKind: 'official', inputs: ['□ △', '△ □'] });
+assertDerivedInput(derivedControls, { label: '变招', labelKind: 'functional', inputs: ['□ □', '△ △'] });
+assertDerivedInput(derivedControls, { label: '结束双蛇共舞', labelKind: 'functional', inputs: ['○'] });
+for (const redundantDescription of ['交替点按可循环连招。', '掷出赤练短刃并结束“双蛇共舞”。']) {
+  assert(!derivedControls.includes(redundantDescription), `Derived controls must not repeat the primary description: ${redundantDescription}`);
+}
 for (const [attribute, id, input] of [
   ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '□ □ □'],
   ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '△ △'],
@@ -138,10 +172,10 @@ for (const [attribute, id, input] of [
   ['data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', '○']
 ]) assertConfirmedInput(serpent, attribute, id, input);
 assert.equal(count(serpent, 'data-weapon-input-for='), 5, 'White Serpent must render each confirmed input row exactly once');
-for (const term of ['赤练短刃', '白蟒长刃', '循环连招', '双蛇共舞', '围绕自身', '持续消耗杀气', '强制回收', '远距离敌人', '残血', '处决']) {
+for (const term of ['赤练短刃', '白蟒长刃', '交替点按', '伤害不断提升', '循环连招', '双蛇共舞', '变招', '结束双蛇共舞', '围绕自身', '持续消耗杀气', '强制回收', '远距离敌人', '残血', '处决']) {
   assert(serpent.includes(term), `White Serpent supported gameplay terminology missing: ${term}`);
 }
-for (const incorrectTerm of ['赤练短刀', '白蟒长刀']) {
+for (const incorrectTerm of ['赤练短刀', '白蟒长刀', '交替输入', '伤害显著提升', '衍生输入：']) {
   assert(!serpent.includes(incorrectTerm), `White Serpent must reject transcription error: ${incorrectTerm}`);
 }
 assertProgressionLevel(serpent, 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', 5, '赤练追魂');
@@ -164,6 +198,8 @@ assert.equal(count(whiteShadowBasic, '<p'), 1, 'White Shadow basic combo must co
 assertEffect(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-killing-intent-combo', '可接在任意段数的普通攻击后释放；杀气充足时会发动强化攻击，具有更高的伤害和破防能力。');
 assertEffect(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-freeze', '命中敌人时使其冰缓，并叠加冰冻计量条；计量条叠满后会冰冻敌人。');
 assertEffect(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-white-shadow-howls', '消耗 1 点对应资源，挥舞长刃斩出漫天白影；招式结束后必定冰冻敌人。');
+const whiteShadowHowls = entry(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-white-shadow-howls');
+assert(whiteShadowHowls.includes('消耗 1 点对应资源') && !whiteShadowHowls.includes('杀气'), 'White Shadow resource term must remain a neutral placeholder, not an invented canonical name');
 assertEffect(shadow, 'data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-ice-strike', '使用刀背快速敲击敌人，并为武器短暂附上冰霜；下一招会使敌人的冰冻计量条大幅提升。');
 assertEffect(shadow, 'data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-pattern-blade', '使用“寒冰击”可以回复杀气。');
 assertEffect(shadow, 'data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-ice-spike-finisher', '可突进至最近被冰冻的敌人处，造成伤害并延长冰冻持续时间。');
@@ -185,6 +221,7 @@ assertProgressionLevel(shadow, 'fact:weapon:white-shadow:node-bone-stripping-thr
 for (const incorrectTerm of ['纹刃', '剥骨·之三']) {
   assert(!shadow.includes(incorrectTerm), `White Shadow must reject transcription error: ${incorrectTerm}`);
 }
+assert(!shadow.includes('data-weapon-derived-inputs-for'), 'White Shadow must not receive an empty or invented derived-control block');
 for (const forbiddenClaim of ['白影完整成长树', '白影共有四个成长节点', '全部成长节点', '完整成长树']) {
   assert(!shadow.includes(forbiddenClaim), `White Shadow must not claim exhaustive progression: ${forbiddenClaim}`);
 }
@@ -211,6 +248,7 @@ assert(!sparse.includes('data-weapon-section="mechanics"'), 'Sparse Weapon must 
 assert(!sparse.includes('data-weapon-section="progression"'), 'Sparse Weapon must not emit an empty progression section');
 assert(!sparse.includes('data-weapon-preview-stats'), 'Sparse Weapon must not emit an empty preview-stat group');
 assert(!sparse.includes('data-weapon-input-for'), 'Sparse Weapon must not emit input rows');
+assert(!sparse.includes('data-weapon-derived-inputs-for'), 'Sparse Weapon must not emit an empty derived-control block');
 assert(sparse.includes('演示中呈现较均衡的攻防节奏'), 'Sparse Weapon observed trait content must remain visible');
 assert(sparse.includes('★★★★☆（4/5）'), 'Sparse Weapon editor-rating content must remain visible');
 assert(sparse.includes('获取方式尚待后续官方资料或正式版验证。'), 'Sparse Weapon acquisition content must remain visible');
@@ -235,12 +273,15 @@ assert(source.locator.evidenceItems.some((item) => item.page === 5 && item.total
 assert(source.locator.evidenceItems.some((item) => item.page === 6 && item.totalPages === 14), 'White Shadow page 6/14 evidence mapping missing');
 assert(source.locator.evidenceItems.some((item) => item.page === 7 && item.totalPages === 14 && item.label.includes('cropped above 寒冰击')), 'White Shadow cropped 7/14 evidence mapping missing');
 assert(whiteShadowData.facts.find((fact) => fact.id === 'fact:weapon:white-shadow:node-ice-strike')?.reviewNote?.includes('可能还有其他成长内容'), 'White Shadow cropped-evidence limitation must remain in Knowledge');
+assert(whiteShadowData.facts.find((fact) => fact.id === 'fact:weapon:white-shadow:mechanic-white-shadow-howls')?.reviewNote?.includes('中性占位'), 'White Shadow resource terminology must remain marked for later official confirmation');
 
 const css = await readFile(resolve(root, 'css', 'style.css'), 'utf8');
-for (const selector of ['.controller-input {', '.controller-input__keycap {', '.controller-input__connector {']) {
+for (const selector of ['.controller-input {', '.controller-input__keycap {', '.controller-input__connector {', '.weapon-derived-inputs {', '.weapon-derived-inputs__controls {']) {
   assert(css.includes(selector), `Controller input desktop styling missing: ${selector}`);
 }
+assert(css.includes('grid-template-columns: minmax(9.5rem, 10.25rem) minmax(0, 1fr);'), 'Derived controls must reserve a bounded desktop input column');
 assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.controller-input \{/, 'Controller input mobile styling missing');
+assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.weapon-derived-inputs > ul > li \{ grid-template-columns: 1fr;/, 'Derived controls must preserve their stacked mobile layout');
 
 console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, and non-Weapon detail isolation.');
 
