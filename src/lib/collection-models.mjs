@@ -1,4 +1,4 @@
-import { aliasValues, getFact } from './knowledge.mjs';
+import { getFact } from './knowledge.mjs';
 
 const typeLabels = { weapon: '武器', character: '角色', boss: 'Boss', location: '地点' };
 const appearanceLabels = { demo: '公开试玩记录', 'gameplay-video': '公开实机记录', 'official-showcase': '官方场景展示' };
@@ -13,8 +13,12 @@ function compactAppearance(entity, key) {
   return value ? appearanceLabels[value] || '公开资料记录' : null;
 }
 
+function publicCardAliases(entity) {
+  return entity.aliases.filter((alias) => alias.kind !== 'legacy-title').map((alias) => alias.value);
+}
+
 function baseCard(entity, href, secondary, context) {
-  return { entity, href, typeLabel: typeLabels[entity.entityType], displayName: entity.displayName, aliases: aliasValues(entity), summary: entity.summary, secondary, context };
+  return { entity, href, typeLabel: typeLabels[entity.entityType], displayName: entity.displayName, aliases: publicCardAliases(entity), summary: entity.summary, secondary, context };
 }
 
 export function buildWeaponCollectionCard(entity) {
