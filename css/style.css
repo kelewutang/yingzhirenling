@@ -2009,8 +2009,14 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 }
 
 /* Weapon media preserves the portrait source frame instead of forcing a wide Hero crop. */
+.entity-detail[data-entity-type="weapon"] {
+  max-width: 67.5rem;
+}
+
 .entity-detail[data-entity-type="weapon"] .entity-hero {
-  grid-template-columns: minmax(15rem, 0.68fr) minmax(0, 1.32fr);
+  grid-template-columns: minmax(20rem, 23.75rem) minmax(0, 38.75rem);
+  gap: clamp(var(--space-6), 3vw, var(--space-8));
+  padding: clamp(var(--space-6), 4vw, var(--space-8));
 }
 
 .entity-detail[data-entity-type="weapon"] .entity-media > img,
@@ -2815,15 +2821,42 @@ body[data-atmosphere="world"] .collection-hero {
   overflow-wrap: anywhere;
 }
 
-/* Weapon cards share the collection hierarchy while reserving a portrait media window. */
+/* Weapon cards use a compact portrait-media encyclopedia pattern above mobile. */
+.collection-page[data-entity-type="weapon"] .entity-card {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.collection-page[data-entity-type="weapon"] .entity-card .entity-media {
+  flex: 0 0 40%;
+  min-width: 0;
+}
+
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media__fallback {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
+  border: 0;
+  border-right: 1px solid var(--color-border);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
   background:
     radial-gradient(circle at 50% 18%, rgb(195 166 106 / 0.1), transparent 42%),
     linear-gradient(140deg, #111514, #1d2421 58%, #101211);
   object-fit: contain;
   object-position: center;
+}
+
+.collection-page[data-entity-type="weapon"] .entity-card__body {
+  justify-content: center;
+  padding: var(--space-3) var(--space-4);
+}
+
+.collection-page[data-entity-type="weapon"] .entity-card__secondary {
+  margin-top: var(--space-2);
+}
+
+.collection-page[data-entity-type="weapon"] .entity-card__summary {
+  margin-top: var(--space-3);
+  -webkit-line-clamp: 2;
 }
 
 .entity-card__body {
@@ -2942,6 +2975,51 @@ body[data-atmosphere="world"] .collection-hero {
   .collection-supporting {
     margin-top: var(--space-12);
     padding-top: var(--space-6);
+  }
+}
+
+/* Weapon cards need wider tracks for their horizontal media-and-copy layout. */
+@media (min-width: 1500px) {
+  .collection-page[data-entity-type="weapon"] .entity-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1499px) {
+  .collection-page[data-entity-type="weapon"] .entity-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1099px) {
+  .collection-page[data-entity-type="weapon"] .entity-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 699px) {
+  .collection-page[data-entity-type="weapon"] .entity-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .collection-page[data-entity-type="weapon"] .entity-card {
+    flex-direction: column;
+  }
+
+  .collection-page[data-entity-type="weapon"] .entity-card .entity-media {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,
+  .collection-page[data-entity-type="weapon"] .entity-card .entity-media__fallback {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
+  .collection-page[data-entity-type="weapon"] .entity-card__body {
+    padding: var(--space-4);
   }
 }
 

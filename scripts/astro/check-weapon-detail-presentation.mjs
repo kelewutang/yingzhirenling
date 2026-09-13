@@ -300,12 +300,27 @@ assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.controller-input \{/,
 assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.weapon-derived-inputs > ul > li \{ grid-template-columns: 1fr;/, 'Derived controls must preserve their stacked mobile layout');
 const weaponDesktopHero = cssRule('.entity-detail[data-entity-type="weapon"] .entity-hero');
 assert.match(weaponDesktopHero, /grid-template-columns:\s*minmax\([^;]+\)\s+minmax\([^;]+\);/, 'Weapon desktop Hero must retain media and text columns');
+assert.match(cssRule('.entity-detail[data-entity-type="weapon"] {'), /max-width:\s*67\.5rem;/, 'Weapon detail content must use the bounded desktop width');
+assert.match(weaponDesktopHero, /grid-template-columns:\s*minmax\(20rem,\s*23\.75rem\)\s+minmax\(0,\s*38\.75rem\);/, 'Weapon desktop Hero must retain compact media and text column bounds');
+assert.match(weaponDesktopHero, /gap:\s*clamp\(var\(--space-6\),\s*3vw,\s*var\(--space-8\)\);/, 'Weapon desktop Hero must retain a compact column gap');
 const weaponDetailMedia = cssRule('.entity-detail[data-entity-type="weapon"] .entity-media > img,');
 assert.match(weaponDetailMedia, /aspect-ratio:\s*3\s*\/\s*4;/, 'Weapon detail media must use the frozen 3:4 portrait ratio');
 assert.match(weaponDetailMedia, /object-fit:\s*contain;/, 'Weapon detail media must preserve the complete weapon with contain');
 const weaponCardMedia = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,');
-assert.match(weaponCardMedia, /aspect-ratio:\s*4\s*\/\s*5;/, 'Weapon collection media must use the frozen 4:5 portrait ratio');
+assert.match(weaponCardMedia, /aspect-ratio:\s*3\s*\/\s*4;/, 'Weapon collection media must use its compact 3:4 portrait ratio');
 assert.match(weaponCardMedia, /object-fit:\s*contain;/, 'Weapon collection media must preserve the complete weapon with contain');
+const weaponHorizontalCard = cssRule('.collection-page[data-entity-type="weapon"] .entity-card {');
+assert.match(weaponHorizontalCard, /flex-direction:\s*row;/, 'Weapon collection cards must use horizontal media-and-copy layout above mobile');
+assert.match(weaponHorizontalCard, /align-items:\s*stretch;/, 'Weapon horizontal cards must stretch their media and body to a shared card height');
+assert.doesNotMatch(weaponHorizontalCard, /align-items:\s*flex-start;/, 'Weapon horizontal cards must not regress to flex-start alignment');
+assert.match(cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media {'), /flex:\s*0\s+0\s+40%;/, 'Weapon collection cards must reserve a bounded left media column');
+assert.match(cssRule('.collection-page[data-entity-type="weapon"] .entity-card__summary {'), /-webkit-line-clamp:\s*2;/, 'Weapon collection summaries must clamp to two lines');
+assertMediaRule('min-width: 1500px', /grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use four columns at wide desktop');
+assertMediaRule('min-width: 1100px\\) and \\(max-width: 1499px', /grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use three columns at normal desktop');
+assertMediaRule('min-width: 700px\\) and \\(max-width: 1099px', /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use two columns at tablet');
+assertMediaRule('max-width: 699px', /grid-template-columns:\s*minmax\(0,\s*1fr\);/, 'Weapon collection must use one column on mobile');
+const weaponCardMobile = mediaRule('max-width: 699px', '.collection-page[data-entity-type="weapon"] .entity-card');
+assert.match(weaponCardMobile, /flex-direction:\s*column;/, 'Weapon collection cards must return to an image-first vertical layout on mobile');
 const weaponMobileBlock = css.match(/@media \(max-width: 700px\) \{([\s\S]*?)\n\}/)?.[1] || '';
 assert.match(weaponMobileBlock, /\.entity-detail\[data-entity-type="weapon"\] \.entity-hero\s*\{\s*grid-template-columns:\s*1fr;/, 'Weapon Hero must collapse to one column on mobile');
 assert(serpent.indexOf('<figure class="entity-media"') < serpent.indexOf('class="entity-hero__identity"'), 'Weapon mobile stack must keep media before text');
@@ -318,6 +333,19 @@ function cssRule(selector) {
   const end = css.indexOf('}', start);
   assert(end > start, `CSS rule is incomplete: ${selector}`);
   return css.slice(start, end + 1);
+}
+
+function mediaRule(query, selector) {
+  const media = new RegExp(`@media \\(${query}\\) \\{([\\s\\S]*?)\\n\\}`).exec(css)?.[1] || '';
+  const start = media.indexOf(selector);
+  assert(start >= 0, `CSS rule missing in @media (${query}): ${selector}`);
+  const end = media.indexOf('}', start);
+  assert(end > start, `CSS rule is incomplete in @media (${query}): ${selector}`);
+  return media.slice(start, end + 1);
+}
+
+function assertMediaRule(query, declaration, message) {
+  assert.match(mediaRule(query, '.collection-page[data-entity-type="weapon"] .entity-grid'), declaration, message);
 }
 
 async function readJson(path) {
