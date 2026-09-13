@@ -2008,6 +2008,21 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
   line-height: 1.5;
 }
 
+/* Weapon media preserves the portrait source frame instead of forcing a wide Hero crop. */
+.entity-detail[data-entity-type="weapon"] .entity-hero {
+  grid-template-columns: minmax(15rem, 0.68fr) minmax(0, 1.32fr);
+}
+
+.entity-detail[data-entity-type="weapon"] .entity-media > img,
+.entity-detail[data-entity-type="weapon"] .entity-media__fallback {
+  aspect-ratio: 3 / 4;
+  background:
+    radial-gradient(circle at 50% 18%, rgb(195 166 106 / 0.1), transparent 42%),
+    linear-gradient(140deg, #111514, #1d2421 58%, #101211);
+  object-fit: contain;
+  object-position: center;
+}
+
 .entity-hero__identity { min-width: 0; }
 
 .entity-hero__eyebrow,
@@ -2354,7 +2369,10 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 @media (max-width: 700px) {
   .entity-detail--pilot { padding-block: var(--space-6) var(--space-12); }
   .entity-hero { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-4); }
+  .entity-detail[data-entity-type="weapon"] .entity-hero { grid-template-columns: 1fr; }
   .entity-media > img, .entity-media__fallback { aspect-ratio: 16 / 9; }
+  .entity-detail[data-entity-type="weapon"] .entity-media > img,
+  .entity-detail[data-entity-type="weapon"] .entity-media__fallback { aspect-ratio: 3 / 4; }
   .entity-hero__identity { padding: var(--space-2); }
   .quick-facts, .detail-fact-section, .source-panel, .relation-panel, .weapon-detail-section { margin-top: var(--space-12); }
   .quick-facts__grid { grid-template-columns: 1fr; }
@@ -2795,6 +2813,17 @@ body[data-atmosphere="world"] .collection-hero {
   max-width: calc(100% - var(--space-8));
   font-size: clamp(1rem, 2.2vw, 1.5rem);
   overflow-wrap: anywhere;
+}
+
+/* Weapon cards share the collection hierarchy while reserving a portrait media window. */
+.collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,
+.collection-page[data-entity-type="weapon"] .entity-card .entity-media__fallback {
+  aspect-ratio: 4 / 5;
+  background:
+    radial-gradient(circle at 50% 18%, rgb(195 166 106 / 0.1), transparent 42%),
+    linear-gradient(140deg, #111514, #1d2421 58%, #101211);
+  object-fit: contain;
+  object-position: center;
 }
 
 .entity-card__body {

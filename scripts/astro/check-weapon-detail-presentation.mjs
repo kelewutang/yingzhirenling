@@ -6,14 +6,16 @@ import { parseControllerInput, parseInlineControllerText } from '../../src/lib/c
 const root = resolve(process.cwd());
 const dist = resolve(root, 'dist', 'weapons');
 const sourceId = 'source:official-douyin-2026-09-09-gameplay-article';
-const [serpent, shadow, sparse, whiteSerpentData, whiteShadowData, source, searchIndex] = await Promise.all([
+const [serpent, shadow, sparse, collection, whiteSerpentData, whiteShadowData, source, searchIndex, mediaRecords] = await Promise.all([
   readFile(resolve(dist, 'white-serpent-crimson-viper.html'), 'utf8'),
   readFile(resolve(dist, 'white-shadow.html'), 'utf8'),
   readFile(resolve(dist, 'tang-hengdao.html'), 'utf8'),
+  readFile(resolve(root, 'dist', 'weapons.html'), 'utf8'),
   readJson('data/weapons/white-serpent-crimson-viper.json'),
   readJson('data/weapons/white-shadow.json'),
   readJson('data/sources/official-douyin-2026-09-09-gameplay-article.json'),
-  readJson('generated/search-index.production.json')
+  readJson('generated/search-index.production.json'),
+  readJson('data/media.json').then((document) => document.records)
 ]);
 const count = (html, value) => html.split(value).length - 1;
 
@@ -148,6 +150,20 @@ const whiteSerpentSearchDocument = (searchIndex.documents || searchIndex).find((
 assert(whiteSerpentSearchDocument, 'White Serpent production search document missing');
 assert(whiteSerpentSearchDocument.aliases.includes(historicalAlias), 'Historical English alias must remain searchable through production index aliases');
 assert(whiteSerpentSearchDocument.displayAliases.includes(historicalAlias), 'Historical English alias must remain in production search display aliases');
+const whiteSerpentCard = collection.match(/<a class="entity-card" href="\/weapons\/white-serpent-crimson-viper"[\s\S]*?<\/a>/)?.[0];
+assert(whiteSerpentCard, 'White Serpent public collection card missing');
+assert(!whiteSerpentCard.includes(historicalAlias) && !whiteSerpentCard.includes(historicalAlias.replace('&', '&amp;')), 'Historical English alias must not render on the White Serpent public collection card');
+for (const [entityId, html] of [
+  ['weapon:white-serpent-crimson-viper', serpent],
+  ['weapon:white-shadow', shadow]
+]) {
+  const media = mediaRecords.find((record) => record.entityId === entityId);
+  assert(media?.usage.includes('hero') && media.usage.includes('card'), `${entityId} must map its approved portrait media to Hero and card`);
+  assert.equal(media.width / media.height, 3 / 4, `${entityId} portrait media must be 3:4`);
+  assert.equal(media.objectFit, 'contain', `${entityId} portrait media must preserve the weapon with contain`);
+  assert(html.includes(`src="/assets/media/${media.src}"`), `${entityId} detail must render approved portrait media`);
+  assert(collection.includes(`src="/assets/media/${media.src}"`), `${entityId} collection card must render approved portrait media`);
+}
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '使用赤练短刃进行凌厉攻击。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '使用白蟒长刃进行斩击；交替点按可循环连招并进入“双蛇共舞”状态，期间伤害不断提升，可穿插变招，也可掷出赤练短刃结束“双蛇共舞”。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround', '让赤练短刃围绕自身持续旋转；旋转期间持续消耗杀气，杀气不足时会强制回收，也可再次按下 L1 + △ 主动回收。');
@@ -282,8 +298,27 @@ for (const selector of ['.controller-input {', '.controller-input__keycap {', '.
 assert(css.includes('grid-template-columns: minmax(9.5rem, 10.25rem) minmax(0, 1fr);'), 'Derived controls must reserve a bounded desktop input column');
 assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.controller-input \{/, 'Controller input mobile styling missing');
 assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.weapon-derived-inputs > ul > li \{ grid-template-columns: 1fr;/, 'Derived controls must preserve their stacked mobile layout');
+const weaponDesktopHero = cssRule('.entity-detail[data-entity-type="weapon"] .entity-hero');
+assert.match(weaponDesktopHero, /grid-template-columns:\s*minmax\([^;]+\)\s+minmax\([^;]+\);/, 'Weapon desktop Hero must retain media and text columns');
+const weaponDetailMedia = cssRule('.entity-detail[data-entity-type="weapon"] .entity-media > img,');
+assert.match(weaponDetailMedia, /aspect-ratio:\s*3\s*\/\s*4;/, 'Weapon detail media must use the frozen 3:4 portrait ratio');
+assert.match(weaponDetailMedia, /object-fit:\s*contain;/, 'Weapon detail media must preserve the complete weapon with contain');
+const weaponCardMedia = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,');
+assert.match(weaponCardMedia, /aspect-ratio:\s*4\s*\/\s*5;/, 'Weapon collection media must use the frozen 4:5 portrait ratio');
+assert.match(weaponCardMedia, /object-fit:\s*contain;/, 'Weapon collection media must preserve the complete weapon with contain');
+const weaponMobileBlock = css.match(/@media \(max-width: 700px\) \{([\s\S]*?)\n\}/)?.[1] || '';
+assert.match(weaponMobileBlock, /\.entity-detail\[data-entity-type="weapon"\] \.entity-hero\s*\{\s*grid-template-columns:\s*1fr;/, 'Weapon Hero must collapse to one column on mobile');
+assert(serpent.indexOf('<figure class="entity-media"') < serpent.indexOf('class="entity-hero__identity"'), 'Weapon mobile stack must keep media before text');
 
 console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, and non-Weapon detail isolation.');
+
+function cssRule(selector) {
+  const start = css.indexOf(selector);
+  assert(start >= 0, `CSS rule missing: ${selector}`);
+  const end = css.indexOf('}', start);
+  assert(end > start, `CSS rule is incomplete: ${selector}`);
+  return css.slice(start, end + 1);
+}
 
 async function readJson(path) {
   return JSON.parse(await readFile(resolve(root, path), 'utf8'));

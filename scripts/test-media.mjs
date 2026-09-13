@@ -50,7 +50,7 @@ async function writeValidationFixture({ records = [], assets = [] }) {
   for (const directory of ['weapons', 'characters', 'bosses', 'locations', 'sources']) {
     await mkdir(join(fixture, 'data', directory), { recursive: true });
   }
-  await writeFile(join(fixture, 'data', 'weapons', 'tang-hengdao.json'), JSON.stringify({ id: 'weapon:tang-hengdao', recordState: 'published' }));
+  await writeFile(join(fixture, 'data', 'weapons', 'tang-hengdao.json'), JSON.stringify({ id: 'weapon:tang-hengdao', entityType: 'weapon', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'media.json'), JSON.stringify({ schemaVersion: '1.0-media-pilot', records }));
   if (assets.length > 0) {
     await mkdir(join(fixture, 'assets', 'media'), { recursive: true });
@@ -145,14 +145,14 @@ await expectValidation('unsafe objectPosition is rejected', {
   records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', objectPosition: 'center; background:url(https://invalid.example)' })],
   assets: [{ name: riskAccepted.src }]
 }, 1, /objectPosition/);
-await expectValidation('portrait hero is rejected by the rendered-slot rule', {
+await expectValidation('portrait Weapon hero is accepted by the rendered-slot rule', {
   records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', width: 640, height: 900 })],
   assets: [{ name: riskAccepted.src, contents: bitmap(640, 900) }]
-}, 1, /hero 必须至少为 640×360 的合理横向图像/);
+}, 0);
 await expectValidation('overwide risk accepted hero is rejected by the rendered-slot rule', {
   records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', width: 1204, height: 400 })],
   assets: [{ name: riskAccepted.src, contents: bitmap(1204, 400) }]
-}, 1, /hero 必须至少为 640×360 的合理横向图像/);
+}, 1, /hero 必须至少为 640×360/);
 await expectValidation('undersized card is rejected by the rendered-slot rule', {
   records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['card'], width: 300, height: 180 })],
   assets: [{ name: riskAccepted.src, contents: bitmap(300, 180) }]

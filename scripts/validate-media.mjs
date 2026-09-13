@@ -156,7 +156,9 @@ if (!isObject(document)) {
       if (media.objectPosition !== undefined && !isSafeObjectPosition(media.objectPosition)) error(`${location}.objectPosition`, '如提供仅可为 center、方位关键字组合或 0%–100% 的百分比对');
       if (media.recordState === 'published' && !productionRightsStatuses.has(media.rightsStatus)) error(`${location}.rightsStatus`, 'published Media 必须具有 production-eligible rightsStatus；review-required、do-not-use 和 unknown 均不得渲染');
       if (isProductionEligible(media) && Array.isArray(media.usage) && media.usage.some((usage) => !productionUsages.has(usage))) error(`${location}.usage`, 'production-eligible Media 当前仅可使用已渲染的 hero 或 card usage；未来 usage 必须保持非 production state');
-      if (Array.isArray(media.usage) && media.usage.includes('hero') && Number.isInteger(media.width) && Number.isInteger(media.height) && (media.width < 640 || media.height < 360 || media.width < media.height || media.width / media.height > 3)) error(`${location}.usage`, 'hero 必须至少为 640×360 的合理横向图像（宽高比 1:1 至 3:1）');
+      const heroMinRatio = entity?.entityType === 'weapon' ? 0.5 : 1;
+      const heroRatioLabel = entity?.entityType === 'weapon' ? '1:2 至 3:1' : '1:1 至 3:1';
+      if (Array.isArray(media.usage) && media.usage.includes('hero') && Number.isInteger(media.width) && Number.isInteger(media.height) && (media.width < 640 || media.height < 360 || media.width / media.height < heroMinRatio || media.width / media.height > 3)) error(`${location}.usage`, `hero 必须至少为 640×360，且宽高比在 ${heroRatioLabel} 之间`);
       if (Array.isArray(media.usage) && media.usage.includes('card') && Number.isInteger(media.width) && Number.isInteger(media.height) && (media.width < 320 || media.height < 180 || media.width / media.height < 0.5 || media.width / media.height > 3)) error(`${location}.usage`, 'card 必须至少为 320×180，且宽高比在 1:2 至 3:1 之间');
       if (typeof media.src !== 'string' || !filenamePattern.test(media.src) || !mimeTypes.has(media.mimeType)) continue;
       const assetPath = path.join(assetsDirectory, media.src);
