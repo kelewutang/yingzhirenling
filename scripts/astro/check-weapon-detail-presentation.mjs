@@ -6,11 +6,12 @@ import { parseControllerInput, parseInlineControllerText } from '../../src/lib/c
 const root = resolve(process.cwd());
 const dist = resolve(root, 'dist', 'weapons');
 const sourceId = 'source:official-douyin-2026-09-09-gameplay-article';
-const [serpent, shadow, sparse, collection, whiteSerpentData, whiteShadowData, source, searchIndex, mediaRecords] = await Promise.all([
+const [serpent, shadow, sparse, collection, charactersCollection, whiteSerpentData, whiteShadowData, source, searchIndex, mediaRecords] = await Promise.all([
   readFile(resolve(dist, 'white-serpent-crimson-viper.html'), 'utf8'),
   readFile(resolve(dist, 'white-shadow.html'), 'utf8'),
   readFile(resolve(dist, 'tang-hengdao.html'), 'utf8'),
   readFile(resolve(root, 'dist', 'weapons.html'), 'utf8'),
+  readFile(resolve(root, 'dist', 'characters.html'), 'utf8'),
   readJson('data/weapons/white-serpent-crimson-viper.json'),
   readJson('data/weapons/white-shadow.json'),
   readJson('data/sources/official-douyin-2026-09-09-gameplay-article.json'),
@@ -153,6 +154,13 @@ assert(whiteSerpentSearchDocument.displayAliases.includes(historicalAlias), 'His
 const whiteSerpentCard = collection.match(/<a class="entity-card" href="\/weapons\/white-serpent-crimson-viper"[\s\S]*?<\/a>/)?.[0];
 assert(whiteSerpentCard, 'White Serpent public collection card missing');
 assert(!whiteSerpentCard.includes(historicalAlias) && !whiteSerpentCard.includes(historicalAlias.replace('&', '&amp;')), 'Historical English alias must not render on the White Serpent public collection card');
+const bashpoleCard = collection.match(/<a class="entity-card" href="\/weapons\/bashpole"[\s\S]*?<\/a>/)?.[0];
+assert(bashpoleCard?.includes('entity-media__fallback'), 'Bashpole card must retain its fallback media');
+const bashpoleFallback = bashpoleCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
+assert(!bashpoleFallback.includes('entity-media__name') && !bashpoleFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
+const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
+assert(characterFallback.includes('entity-media__fallback'), 'Character card must retain its fallback media');
+assert(characterFallback.includes('entity-media__name') && characterFallback.includes('entity-media__type'), 'Non-Weapon card fallback must retain fallback name and type classes');
 for (const [entityId, html] of [
   ['weapon:white-serpent-crimson-viper', serpent],
   ['weapon:white-shadow', shadow]
@@ -307,17 +315,27 @@ const weaponDetailMedia = cssRule('.entity-detail[data-entity-type="weapon"] .en
 assert.match(weaponDetailMedia, /aspect-ratio:\s*3\s*\/\s*4;/, 'Weapon detail media must use the frozen 3:4 portrait ratio');
 assert.match(weaponDetailMedia, /object-fit:\s*contain;/, 'Weapon detail media must preserve the complete weapon with contain');
 const weaponCardMedia = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,');
-assert.match(weaponCardMedia, /aspect-ratio:\s*3\s*\/\s*4;/, 'Weapon collection media must use its compact 3:4 portrait ratio');
+assert.match(weaponCardMedia, /aspect-ratio:\s*3\s*\/\s*4;/, 'Weapon collection media must retain a portrait window for mobile');
 assert.match(weaponCardMedia, /object-fit:\s*contain;/, 'Weapon collection media must preserve the complete weapon with contain');
 const weaponHorizontalCard = cssRule('.collection-page[data-entity-type="weapon"] .entity-card {');
 assert.match(weaponHorizontalCard, /flex-direction:\s*row;/, 'Weapon collection cards must use horizontal media-and-copy layout above mobile');
 assert.match(weaponHorizontalCard, /align-items:\s*stretch;/, 'Weapon horizontal cards must stretch their media and body to a shared card height');
 assert.doesNotMatch(weaponHorizontalCard, /align-items:\s*flex-start;/, 'Weapon horizontal cards must not regress to flex-start alignment');
-assert.match(cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media {'), /flex:\s*0\s+0\s+40%;/, 'Weapon collection cards must reserve a bounded left media column');
+assert.match(cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media {'), /flex:\s*0\s+0\s+36%;/, 'Weapon collection cards must reserve a bounded left media column');
+const weaponHorizontalRail = mediaRule('min-width: 700px', '.collection-page[data-entity-type="weapon"] .entity-card .entity-media');
+assert.match(weaponHorizontalRail, /display:\s*grid;/, 'Weapon horizontal media must use a full-height rail container');
+assert.match(weaponHorizontalRail, /align-self:\s*stretch;/, 'Weapon horizontal media rail must stretch to the card height');
+assert.match(weaponHorizontalRail, /padding:\s*var\(--space-3\);/, 'Weapon horizontal media rail must retain bounded internal padding');
+const weaponHorizontalMedia = mediaRule('min-width: 700px', '.collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,');
+assert.match(weaponHorizontalMedia, /height:\s*100%;/, 'Weapon horizontal media content must fill the rail height');
+assert.match(weaponHorizontalMedia, /aspect-ratio:\s*auto;/, 'Weapon horizontal media must not retain a top-left 3:4 box');
+assert.doesNotMatch(weaponHorizontalMedia, /aspect-ratio:\s*3\s*\/\s*4;/, 'Weapon horizontal media must not regress to a top-left 3:4 box');
+assert.match(weaponHorizontalMedia, /object-fit:\s*contain;/, 'Weapon horizontal media content must preserve the complete weapon');
+assert.match(weaponHorizontalMedia, /object-position:\s*center;/, 'Weapon horizontal media content must center inside the rail');
 assert.match(cssRule('.collection-page[data-entity-type="weapon"] .entity-card__summary {'), /-webkit-line-clamp:\s*2;/, 'Weapon collection summaries must clamp to two lines');
-assertMediaRule('min-width: 1500px', /grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use four columns at wide desktop');
-assertMediaRule('min-width: 1100px\\) and \\(max-width: 1499px', /grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use three columns at normal desktop');
-assertMediaRule('min-width: 700px\\) and \\(max-width: 1099px', /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use two columns at tablet');
+assertMediaRule('min-width: 1600px', /grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use three columns at wide desktop');
+assertMediaRule('min-width: 1000px\\) and \\(max-width: 1599px', /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use two columns at normal desktop');
+assertMediaRule('min-width: 700px\\) and \\(max-width: 999px', /grid-template-columns:\s*minmax\(0,\s*1fr\);/, 'Weapon collection must use one column at narrower desktop and tablet');
 assertMediaRule('max-width: 699px', /grid-template-columns:\s*minmax\(0,\s*1fr\);/, 'Weapon collection must use one column on mobile');
 const weaponCardMobile = mediaRule('max-width: 699px', '.collection-page[data-entity-type="weapon"] .entity-card');
 assert.match(weaponCardMobile, /flex-direction:\s*column;/, 'Weapon collection cards must return to an image-first vertical layout on mobile');

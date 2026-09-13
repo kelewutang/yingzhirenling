@@ -2828,7 +2828,7 @@ body[data-atmosphere="world"] .collection-hero {
 }
 
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media {
-  flex: 0 0 40%;
+  flex: 0 0 36%;
   min-width: 0;
 }
 
@@ -2843,6 +2843,29 @@ body[data-atmosphere="world"] .collection-hero {
     linear-gradient(140deg, #111514, #1d2421 58%, #101211);
   object-fit: contain;
   object-position: center;
+}
+
+@media (min-width: 700px) {
+  .collection-page[data-entity-type="weapon"] .entity-card .entity-media {
+    display: grid;
+    align-self: stretch;
+    min-block-size: 10rem;
+    padding: var(--space-3);
+    border-right: 1px solid var(--color-border);
+  }
+
+  .collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,
+  .collection-page[data-entity-type="weapon"] .entity-card .entity-media__fallback {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    aspect-ratio: auto;
+    border-right: 0;
+    border-radius: var(--radius-sm);
+    object-fit: contain;
+    object-position: center;
+  }
 }
 
 .collection-page[data-entity-type="weapon"] .entity-card__body {
@@ -2979,21 +3002,21 @@ body[data-atmosphere="world"] .collection-hero {
 }
 
 /* Weapon cards need wider tracks for their horizontal media-and-copy layout. */
-@media (min-width: 1500px) {
-  .collection-page[data-entity-type="weapon"] .entity-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1100px) and (max-width: 1499px) {
+@media (min-width: 1600px) {
   .collection-page[data-entity-type="weapon"] .entity-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 700px) and (max-width: 1099px) {
+@media (min-width: 1000px) and (max-width: 1599px) {
   .collection-page[data-entity-type="weapon"] .entity-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 700px) and (max-width: 999px) {
+  .collection-page[data-entity-type="weapon"] .entity-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
