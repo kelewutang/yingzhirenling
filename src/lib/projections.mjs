@@ -3,7 +3,8 @@ import { getFact, statusLabel, versionLabel } from './knowledge.mjs';
 const specs = [
   ['weapon.exists', '核心资料', '公开记录'],
   ['weapon.name', '核心资料', '名称记录'],
-  ['weapon.kind', '核心资料', '武器类型'],
+  ['weapon.systemCategory', '核心资料', '武器定位'],
+  ['weapon.weaponType', '核心资料', '武器类型'],
   ['weapon.publicAppearance', '核心资料', '公开出现方式'],
   ['weapon.observedTrait', '试玩与公开实机观察', '演示观察'],
   ['weapon.mechanic', '战斗机制', '机制名称'],
@@ -96,7 +97,13 @@ function preferredWeaponFact(facts, knowledge) {
 }
 
 export function projectWeaponDetail(weapon, knowledge) {
-  const typeFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.kind'), knowledge);
+  const systemCategoryFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.systemCategory'), knowledge);
+  const weaponTypeFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.weaponType'), knowledge);
+  const taxonomy = systemCategoryFact && weaponTypeFact ? {
+    systemCategory: projectWeaponFact(systemCategoryFact, '武器概览', '武器定位', knowledge),
+    weaponType: projectWeaponFact(weaponTypeFact, '武器概览', '武器类型', knowledge),
+    valueText: `${displayValue(systemCategoryFact)} · ${displayValue(weaponTypeFact)}`
+  } : null;
   const previewStats = activeWeaponFacts(weapon, 'weapon.previewStat')
     .map((fact) => projectWeaponFact(fact, '武器概览', '预发布 Lv30 展示', knowledge));
   const overviewNotes = [
@@ -107,10 +114,11 @@ export function projectWeaponDetail(weapon, knowledge) {
     .map((fact) => projectWeaponFact(fact, '武器概览', title, knowledge)));
 
   return {
-    eyebrow: typeFact ? `武器 · ${displayValue(typeFact)}` : '武器',
+    eyebrow: '武器',
+    taxonomy,
     overview: {
       displayName: weapon.displayName,
-      type: typeFact ? projectWeaponFact(typeFact, '武器概览', '武器类型', knowledge) : null,
+      taxonomy,
       notes: overviewNotes,
       previewStats
     },

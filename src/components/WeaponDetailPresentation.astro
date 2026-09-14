@@ -15,9 +15,9 @@ const { overview, mechanics, progressionNodes } = detail;
       <dt>武器名称</dt>
       <dd>{overview.displayName}</dd>
     </div>
-    {overview.type && <div data-weapon-overview-field="type" data-fact-id={overview.type.id}>
-      <dt>武器类型</dt>
-      <dd>{overview.type.valueText}</dd>
+    {overview.taxonomy && <div data-weapon-overview-field="taxonomy" data-system-category-fact-id={overview.taxonomy.systemCategory.id} data-weapon-type-fact-id={overview.taxonomy.weaponType.id} data-fact-id={overview.taxonomy.systemCategory.id}>
+      <dt>武器分类</dt>
+      <dd>{overview.taxonomy.valueText}</dd>
     </div>}
   </dl>
   {overview.notes.length > 0 && <dl class="weapon-overview__notes">

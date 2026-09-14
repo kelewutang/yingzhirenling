@@ -22,8 +22,13 @@ const count = (html, value) => html.split(value).length - 1;
 
 function overview(html) {
   const start = html.indexOf('data-weapon-section="overview"');
-  const end = html.indexOf('data-weapon-section="mechanics"');
-  assert(start >= 0 && end > start, 'Weapon overview must precede mechanics');
+  const end = [
+    html.indexOf('data-weapon-section="mechanics"', start),
+    html.indexOf('data-weapon-section="progression"', start),
+    html.indexOf('id="relations-title"', start),
+    html.indexOf('id="sources-title"', start)
+  ].filter((index) => index > start).sort((left, right) => left - right)[0] ?? html.length;
+  assert(start >= 0 && end > start, 'Weapon overview must be present before later detail sections');
   return html.slice(start, end);
 }
 
@@ -111,17 +116,19 @@ function assertDerivedInput(block, { label, labelKind, inputs, description }) {
   }
 }
 
-function assertOverview(html, { name, type, typeFactId, historicalNameFactId, historicalTypeFactId, previewStats }) {
+function assertOverview(html, { name, taxonomy, systemCategoryFactId, weaponTypeFactId, historicalNameFactId, historicalTypeFactIds, previewStats }) {
   const rendered = overview(html);
   assert.equal(count(html, 'data-weapon-section="overview"'), 1, 'Weapon overview must render once');
   assert.equal(count(html, 'data-weapon-overview-field="name"'), 1, 'Current display name must have one overview row');
   assert.equal(count(html, '<dt>武器名称</dt>'), 1, 'Weapon page must not duplicate a primary name row');
-  assert.equal(count(html, '<dt>武器类型</dt>'), 1, 'Weapon page must not duplicate a primary type row');
+  assert.equal(count(html, '<dt>武器分类</dt>'), 1, 'Weapon page must not duplicate a primary taxonomy row');
   assert(rendered.includes(`<dd>${name}</dd>`), `Current display name missing: ${name}`);
-  assert(rendered.includes(`data-weapon-overview-field="type" data-fact-id="${typeFactId}"`), 'Preferred type Fact missing');
-  assert(rendered.includes(`<dd>${type}</dd>`), `Preferred type missing: ${type}`);
+  assert(rendered.includes(`data-weapon-overview-field="taxonomy" data-system-category-fact-id="${systemCategoryFactId}" data-weapon-type-fact-id="${weaponTypeFactId}"`), 'Normalized taxonomy Facts missing');
+  assert(rendered.includes(`<dd>${taxonomy}</dd>`), `Normalized taxonomy missing: ${taxonomy}`);
   if (historicalNameFactId) assert(!html.includes(`data-fact-id="${historicalNameFactId}"`), 'Historical name must not duplicate the primary overview');
-  if (historicalTypeFactId) assert(!html.includes(`data-fact-id="${historicalTypeFactId}"`), 'Historical type must not duplicate the primary overview');
+  for (const historicalTypeFactId of historicalTypeFactIds || []) {
+    assert(!rendered.includes(`data-fact-id="${historicalTypeFactId}"`), 'Legacy mixed type must not drive the public overview');
+  }
   assert.equal(count(html, 'data-weapon-preview-stats'), 1, 'Preview stats must be grouped once');
   assert(rendered.includes('预发布 Lv30 展示'), 'Preview stats must remain explicitly pre-release UI values');
   for (const [id, label, value] of previewStats) {
@@ -134,10 +141,11 @@ function assertOverview(html, { name, type, typeFactId, historicalNameFactId, hi
 
 assertOverview(serpent, {
   name: '白蟒赤练',
-  type: '双持武器',
-  typeFactId: 'fact:weapon:white-serpent-crimson-viper:kind-dual-wield',
+  taxonomy: '主武器 · 双剑',
+  systemCategoryFactId: 'fact:weapon:white-serpent-crimson-viper:system-category',
+  weaponTypeFactId: 'fact:weapon:white-serpent-crimson-viper:weapon-type',
   historicalNameFactId: 'fact:weapon:white-serpent-crimson-viper:name',
-  historicalTypeFactId: 'fact:weapon:white-serpent-crimson-viper:kind',
+  historicalTypeFactIds: ['fact:weapon:white-serpent-crimson-viper:kind', 'fact:weapon:white-serpent-crimson-viper:kind-dual-wield'],
   previewStats: [
     ['fact:weapon:white-serpent-crimson-viper:preview-damage-ability-lv30', '伤害能力', 1217],
     ['fact:weapon:white-serpent-crimson-viper:preview-break-ability-lv30', '破防能力', 640]
@@ -154,6 +162,32 @@ assert(whiteSerpentSearchDocument.displayAliases.includes(historicalAlias), 'His
 const whiteSerpentCard = collection.match(/<a class="entity-card" href="\/weapons\/white-serpent-crimson-viper"[\s\S]*?<\/a>/)?.[0];
 assert(whiteSerpentCard, 'White Serpent public collection card missing');
 assert(!whiteSerpentCard.includes(historicalAlias) && !whiteSerpentCard.includes(historicalAlias.replace('&', '&amp;')), 'Historical English alias must not render on the White Serpent public collection card');
+for (const [slug, systemCategory, weaponType] of [
+  ['bashpole', '影之武', '大锤'],
+  ['jagged-steel', '主武器', '剑'],
+  ['night-owl', '影之武', '弓'],
+  ['seamless-death', '主武器', '投掷类'],
+  ['soft-snake-sword', '主武器', '剑'],
+  ['tang-hengdao', '主武器', '刀类'],
+  ['white-serpent-crimson-viper', '主武器', '双剑'],
+  ['white-shadow', '主武器', '双手剑'],
+  ['ya-hengdao', '主武器', '刀类']
+]) {
+  const taxonomy = `${systemCategory} · ${weaponType}`;
+  const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0];
+  assert(card, `${slug}: public collection card missing`);
+  assert(card.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: collection card taxonomy missing`);
+
+  const detail = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  const hero = detail.match(/<header class="entity-hero">[\s\S]*?<\/header>/)?.[0] || '';
+  assert(hero.indexOf(`<h1 class="entity-hero__title">`) < hero.indexOf('data-weapon-hero-taxonomy'), `${slug}: Hero taxonomy must follow the left-aligned name`);
+  assert(hero.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: Hero taxonomy missing`);
+  const renderedOverview = overview(detail);
+  assert(renderedOverview.includes(`data-system-category-fact-id="fact:weapon:${slug}:system-category"`), `${slug}: overview system category must use its normalized Fact`);
+  assert(renderedOverview.includes(`data-weapon-type-fact-id="fact:weapon:${slug}:weapon-type"`), `${slug}: overview weapon type must use its normalized Fact`);
+  assert(renderedOverview.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: overview taxonomy missing`);
+  assert(!renderedOverview.includes('data-weapon-overview-field="type"'), `${slug}: legacy mixed kind must not render in overview`);
+}
 const bashpoleCard = collection.match(/<a class="entity-card" href="\/weapons\/bashpole"[\s\S]*?<\/a>/)?.[0];
 assert(bashpoleCard?.includes('entity-media__fallback'), 'Bashpole card must retain its fallback media');
 const bashpoleFallback = bashpoleCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
@@ -208,8 +242,9 @@ assertProgressionLevel(serpent, 'fact:weapon:white-serpent-crimson-viper:node-ho
 
 assertOverview(shadow, {
   name: '白影',
-  type: '双手武器',
-  typeFactId: 'fact:weapon:white-shadow:kind',
+  taxonomy: '主武器 · 双手剑',
+  systemCategoryFactId: 'fact:weapon:white-shadow:system-category',
+  weaponTypeFactId: 'fact:weapon:white-shadow:weapon-type',
   previewStats: [
     ['fact:weapon:white-shadow:preview-damage-ability-lv30', '伤害能力', 1443],
     ['fact:weapon:white-shadow:preview-break-ability-lv30', '破防能力', 757]

@@ -2052,6 +2052,14 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
   letter-spacing: var(--tracking-display);
 }
 
+.entity-hero__taxonomy {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  font-weight: 650;
+  line-height: 1.5;
+}
+
 .entity-hero__aliases {
   margin: var(--space-3) 0 0;
   color: var(--color-text-muted);

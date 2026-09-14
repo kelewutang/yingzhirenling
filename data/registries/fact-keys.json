@@ -19,7 +19,21 @@
       "key": "weapon.kind",
       "applicableEntityTypes": ["weapon"],
       "allowedValueTypes": ["string"],
-      "description": "当前材料能够支持的武器类型描述。",
+      "description": "历史兼容用的混合武器分类描述；已发布 Weapon 的公开 taxonomy 必须使用 weapon.systemCategory 与 weapon.weaponType。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.systemCategory",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["string"],
+      "description": "武器在已确认武器系统中的定位类别，例如主武器或影之武。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.weaponType",
+      "applicableEntityTypes": ["weapon"],
+      "allowedValueTypes": ["string"],
+      "description": "武器本体类型，例如剑、弓、双剑或双手剑；不与系统定位混写。",
       "requiresAsOf": false
     },
     {

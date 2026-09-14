@@ -214,7 +214,7 @@ function deriveKeywords(entity) {
 
   for (const fact of entity.facts) {
     if (!SEARCHABLE_FACT_STATUSES.has(fact.status) || fact.value === null) continue;
-    if ((fact.key === 'weapon.kind' || fact.key === 'character.role' || fact.key === 'location.kind') && typeof fact.value === 'string') {
+    if ((fact.key === 'weapon.kind' || fact.key === 'weapon.systemCategory' || fact.key === 'weapon.weaponType' || fact.key === 'character.role' || fact.key === 'location.kind') && typeof fact.value === 'string') {
       keywords.push(fact.value);
     }
     if ((fact.key === 'weapon.publicAppearance' || fact.key === 'location.publicAppearance') && typeof fact.value === 'string') {

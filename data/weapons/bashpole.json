@@ -70,6 +70,8 @@
       "supersededBy": null,
       "reviewNote": null
     },
+    {"id": "fact:weapon:bashpole:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "影之武", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:bashpole:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "大锤", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
     {
       "id": "fact:weapon:bashpole:public-appearance",
       "key": "weapon.publicAppearance",

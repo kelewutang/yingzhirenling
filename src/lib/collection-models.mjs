@@ -17,12 +17,18 @@ function publicCardAliases(entity) {
   return entity.aliases.filter((alias) => alias.kind !== 'legacy-title').map((alias) => alias.value);
 }
 
+function weaponTaxonomy(entity) {
+  const systemCategory = factValue(entity, 'weapon.systemCategory');
+  const weaponType = factValue(entity, 'weapon.weaponType');
+  return systemCategory && weaponType ? `${systemCategory} · ${weaponType}` : null;
+}
+
 function baseCard(entity, href, secondary, context) {
   return { entity, href, typeLabel: typeLabels[entity.entityType], displayName: entity.displayName, aliases: publicCardAliases(entity), summary: entity.summary, secondary, context };
 }
 
 export function buildWeaponCollectionCard(entity) {
-  return baseCard(entity, `/weapons/${entity.slug}`, factValue(entity, 'weapon.kind'), compactAppearance(entity, 'weapon.publicAppearance'));
+  return baseCard(entity, `/weapons/${entity.slug}`, weaponTaxonomy(entity), compactAppearance(entity, 'weapon.publicAppearance'));
 }
 
 export function buildCharacterCollectionCard(entity) {

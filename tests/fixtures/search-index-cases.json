@@ -61,6 +61,69 @@
       }
     },
     {
+      "name": "weapon-taxonomy-and-legacy-kind-keywords",
+      "mode": "production",
+      "weapons": [
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-taxonomy-dual",
+          "entityType": "weapon",
+          "slug": "fixture-taxonomy-dual",
+          "displayName": "测试双剑",
+          "aliases": [],
+          "summary": "仅用于验证新 Weapon taxonomy 与历史分类搜索词。",
+          "summaryFactIds": ["fact:weapon:fixture-taxonomy-dual:legacy-kind"],
+          "facts": [
+            {"id": "fact:weapon:fixture-taxonomy-dual:legacy-kind", "key": "weapon.kind", "value": "历史双持分类", "status": "observation"},
+            {"id": "fact:weapon:fixture-taxonomy-dual:system-category", "key": "weapon.systemCategory", "value": "主武器", "status": "observation"},
+            {"id": "fact:weapon:fixture-taxonomy-dual:weapon-type", "key": "weapon.weaponType", "value": "双剑", "status": "observation"}
+          ],
+          "recordState": "published",
+          "resolution": null
+        },
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-taxonomy-shadow",
+          "entityType": "weapon",
+          "slug": "fixture-taxonomy-shadow",
+          "displayName": "测试影之双手剑",
+          "aliases": [],
+          "summary": "仅用于验证影之武与双手剑搜索词。",
+          "summaryFactIds": ["fact:weapon:fixture-taxonomy-shadow:system-category"],
+          "facts": [
+            {"id": "fact:weapon:fixture-taxonomy-shadow:system-category", "key": "weapon.systemCategory", "value": "影之武", "status": "observation"},
+            {"id": "fact:weapon:fixture-taxonomy-shadow:weapon-type", "key": "weapon.weaponType", "value": "双手剑", "status": "observation"}
+          ],
+          "recordState": "published",
+          "resolution": null
+        },
+        {
+          "schemaVersion": "1.0-implementation",
+          "id": "weapon:fixture-taxonomy-thrown",
+          "entityType": "weapon",
+          "slug": "fixture-taxonomy-thrown",
+          "displayName": "测试投掷武器",
+          "aliases": [],
+          "summary": "仅用于验证投掷类搜索词。",
+          "summaryFactIds": ["fact:weapon:fixture-taxonomy-thrown:system-category"],
+          "facts": [
+            {"id": "fact:weapon:fixture-taxonomy-thrown:system-category", "key": "weapon.systemCategory", "value": "主武器", "status": "observation"},
+            {"id": "fact:weapon:fixture-taxonomy-thrown:weapon-type", "key": "weapon.weaponType", "value": "投掷类", "status": "observation"}
+          ],
+          "recordState": "published",
+          "resolution": null
+        }
+      ],
+      "expected": {
+        "documentIds": ["weapon:fixture-taxonomy-dual", "weapon:fixture-taxonomy-shadow", "weapon:fixture-taxonomy-thrown"],
+        "documents": {
+          "weapon:fixture-taxonomy-dual": {"keywords": ["主武器", "历史双持分类", "双剑", "武器"]},
+          "weapon:fixture-taxonomy-shadow": {"keywords": ["双手剑", "影之武", "武器"]},
+          "weapon:fixture-taxonomy-thrown": {"keywords": ["主武器", "投掷类", "武器"]}
+        }
+      }
+    },
+    {
       "name": "published-production-visible-entity-type-pending-not-leaked",
       "mode": "production",
       "weapons": [

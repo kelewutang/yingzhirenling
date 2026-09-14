@@ -32,7 +32,7 @@ assert(page.includes('id="weapon-overview-title"'), 'Tang Hengdao Weapon overvie
 assert(page.includes('id="sources-title"'), 'Tang Hengdao Sources missing');
 assert(page.includes('class="footer site-footer"'), 'Tang Hengdao shared footer missing');
 
-assert(page.includes('data-weapon-overview-field="type" data-fact-id="fact:weapon:tang-hengdao:kind"'), 'Tang Hengdao overview type missing');
+assert(page.includes('data-weapon-overview-field="taxonomy" data-system-category-fact-id="fact:weapon:tang-hengdao:system-category" data-weapon-type-fact-id="fact:weapon:tang-hengdao:weapon-type"'), 'Tang Hengdao normalized taxonomy missing');
 assert(page.includes('data-weapon-overview-note="weapon.observedTrait" data-fact-id="fact:weapon:tang-hengdao:observed-trait"'), 'Tang Hengdao observed trait missing from overview');
 assert(!page.includes('data-weapon-section="mechanics"'), 'Sparse Tang Hengdao must not emit an empty mechanics section');
 assert(!page.includes('data-weapon-section="progression"'), 'Sparse Tang Hengdao must not emit an empty progression section');

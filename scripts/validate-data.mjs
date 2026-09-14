@@ -41,6 +41,8 @@ const WEAPON_DERIVED_INPUTS_MAX_ITEMS = 8;
 const WEAPON_DERIVED_INPUT_VARIANTS_MAX_ITEMS = 4;
 const NAMED_WEAPON_DETAIL_KEYS = new Set(['weapon.mechanic', 'weapon.progressionNode']);
 const DERIVED_INPUT_LABEL_KINDS = new Set(['official', 'functional']);
+const WEAPON_SYSTEM_CATEGORIES = new Set(['主武器', '影之武']);
+const WEAPON_TYPES = new Set(['大锤', '剑', '弓', '投掷类', '刀类', '双剑', '双手剑']);
 
 const errors = [];
 const idOwners = new Map();
@@ -306,6 +308,24 @@ function validatePublicationMetadata(entity, location, report) {
   if (isValidDate(entity.publishedAt) && isValidDate(entity.updatedAt) &&
       entity.publishedAt > entity.updatedAt) {
     report(`${location}.publishedAt`, '不得晚于 updatedAt');
+  }
+}
+
+function validatePublishedWeaponTaxonomy(entity, location, report = error) {
+  if (entity.entityType !== 'weapon' || entity.recordState !== 'published' || !Array.isArray(entity.facts)) return;
+  const activeFacts = (key) => entity.facts.filter((fact) => fact?.key === key && fact.supersededBy === null);
+  const systemCategoryFacts = activeFacts('weapon.systemCategory');
+  const weaponTypeFacts = activeFacts('weapon.weaponType');
+
+  if (systemCategoryFacts.length !== 1) {
+    report(`${location}.facts`, '已发布 Weapon 必须恰有一个 active weapon.systemCategory Fact');
+  } else if (!WEAPON_SYSTEM_CATEGORIES.has(systemCategoryFacts[0].value)) {
+    report(`${location}.facts`, `weapon.systemCategory 不在允许 taxonomy 中：${systemCategoryFacts[0].value}`);
+  }
+  if (weaponTypeFacts.length !== 1) {
+    report(`${location}.facts`, '已发布 Weapon 必须恰有一个 active weapon.weaponType Fact');
+  } else if (!WEAPON_TYPES.has(weaponTypeFacts[0].value)) {
+    report(`${location}.facts`, `weapon.weaponType 不在允许 taxonomy 中：${weaponTypeFacts[0].value}`);
   }
 }
 
@@ -675,6 +695,7 @@ for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ..
     error(`${relative}.facts`, '必须是数组');
     continue;
   }
+  validatePublishedWeaponTaxonomy(entity, relative);
   for (const [index, fact] of entity.facts.entries()) {
     const location = `${relative}.facts[${index}]`;
     if (!isObject(fact)) {
