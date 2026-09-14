@@ -28,6 +28,8 @@ const productionRightsStatuses = new Set([
 const sourceTypes = new Set(['official-promotional', 'press-asset', 'self-captured', 'third-party-permitted']);
 const usages = new Set(['hero', 'card', 'gallery', 'inline', 'thumbnail']);
 const productionUsages = new Set(['hero', 'card']);
+const weaponMasterWidth = 1200;
+const weaponMasterHeight = 1800;
 const mimeTypes = new Map([
   ['image/jpeg', 'jpg'],
   ['image/png', 'png'],
@@ -156,6 +158,11 @@ if (!isObject(document)) {
       if (media.objectPosition !== undefined && !isSafeObjectPosition(media.objectPosition)) error(`${location}.objectPosition`, '如提供仅可为 center、方位关键字组合或 0%–100% 的百分比对');
       if (media.recordState === 'published' && !productionRightsStatuses.has(media.rightsStatus)) error(`${location}.rightsStatus`, 'published Media 必须具有 production-eligible rightsStatus；review-required、do-not-use 和 unknown 均不得渲染');
       if (isProductionEligible(media) && Array.isArray(media.usage) && media.usage.some((usage) => !productionUsages.has(usage))) error(`${location}.usage`, 'production-eligible Media 当前仅可使用已渲染的 hero 或 card usage；未来 usage 必须保持非 production state');
+      if (isProductionEligible(media) && entity?.entityType === 'weapon') {
+        if (!Array.isArray(media.usage) || media.usage.length !== 2 || !media.usage.includes('hero') || !media.usage.includes('card')) error(`${location}.usage`, 'production-eligible Weapon Master 必须由同一 Media record 同时支持 hero 和 card usage');
+        if (media.width !== weaponMasterWidth || media.height !== weaponMasterHeight) error(`${location}.width/height`, `production-eligible Weapon Master 必须为 ${weaponMasterWidth}×${weaponMasterHeight}`);
+        if (media.objectFit !== 'contain') error(`${location}.objectFit`, 'production-eligible Weapon Master 必须使用 contain');
+      }
       const heroMinRatio = entity?.entityType === 'weapon' ? 0.5 : 1;
       const heroRatioLabel = entity?.entityType === 'weapon' ? '1:2 至 3:1' : '1:1 至 3:1';
       if (Array.isArray(media.usage) && media.usage.includes('hero') && Number.isInteger(media.width) && Number.isInteger(media.height) && (media.width < 640 || media.height < 360 || media.width / media.height < heroMinRatio || media.width / media.height > 3)) error(`${location}.usage`, `hero 必须至少为 640×360，且宽高比在 ${heroRatioLabel} 之间`);

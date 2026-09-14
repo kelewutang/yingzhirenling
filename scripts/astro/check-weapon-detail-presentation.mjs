@@ -202,16 +202,26 @@ assert(!bashpoleFallback.includes('entity-media__name') && !bashpoleFallback.inc
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
 assert(characterFallback.includes('entity-media__fallback'), 'Character card must retain its fallback media');
 assert(characterFallback.includes('entity-media__name') && characterFallback.includes('entity-media__type'), 'Non-Weapon card fallback must retain fallback name and type classes');
-for (const [entityId, html] of [
-  ['weapon:white-serpent-crimson-viper', serpent],
-  ['weapon:white-shadow', shadow]
+for (const [entityId, slug, expectedId, expectedSrc, html] of [
+  ['weapon:white-serpent-crimson-viper', 'white-serpent-crimson-viper', 'media:white-serpent-crimson-viper-master', 'white-serpent-crimson-viper-master.jpg', serpent],
+  ['weapon:white-shadow', 'white-shadow', 'media:white-shadow-master', 'white-shadow-master.jpg', shadow]
 ]) {
   const media = mediaRecords.find((record) => record.entityId === entityId);
-  assert(media?.usage.includes('hero') && media.usage.includes('card'), `${entityId} must map its approved portrait media to Hero and card`);
-  assert.equal(media.width / media.height, 3 / 4, `${entityId} portrait media must be 3:4`);
+  assert.equal(media?.id, expectedId, `${entityId} must use its singular Weapon Master record`);
+  assert.equal(media?.src, expectedSrc, `${entityId} must use its stable Weapon Master asset`);
+  assert.deepEqual(media?.usage, ['hero', 'card'], `${entityId} Master must serve Hero and card from one record`);
+  assert.equal(media?.width, 1200, `${entityId} Master must be 1200px wide`);
+  assert.equal(media?.height, 1800, `${entityId} Master must be 1800px high`);
+  assert.equal(media.width / media.height, 2 / 3, `${entityId} Master must use the 2:3 portrait standard`);
   assert.equal(media.objectFit, 'contain', `${entityId} portrait media must preserve the weapon with contain`);
+  assert.equal(media.rightsStatus, 'official-promotional-risk-accepted', `${entityId} Master must retain its reviewed production rights state`);
+  assert.equal(media.sourceId, sourceId, `${entityId} Master must retain the official Douyin provenance`);
   assert(html.includes(`src="/assets/media/${media.src}"`), `${entityId} detail must render approved portrait media`);
   assert(collection.includes(`src="/assets/media/${media.src}"`), `${entityId} collection card must render approved portrait media`);
+}
+for (const slug of ['bashpole', 'jagged-steel', 'night-owl', 'seamless-death', 'soft-snake-sword', 'tang-hengdao', 'ya-hengdao']) {
+  const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
+  assert(card.includes('data-media-state="fallback"'), `${slug}: Weapon without an approved Master must retain fallback media`);
 }
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '使用赤练短刃进行凌厉攻击。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '使用白蟒长刃进行斩击；交替点按可循环连招并进入“双蛇共舞”状态，期间伤害不断提升，可穿插变招，也可掷出赤练短刃结束“双蛇共舞”。');

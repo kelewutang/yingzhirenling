@@ -143,24 +143,24 @@ Production Search has 16 Entity documents in addition to the existing Page Searc
 
 ## 10. Media State
 
-The Media contract exists in `data/media.json` and is validated at build time. Production-eligible Media records are currently **1**.
+The Media contract exists in `data/media.json` and is validated at build time. Production-eligible Media records are currently **3**.
 
-The first Production Entity Media is `character:soul`: one admitted local JPEG record backs both the `/characters/soul` Hero and the Soul Card in `/characters`. Other Entities continue to use deterministic abstract CSS/SVG fallbacks. Scraping is not an admission method, and production Media must not hotlink or casually reuse unreviewed media. Deliberate local acquisition is allowed only when a Media record passes the current provenance, rights-risk, eligibility, file, and quality contract.
+`character:soul` remains one admitted local JPEG record backing both the `/characters/soul` Hero and the Soul Card in `/characters`. Weapon Media Standard v1 adds one 1200×1800 2:3 Master each for `weapon:white-serpent-crimson-viper` and `weapon:white-shadow`; each singular record backs its detail Hero and collection Card with `contain`. Both current Weapon Masters are traceable, risk-accepted official promotional derivatives in the documented `provisional-official` lifecycle; post-release self-captured replacements will be reviewed as `canonical-self-captured`. The other seven published Weapons continue to use deterministic abstract CSS/SVG fallbacks. Scraping is not an admission method, and production Media must not hotlink or casually reuse unreviewed media. Deliberate local acquisition is allowed only when a Media record passes the current provenance, rights-risk, eligibility, file, and quality contract.
 
 Published Media may only target a published Entity; draft or archived Entity targets are rejected by the Media validator.
 
-**First Production Entity Media: `character:soul` (Hero and Card).**
+**Current Production Entity Media: `character:soul`, `weapon:white-serpent-crimson-viper`, and `weapon:white-shadow` (each Hero and Card).**
 
 ## 10.1 Current Performance Values
 
 [Performance Baseline](PERFORMANCE-BASELINE.md) is the historical P2-UI-7 baseline, not the current runtime-size record. The Visual Atmosphere Full Rollout current operational measurement is:
 
-- `dist/`: 1,013,803 B
-- CSS: 73,118 B
+- `dist/`: 1,259,268 B
+- CSS: 82,337 B
 - JavaScript: 18,962 B
-- Production Search index: 9,017 B / 16 Entity documents
+- Production Search index: 9,313 B / 16 Entity documents
 - Legacy raster assets: 0 files / 0 B
-- Production Media: 1 / 280,910 B
+- Production Media: 3 / 538,727 B
 
 All nine retired legacy bitmaps were removed after reference, build, and runtime verification. Background atmosphere remains CSS-only; it is not a Media rollout.
 
