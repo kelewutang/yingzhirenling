@@ -344,7 +344,7 @@ assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.weapon-derived-inputs
 const weaponDesktopHero = cssRule('.entity-detail[data-entity-type="weapon"] .entity-hero');
 assert.match(weaponDesktopHero, /grid-template-columns:\s*minmax\([^;]+\)\s+minmax\([^;]+\);/, 'Weapon desktop Hero must retain media and text columns');
 assert.match(cssRule('.entity-detail[data-entity-type="weapon"] {'), /max-width:\s*67\.5rem;/, 'Weapon detail content must use the bounded desktop width');
-assert.match(weaponDesktopHero, /grid-template-columns:\s*minmax\(20rem,\s*23\.75rem\)\s+minmax\(0,\s*38\.75rem\);/, 'Weapon desktop Hero must retain compact media and text column bounds');
+assert.match(weaponDesktopHero, /grid-template-columns:\s*minmax\(20rem,\s*23\.75rem\)\s+minmax\(0,\s*35rem\);/, 'Weapon desktop Hero must cap its desktop content column at approximately 35rem');
 assert.match(weaponDesktopHero, /gap:\s*clamp\(var\(--space-6\),\s*3vw,\s*var\(--space-8\)\);/, 'Weapon desktop Hero must retain a compact column gap');
 const weaponDetailMedia = cssRule('.entity-detail[data-entity-type="weapon"] .entity-media > img,');
 assert.match(weaponDetailMedia, /aspect-ratio:\s*3\s*\/\s*4;/, 'Weapon detail media must use the frozen 3:4 portrait ratio');

@@ -2014,7 +2014,7 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 }
 
 .entity-detail[data-entity-type="weapon"] .entity-hero {
-  grid-template-columns: minmax(20rem, 23.75rem) minmax(0, 38.75rem);
+  grid-template-columns: minmax(20rem, 23.75rem) minmax(0, 35rem);
   gap: clamp(var(--space-6), 3vw, var(--space-8));
   padding: clamp(var(--space-6), 4vw, var(--space-8));
 }
