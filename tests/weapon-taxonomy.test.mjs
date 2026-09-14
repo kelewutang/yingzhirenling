@@ -61,7 +61,10 @@ test('published Weapon taxonomy is normalized into systemCategory and weaponType
     assert.equal(detail.taxonomy?.valueText, `${systemCategory} · ${weaponType}`);
     assert.equal(detail.overview.taxonomy?.valueText, `${systemCategory} · ${weaponType}`);
     assert.equal(detail.overview.type, undefined, `${weapon.id}: legacy kind must not drive public detail taxonomy`);
-    assert.equal(buildWeaponCollectionCard(weapon).secondary, `${systemCategory} · ${weaponType}`);
+    const card = buildWeaponCollectionCard(weapon);
+    assert.equal(card.secondary, `${systemCategory} · ${weaponType}`);
+    assert.equal(card.summary, null, `${weapon.id}: collection presentation must not expose the long summary`);
+    assert.ok(weapon.summary.length > 0, `${weapon.id}: Knowledge summary must remain available outside the card presentation`);
   }
 });
 

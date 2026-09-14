@@ -2668,6 +2668,11 @@ body[data-atmosphere="world"] .entity-hero {
   padding-block: var(--space-8) var(--space-16);
 }
 
+.site-main--weapon-collection,
+.collection-page[data-entity-type="weapon"] {
+  max-width: 90rem;
+}
+
 .collection-hero {
   padding: clamp(var(--space-6), 5vw, var(--space-12));
   background: linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 58%), var(--color-surface);
@@ -2836,7 +2841,7 @@ body[data-atmosphere="world"] .collection-hero {
 }
 
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media {
-  flex: 0 0 36%;
+  flex: 0 0 clamp(7.5rem, 34%, 10rem);
   min-width: 0;
 }
 
@@ -2854,10 +2859,6 @@ body[data-atmosphere="world"] .collection-hero {
 }
 
 @media (min-width: 700px) {
-  .collection-page[data-entity-type="weapon"] .entity-card {
-    min-height: 18rem;
-  }
-
   .collection-page[data-entity-type="weapon"] .entity-card .entity-media {
     display: grid;
     align-self: stretch;
@@ -2887,11 +2888,6 @@ body[data-atmosphere="world"] .collection-hero {
 
 .collection-page[data-entity-type="weapon"] .entity-card__secondary {
   margin-top: var(--space-2);
-}
-
-.collection-page[data-entity-type="weapon"] .entity-card__summary {
-  margin-top: var(--space-3);
-  -webkit-line-clamp: 2;
 }
 
 .entity-card__body {
@@ -3013,26 +3009,48 @@ body[data-atmosphere="world"] .collection-hero {
   }
 }
 
-/* Weapon cards need wider tracks for their horizontal media-and-copy layout. */
-@media (min-width: 1600px) {
+/* Weapon cards use denser tracks with bounded media rails at wider viewports. */
+@media (min-width: 1680px) {
+  .collection-page[data-entity-type="weapon"] .entity-card {
+    min-height: 13rem;
+  }
+
+  .collection-page[data-entity-type="weapon"] .entity-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1679.98px) {
+  .collection-page[data-entity-type="weapon"] .entity-card {
+    min-height: 14rem;
+  }
+
   .collection-page[data-entity-type="weapon"] .entity-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1000px) and (max-width: 1599px) {
+@media (min-width: 960px) and (max-width: 1279.98px) {
+  .collection-page[data-entity-type="weapon"] .entity-card {
+    min-height: 16rem;
+  }
+
   .collection-page[data-entity-type="weapon"] .entity-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 700px) and (max-width: 999px) {
+@media (min-width: 700px) and (max-width: 959.98px) {
+  .collection-page[data-entity-type="weapon"] .entity-card {
+    min-height: 18rem;
+  }
+
   .collection-page[data-entity-type="weapon"] .entity-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-@media (max-width: 699px) {
+@media (max-width: 699.98px) {
   .collection-page[data-entity-type="weapon"] .entity-grid {
     grid-template-columns: minmax(0, 1fr);
   }

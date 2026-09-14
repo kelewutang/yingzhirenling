@@ -28,7 +28,10 @@ function baseCard(entity, href, secondary, context) {
 }
 
 export function buildWeaponCollectionCard(entity) {
-  return baseCard(entity, `/weapons/${entity.slug}`, weaponTaxonomy(entity), compactAppearance(entity, 'weapon.publicAppearance'));
+  return {
+    ...baseCard(entity, `/weapons/${entity.slug}`, weaponTaxonomy(entity), compactAppearance(entity, 'weapon.publicAppearance')),
+    summary: null
+  };
 }
 
 export function buildCharacterCollectionCard(entity) {
