@@ -2022,11 +2022,15 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 .entity-detail[data-entity-type="weapon"] .entity-media > img,
 .entity-detail[data-entity-type="weapon"] .entity-media__fallback {
   aspect-ratio: 3 / 4;
-  background:
-    radial-gradient(circle at 50% 18%, rgb(195 166 106 / 0.1), transparent 42%),
-    linear-gradient(140deg, #111514, #1d2421 58%, #101211);
   object-fit: contain;
   object-position: center;
+}
+
+/* The approved Weapon Master is the sole inner media surface. */
+.entity-detail[data-entity-type="weapon"] .entity-media[data-media-state="ready"] > img {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .entity-hero__identity { min-width: 0; }
@@ -2845,7 +2849,7 @@ body[data-atmosphere="world"] .collection-hero {
   flex: 0 0 clamp(8rem, 38%, 10rem);
   min-width: 0;
   align-self: stretch;
-  padding: var(--space-3);
+  padding: var(--space-2);
   border-right: 1px solid var(--color-border);
 }
 
@@ -2863,6 +2867,11 @@ body[data-atmosphere="world"] .collection-hero {
     linear-gradient(140deg, #111514, #1d2421 58%, #101211);
   object-fit: contain;
   object-position: center;
+}
+
+/* Weapon Masters already supply their own neutral canvas. */
+.collection-page[data-entity-type="weapon"] .entity-card .entity-media[data-media-state="ready"] > img {
+  background: transparent;
 }
 
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media__blade {

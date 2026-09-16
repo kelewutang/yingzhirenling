@@ -391,7 +391,7 @@ const weaponRail = cssRule('.collection-page[data-entity-type="weapon"] .entity-
 assert.match(weaponRail, /flex:\s*0\s+0\s+clamp\(8rem,\s*38%,\s*10rem\);/, 'Weapon collection cards must use the final bounded media-rail guard');
 assert.match(weaponRail, /display:\s*grid;/, 'Weapon fallback and real media must share a rail skeleton at every viewport');
 assert.match(weaponRail, /align-self:\s*stretch;/, 'Weapon media rail must stretch to the shared card height');
-assert.match(weaponRail, /padding:\s*var\(--space-3\);/, 'Weapon media rail must retain bounded internal padding');
+assert.match(weaponRail, /padding:\s*var\(--space-2\);/, 'Weapon media rail must retain compact 8px internal padding');
 const weaponFallbackBlade = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media__blade {');
 assert.match(weaponFallbackBlade, /left:\s*50%;/, 'Weapon fallback blade decoration must center inside the shared rail');
 assert.match(weaponFallbackBlade, /translateX\(-50%\)/, 'Weapon fallback blade decoration must remain centered without affecting its angle');
