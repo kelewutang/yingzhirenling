@@ -2028,9 +2028,11 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 
 /* The approved Weapon Master is the sole inner media surface. */
 .entity-detail[data-entity-type="weapon"] .entity-media[data-media-state="ready"] > img {
+  aspect-ratio: 2 / 3;
   border: 0;
   border-radius: 0;
   background: transparent;
+  box-shadow: none;
 }
 
 .entity-hero__identity { min-width: 0; }
@@ -2853,6 +2855,13 @@ body[data-atmosphere="world"] .collection-hero {
   border-right: 1px solid var(--color-border);
 }
 
+/* Ready Masters use the rail directly; fallback media keeps its own treatment. */
+.collection-page[data-entity-type="weapon"] .entity-card .entity-media[data-media-state="ready"] {
+  padding: var(--space-1);
+  background: transparent;
+  box-shadow: none;
+}
+
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media__fallback {
   width: 100%;
@@ -2871,7 +2880,10 @@ body[data-atmosphere="world"] .collection-hero {
 
 /* Weapon Masters already supply their own neutral canvas. */
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media[data-media-state="ready"] > img {
+  border: 0;
+  border-radius: 0;
   background: transparent;
+  box-shadow: none;
 }
 
 .collection-page[data-entity-type="weapon"] .entity-card .entity-media__blade {
