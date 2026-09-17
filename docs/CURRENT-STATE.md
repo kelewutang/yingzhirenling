@@ -186,6 +186,8 @@ Published Entity details use their type and stable slug below the relevant colle
 
 The generated sitemap has 25 unique canonical URLs. The static build emits 27 canonical tags across 28 page HTML files because the two retained legacy Weapon compatibility outputs emit the canonical tags for 唐横刀 and 牙横刀 a second time. The separate Baidu verification artifact is a non-page root file. Homepage canonical is `https://www.yingzhirenling.cn/`.
 
+P3-CN-5A2 establishes the Social Share Metadata foundation: all 25 production canonical pages emit Open Graph text metadata derived from their existing title, description, and canonical URL. Twitter Card is retained only as `summary` compatibility with the same title and description. The site deliberately emits no social image metadata; a social-specific image pipeline has not been established and is not a blocker.
+
 Search-engine property state is deliberately incomplete: Google Search Console and Bing Webmaster real-property verification are pending; their sitemap submission state is not recorded. The tracked Baidu verification artifact is deployed by the build, but this only makes the verification file reachable and does not claim that a Baidu property or sitemap submission has been verified.
 
 ## 12. Homepage State

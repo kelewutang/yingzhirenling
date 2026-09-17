@@ -51,6 +51,38 @@ function replaceLegacyShell(html, route) {
   return next.replace(footerPattern, `${hasMain ? '' : '</main>'}${footer}`);
 }
 
+function escapeHtml(value) {
+  return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+}
+
+function decodeHtml(value) {
+  return String(value).replaceAll('&quot;', '"').replaceAll('&#39;', "'").replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&');
+}
+
+function legacyMetadata(html, route) {
+  if (!route) return html;
+
+  const titleSource = html.match(/<title>([\s\S]*?)<\/title>/i)?.[1];
+  const descriptionSource = html.match(/<meta\s+name="description"\s+content="([^"]*)"\s*\/?\s*>/i)?.[1];
+  const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"\s*\/?\s*>/i)?.[1];
+  if (!titleSource || !descriptionSource || !canonical) throw new Error(`Legacy metadata missing for ${route}`);
+  const title = decodeHtml(titleSource);
+  const description = decodeHtml(descriptionSource);
+
+  const ogType = /"@type": "Article"/.test(html) ? 'article' : 'website';
+  const social = [
+    `<meta property="og:title" content="${escapeHtml(title)}">`,
+    `<meta property="og:description" content="${escapeHtml(description)}">`,
+    `<meta property="og:url" content="${escapeHtml(canonical)}">`,
+    `<meta property="og:type" content="${ogType}">`,
+    '<meta name="twitter:card" content="summary">',
+    `<meta name="twitter:title" content="${escapeHtml(title)}">`,
+    `<meta name="twitter:description" content="${escapeHtml(description)}">`
+  ].join('\n  ');
+
+  return html.replace(/(<link\s+rel="canonical"\s+href="[^"]*"\s*\/?\s*>)/i, `$1\n  ${social}`);
+}
+
 for (const [sourcePath, destinationPath] of targets) {
   const source = resolve(root, sourcePath);
   const destination = resolve(dist, destinationPath);
@@ -84,7 +116,7 @@ if (productionMediaSources.length > 0) {
 for (const [destinationPath, route] of legacyShellPages) {
   const destination = resolve(dist, destinationPath);
   const page = await readFile(destination, 'utf8');
-  await writeFile(destination, replaceLegacyShell(page, route), 'utf8');
+  await writeFile(destination, legacyMetadata(replaceLegacyShell(page, route), route), 'utf8');
 }
 
 // Preserve the existing exact Netlify rewrites while making their targets
