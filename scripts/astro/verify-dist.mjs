@@ -76,6 +76,51 @@ async function assertDetailVisualContract(file, entity) {
 
 for (const [file] of canonicalRoutes) assert((await stat(resolve(dist, file))).isFile(), `Missing dist/${file}`);
 assert((await stat(resolve(dist, '404.html'))).isFile(), 'Missing custom 404');
+
+function decodeHtml(value) {
+  return value.replaceAll('&quot;', '"').replaceAll('&#39;', "'").replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&');
+}
+
+function metaContent(html, attribute, key, file) {
+  const tag = html.match(new RegExp(`<meta\\s+${attribute}="${key}"\\s+content="([^"]*)"\\s*\\/?\\s*>`, 'i'));
+  assert(tag, `${file}: ${key} missing`);
+  return decodeHtml(tag[1]);
+}
+
+const canonicalUrls = new Set();
+const ogUrls = new Set();
+for (const [file] of canonicalRoutes) {
+  const html = await readFile(resolve(dist, file), 'utf8');
+  const title = decodeHtml(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || '');
+  const description = metaContent(html, 'name', 'description', file);
+  const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"\s*\/?\s*>/i)?.[1];
+  assert(canonical, `${file}: canonical missing`);
+
+  assert.equal(metaContent(html, 'property', 'og:title', file), title, `${file}: og:title must match title`);
+  assert.equal(metaContent(html, 'property', 'og:description', file), description, `${file}: og:description must match description`);
+  const ogUrl = metaContent(html, 'property', 'og:url', file);
+  assert.equal(ogUrl, canonical, `${file}: og:url must match canonical`);
+  assert.equal(metaContent(html, 'property', 'og:type', file), file === 'guide.html' ? 'article' : 'website', `${file}: og:type must match the page semantic`);
+  assert.equal(metaContent(html, 'name', 'twitter:card', file), 'summary', `${file}: twitter:card must be summary`);
+  assert.equal(metaContent(html, 'name', 'twitter:title', file), title, `${file}: twitter:title must match title`);
+  assert.equal(metaContent(html, 'name', 'twitter:description', file), description, `${file}: twitter:description must match description`);
+  assert(!/<meta\b[^>]*(?:property|name)="(?:og:image|twitter:image)"/i.test(html), `${file}: social image metadata is forbidden`);
+
+  canonicalUrls.add(canonical);
+  ogUrls.add(ogUrl);
+}
+assert.equal(canonicalUrls.size, 25, 'Expected 25 unique production canonical URLs');
+assert.deepEqual(ogUrls, canonicalUrls, 'Production OG URLs must exactly match canonical URLs');
+for (const file of ['pages/generated/weapons/tang-hengdao.html', 'pages/generated/weapons/ya-hengdao.html']) {
+  const html = await readFile(resolve(dist, file), 'utf8');
+  const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"\s*\/?\s*>/i)?.[1];
+  assert(canonical, `${file}: canonical missing`);
+  assert.equal(metaContent(html, 'property', 'og:url', file), canonical, `${file}: legacy OG URL must match canonical`);
+  assert(canonicalUrls.has(canonical), `${file}: legacy canonical must not create a new identity`);
+}
+const notFound = await readFile(resolve(dist, '404.html'), 'utf8');
+assert(notFound.includes('<meta name="robots" content="noindex,follow">'), '404 must remain noindex,follow');
+assert(!/<meta\b[^>]*(?:property|name)="(?:og|twitter):[^"]*"/i.test(notFound), '404 must not receive social metadata coverage');
 const baiduVerificationFiles = (await readdir(root, { withFileTypes: true }))
   .filter((entry) => entry.isFile() && /^baidu_verify_codeva-[a-z0-9-]+\.html$/i.test(entry.name))
   .map((entry) => entry.name)
@@ -306,6 +351,9 @@ assert.equal(
   9 + publishedWeapons.length + 3 + publishedBosses.length + publishedLocations.length,
   'Sitemap URL count must match published Entity data'
 );
+const sitemapUrls = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]));
+assert.equal(sitemapUrls.size, 25, 'Expected 25 unique sitemap URLs');
+assert.deepEqual(sitemapUrls, canonicalUrls, 'Sitemap URLs must exactly match production canonical URLs');
 for (const weapon of publishedWeapons) assert(sitemap.includes(`/weapons/${weapon.slug}`), `Sitemap missing Weapon ${weapon.slug}`);
 for (const weapon of draftWeapons) assert(!sitemap.includes(`/weapons/${weapon.slug}`), `Sitemap must exclude draft Weapon ${weapon.slug}`);
 for (const route of ['/characters/soul', '/characters/mo-yuan', '/characters/the-hunt']) assert(sitemap.includes(route), `Sitemap missing ${route}`);
@@ -335,7 +383,14 @@ const retiredLegacyAssets = [
   'map-tower.jpg',
   'map-valley.jpg'
 ];
-for (const file of await walk(dist)) {
+const distFiles = await walk(dist);
+const distHtmlFiles = distFiles.filter((file) => file.endsWith('.html'));
+assert.equal(distHtmlFiles.length, 29, 'Expected 29 total dist HTML files including the Baidu verification artifact');
+assert.equal(distHtmlFiles.filter((file) => !file.endsWith(baiduVerificationFile)).length, 28, 'Expected 28 page HTML files excluding the Baidu verification artifact');
+const canonicalTagCount = (await Promise.all(distHtmlFiles.map((file) => readFile(file, 'utf8'))))
+  .reduce((count, html) => count + (html.match(/<link\s+rel="canonical"/gi) || []).length, 0);
+assert.equal(canonicalTagCount, 27, 'Expected 27 canonical tags across 28 page HTML files');
+for (const file of distFiles) {
   const content = await readFile(file);
   const text = content.toString('utf8');
   for (const forbidden of ['/home/mok', '/mnt/c/', 'astro-island', 'client:load']) assert(!text.includes(forbidden), `${file}: forbidden build output`);
