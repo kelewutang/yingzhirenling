@@ -21,5 +21,5 @@ const canonical = `https://www.yingzhirenling.cn/bosses/${boss.slug}`;
 const description = `${boss.displayName}：${boss.summary}`;
 ---
 <BaseLayout title={`${boss.displayName} - 影之刃零 Boss 图鉴`} description={description} canonical={canonical} activeSection="bosses" atmosphere="boss">
-  <EntityDetailLayout entity={boss} collectionHref="/bosses" collectionLabel="Boss 图鉴" returnLabel="Boss 图鉴" eyebrow={detail.eyebrow} aliases={aliasValues(boss)} facts={detail.facts} sources={sources} sourceById={knowledge.sourceById} media={media} />
+  <EntityDetailLayout entity={boss} collectionHref="/bosses" collectionLabel="Boss 图鉴" returnLabel="Boss 图鉴" eyebrow={detail.eyebrow} aliases={aliasValues(boss)} facts={detail.facts} sources={sources} sourceById={knowledge.sourceById} media={media} canonical={canonical} />
 </BaseLayout>

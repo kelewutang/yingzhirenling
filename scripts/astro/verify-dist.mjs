@@ -121,6 +121,312 @@ for (const file of ['pages/generated/weapons/tang-hengdao.html', 'pages/generate
 const notFound = await readFile(resolve(dist, '404.html'), 'utf8');
 assert(notFound.includes('<meta name="robots" content="noindex,follow">'), '404 must remain noindex,follow');
 assert(!/<meta\b[^>]*(?:property|name)="(?:og|twitter):[^"]*"/i.test(notFound), '404 must not receive social metadata coverage');
+
+const productionOrigin = 'https://www.yingzhirenling.cn';
+const forbiddenStructuredDataTypes = new Set(['VideoObject', 'ImageObject', 'Product', 'Review', 'AggregateRating', 'Offer', 'Person']);
+
+function jsonLdDocuments(html, file) {
+  return [...html.matchAll(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi)].map((match, index) => {
+    try {
+      return JSON.parse(match[1]);
+    } catch (error) {
+      assert.fail(`${file}: JSON-LD ${index + 1} is invalid JSON: ${error.message}`);
+    }
+  });
+}
+
+function assertProductionSchemaUrl(value, file, field, { allowFragment = false } = {}) {
+  assert.equal(typeof value, 'string', `${file}: ${field} must be a string URL`);
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    assert.fail(`${file}: ${field} must be an absolute URL`);
+  }
+  assert.equal(url.origin, productionOrigin, `${file}: ${field} must use the production origin`);
+  assert.equal(url.search, '', `${file}: ${field} must not contain a query string`);
+  if (!allowFragment) assert.equal(url.hash, '', `${file}: ${field} must not contain a fragment`);
+  assert(url.pathname === '/' || !url.pathname.endsWith('/'), `${file}: ${field} must not use a trailing-slash variant`);
+  return url;
+}
+
+function normalizeSchemaTypes(value, file) {
+  const types = Array.isArray(value) ? value : [value];
+  assert(types.length > 0, `${file}: JSON-LD @type array must not be empty`);
+  for (const type of types) {
+    assert.equal(typeof type, 'string', `${file}: JSON-LD @type values must be strings`);
+    assert(type.trim(), `${file}: JSON-LD @type values must not be empty`);
+    assert(!forbiddenStructuredDataTypes.has(type), `${file}: deferred schema type emitted: ${type}`);
+  }
+  return types;
+}
+
+function assertStructuredDataTypes(value, file, isRoot = false) {
+  assert.notEqual(value, null, `${file}: JSON-LD must not contain null values`);
+  if (Array.isArray(value)) {
+    for (const item of value) assertStructuredDataTypes(item, file);
+    return;
+  }
+  if (!value || typeof value !== 'object') return;
+  if (!isRoot) assert(!Object.hasOwn(value, '@context'), `${file}: JSON-LD must not nest @context`);
+  if (Object.hasOwn(value, '@type')) normalizeSchemaTypes(value['@type'], file);
+  for (const [key, item] of Object.entries(value)) {
+    if (['url', 'item', '@id'].includes(key)) {
+      const url = assertProductionSchemaUrl(item, file, key, { allowFragment: key === '@id' });
+      const identity = `${url.origin}${url.pathname}`;
+      assert(canonicalUrls.has(identity), `${file}: ${key} must reference a production canonical URL`);
+    } else {
+      assertStructuredDataTypes(item, file);
+    }
+  }
+}
+
+function expectedSchemaTypes(file) {
+  if (file === 'index.html') return ['WebSite'];
+  if (file === 'guide.html') return ['Article', 'FAQPage', 'BreadcrumbList'];
+  if (['weapons.html', 'characters.html', 'bosses.html', 'world.html'].includes(file)) return ['CollectionPage'];
+  if (file === 'videos.html') return ['WebPage'];
+  if (['about.html', 'about-site.html'].includes(file) || /^(weapons|characters|bosses|world)\//.test(file)) return ['WebPage', 'BreadcrumbList'];
+  assert.fail(`Unexpected canonical route for structured-data verification: ${file}`);
+}
+
+function visibleHtml(html) {
+  return html.replace(/<(script|style|template)\b[\s\S]*?<\/\1>/gi, '');
+}
+
+function visibleText(value) {
+  return decodeHtml(value.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim();
+}
+
+function semanticFaqText(value, label) {
+  return visibleText(value).replace(new RegExp(`^${label}\\s*[:：]\\s*`, 'i'), '').trim();
+}
+
+const voidHtmlElements = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
+
+function htmlAttributes(token) {
+  const attributes = new Map();
+  const source = token.replace(/^<\s*\/?\s*[a-z][\w:-]*/i, '').replace(/\/?\s*>$/, '');
+  for (const match of source.matchAll(/([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g)) {
+    attributes.set(match[1].toLowerCase(), match[2] ?? match[3] ?? match[4] ?? '');
+  }
+  return attributes;
+}
+
+function hiddenFaqSubtree(tag, attributes) {
+  if (['script', 'style', 'template'].includes(tag) || attributes.has('hidden')) return true;
+  if ((attributes.get('aria-hidden') || '').trim().toLowerCase() === 'true') return true;
+  const style = attributes.get('style') || '';
+  return /\bdisplay\s*:\s*none\b/i.test(style) || /\bvisibility\s*:\s*hidden\b/i.test(style);
+}
+
+function visibleFaqNodes(html) {
+  const nodes = [];
+  const stack = [{ tag: null, hidden: false, capture: null }];
+  const tokens = html.match(/<!--[\s\S]*?-->|<\/?[a-z][^>]*>|[^<]+/gi) || [];
+
+  for (const token of tokens) {
+    if (token.startsWith('<!--')) continue;
+    if (!token.startsWith('<')) {
+      if (!stack.at(-1).hidden) {
+        for (let index = stack.length - 1; index > 0; index -= 1) {
+          if (stack[index].capture) {
+            stack[index].capture.text += token;
+            break;
+          }
+        }
+      }
+      continue;
+    }
+
+    const closing = /^<\s*\/\s*([a-z][\w:-]*)/i.exec(token);
+    if (closing) {
+      const tag = closing[1].toLowerCase();
+      while (stack.length > 1) {
+        const element = stack.pop();
+        if (element.capture) nodes.push({ tag: element.tag, text: element.capture.text });
+        if (element.tag === tag) break;
+      }
+      continue;
+    }
+
+    const opening = /^<\s*([a-z][\w:-]*)/i.exec(token);
+    if (!opening) continue;
+    const tag = opening[1].toLowerCase();
+    const parent = stack.at(-1);
+    const hidden = parent.hidden || hiddenFaqSubtree(tag, htmlAttributes(token));
+    const element = { tag, hidden, capture: !hidden && ['h2', 'h3', 'p'].includes(tag) ? { text: '' } : null };
+    if (!voidHtmlElements.has(tag) && !/\/\s*>$/.test(token)) stack.push(element);
+  }
+  return nodes;
+}
+
+function visibleFaqItems(html, file) {
+  const nodes = visibleFaqNodes(html);
+  const headingIndex = nodes.findIndex((node) => node.tag === 'h2' && visibleText(node.text) === '常见问题');
+  if (headingIndex === -1) return [];
+  const items = [];
+  for (let index = headingIndex + 1; index < nodes.length && nodes[index].tag !== 'h2'; index += 1) {
+    if (nodes[index].tag !== 'h3') continue;
+    const answer = nodes[index + 1];
+    assert(answer?.tag === 'p', `${file}: visible FAQ question must be followed by an answer`);
+    items.push({ question: semanticFaqText(nodes[index].text, 'Q'), answer: semanticFaqText(answer.text, 'A') });
+    index += 1;
+  }
+  assert(items.length > 0, `${file}: visible FAQ heading must contain FAQ items`);
+  return items;
+}
+
+function resolveVisibleBreadcrumbHref(href, file) {
+  let url;
+  try {
+    url = new URL(href, productionOrigin);
+  } catch {
+    assert.fail(`${file}: visible breadcrumb href must be a URL`);
+  }
+  assertProductionSchemaUrl(url.href, file, 'visible breadcrumb href');
+  assert(canonicalUrls.has(url.href), `${file}: visible breadcrumb href must use a canonical URL`);
+  return url.href;
+}
+
+function visibleBreadcrumbItems(html, file, canonical) {
+  const breadcrumb = visibleHtml(html).match(/<div class="page-breadcrumb">([\s\S]*?)<\/div>/i)?.[1];
+  assert(breadcrumb, `${file}: BreadcrumbList requires visible breadcrumb UI`);
+  const items = [];
+  let lastLinkEnd = 0;
+  for (const match of breadcrumb.matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
+    items.push({ name: visibleText(match[2]), item: resolveVisibleBreadcrumbHref(match[1], file) });
+    lastLinkEnd = (match.index || 0) + match[0].length;
+  }
+  const current = visibleText(breadcrumb.slice(lastLinkEnd)).replace(/^(?:>|\/)\s*/, '').trim();
+  assert(current, `${file}: visible breadcrumb current item missing`);
+  items.push({ name: current, item: canonical });
+  return items;
+}
+
+function assertBreadcrumbList(document, html, file, canonical) {
+  assert(Array.isArray(document.itemListElement), `${file}: BreadcrumbList must contain itemListElement`);
+  assert(document.itemListElement.length >= 2, `${file}: BreadcrumbList must contain at least two items`);
+  const visibleItems = visibleBreadcrumbItems(html, file, canonical);
+  assert.equal(document.itemListElement.length, visibleItems.length, `${file}: BreadcrumbList item count must match visible breadcrumb`);
+  for (const [index, item] of document.itemListElement.entries()) {
+    assert.equal(item['@type'], 'ListItem', `${file}: BreadcrumbList item must be a ListItem`);
+    assert.equal(item.position, index + 1, `${file}: BreadcrumbList positions must be continuous`);
+    assert.equal(typeof item.name, 'string', `${file}: BreadcrumbList item name missing`);
+    assert.equal(item.name, visibleItems[index].name, `${file}: BreadcrumbList name must match visible breadcrumb order`);
+    assertProductionSchemaUrl(item.item, file, 'BreadcrumbList item');
+    assert.equal(item.item, visibleItems[index].item, `${file}: BreadcrumbList item URL must match visible breadcrumb href`);
+  }
+  assert.equal(document.itemListElement.at(-1).item, canonical, `${file}: BreadcrumbList final item must match page canonical`);
+}
+
+function assertFaqPage(document, html, file) {
+  assert(Array.isArray(document.mainEntity), `${file}: FAQPage must contain mainEntity`);
+  const visibleItems = visibleFaqItems(html, file);
+  assert.equal(document.mainEntity.length, visibleItems.length, `${file}: FAQPage item count must match visible FAQ`);
+  for (const [index, question] of document.mainEntity.entries()) {
+    assert.equal(question['@type'], 'Question', `${file}: FAQPage entries must be Questions`);
+    assert.equal(typeof question.name, 'string', `${file}: FAQ question missing`);
+    assert.equal(question.name, visibleItems[index].question, `${file}: FAQ question must match visible FAQ order`);
+    assert.equal(question.acceptedAnswer?.['@type'], 'Answer', `${file}: FAQ acceptedAnswer missing`);
+    assert.equal(typeof question.acceptedAnswer?.text, 'string', `${file}: FAQ answer missing`);
+    assert.equal(question.acceptedAnswer.text, visibleItems[index].answer, `${file}: FAQ answer must match visible FAQ order`);
+  }
+}
+
+function assertStructuredData(html, file, canonical, expectedTypes) {
+  const documents = jsonLdDocuments(html, file);
+  assert.deepEqual(documents.map((document) => document['@type']), expectedTypes, `${file}: JSON-LD type inventory changed`);
+  for (const document of documents) {
+    assert.equal(document['@context'], 'https://schema.org', `${file}: JSON-LD context must be schema.org`);
+    normalizeSchemaTypes(document['@type'], file);
+    assertStructuredDataTypes(document, file, true);
+    const serialized = JSON.stringify(document);
+    for (const forbidden of ['localhost', 'netlify.app', 'qinglong-lueyue-dao', '青龙掠月刀', 'fixture']) {
+      assert(!serialized.includes(forbidden), `${file}: forbidden structured-data value: ${forbidden}`);
+    }
+  }
+
+  const pageIdentity = documents.find((document) => ['WebSite', 'WebPage', 'CollectionPage'].includes(document['@type']));
+  if (pageIdentity) {
+    assert.equal(pageIdentity.url, canonical, `${file}: page identity URL must match canonical`);
+    if (pageIdentity['@type'] !== 'WebSite') {
+      assert.equal(pageIdentity.name, decodeHtml(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || ''), `${file}: page identity name must match title`);
+      assert.equal(pageIdentity.description, metaContent(html, 'name', 'description', file), `${file}: page identity description must match meta description`);
+    }
+  }
+  const article = documents.find((document) => document['@type'] === 'Article');
+  if (article) assert.equal(article.mainEntityOfPage?.['@id'], canonical, `${file}: Article mainEntityOfPage must match canonical`);
+  for (const document of documents.filter((document) => document['@type'] === 'BreadcrumbList')) assertBreadcrumbList(document, html, file, canonical);
+  const faq = documents.find((document) => document['@type'] === 'FAQPage');
+  if (faq) assertFaqPage(faq, html, file);
+}
+
+for (const [file] of canonicalRoutes) {
+  const html = await readFile(resolve(dist, file), 'utf8');
+  const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"\s*\/?\s*>/i)?.[1];
+  assert(canonical, `${file}: canonical missing for structured-data verification`);
+  assertStructuredData(html, file, canonical, expectedSchemaTypes(file));
+}
+for (const file of ['pages/generated/weapons/tang-hengdao.html', 'pages/generated/weapons/ya-hengdao.html']) {
+  const html = await readFile(resolve(dist, file), 'utf8');
+  const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"\s*\/?\s*>/i)?.[1];
+  assert(canonical, `${file}: legacy canonical missing for structured-data verification`);
+  assertStructuredData(html, file, canonical, ['WebPage', 'BreadcrumbList']);
+}
+assert.equal(jsonLdDocuments(notFound, '404.html').length, 0, '404 must not receive production structured data');
+
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function expectStructuredDataFailure(label, callback) {
+  assert.throws(callback, undefined, `${label}: verifier mutation must fail`);
+}
+
+const guideHtml = await readFile(resolve(dist, 'guide.html'), 'utf8');
+const guideCanonical = 'https://www.yingzhirenling.cn/guide';
+const guideDocuments = jsonLdDocuments(guideHtml, 'guide.html');
+const guideFaq = guideDocuments.find((document) => document['@type'] === 'FAQPage');
+const guideBreadcrumb = guideDocuments.find((document) => document['@type'] === 'BreadcrumbList');
+assert(guideFaq && guideBreadcrumb, 'Guide structured-data regression fixtures require FAQPage and BreadcrumbList');
+const guideWithoutVisibleFaq = guideHtml.replace(/<h3\b[^>]*>\s*Q[:：][\s\S]*?<\/h3>\s*<p\b[^>]*>\s*A[:：][\s\S]*?<\/p>/gi, '');
+assert.notEqual(guideWithoutVisibleFaq, guideHtml, 'Guide FAQ removal fixture must remove visible FAQ markup');
+expectStructuredDataFailure('Guide visible FAQ removal', () => assertFaqPage(guideFaq, guideWithoutVisibleFaq, 'guide.html'));
+function wrapVisibleFaqItems(wrapper) {
+  let count = 0;
+  const wrapped = guideHtml.replace(/<h3\b[^>]*>\s*Q[:：][\s\S]*?<\/h3>\s*<p\b[^>]*>\s*A[:：][\s\S]*?<\/p>/gi, (item) => {
+    count += 1;
+    return wrapper(item);
+  });
+  assert.equal(count, guideFaq.mainEntity.length, 'Guide hidden FAQ fixture must wrap every visible FAQ item');
+  return wrapped;
+}
+expectStructuredDataFailure('Guide FAQ comment-hidden', () => assertFaqPage(guideFaq, wrapVisibleFaqItems((item) => `<!--${item}-->`), 'guide.html'));
+expectStructuredDataFailure('Guide FAQ hidden-attribute', () => assertFaqPage(guideFaq, wrapVisibleFaqItems((item) => `<div hidden>${item}</div>`), 'guide.html'));
+expectStructuredDataFailure('Guide FAQ display-none', () => assertFaqPage(guideFaq, wrapVisibleFaqItems((item) => `<div style="display:none">${item}</div>`), 'guide.html'));
+expectStructuredDataFailure('Guide FAQ visibility-hidden', () => assertFaqPage(guideFaq, wrapVisibleFaqItems((item) => `<div style="visibility: hidden">${item}</div>`), 'guide.html'));
+expectStructuredDataFailure('Guide FAQ aria-hidden', () => assertFaqPage(guideFaq, wrapVisibleFaqItems((item) => `<div aria-hidden="true">${item}</div>`), 'guide.html'));
+const guideQuestionDrift = clone(guideFaq);
+guideQuestionDrift.mainEntity[0].name = '不存在的问题？';
+expectStructuredDataFailure('Guide FAQ question drift', () => assertFaqPage(guideQuestionDrift, guideHtml, 'guide.html'));
+const guideAnswerDrift = clone(guideFaq);
+guideAnswerDrift.mainEntity[0].acceptedAnswer.text = '不存在的答案。';
+expectStructuredDataFailure('Guide FAQ answer drift', () => assertFaqPage(guideAnswerDrift, guideHtml, 'guide.html'));
+const guideFinalBreadcrumbDrift = clone(guideBreadcrumb);
+guideFinalBreadcrumbDrift.itemListElement.at(-1).item = 'https://www.yingzhirenling.cn/weapons';
+expectStructuredDataFailure('Guide breadcrumb final URL drift', () => assertBreadcrumbList(guideFinalBreadcrumbDrift, guideHtml, 'guide.html', guideCanonical));
+const guideBreadcrumbUrlDrift = clone(guideBreadcrumb);
+guideBreadcrumbUrlDrift.itemListElement[0].item = 'https://www.yingzhirenling.cn/weapons';
+expectStructuredDataFailure('Guide breadcrumb matching-name URL drift', () => assertBreadcrumbList(guideBreadcrumbUrlDrift, guideHtml, 'guide.html', guideCanonical));
+const guideBreadcrumbOrderDrift = clone(guideBreadcrumb);
+[guideBreadcrumbOrderDrift.itemListElement[0], guideBreadcrumbOrderDrift.itemListElement[1]] = [guideBreadcrumbOrderDrift.itemListElement[1], guideBreadcrumbOrderDrift.itemListElement[0]];
+guideBreadcrumbOrderDrift.itemListElement.forEach((item, index) => { item.position = index + 1; });
+expectStructuredDataFailure('Guide breadcrumb order drift', () => assertBreadcrumbList(guideBreadcrumbOrderDrift, guideHtml, 'guide.html', guideCanonical));
+const guideTypeArrayBypass = clone(guideFaq);
+guideTypeArrayBypass.mainEntity[0]['@type'] = ['Organization', 'Product'];
+expectStructuredDataFailure('@type array bypass', () => assertStructuredDataTypes(guideTypeArrayBypass, 'guide.html', true));
+console.log('Structured-data negative regression fixtures passed: FAQ removal/comment/hidden/style/aria visibility, question/answer drift, breadcrumb URL/name/order drift, and @type array bypass.');
 const baiduVerificationFiles = (await readdir(root, { withFileTypes: true }))
   .filter((entry) => entry.isFile() && /^baidu_verify_codeva-[a-z0-9-]+\.html$/i.test(entry.name))
   .map((entry) => entry.name)
