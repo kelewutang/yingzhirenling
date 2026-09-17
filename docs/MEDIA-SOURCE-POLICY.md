@@ -70,6 +70,20 @@ Do not hard-code a remote URL independently into several page templates. A deriv
 
 Current production rendering implements only the singular Entity `hero` and `card` slots. A production-eligible record may therefore declare only `hero` and/or `card`; `gallery`, `inline`, and `thumbnail` remain valid future vocabulary, but must stay in a non-production state until a corresponding renderer and admission review exist. A given published Entity may have at most one production-eligible record for each singular slot.
 
+### 3.1 Weapon Media Standard v1
+
+Production-eligible Weapon Media uses one frozen Master per Weapon, rather than separate Hero and Card crops. The same local asset and singular Media record must declare both `hero` and `card`; pages render that Master with `object-fit: contain`.
+
+- Canvas is exactly **1200×1800 px** (2:3, portrait).
+- A dark, neutral background does not require an artificial matte. When a reviewed clean 2:3 source crop is available, directly resize it to fill the Master canvas; the original game/environment background may serve as the Master background. Do not add a uniform surround merely to normalize presentation or create an inner-frame effect.
+- When the source permits, the visible weapon subject should occupy about 80%–90% of the canvas height. Leave about 5%–10% breathing room above and below where the source geometry permits; side margins follow the weapon shape.
+- Align by visual balance, not a mechanical bounding-box center.
+- Crop, resize, JPEG re-encoding, and non-generative compositing onto the neutral canvas are allowed where a direct clean crop is unavailable and the result does not create a misleading frame. Generative fill or extension, AI reconstruction, repainting, or inventing missing blade/tip/handle geometry are prohibited.
+- Remove phone/browser chrome, game menus, skill text, button prompts, page indicators, and screenshot borders where this can be done without damaging weapon identity. Original game/environment background may remain.
+- If a source is truncated, the Master must remain truncated. It must never be made to look complete through reconstruction.
+- `provisional-official` is the current editorial lifecycle for traceable official promotional material; after release, approved self-captured replacements become `canonical-self-captured`. This is documented lifecycle vocabulary, not a new Media Schema field; a later gate may add a machine-readable field.
+- When no acceptable Master passes this standard, the deterministic Weapon fallback remains the required production presentation.
+
 ## 4. Proposed Media data model
 
 This is a design proposal only. It does not modify or freeze Knowledge Schema 1.0.
@@ -133,7 +147,7 @@ A Media record should reach production only when:
 - alt and caption rules have been applied
 - the asset passes file-type, decode, and performance checks
 
-The initial rendered-slot admission rules also require a Hero to be a 640×360-or-larger landscape image with an aspect ratio from 1:1 through 3:1, and a Card to be at least 320×180 with an aspect ratio from 1:2 through 3:1. These bounds preserve practical source quality and CSS cropping flexibility; they are not fixed output-crop requirements. The existing 650 KB published-resource safety ceiling remains in force. Usage-specific payload targets remain guidance until they can be calibrated against reviewed real assets.
+The initial non-Weapon rendered-slot admission rules require a Hero to be a 640×360-or-larger image with an aspect ratio from 1:1 through 3:1, and a Card to be at least 320×180 with an aspect ratio from 1:2 through 3:1. Production-eligible Weapon Masters instead use the exact 1200×1800 requirement in §3.1. The existing 650 KB published-resource safety ceiling remains in force. Usage-specific payload targets remain guidance until they can be calibrated against reviewed real assets.
 
 Draft, `review-required`, and `do-not-use` media must stay out of production pages, Search thumbnails, social metadata, and sitemap-related output.
 
@@ -201,7 +215,7 @@ The title, alias, category, summary, and primary facts remain normal HTML outsid
 
 After approval, locally stored Media should use Astro's static image pipeline rather than runtime transformation. Astro's [`Image` and `Picture`](https://docs.astro.build/en/reference/modules/astro-assets/) support generated formats, dimensions, responsive sources, and priority behavior for local assets.
 
-Proposed output strategy:
+Proposed output strategy for non-Weapon media or future separately approved derivatives:
 
 - Hero: 640, 960, 1280, and 1600 px candidates as justified by the source; AVIF/WebP plus a compatible fallback.
 - Card: 320, 480, and 640 px candidates.
@@ -225,7 +239,7 @@ Browser behavior and responsive syntax should follow the platform's [`img` guida
 
 ## 9. Media UI rules
 
-- Hero crops must have a recorded focal point or an art-directed variant when one crop cannot serve desktop and mobile.
+- Non-Weapon Hero crops must have a recorded focal point or an art-directed variant when one crop cannot serve desktop and mobile. Weapon Media Standard v1 deliberately reuses one 2:3 Master with `contain` for Hero and Card.
 - Text must not be baked into screenshots to provide critical labels.
 - Captions and credits remain readable at mobile width and are not permanently hidden behind hover.
 - Gallery controls require keyboard access, clear labels, and reduced-motion behavior.

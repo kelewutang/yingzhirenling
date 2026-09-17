@@ -11,6 +11,6 @@ const { card, media = null } = Astro.props;
     {card.aliases.length > 0 && <span class="entity-card__aliases">{card.aliases.join('、')}</span>}
     {card.secondary && <span class="entity-card__secondary">{card.secondary}</span>}
     {card.context && <span class="entity-card__context">{card.context}</span>}
-    <span class="entity-card__summary">{card.summary}</span>
+    {card.summary && <span class="entity-card__summary">{card.summary}</span>}
   </span>
 </a>

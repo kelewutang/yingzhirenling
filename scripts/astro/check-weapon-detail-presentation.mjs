@@ -6,21 +6,29 @@ import { parseControllerInput, parseInlineControllerText } from '../../src/lib/c
 const root = resolve(process.cwd());
 const dist = resolve(root, 'dist', 'weapons');
 const sourceId = 'source:official-douyin-2026-09-09-gameplay-article';
-const [serpent, shadow, sparse, whiteSerpentData, whiteShadowData, source, searchIndex] = await Promise.all([
+const [serpent, shadow, sparse, collection, charactersCollection, whiteSerpentData, whiteShadowData, source, searchIndex, mediaRecords] = await Promise.all([
   readFile(resolve(dist, 'white-serpent-crimson-viper.html'), 'utf8'),
   readFile(resolve(dist, 'white-shadow.html'), 'utf8'),
   readFile(resolve(dist, 'tang-hengdao.html'), 'utf8'),
+  readFile(resolve(root, 'dist', 'weapons.html'), 'utf8'),
+  readFile(resolve(root, 'dist', 'characters.html'), 'utf8'),
   readJson('data/weapons/white-serpent-crimson-viper.json'),
   readJson('data/weapons/white-shadow.json'),
   readJson('data/sources/official-douyin-2026-09-09-gameplay-article.json'),
-  readJson('generated/search-index.production.json')
+  readJson('generated/search-index.production.json'),
+  readJson('data/media.json').then((document) => document.records)
 ]);
 const count = (html, value) => html.split(value).length - 1;
 
 function overview(html) {
   const start = html.indexOf('data-weapon-section="overview"');
-  const end = html.indexOf('data-weapon-section="mechanics"');
-  assert(start >= 0 && end > start, 'Weapon overview must precede mechanics');
+  const end = [
+    html.indexOf('data-weapon-section="mechanics"', start),
+    html.indexOf('data-weapon-section="progression"', start),
+    html.indexOf('id="relations-title"', start),
+    html.indexOf('id="sources-title"', start)
+  ].filter((index) => index > start).sort((left, right) => left - right)[0] ?? html.length;
+  assert(start >= 0 && end > start, 'Weapon overview must be present before later detail sections');
   return html.slice(start, end);
 }
 
@@ -108,17 +116,19 @@ function assertDerivedInput(block, { label, labelKind, inputs, description }) {
   }
 }
 
-function assertOverview(html, { name, type, typeFactId, historicalNameFactId, historicalTypeFactId, previewStats }) {
+function assertOverview(html, { name, taxonomy, systemCategoryFactId, weaponTypeFactId, historicalNameFactId, historicalTypeFactIds, previewStats }) {
   const rendered = overview(html);
   assert.equal(count(html, 'data-weapon-section="overview"'), 1, 'Weapon overview must render once');
   assert.equal(count(html, 'data-weapon-overview-field="name"'), 1, 'Current display name must have one overview row');
   assert.equal(count(html, '<dt>武器名称</dt>'), 1, 'Weapon page must not duplicate a primary name row');
-  assert.equal(count(html, '<dt>武器类型</dt>'), 1, 'Weapon page must not duplicate a primary type row');
+  assert.equal(count(html, '<dt>武器分类</dt>'), 1, 'Weapon page must not duplicate a primary taxonomy row');
   assert(rendered.includes(`<dd>${name}</dd>`), `Current display name missing: ${name}`);
-  assert(rendered.includes(`data-weapon-overview-field="type" data-fact-id="${typeFactId}"`), 'Preferred type Fact missing');
-  assert(rendered.includes(`<dd>${type}</dd>`), `Preferred type missing: ${type}`);
+  assert(rendered.includes(`data-weapon-overview-field="taxonomy" data-system-category-fact-id="${systemCategoryFactId}" data-weapon-type-fact-id="${weaponTypeFactId}"`), 'Normalized taxonomy Facts missing');
+  assert(rendered.includes(`<dd>${taxonomy}</dd>`), `Normalized taxonomy missing: ${taxonomy}`);
   if (historicalNameFactId) assert(!html.includes(`data-fact-id="${historicalNameFactId}"`), 'Historical name must not duplicate the primary overview');
-  if (historicalTypeFactId) assert(!html.includes(`data-fact-id="${historicalTypeFactId}"`), 'Historical type must not duplicate the primary overview');
+  for (const historicalTypeFactId of historicalTypeFactIds || []) {
+    assert(!rendered.includes(`data-fact-id="${historicalTypeFactId}"`), 'Legacy mixed type must not drive the public overview');
+  }
   assert.equal(count(html, 'data-weapon-preview-stats'), 1, 'Preview stats must be grouped once');
   assert(rendered.includes('预发布 Lv30 展示'), 'Preview stats must remain explicitly pre-release UI values');
   for (const [id, label, value] of previewStats) {
@@ -131,10 +141,11 @@ function assertOverview(html, { name, type, typeFactId, historicalNameFactId, hi
 
 assertOverview(serpent, {
   name: '白蟒赤练',
-  type: '双持武器',
-  typeFactId: 'fact:weapon:white-serpent-crimson-viper:kind-dual-wield',
+  taxonomy: '主武器 · 双剑',
+  systemCategoryFactId: 'fact:weapon:white-serpent-crimson-viper:system-category',
+  weaponTypeFactId: 'fact:weapon:white-serpent-crimson-viper:weapon-type',
   historicalNameFactId: 'fact:weapon:white-serpent-crimson-viper:name',
-  historicalTypeFactId: 'fact:weapon:white-serpent-crimson-viper:kind',
+  historicalTypeFactIds: ['fact:weapon:white-serpent-crimson-viper:kind', 'fact:weapon:white-serpent-crimson-viper:kind-dual-wield'],
   previewStats: [
     ['fact:weapon:white-serpent-crimson-viper:preview-damage-ability-lv30', '伤害能力', 1217],
     ['fact:weapon:white-serpent-crimson-viper:preview-break-ability-lv30', '破防能力', 640]
@@ -148,6 +159,70 @@ const whiteSerpentSearchDocument = (searchIndex.documents || searchIndex).find((
 assert(whiteSerpentSearchDocument, 'White Serpent production search document missing');
 assert(whiteSerpentSearchDocument.aliases.includes(historicalAlias), 'Historical English alias must remain searchable through production index aliases');
 assert(whiteSerpentSearchDocument.displayAliases.includes(historicalAlias), 'Historical English alias must remain in production search display aliases');
+const whiteSerpentCard = collection.match(/<a class="entity-card" href="\/weapons\/white-serpent-crimson-viper"[\s\S]*?<\/a>/)?.[0];
+assert(whiteSerpentCard, 'White Serpent public collection card missing');
+assert(!whiteSerpentCard.includes(historicalAlias) && !whiteSerpentCard.includes(historicalAlias.replace('&', '&amp;')), 'Historical English alias must not render on the White Serpent public collection card');
+assert(!whiteSerpentCard.includes('entity-card__summary') && !whiteSerpentCard.includes(whiteSerpentData.summary), 'Weapon collection card must omit its long summary while Knowledge retains it');
+assert.match(collection, /<main[^>]*\bsite-main--weapon-collection\b/, 'Weapon collection must opt into its dedicated wide content container');
+assert.doesNotMatch(charactersCollection, /\bsite-main--weapon-collection\b/, 'Non-Weapon collections must not opt into the Weapon-wide container');
+for (const [slug, displayName, systemCategory, weaponType] of [
+  ['bashpole', 'Bashpole', '影之武', '大锤'],
+  ['jagged-steel', 'Jagged Steel', '主武器', '剑'],
+  ['night-owl', 'Night Owl', '影之武', '弓'],
+  ['seamless-death', 'Seamless Death', '主武器', '投掷类'],
+  ['soft-snake-sword', 'Soft Snake Sword', '主武器', '剑'],
+  ['tang-hengdao', '唐横刀', '主武器', '刀类'],
+  ['white-serpent-crimson-viper', '白蟒赤练', '主武器', '双剑'],
+  ['white-shadow', '白影', '主武器', '双手剑'],
+  ['ya-hengdao', '牙横刀', '主武器', '刀类']
+]) {
+  const taxonomy = `${systemCategory} · ${weaponType}`;
+  const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0];
+  assert(card, `${slug}: public collection card missing`);
+  assert(card.includes(`<h3 class="entity-card__title">${displayName}</h3>`), `${slug}: collection card name missing`);
+  assert(card.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: collection card taxonomy missing`);
+  assert(!card.includes('entity-card__summary'), `${slug}: collection card must omit the long summary`);
+
+  const detail = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  const hero = detail.match(/<header class="entity-hero">[\s\S]*?<\/header>/)?.[0] || '';
+  assert(hero.indexOf(`<h1 class="entity-hero__title">`) < hero.indexOf('data-weapon-hero-taxonomy'), `${slug}: Hero taxonomy must follow the left-aligned name`);
+  assert(hero.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: Hero taxonomy missing`);
+  const renderedOverview = overview(detail);
+  assert(renderedOverview.includes(`data-system-category-fact-id="fact:weapon:${slug}:system-category"`), `${slug}: overview system category must use its normalized Fact`);
+  assert(renderedOverview.includes(`data-weapon-type-fact-id="fact:weapon:${slug}:weapon-type"`), `${slug}: overview weapon type must use its normalized Fact`);
+  assert(renderedOverview.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: overview taxonomy missing`);
+  assert(!renderedOverview.includes('data-weapon-overview-field="type"'), `${slug}: legacy mixed kind must not render in overview`);
+}
+const bashpoleCard = collection.match(/<a class="entity-card" href="\/weapons\/bashpole"[\s\S]*?<\/a>/)?.[0];
+assert(bashpoleCard?.includes('entity-media__fallback'), 'Bashpole card must retain its fallback media');
+assert(bashpoleCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
+assert.equal(count(collection, 'class="entity-card__context"'), 8, 'Weapon collection must retain every currently published pre-release status');
+const bashpoleFallback = bashpoleCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
+assert(!bashpoleFallback.includes('entity-media__name') && !bashpoleFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
+const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
+assert(characterFallback.includes('entity-media__fallback'), 'Character card must retain its fallback media');
+assert(characterFallback.includes('entity-media__name') && characterFallback.includes('entity-media__type'), 'Non-Weapon card fallback must retain fallback name and type classes');
+for (const [entityId, slug, expectedId, expectedSrc, html] of [
+  ['weapon:white-serpent-crimson-viper', 'white-serpent-crimson-viper', 'media:white-serpent-crimson-viper-master', 'white-serpent-crimson-viper-master.jpg', serpent],
+  ['weapon:white-shadow', 'white-shadow', 'media:white-shadow-master', 'white-shadow-master.jpg', shadow]
+]) {
+  const media = mediaRecords.find((record) => record.entityId === entityId);
+  assert.equal(media?.id, expectedId, `${entityId} must use its singular Weapon Master record`);
+  assert.equal(media?.src, expectedSrc, `${entityId} must use its stable Weapon Master asset`);
+  assert.deepEqual(media?.usage, ['hero', 'card'], `${entityId} Master must serve Hero and card from one record`);
+  assert.equal(media?.width, 1200, `${entityId} Master must be 1200px wide`);
+  assert.equal(media?.height, 1800, `${entityId} Master must be 1800px high`);
+  assert.equal(media.width / media.height, 2 / 3, `${entityId} Master must use the 2:3 portrait standard`);
+  assert.equal(media.objectFit, 'contain', `${entityId} portrait media must preserve the weapon with contain`);
+  assert.equal(media.rightsStatus, 'official-promotional-risk-accepted', `${entityId} Master must retain its reviewed production rights state`);
+  assert.equal(media.sourceId, sourceId, `${entityId} Master must retain the official Douyin provenance`);
+  assert(html.includes(`src="/assets/media/${media.src}"`), `${entityId} detail must render approved portrait media`);
+  assert(collection.includes(`src="/assets/media/${media.src}"`), `${entityId} collection card must render approved portrait media`);
+}
+for (const slug of ['bashpole', 'jagged-steel', 'night-owl', 'seamless-death', 'soft-snake-sword', 'tang-hengdao', 'ya-hengdao']) {
+  const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
+  assert(card.includes('data-media-state="fallback"'), `${slug}: Weapon without an approved Master must retain fallback media`);
+}
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '使用赤练短刃进行凌厉攻击。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '使用白蟒长刃进行斩击；交替点按可循环连招并进入“双蛇共舞”状态，期间伤害不断提升，可穿插变招，也可掷出赤练短刃结束“双蛇共舞”。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround', '让赤练短刃围绕自身持续旋转；旋转期间持续消耗杀气，杀气不足时会强制回收，也可再次按下 L1 + △ 主动回收。');
@@ -184,8 +259,9 @@ assertProgressionLevel(serpent, 'fact:weapon:white-serpent-crimson-viper:node-ho
 
 assertOverview(shadow, {
   name: '白影',
-  type: '双手武器',
-  typeFactId: 'fact:weapon:white-shadow:kind',
+  taxonomy: '主武器 · 双手剑',
+  systemCategoryFactId: 'fact:weapon:white-shadow:system-category',
+  weaponTypeFactId: 'fact:weapon:white-shadow:weapon-type',
   previewStats: [
     ['fact:weapon:white-shadow:preview-damage-ability-lv30', '伤害能力', 1443],
     ['fact:weapon:white-shadow:preview-break-ability-lv30', '破防能力', 757]
@@ -282,8 +358,105 @@ for (const selector of ['.controller-input {', '.controller-input__keycap {', '.
 assert(css.includes('grid-template-columns: minmax(9.5rem, 10.25rem) minmax(0, 1fr);'), 'Derived controls must reserve a bounded desktop input column');
 assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.controller-input \{/, 'Controller input mobile styling missing');
 assert.match(css, /@media \(max-width: 700px\) \{[\s\S]*?\.weapon-derived-inputs > ul > li \{ grid-template-columns: 1fr;/, 'Derived controls must preserve their stacked mobile layout');
+const weaponDesktopHero = cssRule('.entity-detail[data-entity-type="weapon"] .entity-hero');
+assert.match(weaponDesktopHero, /grid-template-columns:\s*minmax\([^;]+\)\s+minmax\([^;]+\);/, 'Weapon desktop Hero must retain media and text columns');
+assert.match(cssRule('.entity-detail[data-entity-type="weapon"] {'), /max-width:\s*67\.5rem;/, 'Weapon detail content must use the bounded desktop width');
+assert.match(weaponDesktopHero, /grid-template-columns:\s*minmax\(20rem,\s*23\.75rem\)\s+minmax\(0,\s*35rem\);/, 'Weapon desktop Hero must cap its desktop content column at approximately 35rem');
+assert.match(weaponDesktopHero, /gap:\s*clamp\(var\(--space-6\),\s*3vw,\s*var\(--space-8\)\);/, 'Weapon desktop Hero must retain a compact column gap');
+const weaponDetailMedia = cssRule('.entity-detail[data-entity-type="weapon"] .entity-media > img,');
+assert.match(weaponDetailMedia, /object-fit:\s*contain;/, 'Weapon detail media must preserve the complete weapon with contain');
+const weaponReadyDetailMedia = cssRule('.entity-detail[data-entity-type="weapon"] .entity-media[data-media-state="ready"] > img {');
+assert.match(weaponReadyDetailMedia, /aspect-ratio:\s*2\s*\/\s*3;/, 'Ready Weapon detail media must use the Master’s native 2:3 frame');
+assert.match(weaponReadyDetailMedia, /border:\s*0;/, 'Ready Weapon detail media must not retain an inner border frame');
+assert.match(weaponReadyDetailMedia, /border-radius:\s*0;/, 'Ready Weapon detail media must not retain an inner rounded frame');
+assert.match(weaponReadyDetailMedia, /background:\s*transparent;/, 'Ready Weapon detail media must not retain an inner background panel');
+assert.match(weaponReadyDetailMedia, /box-shadow:\s*none;/, 'Ready Weapon detail media must not retain an inner shadow frame');
+const weaponCardMedia = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media > img,');
+assert.match(weaponCardMedia, /width:\s*100%;/, 'Weapon collection media must fill the shared rail width');
+assert.match(weaponCardMedia, /height:\s*100%;/, 'Weapon collection media must fill the shared rail height');
+assert.match(weaponCardMedia, /aspect-ratio:\s*auto;/, 'Weapon collection media must not retain a portrait box at any viewport');
+assert.match(weaponCardMedia, /object-fit:\s*contain;/, 'Weapon collection media must preserve the complete weapon with contain');
+assert.match(weaponCardMedia, /object-position:\s*center;/, 'Weapon collection media must center inside the shared rail');
+const weaponCollectionWidthRule = cssRule('.site-main--weapon-collection,');
+assert.match(weaponCollectionWidthRule, /max-width:\s*90rem;/, 'Weapon collection must use its dedicated 90rem wide-content cap');
+const weaponHorizontalCard = cssRule('.collection-page[data-entity-type="weapon"] .entity-card {');
+assert.match(weaponHorizontalCard, /flex-direction:\s*row;/, 'Weapon collection cards must use horizontal media-and-copy layout at every viewport');
+assert.match(weaponHorizontalCard, /align-items:\s*stretch;/, 'Weapon horizontal cards must stretch their media and body to a shared card height');
+assert.doesNotMatch(weaponHorizontalCard, /align-items:\s*flex-start;/, 'Weapon horizontal cards must not regress to flex-start alignment');
+const weaponWideCard = mediaRule('min-width: 1680px', '.collection-page[data-entity-type="weapon"] .entity-card');
+assert.match(weaponWideCard, /min-height:\s*12\.5rem;/, 'Weapon four-column cards must use the compact 12.5rem minimum height');
+const weaponThreeColumnCard = mediaRule('min-width: 1100px\\) and \\(max-width: 1679\\.98px', '.collection-page[data-entity-type="weapon"] .entity-card');
+assert.match(weaponThreeColumnCard, /min-height:\s*13rem;/, 'Weapon three-column cards must use the compact 13rem minimum height');
+const weaponTwoColumnCard = mediaRule('min-width: 700px\\) and \\(max-width: 1099\\.98px', '.collection-page[data-entity-type="weapon"] .entity-card');
+assert.match(weaponTwoColumnCard, /min-height:\s*13\.5rem;/, 'Weapon two-column cards must use the balanced 13.5rem minimum height');
+const weaponMobileCard = mediaRule('max-width: 699\\.98px', '.collection-page[data-entity-type="weapon"] .entity-card');
+assert.match(weaponMobileCard, /min-height:\s*11\.5rem;/, 'Weapon mobile horizontal cards must use a compact 11.5rem minimum height');
+assert.doesNotMatch(weaponMobileCard, /flex-direction:\s*column;/, 'Weapon mobile cards must not return to image-first vertical layout');
+const weaponRail = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media {');
+assert.match(weaponRail, /flex:\s*0\s+0\s+clamp\(8rem,\s*38%,\s*10rem\);/, 'Weapon collection cards must use the final bounded media-rail guard');
+assert.match(weaponRail, /display:\s*grid;/, 'Weapon fallback and real media must share a rail skeleton at every viewport');
+assert.match(weaponRail, /align-self:\s*stretch;/, 'Weapon media rail must stretch to the shared card height');
+assert.match(weaponRail, /padding:\s*var\(--space-2\);/, 'Weapon media rail must retain compact 8px internal padding');
+const weaponReadyRail = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media[data-media-state="ready"] {');
+assert.match(weaponReadyRail, /padding:\s*var\(--space-1\);/, 'Ready Weapon Masters must retain only a 4px rail safety inset');
+assert.match(weaponReadyRail, /background:\s*transparent;/, 'Ready Weapon rail must not retain a background panel');
+assert.match(weaponReadyRail, /box-shadow:\s*none;/, 'Ready Weapon rail must not retain a shadow frame');
+const weaponReadyCardMedia = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media[data-media-state="ready"] > img {');
+assert.match(weaponReadyCardMedia, /border:\s*0;/, 'Ready Weapon collection media must not retain an inner border frame');
+assert.match(weaponReadyCardMedia, /border-radius:\s*0;/, 'Ready Weapon collection media must not retain an inner rounded frame');
+assert.match(weaponReadyCardMedia, /background:\s*transparent;/, 'Ready Weapon collection media must not retain an inner background panel');
+assert.match(weaponReadyCardMedia, /box-shadow:\s*none;/, 'Ready Weapon collection media must not retain an inner shadow frame');
+const weaponFallbackBlade = cssRule('.collection-page[data-entity-type="weapon"] .entity-card .entity-media__blade {');
+assert.match(weaponFallbackBlade, /left:\s*50%;/, 'Weapon fallback blade decoration must center inside the shared rail');
+assert.match(weaponFallbackBlade, /translateX\(-50%\)/, 'Weapon fallback blade decoration must remain centered without affecting its angle');
+const genericCardBody = css.slice(css.indexOf('.entity-card__body {', css.indexOf('.entity-card__body {') + 1), css.indexOf('}', css.indexOf('.entity-card__body {', css.indexOf('.entity-card__body {') + 1)) + 1);
+assert.match(genericCardBody, /min-width:\s*0;/, 'Weapon card copy must remain shrinkable to avoid horizontal overflow at mobile widths');
+assertMediaRule('min-width: 1680px', /grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use four columns at wide desktop');
+assertMediaRule('min-width: 1100px\\) and \\(max-width: 1679\\.98px', /grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use three columns at desktop');
+assertMediaRule('min-width: 700px\\) and \\(max-width: 1099\\.98px', /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\);/, 'Weapon collection must use two columns at tablet');
+assertMediaRule('max-width: 699\\.98px', /grid-template-columns:\s*minmax\(0,\s*1fr\);/, 'Weapon collection must use one column on mobile');
+const weaponCollectionLayoutAt = (viewportWidth) => {
+  if (viewportWidth < 700) return 'horizontal-1';
+  if (viewportWidth < 1100) return 'horizontal-2';
+  if (viewportWidth < 1680) return 'horizontal-3';
+  return 'horizontal-4';
+};
+for (const [viewportWidth, expectedLayout] of [
+  [699.5, 'horizontal-1'],
+  [700, 'horizontal-2'],
+  [1099.5, 'horizontal-2'],
+  [1100, 'horizontal-3'],
+  [1679.5, 'horizontal-3'],
+  [1680, 'horizontal-4'],
+]) {
+  assert.equal(weaponCollectionLayoutAt(viewportWidth), expectedLayout, `Weapon collection must not fall through to generic layout at ${viewportWidth}px`);
+}
+const weaponMobileBlock = css.match(/@media \(max-width: 700px\) \{([\s\S]*?)\n\}/)?.[1] || '';
+assert.match(weaponMobileBlock, /\.entity-detail\[data-entity-type="weapon"\] \.entity-hero\s*\{\s*grid-template-columns:\s*1fr;/, 'Weapon Hero must collapse to one column on mobile');
+assert(serpent.indexOf('<figure class="entity-media"') < serpent.indexOf('class="entity-hero__identity"'), 'Weapon mobile stack must keep media before text');
 
 console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, and non-Weapon detail isolation.');
+
+function cssRule(selector) {
+  const start = css.indexOf(selector);
+  assert(start >= 0, `CSS rule missing: ${selector}`);
+  const end = css.indexOf('}', start);
+  assert(end > start, `CSS rule is incomplete: ${selector}`);
+  return css.slice(start, end + 1);
+}
+
+function mediaRule(query, selector) {
+  const media = new RegExp(`@media \\(${query}\\) \\{([\\s\\S]*?)\\n\\}`).exec(css)?.[1] || '';
+  const start = media.indexOf(selector);
+  assert(start >= 0, `CSS rule missing in @media (${query}): ${selector}`);
+  const end = media.indexOf('}', start);
+  assert(end > start, `CSS rule is incomplete in @media (${query}): ${selector}`);
+  return media.slice(start, end + 1);
+}
+
+function assertMediaRule(query, declaration, message) {
+  assert.match(mediaRule(query, '.collection-page[data-entity-type="weapon"] .entity-grid'), declaration, message);
+}
 
 async function readJson(path) {
   return JSON.parse(await readFile(resolve(root, path), 'utf8'));

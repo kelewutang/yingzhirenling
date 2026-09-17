@@ -11,7 +11,7 @@ const validator = resolve(root, 'scripts', 'validate-media.mjs');
 const astroCli = resolve(root, 'node_modules', 'astro', 'bin', 'astro.mjs');
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
-function bitmap(width = 1200, height = 750) {
+function bitmap(width = 1200, height = 1800) {
   const buffer = Buffer.alloc(24);
   pngSignature.copy(buffer);
   buffer.writeUInt32BE(width, 16);
@@ -21,7 +21,7 @@ function bitmap(width = 1200, height = 750) {
 
 function mediaRecord(overrides = {}) {
   return {
-    id: 'media:tang-hero',
+    id: 'media:tang-master',
     entityId: 'weapon:tang-hengdao',
     src: 'tang-hengdao.png',
     alt: '唐横刀的已审核媒体画面',
@@ -32,15 +32,15 @@ function mediaRecord(overrides = {}) {
     sourceType: 'official-promotional',
     rightsStatus: 'official-press-use-reviewed',
     recordState: 'published',
-    usage: ['hero'],
+    usage: ['hero', 'card'],
     width: 1200,
-    height: 750,
+    height: 1800,
     mimeType: 'image/png',
     retrievedAt: '2026-01-01',
     rightsEvidence: 'Temporary test fixture only.',
     processing: 'original',
-    objectFit: 'cover',
-    objectPosition: '50% 40%',
+    objectFit: 'contain',
+    objectPosition: 'center',
     ...overrides
   };
 }
@@ -50,7 +50,10 @@ async function writeValidationFixture({ records = [], assets = [] }) {
   for (const directory of ['weapons', 'characters', 'bosses', 'locations', 'sources']) {
     await mkdir(join(fixture, 'data', directory), { recursive: true });
   }
-  await writeFile(join(fixture, 'data', 'weapons', 'tang-hengdao.json'), JSON.stringify({ id: 'weapon:tang-hengdao', recordState: 'published' }));
+  await writeFile(join(fixture, 'data', 'weapons', 'tang-hengdao.json'), JSON.stringify({ id: 'weapon:tang-hengdao', entityType: 'weapon', recordState: 'published' }));
+  await writeFile(join(fixture, 'data', 'characters', 'soul.json'), JSON.stringify({ id: 'character:soul', entityType: 'character', recordState: 'published' }));
+  await writeFile(join(fixture, 'data', 'bosses', 'commander-cleave.json'), JSON.stringify({ id: 'boss:commander-cleave', entityType: 'boss', recordState: 'published' }));
+  await writeFile(join(fixture, 'data', 'locations', 'pangzhen.json'), JSON.stringify({ id: 'location:pangzhen', entityType: 'location', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'media.json'), JSON.stringify({ schemaVersion: '1.0-media-pilot', records }));
   if (assets.length > 0) {
     await mkdir(join(fixture, 'assets', 'media'), { recursive: true });
@@ -124,7 +127,7 @@ await expectValidation('duplicate hero target is rejected', {
   assets: [{ name: riskAccepted.src }]
 }, 1, /重复的 production hero mapping/);
 await expectValidation('duplicate card target is rejected', {
-  records: [mediaRecord({ id: 'media:tang-card', rightsStatus: 'official-promotional-risk-accepted', usage: ['card'] }), mediaRecord({ id: 'media:tang-card-duplicate', rightsStatus: 'official-promotional-risk-accepted', usage: ['card'] })],
+  records: [mediaRecord({ id: 'media:tang-card', rightsStatus: 'official-promotional-risk-accepted' }), mediaRecord({ id: 'media:tang-card-duplicate', rightsStatus: 'official-promotional-risk-accepted' })],
   assets: [{ name: riskAccepted.src }]
 }, 1, /重复的 production card mapping/);
 await expectValidation('unsupported production usage is rejected', {
@@ -145,22 +148,30 @@ await expectValidation('unsafe objectPosition is rejected', {
   records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', objectPosition: 'center; background:url(https://invalid.example)' })],
   assets: [{ name: riskAccepted.src }]
 }, 1, /objectPosition/);
-await expectValidation('portrait hero is rejected by the rendered-slot rule', {
-  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', width: 640, height: 900 })],
-  assets: [{ name: riskAccepted.src, contents: bitmap(640, 900) }]
-}, 1, /hero 必须至少为 640×360 的合理横向图像/);
-await expectValidation('overwide risk accepted hero is rejected by the rendered-slot rule', {
-  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', width: 1204, height: 400 })],
-  assets: [{ name: riskAccepted.src, contents: bitmap(1204, 400) }]
-}, 1, /hero 必须至少为 640×360 的合理横向图像/);
-await expectValidation('undersized card is rejected by the rendered-slot rule', {
-  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['card'], width: 300, height: 180 })],
-  assets: [{ name: riskAccepted.src, contents: bitmap(300, 180) }]
-}, 1, /card 必须至少为 320×180/);
-await expectValidation('overportrait risk accepted card is rejected by the rendered-slot rule', {
-  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['card'], width: 320, height: 700 })],
-  assets: [{ name: riskAccepted.src, contents: bitmap(320, 700) }]
-}, 1, /card 必须至少为 320×180/);
+await expectValidation('production Weapon Master requires one shared hero and card record', {
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['hero'] })],
+  assets: [{ name: riskAccepted.src }]
+}, 1, /同一 Media record 同时支持 hero 和 card usage/);
+await expectValidation('production Weapon Master requires 1200 by 1800 dimensions', {
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', height: 1799 })],
+  assets: [{ name: riskAccepted.src, contents: bitmap(1200, 1799) }]
+}, 1, /Weapon Master 必须为 1200×1800/);
+await expectValidation('production Weapon Master requires contain rendering', {
+  records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', objectFit: 'cover' })],
+  assets: [{ name: riskAccepted.src }]
+}, 1, /Weapon Master 必须使用 contain/);
+await expectValidation('non-Weapon production Media keeps the existing rendered-slot contract', {
+  records: [mediaRecord({ id: 'media:soul-hero', entityId: 'character:soul', src: 'soul.png', usage: ['hero'], height: 750, objectFit: 'cover', objectPosition: '50% 40%' })],
+  assets: [{ name: 'soul.png', contents: bitmap(1200, 750) }]
+}, 0);
+await expectValidation('Boss production Media remains outside the Weapon Master contract', {
+  records: [mediaRecord({ id: 'media:commander-cleave-hero', entityId: 'boss:commander-cleave', src: 'commander-cleave.png', usage: ['hero'], height: 750, objectFit: 'cover', objectPosition: '50% 40%' })],
+  assets: [{ name: 'commander-cleave.png', contents: bitmap(1200, 750) }]
+}, 0);
+await expectValidation('Location production Media remains outside the Weapon Master contract', {
+  records: [mediaRecord({ id: 'media:pangzhen-hero', entityId: 'location:pangzhen', src: 'pangzhen.png', usage: ['hero'], height: 750, objectFit: 'cover', objectPosition: '50% 40%' })],
+  assets: [{ name: 'pangzhen.png', contents: bitmap(1200, 750) }]
+}, 0);
 await expectValidation('missing risk accepted file is rejected', { records: [riskAccepted] }, 1, /本地资源不存在/);
 await expectValidation('MIME mismatch is rejected', {
   records: [mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', src: 'tang-hengdao.jpg', mimeType: 'image/jpeg' })],

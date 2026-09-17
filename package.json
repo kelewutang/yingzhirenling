@@ -14,7 +14,7 @@
     "test:gameplay-foundation": "node scripts/validate-data.mjs --fixtures",
     "test:font": "node scripts/validate-display-font.mjs",
     "test:controller-inputs": "node tests/controller-inputs.test.mjs",
-    "test:knowledge": "node tests/knowledge-projections.test.mjs",
+    "test:knowledge": "node --test tests/knowledge-projections.test.mjs tests/weapon-taxonomy.test.mjs",
     "test:weapon-detail-presentation": "node scripts/astro/check-weapon-detail-presentation.mjs",
     "test:astro": "node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs",
     "test:videos": "node scripts/test-videos.mjs"

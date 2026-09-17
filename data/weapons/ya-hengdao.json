@@ -71,6 +71,8 @@
       "supersededBy": null,
       "reviewNote": null
     },
+    {"id": "fact:weapon:ya-hengdao:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:ucg-demo-report-2024-06-08"], "basisFactIds": [], "checkedAt": "2026-08-27", "gameVersionId": "version:prelaunch-demo-2024", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:ya-hengdao:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "刀类", "status": "observation", "sourceIds": ["source:ucg-demo-report-2024-06-08"], "basisFactIds": [], "checkedAt": "2026-08-27", "gameVersionId": "version:prelaunch-demo-2024", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
     {
       "id": "fact:weapon:ya-hengdao:public-appearance",
       "key": "weapon.publicAppearance",
