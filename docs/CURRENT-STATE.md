@@ -7,8 +7,8 @@
 - **Repository:** `git@github.com:kelewutang/yingzhirenling.git`
 - **Formal local repo:** `/home/mok/projects/yingzhirenling-site`
 - **Branch:** `main`
-- **Baseline commit:** `7cdfd5180c26e6bd8831b40ec4b4fc3f4fb4ad92`
-- **Baseline meaning:** Visual Atmosphere / Background Layer — Full Rollout merge baseline
+- **Baseline commit:** `d42d43fc6333a2118f8c8786ebd5a459c6112c95`
+- **Baseline meaning:** P3-CN-4D Weapon Media merge baseline
 - **Hosting:** Netlify static hosting
 - **Architecture:** Astro static output, native CSS, native JavaScript, and build-time Knowledge data
 
@@ -36,9 +36,10 @@ The current static build and its verification derive the following production in
 | Character detail pages | 3 |
 | Boss detail pages | 3 |
 | Location detail pages | 1 |
+| Published Entity detail pages | 16 |
 | Production Search documents | 16 |
 | URLs in the generated sitemap | 25 |
-| Production-eligible Media records | 1 |
+| Production-eligible Media records | 3 |
 
 Counts must be re-derived from `data/` and the static build when precision matters; they are not homepage copy constants.
 
@@ -71,7 +72,7 @@ Read [Knowledge Schema 1.0](knowledge-schema-1.0.md) before changing any data or
 - Production runtime loads only `generated/search-index.production.json`; Page Search remains usable if the Entity enhancement fails.
 - Do not introduce Next.js, React, Tailwind, a database, CMS, Server API, or account system without an explicit approved need.
 - Netlify publishes `dist/`; its build command runs the repository validation and generation chain.
-- Astro natively emits the homepage, four collection pages, 15 published Entity detail pages, and the sitemap.
+- Astro natively emits the homepage, four collection pages, 16 published Entity detail pages, and the sitemap.
 - The retained legacy bridge serves `/guide`, `/about`, `/about-site`, and `/404`; `/videos` is a static Astro route backed by production Video records. Legacy `/pages/*.html` compatibility redirects remain in place.
 - Obsolete legacy source files removed in P2-UI-8 are root `index.html` and `pages/weapons.html`, `pages/characters.html`, `pages/bosses.html`, and `pages/world.html`.
 
@@ -127,7 +128,7 @@ Known merge baselines:
 - P2-UI-6, including the Homepage structured-data hotfix: `b0ecacfc7e84439deb0b27b3f9494598dc13989f`
 - P2-UI-7 merge: `ee09a49aa76965078c81264242afacb1303ec96e`
 - P2-UI-8 merge: `342b711d8bf02b3c4a09f7b35ac359105614166a`
-- Visual Atmosphere / Background Layer — Full Rollout merge: `7cdfd5180c26e6bd8831b40ec4b4fc3f4fb4ad92`
+- Visual Atmosphere / Background Layer — Full Rollout historical baseline: `7cdfd5180c26e6bd8831b40ec4b4fc3f4fb4ad92`
 
 ## 9. Current User Journey
 
@@ -153,14 +154,15 @@ Published Media may only target a published Entity; draft or archived Entity tar
 
 ## 10.1 Current Performance Values
 
-[Performance Baseline](PERFORMANCE-BASELINE.md) is the historical P2-UI-7 baseline, not the current runtime-size record. The Visual Atmosphere Full Rollout current operational measurement is:
+[Performance Baseline](PERFORMANCE-BASELINE.md) is the historical P2-UI-7 baseline, not the current runtime-size record. The P3-CN-4D current operational measurement is:
 
-- `dist/`: 1,259,268 B
-- CSS: 82,337 B
+- `dist/`: 1,268,479 B
+- CSS: 82,953 B
 - JavaScript: 18,962 B
 - Production Search index: 9,313 B / 16 Entity documents
+- Display font: 273,920 B
 - Legacy raster assets: 0 files / 0 B
-- Production Media: 3 / 538,727 B
+- Production Media: 3 / 547,290 B
 
 All nine retired legacy bitmaps were removed after reference, build, and runtime verification. Background atmosphere remains CSS-only; it is not a Media rollout.
 
@@ -182,7 +184,9 @@ Core canonical routes are:
 
 Published Entity details use their type and stable slug below the relevant collection route. Legacy `/pages/*.html` aliases redirect to canonical routes. A custom 404 exists, and draft production route isolation is verified.
 
-The generated sitemap has 25 canonical URLs. Homepage canonical is `https://www.yingzhirenling.cn/`.
+The generated sitemap has 25 unique canonical URLs. The static build emits 27 canonical tags across 28 page HTML files because the two retained legacy Weapon compatibility outputs emit the canonical tags for 唐横刀 and 牙横刀 a second time. The separate Baidu verification artifact is a non-page root file. Homepage canonical is `https://www.yingzhirenling.cn/`.
+
+Search-engine property state is deliberately incomplete: Google Search Console and Bing Webmaster real-property verification are pending; their sitemap submission state is not recorded. The tracked Baidu verification artifact is deployed by the build, but this only makes the verification file reachable and does not claim that a Baidu property or sitemap submission has been verified.
 
 ## 12. Homepage State
 
@@ -199,7 +203,7 @@ No homepage-specific runtime Search implementation was added.
 
 ## 13. Validation Baseline
 
-At baseline `7cdfd518`, the main build passed:
+Historical verification record: at baseline `7cdfd518`, the main build passed:
 
 - `git diff --check`
 - Knowledge validator
@@ -260,7 +264,7 @@ Do not merge directly because `gh` is unavailable. Do not force-push, rewrite hi
 
 ## 17. Current Technical Debt and Deferred Work
 
-- Broader production media rollout remains deferred; `character:soul` is the sole admitted Hero/Card Media record.
+- Broader production Media rollout remains deferred. The three current Hero/Card Media records are Soul, White Serpent / Crimson Viper, and White Shadow; the other published Weapons continue to use deterministic fallbacks.
 - Major legacy CSS cleanup, obsolete legacy homepage/collection source cleanup, and legacy bitmap cleanup completed in P2-UI-8.
 - The legacy static-copy bridge remains for `/guide`, `/about`, `/about-site`, and `/404`; `/videos` no longer uses the bridge.
 - Post-release content expansion, search scaling, and Build tools are future scope.

@@ -76,6 +76,23 @@ async function assertDetailVisualContract(file, entity) {
 
 for (const [file] of canonicalRoutes) assert((await stat(resolve(dist, file))).isFile(), `Missing dist/${file}`);
 assert((await stat(resolve(dist, '404.html'))).isFile(), 'Missing custom 404');
+const baiduVerificationFiles = (await readdir(root, { withFileTypes: true }))
+  .filter((entry) => entry.isFile() && /^baidu_verify_codeva-[a-z0-9-]+\.html$/i.test(entry.name))
+  .map((entry) => entry.name)
+  .sort();
+const distBaiduVerificationFiles = (await readdir(dist, { withFileTypes: true }))
+  .filter((entry) => entry.isFile() && /^baidu_verify_codeva-[a-z0-9-]+\.html$/i.test(entry.name))
+  .map((entry) => entry.name)
+  .sort();
+assert.equal(baiduVerificationFiles.length, 1, 'Expected exactly one Baidu verification artifact at the repository root');
+assert.equal(distBaiduVerificationFiles.length, 1, 'Expected exactly one Baidu verification artifact in dist');
+assert.equal(distBaiduVerificationFiles[0], baiduVerificationFiles[0], 'Baidu verification artifact filename must match between source and dist');
+const baiduVerificationFile = baiduVerificationFiles[0];
+const sourceBaiduVerification = await readFile(resolve(root, baiduVerificationFile));
+const distBaiduVerification = await readFile(resolve(dist, baiduVerificationFile));
+assert(sourceBaiduVerification.byteLength > 0, `${baiduVerificationFile}: source Baidu verification artifact must not be empty`);
+assert(distBaiduVerification.byteLength > 0, `${baiduVerificationFile}: dist Baidu verification artifact must not be empty`);
+assert.deepEqual(distBaiduVerification, sourceBaiduVerification, `${baiduVerificationFile}: dist verification artifact must exactly match the tracked source`);
 const productionMediaSources = [...new Set(mediaRecords.filter(isProductionMedia).map((record) => record.src))];
 const mediaDistDirectory = resolve(dist, 'assets', 'media');
 if (productionMediaSources.length === 0) {

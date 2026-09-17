@@ -1,9 +1,17 @@
-import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { renderLegacyFooter, renderLegacyHeader, resolveLegacyActiveSection } from './site-shell.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
+const baiduVerificationFiles = (await readdir(root, { withFileTypes: true }))
+  .filter((entry) => entry.isFile() && /^baidu_verify_codeva-[a-z0-9-]+\.html$/i.test(entry.name))
+  .map((entry) => entry.name)
+  .sort();
+
+if (baiduVerificationFiles.length !== 1) {
+  throw new Error('Expected exactly one Baidu verification artifact at the repository root');
+}
 
 // Migration bridge only. Delete after every legacy page is owned by Astro.
 const targets = [
@@ -12,6 +20,7 @@ const targets = [
   ['generated/search-index.production.json', 'generated/search-index.production.json'],
   ['favicon.ico', 'favicon.ico'],
   ['robots.txt', 'robots.txt'],
+  ...baiduVerificationFiles.map((file) => [file, file]),
   ['404.html', '404.html'],
   ['pages/guide.html', 'guide.html'],
   ['pages/about.html', 'about.html'],
