@@ -75,10 +75,10 @@ Current production rendering implements only the singular Entity `hero` and `car
 Production-eligible Weapon Media uses one frozen Master per Weapon, rather than separate Hero and Card crops. The same local asset and singular Media record must declare both `hero` and `card`; pages render that Master with `object-fit: contain`.
 
 - Canvas is exactly **1200×1800 px** (2:3, portrait).
-- Use a dark, neutral background compatible with the site. The complete, recognizable weapon takes priority over filling the canvas.
+- A dark, neutral background does not require an artificial matte. When a reviewed clean 2:3 source crop is available, directly resize it to fill the Master canvas; the original game/environment background may serve as the Master background. Do not add a uniform surround merely to normalize presentation or create an inner-frame effect.
 - When the source permits, the visible weapon subject should occupy about 80%–90% of the canvas height. Leave about 5%–10% breathing room above and below where the source geometry permits; side margins follow the weapon shape.
 - Align by visual balance, not a mechanical bounding-box center.
-- Crop, resize, JPEG re-encoding, and non-generative compositing onto the neutral canvas are allowed. Generative fill, AI reconstruction, repainting, or inventing missing blade/tip/handle geometry are prohibited.
+- Crop, resize, JPEG re-encoding, and non-generative compositing onto the neutral canvas are allowed where a direct clean crop is unavailable and the result does not create a misleading frame. Generative fill or extension, AI reconstruction, repainting, or inventing missing blade/tip/handle geometry are prohibited.
 - Remove phone/browser chrome, game menus, skill text, button prompts, page indicators, and screenshot borders where this can be done without damaging weapon identity. Original game/environment background may remain.
 - If a source is truncated, the Master must remain truncated. It must never be made to look complete through reconstruction.
 - `provisional-official` is the current editorial lifecycle for traceable official promotional material; after release, approved self-captured replacements become `canonical-self-captured`. This is documented lifecycle vocabulary, not a new Media Schema field; a later gate may add a machine-readable field.
