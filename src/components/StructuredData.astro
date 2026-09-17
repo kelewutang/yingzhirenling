@@ -1,0 +1,6 @@
+---
+import { serializeJsonLd } from '../lib/structured-data.mjs';
+
+const { data } = Astro.props;
+---
+<script type="application/ld+json" set:html={serializeJsonLd(data)} />

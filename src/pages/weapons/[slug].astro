@@ -19,5 +19,5 @@ const description = `${weapon.displayName}：${weapon.summary}`;
 const media = await getProductionHeroMedia(weapon.id);
 ---
 <BaseLayout title={`${weapon.displayName} - 影之刃零武器资料 | 影之刃零攻略站`} description={description} canonical={canonical} activeSection="weapons" atmosphere="weapon">
-  <EntityDetailLayout entity={weapon} collectionHref="/weapons" collectionLabel="武器图鉴" returnLabel="武器图鉴" eyebrow={detail.eyebrow} heroTaxonomy={detail.taxonomy?.valueText} facts={{ quick: [], detail: [] }} sources={sources} sourceById={knowledge.sourceById} media={media} weaponDetail={detail} />
+  <EntityDetailLayout entity={weapon} collectionHref="/weapons" collectionLabel="武器图鉴" returnLabel="武器图鉴" eyebrow={detail.eyebrow} heroTaxonomy={detail.taxonomy?.valueText} facts={{ quick: [], detail: [] }} sources={sources} sourceById={knowledge.sourceById} media={media} weaponDetail={detail} canonical={canonical} />
 </BaseLayout>

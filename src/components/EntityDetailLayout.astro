@@ -6,10 +6,18 @@ import DetailFactSections from './DetailFactSections.astro';
 import SourcePanel from './SourcePanel.astro';
 import RelationList from './RelationList.astro';
 import WeaponDetailPresentation from './WeaponDetailPresentation.astro';
+import StructuredData from './StructuredData.astro';
+import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
 
-const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, sources, sourceById, media, relations = [], weaponDetail = null } = Astro.props;
+const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, sources, sourceById, media, relations = [], weaponDetail = null, canonical } = Astro.props;
+const breadcrumbStructuredData = createBreadcrumbList([
+  { name: '首页', item: productionUrl('/') },
+  { name: collectionLabel, item: productionUrl(collectionHref) },
+  { name: entity.displayName, item: canonical }
+]);
 ---
 <article class="entity-detail entity-detail--pilot" data-detail-system="rollout" data-detail-pilot={entity.id === 'weapon:tang-hengdao' ? 'weapon' : undefined} data-entity-type={entity.entityType}>
+  <StructuredData data={breadcrumbStructuredData} />
   <Breadcrumb collectionHref={collectionHref} collectionLabel={collectionLabel} currentLabel={entity.displayName} />
   <EntityHero entity={entity} aliases={aliases} eyebrow={eyebrow} taxonomy={heroTaxonomy} media={media} />
   <div class="entity-detail__scope alert alert-info">{weaponDetail ? '本页整理发售前公开资料；招式和成长说明仅在官方截图文字可明确读取时展示。' : '本页整理发售前公开资料。每条事实与关系均单独标注来源状态；公开画面观察不自动等同于官方文字确认。'}</div>

@@ -1,8 +1,10 @@
 ---
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import StructuredData from '../components/StructuredData.astro';
+import { createPageIdentity } from '../lib/structured-data.mjs';
 
-const { title, description, canonical, activeSection, atmosphere, weaponCollection = false } = Astro.props;
+const { title, description, canonical, activeSection, atmosphere, weaponCollection = false, pageSchemaType = 'WebPage' } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -19,6 +21,7 @@ const { title, description, canonical, activeSection, atmosphere, weaponCollecti
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {pageSchemaType && <StructuredData data={createPageIdentity({ type: pageSchemaType, name: title, description, url: canonical })} />}
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="stylesheet" href="/css/style.css" />
     <slot name="head" />

@@ -1,6 +1,7 @@
 import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { renderLegacyFooter, renderLegacyHeader, resolveLegacyActiveSection } from './site-shell.mjs';
+import { createBreadcrumbList, createPageIdentity, productionUrl, serializeJsonLd } from '../../src/lib/structured-data.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
@@ -59,28 +60,51 @@ function decodeHtml(value) {
   return String(value).replaceAll('&quot;', '"').replaceAll('&#39;', "'").replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&');
 }
 
-function legacyMetadata(html, route) {
-  if (!route) return html;
+function readLegacyMetadata(html, route) {
+  if (!route) return null;
 
   const titleSource = html.match(/<title>([\s\S]*?)<\/title>/i)?.[1];
   const descriptionSource = html.match(/<meta\s+name="description"\s+content="([^"]*)"\s*\/?\s*>/i)?.[1];
   const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"\s*\/?\s*>/i)?.[1];
   if (!titleSource || !descriptionSource || !canonical) throw new Error(`Legacy metadata missing for ${route}`);
-  const title = decodeHtml(titleSource);
-  const description = decodeHtml(descriptionSource);
+  if (canonical !== productionUrl(route)) throw new Error(`Legacy canonical mismatch for ${route}: ${canonical}`);
+  return { title: decodeHtml(titleSource), description: decodeHtml(descriptionSource), canonical };
+}
 
+function legacyMetadata(html, metadata) {
   const ogType = /"@type": "Article"/.test(html) ? 'article' : 'website';
   const social = [
-    `<meta property="og:title" content="${escapeHtml(title)}">`,
-    `<meta property="og:description" content="${escapeHtml(description)}">`,
-    `<meta property="og:url" content="${escapeHtml(canonical)}">`,
+    `<meta property="og:title" content="${escapeHtml(metadata.title)}">`,
+    `<meta property="og:description" content="${escapeHtml(metadata.description)}">`,
+    `<meta property="og:url" content="${escapeHtml(metadata.canonical)}">`,
     `<meta property="og:type" content="${ogType}">`,
     '<meta name="twitter:card" content="summary">',
-    `<meta name="twitter:title" content="${escapeHtml(title)}">`,
-    `<meta name="twitter:description" content="${escapeHtml(description)}">`
+    `<meta name="twitter:title" content="${escapeHtml(metadata.title)}">`,
+    `<meta name="twitter:description" content="${escapeHtml(metadata.description)}">`
   ].join('\n  ');
 
   return html.replace(/(<link\s+rel="canonical"\s+href="[^"]*"\s*\/?\s*>)/i, `$1\n  ${social}`);
+}
+
+function legacyBreadcrumb(html, metadata, route) {
+  const match = html.match(/<div class="page-breadcrumb">\s*<a href="\/">([^<]+)<\/a>\s*\/\s*([^<]+)\s*<\/div>/i);
+  if (!match) throw new Error(`Legacy breadcrumb missing for ${route}`);
+  return createBreadcrumbList([
+    { name: decodeHtml(match[1]), item: productionUrl('/') },
+    { name: decodeHtml(match[2]), item: metadata.canonical }
+  ]);
+}
+
+function legacyStructuredData(html, route, metadata) {
+  const data = [legacyBreadcrumb(html, metadata, route)];
+  if (route !== '/guide') data.unshift(createPageIdentity({
+    type: 'WebPage',
+    name: metadata.title,
+    description: metadata.description,
+    url: metadata.canonical
+  }));
+  const scripts = data.map((item) => `  <script type="application/ld+json">${serializeJsonLd(item)}</script>`).join('\n');
+  return html.replace(/<\/head>/i, `${scripts}\n</head>`);
 }
 
 for (const [sourcePath, destinationPath] of targets) {
@@ -116,7 +140,10 @@ if (productionMediaSources.length > 0) {
 for (const [destinationPath, route] of legacyShellPages) {
   const destination = resolve(dist, destinationPath);
   const page = await readFile(destination, 'utf8');
-  await writeFile(destination, legacyMetadata(replaceLegacyShell(page, route), route), 'utf8');
+  const withShell = replaceLegacyShell(page, route);
+  const metadata = readLegacyMetadata(withShell, route);
+  const withMetadata = metadata ? legacyMetadata(withShell, metadata) : withShell;
+  await writeFile(destination, metadata ? legacyStructuredData(withMetadata, route, metadata) : withMetadata, 'utf8');
 }
 
 // Preserve the existing exact Netlify rewrites while making their targets
