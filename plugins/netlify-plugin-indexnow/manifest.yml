@@ -1,0 +1,3 @@
+name: netlify-plugin-indexnow
+displayName: IndexNow production deploy notification
+description: Notifies IndexNow only after a successful Netlify production deploy.
