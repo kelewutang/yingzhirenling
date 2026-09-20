@@ -1,10 +1,31 @@
 import assert from 'node:assert/strict';
-import { readdir, readFile } from 'node:fs/promises';
+import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { parseSitemapCanonicalUrls, readIndexNowKey } from './indexnow.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const dist = resolve(root, 'dist');
+const manifestPath = resolve(root, 'plugins/netlify-plugin-indexnow/manifest.yml');
+const manifestMetadata = await stat(manifestPath);
+assert(manifestMetadata.isFile(), 'IndexNow Netlify plugin manifest must be a file');
+
+const manifest = await readFile(manifestPath, 'utf8');
+const manifestFields = manifest
+  .split(/\r?\n/)
+  .filter((line) => line.trim() && !line.trimStart().startsWith('#'))
+  .map((line) => {
+    const match = line.match(/^([A-Za-z][A-Za-z0-9_-]*):\s*(.*)$/);
+    assert(match, `IndexNow Netlify plugin manifest must contain only top-level fields: ${line}`);
+    return { name: match[1], value: match[2] };
+  });
+
+assert.deepEqual(
+  manifestFields.map((field) => field.name),
+  ['name'],
+  'IndexNow Netlify plugin manifest must contain only the allowed name field'
+);
+assert.equal(manifestFields[0].value, 'netlify-plugin-indexnow', 'IndexNow Netlify plugin name must match its directory contract');
+
 const key = await readIndexNowKey(dist);
 const [keyFile, sitemap, searchIndex, outputFiles] = await Promise.all([
   readFile(resolve(dist, `${key}.txt`), 'utf8'),
