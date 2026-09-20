@@ -12,6 +12,13 @@
 - **Hosting:** Netlify static hosting
 - **Architecture:** Astro static output, native CSS, native JavaScript, and build-time Knowledge data
 
+## Search Platform Status (observed 2026-09-20)
+
+- **Google Search Console:** `yingzhirenling.cn` Domain property is verified; `https://www.yingzhirenling.cn/sitemap.xml` was submitted successfully.
+- **Bing Webmaster Tools:** property was imported from Google Search Console and verified; sitemap was submitted and was processing at the time of observation; all 25 current canonical URLs were manually submitted on 2026-09-20.
+- **Baidu Search Resource Platform:** the existing `https://www.yingzhirenling.cn` property is verified and production technical readiness passed. Active sitemap, manual, and API URL submission were blocked by platform quota. The historical verification artifact's Pretty-URLs redirect is non-blocking because ownership is already verified.
+- **IndexNow:** P3-CN-5A5 adds a production-only, post-deploy notification plugin. It derives its allowed URLs from the deployed sitemap and does not guarantee indexing.
+
 ## 2. Current Product Position
 
 The site is a pre-release knowledge base and guide-search entry for *Phantom Blade Zero / 影之刃零*.

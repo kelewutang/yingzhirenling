@@ -7,6 +7,12 @@
   publish = "dist"
   command = "npm ci && npm run build"
 
+# onSuccess runs only after a successful deploy. Keeping this declaration in
+# the production context prevents Preview, branch, and local deploy contexts
+# from loading the IndexNow notification plugin at all.
+[[context.production.plugins]]
+  package = "./plugins/netlify-plugin-indexnow"
+
 [[headers]]
   for = "/*"
   [headers.values]
