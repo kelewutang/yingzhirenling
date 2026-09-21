@@ -95,6 +95,25 @@
       <p style="color:var(--text-secondary);margin-top:8px;">官方系统信息 · 试玩观察 · 发售前准备</p>
     </div>
 
+    <nav class="page-jump-nav" aria-label="攻略中心页内导航">
+      <div class="page-jump-nav__row">
+        <span class="page-jump-nav__label">快速定位</span>
+        <a href="#beginner-section">新手入门</a>
+        <a href="#difficulty">难度说明</a>
+        <a href="#early-game">开荒建议</a>
+        <a href="#exploration">探索与武器</a>
+        <a href="#guide-faq">常见问题</a>
+        <button class="print-btn" onclick="window.print()" title="打印本页">🖨 打印</button>
+      </div>
+      <div class="page-jump-nav__row">
+        <span class="page-jump-nav__label">跳转到难度说明</span>
+        <a href="#diff-wayfarer" class="diff-tag diff-easy">旅人</a>
+        <a href="#diff-pathbreaker" class="diff-tag diff-normal">破路者</a>
+        <a href="#diff-hellwalker" class="diff-tag diff-hard">地狱行者</a>
+        <a href="#diff-sixtysix" class="diff-tag diff-extreme">六十六天</a>
+      </div>
+    </nav>
+
     <aside class="info-provenance" data-info-scope="page" data-status="pending-review" aria-labelledby="page-info-status-title">
       <div class="info-provenance__intro">
         <span class="info-status" data-status="pending-review">待后续事实核查</span>
@@ -110,28 +129,6 @@
     </aside>
 
     <div class="article">
-
-      <!-- 新手指南快速入口 -->
-      <div class="beginner-banner" id="beginner">
-        <div class="beginner-banner-inner">
-          <div class="beginner-icon">🎮</div>
-          <div class="beginner-text">
-            <h3>新手指南</h3>
-            <p>发售前先了解已公开的战斗、武器与难度信息；试玩观察不等同于正式版攻略。</p>
-          </div>
-          <a href="#beginner-section" class="btn btn-primary" onclick="document.getElementById('beginner-section').scrollIntoView({behavior:'smooth'})">开始学习</a>
-        </div>
-      </div>
-
-      <!-- 难度分级标签 -->
-      <div class="difficulty-tags">
-        <span class="difficulty-label">难度筛选：</span>
-        <a href="#diff-wayfarer" class="diff-tag diff-easy">旅人</a>
-        <a href="#diff-pathbreaker" class="diff-tag diff-normal">破路者</a>
-        <a href="#diff-hellwalker" class="diff-tag diff-hard">地狱行者</a>
-        <a href="#diff-sixtysix" class="diff-tag diff-extreme">六十六天</a>
-        <button class="print-btn" onclick="window.print()" title="打印本页">🖨 打印</button>
-      </div>
 
       <div class="alert alert-warning">
         游戏计划于2026年10月29日发售（见 <a href="https://store.steampowered.com/app/4115450/Phantom_Blade_Zero/" target="_blank" rel="noopener noreferrer">Steam 官方商品页</a>）。以下内容来自官方发布材料与公开试玩；试玩版本的数值、规则和操作可能在正式版调整。
@@ -160,7 +157,7 @@
         <dl class="info-provenance__meta"><div class="info-source"><dt>来源</dt><dd><a href="https://blog.playstation.com/2026/08/17/phantom-blade-zero-state-of-play-dives-deep-into-combat-and-the-wulin-world/" target="_blank" rel="noopener noreferrer">PlayStation Blog</a></dd></div><div class="info-source"><dt>核查时间</dt><dd><time datetime="2026-08-26">2026年8月26日</time></dd></div></dl>
       </aside>
 
-      <h3>难度选择前瞻</h3>
+      <h3 id="difficulty">难度选择前瞻</h3>
       <ul>
         <li id="diff-wayfarer"><strong>旅人模式（Wayfarer）</strong>：官方定位为更侧重故事体验的选项。</li>
         <li id="diff-pathbreaker"><strong>破路者模式（Pathbreaker）</strong>：在官方专场画面中展示；详细难度说明待确认。</li>
@@ -168,7 +165,7 @@
         <li id="diff-sixtysix"><strong>六十六天模式（Sixty-Six Days）</strong>：官方定位为高强度挑战；完整失败与存档规则尚未在可核验文字材料中说明。</li>
       </ul>
 
-      <h2>开荒推荐</h2>
+      <h2 id="early-game">开荒推荐</h2>
 
       <aside class="info-provenance" data-info-scope="section" data-status="editorial" aria-label="开荒建议信息状态">
         <div class="info-provenance__intro"><span class="info-status" data-status="editorial">编辑推测</span><div class="info-provenance__content"><p class="info-provenance__description">本节是基于试玩演示的发售前配装思路，不是正式版强度结论。</p></div></div>
@@ -185,7 +182,7 @@
         <li>预购特典"聚宝盆"可提升意识尘埃掉落率+10%；<a href="https://store.steampowered.com/app/4115450/Phantom_Blade_Zero/" target="_blank" rel="noopener noreferrer">Steam 商品页</a>列为预购提前解锁内容。</li>
       </ol>
 
-      <h2>探索系统（State of Play公开）</h2>
+      <h2 id="exploration">探索系统（State of Play公开）</h2>
       <aside class="info-provenance" data-info-scope="section" data-status="observation" aria-label="探索系统信息状态">
         <div class="info-provenance__intro"><span class="info-status" data-status="observation">试玩观察</span><div class="info-provenance__content"><p class="info-provenance__description">官方专场展示了手绘地图、区域探索与支线内容；“半开放”“类银河城”等是对演示结构的概括，不是本站对正式版类型的定论。</p></div></div>
         <dl class="info-provenance__meta"><div class="info-source"><dt>来源</dt><dd><a href="https://blog.playstation.com/2026/08/17/phantom-blade-zero-state-of-play-dives-deep-into-combat-and-the-wulin-world/" target="_blank" rel="noopener noreferrer">官方 State of Play 总结与内嵌实机</a></dd></div><div class="info-source"><dt>观察更新</dt><dd><time datetime="2026-08-26">2026年8月26日</time></dd></div></dl>
@@ -212,30 +209,14 @@
 
       <div class="alert alert-warning">官方尚未公布可供完整核验的章节目录。本站不会在发售前把推测章节名写成正式流程。</div>
 
-      <div class="card-grid" style="margin:20px 0;">
-        <div class="card">
-          <h3 class="card-title">主线章节与路线</h3>
-          <p class="card-text">待正式版核验章节名、关键节点、分支条件与不可逆选择。</p>
-          <div class="card-meta"><span class="tag tag-gray">待更新</span></div>
-        </div>
-        <div class="card">
-          <h3 class="card-title">支线与故事路线</h3>
-          <p class="card-text">待核验任务触发、完成顺序及官方所述“新故事路线”的具体条件。</p>
-          <div class="card-meta"><span class="tag tag-gray">待更新</span></div>
-        </div>
-        <div class="card">
-          <h3 class="card-title">Boss与武器获取</h3>
-          <p class="card-text">待核验Boss出现位置、阶段机制、掉落武器与难度差异。</p>
-          <div class="card-meta"><span class="tag tag-gray">待更新</span></div>
-        </div>
-        <div class="card">
-          <h3 class="card-title">收集与结局条件</h3>
-          <p class="card-text">待核验收集品类别、位置、遗漏点及结局触发条件。</p>
-          <div class="card-meta"><span class="tag tag-gray">待更新</span></div>
-        </div>
-      </div>
+      <ul class="pending-update-list">
+        <li><strong>主线章节与路线：</strong>待正式版核验章节名、关键节点、分支条件与不可逆选择。</li>
+        <li><strong>支线与故事路线：</strong>待核验任务触发、完成顺序及官方所述“新故事路线”的具体条件。</li>
+        <li><strong>Boss与武器获取：</strong>待核验Boss出现位置、阶段机制、掉落武器与难度差异。</li>
+        <li><strong>收集与结局条件：</strong>待核验收集品类别、位置、遗漏点及结局触发条件。</li>
+      </ul>
 
-      <h2>常见问题</h2>
+      <h2 id="guide-faq">常见问题</h2>
 
       <h3>Q：66天寿命会限时吗？</h3>
       <p>A：官方公开资料将六十六日作为主角的剧情设定，并公布了六十六天挑战模式；该模式的完整失败规则及剧情倒计时是否限制常规探索，仍待官方进一步说明或正式版验证。</p>
