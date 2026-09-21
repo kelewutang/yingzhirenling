@@ -538,6 +538,53 @@ pre code {
 
 .data-table tr:hover td { background: var(--bg-card-hover); }
 
+/* Decision tables scroll inside the article while keeping native table layout. */
+.responsive-table {
+  max-width: 100%;
+  margin: 20px 0;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-card);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.responsive-table:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.responsive-table .data-table {
+  display: table;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+}
+
+.responsive-table .data-table th,
+.responsive-table .data-table td {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.responsive-table .data-table th {
+  white-space: nowrap;
+}
+
+.responsive-table--hardware { margin: 12px 0; }
+
+.responsive-table--prices tbody td:nth-child(2),
+.responsive-table--prices tbody td:nth-child(3),
+.responsive-table--editions thead th:nth-child(2),
+.responsive-table--editions thead th:nth-child(3) {
+  white-space: nowrap;
+}
+
 /* ===== 时间线 ===== */
 .timeline {
   position: relative;
@@ -1067,6 +1114,14 @@ pre code {
   .stat-label { font-size: 12px; }
   .data-table { font-size: 13px; }
   .data-table th, .data-table td { padding: 10px 8px; }
+  .responsive-table .data-table th, .responsive-table .data-table td { padding: 10px 12px; }
+  .responsive-table--facts .data-table { min-width: 28rem; }
+  .responsive-table--prices .data-table { min-width: 34rem; }
+  .responsive-table--editions .data-table,
+  .responsive-table--hardware .data-table { min-width: 32rem; }
+  .responsive-table--editions .data-table { table-layout: fixed; }
+  .responsive-table--editions thead th:first-child { width: 40%; }
+  .responsive-table--policy .data-table { min-width: 30rem; }
   .hero-buttons { flex-direction: column; width: 100%; }
   .hero-buttons .btn { width: 100%; text-align: center; }
   .btn { padding: 14px 24px; font-size: 15px; }
