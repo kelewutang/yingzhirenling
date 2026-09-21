@@ -20,7 +20,7 @@ const breadcrumbStructuredData = createBreadcrumbList([
   <StructuredData data={breadcrumbStructuredData} />
   <Breadcrumb collectionHref={collectionHref} collectionLabel={collectionLabel} currentLabel={entity.displayName} />
   <EntityHero entity={entity} aliases={aliases} eyebrow={eyebrow} taxonomy={heroTaxonomy} media={media} />
-  <div class="entity-detail__scope alert alert-info">{weaponDetail ? '本页整理发售前公开资料；招式和成长说明仅在官方截图文字可明确读取时展示。' : '本页整理发售前公开资料。每条事实与关系均单独标注来源状态；公开画面观察不自动等同于官方文字确认。'}</div>
+  <p class="entity-detail__scope">{weaponDetail ? '本页整理发售前公开资料；招式和成长说明仅在官方截图文字可明确读取时展示。' : '本页整理发售前公开资料。每条事实与关系均单独标注来源状态；公开画面观察不自动等同于官方文字确认。'}</p>
   {weaponDetail ? <WeaponDetailPresentation detail={weaponDetail} /> : <>
     <QuickFacts facts={facts.quick} />
     <DetailFactSections facts={facts.detail} sourceById={sourceById} />

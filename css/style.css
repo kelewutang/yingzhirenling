@@ -1985,6 +1985,7 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 
 .entity-hero {
   display: grid;
+  grid-template-areas: "media identity";
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(var(--space-6), 5vw, var(--space-16));
   align-items: center;
@@ -1995,6 +1996,7 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 }
 
 .entity-media {
+  grid-area: media;
   min-width: 0;
   margin: 0;
 }
@@ -2117,7 +2119,7 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
   box-shadow: none;
 }
 
-.entity-hero__identity { min-width: 0; }
+.entity-hero__identity { grid-area: identity; min-width: 0; }
 
 .entity-hero__eyebrow,
 .detail-section-heading__eyebrow,
@@ -2172,8 +2174,17 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 
 .entity-detail__scope {
   max-width: var(--width-reading);
-  margin: var(--space-8) auto 0;
+  margin: var(--space-6) auto 0;
+  padding: var(--space-3) var(--space-4);
+  border-inline-start: 2px solid var(--color-observation);
+  background: rgb(74 158 168 / 0.06);
+  color: var(--color-text-muted);
+  font-size: var(--text-caption);
+  line-height: 1.65;
 }
+
+.entity-detail__scope + .quick-facts,
+.entity-detail__scope + .weapon-detail-section { margin-top: var(--space-8); }
 
 .quick-facts,
 .detail-fact-section,
@@ -2470,11 +2481,12 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
 /* <=700: Entity detail content stacks */
 @media (max-width: 700px) {
   .entity-detail--pilot { padding-block: var(--space-6) var(--space-12); }
-  .entity-hero { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-4); }
+  .entity-hero { grid-template-areas: "identity" "media"; grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-4); }
   .entity-detail[data-entity-type="weapon"] .entity-hero { grid-template-columns: 1fr; }
   .entity-media > img, .entity-media__fallback { aspect-ratio: 16 / 9; }
   .entity-detail[data-entity-type="weapon"] .entity-media > img,
-  .entity-detail[data-entity-type="weapon"] .entity-media__fallback { aspect-ratio: 3 / 4; }
+  .entity-detail[data-entity-type="weapon"] .entity-media__fallback,
+  .entity-detail[data-entity-type="weapon"] .entity-media[data-media-state="ready"] > img { aspect-ratio: 4 / 5; }
   .entity-hero__identity { padding: var(--space-2); }
   .quick-facts, .detail-fact-section, .source-panel, .relation-panel, .weapon-detail-section { margin-top: var(--space-12); }
   .quick-facts__grid { grid-template-columns: 1fr; }
