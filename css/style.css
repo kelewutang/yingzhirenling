@@ -141,8 +141,6 @@ pre code {
 .two-col > *,
 .footer-inner > *,
 .footer-bottom > *,
-.beginner-banner-inner > *,
-.difficulty-tags > *,
 .map-grid > * {
   min-width: 0;
 }
@@ -1133,37 +1131,52 @@ pre code {
   .alert { padding: 12px 16px; font-size: 14px; }
 }
 
-/* ===== 新手指南横幅 ===== */
-.beginner-banner {
-  background: linear-gradient(135deg, rgba(196,30,58,0.12), rgba(201,169,97,0.08));
-  border: 1px solid var(--accent-red);
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-bottom: 20px;
+/* ===== 长页快速定位 ===== */
+.page-jump-nav {
+  max-width: var(--width-reading);
+  margin: -16px auto 24px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
 }
-.beginner-banner-inner {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.beginner-icon { font-size: 36px; flex-shrink: 0; }
-.beginner-text { flex: 1; }
-.beginner-text h3 { margin: 0 0 4px; font-size: var(--text-lg); color: var(--accent-gold); }
-.beginner-text p { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6; }
 
-/* ===== 难度分级标签 ===== */
-.difficulty-tags {
+.page-jump-nav__row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
-  padding: 12px 16px;
-  background: var(--bg-card);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
+  gap: 6px 8px;
 }
-.difficulty-label { font-size: var(--text-caption); color: var(--text-muted); margin-right: 4px; }
+
+.page-jump-nav__row + .page-jump-nav__row {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+}
+
+.page-jump-nav__label {
+  min-width: 8em;
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+
+.page-jump-nav a:not(.diff-tag) {
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: var(--accent-gold);
+  font-size: var(--text-caption);
+}
+
+.page-jump-nav a:not(.diff-tag):hover {
+  background: var(--bg-card-hover);
+}
+
+.page-jump-nav a:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
 .diff-tag {
   padding: 4px 14px;
   border-radius: 16px;
@@ -1178,6 +1191,20 @@ pre code {
 .diff-normal { background: rgba(201,169,97,0.15); color: var(--accent-gold); border-color: rgba(201,169,97,0.3); }
 .diff-hard { background: rgba(196,30,58,0.15); color: #e85a7a; border-color: rgba(196,30,58,0.3); }
 .diff-extreme { background: rgba(139,0,0,0.25); color: #ff6b6b; border-color: rgba(139,0,0,0.5); }
+
+.article .pending-update-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 24px;
+  margin: 16px 0 24px;
+  padding: 12px 20px 12px 36px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+}
+
+.article .pending-update-list li { margin: 0; }
+.article .pending-update-list strong { color: var(--text-primary); }
 
 /* ===== 打印按钮 ===== */
 .print-btn {
@@ -1265,19 +1292,19 @@ pre code {
 
 /* ===== 打印样式 ===== */
 @media print {
-  .navbar, .footer, .back-to-top, .nav-search-btn, .theme-switcher, .nav-toggle, .print-btn, .beginner-banner, .difficulty-tags { display: none !important; }
+  .navbar, .footer, .back-to-top, .nav-search-btn, .theme-switcher, .nav-toggle, .print-btn, .page-jump-nav { display: none !important; }
   body { background: #fff; color: #000; }
   .article { max-width: 100%; padding: 0; }
   .data-table { border: 1px solid #ccc; }
   a { color: #000; text-decoration: none; }
 }
 
-/* ===== 移动端：新手指南/难度标签 ===== */
+/* ===== 移动端：长页快速定位 ===== */
 @media (max-width: 600px) {
-  .beginner-banner-inner { flex-direction: column; text-align: center; }
-  .beginner-banner .btn { width: 100%; }
-  .difficulty-tags { justify-content: center; }
-  .print-btn { margin-left: 0; width: 100%; margin-top: 8px; }
+  .page-jump-nav { padding: 12px; }
+  .page-jump-nav__label { flex-basis: 100%; }
+  .page-jump-nav .print-btn { margin: 0; width: auto; }
+  .article .pending-update-list { grid-template-columns: 1fr; }
 }
 
 /* ===== P2-UI-1: Ink & Steel design foundation and shared shell ===== */
