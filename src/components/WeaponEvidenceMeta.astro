@@ -1,0 +1,10 @@
+---
+const { fact } = Astro.props;
+---
+{fact.status === 'release-verified' && <dl class="detail-fact__provenance">
+  <div><dt>证据状态</dt><dd><span class="info-status" data-status={fact.status}>{fact.statusText}</span></dd></div>
+  <div><dt>资料阶段</dt><dd>{fact.versionText}</dd></div>
+  {fact.platformText && <div><dt>已验证平台</dt><dd>{fact.platformText}</dd></div>}
+  {fact.difficultyText && <div><dt>验证难度</dt><dd>{fact.difficultyText}</dd></div>}
+  <div><dt>核验</dt><dd><time datetime={fact.checkedAt}>{fact.checkedAt}</time></dd></div>
+</dl>}

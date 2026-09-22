@@ -69,10 +69,32 @@
     {
       "name": "source-locator-unknown-invalid",
       "expected": "fail",
-      "expectedErrorIncludes": "仅支持 url 或 user-supplied-screenshot",
+      "expectedErrorIncludes": "仅支持 url、user-supplied-screenshot 或 internal-test-session",
       "source": {
         "url": null,
         "locator": { "type": "unknown" }
+      }
+    },
+    {
+      "name": "internal-test-session-valid",
+      "expected": "pass",
+      "source": {
+        "url": null,
+        "checkedAt": "2026-10-29",
+        "locator": {
+          "type": "internal-test-session",
+          "recordId": "fixture-release-session"
+        }
+      }
+    },
+    {
+      "name": "internal-test-session-missing-record-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": ".recordId",
+      "source": {
+        "url": null,
+        "checkedAt": "2026-10-29",
+        "locator": { "type": "internal-test-session" }
       }
     },
     {

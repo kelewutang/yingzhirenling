@@ -24,6 +24,7 @@ const SUPPORTED_STATUSES = new Set([
   'observation',
   'third-party',
   'editorial',
+  'release-verified',
   'pending-review'
 ]);
 const STATUS_LABELS = new Map([
@@ -31,6 +32,7 @@ const STATUS_LABELS = new Map([
   ['observation', '试玩观察'],
   ['third-party', '第三方信息'],
   ['editorial', '编辑推测'],
+  ['release-verified', '本站正式版实测'],
   ['pending-review', '待后续核查']
 ]);
 const FACT_ORDER = [
@@ -59,7 +61,8 @@ const APPEARANCE_LABELS = new Map([
 ]);
 const SOURCE_TYPE_LABELS = new Map([
   ['official-article', '官方发布材料'],
-  ['media-hands-on', '媒体试玩']
+  ['media-hands-on', '媒体试玩'],
+  ['site-release-test', '本站正式版实测记录']
 ]);
 const PENDING_MESSAGES = new Map([
   ['weapon.observedTrait', '详细动作与性能尚待更多可靠资料确认。'],
@@ -180,7 +183,7 @@ function validateSource(source, file) {
   }
   requireNonEmptyString(source.publisher, 'publisher', file);
   requireNonEmptyString(source.title, 'title', file);
-  safeExternalUrl(source.url, 'url', file);
+  if (source.url !== null) safeExternalUrl(source.url, 'url', file);
   if (source.publishedAt !== null) requireIsoDate(source.publishedAt, 'publishedAt', file);
 }
 
@@ -260,9 +263,6 @@ function validateWeapon(weapon, file, factKeySet, sourcesById, versionsById) {
     const factId = requireNonEmptyString(fact.id, 'fact.id', file);
     if (factIds.has(factId)) throw new Error(`${file}: 重复 Fact id：${factId}`);
     factIds.add(factId);
-    if (fact.status === 'release-verified') {
-      throw new Error(`${file}: 发售前详情页禁止 release-verified：${factId}`);
-    }
     if (!SUPPORTED_STATUSES.has(fact.status)) {
       throw new Error(`${file}: 详情页不支持 Fact status=${fact.status}`);
     }
@@ -300,7 +300,7 @@ function collectPageSources(weapon, sourcesById) {
 
   for (const sourceId of sourceIds) {
     const source = sourcesById.get(sourceId);
-    const normalizedUrl = new URL(source.url).href;
+    const normalizedUrl = source.url ? new URL(source.url).href : source.id;
     let entry = byUrl.get(normalizedUrl);
     if (!entry) {
       entry = { source, anchor: sourceAnchor(sourceId) };
@@ -379,6 +379,9 @@ function renderSource(entry) {
   const published = source.publishedAt
     ? renderMetaRow('发布日期', `<time datetime="${escapeHtml(source.publishedAt)}">${escapeHtml(formatDate(source.publishedAt))}</time>`)
     : '';
+  const externalLink = source.url
+    ? renderMetaRow('原始来源', `<a href="${escapeHtml(safeExternalUrl(source.url, 'url', source.id))}" target="_blank" rel="noopener noreferrer">查看来源页面</a>`)
+    : '';
   return `
         <aside class="info-provenance" data-info-scope="source" id="${escapeHtml(anchor)}" aria-labelledby="${escapeHtml(anchor)}-title">
           <div class="info-provenance__intro">
@@ -390,7 +393,7 @@ function renderSource(entry) {
           </div>
           <dl class="info-provenance__meta">
             ${published}
-            ${renderMetaRow('原始来源', `<a href="${escapeHtml(safeExternalUrl(source.url, 'url', source.id))}" target="_blank" rel="noopener noreferrer">查看来源页面</a>`)}
+            ${externalLink}
           </dl>
         </aside>`;
 }

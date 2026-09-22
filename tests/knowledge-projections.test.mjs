@@ -15,6 +15,18 @@ test('getFact returns the active replacement without removing historical Fact ev
   assert.equal(entity.facts[0].value, 'Historical name');
 });
 
+test('getFact prefers the latest active release Fact when historical evidence remains in data', () => {
+  const entity = {
+    facts: [
+      { id: 'fact:weapon:test:launch', key: 'weapon.name', value: 'Launch value', gameVersionId: 'version:launch', checkedAt: '2026-10-29', supersededBy: null },
+      { id: 'fact:weapon:test:patch', key: 'weapon.name', value: 'Patch value', gameVersionId: 'version:patch', checkedAt: '2026-11-05', supersededBy: null }
+    ]
+  };
+  const knowledge = { versionById: new Map([['version:launch', { sequence: 100 }], ['version:patch', { sequence: 101 }]]) };
+
+  assert.equal(getFact(entity, 'weapon.name', knowledge)?.id, 'fact:weapon:test:patch');
+});
+
 test('weapon projection excludes superseded Facts and retains every active preview stat', () => {
   const weapon = {
     facts: [

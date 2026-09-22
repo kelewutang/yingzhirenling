@@ -171,7 +171,7 @@
     {
       "name": "character-release-verified-prelaunch-invalid",
       "expected": "fail",
-      "expectedErrorIncludes": "禁止 release-verified",
+      "expectedErrorIncludes": "release-verified Fact 至少需要一个",
       "sources": [
         {"id": "source:fixture-character-official", "authority": "official"}
       ],
