@@ -7,13 +7,15 @@ const statusLabels = {
   observation: '试玩观察',
   'third-party': '第三方信息',
   editorial: '编辑推测',
+  'release-verified': '本站正式版实测',
   'pending-review': '待后续核查'
 };
 const sourceTypeLabels = {
   'official-article': '官方发布材料',
   'media-hands-on': '媒体试玩',
   'media-demo-report': '媒体试玩',
-  'media-gameplay-video': '媒体实机视频'
+  'media-gameplay-video': '媒体实机视频',
+  'site-release-test': '本站正式版实测记录'
 };
 let cached;
 
@@ -35,8 +37,10 @@ export async function loadKnowledge() {
     readDirectory('data/systems'),
     readDirectory('data/relations'),
     readDirectory('data/sources'),
-    readDirectory('data/versions')
-  ]).then(([weapons, characters, bosses, locations, systems, relations, sources, versions]) => {
+    readDirectory('data/versions'),
+    readFile(resolve(root, 'data/registries/platforms.json'), 'utf8').then(JSON.parse),
+    readFile(resolve(root, 'data/registries/difficulties.json'), 'utf8').then(JSON.parse)
+  ]).then(([weapons, characters, bosses, locations, systems, relations, sources, versions, platformRegistry, difficultyRegistry]) => {
     const entities = [...weapons, ...characters, ...bosses, ...locations, ...systems];
     return {
       weapons,
@@ -47,6 +51,8 @@ export async function loadKnowledge() {
       relations,
       sourceById: new Map(sources.map((item) => [item.id, item])),
       versionById: new Map(versions.map((item) => [item.id, item])),
+      platformById: new Map(platformRegistry.platforms.map((item) => [item.id, item])),
+      difficultyById: new Map(difficultyRegistry.difficulties.map((item) => [item.id, item])),
       entityById: new Map(entities.map((item) => [item.id, item]))
     };
   });
@@ -70,7 +76,6 @@ export function getPublishedLocations(knowledge) {
 }
 
 export function statusLabel(status) {
-  if (status === 'release-verified') throw new Error('release-verified is prohibited before release');
   if (!statusLabels[status]) throw new Error(`Unsupported status: ${status}`);
   return statusLabels[status];
 }
@@ -88,8 +93,15 @@ export function safeExternalUrl(value) {
   }
 }
 
-export function getFact(entity, key) {
-  return entity.facts.find((fact) => fact.key === key && fact.supersededBy === null) || null;
+export function getFact(entity, key, knowledge = null) {
+  return entity.facts
+    .filter((fact) => fact.key === key && fact.supersededBy === null)
+    .sort((left, right) => {
+      const versionDelta = (knowledge?.versionById?.get(right.gameVersionId)?.sequence ?? -1) -
+        (knowledge?.versionById?.get(left.gameVersionId)?.sequence ?? -1);
+      if (versionDelta !== 0) return versionDelta;
+      return (right.checkedAt || '').localeCompare(left.checkedAt || '');
+    })[0] || null;
 }
 
 export function aliasValues(entity) {

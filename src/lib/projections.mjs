@@ -72,8 +72,16 @@ function projectWeaponFact(fact, section, title, knowledge) {
     derivedInputs: detailDerivedInputs(fact),
     level: progressionLevel(fact),
     statusText: statusLabel(fact.status),
-    versionText: versionLabel(fact.gameVersionId, knowledge)
+    versionText: versionLabel(fact.gameVersionId, knowledge),
+    platformText: scopeText(fact.scope?.platforms, knowledge.platformById),
+    difficultyText: scopeText(fact.scope?.difficulties, knowledge.difficultyById)
   };
+}
+
+function scopeText(scope, labels) {
+  if (scope?.mode !== 'include') return null;
+  const names = scope.ids.map((id) => labels?.get(id)?.displayName || id);
+  return names.join('、') || null;
 }
 
 export function projectWeaponFacts(weapon, knowledge) {
@@ -137,7 +145,7 @@ export function projectCharacterFacts(character, knowledge) {
     ['character.role', '身份定位']
   ];
   return characterSpecs.map(([key, title]) => {
-    const fact = getFact(character, key);
+    const fact = getFact(character, key, knowledge);
     return fact && {
       ...fact,
       section: '核心资料',
@@ -145,7 +153,9 @@ export function projectCharacterFacts(character, knowledge) {
       valueText: fact.key === 'character.exists' ? '已在可核查的发售前官方材料中出现。' : String(fact.value),
       description: null,
       statusText: statusLabel(fact.status),
-      versionText: versionLabel(fact.gameVersionId, knowledge)
+      versionText: versionLabel(fact.gameVersionId, knowledge),
+      platformText: scopeText(fact.scope?.platforms, knowledge.platformById),
+      difficultyText: scopeText(fact.scope?.difficulties, knowledge.difficultyById)
     };
   }).filter(Boolean);
 }
@@ -158,7 +168,7 @@ export function projectBossFacts(boss, knowledge) {
     ['boss.publicAppearance', '公开资料', '公开出现方式']
   ];
   return bossSpecs.map(([key, section, title]) => {
-    const fact = getFact(boss, key);
+    const fact = getFact(boss, key, knowledge);
     return fact && {
       ...fact,
       section,
@@ -166,7 +176,9 @@ export function projectBossFacts(boss, knowledge) {
       valueText: fact.key === 'boss.exists' ? '已在可核查的发售前公开资料中作为 Boss 战出现。' : String(fact.value),
       description: null,
       statusText: statusLabel(fact.status),
-      versionText: versionLabel(fact.gameVersionId, knowledge)
+      versionText: versionLabel(fact.gameVersionId, knowledge),
+      platformText: scopeText(fact.scope?.platforms, knowledge.platformById),
+      difficultyText: scopeText(fact.scope?.difficulties, knowledge.difficultyById)
     };
   }).filter(Boolean);
 }
@@ -180,7 +192,7 @@ export function projectLocationFacts(location, knowledge) {
     ['location.observedTrait', '公开场景观察', '场景特征']
   ];
   return locationSpecs.map(([key, section, title]) => {
-    const fact = getFact(location, key);
+    const fact = getFact(location, key, knowledge);
     let valueText = fact ? String(fact.value) : '';
     if (fact?.key === 'location.exists') valueText = '已在可核查的发售前官方资料中作为地点出现。';
     if (fact?.key === 'location.publicAppearance') valueText = '已在官方场景展示中公开';
@@ -191,7 +203,9 @@ export function projectLocationFacts(location, knowledge) {
       valueText,
       description: null,
       statusText: statusLabel(fact.status),
-      versionText: versionLabel(fact.gameVersionId, knowledge)
+      versionText: versionLabel(fact.gameVersionId, knowledge),
+      platformText: scopeText(fact.scope?.platforms, knowledge.platformById),
+      difficultyText: scopeText(fact.scope?.difficulties, knowledge.difficultyById)
     };
   }).filter(Boolean);
 }

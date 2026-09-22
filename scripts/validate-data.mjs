@@ -30,10 +30,14 @@ const ENTITY_TYPES = new Set(['weapon', 'character', 'boss', 'location', 'system
 const RELATION_TYPES = new Set(['parentOf', 'formerCompanionOf']);
 const RECORD_STATES = new Set(['draft', 'published', 'archived']);
 const RESOLUTION_TYPES = new Set(['duplicate', 'merge', 'split', 'misidentified']);
-const VERSION_STAGES = new Set(['prelaunch-materials', 'prelaunch-demo']);
+const VERSION_STAGES_BY_TRACK = new Map([
+  ['prelaunch', new Set(['prelaunch-materials', 'prelaunch-demo'])],
+  ['release', new Set(['release-launch', 'release-patch'])]
+]);
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot']);
+const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot', 'internal-test-session']);
+const INTERNAL_RELEASE_TEST_SOURCE_TYPE = 'site-release-test';
 const PREVIEW_STAT_CONTEXT = 'official-pre-release-ui';
 const WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH = 280;
 const WEAPON_DETAIL_INPUT_MAX_LENGTH = 80;
@@ -133,6 +137,27 @@ function validateOfficialSourceRule(record, sourceIndex, location, report, recor
   }
 }
 
+function isInternalReleaseTestSource(source) {
+  return source?.authority === 'internal' &&
+    source.sourceType === INTERNAL_RELEASE_TEST_SOURCE_TYPE &&
+    source.locator?.type === 'internal-test-session';
+}
+
+function validateReleaseVerifiedSourceRule(record, sourceIndex, location, report, recordLabel = 'Fact') {
+  if (record.status !== 'release-verified') return;
+  const sourceIds = Array.isArray(record.sourceIds) ? record.sourceIds : [];
+  if (!sourceIds.some((id) => isInternalReleaseTestSource(sourceIndex.get(id)))) {
+    report(`${location}.sourceIds`, `release-verified ${recordLabel} 至少需要一个 authority=internal、sourceType=${INTERNAL_RELEASE_TEST_SOURCE_TYPE}、locator.type=internal-test-session 的 Source`);
+  }
+}
+
+function validateReleaseVerifiedVersionRule(record, versionIndex, location, report, recordLabel = 'Fact') {
+  if (record.status !== 'release-verified') return;
+  if (versionIndex.get(record.gameVersionId)?.track !== 'release') {
+    report(`${location}.gameVersionId`, `release-verified ${recordLabel} 必须引用 track=release 的 GameVersion`);
+  }
+}
+
 function validateUserSuppliedScreenshotLocator(locator, location, report = error) {
   for (const field of ['platform', 'account', 'contentTitle', 'urlAvailability']) {
     if (typeof locator[field] !== 'string' || locator[field].trim().length === 0) {
@@ -175,6 +200,16 @@ function validateUserSuppliedScreenshotLocator(locator, location, report = error
   }
 }
 
+function validateInternalTestSessionLocator(source, locator, location, report = error) {
+  if (source.url !== null) {
+    report(`${location}.url`, '本站实测记录不得填写外部 URL，必须为 null');
+  }
+  if (typeof locator.recordId !== 'string' || !SLUG_PATTERN.test(locator.recordId)) {
+    report(`${location}.locator.recordId`, '本站实测记录必须有稳定的 ASCII kebab-case session / record identifier');
+  }
+  validateDate(source.checkedAt, `${location}.checkedAt`, { report });
+}
+
 function validateSourceLocator(source, location, report = error) {
   if (source.locator === undefined) {
     validateUrl(source.url, `${location}.url`, { report });
@@ -186,11 +221,15 @@ function validateSourceLocator(source, location, report = error) {
   }
   const locator = source.locator;
   if (!SOURCE_LOCATOR_TYPES.has(locator.type)) {
-    report(`${location}.locator.type`, '仅支持 url 或 user-supplied-screenshot');
+    report(`${location}.locator.type`, '仅支持 url、user-supplied-screenshot 或 internal-test-session');
     return;
   }
   if (locator.type === 'url') {
     validateUrl(source.url, `${location}.url`, { report });
+    return;
+  }
+  if (locator.type === 'internal-test-session') {
+    validateInternalTestSessionLocator(source, locator, location, report);
     return;
   }
   if (source.url !== null) {
@@ -382,9 +421,7 @@ async function runFixtureFile(fixtureFile) {
       for (const [factIndex, fact] of (Array.isArray(entity.facts) ? entity.facts : []).entries()) {
         validateOfficialSourceRule(fact, fixtureSources, `${location}.facts[${factIndex}]`, report);
         validateReferences(fact.sourceIds, `${location}.facts[${factIndex}].sourceIds`, fixtureSources, 'Source', report);
-        if (fact.status === 'release-verified') {
-          report(`${location}.facts[${factIndex}].status`, '当前发售前阶段禁止 release-verified');
-        }
+        validateReleaseVerifiedSourceRule(fact, fixtureSources, `${location}.facts[${factIndex}]`, report);
       }
       if (entity.entityType === 'boss') {
         const ownedFacts = new Set((Array.isArray(entity.facts) ? entity.facts : []).map((fact) => fact.id));
@@ -530,7 +567,7 @@ if (FIXTURE_MODE) {
   process.exit(fixturesPassed ? 0 : 1);
 }
 
-const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locationFiles, systemFiles, relationFiles, factRegistryFile, platformRegistryFile] = await Promise.all([
+const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locationFiles, systemFiles, relationFiles, factRegistryFile, platformRegistryFile, difficultyRegistryFile] = await Promise.all([
   readRecordDirectory('sources'),
   readRecordDirectory('versions'),
   readRecordDirectory('weapons'),
@@ -540,7 +577,8 @@ const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locati
   readRecordDirectory('systems'),
   readRecordDirectory('relations'),
   readJson(path.join(DATA_DIR, 'registries', 'fact-keys.json')),
-  readJson(path.join(DATA_DIR, 'registries', 'platforms.json'))
+  readJson(path.join(DATA_DIR, 'registries', 'platforms.json')),
+  readJson(path.join(DATA_DIR, 'registries', 'difficulties.json'))
 ]);
 
 const sources = new Map();
@@ -569,6 +607,10 @@ for (const { relative, value: source } of sourceFiles) {
   validateUrl(source.archivedUrl, `${relative}.archivedUrl`, { nullable: true });
   if (source.notes !== null && typeof source.notes !== 'string') {
     error(`${relative}.notes`, '必须是字符串或 null');
+  }
+  if (source.sourceType === INTERNAL_RELEASE_TEST_SOURCE_TYPE &&
+      (source.authority !== 'internal' || source.locator?.type !== 'internal-test-session')) {
+    error(relative, 'site-release-test Source 必须使用 authority=internal 和 locator.type=internal-test-session');
   }
 }
 
@@ -627,6 +669,31 @@ if (!isObject(platformRegistryFile.value)) {
   }
 }
 
+const difficulties = new Set();
+if (!isObject(difficultyRegistryFile.value)) {
+  error(difficultyRegistryFile.relative, 'Difficulty Registry 顶层必须是对象');
+} else {
+  validateSchemaVersion(difficultyRegistryFile.value, difficultyRegistryFile.relative);
+  const entries = difficultyRegistryFile.value.difficulties;
+  if (!Array.isArray(entries)) {
+    error(`${difficultyRegistryFile.relative}.difficulties`, '必须是数组');
+  } else {
+    for (const [index, difficulty] of entries.entries()) {
+      const location = `${difficultyRegistryFile.relative}.difficulties[${index}]`;
+      if (!isObject(difficulty)) {
+        error(location, '必须是对象');
+        continue;
+      }
+      registerId(difficulty.id, `${location}.id`);
+      if (difficulties.has(difficulty.id)) error(`${location}.id`, '难度 id 重复');
+      if (typeof difficulty.id === 'string') difficulties.add(difficulty.id);
+      if (typeof difficulty.displayName !== 'string' || difficulty.displayName.length === 0) {
+        error(`${location}.displayName`, '必须是非空字符串');
+      }
+    }
+  }
+}
+
 const versions = new Map();
 for (const { relative, value: version } of versionFiles) {
   if (!isObject(version)) {
@@ -636,14 +703,17 @@ for (const { relative, value: version } of versionFiles) {
   validateSchemaVersion(version, relative);
   registerId(version.id, `${relative}.id`);
   if (typeof version.id === 'string') versions.set(version.id, version);
-  if (!VERSION_STAGES.has(version.stage)) error(`${relative}.stage`, '当前试点不支持该 stage');
+  if (!VERSION_STAGES_BY_TRACK.has(version.track)) {
+    error(`${relative}.track`, '必须为 prelaunch 或 release');
+  } else if (!VERSION_STAGES_BY_TRACK.get(version.track).has(version.stage)) {
+    error(`${relative}.stage`, `${version.track} track 不支持该 stage`);
+  }
   if (typeof version.displayName !== 'string' || version.displayName.length === 0) {
     error(`${relative}.displayName`, '必须是非空字符串');
   }
   if (version.versionLabel !== null && typeof version.versionLabel !== 'string') {
     error(`${relative}.versionLabel`, '必须是字符串或 null');
   }
-  if (version.track !== 'prelaunch') error(`${relative}.track`, '当前试点必须为 prelaunch');
   if (!Number.isInteger(version.sequence)) error(`${relative}.sequence`, '必须是整数');
   if (validateStringArray(version.platformIds, `${relative}.platformIds`)) {
     for (const platformId of version.platformIds) {
@@ -743,31 +813,33 @@ function validateReferences(ids, location, index, label, report = error) {
   }
 }
 
-function validateScope(scope, location) {
+function validateScope(scope, location, report = error, platformIndex = platforms, difficultyIndex = difficulties) {
   if (!isObject(scope)) {
-    error(location, 'scope 必须是对象');
+    report(location, 'scope 必须是对象');
     return;
   }
   for (const dimension of ['platforms', 'difficulties']) {
     const entry = scope[dimension];
     const entryLocation = `${location}.${dimension}`;
     if (!isObject(entry) || !['all', 'include'].includes(entry.mode)) {
-      error(entryLocation, '必须包含 mode=all 或 mode=include');
+      report(entryLocation, '必须包含 mode=all 或 mode=include');
       continue;
     }
     if (!validateStringArray(entry.ids, `${entryLocation}.ids`)) continue;
     if (entry.mode === 'all' && entry.ids.length > 0) {
-      error(`${entryLocation}.ids`, 'mode=all 时必须为空');
+      report(`${entryLocation}.ids`, 'mode=all 时必须为空');
     }
     if (entry.mode === 'include' && entry.ids.length === 0) {
-      error(`${entryLocation}.ids`, 'mode=include 时不能为空');
+      report(`${entryLocation}.ids`, 'mode=include 时不能为空');
     }
     if (dimension === 'platforms') {
       for (const platformId of entry.ids) {
-        if (!platforms.has(platformId)) error(`${entryLocation}.ids`, `平台不存在：${platformId}`);
+        if (!platformIndex.has(platformId)) report(`${entryLocation}.ids`, `平台不存在：${platformId}`);
       }
-    } else if (entry.mode === 'include') {
-      error(entryLocation, '当前试点未建立 difficulty Registry，不能使用难度限定');
+    } else {
+      for (const difficultyId of entry.ids) {
+        if (!difficultyIndex.has(difficultyId)) report(`${entryLocation}.ids`, `难度不存在：${difficultyId}`);
+      }
     }
   }
 }
@@ -802,7 +874,6 @@ function validateRelation(relation, location, entityIndex, sourceIndex, versionI
     }
   }
   if (!STATUS_VALUES.has(relation.status)) report(`${location}.status`, 'status 不合法');
-  if (relation.status === 'release-verified') report(`${location}.status`, '当前发售前阶段禁止 release-verified');
   validateReferences(relation.sourceIds, `${location}.sourceIds`, sourceIndex, 'Source', report);
   validateDate(relation.checkedAt, `${location}.checkedAt`);
   if (!versionIndex.has(relation.gameVersionId)) {
@@ -817,6 +888,8 @@ function validateRelation(relation, location, entityIndex, sourceIndex, versionI
   }
   const sourceIds = Array.isArray(relation.sourceIds) ? relation.sourceIds : [];
   validateOfficialSourceRule(relation, sourceIndex, location, report, 'Relation');
+  validateReleaseVerifiedSourceRule(relation, sourceIndex, location, report, 'Relation');
+  validateReleaseVerifiedVersionRule(relation, versionIndex, location, report, 'Relation');
   if (relation.status === 'observation' && sourceIds.length === 0) {
     report(`${location}.sourceIds`, 'observation Relation 必须有 Source');
   }
@@ -963,6 +1036,34 @@ for (const [versionId, version] of versions) {
   }
 }
 
+const versionSequences = new Map();
+for (const [versionId, version] of versions) {
+  const location = idOwners.get(versionId)?.replace(/\.id$/, '') ?? versionId;
+  if (Number.isInteger(version.sequence)) {
+    if (versionSequences.has(version.sequence)) {
+      error(`${location}.sequence`, `与 ${versionSequences.get(version.sequence)} 的 sequence 重复`);
+    } else {
+      versionSequences.set(version.sequence, versionId);
+    }
+  }
+  for (const [field, direction] of [['supersedesVersionId', 'older'], ['supersededBy', 'newer']]) {
+    const targetId = version[field];
+    if (targetId === null) continue;
+    const target = versions.get(targetId);
+    if (!target || !Number.isInteger(version.sequence) || !Number.isInteger(target.sequence)) continue;
+    if (direction === 'older' && target.sequence >= version.sequence) {
+      error(`${location}.${field}`, '必须指向 sequence 更早的 Version');
+    }
+    if (direction === 'newer' && target.sequence <= version.sequence) {
+      error(`${location}.${field}`, '必须指向 sequence 更晚的 Version');
+    }
+    const reciprocal = direction === 'older' ? 'supersededBy' : 'supersedesVersionId';
+    if (target[reciprocal] !== null && target[reciprocal] !== versionId) {
+      error(`${location}.${field}`, `与 ${targetId}.${reciprocal} 不一致`);
+    }
+  }
+}
+
 for (const [entityId, { relative, entity }] of entities) {
   for (const [index, alias] of (Array.isArray(entity.aliases) ? entity.aliases : []).entries()) {
     const location = `${relative}.aliases[${index}]`;
@@ -974,11 +1075,12 @@ for (const [entityId, { relative, entity }] of entities) {
       if (typeof alias[field] !== 'string' || alias[field].length === 0) error(`${location}.${field}`, '必须是非空字符串');
     }
     if (!STATUS_VALUES.has(alias.status)) error(`${location}.status`, 'status 不合法');
-    if (alias.status === 'release-verified') error(`${location}.status`, '发售前禁止 release-verified');
     if (alias.status === 'pending-review' && (typeof alias.reviewNote !== 'string' || alias.reviewNote.length === 0)) {
       error(`${location}.reviewNote`, 'pending-review Alias 必须说明待核查原因');
     }
     validateReferences(alias.sourceIds, `${location}.sourceIds`, sources, 'Source');
+    validateReleaseVerifiedSourceRule(alias, sources, location, error, 'Alias');
+    validateReleaseVerifiedVersionRule(alias, versions, location, error, 'Alias');
     validateDate(alias.checkedAt, `${location}.checkedAt`);
     if (!versions.has(alias.gameVersionId)) error(`${location}.gameVersionId`, `GameVersion 不存在：${alias.gameVersionId}`);
   }
@@ -994,7 +1096,6 @@ for (const [factId, { relative: location, fact }] of facts) {
   const sourceIds = Array.isArray(fact.sourceIds) ? fact.sourceIds : [];
   const basisFactIds = Array.isArray(fact.basisFactIds) ? fact.basisFactIds : [];
   if (!STATUS_VALUES.has(fact.status)) error(`${location}.status`, 'status 不合法');
-  if (fact.status === 'release-verified') error(`${location}.status`, '当前发售前阶段禁止 release-verified');
   if ('authority' in fact || 'publisherKind' in fact || 'isOfficial' in fact) {
     error(location, 'Fact 不得复制 Source authority 或使用 isOfficial；可信度只能由 status 表达');
   }
@@ -1032,6 +1133,8 @@ for (const [factId, { relative: location, fact }] of facts) {
     error(`${location}.status`, 'weapon.previewStat 必须保持 observation，不能作为正式版固定数值');
   }
   validateOfficialSourceRule(fact, sources, location, error);
+  validateReleaseVerifiedSourceRule(fact, sources, location, error);
+  validateReleaseVerifiedVersionRule(fact, versions, location, error);
   if (fact.status === 'observation' && sourceIds.length === 0) {
     error(`${location}.sourceIds`, 'observation Fact 必须有 Source');
   }
@@ -1057,6 +1160,28 @@ for (const [factId, { relative: location, fact }] of facts) {
     error(`${location}.supersededBy`, `Fact 不存在：${fact.supersededBy}`);
   }
   if (fact.supersededBy === factId) error(`${location}.supersededBy`, '不能指向自身');
+}
+
+for (const [factId, { relative: location, fact }] of facts) {
+  const successorId = fact.supersededBy;
+  if (successorId === null || !facts.has(successorId)) continue;
+  const successor = facts.get(successorId).fact;
+  if (factOwners.get(factId) !== factOwners.get(successorId)) {
+    error(`${location}.supersededBy`, 'successor 必须属于同一 Entity');
+  }
+  if (fact.key !== successor.key) {
+    error(`${location}.supersededBy`, 'successor 必须使用同一 Fact key');
+  }
+  const seen = new Set([factId]);
+  let cursor = successorId;
+  while (cursor !== null && facts.has(cursor)) {
+    if (seen.has(cursor)) {
+      error(`${location}.supersededBy`, 'Fact supersession 不得形成循环');
+      break;
+    }
+    seen.add(cursor);
+    cursor = facts.get(cursor).fact.supersededBy;
+  }
 }
 
 if (errors.length > 0) {

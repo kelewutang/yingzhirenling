@@ -23,6 +23,8 @@ const sections = [...new Set(facts.map((fact) => fact.section))];
             {fact.sourceIds.length > 0 && <div><dt>来源</dt><dd>{fact.sourceIds.map((id) => sourceById.get(id)?.publisher || id).join('、')}</dd></div>}
             {fact.status === 'editorial' && <div><dt>判断依据</dt><dd>{fact.basisFactIds.length > 0 ? '已展示的公开资料观察' : '本站编辑分析'}</dd></div>}
             <div><dt>资料阶段</dt><dd>{fact.versionText}</dd></div>
+            {fact.platformText && <div><dt>已验证平台</dt><dd>{fact.platformText}</dd></div>}
+            {fact.difficultyText && <div><dt>验证难度</dt><dd>{fact.difficultyText}</dd></div>}
             <div><dt>核验</dt><dd><time datetime={fact.checkedAt}>{fact.checkedAt}</time></dd></div>
           </dl>
         </article>
