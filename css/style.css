@@ -1343,6 +1343,10 @@ body::before {
     radial-gradient(58rem 26rem at 100% 18rem, var(--atmosphere-steel), transparent 70%);
 }
 
+body[data-atmosphere="home"]::before {
+  background: radial-gradient(58rem 26rem at 100% 18rem, var(--atmosphere-steel), transparent 70%);
+}
+
 .home-page,
 body[data-atmosphere] .collection-page,
 body[data-atmosphere] .entity-detail--pilot {
@@ -2539,19 +2543,6 @@ body[data-atmosphere="world"] .entity-detail--pilot::before {
   pointer-events: none;
 }
 
-.home-hero::after {
-  position: absolute;
-  top: -8rem;
-  right: -7rem;
-  width: 18rem;
-  height: 18rem;
-  border: 1px solid rgb(195 166 106 / 0.2);
-  z-index: 0;
-  pointer-events: none;
-  content: "";
-  transform: rotate(45deg);
-}
-
 .home-hero__copy,
 .home-hero__state,
 .home-search { position: relative; z-index: 1; }
@@ -2783,7 +2774,6 @@ body[data-atmosphere="world"] .entity-hero {
   .home-page { padding-block: var(--space-4) var(--space-12); }
   .home-hero { gap: var(--space-4); padding: var(--space-6) var(--space-4); }
   .home-hero__brand-mark { display: none; }
-  .home-hero::after { top: -10rem; right: -10rem; }
   .home-search { min-height: 3.5rem; font-size: 0.9375rem; }
   .home-search kbd { display: none; }
   .home-categories,
