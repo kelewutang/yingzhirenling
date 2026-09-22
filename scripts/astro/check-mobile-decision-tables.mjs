@@ -398,7 +398,7 @@ async function verify({ dist }) {
   }
   for (const page of pages.values()) {
     const tables = descendants(page, (node) => node.tag === 'table');
-    const expectedCount = page === pages.get('about') ? 6 : 1;
+    const expectedCount = page === pages.get('about') ? 7 : 1;
     assert.equal(tables.length, expectedCount, `built page table count changed: expected ${expectedCount}, actual ${tables.length}`);
   }
   const pageRules = new Map();
