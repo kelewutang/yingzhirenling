@@ -156,10 +156,10 @@ function initBaiduPush() {
 // ===== 全站搜索 =====
 var SEARCH_INDEX = [
   { title: '影之刃零攻略站', url: '/', desc: '影之刃零非官方玩家知识库，整理可核验的公开资料，并明确区分官方资料、公开素材观察与第三方信息。', tag: '首页', keywords: '影之刃零 首页 知识库 玩家资料站 发售前资料 资料来源' },
-  { title: '攻略中心', url: '/guide', desc: '整理官方公开的难度与武器构筑信息、试玩观察及发售前入门建议，完整流程待发售后验证', tag: '攻略', categoryTerms: ['攻略'], keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 探索 构筑 build' },
-  { title: '武器图鉴', url: '/weapons', desc: '影之刃零发售前武器资料，整理官方确认的武器系统与公开实机中出现的武器；获取方式和强度待正式版验证。', tag: '武器', categoryTerms: ['武器'], keywords: '武器 图鉴 武器系统 主武器 影之武 公开试玩 实机观察' },
+  { title: '攻略中心', url: '/guide', desc: '__SITE_LIFECYCLE_SEARCH_GUIDE_DESCRIPTION__', tag: '攻略', categoryTerms: ['攻略'], keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 探索 构筑 build' },
+  { title: '武器图鉴', url: '/weapons', desc: '__SITE_LIFECYCLE_SEARCH_WEAPONS_DESCRIPTION__', tag: '武器', categoryTerms: ['武器'], keywords: '武器 图鉴 武器系统 主武器 影之武 公开试玩 实机观察' },
   { title: '角色图鉴', url: '/characters', desc: '影之刃零当前公开角色资料，区分官方确认、宣传素材观察与系列旧作待核信息。', tag: '角色', categoryTerms: ['角色'], keywords: '角色 图鉴 人物 主角 角色关系 公开资料 宣传素材' },
-  { title: 'Boss攻略', url: '/bosses', desc: '影之刃零发售前Boss资料，整理公开试玩与实机演示中的敌人和战斗观察；完整名单与打法待正式版验证。', tag: 'Boss', categoryTerms: ['Boss'], keywords: 'Boss 图鉴 敌人 公开试玩 实机演示 战斗观察' },
+  { title: 'Boss攻略', url: '/bosses', desc: '__SITE_LIFECYCLE_SEARCH_BOSSES_DESCRIPTION__', tag: 'Boss', categoryTerms: ['Boss'], keywords: 'Boss 图鉴 敌人 公开试玩 实机演示 战斗观察' },
   { title: '世界观设定', url: '/world', desc: '影之刃零当前公开世界观资料，区分官方术语、实机观察与系列旧作待核设定。', tag: '世界观', categoryTerms: ['世界', '地点'], keywords: '世界 世界观 地点 世界与地点 场景 公开资料' },
   { title: '视频中心', url: '/videos', desc: '索引官方预告、实机演示、State of Play与甄子丹相关公开影像，并附具体来源链接', tag: '视频', categoryTerms: ['视频'], keywords: '视频 PV 实机 演示 State of Play 甄子丹 预告 B站 11分钟 20分钟' },
   { title: '购买指南', url: '/about', desc: '汇总官方商店发售、版本、预购与PC配置，并单独标注价格快照和第三方估算', tag: '购买', categoryTerms: ['购买'], keywords: '购买 售价 标准版 豪华版 实体收藏版 预购 特典 配置 Steam Epic PS5 WeGame TapTap 第三方数据' }

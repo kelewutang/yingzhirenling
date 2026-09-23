@@ -2,6 +2,7 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { renderLegacyFooter, renderLegacyHeader, resolveLegacyActiveSection } from './site-shell.mjs';
 import { createBreadcrumbList, createPageIdentity, productionUrl, serializeJsonLd } from '../../src/lib/structured-data.mjs';
+import { applyLifecycleTokens } from '../../src/lib/site-lifecycle.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
@@ -113,6 +114,11 @@ for (const [sourcePath, destinationPath] of targets) {
   await mkdir(dirname(destination), { recursive: true });
   await rm(destination, { recursive: true, force: true });
   await cp(source, destination, { recursive: true });
+}
+
+for (const destinationPath of ['guide.html', 'about-site.html', 'js/main.js']) {
+  const destination = resolve(dist, destinationPath);
+  await writeFile(destination, applyLifecycleTokens(await readFile(destination, 'utf8')), 'utf8');
 }
 
 // Entity Media remains a separately governed path. The validator has already

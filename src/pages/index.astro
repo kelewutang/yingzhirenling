@@ -3,8 +3,10 @@ import CategoryCard from '../components/CategoryCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildHomepageModel } from '../lib/homepage-model.mjs';
 import StructuredData from '../components/StructuredData.astro';
+import { siteLifecycle } from '../lib/site-lifecycle.mjs';
 
 const { categories, secondaryLinks } = await buildHomepageModel();
+const { homepage } = siteLifecycle.copy;
 const homepageStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -13,18 +15,18 @@ const homepageStructuredData = {
   description: '影之刃零中文玩家资料站，整理官方公开资料、公开实机观察、武器、角色、Boss 与世界资料。'
 };
 ---
-<BaseLayout title="影之刃零攻略站 - 发售前可核验资料库" description="影之刃零非官方玩家知识库，整理可核验的公开武器、角色、Boss 与世界资料，明确区分官方资料、公开素材观察与第三方信息。" canonical="https://www.yingzhirenling.cn/" activeSection="home" atmosphere="home" pageSchemaType={false}>
+<BaseLayout title={homepage.title} description={homepage.description} canonical="https://www.yingzhirenling.cn/" activeSection="home" atmosphere="home" pageSchemaType={false}>
   <StructuredData slot="head" data={homepageStructuredData} />
 
   <article class="home-page">
     <header class="home-hero">
       <div class="home-hero__content">
         <div class="home-hero__copy">
-          <p class="home-hero__eyebrow">PRE-RELEASE KNOWLEDGE BASE</p>
+          <p class="home-hero__eyebrow">{homepage.eyebrow}</p>
           <h1>影之刃零攻略站</h1>
           <p class="home-hero__summary">整理官方公开信息与可核验资料，持续收录角色、Boss、武器与世界条目。</p>
         </div>
-        <p class="home-hero__state">游戏尚未正式发售；当前内容以官方公开资料、公开素材观察与明确标注的第三方资料为基础。</p>
+        <p class="home-hero__state">{homepage.status}</p>
         <button class="home-search" type="button" onclick="openSearch()" data-home-search-trigger aria-label="搜索影之刃零知识库">
           <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><circle cx="10.8" cy="10.8" r="5.8" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="m15.3 15.3 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
           <span>搜索角色、Boss、武器、世界…</span><kbd>⌘K / Ctrl+K</kbd>

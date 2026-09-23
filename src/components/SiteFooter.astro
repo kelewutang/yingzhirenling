@@ -1,11 +1,12 @@
 ---
 import { footerGroups } from '../../scripts/astro/site-shell.mjs';
+import { siteLifecycle } from '../lib/site-lifecycle.mjs';
 ---
 <footer class="footer site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
       <a class="footer-logo" href="/">影之刃零攻略站</a>
-      <p>面向全球玩家的《影之刃零》知识库。内容按 Fact 与 Source 保留可核查边界，发售前信息不替代正式版验证。</p>
+      <p>{siteLifecycle.copy.footer}</p>
     </div>
     {footerGroups.map(({ title, links }) => <section class="footer-col"><h2>{title}</h2><ul>{links.map(({ href, label, external }) => <li><a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{label}{external && <span class="external-link-label" aria-hidden="true"> ↗</span>}</a></li>)}</ul></section>)}
   </div>
