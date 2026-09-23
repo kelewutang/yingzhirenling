@@ -8,14 +8,15 @@ import RelationList from './RelationList.astro';
 import WeaponDetailPresentation from './WeaponDetailPresentation.astro';
 import StructuredData from './StructuredData.astro';
 import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
+import { siteLifecycle } from '../lib/site-lifecycle.mjs';
 
 const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, sources, sourceById, media, relations = [], weaponDetail = null, canonical } = Astro.props;
 const hasReleaseEvidence = entity.facts.some((fact) => fact.status === 'release-verified' && fact.supersededBy === null);
 const scopeNotice = hasReleaseEvidence
   ? '本页整理公开资料与本站正式版实测；每条事实与关系均单独标注来源状态和核验范围。'
   : weaponDetail
-    ? '本页整理发售前公开资料；招式和成长说明仅在官方截图文字可明确读取时展示。'
-    : '本页整理发售前公开资料。每条事实与关系均单独标注来源状态；公开画面观察不自动等同于官方文字确认。';
+    ? siteLifecycle.copy.detail.weaponScope
+    : siteLifecycle.copy.detail.defaultScope;
 const breadcrumbStructuredData = createBreadcrumbList([
   { name: '首页', item: productionUrl('/') },
   { name: collectionLabel, item: productionUrl(collectionHref) },

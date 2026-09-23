@@ -1,3 +1,5 @@
+import { siteLifecycle } from '../../src/lib/site-lifecycle.mjs';
+
 export const primaryNavigation = [
   { href: '/weapons', label: '武器', section: 'weapons' },
   { href: '/characters', label: '角色', section: 'characters' },
@@ -87,7 +89,7 @@ export function renderLegacyFooter() {
 
   return `<footer class="footer site-footer">
   <div class="footer-inner">
-    <div class="footer-brand"><a class="footer-logo" href="/">影之刃零攻略站</a><p>面向全球玩家的《影之刃零》知识库。内容按 Fact 与 Source 保留可核查边界，发售前信息不替代正式版验证。</p></div>
+    <div class="footer-brand"><a class="footer-logo" href="/">影之刃零攻略站</a><p>${escapeHtml(siteLifecycle.copy.footer)}</p></div>
     ${groups}
   </div>
   <div class="footer-bottom"><span>© 2026 影之刃零攻略站 · yingzhirenling.cn</span><span>非官方玩家公益站点，与灵游坊无官方关联。</span></div>
