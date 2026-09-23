@@ -1338,12 +1338,6 @@ body::before {
   z-index: -1;
   pointer-events: none;
   content: "";
-  background:
-    linear-gradient(116deg, transparent 0 41.5%, var(--atmosphere-line) 41.58%, transparent 41.66%),
-    radial-gradient(58rem 26rem at 100% 18rem, var(--atmosphere-steel), transparent 70%);
-}
-
-body[data-atmosphere="home"]::before {
   background: radial-gradient(58rem 26rem at 100% 18rem, var(--atmosphere-steel), transparent 70%);
 }
 
