@@ -18,16 +18,23 @@ const homepageStructuredData = {
 
   <article class="home-page">
     <header class="home-hero">
-      <img class="home-hero__brand-mark" src="/brand/phantom-blade-zero-cn-title.svg" width="186" height="84" alt="" aria-hidden="true" />
-      <div class="home-hero__copy">
-        <p class="home-hero__eyebrow">PRE-RELEASE KNOWLEDGE BASE</p>
-        <h1>影之刃零攻略站</h1>
-        <p class="home-hero__summary">整理官方公开信息与可核验资料，持续收录角色、Boss、武器与世界条目。</p>
+      <div class="home-hero__content">
+        <div class="home-hero__copy">
+          <p class="home-hero__eyebrow">PRE-RELEASE KNOWLEDGE BASE</p>
+          <h1>影之刃零攻略站</h1>
+          <p class="home-hero__summary">整理官方公开信息与可核验资料，持续收录角色、Boss、武器与世界条目。</p>
+        </div>
+        <p class="home-hero__state">游戏尚未正式发售；当前内容以官方公开资料、公开素材观察与明确标注的第三方资料为基础。</p>
+        <button class="home-search" type="button" onclick="openSearch()" data-home-search-trigger aria-label="搜索影之刃零知识库">
+          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><circle cx="10.8" cy="10.8" r="5.8" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="m15.3 15.3 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+          <span>搜索角色、Boss、武器、世界…</span><kbd>⌘K / Ctrl+K</kbd>
+        </button>
       </div>
-      <p class="home-hero__state">游戏尚未正式发售；当前内容以官方公开资料、公开素材观察与明确标注的第三方资料为基础。</p>
-      <button class="home-search" type="button" onclick="openSearch()" data-home-search-trigger aria-label="搜索影之刃零知识库">
-        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><circle cx="10.8" cy="10.8" r="5.8" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="m15.3 15.3 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
-        <span>搜索角色、Boss、武器、世界…</span><kbd>⌘K / Ctrl+K</kbd>
+      <button class="home-hero__video" type="button" data-home-video-trigger data-home-video-embed-url="https://player.bilibili.com/player.html?bvid=BV1Hmuv68EWW&amp;page=1&amp;high_quality=1&amp;danmaku=0&amp;autoplay=1" aria-label="打开《影之刃零》11分钟官方实机演示">
+        <img src="/assets/video/phantom-blade-zero-preorder-gameplay.jpg" width="3840" height="2160" alt="" />
+        <span class="home-hero__video-label">官方实机演示</span>
+        <span class="home-hero__video-title" aria-hidden="true">11分钟新实机</span>
+        <span class="home-hero__video-play" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m9 6 8 6-8 6z" fill="currentColor" /></svg></span>
       </button>
     </header>
 
@@ -74,4 +81,61 @@ const homepageStructuredData = {
       </div>
     </section>
   </article>
+
+  <dialog class="home-video-dialog" data-home-video-dialog aria-labelledby="home-video-dialog-title">
+    <div class="home-video-dialog__surface">
+      <header class="home-video-dialog__header">
+        <div><p>官方实机演示</p><p class="home-video-dialog__title" id="home-video-dialog-title">《影之刃零》11分钟全新实机演示</p></div>
+        <button type="button" data-home-video-close aria-label="收起视频"><span aria-hidden="true">X</span><span>收起</span></button>
+      </header>
+      <div class="home-video-dialog__player" data-home-video-player></div>
+    </div>
+  </dialog>
+
+  <script is:inline>
+    const homeVideoDialog = document.querySelector('[data-home-video-dialog]');
+    const homeVideoTrigger = document.querySelector('[data-home-video-trigger]');
+    const homeVideoPlayer = homeVideoDialog?.querySelector('[data-home-video-player]');
+    const homeVideoClose = homeVideoDialog?.querySelector('[data-home-video-close]');
+    let homeVideoReturnFocus = null;
+
+    function stopHomeVideo() {
+      const iframe = homeVideoPlayer?.querySelector('iframe');
+      if (iframe) iframe.src = 'about:blank';
+      homeVideoPlayer?.replaceChildren();
+    }
+
+    function closeHomeVideo() {
+      if (homeVideoDialog?.open) homeVideoDialog.close();
+    }
+
+    homeVideoTrigger?.addEventListener('click', () => {
+      const embedUrl = homeVideoTrigger.dataset.homeVideoEmbedUrl;
+      if (!homeVideoDialog || !homeVideoPlayer || !embedUrl) return;
+      homeVideoReturnFocus = homeVideoTrigger;
+      const iframe = document.createElement('iframe');
+      iframe.src = embedUrl;
+      iframe.title = '《影之刃零》11分钟全新实机演示';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      homeVideoPlayer.replaceChildren(iframe);
+      homeVideoDialog.showModal();
+      homeVideoClose?.focus();
+    });
+
+    homeVideoClose?.addEventListener('click', closeHomeVideo);
+    homeVideoDialog?.addEventListener('click', (event) => {
+      if (event.target === homeVideoDialog) closeHomeVideo();
+    });
+    homeVideoDialog?.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      closeHomeVideo();
+    });
+    homeVideoDialog?.addEventListener('close', () => {
+      stopHomeVideo();
+      if (homeVideoReturnFocus && document.contains(homeVideoReturnFocus)) homeVideoReturnFocus.focus();
+      homeVideoReturnFocus = null;
+    });
+  </script>
 </BaseLayout>
