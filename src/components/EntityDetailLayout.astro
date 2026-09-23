@@ -6,11 +6,12 @@ import DetailFactSections from './DetailFactSections.astro';
 import SourcePanel from './SourcePanel.astro';
 import RelationList from './RelationList.astro';
 import WeaponDetailPresentation from './WeaponDetailPresentation.astro';
+import RelatedGuides from './RelatedGuides.astro';
 import StructuredData from './StructuredData.astro';
 import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
 import { siteLifecycle } from '../lib/site-lifecycle.mjs';
 
-const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, sources, sourceById, media, relations = [], weaponDetail = null, canonical } = Astro.props;
+const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, sources, sourceById, media, relations = [], relatedGuides = [], weaponDetail = null, canonical } = Astro.props;
 const hasReleaseEvidence = entity.facts.some((fact) => fact.status === 'release-verified' && fact.supersededBy === null);
 const scopeNotice = hasReleaseEvidence
   ? '本页整理公开资料与本站正式版实测；每条事实与关系均单独标注来源状态和核验范围。'
@@ -33,6 +34,7 @@ const breadcrumbStructuredData = createBreadcrumbList([
     <DetailFactSections facts={facts.detail} sourceById={sourceById} />
   </>}
   <RelationList relations={relations} sourceById={sourceById} />
+  <RelatedGuides guides={relatedGuides} />
   <SourcePanel sources={sources} />
   <p class="entity-detail__return"><a class="btn btn-outline" href={collectionHref}>返回{entity.entityType === 'boss' ? ' ' : ''}{returnLabel}</a></p>
 </article>

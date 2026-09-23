@@ -42,6 +42,7 @@ export async function loadKnowledge() {
     readFile(resolve(root, 'data/registries/difficulties.json'), 'utf8').then(JSON.parse)
   ]).then(([weapons, characters, bosses, locations, systems, relations, sources, versions, platformRegistry, difficultyRegistry]) => {
     const entities = [...weapons, ...characters, ...bosses, ...locations, ...systems];
+    const facts = entities.flatMap((entity) => entity.facts.map((fact) => ({ ...fact, entityId: entity.id, entityType: entity.entityType })));
     return {
       weapons,
       characters,
@@ -53,7 +54,8 @@ export async function loadKnowledge() {
       versionById: new Map(versions.map((item) => [item.id, item])),
       platformById: new Map(platformRegistry.platforms.map((item) => [item.id, item])),
       difficultyById: new Map(difficultyRegistry.difficulties.map((item) => [item.id, item])),
-      entityById: new Map(entities.map((item) => [item.id, item]))
+      entityById: new Map(entities.map((item) => [item.id, item])),
+      factById: new Map(facts.map((item) => [item.id, item]))
     };
   });
   return cached;

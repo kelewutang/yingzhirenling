@@ -36,7 +36,8 @@ Netlify production 和 Deploy Preview 都运行 `npm ci && npm run build`，发�
 | Media source | `data/media.json` + `assets/media/` | 独立、经审核的 Entity presentation media；不属于 Fact 或 Knowledge Schema |
 | Validation/build | `scripts/`, `scripts/astro/` | validators, Search generation, bridge copy and static output checks |
 | Derived search | `generated/` | shadow/production Search Documents |
-| Legacy bridge inputs | `pages/*.html`, `404.html` | guide/about/about-site/404 compatibility pages copied into `dist/` |
+| Guide content | `src/content/guides/` | optional Markdown Guides projected at build time; production may contain none |
+| Legacy bridge inputs | `pages/*.html`, `404.html` | about/about-site/404 compatibility pages copied into `dist/` |
 | Video route | `data/videos.json`, `src/lib/videos.mjs`, `src/pages/videos.astro` | build-time production Video projection and static `/videos` output |
 | Legacy compatibility artifacts | `pages/generated/` | historical Weapon paths retained only for explicit redirects/compatibility |
 | Deployment output | `dist/` | derived static output published by Netlify; never a Knowledge source |
@@ -156,7 +157,7 @@ Entity.slug
 - `.html` 物理路径不是独立 SEO 页面，应单跳归一到 canonical
 - canonical 使用无尾斜杠短路由
 
-legacy bridge routes remain for `/guide`, `/about`, `/about-site` and `/404`; `/videos` is an Astro static route backed by the separate Video contract.
+`/guide` is an Astro landing route. `/about`, `/about-site`, and `/404` remain legacy bridge routes; `/videos` is an Astro static route backed by the separate Video contract.
 
 # Sitemap and Metadata
 
@@ -164,9 +165,9 @@ Astro sitemap route combines stable legacy canonical pages with the same publish
 
 # Long-form Content Boundary
 
-结构化事实留在 JSON。攻略长文、论证和编辑内容继续使用现有 HTML，未来出现真实需求时可增加可选 Markdown。
+结构化事实留在 JSON。Guide 长文使用单一 Astro Content Collection：Markdown 负责正文，已有 Knowledge registry 继续提供 Source、Version、Fact、Entity 和 scope 引用。published Guide 从同一 build-time projection 派生 detail route、sitemap、Production Search、landing card 与 Entity related-guide link；draft 不进入任何 public projection。
 
-当前 Entity details use summary, Fact and Source without a required Markdown layer. Do not create empty Markdown merely for architectural symmetry.
+当前没有生产 Guide Markdown。不要为结构对称添加空白或占位 Guide。当前 Entity details use summary, Fact and Source without a required Markdown layer.
 
 # Known Non-blocking Technical Debt
 

@@ -1,0 +1,44 @@
+---
+import { render } from 'astro:content';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import GuideFactReferences from '../../components/GuideFactReferences.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+import SourcePanel from '../../components/SourcePanel.astro';
+import StructuredData from '../../components/StructuredData.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedGuideEntries, guideRoute } from '../../lib/guides.mjs';
+import { guideTypeLabel } from '../../lib/guide-publication.mjs';
+import { loadKnowledge, versionLabel } from '../../lib/knowledge.mjs';
+import { createBreadcrumbList, productionUrl } from '../../lib/structured-data.mjs';
+
+export async function getStaticPaths() {
+  const knowledge = await loadKnowledge();
+  const guides = await getPublishedGuideEntries(knowledge);
+  return guides.map((guide) => ({ params: { slug: guide.id }, props: { guide } }));
+}
+
+const { guide } = Astro.props;
+const knowledge = await loadKnowledge();
+const canonical = productionUrl(guideRoute(guide));
+const { Content } = await render(guide);
+const relatedEntities = (guide.data.relatedEntityIds || []).map((id) => knowledge.entityById.get(id)).filter(Boolean);
+const sources = guide.data.sourceIds.map((id) => knowledge.sourceById.get(id)).filter(Boolean);
+const facts = (guide.data.factIds || []).map((id) => knowledge.factById.get(id)).filter(Boolean);
+const platformNames = (guide.data.platformIds || []).map((id) => knowledge.platformById.get(id)?.displayName).filter(Boolean);
+const difficultyNames = (guide.data.difficultyIds || []).map((id) => knowledge.difficultyById.get(id)?.displayName).filter(Boolean);
+const article = { '@context': 'https://schema.org', '@type': 'Article', headline: guide.data.title, description: guide.data.description, author: { '@type': 'Organization', name: '影之刃零攻略站' }, publisher: { '@type': 'Organization', name: '影之刃零攻略站' }, datePublished: guide.data.publishedAt, dateModified: guide.data.updatedAt, mainEntityOfPage: { '@type': 'WebPage', '@id': canonical } };
+const breadcrumb = createBreadcrumbList([{ name: '首页', item: productionUrl('/') }, { name: '攻略中心', item: productionUrl('/guide') }, { name: guide.data.title, item: canonical }]);
+const entityHref = (entity) => ({ weapon: `/weapons/${entity.slug}`, character: `/characters/${entity.slug}`, boss: `/bosses/${entity.slug}`, location: `/world/${entity.slug}` }[entity.entityType]);
+---
+<BaseLayout title={`${guide.data.title} - 影之刃零攻略站`} description={guide.data.description} canonical={canonical} activeSection="guide" atmosphere="foundation" pageSchemaType={null} ogType="article">
+  <Fragment slot="head"><StructuredData data={article} /><StructuredData data={breadcrumb} /></Fragment>
+  <article class="guide-detail">
+    <Breadcrumb collectionHref="/guide" collectionLabel="攻略中心" currentLabel={guide.data.title} />
+    <header class="guide-detail__header"><p class="guide-detail__eyebrow">{guideTypeLabel(guide.data.guideType)}</p><h1>{guide.data.title}</h1><p class="guide-detail__description">{guide.data.description}</p><dl class="guide-detail__meta"><div><dt>发布</dt><dd><time datetime={guide.data.publishedAt}>{guide.data.publishedAt}</time></dd></div><div><dt>更新</dt><dd><time datetime={guide.data.updatedAt}>{guide.data.updatedAt}</time></dd></div>{guide.data.gameVersionId && <div><dt>适用版本</dt><dd>{versionLabel(guide.data.gameVersionId, knowledge)}</dd></div>}{platformNames.length > 0 && <div><dt>适用平台</dt><dd>{platformNames.join('、')}</dd></div>}{difficultyNames.length > 0 && <div><dt>适用难度</dt><dd>{difficultyNames.join('、')}</dd></div>}</dl></header>
+    <div class="article guide-detail__body"><Content /></div>
+    <GuideFactReferences facts={facts} knowledge={knowledge} />
+    {relatedEntities.length > 0 && <section class="guide-related-entities" aria-labelledby="guide-related-entities-title"><div class="detail-section-heading"><p class="detail-section-heading__eyebrow">RELATED RECORDS</p><h2 id="guide-related-entities-title">关联资料</h2></div><ul>{relatedEntities.map((entity) => <li><a href={entityHref(entity)}>{entity.displayName}</a></li>)}</ul></section>}
+    <SourcePanel sources={sources} />
+    <p class="entity-detail__return"><a class="btn btn-outline" href="/guide">返回攻略中心</a></p>
+  </article>
+</BaseLayout>

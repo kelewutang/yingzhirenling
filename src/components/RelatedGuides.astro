@@ -1,0 +1,14 @@
+---
+import { guideRoute, guideTypeLabel } from '../lib/guide-publication.mjs';
+
+const { guides = [] } = Astro.props;
+---
+{guides.length > 0 && <section class="related-guides" aria-labelledby="related-guides-title">
+  <div class="detail-section-heading">
+    <p class="detail-section-heading__eyebrow">GUIDES</p>
+    <h2 id="related-guides-title">相关攻略</h2>
+  </div>
+  <ul class="related-guides__list">
+    {guides.map((guide) => <li><a href={guideRoute(guide)}><span>{guide.data.title}</span><small>{guideTypeLabel(guide.data.guideType)} · <time datetime={guide.data.updatedAt}>{guide.data.updatedAt}</time></small></a></li>)}
+  </ul>
+</section>}

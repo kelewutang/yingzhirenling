@@ -1,0 +1,37 @@
+---
+import GuideCard from '../components/GuideCard.astro';
+import GuideLandingContent from '../components/GuideLandingContent.astro';
+import StructuredData from '../components/StructuredData.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPublishedGuideEntries } from '../lib/guides.mjs';
+import { loadKnowledge } from '../lib/knowledge.mjs';
+import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
+import { siteLifecycle } from '../lib/site-lifecycle.mjs';
+
+const canonical = productionUrl('/guide');
+const knowledge = await loadKnowledge();
+const guides = await getPublishedGuideEntries(knowledge);
+const relatedEntities = (guide) => (guide.data.relatedEntityIds || []).map((id) => knowledge.entityById.get(id)).filter(Boolean);
+const article = {
+  '@context': 'https://schema.org', '@type': 'Article', headline: siteLifecycle.copy.guide.jsonLdHeadline,
+  description: siteLifecycle.copy.guide.jsonLdDescription,
+  author: { '@type': 'Organization', name: '影之刃零攻略站' }, publisher: { '@type': 'Organization', name: '影之刃零攻略站' },
+  datePublished: '2026-08-18', dateModified: '2026-08-26', mainEntityOfPage: { '@type': 'WebPage', '@id': canonical }
+};
+const faq = {
+  '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
+    { '@type': 'Question', name: '66天寿命会限时吗？', acceptedAnswer: { '@type': 'Answer', text: '官方公开资料将六十六日作为主角的剧情设定，并公布了六十六天挑战模式；该模式的完整失败规则及剧情倒计时是否限制常规探索，仍待官方进一步说明或正式版验证。' } },
+    { '@type': 'Question', name: '预购特典是独占吗？', acceptedAnswer: { '@type': 'Answer', text: '不是。官方商店说明聚宝盆饰品和传承外观是提前解锁内容，也可通过游戏进程获得。' } },
+    { '@type': 'Question', name: 'PC必须装SSD吗？', acceptedAnswer: { '@type': 'Answer', text: '是的，官方最低和推荐配置均要求安装在SSD上。' } }
+  ]
+};
+const breadcrumb = createBreadcrumbList([{ name: '首页', item: productionUrl('/') }, { name: '攻略中心', item: canonical }]);
+---
+<BaseLayout title="攻略中心 - 影之刃零攻略站" description={siteLifecycle.copy.guide.metaDescription} canonical={canonical} activeSection="guide" atmosphere="foundation" pageSchemaType={null} ogType="article">
+  <Fragment slot="head"><StructuredData data={article} /><StructuredData data={faq} /><StructuredData data={breadcrumb} /></Fragment>
+  <article class="guide-landing">
+    <header class="page-header"><div class="page-breadcrumb"><a href="/">首页</a> / 攻略中心</div><h1 class="page-title">攻略中心</h1><p style="color:var(--text-secondary);margin-top:8px;">{siteLifecycle.copy.guide.status}</p></header>
+    {guides.length > 0 && <section class="guide-landing__published" aria-labelledby="published-guides-title"><header class="guide-landing__heading"><p>最新内容</p><h2 id="published-guides-title">已发布攻略</h2></header><div class="guide-card-grid">{guides.map((guide) => <GuideCard guide={guide} relatedEntities={relatedEntities(guide)} />)}</div></section>}
+    <GuideLandingContent />
+  </article>
+</BaseLayout>

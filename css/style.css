@@ -1206,6 +1206,44 @@ pre code {
 .article .pending-update-list li { margin: 0; }
 .article .pending-update-list strong { color: var(--text-primary); }
 
+/* Published Guide discovery and detail pages share the existing reading column. */
+.guide-landing__published { margin: 0 auto var(--space-10); max-width: var(--width-reading); }
+.guide-landing__heading { margin-bottom: var(--space-4); }
+.guide-landing__heading > p, .guide-detail__eyebrow, .guide-card__eyebrow { color: var(--color-observation); font-size: var(--text-caption); letter-spacing: .12em; margin: 0 0 var(--space-1); text-transform: uppercase; }
+.guide-landing__heading h2 { margin: 0; }
+.guide-card-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.guide-card { border: 1px solid var(--color-border); background: var(--color-surface); padding: var(--space-5); }
+.guide-card__title { font-size: var(--text-lg); margin: 0; }
+.guide-card__title a, .related-guides a, .guide-related-entities a { color: var(--color-text); text-decoration: none; }
+.guide-card__title a:hover, .guide-card__title a:focus-visible, .related-guides a:hover, .related-guides a:focus-visible, .guide-related-entities a:hover, .guide-related-entities a:focus-visible { color: var(--color-observation); text-decoration: underline; }
+.guide-card__description { color: var(--color-text-muted); margin: var(--space-3) 0; }
+.guide-card__meta { color: var(--color-text-muted); font-size: var(--text-caption); margin: 0; overflow-wrap: anywhere; }
+.guide-detail { margin: 0 auto; max-width: var(--width-reading); padding: var(--space-8) 0 var(--space-12); }
+.guide-detail > .page-breadcrumb { margin-bottom: var(--space-8); }
+.guide-detail__header { border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-6); }
+.guide-detail__header h1 { margin: 0; }
+.guide-detail__description { color: var(--color-text-muted); font-size: var(--text-lg); margin: var(--space-4) 0 0; }
+.guide-detail__meta { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); margin: var(--space-5) 0 0; }
+.guide-detail__meta div { display: flex; gap: var(--space-2); }
+.guide-detail__meta dt { color: var(--color-text-muted); }
+.guide-detail__meta dd { margin: 0; }
+.guide-detail__body { margin-top: var(--space-8); }
+.guide-fact-references, .guide-related-entities, .related-guides { margin-top: var(--space-10); }
+.guide-fact-references__list, .related-guides__list, .guide-related-entities ul { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+.guide-fact-references__list li, .related-guides__list li, .guide-related-entities li { border-top: 1px solid var(--color-border); padding: var(--space-4) 0; }
+.guide-fact-references__list p { margin: 0; }
+.guide-fact-references__list p + p { margin-top: var(--space-2); }
+.guide-fact-references__list .info-status { margin-left: var(--space-2); }
+.guide-fact-references__list small, .related-guides small { color: var(--color-text-muted); }
+.related-guides__list a { align-items: baseline; display: flex; gap: var(--space-4); justify-content: space-between; }
+
+@media (max-width: 680px) {
+  .guide-card-grid { grid-template-columns: 1fr; }
+  .guide-detail { padding-top: var(--space-6); }
+  .guide-detail__description { font-size: var(--text-base); }
+  .related-guides__list a { align-items: flex-start; flex-direction: column; gap: var(--space-1); }
+}
+
 /* ===== 打印按钮 ===== */
 .print-btn {
   margin-left: auto;
