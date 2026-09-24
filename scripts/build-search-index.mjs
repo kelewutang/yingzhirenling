@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isMajorSpoiler } from '../src/lib/spoilers.mjs';
 
 const SCRIPT_FILE = fileURLToPath(import.meta.url);
 const SCRIPT_DIR = path.dirname(SCRIPT_FILE);
@@ -298,6 +299,10 @@ export function buildSearchDocuments(records, mode, detailPageSlugs = new Set())
   for (const record of records) {
     const entity = record.entity ?? record.weapon;
     requireSearchShape(entity, record.file);
+    if (isMajorSpoiler(entity)) {
+      skippedByState.set('major-spoiler', (skippedByState.get('major-spoiler') ?? 0) + 1);
+      continue;
+    }
     if (!config.includedStates.has(entity.recordState)) {
       skippedByState.set(entity.recordState, (skippedByState.get(entity.recordState) ?? 0) + 1);
       continue;
@@ -321,10 +326,11 @@ function requireGuideSearchShape(guide, file) {
   if (!/^\/[a-z0-9]+(?:-[a-z0-9]+)*(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)?$/.test(guide.route)) throw new Error(`${file}: route 必须是 canonical Guide route`);
   if (!Array.isArray(guide.keywords) || !Array.isArray(guide.relatedEntityNames)) throw new Error(`${file}: keywords 和 relatedEntityNames 必须是数组`);
   if (guide.recordState !== 'published') throw new Error(`${file}: Guide manifest 只能包含 published Guide`);
+  if (!['none', 'minor', 'major'].includes(guide.spoilerLevel)) throw new Error(`${file}: spoilerLevel 必须为 none、minor 或 major`);
 }
 
 export function buildGuideSearchDocuments(guides, detailPageSlugs = new Set()) {
-  const documents = guides.map((guide) => {
+  const documents = guides.filter((guide) => !isMajorSpoiler(guide)).map((guide) => {
     requireGuideSearchShape(guide, `Guide ${guide.id}`);
     if (!detailPageSlugs.has(guide.id)) throw new Error(`Guide ${guide.id}: 已发布 Guide 缺少详情页`);
     const expectedRoute = `/guide/${guide.id}`;

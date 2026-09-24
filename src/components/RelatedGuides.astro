@@ -1,7 +1,11 @@
 ---
 import { guideRoute, guideTypeLabel } from '../lib/guide-publication.mjs';
+import SpoilerDisclosure from './SpoilerDisclosure.astro';
+import { guideSafeProjection, isMajorSpoiler } from '../lib/spoilers.mjs';
 
 const { guides = [] } = Astro.props;
+const safeGuides = guides.filter((guide) => !isMajorSpoiler(guide.data));
+const concealedGuides = guides.filter((guide) => isMajorSpoiler(guide.data));
 ---
 {guides.length > 0 && <section class="related-guides" aria-labelledby="related-guides-title">
   <div class="detail-section-heading">
@@ -9,6 +13,7 @@ const { guides = [] } = Astro.props;
     <h2 id="related-guides-title">相关攻略</h2>
   </div>
   <ul class="related-guides__list">
-    {guides.map((guide) => <li><a href={guideRoute(guide)}><span>{guide.data.title}</span><small>{guideTypeLabel(guide.data.guideType)} · <time datetime={guide.data.updatedAt}>{guide.data.updatedAt}</time></small></a></li>)}
+    {safeGuides.map((guide) => <li><a href={guideRoute(guide)}><span>{guideSafeProjection(guide).title}</span><small>{guideTypeLabel(guide.data.guideType)} · <time datetime={guide.data.updatedAt}>{guide.data.updatedAt}</time></small></a></li>)}
   </ul>
+  {concealedGuides.length > 0 && <SpoilerDisclosure>{concealedGuides.map((guide) => <p><a href={guideRoute(guide)}>{guide.data.title}</a></p>)}</SpoilerDisclosure>}
 </section>}

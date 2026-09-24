@@ -27,6 +27,7 @@ const productionRightsStatuses = new Set([
 ]);
 const sourceTypes = new Set(['official-promotional', 'press-asset', 'self-captured', 'third-party-permitted']);
 const usages = new Set(['hero', 'card', 'gallery', 'inline', 'thumbnail']);
+const spoilerLevels = new Set(['none', 'minor', 'major']);
 const productionUsages = new Set(['hero', 'card']);
 const weaponMasterWidth = 1200;
 const weaponMasterHeight = 1800;
@@ -148,6 +149,7 @@ if (!isObject(document)) {
       if (!sourceTypes.has(media.sourceType)) error(`${location}.sourceType`, '必须是受支持的媒体来源类型');
       if (!rightsStatuses.has(media.rightsStatus)) error(`${location}.rightsStatus`, '必须是 Media Source Policy 定义的 rightsStatus');
       if (!recordStates.has(media.recordState)) error(`${location}.recordState`, '必须为 draft、published 或 retired');
+      if (media.spoilerLevel !== undefined && !spoilerLevels.has(media.spoilerLevel)) error(`${location}.spoilerLevel`, '只允许 none、minor 或 major');
       if (!Array.isArray(media.usage) || media.usage.length === 0 || media.usage.some((usage) => !usages.has(usage)) || new Set(media.usage).size !== media.usage.length) error(`${location}.usage`, '必须是唯一、受支持的 usage 数组');
       if (!Number.isInteger(media.width) || media.width < 1 || !Number.isInteger(media.height) || media.height < 1) error(`${location}.width/height`, '必须是正整数');
       if (!mimeTypes.has(media.mimeType)) error(`${location}.mimeType`, '必须是支持的本地图像 MIME type');

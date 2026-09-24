@@ -1,9 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EntityCard from './EntityCard.astro';
+import SpoilerDisclosure from './SpoilerDisclosure.astro';
 
 const { pageTitle, title, description, canonical, activeSection, entityType, eyebrow, intro, inventoryLabel, cards, supportingTitle, supportingText } = Astro.props;
 const atmosphere = entityType === 'location' ? 'world' : entityType;
+const safeCards = cards.filter(({ card }) => !card.concealed);
+const concealedCards = cards.filter(({ card }) => card.concealed);
 ---
 <BaseLayout title={pageTitle} description={description} canonical={canonical} activeSection={activeSection} atmosphere={atmosphere} weaponCollection={entityType === 'weapon'} pageSchemaType="CollectionPage">
   <article class="collection-page" data-collection-system="rollout" data-entity-type={entityType}>
@@ -11,7 +14,7 @@ const atmosphere = entityType === 'location' ? 'world' : entityType;
       <p class="collection-hero__eyebrow">{eyebrow}</p>
       <div class="collection-hero__heading">
         <h1>{title}</h1>
-        <p class="collection-hero__count"><strong>{cards.length}</strong> 个已发布{inventoryLabel}</p>
+        <p class="collection-hero__count"><strong>{safeCards.length}</strong> 个已发布{inventoryLabel}</p>
       </div>
       <p class="collection-hero__intro">{intro}</p>
     </header>
@@ -21,9 +24,10 @@ const atmosphere = entityType === 'location' ? 'world' : entityType;
         <p>实体资料</p>
         <h2 id={`${entityType}-inventory-title`}>已发布{inventoryLabel}</h2>
       </header>
-      <div class:list={['entity-grid', cards.length === 1 && 'entity-grid--sparse']}>
-        {cards.map(({ card, media }) => <EntityCard card={card} media={media} />)}
+      <div class:list={['entity-grid', safeCards.length === 1 && 'entity-grid--sparse']}>
+        {safeCards.map(({ card, media }) => <EntityCard card={card} media={media} />)}
       </div>
+      {concealedCards.length > 0 && <SpoilerDisclosure class="collection-inventory__spoilers"><div class="entity-grid">{concealedCards.map(({ card, media }) => <EntityCard card={card} media={media} />)}</div></SpoilerDisclosure>}
     </section>
 
     <section class="collection-supporting" aria-labelledby={`${entityType}-scope-title`}>

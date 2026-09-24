@@ -1,6 +1,7 @@
 ---
 title: 测试草稿
 description: 仅用于验证 draft 隔离。
+spoilerLevel: none
 status: draft
 guideType: boss
 publishedAt: null

@@ -1,0 +1,8 @@
+---
+import { spoilerDisclosureLabel } from '../lib/spoilers.mjs';
+const { label = spoilerDisclosureLabel, class: className = '' } = Astro.props;
+---
+<details class:list={['spoiler-disclosure', className]} data-spoiler-level="major" data-nosnippet>
+  <summary>{label}</summary>
+  <div class="spoiler-disclosure__content"><slot /></div>
+</details>

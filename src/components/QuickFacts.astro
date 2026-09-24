@@ -1,13 +1,15 @@
 ---
 const { facts = [] } = Astro.props;
+import { isMajorSpoiler } from '../lib/spoilers.mjs';
+const safeFacts = facts.filter((fact) => !isMajorSpoiler(fact));
 ---
-{facts.length > 0 && <section class="quick-facts" aria-labelledby="quick-facts-title">
+{safeFacts.length > 0 && <section class="quick-facts" aria-labelledby="quick-facts-title">
   <div class="detail-section-heading">
     <p class="detail-section-heading__eyebrow">SCAN FIRST</p>
     <h2 id="quick-facts-title">快速信息</h2>
   </div>
   <dl class="quick-facts__grid">
-    {facts.map((fact) => (
+    {safeFacts.map((fact) => (
       <div class="quick-fact" data-quick-fact-id={fact.id} data-status={fact.status}>
         <dt>{fact.title}</dt>
         <dd class="quick-fact__value">{fact.valueText}</dd>

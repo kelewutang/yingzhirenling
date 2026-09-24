@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { mediaIsConcealed } from './spoilers.mjs';
 
 const root = resolve(process.cwd());
 const mediaFile = resolve(root, 'data/media.json');
@@ -15,7 +16,7 @@ async function loadMediaRecords() {
  * Sources, or the Knowledge Schema. The media validator guarantees that this
  * function can only return a production-eligible local record.
  */
-async function getProductionMedia(entityId, usage) {
+async function getProductionMedia(entityId, usage, entity = null) {
   const records = await loadMediaRecords();
   const media = records.find((media) => (
     media.entityId === entityId &&
@@ -23,13 +24,13 @@ async function getProductionMedia(entityId, usage) {
     media.usage.includes(usage) &&
     ['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed', 'official-promotional-risk-accepted'].includes(media.rightsStatus)
   ));
-  return media ? { ...media, src: `/assets/media/${media.src}` } : null;
+  return media && !mediaIsConcealed(media, entity) ? { ...media, src: `/assets/media/${media.src}` } : null;
 }
 
-export function getProductionHeroMedia(entityId) {
-  return getProductionMedia(entityId, 'hero');
+export function getProductionHeroMedia(entityId, entity = null) {
+  return getProductionMedia(entityId, 'hero', entity);
 }
 
-export function getProductionCardMedia(entityId) {
-  return getProductionMedia(entityId, 'card');
+export function getProductionCardMedia(entityId, entity = null) {
+  return getProductionMedia(entityId, 'card', entity);
 }

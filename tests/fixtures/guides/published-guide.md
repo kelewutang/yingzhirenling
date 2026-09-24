@@ -1,6 +1,7 @@
 ---
 title: 测试武器攻略
 description: 仅用于验证静态 Guide 发布管线，不是生产攻略内容。
+spoilerLevel: none
 status: published
 guideType: weapon
 publishedAt: 2026-10-29

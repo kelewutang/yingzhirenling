@@ -47,6 +47,7 @@ const NAMED_WEAPON_DETAIL_KEYS = new Set(['weapon.mechanic', 'weapon.progression
 const DERIVED_INPUT_LABEL_KINDS = new Set(['official', 'functional']);
 const WEAPON_SYSTEM_CATEGORIES = new Set(['主武器', '影之武']);
 const WEAPON_TYPES = new Set(['大锤', '剑', '弓', '投掷类', '刀类', '双剑', '双手剑']);
+const SPOILER_LEVELS = new Set(['none', 'minor', 'major']);
 
 const errors = [];
 const idOwners = new Map();
@@ -347,6 +348,24 @@ function validatePublicationMetadata(entity, location, report) {
   if (isValidDate(entity.publishedAt) && isValidDate(entity.updatedAt) &&
       entity.publishedAt > entity.updatedAt) {
     report(`${location}.publishedAt`, '不得晚于 updatedAt');
+  }
+}
+
+function validateSpoilerClassification(record, location, report = error, { publishedEntity = false } = {}) {
+  if (record.spoilerLevel === undefined) {
+    if (publishedEntity) report(`${location}.spoilerLevel`, 'published Entity 必须显式提供 spoilerLevel');
+    return;
+  }
+  if (!SPOILER_LEVELS.has(record.spoilerLevel)) {
+    report(`${location}.spoilerLevel`, '只允许 none、minor 或 major');
+    return;
+  }
+  if (record.spoilerLevel === 'major') {
+    for (const field of ['safeDisplayName', 'safeSummary']) {
+      if (typeof record[field] !== 'string' || record[field].trim().length === 0) {
+        report(`${location}.${field}`, 'major Entity 必须提供非空安全展示文本');
+      }
+    }
   }
 }
 
@@ -760,6 +779,7 @@ for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ..
   validateStringArray(entity.summaryFactIds, `${relative}.summaryFactIds`);
   validateStringArray(entity.taxonomyIds, `${relative}.taxonomyIds`);
   validatePublicationMetadata(entity, relative, error);
+  validateSpoilerClassification(entity, relative, error, { publishedEntity: entity.recordState === 'published' && entity.entityType !== 'system' });
   validateDate(entity.updatedAt, `${relative}.updatedAt`);
   if (!Array.isArray(entity.facts)) {
     error(`${relative}.facts`, '必须是数组');
@@ -1096,6 +1116,7 @@ for (const [factId, { relative: location, fact }] of facts) {
   const sourceIds = Array.isArray(fact.sourceIds) ? fact.sourceIds : [];
   const basisFactIds = Array.isArray(fact.basisFactIds) ? fact.basisFactIds : [];
   if (!STATUS_VALUES.has(fact.status)) error(`${location}.status`, 'status 不合法');
+  if (fact.spoilerLevel !== undefined && !SPOILER_LEVELS.has(fact.spoilerLevel)) error(`${location}.spoilerLevel`, '只允许 none、minor 或 major');
   if ('authority' in fact || 'publisherKind' in fact || 'isOfficial' in fact) {
     error(location, 'Fact 不得复制 Source authority 或使用 isOfficial；可信度只能由 status 表达');
   }
