@@ -16,8 +16,9 @@ try {
   });
   if (result.status !== 0) throw new Error(result.stderr || result.stdout || 'Guide fixture Astro build failed');
 
-  const [guide, landing, entity, sitemap, manifest] = await Promise.all([
+  const [guide, majorGuide, landing, entity, sitemap, manifest] = await Promise.all([
     readFile(resolve(output, 'guide/published-guide.html'), 'utf8'),
+    readFile(resolve(output, 'guide/story-guide-01.html'), 'utf8'),
     readFile(resolve(output, 'guide.html'), 'utf8'),
     readFile(resolve(output, 'weapons/tang-hengdao.html'), 'utf8'),
     readFile(resolve(output, 'sitemap.xml'), 'utf8'),
@@ -27,10 +28,17 @@ try {
   assert.equal((guide.match(/<h1\b/g) || []).length, 1, 'fixture Guide must render exactly one H1');
   assert.match(guide, /"@type":"Article"/);
   assert.match(guide, /"@type":"BreadcrumbList"/);
+  assert.match(majorGuide, /<title>剧情相关攻略 - 影之刃零攻略站<\/title>/);
+  assert.doesNotMatch(majorGuide.match(/<head>[\s\S]*?<\/head>/)?.[0] || '', /Late-game Boss/);
+  assert.match(majorGuide, /data-spoiler-level="major"/);
+  assert.match(majorGuide, /data-nosnippet/);
   assert.match(landing, /测试武器攻略/, 'published fixture Guide must appear on landing');
+  assert.match(landing, /剧情相关攻略/, 'major fixture Guide must use its safe landing title');
+  assert.doesNotMatch(landing.split('<details')[0], /Late-game Boss/, 'major fixture Guide must not leak its title before disclosure');
   assert.doesNotMatch(landing, /测试草稿/, 'draft fixture Guide must not appear on landing');
   assert.match(entity, /测试武器攻略/, 'published fixture Guide must appear on related Entity detail');
   assert.match(sitemap, /https:\/\/www\.yingzhirenling\.cn\/guide\/published-guide/);
+  assert.match(sitemap, /https:\/\/www\.yingzhirenling\.cn\/guide\/story-guide-01/);
   assert.doesNotMatch(sitemap, /draft-guide/);
   const documents = buildGuideSearchDocuments(manifest, new Set(['published-guide']));
   assert.deepEqual(documents.map((document) => document.route), ['/guide/published-guide']);

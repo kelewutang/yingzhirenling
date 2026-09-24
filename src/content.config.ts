@@ -11,6 +11,9 @@ const guides = defineCollection({
   schema: z.object({
     title: z.string().trim().min(1),
     description: z.string().trim().min(1),
+    spoilerLevel: z.enum(['none', 'minor', 'major']),
+    safeTitle: z.string().trim().min(1).optional(),
+    safeDescription: z.string().trim().min(1).optional(),
     status: z.enum(['draft', 'published']),
     guideType: z.enum(['walkthrough', 'boss', 'weapon', 'system', 'performance']),
     publishedAt: date,

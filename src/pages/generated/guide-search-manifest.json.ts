@@ -8,6 +8,7 @@ export async function GET() {
   const guides = await getPublishedGuideEntries(knowledge);
   const body = guides.map((guide) => ({
     id: guide.id,
+    spoilerLevel: guide.data.spoilerLevel,
     title: guide.data.title,
     description: guide.data.description,
     guideType: guide.data.guideType,

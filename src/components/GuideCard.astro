@@ -1,11 +1,13 @@
 ---
 import { guideRoute, guideTypeLabel } from '../lib/guide-publication.mjs';
+import { guideSafeProjection, hasMinorSpoiler } from '../lib/spoilers.mjs';
 
 const { guide, relatedEntities = [] } = Astro.props;
+const safe = guideSafeProjection(guide);
 ---
 <article class="guide-card" data-guide-type={guide.data.guideType}>
   <p class="guide-card__eyebrow">{guideTypeLabel(guide.data.guideType)}</p>
-  <h3 class="guide-card__title"><a href={guideRoute(guide)}>{guide.data.title}</a></h3>
-  <p class="guide-card__description">{guide.data.description}</p>
-  <p class="guide-card__meta"><time datetime={guide.data.updatedAt}>更新于 {guide.data.updatedAt}</time>{relatedEntities.length > 0 && <> · {relatedEntities.map((entity) => entity.displayName).join('、')}</>}</p>
+  <h3 class="guide-card__title"><a href={guideRoute(guide)}>{safe.title}</a></h3>
+  <p class="guide-card__description">{safe.description}</p>
+  <p class="guide-card__meta"><time datetime={guide.data.updatedAt}>更新于 {guide.data.updatedAt}</time>{hasMinorSpoiler(guide.data) && <> · 含部分剧情信息</>}{!safe.concealed && relatedEntities.length > 0 && <> · {relatedEntities.map((entity) => entity.displayName).join('、')}</>}</p>
 </article>

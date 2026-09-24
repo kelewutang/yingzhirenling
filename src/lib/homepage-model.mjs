@@ -5,6 +5,7 @@ import {
   getPublishedWeapons,
   loadKnowledge
 } from './knowledge.mjs';
+import { isSafeForDiscovery } from './spoilers.mjs';
 
 const categoryDefinitions = [
   {
@@ -53,7 +54,7 @@ export async function buildHomepageModel() {
   const knowledge = await loadKnowledge();
   const categories = categoryDefinitions.map(({ getEntities, ...category }) => ({
     ...category,
-    count: getEntities(knowledge).length
+    count: getEntities(knowledge).filter(isSafeForDiscovery).length
   }));
 
   return {

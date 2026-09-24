@@ -7,11 +7,15 @@ import { getPublishedGuideEntries } from '../lib/guides.mjs';
 import { loadKnowledge } from '../lib/knowledge.mjs';
 import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
 import { siteLifecycle } from '../lib/site-lifecycle.mjs';
+import SpoilerDisclosure from '../components/SpoilerDisclosure.astro';
+import { isMajorSpoiler } from '../lib/spoilers.mjs';
 
 const canonical = productionUrl('/guide');
 const knowledge = await loadKnowledge();
 const guides = await getPublishedGuideEntries(knowledge);
-const relatedEntities = (guide) => (guide.data.relatedEntityIds || []).map((id) => knowledge.entityById.get(id)).filter(Boolean);
+const relatedEntities = (guide) => (guide.data.relatedEntityIds || []).map((id) => knowledge.entityById.get(id)).filter((entity) => entity && (isMajorSpoiler(guide.data) || !isMajorSpoiler(entity)));
+const safeGuides = guides.filter((guide) => !isMajorSpoiler(guide.data));
+const concealedGuides = guides.filter((guide) => isMajorSpoiler(guide.data));
 const article = {
   '@context': 'https://schema.org', '@type': 'Article', headline: siteLifecycle.copy.guide.jsonLdHeadline,
   description: siteLifecycle.copy.guide.jsonLdDescription,
@@ -31,7 +35,7 @@ const breadcrumb = createBreadcrumbList([{ name: '首页', item: productionUrl('
   <Fragment slot="head"><StructuredData data={article} /><StructuredData data={faq} /><StructuredData data={breadcrumb} /></Fragment>
   <article class="guide-landing">
     <header class="page-header"><div class="page-breadcrumb"><a href="/">首页</a> / 攻略中心</div><h1 class="page-title">攻略中心</h1><p style="color:var(--text-secondary);margin-top:8px;">{siteLifecycle.copy.guide.status}</p></header>
-    {guides.length > 0 && <section class="guide-landing__published" aria-labelledby="published-guides-title"><header class="guide-landing__heading"><p>最新内容</p><h2 id="published-guides-title">已发布攻略</h2></header><div class="guide-card-grid">{guides.map((guide) => <GuideCard guide={guide} relatedEntities={relatedEntities(guide)} />)}</div></section>}
+    {guides.length > 0 && <section class="guide-landing__published" aria-labelledby="published-guides-title"><header class="guide-landing__heading"><p>最新内容</p><h2 id="published-guides-title">已发布攻略</h2></header><div class="guide-card-grid">{safeGuides.map((guide) => <GuideCard guide={guide} relatedEntities={relatedEntities(guide)} />)}</div>{concealedGuides.length > 0 && <SpoilerDisclosure>{concealedGuides.map((guide) => <GuideCard guide={guide} />)}</SpoilerDisclosure>}</section>}
     <GuideLandingContent />
   </article>
 </BaseLayout>

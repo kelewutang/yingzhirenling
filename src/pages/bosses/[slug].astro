@@ -7,6 +7,7 @@ import { getProductionHeroMedia } from '../../lib/media.mjs';
 import { buildEntityDetailModel } from '../../lib/detail-models.mjs';
 import { getPublishedGuideEntries } from '../../lib/guides.mjs';
 import { getRelatedPublishedGuides } from '../../lib/guide-publication.mjs';
+import { entitySafeProjection, factIsConcealed, isMajorSpoiler } from '../../lib/spoilers.mjs';
 
 export async function getStaticPaths() {
   const knowledge = await loadKnowledge();
@@ -16,13 +17,14 @@ export async function getStaticPaths() {
 const { boss } = Astro.props;
 const knowledge = await loadKnowledge();
 const facts = projectBossFacts(boss, knowledge);
-const sources = collectDisplayedSources(facts, knowledge);
+const sources = collectDisplayedSources(isMajorSpoiler(boss) ? facts : facts.filter((fact) => !factIsConcealed(fact, boss)), knowledge);
 const media = await getProductionHeroMedia(boss.id);
 const detail = buildEntityDetailModel(boss, facts);
 const relatedGuides = getRelatedPublishedGuides(boss.id, await getPublishedGuideEntries(knowledge));
 const canonical = `https://www.yingzhirenling.cn/bosses/${boss.slug}`;
-const description = `${boss.displayName}：${boss.summary}`;
+const safe = entitySafeProjection(boss);
+const description = `${safe.displayName}：${safe.summary}`;
 ---
-<BaseLayout title={`${boss.displayName} - 影之刃零 Boss 图鉴`} description={description} canonical={canonical} activeSection="bosses" atmosphere="boss">
+<BaseLayout title={`${safe.displayName} - 影之刃零 Boss 图鉴`} description={description} canonical={canonical} activeSection="bosses" atmosphere="boss">
   <EntityDetailLayout entity={boss} collectionHref="/bosses" collectionLabel="Boss 图鉴" returnLabel="Boss 图鉴" eyebrow={detail.eyebrow} aliases={aliasValues(boss)} facts={detail.facts} sources={sources} sourceById={knowledge.sourceById} media={media} relatedGuides={relatedGuides} canonical={canonical} />
 </BaseLayout>

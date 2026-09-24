@@ -9,6 +9,7 @@ export const GUIDE_TYPE_LABELS = Object.freeze({
 
 const GUIDE_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PUBLIC_ENTITY_TYPES = new Set(['weapon', 'character', 'boss', 'location']);
+const SPOILER_LEVELS = new Set(['none', 'minor', 'major']);
 
 function values(value) {
   return Array.isArray(value) ? value : [];
@@ -34,6 +35,15 @@ export function hasMarkdownH1(body = '') {
   return /^ {0,3}#(?!#)\s+\S/m.test(body);
 }
 
+export function hasValidSpoilerBlocks(body = '') {
+  const blocks = body.match(/<details\b[^>]*data-spoiler-level=["']major["'][^>]*>[\s\S]*?<\/details>/g) || [];
+  const markers = body.match(/<details\b[^>]*data-spoiler-level=["']major["'][^>]*>/g) || [];
+  const unsupported = body.match(/<details\b[^>]*data-spoiler-level=["'](?!major["'])[^"']+["'][^>]*>/g) || [];
+  return unsupported.length === 0 && blocks.length === markers.length && blocks.every((block) =>
+    /<summary>\s*[^<\n][\s\S]*?<\/summary>/.test(block) && /data-nosnippet(?:\s|>)/.test(block)
+  );
+}
+
 export function validateGuides(guides, knowledge) {
   const errors = [];
   const seenIds = new Set();
@@ -46,6 +56,11 @@ export function validateGuides(guides, knowledge) {
     seenIds.add(guide.id);
     if (!GUIDE_TYPES.includes(data.guideType)) errors.push(`${prefix}: guideType 不受支持`);
     if (hasMarkdownH1(guide.body)) errors.push(`${prefix}: Markdown body 不得包含 H1；页面模板负责唯一 H1`);
+    if (!SPOILER_LEVELS.has(data.spoilerLevel)) errors.push(`${prefix}: spoilerLevel 必须显式为 none、minor 或 major`);
+    if (data.spoilerLevel === 'major' && (!data.safeTitle || !data.safeDescription)) {
+      errors.push(`${prefix}: major Guide 必须提供 safeTitle 和 safeDescription`);
+    }
+    if (!hasValidSpoilerBlocks(guide.body)) errors.push(`${prefix}: major spoiler block 必须使用含 data-nosnippet 的原生 details/summary`);
 
     const sourceIds = values(data.sourceIds);
     const factIds = values(data.factIds);

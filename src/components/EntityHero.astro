@@ -1,16 +1,23 @@
 ---
 import EntityMedia from './EntityMedia.astro';
+import SpoilerDisclosure from './SpoilerDisclosure.astro';
+import { entitySafeProjection, isMajorSpoiler, mediaIsConcealed } from '../lib/spoilers.mjs';
 
 const { entity, aliases = [], eyebrow, taxonomy = null, media = null } = Astro.props;
+const safe = entitySafeProjection(entity);
+const major = isMajorSpoiler(entity);
+const revealMedia = mediaIsConcealed(media, entity);
 ---
 <header class="entity-hero">
   <div class="entity-hero__identity">
     <p class="entity-hero__eyebrow">{eyebrow}</p>
-    <h1 class="entity-hero__title">{entity.displayName}</h1>
-    {taxonomy && <p class="entity-hero__taxonomy" data-weapon-hero-taxonomy>{taxonomy}</p>}
-    {aliases.length > 0 && <p class="entity-hero__aliases">{aliases.join('、')}</p>}
-    <p class="entity-hero__summary">{entity.summary}</p>
+    <h1 class="entity-hero__title">{safe.displayName}</h1>
+    {!major && taxonomy && <p class="entity-hero__taxonomy" data-weapon-hero-taxonomy>{taxonomy}</p>}
+    {!major && aliases.length > 0 && <p class="entity-hero__aliases">{aliases.join('、')}</p>}
+    <p class="entity-hero__summary">{safe.summary}</p>
     <p class="entity-hero__updated">资料更新：<time datetime={entity.updatedAt}>{entity.updatedAt}</time></p>
   </div>
   <EntityMedia entity={entity} media={media} variant="hero" showSourceLink={true} />
 </header>
+{major && <SpoilerDisclosure class="entity-hero__spoiler"><section class="entity-hero__revealed"><h2>{entity.displayName}</h2>{aliases.length > 0 && <p>{aliases.join('、')}</p>}<p>{entity.summary}</p><EntityMedia entity={entity} media={media} variant="hero" showSourceLink={true} revealed={true} /></section></SpoilerDisclosure>}
+{!major && revealMedia && <SpoilerDisclosure class="entity-hero__spoiler"><EntityMedia entity={entity} media={media} variant="hero" showSourceLink={true} revealed={true} /></SpoilerDisclosure>}

@@ -1228,6 +1228,16 @@ pre code {
 .guide-detail__meta dt { color: var(--color-text-muted); }
 .guide-detail__meta dd { margin: 0; }
 .guide-detail__body { margin-top: var(--space-8); }
+.spoiler-advisory { margin: var(--space-3) 0 0; color: var(--color-observation); font-size: var(--text-sm); }
+.spoiler-disclosure { margin-top: var(--space-6); border: 1px solid var(--color-border); background: var(--color-surface); }
+.spoiler-disclosure > summary { min-height: 2.75rem; padding: var(--space-3) var(--space-4); cursor: pointer; color: var(--color-text); font-weight: 700; }
+.spoiler-disclosure > summary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+.spoiler-disclosure__content { padding: 0 var(--space-4) var(--space-4); }
+.spoiler-disclosure .entity-media { margin-top: var(--space-4); }
+.entity-card__spoiler-media { margin: var(--space-3) 0; }
+.collection-inventory__spoilers { margin-top: var(--space-5); }
+.fact-spoiler { margin: var(--space-3) 0; }
+@media print { .spoiler-disclosure:not([open]) > :not(summary) { display: none !important; } }
 .guide-fact-references, .guide-related-entities, .related-guides { margin-top: var(--space-10); }
 .guide-fact-references__list, .related-guides__list, .guide-related-entities ul { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
 .guide-fact-references__list li, .related-guides__list li, .guide-related-entities li { border-top: 1px solid var(--color-border); padding: var(--space-4) 0; }

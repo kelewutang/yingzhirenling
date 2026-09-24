@@ -7,6 +7,7 @@ import { getProductionHeroMedia } from '../../lib/media.mjs';
 import { buildEntityDetailModel } from '../../lib/detail-models.mjs';
 import { getPublishedGuideEntries } from '../../lib/guides.mjs';
 import { getRelatedPublishedGuides } from '../../lib/guide-publication.mjs';
+import { entitySafeProjection, factIsConcealed, isMajorSpoiler } from '../../lib/spoilers.mjs';
 
 export async function getStaticPaths() {
   const knowledge = await loadKnowledge();
@@ -16,13 +17,14 @@ export async function getStaticPaths() {
 const { location } = Astro.props;
 const knowledge = await loadKnowledge();
 const facts = projectLocationFacts(location, knowledge);
-const sources = collectDisplayedSources(facts, knowledge);
+const sources = collectDisplayedSources(isMajorSpoiler(location) ? facts : facts.filter((fact) => !factIsConcealed(fact, location)), knowledge);
 const media = await getProductionHeroMedia(location.id);
 const detail = buildEntityDetailModel(location, facts);
 const relatedGuides = getRelatedPublishedGuides(location.id, await getPublishedGuideEntries(knowledge));
 const canonical = `https://www.yingzhirenling.cn/world/${location.slug}`;
-const description = `${location.displayName}：${location.summary}`;
+const safe = entitySafeProjection(location);
+const description = `${safe.displayName}：${safe.summary}`;
 ---
-<BaseLayout title={`${location.displayName} - 影之刃零世界与地点`} description={description} canonical={canonical} activeSection="world" atmosphere="world">
+<BaseLayout title={`${safe.displayName} - 影之刃零世界与地点`} description={description} canonical={canonical} activeSection="world" atmosphere="world">
   <EntityDetailLayout entity={location} collectionHref="/world" collectionLabel="世界与地点" returnLabel="世界与地点" eyebrow={detail.eyebrow} aliases={aliasValues(location)} facts={detail.facts} sources={sources} sourceById={knowledge.sourceById} media={media} relatedGuides={relatedGuides} canonical={canonical} />
 </BaseLayout>

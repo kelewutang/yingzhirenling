@@ -8,6 +8,7 @@ import { getProductionHeroMedia } from '../../lib/media.mjs';
 import { buildEntityDetailModel } from '../../lib/detail-models.mjs';
 import { getPublishedGuideEntries } from '../../lib/guides.mjs';
 import { getRelatedPublishedGuides } from '../../lib/guide-publication.mjs';
+import { entitySafeProjection, factIsConcealed, isMajorSpoiler } from '../../lib/spoilers.mjs';
 
 export async function getStaticPaths() {
   const knowledge = await loadKnowledge();
@@ -18,13 +19,14 @@ const { character } = Astro.props;
 const knowledge = await loadKnowledge();
 const facts = projectCharacterFacts(character, knowledge);
 const relations = projectRelationsForEntity(character.id, getProductionRelationsForEntity(character.id, knowledge), knowledge);
-const sources = collectDisplayedSources(facts, knowledge, relations);
+const sources = collectDisplayedSources(isMajorSpoiler(character) ? facts : facts.filter((fact) => !factIsConcealed(fact, character)), knowledge, isMajorSpoiler(character) ? relations : relations.filter((relation) => !isMajorSpoiler(relation.otherEntity)));
 const media = await getProductionHeroMedia(character.id);
 const detail = buildEntityDetailModel(character, facts);
 const relatedGuides = getRelatedPublishedGuides(character.id, await getPublishedGuideEntries(knowledge));
 const canonical = `https://www.yingzhirenling.cn/characters/${character.slug}`;
-const description = `${character.displayName}：${character.summary}`;
+const safe = entitySafeProjection(character);
+const description = `${safe.displayName}：${safe.summary}`;
 ---
-<BaseLayout title={`${character.displayName} - 影之刃零角色资料 | 影之刃零攻略站`} description={description} canonical={canonical} activeSection="characters" atmosphere="character">
+<BaseLayout title={`${safe.displayName} - 影之刃零角色资料 | 影之刃零攻略站`} description={description} canonical={canonical} activeSection="characters" atmosphere="character">
   <EntityDetailLayout entity={character} collectionHref="/characters" collectionLabel="角色图鉴" returnLabel="角色图鉴" eyebrow={detail.eyebrow} aliases={aliasValues(character)} facts={detail.facts} sources={sources} sourceById={knowledge.sourceById} media={media} relations={relations} relatedGuides={relatedGuides} canonical={canonical} />
 </BaseLayout>

@@ -1,10 +1,14 @@
 ---
 import EntityMedia from './EntityMedia.astro';
+import SpoilerDisclosure from './SpoilerDisclosure.astro';
+import { mediaIsConcealed } from '../lib/spoilers.mjs';
 
 const { card, media = null } = Astro.props;
+const revealMedia = mediaIsConcealed(media, card.entity) && !card.concealed;
 ---
 <a class="entity-card" href={card.href} data-entity-card="true" data-entity-type={card.entity.entityType} aria-label={`查看${card.displayName}详情`}>
   <EntityMedia entity={card.entity} media={media} variant="card" showSourceLink={false} />
+  {revealMedia && <SpoilerDisclosure class="entity-card__spoiler-media"><EntityMedia entity={card.entity} media={media} variant="card" showSourceLink={false} revealed={true} /></SpoilerDisclosure>}
   <span class="entity-card__body">
     <span class="entity-card__eyebrow">{card.typeLabel}</span>
     <h3 class="entity-card__title">{card.displayName}</h3>
