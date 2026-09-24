@@ -4,7 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import StructuredData from '../components/StructuredData.astro';
 import { createPageIdentity } from '../lib/structured-data.mjs';
 
-const { title, description, canonical, activeSection, atmosphere, weaponCollection = false, pageSchemaType = 'WebPage' } = Astro.props;
+const { title, description, canonical, activeSection, atmosphere, weaponCollection = false, pageSchemaType = 'WebPage', ogType = 'website' } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -17,7 +17,7 @@ const { title, description, canonical, activeSection, atmosphere, weaponCollecti
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

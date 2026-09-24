@@ -7,8 +7,8 @@
 - **Repository:** `git@github.com:kelewutang/yingzhirenling.git`
 - **Formal local repo:** `/home/mok/projects/yingzhirenling-site`
 - **Branch:** `main`
-- **Baseline commit:** `d42d43fc6333a2118f8c8786ebd5a459c6112c95`
-- **Baseline meaning:** P3-CN-4D Weapon Media merge baseline
+- **Baseline commit:** `9f96cccd18fc5c4fbf9ab40ba3ab4e6914c06d44`
+- **Baseline meaning:** P3-CN-7F Release State Transition Readiness merge baseline
 - **Hosting:** Netlify static hosting
 - **Architecture:** Astro static output, native CSS, native JavaScript, and build-time Knowledge data
 
@@ -80,7 +80,7 @@ Read [Knowledge Schema 1.0](knowledge-schema-1.0.md) before changing any data or
 - Do not introduce Next.js, React, Tailwind, a database, CMS, Server API, or account system without an explicit approved need.
 - Netlify publishes `dist/`; its build command runs the repository validation and generation chain.
 - Astro natively emits the homepage, four collection pages, 16 published Entity detail pages, and the sitemap.
-- The retained legacy bridge serves `/guide`, `/about`, `/about-site`, and `/404`; `/videos` is a static Astro route backed by production Video records. Legacy `/pages/*.html` compatibility redirects remain in place.
+- `/guide` is an Astro static landing route; `/about`, `/about-site`, and `/404` remain in the legacy bridge. `/videos` is a static Astro route backed by production Video records. Legacy `/pages/*.html` compatibility redirects remain in place.
 - Obsolete legacy source files removed in P2-UI-8 are root `index.html` and `pages/weapons.html`, `pages/characters.html`, `pages/bosses.html`, and `pages/world.html`.
 
 ## 7. UI System
@@ -277,7 +277,7 @@ Do not merge directly because `gh` is unavailable. Do not force-push, rewrite hi
 
 - Broader production Media rollout remains deferred. The three current Hero/Card Media records are Soul, White Serpent / Crimson Viper, and White Shadow; the other published Weapons continue to use deterministic fallbacks.
 - Major legacy CSS cleanup, obsolete legacy homepage/collection source cleanup, and legacy bitmap cleanup completed in P2-UI-8.
-- The legacy static-copy bridge remains for `/guide`, `/about`, `/about-site`, and `/404`; `/videos` no longer uses the bridge.
+- The legacy static-copy bridge remains for `/about`, `/about-site`, and `/404`; `/guide` has an Astro landing implementation that preserves its existing editorial content and semantics.
 - Post-release content expansion, search scaling, and Build tools are future scope.
 - Accounts, UGC, and backend services are future scope.
 
@@ -299,17 +299,11 @@ The following are deferred polish or debt. They do not block or take priority ov
 
 P2-UI-0 through P2-UI-8 are complete. Visual Atmosphere Pilot and Visual Atmosphere Full Rollout are complete. The foundation and current visual system are complete; this does not mean the product, content, or release-guide work is complete.
 
-## 19. Next Planned Stage
+## 19. Current Guide Foundation Work
 
-The next main stage is **English Site Phase 1**.
+P3-CN-7G-B Guide Publishing Foundation is an implementation candidate on its feature branch. It introduces a single static Guide content pipeline while production retains zero real Guide records and the frozen `25 / 27 / 28 / 16` output. It is not merged, deployed, or a claim that post-launch Guide publishing has begun.
 
-- Reuse the mature Chinese architecture; do not rebuild from zero.
-- Extract and reuse stable Astro/static patterns.
-- Build the English site skeleton, English SEO/canonical/sitemap, and English Search.
-- Publish a first English Weapon, Character, Boss, and World content batch.
-- Go online early to establish indexing history.
-
-The Chinese site continues content expansion in parallel.
+The next production stage requires the separate final review, preview Browser Gate, and explicit merge authorization. A real Guide remains a future publication decision requiring its own content, evidence, and applicable Knowledge records.
 
 ## 20. Future Reusable Starter
 

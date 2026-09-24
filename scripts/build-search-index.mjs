@@ -15,6 +15,9 @@ const WEAPON_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'weapons');
 const CHARACTER_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'characters');
 const BOSS_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'bosses');
 const LOCATION_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'world');
+const GUIDE_PAGES_DIR = path.join(ROOT_DIR, 'dist', 'guide');
+const GUIDE_MANIFEST_FILE = path.join(ROOT_DIR, 'dist', 'generated', 'guide-search-manifest.json');
+const GUIDE_INVENTORY_FILE = path.join(ROOT_DIR, 'generated', 'guide-publication.inventory.json');
 const VALIDATOR_FILE = path.join(SCRIPT_DIR, 'validate-data.mjs');
 
 const SCHEMA_VERSION = '1.0-implementation';
@@ -97,8 +100,9 @@ function parseOptions(args) {
   const characterPagesArgument = args.find((argument) => argument.startsWith('--character-detail-pages-dir='));
   const bossPagesArgument = args.find((argument) => argument.startsWith('--boss-detail-pages-dir='));
   const locationPagesArgument = args.find((argument) => argument.startsWith('--location-detail-pages-dir='));
-  if (!modeArgument || args.some((argument) => ![modeArgument, detailPagesArgument, characterPagesArgument, bossPagesArgument, locationPagesArgument].includes(argument))) {
-    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production [--detail-pages-dir=目录] [--character-detail-pages-dir=目录] [--boss-detail-pages-dir=目录] [--location-detail-pages-dir=目录]');
+  const guidePagesArgument = args.find((argument) => argument.startsWith('--guide-detail-pages-dir='));
+  if (!modeArgument || args.some((argument) => ![modeArgument, detailPagesArgument, characterPagesArgument, bossPagesArgument, locationPagesArgument, guidePagesArgument].includes(argument))) {
+    throw new Error('用法：node scripts/build-search-index.mjs --mode=shadow|production [--detail-pages-dir=目录] [--character-detail-pages-dir=目录] [--boss-detail-pages-dir=目录] [--location-detail-pages-dir=目录] [--guide-detail-pages-dir=目录]');
   }
   const mode = modeArgument.slice('--mode='.length);
   if (!MODE_CONFIG.has(mode)) {
@@ -116,10 +120,13 @@ function parseOptions(args) {
   const locationDetailPagesDir = locationPagesArgument
     ? path.resolve(ROOT_DIR, locationPagesArgument.slice('--location-detail-pages-dir='.length))
     : LOCATION_PAGES_DIR;
-  if ((detailPagesArgument || characterPagesArgument || bossPagesArgument || locationPagesArgument) && mode !== 'production') {
+  const guideDetailPagesDir = guidePagesArgument
+    ? path.resolve(ROOT_DIR, guidePagesArgument.slice('--guide-detail-pages-dir='.length))
+    : GUIDE_PAGES_DIR;
+  if ((detailPagesArgument || characterPagesArgument || bossPagesArgument || locationPagesArgument || guidePagesArgument) && mode !== 'production') {
     throw new Error('详情页目录参数只允许用于 production mode');
   }
-  return { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, locationDetailPagesDir, requireLegacyMarker: false };
+  return { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, locationDetailPagesDir, guideDetailPagesDir, requireLegacyMarker: false };
 }
 
 function runSchemaValidator() {
@@ -307,6 +314,73 @@ export function buildSearchDocuments(records, mode, detailPageSlugs = new Set())
   return { documents, skippedByState };
 }
 
+function requireGuideSearchShape(guide, file) {
+  for (const field of ['id', 'title', 'description', 'guideType', 'route', 'updatedAt', 'recordState']) {
+    if (typeof guide[field] !== 'string' || guide[field].trim().length === 0) throw new Error(`${file}: ${field} 必须是非空字符串`);
+  }
+  if (!/^\/[a-z0-9]+(?:-[a-z0-9]+)*(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)?$/.test(guide.route)) throw new Error(`${file}: route 必须是 canonical Guide route`);
+  if (!Array.isArray(guide.keywords) || !Array.isArray(guide.relatedEntityNames)) throw new Error(`${file}: keywords 和 relatedEntityNames 必须是数组`);
+  if (guide.recordState !== 'published') throw new Error(`${file}: Guide manifest 只能包含 published Guide`);
+}
+
+export function buildGuideSearchDocuments(guides, detailPageSlugs = new Set()) {
+  const documents = guides.map((guide) => {
+    requireGuideSearchShape(guide, `Guide ${guide.id}`);
+    if (!detailPageSlugs.has(guide.id)) throw new Error(`Guide ${guide.id}: 已发布 Guide 缺少详情页`);
+    const expectedRoute = `/guide/${guide.id}`;
+    if (guide.route !== expectedRoute) throw new Error(`Guide ${guide.id}: route 必须为 ${expectedRoute}`);
+    return {
+      id: `guide:${guide.id}`,
+      documentType: 'guide',
+      guideType: guide.guideType,
+      slug: guide.id,
+      route: guide.route,
+      title: guide.title,
+      description: guide.description,
+      keywords: uniqueSortedStrings([guide.guideType, ...guide.keywords, ...guide.relatedEntityNames]),
+      relatedEntityNames: uniqueSortedStrings(guide.relatedEntityNames),
+      updatedAt: guide.updatedAt,
+      recordState: 'published'
+    };
+  });
+  documents.sort((left, right) => compareText(left.slug, right.slug));
+  const ids = new Set();
+  for (const document of documents) {
+    if (ids.has(document.id)) throw new Error(`重复 Guide Search Document：${document.id}`);
+    ids.add(document.id);
+  }
+  return documents;
+}
+
+async function readGuideManifest() {
+  try {
+    const value = JSON.parse(await fs.readFile(GUIDE_MANIFEST_FILE, 'utf8'));
+    if (!Array.isArray(value)) throw new Error('Guide manifest 顶层必须是数组');
+    return value;
+  } catch (cause) {
+    throw new Error(`无法读取 Astro Guide manifest：${cause.message}`);
+  }
+}
+
+async function resolvePublishedGuideDetailPageSlugs(guides, detailPagesDir = GUIDE_PAGES_DIR) {
+  const slugs = new Set();
+  for (const guide of guides) {
+    requireGuideSearchShape(guide, `Guide ${guide.id}`);
+    const pageFile = path.join(detailPagesDir, `${guide.id}.html`);
+    let html;
+    try {
+      html = await fs.readFile(pageFile, 'utf8');
+    } catch (cause) {
+      if (cause.code === 'ENOENT') throw new Error(`Guide ${guide.id}: 已发布 Guide 缺少详情页 ${path.relative(ROOT_DIR, pageFile).replaceAll('\\', '/')}`);
+      throw cause;
+    }
+    const canonical = `${SITE_ORIGIN}/guide/${guide.id}`;
+    if (!html.includes(`<link rel="canonical" href="${canonical}"`)) throw new Error(`Guide ${guide.id}: 详情页 canonical 与搜索 route 不一致：${canonical}`);
+    slugs.add(guide.id);
+  }
+  return slugs;
+}
+
 export async function resolvePublishedWeaponDetailPageSlugs(records, detailPagesDir = WEAPON_PAGES_DIR, requireLegacyMarker = true) {
   const slugs = new Set();
   for (const record of records) {
@@ -421,7 +495,7 @@ async function writeDeterministicJson(documents, outputFile) {
 }
 
 async function main() {
-  const { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, locationDetailPagesDir, requireLegacyMarker } = parseOptions(process.argv.slice(2));
+  const { mode, detailPagesDir, characterDetailPagesDir, bossDetailPagesDir, locationDetailPagesDir, guideDetailPagesDir, requireLegacyMarker } = parseOptions(process.argv.slice(2));
   const config = MODE_CONFIG.get(mode);
   runSchemaValidator();
   const records = [
@@ -438,8 +512,17 @@ async function main() {
     ['boss', await resolvePublishedBossDetailPageSlugs(records, bossDetailPagesDir)],
     ['location', await resolvePublishedLocationDetailPageSlugs(records, locationDetailPagesDir)]
   ]);
-  const { documents, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs);
-  const changed = await writeDeterministicJson(documents, config.outputFile);
+  const { documents: entityDocuments, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs);
+  const guideManifest = mode === 'production' ? await readGuideManifest() : [];
+  const guidePageSlugs = await resolvePublishedGuideDetailPageSlugs(guideManifest, guideDetailPagesDir);
+  const guideDocuments = buildGuideSearchDocuments(guideManifest, guidePageSlugs);
+  const documents = [...entityDocuments, ...guideDocuments];
+  const duplicateDocumentIds = documents.map((document) => document.id).filter((id, index, values) => values.indexOf(id) !== index);
+  if (duplicateDocumentIds.length > 0) throw new Error(`重复 Search Document ID：${uniqueSortedStrings(duplicateDocumentIds).join('、')}`);
+  const [changed, guideInventoryChanged] = await Promise.all([
+    writeDeterministicJson(documents, config.outputFile),
+    mode === 'production' ? writeDeterministicJson(guideManifest, GUIDE_INVENTORY_FILE) : false
+  ]);
   const relativeOutput = path.relative(ROOT_DIR, config.outputFile).replaceAll('\\', '/');
 
   console.log('Search index generation passed.');
@@ -450,12 +533,14 @@ async function main() {
   console.log(`Boss records read: ${records.filter(({ entity }) => entity.entityType === 'boss').length}`);
   console.log(`Location records read: ${records.filter(({ entity }) => entity.entityType === 'location').length}`);
   console.log(`System records excluded: ${systemRecords.length}`);
+  console.log(`Guide records read: ${guideManifest.length}`);
   console.log(`Search documents written: ${documents.length}`);
   for (const state of [...KNOWN_RECORD_STATES].sort(compareText)) {
     console.log(`Skipped ${state}: ${skippedByState.get(state) ?? 0}`);
   }
   console.log(`Entity routes: ${uniqueSortedStrings(documents.map((document) => document.route)).join(', ') || '(none)'}`);
   console.log(`Output: ${relativeOutput} (${changed ? 'updated' : 'unchanged'})`);
+  if (mode === 'production') console.log(`Guide inventory: ${path.relative(ROOT_DIR, GUIDE_INVENTORY_FILE).replaceAll('\\', '/')} (${guideInventoryChanged ? 'updated' : 'unchanged'})`);
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === SCRIPT_FILE;

@@ -24,13 +24,11 @@ const targets = [
   ['robots.txt', 'robots.txt'],
   ...baiduVerificationFiles.map((file) => [file, file]),
   ['404.html', '404.html'],
-  ['pages/guide.html', 'guide.html'],
   ['pages/about.html', 'about.html'],
   ['pages/about-site.html', 'about-site.html']
 ];
 
 const legacyShellPages = [
-  ['guide.html', '/guide'],
   ['about.html', '/about'],
   ['about-site.html', '/about-site'],
   ['404.html', '']
@@ -116,7 +114,11 @@ for (const [sourcePath, destinationPath] of targets) {
   await cp(source, destination, { recursive: true });
 }
 
-for (const destinationPath of ['guide.html', 'about-site.html', 'js/main.js']) {
+// Astro emits this build handoff endpoint so the Search builder can read the
+// published Guide projection. It is not a user-facing or deployable route.
+await rm(resolve(dist, 'generated', 'guide-search-manifest.json'), { force: true });
+
+for (const destinationPath of ['about-site.html', 'js/main.js']) {
   const destination = resolve(dist, destinationPath);
   await writeFile(destination, applyLifecycleTokens(await readFile(destination, 'utf8')), 'utf8');
 }

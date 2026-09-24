@@ -172,6 +172,13 @@ var ENTITY_TYPE_TAGS = {
   boss: 'Boss',
   location: '地点'
 };
+var GUIDE_TYPE_TAGS = {
+  walkthrough: '流程攻略',
+  boss: 'Boss 攻略',
+  weapon: '武器攻略',
+  system: '系统攻略',
+  performance: '性能与设置'
+};
 var entitySearchIndex = [];
 var entitySearchState = 'idle';
 
@@ -189,16 +196,27 @@ function validateEntitySearchDocuments(documents) {
     if (!document || typeof document !== 'object' || Array.isArray(document)) return false;
     if (typeof document.id !== 'string' || !document.id.trim() || ids[document.id]) return false;
     ids[document.id] = true;
-    return document.documentType === 'entity' &&
-      Object.prototype.hasOwnProperty.call(ENTITY_TYPE_TAGS, document.entityType) &&
-      typeof document.route === 'string' && document.route.trim() !== '' &&
-      typeof document.displayName === 'string' && document.displayName.trim() !== '' &&
-      typeof document.summary === 'string' &&
-      isStringArray(document.aliases) &&
-      isStringArray(document.displayAliases) &&
+    if (document.documentType === 'entity') {
+      return Object.prototype.hasOwnProperty.call(ENTITY_TYPE_TAGS, document.entityType) &&
+        typeof document.route === 'string' && document.route.trim() !== '' &&
+        typeof document.displayName === 'string' && document.displayName.trim() !== '' &&
+        typeof document.summary === 'string' &&
+        isStringArray(document.aliases) &&
+        isStringArray(document.displayAliases) &&
+        isStringArray(document.keywords) &&
+        document.recordState === 'published' &&
+        document.sourceSchemaVersion === '1.0-implementation';
+    }
+    return document.documentType === 'guide' &&
+      Object.prototype.hasOwnProperty.call(GUIDE_TYPE_TAGS, document.guideType) &&
+      typeof document.slug === 'string' && document.slug.trim() !== '' &&
+      typeof document.route === 'string' && /^\/guide\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(document.route) &&
+      typeof document.title === 'string' && document.title.trim() !== '' &&
+      typeof document.description === 'string' && document.description.trim() !== '' &&
       isStringArray(document.keywords) &&
-      document.recordState === 'published' &&
-      document.sourceSchemaVersion === '1.0-implementation';
+      isStringArray(document.relatedEntityNames) &&
+      typeof document.updatedAt === 'string' &&
+      document.recordState === 'published';
   });
 }
 
@@ -217,6 +235,20 @@ function normalizePageSearchDocument(item) {
 }
 
 function normalizeEntitySearchDocument(document) {
+  if (document.documentType === 'guide') {
+    return {
+      id: document.id,
+      documentType: document.documentType,
+      guideType: document.guideType,
+      title: document.title,
+      url: document.route,
+      desc: document.description,
+      tag: GUIDE_TYPE_TAGS[document.guideType],
+      categoryTerms: ['攻略'],
+      aliases: [],
+      keywords: document.keywords.concat(document.relatedEntityNames)
+    };
+  }
   return {
     id: document.id,
     documentType: document.documentType,
@@ -376,9 +408,9 @@ function openSearch() {
         '<div><p class="search-dialog-eyebrow">KNOWLEDGE SEARCH</p><h2 id="search-dialog-title">搜索知识库</h2></div>' +
         '<button type="button" class="search-close" onclick="closeSearch()" aria-label="关闭搜索">✕<span>关闭</span></button>' +
       '</div>' +
-      '<div class="search-modal-input"><input type="search" id="searchInput" aria-label="输入站内搜索关键词" placeholder="搜索栏目、武器、角色、Boss、地点…" autocomplete="off"></div>' +
+      '<div class="search-modal-input"><input type="search" id="searchInput" aria-label="输入站内搜索关键词" placeholder="搜索栏目、攻略、武器、角色、Boss、地点…" autocomplete="off"></div>' +
       '<div class="search-results" id="searchResults" aria-live="polite"></div>' +
-      '<p class="search-dialog-hint">可搜索站内栏目，以及已收录的武器、角色、Boss 和地点。按 Esc 关闭。</p>' +
+      '<p class="search-dialog-hint">可搜索站内栏目、已发布攻略，以及已收录的武器、角色、Boss 和地点。按 Esc 关闭。</p>' +
     '</div>';
   document.body.appendChild(searchOverlay);
   searchOverlay.classList.add('active');

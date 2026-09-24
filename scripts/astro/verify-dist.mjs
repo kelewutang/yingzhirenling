@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { getVideoUrls, isProductionEligibleVideo } from '../../src/lib/video.mjs';
+import { loadProductionInventory } from './production-inventory.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
@@ -17,22 +18,8 @@ function escapeHtml(value) {
 function renderedExternalUrl(value) {
   return escapeHtml(new URL(value).href);
 }
-async function readEntities(relativeDirectory) {
-  const directory = resolve(root, relativeDirectory);
-  const names = (await readdir(directory)).filter((name) => name.endsWith('.json')).sort();
-  return Promise.all(names.map(async (name) => JSON.parse(await readFile(resolve(directory, name), 'utf8'))));
-}
-const weapons = await readEntities('data/weapons');
-const publishedWeapons = weapons.filter((weapon) => weapon.recordState === 'published');
-const draftWeapons = weapons.filter((weapon) => weapon.recordState === 'draft');
-const characters = await readEntities('data/characters');
-const publishedCharacters = characters.filter((character) => character.recordState === 'published');
-const bosses = await readEntities('data/bosses');
-const publishedBosses = bosses.filter((boss) => boss.recordState === 'published');
-const draftBosses = bosses.filter((boss) => boss.recordState === 'draft');
-const locations = await readEntities('data/locations');
-const publishedLocations = locations.filter((location) => location.recordState === 'published');
-const draftLocations = locations.filter((location) => location.recordState === 'draft');
+const inventory = await loadProductionInventory(root);
+const { publishedWeapons, publishedCharacters, publishedBosses, publishedLocations, draftWeapons, draftBosses, draftLocations } = inventory;
 const mediaRecords = JSON.parse(await readFile(resolve(root, 'data/media.json'), 'utf8')).records;
 const videoRecords = JSON.parse(await readFile(resolve(root, 'data/videos.json'), 'utf8')).records;
 const isProductionMedia = (record) => record.recordState === 'published' && productionRightsStatuses.has(record.rightsStatus);
@@ -44,17 +31,7 @@ function assertMediaImage(html, media, location) {
   assert(html.includes(`width="${media.width}"`), `${location}: admitted Media intrinsic width missing`);
   assert(html.includes(`height="${media.height}"`), `${location}: admitted Media intrinsic height missing`);
 }
-const canonicalRoutes = [
-  ['index.html', '/'], ['guide.html', '/guide'], ['weapons.html', '/weapons'],
-  ['characters.html', '/characters'], ['bosses.html', '/bosses'], ['world.html', '/world'],
-  ['videos.html', '/videos'], ['about.html', '/about'], ['about-site.html', '/about-site'],
-  ...publishedWeapons.map((weapon) => [`weapons/${weapon.slug}.html`, `/weapons/${weapon.slug}`]),
-  ['characters/soul.html', '/characters/soul'],
-  ['characters/mo-yuan.html', '/characters/mo-yuan'],
-  ['characters/the-hunt.html', '/characters/the-hunt'],
-  ...publishedBosses.map((boss) => [`bosses/${boss.slug}.html`, `/bosses/${boss.slug}`]),
-  ...publishedLocations.map((location) => [`world/${location.slug}.html`, `/world/${location.slug}`])
-];
+const canonicalRoutes = inventory.canonicalRoutes;
 
 async function assertDetailVisualContract(file, entity) {
   const html = await readFile(resolve(dist, file), 'utf8');
@@ -109,7 +86,7 @@ for (const [file] of canonicalRoutes) {
   canonicalUrls.add(canonical);
   ogUrls.add(ogUrl);
 }
-assert.equal(canonicalUrls.size, 25, 'Expected 25 unique production canonical URLs');
+assert.equal(canonicalUrls.size, inventory.counts.sitemap, 'Production canonical URL inventory drifted');
 assert.deepEqual(ogUrls, canonicalUrls, 'Production OG URLs must exactly match canonical URLs');
 for (const file of ['pages/generated/weapons/tang-hengdao.html', 'pages/generated/weapons/ya-hengdao.html']) {
   const html = await readFile(resolve(dist, file), 'utf8');
@@ -184,6 +161,7 @@ function assertStructuredDataTypes(value, file, isRoot = false) {
 function expectedSchemaTypes(file) {
   if (file === 'index.html') return ['WebSite'];
   if (file === 'guide.html') return ['Article', 'FAQPage', 'BreadcrumbList'];
+  if (file.startsWith('guide/')) return ['Article', 'BreadcrumbList'];
   if (['weapons.html', 'characters.html', 'bosses.html', 'world.html'].includes(file)) return ['CollectionPage'];
   if (file === 'videos.html') return ['WebPage'];
   if (['about.html', 'about-site.html'].includes(file) || /^(weapons|characters|bosses|world)\//.test(file)) return ['WebPage', 'BreadcrumbList'];
@@ -573,7 +551,7 @@ for (const weapon of draftWeapons) assert(!weaponCollection.includes(`href="/wea
 
 for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
   const html = await readFile(resolve(dist, 'characters', `${slug}.html`), 'utf8');
-  await assertDetailVisualContract(`characters/${slug}.html`, characters.find((character) => character.slug === slug));
+  await assertDetailVisualContract(`characters/${slug}.html`, publishedCharacters.find((character) => character.slug === slug));
   const canonical = `https://www.yingzhirenling.cn/characters/${slug}`;
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回角色图鉴']) {
     assert(html.includes(token), `${slug}: missing static Character contract token ${token}`);
@@ -620,11 +598,12 @@ for (const location of draftLocations) assert(!locationCollection.includes(`href
 assert(locationCollection.includes('现有官方资料明确提供地点名称'), 'World collection must explain Pangzhen inclusion from official naming evidence');
 
 const search = JSON.parse(await readFile(resolve(dist, 'generated/search-index.production.json'), 'utf8'));
-assert.deepEqual(search.map((item) => item.id), [
+const entitySearch = search.filter((item) => item.documentType === 'entity');
+assert.deepEqual(entitySearch.map((item) => item.id), [
   ...publishedBosses.map((boss) => boss.id),
   ...publishedWeapons.map((weapon) => weapon.id),
   ...publishedLocations.map((location) => location.id),
-  'character:mo-yuan', 'character:soul', 'character:the-hunt'
+  ...publishedCharacters.map((character) => character.id)
 ].sort());
 for (const document of search.filter((item) => item.entityType === 'character')) assert.equal(document.route, `/characters/${document.slug}`);
 const weaponDocuments = search.filter((item) => item.entityType === 'weapon');
@@ -651,14 +630,22 @@ for (const location of publishedLocations) {
   assert.equal(document.route, `/world/${location.slug}`, `${location.id}: Search route must be canonical`);
 }
 for (const location of draftLocations) assert(!search.some((item) => item.id === location.id), `Production Search must exclude draft ${location.id}`);
+const guideSearchDocuments = search.filter((item) => item.documentType === 'guide');
+assert.deepEqual(guideSearchDocuments.map((item) => item.id), inventory.guides.map((guide) => `guide:${guide.id}`), 'Production Search Guide inventory drifted');
+for (const guide of inventory.guides) {
+  const document = guideSearchDocuments.find((item) => item.id === `guide:${guide.id}`);
+  assert(document, `Production Search missing Guide ${guide.id}`);
+  assert.equal(document.route, guide.route, `${guide.id}: Search route must be canonical`);
+  assert.equal(document.title, guide.title, `${guide.id}: Search title must match Guide metadata`);
+}
 const sitemap = await readFile(resolve(dist, 'sitemap.xml'), 'utf8');
 assert.equal(
   (sitemap.match(/<url>/g) || []).length,
-  9 + publishedWeapons.length + 3 + publishedBosses.length + publishedLocations.length,
-  'Sitemap URL count must match published Entity data'
+  inventory.counts.sitemap,
+  'Sitemap URL count must match the public production inventory'
 );
 const sitemapUrls = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]));
-assert.equal(sitemapUrls.size, 25, 'Expected 25 unique sitemap URLs');
+assert.equal(sitemapUrls.size, inventory.counts.sitemap, 'Sitemap inventory drifted');
 assert.deepEqual(sitemapUrls, canonicalUrls, 'Sitemap URLs must exactly match production canonical URLs');
 for (const weapon of publishedWeapons) assert(sitemap.includes(`/weapons/${weapon.slug}`), `Sitemap missing Weapon ${weapon.slug}`);
 for (const weapon of draftWeapons) assert(!sitemap.includes(`/weapons/${weapon.slug}`), `Sitemap must exclude draft Weapon ${weapon.slug}`);
@@ -667,6 +654,12 @@ for (const boss of publishedBosses) assert(sitemap.includes(`/bosses/${boss.slug
 for (const boss of draftBosses) assert(!sitemap.includes(`/bosses/${boss.slug}`), `Sitemap must exclude draft Boss ${boss.slug}`);
 for (const location of publishedLocations) assert(sitemap.includes(`/world/${location.slug}`), `Sitemap missing Location ${location.slug}`);
 for (const location of draftLocations) assert(!sitemap.includes(`/world/${location.slug}`), `Sitemap must exclude draft Location ${location.slug}`);
+const guideLanding = await readFile(resolve(dist, 'guide.html'), 'utf8');
+for (const guide of inventory.guides) {
+  assert(sitemap.includes(guide.route), `Sitemap missing Guide ${guide.id}`);
+  assert(sitemap.includes(`<loc>https://www.yingzhirenling.cn${guide.route}</loc><lastmod>${guide.updatedAt}</lastmod>`), `${guide.id}: sitemap lastmod must use Guide updatedAt`);
+  assert(guideLanding.includes(escapeHtml(guide.title)), `${guide.id}: Guide landing missing published card title`);
+}
 assert.equal((await readdir(dist)).includes('_astro'), false, 'Unexpected Astro client assets');
 
 async function walk(directory) {
@@ -690,16 +683,17 @@ const retiredLegacyAssets = [
   'map-valley.jpg'
 ];
 const distFiles = await walk(dist);
+assert.equal(distFiles.some((file) => file.endsWith('/generated/guide-search-manifest.json')), false, 'Guide build handoff manifest must not be deployed');
 const distHtmlFiles = distFiles.filter((file) => file.endsWith('.html'));
 assert.equal(distHtmlFiles.length, 29, 'Expected 29 total dist HTML files including the Baidu verification artifact');
-assert.equal(distHtmlFiles.filter((file) => !file.endsWith(baiduVerificationFile)).length, 28, 'Expected 28 page HTML files excluding the Baidu verification artifact');
+assert.equal(distHtmlFiles.filter((file) => !file.endsWith(baiduVerificationFile)).length, inventory.counts.pageHtml, 'Page HTML inventory drifted');
 const canonicalTagCount = (await Promise.all(distHtmlFiles.map((file) => readFile(file, 'utf8'))))
   .reduce((count, html) => count + (html.match(/<link\s+rel="canonical"/gi) || []).length, 0);
-assert.equal(canonicalTagCount, 27, 'Expected 27 canonical tags across 28 page HTML files');
+assert.equal(canonicalTagCount, inventory.counts.canonical, 'Canonical-tag inventory drifted');
 for (const file of distFiles) {
   const content = await readFile(file);
   const text = content.toString('utf8');
   for (const forbidden of ['/home/mok', '/mnt/c/', 'astro-island', 'client:load']) assert(!text.includes(forbidden), `${file}: forbidden build output`);
   for (const asset of retiredLegacyAssets) assert(!text.includes(asset), `${file}: retired legacy asset reference remains: ${asset}`);
 }
-console.log(`Astro dist verification passed: ${canonicalRoutes.length} canonical routes, ${publishedWeapons.length} Weapon pages, 3 Character pages, ${publishedBosses.length} Boss pages, ${publishedLocations.length} Location pages, ${draftWeapons.length} draft Weapon, ${draftBosses.length} draft Boss, and ${draftLocations.length} draft Location detail routes.`);
+console.log(`Astro dist verification passed: ${canonicalRoutes.length} canonical routes, ${publishedWeapons.length} Weapon pages, ${publishedCharacters.length} Character pages, ${publishedBosses.length} Boss pages, ${publishedLocations.length} Location pages, ${inventory.guides.length} Guide pages, ${draftWeapons.length} draft Weapon, ${draftBosses.length} draft Boss, and ${draftLocations.length} draft Location detail routes.`);

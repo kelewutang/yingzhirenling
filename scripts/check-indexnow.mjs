@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { parseSitemapCanonicalUrls, readIndexNowKey } from './indexnow.mjs';
+import { loadProductionInventory } from './astro/production-inventory.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const dist = resolve(root, 'dist');
@@ -34,6 +35,7 @@ const [keyFile, sitemap, searchIndex, outputFiles] = await Promise.all([
   readdir(dist, { recursive: true })
 ]);
 const canonicalUrls = parseSitemapCanonicalUrls(sitemap);
+const inventory = await loadProductionInventory(root);
 const canonicalTagCount = (await Promise.all(
   outputFiles
     .filter((file) => file.endsWith('.html'))
@@ -48,9 +50,9 @@ assert.equal(keyFile, key, 'IndexNow key file content must exactly equal the fil
 assert(keyFile.length > 0, 'IndexNow key file must not be empty');
 assert(!keyFile.includes('<'), 'IndexNow key file must not contain an HTML wrapper');
 assert(!sitemap.includes(`${key}.txt`), 'IndexNow key file must not enter the sitemap');
-assert.equal(canonicalUrls.length, 25, 'IndexNow must preserve the 25-URL sitemap contract');
-assert.equal(canonicalTagCount, 27, 'IndexNow must preserve the 27 canonical-tag contract');
-assert.equal(pageHtmlCount, 28, 'IndexNow must preserve the 28 page-HTML contract');
-assert.equal(JSON.parse(searchIndex).length, 16, 'IndexNow must preserve the 16-document production Search contract');
+assert.equal(canonicalUrls.length, inventory.counts.sitemap, 'IndexNow sitemap inventory drifted');
+assert.equal(canonicalTagCount, inventory.counts.canonical, 'IndexNow canonical-tag inventory drifted');
+assert.equal(pageHtmlCount, inventory.counts.pageHtml, 'IndexNow page-HTML inventory drifted');
+assert.equal(JSON.parse(searchIndex).length, inventory.counts.searchDocs, 'IndexNow production Search inventory drifted');
 
-console.log('IndexNow dist verification passed: root UTF-8 key file and frozen 25 sitemap / 27 canonical-tag / 28 page-HTML / 16 Search-document counts.');
+console.log(`IndexNow dist verification passed: root UTF-8 key file and production inventory ${inventory.counts.sitemap} sitemap / ${inventory.counts.canonical} canonical-tag / ${inventory.counts.pageHtml} page-HTML / ${inventory.counts.searchDocs} Search-document counts.`);

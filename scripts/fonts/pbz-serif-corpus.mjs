@@ -6,9 +6,20 @@ const textExtensions = new Set(['.astro', '.css', '.html', '.js', '.json', '.mjs
 // Fixtures used by production validation currently use ASCII-only titles, which
 // are included below as the mandatory ASCII range.
 const sourceInputs = ['data', 'src'];
-const legacyInputs = ['404.html', 'pages'];
+const legacyInputs = ['404.html', 'pages', 'src/components/GuideLandingContent.astro'];
 const requiredPunctuation = '，。！？、；：‘’“”「」《》〈〉（）【】［］〔〕——…·';
-const excludedSourceFiles = new Set([resolve(root, 'src/components/SiteHeader.astro')]);
+const excludedSourceFiles = new Set([
+  resolve(root, 'src/components/SiteHeader.astro'),
+  resolve(root, 'src/components/GuideLandingContent.astro'),
+  resolve(root, 'src/components/GuideCard.astro'),
+  resolve(root, 'src/components/GuideFactReferences.astro'),
+  resolve(root, 'src/components/RelatedGuides.astro'),
+  resolve(root, 'src/lib/guide-publication.mjs'),
+  resolve(root, 'src/lib/guides.mjs'),
+  resolve(root, 'src/pages/guide.astro'),
+  resolve(root, 'src/pages/guide/[slug].astro'),
+  resolve(root, 'src/pages/generated/guide-search-manifest.json.ts')
+]);
 const requiredStaticDisplayText = '影之刃零攻略站';
 
 function extension(path) {

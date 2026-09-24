@@ -3,9 +3,9 @@ import { createHash } from 'node:crypto';
 import { cp, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
+import { loadProductionInventory } from './production-inventory.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
-const FROZEN_COUNTS = Object.freeze({ sitemap: 25, canonical: 27, pageHtml: 28, searchDocs: 16 });
 
 const targets = [
   { page: 'about', variant: 'facts', heading: '发售信息', rows: 6, columns: 2, minWidthPx: 448, hash: 'acf141f69ee561cae483909be0f2689c848c30a99ea387a941cd49f02138a253' },
@@ -338,10 +338,6 @@ async function listFiles(directory) {
   return entries.filter((entry) => entry.isFile()).map((entry) => join(entry.parentPath, entry.name));
 }
 
-function assertCount(name, expected, actual) {
-  assert.equal(actual, expected, `${name} frozen count mismatch: expected ${expected}, actual ${actual}`);
-}
-
 async function verifyFrozenCounts(dist) {
   const [sitemap, searchIndex, files] = await Promise.all([
     readFile(resolve(dist, 'sitemap.xml'), 'utf8'),
@@ -353,10 +349,11 @@ async function verifyFrozenCounts(dist) {
   const pageHtml = htmlFiles.filter((file) => !file.split('/').at(-1).startsWith('baidu_verify_'));
   const canonical = (await Promise.all(htmlFiles.map((file) => readFile(file, 'utf8')))).reduce((count, html) => count + (html.match(/<link\s+rel="canonical"\s+href="/giu) || []).length, 0);
   const searchDocs = JSON.parse(searchIndex).length;
-  assertCount('sitemap URL', FROZEN_COUNTS.sitemap, sitemapUrls.length);
-  assertCount('canonical tag', FROZEN_COUNTS.canonical, canonical);
-  assertCount('page HTML', FROZEN_COUNTS.pageHtml, pageHtml.length);
-  assertCount('production Search document', FROZEN_COUNTS.searchDocs, searchDocs);
+  const expected = (await loadProductionInventory(root)).counts;
+  assert.equal(sitemapUrls.length, expected.sitemap, `sitemap URL inventory mismatch: expected ${expected.sitemap}, actual ${sitemapUrls.length}`);
+  assert.equal(canonical, expected.canonical, `canonical tag inventory mismatch: expected ${expected.canonical}, actual ${canonical}`);
+  assert.equal(pageHtml.length, expected.pageHtml, `page HTML inventory mismatch: expected ${expected.pageHtml}, actual ${pageHtml.length}`);
+  assert.equal(searchDocs, expected.searchDocs, `production Search document inventory mismatch: expected ${expected.searchDocs}, actual ${searchDocs}`);
   return { sitemap: sitemapUrls.length, canonical, pageHtml: pageHtml.length, searchDocs };
 }
 
