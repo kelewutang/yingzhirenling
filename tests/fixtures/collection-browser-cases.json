@@ -1,0 +1,8 @@
+{
+  "cases": [
+    { "name": "below threshold", "safeCount": 19, "active": false },
+    { "name": "activation threshold", "safeCount": 20, "active": true },
+    { "name": "medium collection", "safeCount": 50, "active": true },
+    { "name": "large collection", "safeCount": 100, "active": true }
+  ]
+}

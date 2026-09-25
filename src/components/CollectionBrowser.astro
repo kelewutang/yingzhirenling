@@ -1,0 +1,63 @@
+---
+import EntityCard from './EntityCard.astro';
+import { buildCollectionBrowserModel } from '../lib/collection-browser.mjs';
+
+const { cards, entityType, inventoryLabel } = Astro.props;
+const model = buildCollectionBrowserModel(cards);
+const searchId = `collection-browser-${entityType}-search`;
+---
+{model.active ? (
+  <section class="collection-browser" data-collection-browser data-collection-browser-type={entityType} aria-labelledby={`${entityType}-inventory-title`}>
+    <div class="collection-browser__controls">
+      <div class="collection-browser__search-field">
+        <label for={searchId}>搜索已发布{inventoryLabel}</label>
+        <input id={searchId} type="search" autocomplete="off" data-collection-browser-input />
+      </div>
+      <p class="collection-browser__count" data-collection-browser-count aria-live="polite">共 {model.safeCount} 个已发布{inventoryLabel}</p>
+      <button class="btn btn-outline collection-browser__reset" type="button" data-collection-browser-reset disabled>重置</button>
+    </div>
+    <p class="collection-browser__empty" data-collection-browser-empty hidden>未找到相关的已发布{inventoryLabel}。</p>
+    <div class="entity-grid entity-grid--compact" data-collection-browser-grid>
+      {model.cards.map(({ card, media }, index) => <div data-collection-browser-item data-collection-search={model.items[index].searchText}><EntityCard card={card} media={media} variant="compact" /></div>)}
+    </div>
+    <script is:inline>
+      (() => {
+        const browser = document.querySelector('[data-collection-browser]');
+        if (!browser) return;
+        const input = browser.querySelector('[data-collection-browser-input]');
+        const reset = browser.querySelector('[data-collection-browser-reset]');
+        const count = browser.querySelector('[data-collection-browser-count]');
+        const empty = browser.querySelector('[data-collection-browser-empty]');
+        const items = Array.from(browser.querySelectorAll('[data-collection-browser-item]'));
+        const label = browser.querySelector('label')?.textContent?.replace(/^搜索已发布/, '') || '条目';
+        const normalize = (value) => {
+          const text = String(value ?? '');
+          return (typeof text.normalize === 'function' ? text.normalize('NFKC') : text)
+            .trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-US');
+        };
+        const update = () => {
+          const query = normalize(input?.value);
+          let visible = 0;
+          for (const item of items) {
+            const matches = !query || (item.dataset.collectionSearch || '').includes(query);
+            item.hidden = !matches;
+            if (matches) visible += 1;
+          }
+          count.textContent = `共 ${visible} 个已发布${label}`;
+          empty.hidden = visible !== 0;
+          reset.disabled = !query;
+        };
+        input?.addEventListener('input', update);
+        reset?.addEventListener('click', () => {
+          input.value = '';
+          update();
+          input.focus();
+        });
+      })();
+    </script>
+  </section>
+) : (
+  <div class:list={['entity-grid', model.safeCount === 1 && 'entity-grid--sparse']}>
+    {model.cards.map(({ card, media }) => <EntityCard card={card} media={media} />)}
+  </div>
+)}

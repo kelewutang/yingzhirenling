@@ -15,7 +15,7 @@ const guides = defineCollection({
     safeTitle: z.string().trim().min(1).optional(),
     safeDescription: z.string().trim().min(1).optional(),
     status: z.enum(['draft', 'published']),
-    guideType: z.enum(['walkthrough', 'boss', 'weapon', 'system', 'performance']),
+    guideType: z.enum(['walkthrough', 'boss', 'weapon', 'system', 'performance', 'build']),
     publishedAt: date,
     updatedAt: date,
     sourceIds: z.array(z.string().min(1)),

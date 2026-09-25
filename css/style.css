@@ -3069,6 +3069,68 @@ body[data-atmosphere="world"] .collection-hero {
   grid-template-columns: minmax(0, 22rem);
 }
 
+.collection-browser__controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: end;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.collection-browser__search-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.collection-browser__search-field label,
+.collection-browser__count {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.collection-browser__search-field input {
+  min-height: 2.75rem;
+  min-width: 0;
+  padding: 0 var(--space-3);
+  color: var(--color-text);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.collection-browser__search-field input:focus-visible {
+  outline-offset: 2px;
+}
+
+.collection-browser__count {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.collection-browser__reset {
+  min-height: 2.75rem;
+}
+
+.collection-browser__empty {
+  margin: 0 0 var(--space-6);
+  padding: var(--space-5);
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.entity-grid--compact {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: var(--space-4);
+}
+
+.entity-grid--compact > [data-collection-browser-item][hidden] {
+  display: none;
+}
+
 .entity-card {
   display: flex;
   min-width: 0;
@@ -3250,6 +3312,15 @@ body[data-atmosphere="world"] .collection-hero {
   overflow: hidden;
 }
 
+.entity-card--compact .entity-card__body {
+  padding: var(--space-3);
+}
+
+.entity-card--compact .entity-card__title {
+  margin-top: var(--space-1);
+  font-size: var(--text-lg);
+}
+
 .collection-supporting {
   max-width: var(--width-reading);
   margin-top: var(--space-16);
@@ -3291,6 +3362,19 @@ body[data-atmosphere="world"] .collection-hero {
 
   .entity-grid,
   .entity-grid--sparse {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .collection-browser__controls {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .collection-browser__count {
+    white-space: normal;
+  }
+
+  .entity-grid--compact {
     grid-template-columns: minmax(0, 1fr);
   }
 
