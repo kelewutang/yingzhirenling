@@ -3,18 +3,19 @@ import EntityMedia from './EntityMedia.astro';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { mediaIsConcealed } from '../lib/spoilers.mjs';
 
-const { card, media = null } = Astro.props;
+const { card, media = null, variant = 'rich' } = Astro.props;
 const revealMedia = mediaIsConcealed(media, card.entity) && !card.concealed;
+const compact = variant === 'compact';
 ---
-<a class="entity-card" href={card.href} data-entity-card="true" data-entity-type={card.entity.entityType} aria-label={`查看${card.displayName}详情`}>
+<a class:list={['entity-card', compact && 'entity-card--compact']} href={card.href} data-entity-card="true" data-entity-type={card.entity.entityType} aria-label={`查看${card.displayName}详情`}>
   <EntityMedia entity={card.entity} media={media} variant="card" showSourceLink={false} />
   {revealMedia && <SpoilerDisclosure class="entity-card__spoiler-media"><EntityMedia entity={card.entity} media={media} variant="card" showSourceLink={false} revealed={true} /></SpoilerDisclosure>}
   <span class="entity-card__body">
     <span class="entity-card__eyebrow">{card.typeLabel}</span>
     <h3 class="entity-card__title">{card.displayName}</h3>
-    {card.aliases.length > 0 && <span class="entity-card__aliases">{card.aliases.join('、')}</span>}
-    {card.secondary && <span class="entity-card__secondary">{card.secondary}</span>}
-    {card.context && <span class="entity-card__context">{card.context}</span>}
-    {card.summary && <span class="entity-card__summary">{card.summary}</span>}
+    {!compact && card.aliases.length > 0 && <span class="entity-card__aliases">{card.aliases.join('、')}</span>}
+    {!compact && card.secondary && <span class="entity-card__secondary">{card.secondary}</span>}
+    {!compact && card.context && <span class="entity-card__context">{card.context}</span>}
+    {!compact && card.summary && <span class="entity-card__summary">{card.summary}</span>}
   </span>
 </a>

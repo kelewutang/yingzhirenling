@@ -1,10 +1,11 @@
-export const GUIDE_TYPES = Object.freeze(['walkthrough', 'boss', 'weapon', 'system', 'performance']);
+export const GUIDE_TYPES = Object.freeze(['walkthrough', 'boss', 'weapon', 'system', 'performance', 'build']);
 export const GUIDE_TYPE_LABELS = Object.freeze({
   walkthrough: '流程攻略',
   boss: 'Boss 攻略',
   weapon: '武器攻略',
   system: '系统攻略',
-  performance: '性能与设置'
+  performance: '性能与设置',
+  build: 'Build 攻略'
 });
 
 const GUIDE_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import EntityCard from './EntityCard.astro';
+import CollectionBrowser from './CollectionBrowser.astro';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 
 const { pageTitle, title, description, canonical, activeSection, entityType, eyebrow, intro, inventoryLabel, cards, supportingTitle, supportingText } = Astro.props;
@@ -24,9 +24,7 @@ const concealedCards = cards.filter(({ card }) => card.concealed);
         <p>实体资料</p>
         <h2 id={`${entityType}-inventory-title`}>已发布{inventoryLabel}</h2>
       </header>
-      <div class:list={['entity-grid', safeCards.length === 1 && 'entity-grid--sparse']}>
-        {safeCards.map(({ card, media }) => <EntityCard card={card} media={media} />)}
-      </div>
+      <CollectionBrowser cards={safeCards} entityType={entityType} inventoryLabel={inventoryLabel} />
       {concealedCards.length > 0 && <SpoilerDisclosure class="collection-inventory__spoilers"><div class="entity-grid">{concealedCards.map(({ card, media }) => <EntityCard card={card} media={media} />)}</div></SpoilerDisclosure>}
     </section>
 
