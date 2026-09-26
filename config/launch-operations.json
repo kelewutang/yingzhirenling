@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1",
+  "freshnessPolicy": {
+    "t-14": 14,
+    "t-72": 3,
+    "release-candidate": 3
+  },
+  "launchCriticalSubjects": [
+    {
+      "id": "release-date-platform-store",
+      "file": "pages/about.html",
+      "marker": "发售信息来源",
+      "mandatoryForReleaseCandidate": true
+    },
+    {
+      "id": "commercial-pricing",
+      "file": "pages/about.html",
+      "marker": "区域价格信息状态",
+      "mandatoryForReleaseCandidate": true
+    },
+    {
+      "id": "physical-edition",
+      "file": "pages/about.html",
+      "marker": "实体收藏版来源",
+      "mandatoryForReleaseCandidate": false
+    },
+    {
+      "id": "pc-requirements",
+      "file": "pages/about.html",
+      "marker": "PC配置来源",
+      "mandatoryForReleaseCandidate": false
+    }
+  ],
+  "browserGates": {
+    "collection-browser-interaction": {
+      "contractVersion": 1,
+      "status": "deferred",
+      "approvedAt": null,
+      "evidenceRef": null
+    },
+    "spoiler-disclosure-interaction": {
+      "contractVersion": 1,
+      "status": "deferred",
+      "approvedAt": null,
+      "evidenceRef": null
+    }
+  }
+}
