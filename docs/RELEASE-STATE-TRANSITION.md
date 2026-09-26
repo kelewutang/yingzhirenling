@@ -15,6 +15,18 @@ Before changing the lifecycle state, confirm all of the following:
 3. A real release GameVersion is ready if any formal-version Fact will be published.
 4. An internal `site-release-test` Source and test session exist before any `release-verified` Fact is published.
 
+Run the repository launch checks with an explicit review date:
+
+```sh
+npm run check:launch -- --mode=t-14 --as-of=YYYY-MM-DD
+npm run check:launch -- --mode=t-72 --as-of=YYYY-MM-DD
+npm run check:launch -- --mode=release-candidate --as-of=YYYY-MM-DD
+```
+
+These commands report deterministic repository checks. They do not confirm editorial truth, change the lifecycle, create release evidence, publish content or approve a deployment.
+
+Collection Browser and spoiler disclosure have separate Browser approvals. The first real trigger is allowed to build in a local build or Deploy Preview so that the interaction can be reviewed. A triggered gate without a valid approval blocks `release-candidate` and Netlify production builds.
+
 ## Lifecycle switch
 
 1. Change only `siteLifecycle.state` from `pre-release` to `released` in `src/lib/site-lifecycle.mjs`.
@@ -23,6 +35,24 @@ Before changing the lifecycle state, confirm all of the following:
 4. Review the Deploy Preview and perform the lifecycle Browser Gate.
 5. Merge only after the Preview, build, lifecycle check and commercial review pass.
 6. After production deployment, check the homepage, `/guide`, `/about-site`, shared Footer, sitemap, Search and production smoke results.
+
+Run the first-party HTTP smoke only with an explicit deployment URL:
+
+```sh
+npm run check:launch -- --mode=post-deploy --as-of=YYYY-MM-DD --base-url=https://www.yingzhirenling.cn
+```
+
+This smoke does not submit IndexNow or call third-party analytics. Repository checks cannot prove the deployed SHA without an authoritative external deployment source, so that remains an operator check.
+
+The following decisions always remain human: official source rechecks; release date, platform, store and commercial confirmation; actual regional playability; the lifecycle switch; release Version identity and creation; first-party test execution and internal evidence; creation of release-verified Facts; Guide publication and spoiler classification; Browser Gate approval; production merge and deployment; and rollback authorization.
+
+## Rollback
+
+1. Stop further publication and identify the last known-good `main` SHA and deploy.
+2. If the incident is urgent, use an authorized Netlify rollback or known-good deploy.
+3. Create a normal repository revert so source control matches the intended production state. Never rewrite shared `main` history.
+4. Rebuild, review the Deploy Preview and merge through the normal workflow.
+5. Rerun the production post-deploy smoke and complete the human content and commercial checks.
 
 ## Scope boundary
 

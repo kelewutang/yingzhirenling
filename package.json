@@ -8,7 +8,7 @@
     "node": "24.19.0"
   },
   "scripts": {
-    "build": "node scripts/validate-display-font.mjs && node scripts/validate-data.mjs && node --test tests/guide-publication.test.mjs tests/spoiler-delivery.test.mjs tests/collection-browser.test.mjs && node scripts/validate-media.mjs && node scripts/validate-videos.mjs && node scripts/astro/check-netlify-redirects.mjs && node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs && astro build && node scripts/astro/check-guide-publishing.mjs && node scripts/validate-display-font.mjs --require-dist && node scripts/build-search-index.mjs --mode=production --detail-pages-dir=dist/weapons --character-detail-pages-dir=dist/characters --boss-detail-pages-dir=dist/bosses --location-detail-pages-dir=dist/world --guide-detail-pages-dir=dist/guide && node scripts/astro/check-spoiler-delivery.mjs && node scripts/astro/copy-legacy-static.mjs && node scripts/astro/check-site-lifecycle.mjs && node scripts/astro/check-mobile-decision-tables.mjs && node scripts/astro/check-shared-shell.mjs && node scripts/astro/check-weapon-detail-pilot.mjs && node scripts/astro/check-weapon-detail-presentation.mjs && node scripts/astro/verify-collections.mjs && node scripts/astro/check-collection-browser.mjs && node scripts/astro/verify-dist.mjs",
+    "build": "node scripts/validate-display-font.mjs && node scripts/validate-data.mjs && node --test tests/guide-publication.test.mjs tests/spoiler-delivery.test.mjs tests/collection-browser.test.mjs && node scripts/validate-media.mjs && node scripts/validate-videos.mjs && node scripts/astro/check-netlify-redirects.mjs && node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs && astro build && node scripts/astro/check-guide-publishing.mjs && node scripts/validate-display-font.mjs --require-dist && node scripts/build-search-index.mjs --mode=production --detail-pages-dir=dist/weapons --character-detail-pages-dir=dist/characters --boss-detail-pages-dir=dist/bosses --location-detail-pages-dir=dist/world --guide-detail-pages-dir=dist/guide && node scripts/astro/check-spoiler-delivery.mjs && node scripts/astro/copy-legacy-static.mjs && node scripts/astro/check-site-lifecycle.mjs && node scripts/astro/check-mobile-decision-tables.mjs && node scripts/astro/check-shared-shell.mjs && node scripts/astro/check-weapon-detail-pilot.mjs && node scripts/astro/check-weapon-detail-presentation.mjs && node scripts/astro/verify-collections.mjs && node scripts/astro/check-collection-browser.mjs && node scripts/astro/verify-dist.mjs && node scripts/check-launch-readiness.mjs --mode=build-guards",
     "preview": "astro preview",
     "test:media": "node scripts/test-media.mjs",
     "test:gameplay-foundation": "node scripts/validate-data.mjs --fixtures",
@@ -25,7 +25,9 @@
     "check:indexnow": "node scripts/check-indexnow.mjs",
     "test:weapon-detail-presentation": "node scripts/astro/check-weapon-detail-presentation.mjs",
     "test:astro": "npm run build && node scripts/astro/check-search-route-guard.mjs && node scripts/astro/check-search-modal-focus.mjs && node scripts/astro/check-mobile-decision-tables.mjs --fixtures",
-    "test:videos": "node scripts/test-videos.mjs"
+    "test:videos": "node scripts/test-videos.mjs",
+    "test:launch-operations": "node --test tests/launch-operations.test.mjs",
+    "check:launch": "node scripts/check-launch-readiness.mjs"
   },
   "devDependencies": {
     "astro": "7.2.8"

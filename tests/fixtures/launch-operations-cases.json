@@ -1,0 +1,21 @@
+{
+  "currentness": {
+    "fresh": [
+      { "id": "release-date-platform-store", "checkedAt": "2026-10-15", "mandatoryForReleaseCandidate": true }
+    ],
+    "stale": [
+      { "id": "release-date-platform-store", "checkedAt": "2026-10-01", "mandatoryForReleaseCandidate": true }
+    ],
+    "noncriticalStale": [
+      { "id": "pc-requirements", "checkedAt": "2026-10-01", "mandatoryForReleaseCandidate": false }
+    ]
+  },
+  "approvals": {
+    "deferred": { "contractVersion": 1, "status": "deferred", "approvedAt": null, "evidenceRef": null },
+    "passed": { "contractVersion": 1, "status": "passed", "approvedAt": "2026-10-28", "evidenceRef": "preview-browser-gate-2026-10-28" }
+  },
+  "inventory": {
+    "baseline": { "sitemap": 25, "canonical": 27, "pageHtml": 28, "searchDocs": 16 },
+    "grown": { "sitemap": 29, "canonical": 31, "pageHtml": 32, "searchDocs": 20 }
+  }
+}
