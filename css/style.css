@@ -1207,7 +1207,7 @@ pre code {
 .article .pending-update-list strong { color: var(--text-primary); }
 
 /* Published Guide discovery and detail pages share the existing reading column. */
-.guide-landing__published { margin: 0 auto var(--space-10); max-width: var(--width-reading); }
+.guide-landing__published { margin: 0 auto var(--space-8); max-width: var(--width-reading); }
 .guide-landing__heading { margin-bottom: var(--space-4); }
 .guide-landing__heading > p, .guide-detail__eyebrow, .guide-card__eyebrow { color: var(--color-observation); font-size: var(--text-caption); letter-spacing: .12em; margin: 0 0 var(--space-1); text-transform: uppercase; }
 .guide-landing__heading h2 { margin: 0; }
