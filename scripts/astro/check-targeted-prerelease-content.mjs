@@ -107,6 +107,7 @@ assert.equal(canonicalTagCount, 28, 'Rendered canonical-tag count must be 28');
 assert.equal(pageHtmlCount, 29, 'Rendered page-HTML count must be 29');
 
 assert.equal(await absent(resolve(dist, 'generated/guide-search-manifest.json')), true, 'Private Guide handoff manifest must not be deployed');
+assert.doesNotMatch([landingHtml, sitemap, JSON.stringify(search), ...distFiles].join('\n'), /growth-guide-[a-f]/, 'Synthetic growth fixtures must not leak into production landing, sitemap, Search or files');
 for (const fixtureRoute of ['published-guide', 'story-guide-01', 'draft-guide']) {
   assert.equal(await absent(resolve(dist, 'guide', `${fixtureRoute}.html`)), true, `Fixture route ${fixtureRoute} must remain absent`);
 }

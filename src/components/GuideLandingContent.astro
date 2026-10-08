@@ -1,6 +1,8 @@
 ---
 import { siteLifecycle } from '../lib/site-lifecycle.mjs';
 ---
+<div class="alert alert-warning guide-landing__notice" set:html={siteLifecycle.copy.guide.notice}></div>
+
 <nav class="page-jump-nav" aria-label="攻略中心页内导航">
   <div class="page-jump-nav__row">
     <span class="page-jump-nav__label">快速定位</span>
@@ -13,8 +15,9 @@ import { siteLifecycle } from '../lib/site-lifecycle.mjs';
   </div>
 </nav>
 
+<slot />
+
 <div class="article">
-  <div class="alert alert-warning" set:html={siteLifecycle.copy.guide.notice}></div>
   <h2 id="beginner-section">新手入门</h2>
   <aside class="info-provenance" data-info-scope="section" data-status="observation" aria-label="战斗系统信息状态"><div class="info-provenance__intro"><span class="info-status" data-status="observation">试玩观察</span><div class="info-provenance__content"><p class="info-provenance__description">以下操作与攻防描述整理自公开实机和试玩版本，不代表正式版最终规则。</p></div></div><dl class="info-provenance__meta"><div class="info-source"><dt>来源</dt><dd><a href="https://blog.playstation.com/2026/08/17/phantom-blade-zero-state-of-play-dives-deep-into-combat-and-the-wulin-world/" target="_blank" rel="noopener noreferrer">官方 State of Play 总结与内嵌实机</a></dd></div><div class="info-source"><dt>观察更新</dt><dd><time datetime="2026-08-26">2026年8月26日</time></dd></div></dl></aside>
   <h3>战斗核心：杀气系统</h3>
