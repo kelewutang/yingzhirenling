@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:official-bilibili-producer-2026-09-09-difficulty-weapons-players",
+  "sourceType": "official-article",
+  "authority": "official",
+  "publisher": "制作人 Soulframe",
+  "title": "《难度，武器，玩家》",
+  "url": "https://www.bilibili.com/opus/1246026555841314820",
+  "language": "zh-CN",
+  "publishedAt": "2026-09-09",
+  "checkedAt": "2026-10-06",
+  "archivedUrl": null,
+  "notes": "制作人发布的官方文章。本 Gate 仅采用关于四档难度、一周目与二周目可选范围、六十六天存档规则、成就边界及白影类型的直接陈述；文章中的其他信息不在当前内容范围。"
+}

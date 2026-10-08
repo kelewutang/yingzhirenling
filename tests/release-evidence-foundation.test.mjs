@@ -172,6 +172,23 @@ test('scope registry validation accepts known fixture IDs and rejects unknown ID
     weapon.facts[0].scope.difficulties.ids = ['difficulty:unknown'];
     await writeJson(weaponFile, weapon);
   }, /难度不存在/);
+
+  await withReleaseFixture(async ({ difficultyFile }) => {
+    await writeJson(difficultyFile, {
+      schemaVersion: '1.0-implementation',
+      difficulties: [
+        { id: 'difficulty:fixture-standard', displayName: 'Fixture Standard' },
+        { id: 'difficulty:fixture-standard', displayName: 'Duplicate' }
+      ]
+    });
+  }, /难度 id 重复/);
+
+  await withReleaseFixture(async ({ difficultyFile }) => {
+    await writeJson(difficultyFile, {
+      schemaVersion: '1.0-implementation',
+      difficulties: [{ id: 'difficulty:Fixture Standard', displayName: 'Invalid' }]
+    });
+  }, /ASCII kebab-case/);
 });
 
 test('Fact supersession rejects self-reference and cycles', async () => {

@@ -1,6 +1,8 @@
 ---
 import { siteLifecycle } from '../lib/site-lifecycle.mjs';
 ---
+<div class="alert alert-warning guide-landing__notice" set:html={siteLifecycle.copy.guide.notice}></div>
+
 <nav class="page-jump-nav" aria-label="攻略中心页内导航">
   <div class="page-jump-nav__row">
     <span class="page-jump-nav__label">快速定位</span>
@@ -9,20 +11,22 @@ import { siteLifecycle } from '../lib/site-lifecycle.mjs';
   </div>
   <div class="page-jump-nav__row">
     <span class="page-jump-nav__label">跳转到难度说明</span>
-    <a href="#diff-wayfarer" class="diff-tag diff-easy">旅人</a><a href="#diff-pathbreaker" class="diff-tag diff-normal">破路者</a><a href="#diff-hellwalker" class="diff-tag diff-hard">地狱行者</a><a href="#diff-sixtysix" class="diff-tag diff-extreme">六十六天</a>
+    <a href="#diff-wayfarer" class="diff-tag diff-easy">入阵者</a><a href="#diff-pathbreaker" class="diff-tag diff-normal">破局者</a><a href="#diff-hellwalker" class="diff-tag diff-hard">逆天者</a><a href="#diff-sixtysix" class="diff-tag diff-extreme">六十六天</a>
   </div>
 </nav>
 
+<slot />
+
 <div class="article">
-  <div class="alert alert-warning" set:html={siteLifecycle.copy.guide.notice}></div>
   <h2 id="beginner-section">新手入门</h2>
   <aside class="info-provenance" data-info-scope="section" data-status="observation" aria-label="战斗系统信息状态"><div class="info-provenance__intro"><span class="info-status" data-status="observation">试玩观察</span><div class="info-provenance__content"><p class="info-provenance__description">以下操作与攻防描述整理自公开实机和试玩版本，不代表正式版最终规则。</p></div></div><dl class="info-provenance__meta"><div class="info-source"><dt>来源</dt><dd><a href="https://blog.playstation.com/2026/08/17/phantom-blade-zero-state-of-play-dives-deep-into-combat-and-the-wulin-world/" target="_blank" rel="noopener noreferrer">官方 State of Play 总结与内嵌实机</a></dd></div><div class="info-source"><dt>观察更新</dt><dd><time datetime="2026-08-26">2026年8月26日</time></dd></div></dl></aside>
   <h3>战斗核心：杀气系统</h3>
   <p>从公开试玩界面和演示可观察到，战斗围绕<strong>杀气</strong>及攻防转换展开；试玩版本未显示传统耐力条。杀气的完整获取、消耗与破防规则仍待正式版确认。</p>
   <ul><li><strong>蓝光攻击</strong>：完美瞬时格挡 → 触发"鬼步"绕后 → 瞬间回满杀气 → 衔接爆发连招</li><li><strong>红光攻击</strong>：无法格挡，只能闪避，需精准走位</li><li><strong>处决</strong>：打空敌人杀气即可触发处决，高伤害+动画演出</li></ul>
   <h3>武器切换连招</h3><p>公开演示展示了主武器与“影之武”之间的切换和连招衔接。具体携带栏位及输入规则以正式版为准；“快速武器搭配重型武器”属于发售前的编辑思路，不是官方推荐。</p>
-  <aside class="info-provenance" data-info-scope="section" data-status="official" aria-label="难度选项来源"><div class="info-provenance__intro"><span class="info-status" data-status="official">官方确认</span><div class="info-provenance__content"><p class="info-provenance__description">官方专场确认存在多档预设难度，并点名旅人、地狱行者与六十六天模式；中文名称与完整规则以各地区正式版为准。</p></div></div><dl class="info-provenance__meta"><div class="info-source"><dt>来源</dt><dd><a href="https://blog.playstation.com/2026/08/17/phantom-blade-zero-state-of-play-dives-deep-into-combat-and-the-wulin-world/" target="_blank" rel="noopener noreferrer">PlayStation Blog</a></dd></div><div class="info-source"><dt>核查时间</dt><dd><time datetime="2026-08-26">2026年8月26日</time></dd></div></dl></aside>
-  <h3 id="difficulty">难度选择前瞻</h3><ul><li id="diff-wayfarer"><strong>旅人模式（Wayfarer）</strong>：官方定位为更侧重故事体验的选项。</li><li id="diff-pathbreaker"><strong>破路者模式（Pathbreaker）</strong>：在官方专场画面中展示；详细难度说明待确认。</li><li id="diff-hellwalker"><strong>地狱行者模式（Hellwalker）</strong>：官方说明敌人会采用更高级、适应性更强的AI。</li><li id="diff-sixtysix"><strong>六十六天模式（Sixty-Six Days）</strong>：官方定位为高强度挑战；完整失败与存档规则尚未在可核验文字材料中说明。</li></ul>
+  <aside class="info-provenance" data-info-scope="section" data-status="official" aria-label="难度选项来源"><div class="info-provenance__intro"><span class="info-status" data-status="official">官方确认</span><div class="info-provenance__content"><p class="info-provenance__description">制作人已确认一周目可选入阵者、破局者和逆天者；六十六天从二周目开始可选，并使用独立存档。</p></div></div><dl class="info-provenance__meta"><div class="info-source"><dt>来源</dt><dd><a href="https://www.bilibili.com/opus/1246026555841314820" target="_blank" rel="noopener noreferrer">制作人 Soulframe《难度，武器，玩家》</a></dd></div><div class="info-source"><dt>核查时间</dt><dd><time datetime="2026-10-06">2026年10月6日</time></dd></div></dl></aside>
+  <h3 id="difficulty">难度选择说明</h3><ul><li id="diff-wayfarer"><strong>入阵者</strong>：侧重轻松体验剧情、探索地图和 RPG 养成。</li><li id="diff-pathbreaker"><strong>破局者</strong>：一周目可选；具体数值与最终平衡仍待正式版核验。</li><li id="diff-hellwalker"><strong>逆天者</strong>：一周目可选；具体数值与最终平衡仍待正式版核验。</li><li id="diff-sixtysix"><strong>六十六天</strong>：二周目起可选，使用独立存档，触铃自动保存且不能手动存档。</li></ul>
+  <p><a href="/guide/difficulty-and-sixty-six-days">查看四档难度、六十六天存档与成就规则 →</a></p>
   <h2 id="early-game">开荒推荐</h2>
   <aside class="info-provenance" data-info-scope="section" data-status="editorial" aria-label="开荒建议信息状态"><div class="info-provenance__intro"><span class="info-status" data-status="editorial">编辑推测</span><div class="info-provenance__content"><p class="info-provenance__description">本节是基于试玩演示的发售前配装思路，不是正式版强度结论。</p></div></div><dl class="info-provenance__meta"><div class="info-source"><dt>依据</dt><dd>公开实机与试玩观察</dd></div><div class="info-source"><dt>更新时间</dt><dd><time datetime="2026-08-26">2026年8月26日</time></dd></div></dl></aside>
   <h3>开局武器选择</h3><p>若正式版开局武器与试玩一致，可优先熟悉横刀类武器的攻防节奏，再根据实际解锁顺序尝试重型武器与远程“影之武”。具体伤害、硬直和弹药机制待正式版验证。</p>
@@ -36,7 +40,7 @@ import { siteLifecycle } from '../lib/site-lifecycle.mjs';
   <h2>正式版核验清单（发售后更新）</h2><div class="alert alert-warning">官方尚未公布可供完整核验的章节目录。本站不会在发售前把推测章节名写成正式流程。</div>
   <ul class="pending-update-list"><li><strong>主线章节与路线：</strong>待正式版核验章节名、关键节点、分支条件与不可逆选择。</li><li><strong>支线与故事路线：</strong>待核验任务触发、完成顺序及官方所述“新故事路线”的具体条件。</li><li><strong>Boss与武器获取：</strong>待核验Boss出现位置、阶段机制、掉落武器与难度差异。</li><li><strong>收集与结局条件：</strong>待核验收集品类别、位置、遗漏点及结局触发条件。</li></ul>
   <h2 id="guide-faq">常见问题</h2>
-  <h3>Q：66天寿命会限时吗？</h3><p>A：官方公开资料将六十六日作为主角的剧情设定，并公布了六十六天挑战模式；该模式的完整失败规则及剧情倒计时是否限制常规探索，仍待官方进一步说明或正式版验证。</p>
+  <h3>Q：66天寿命会限时吗？</h3><p>A：一周目中剩余天数只有剧情意义，不会限制正常流程；六十六天是二周目起可选的独立挑战模式，使用独立存档、触铃自动保存且不能手动读取失误前的状态。</p>
   <h3>Q：预购特典是独占吗？</h3><p>A：不是。官方商店说明聚宝盆饰品和传承外观是提前解锁内容，也可通过游戏进程获得。</p>
   <h3>Q：PC必须装SSD吗？</h3><p>A：是的，官方最低和推荐配置均要求安装在SSD上。</p>
 </div>

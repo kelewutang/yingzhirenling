@@ -77,7 +77,7 @@ for (const [file] of canonicalRoutes) {
   assert.equal(metaContent(html, 'property', 'og:description', file), description, `${file}: og:description must match description`);
   const ogUrl = metaContent(html, 'property', 'og:url', file);
   assert.equal(ogUrl, canonical, `${file}: og:url must match canonical`);
-  assert.equal(metaContent(html, 'property', 'og:type', file), file === 'guide.html' ? 'article' : 'website', `${file}: og:type must match the page semantic`);
+  assert.equal(metaContent(html, 'property', 'og:type', file), file === 'guide.html' || file.startsWith('guide/') ? 'article' : 'website', `${file}: og:type must match the page semantic`);
   assert.equal(metaContent(html, 'name', 'twitter:card', file), 'summary', `${file}: twitter:card must be summary`);
   assert.equal(metaContent(html, 'name', 'twitter:title', file), title, `${file}: twitter:title must match title`);
   assert.equal(metaContent(html, 'name', 'twitter:description', file), description, `${file}: twitter:description must match description`);
@@ -685,7 +685,7 @@ const retiredLegacyAssets = [
 const distFiles = await walk(dist);
 assert.equal(distFiles.some((file) => file.endsWith('/generated/guide-search-manifest.json')), false, 'Guide build handoff manifest must not be deployed');
 const distHtmlFiles = distFiles.filter((file) => file.endsWith('.html'));
-assert.equal(distHtmlFiles.length, 29, 'Expected 29 total dist HTML files including the Baidu verification artifact');
+assert.equal(distHtmlFiles.length, inventory.counts.pageHtml + 1, 'Total dist HTML must equal derived page inventory plus the Baidu verification artifact');
 assert.equal(distHtmlFiles.filter((file) => !file.endsWith(baiduVerificationFile)).length, inventory.counts.pageHtml, 'Page HTML inventory drifted');
 const canonicalTagCount = (await Promise.all(distHtmlFiles.map((file) => readFile(file, 'utf8'))))
   .reduce((count, html) => count + (html.match(/<link\s+rel="canonical"/gi) || []).length, 0);

@@ -14,7 +14,7 @@ const expectedTaxonomy = new Map([
   ['soft-snake-sword', ['主武器', '剑']],
   ['tang-hengdao', ['主武器', '刀类']],
   ['white-serpent-crimson-viper', ['主武器', '双剑']],
-  ['white-shadow', ['主武器', '双手剑']],
+  ['white-shadow', ['主武器', '苗刀']],
   ['ya-hengdao', ['主武器', '刀类']]
 ]);
 

@@ -1,4 +1,21 @@
 {
   "schemaVersion": "1.0-implementation",
-  "difficulties": []
+  "difficulties": [
+    {
+      "id": "difficulty:wayfarer",
+      "displayName": "入阵者"
+    },
+    {
+      "id": "difficulty:pathbreaker",
+      "displayName": "破局者"
+    },
+    {
+      "id": "difficulty:hellwalker",
+      "displayName": "逆天者"
+    },
+    {
+      "id": "difficulty:sixty-six-days",
+      "displayName": "六十六天"
+    }
+  ]
 }

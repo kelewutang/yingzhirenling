@@ -291,9 +291,9 @@
     "displayAliases": [],
     "keywords": [
       "主武器",
-      "双手剑",
       "双手武器",
-      "武器"
+      "武器",
+      "苗刀"
     ],
     "summary": "白影是一把双手武器，以冰冻相关机制为主要特色。刀身无影，寒光似雪。",
     "recordState": "published",
@@ -318,5 +318,27 @@
     "summary": "发售前媒体试玩记录中出现的刀类武器；详细特点和获取方式尚待可靠资料确认。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "guide:difficulty-and-sixty-six-days",
+    "documentType": "guide",
+    "guideType": "system",
+    "slug": "difficulty-and-sixty-six-days",
+    "route": "/guide/difficulty-and-sixty-six-days",
+    "title": "影之刃零难度怎么选：入阵者、破局者、逆天者与六十六天",
+    "description": "整理影之刃零四档官方难度、一周目可选范围、六十六天解锁和存档规则，以及成就与白金奖杯关系。",
+    "keywords": [
+      "system",
+      "入阵者",
+      "六十六天",
+      "存档",
+      "影之刃零难度",
+      "成就",
+      "破局者",
+      "逆天者"
+    ],
+    "relatedEntityNames": [],
+    "updatedAt": "2026-10-06",
+    "recordState": "published"
   }
 ]

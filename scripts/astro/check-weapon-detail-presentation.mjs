@@ -173,7 +173,7 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   ['soft-snake-sword', 'Soft Snake Sword', '主武器', '剑'],
   ['tang-hengdao', '唐横刀', '主武器', '刀类'],
   ['white-serpent-crimson-viper', '白蟒赤练', '主武器', '双剑'],
-  ['white-shadow', '白影', '主武器', '双手剑'],
+  ['white-shadow', '白影', '主武器', '苗刀'],
   ['ya-hengdao', '牙横刀', '主武器', '刀类']
 ]) {
   const taxonomy = `${systemCategory} · ${weaponType}`;
@@ -189,7 +189,8 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   assert(hero.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: Hero taxonomy missing`);
   const renderedOverview = overview(detail);
   assert(renderedOverview.includes(`data-system-category-fact-id="fact:weapon:${slug}:system-category"`), `${slug}: overview system category must use its normalized Fact`);
-  assert(renderedOverview.includes(`data-weapon-type-fact-id="fact:weapon:${slug}:weapon-type"`), `${slug}: overview weapon type must use its normalized Fact`);
+  const weaponTypeFactId = slug === 'white-shadow' ? 'fact:weapon:white-shadow:weapon-type-official' : `fact:weapon:${slug}:weapon-type`;
+  assert(renderedOverview.includes(`data-weapon-type-fact-id="${weaponTypeFactId}"`), `${slug}: overview weapon type must use its normalized Fact`);
   assert(renderedOverview.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: overview taxonomy missing`);
   assert(!renderedOverview.includes('data-weapon-overview-field="type"'), `${slug}: legacy mixed kind must not render in overview`);
 }
@@ -259,9 +260,9 @@ assertProgressionLevel(serpent, 'fact:weapon:white-serpent-crimson-viper:node-ho
 
 assertOverview(shadow, {
   name: '白影',
-  taxonomy: '主武器 · 双手剑',
+  taxonomy: '主武器 · 苗刀',
   systemCategoryFactId: 'fact:weapon:white-shadow:system-category',
-  weaponTypeFactId: 'fact:weapon:white-shadow:weapon-type',
+  weaponTypeFactId: 'fact:weapon:white-shadow:weapon-type-official',
   previewStats: [
     ['fact:weapon:white-shadow:preview-damage-ability-lv30', '伤害能力', 1443],
     ['fact:weapon:white-shadow:preview-break-ability-lv30', '破防能力', 757]

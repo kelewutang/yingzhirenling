@@ -15,7 +15,7 @@
     "passed": { "contractVersion": 1, "status": "passed", "approvedAt": "2026-10-28", "evidenceRef": "preview-browser-gate-2026-10-28" }
   },
   "inventory": {
-    "baseline": { "sitemap": 25, "canonical": 27, "pageHtml": 28, "searchDocs": 16 },
+    "baseline": { "sitemap": 26, "canonical": 28, "pageHtml": 29, "searchDocs": 17 },
     "grown": { "sitemap": 29, "canonical": 31, "pageHtml": 32, "searchDocs": 20 }
   }
 }

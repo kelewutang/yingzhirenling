@@ -46,7 +46,7 @@ const WEAPON_DERIVED_INPUT_VARIANTS_MAX_ITEMS = 4;
 const NAMED_WEAPON_DETAIL_KEYS = new Set(['weapon.mechanic', 'weapon.progressionNode']);
 const DERIVED_INPUT_LABEL_KINDS = new Set(['official', 'functional']);
 const WEAPON_SYSTEM_CATEGORIES = new Set(['主武器', '影之武']);
-const WEAPON_TYPES = new Set(['大锤', '剑', '弓', '投掷类', '刀类', '双剑', '双手剑']);
+const WEAPON_TYPES = new Set(['大锤', '剑', '弓', '投掷类', '刀类', '双剑', '双手剑', '苗刀']);
 const SPOILER_LEVELS = new Set(['none', 'minor', 'major']);
 
 const errors = [];
@@ -704,6 +704,9 @@ if (!isObject(difficultyRegistryFile.value)) {
         continue;
       }
       registerId(difficulty.id, `${location}.id`);
+      if (typeof difficulty.id === 'string' && !/^difficulty:[a-z0-9]+(?:-[a-z0-9]+)*$/.test(difficulty.id)) {
+        error(`${location}.id`, '必须是 difficulty: 前缀加稳定的 ASCII kebab-case 标识');
+      }
       if (difficulties.has(difficulty.id)) error(`${location}.id`, '难度 id 重复');
       if (typeof difficulty.id === 'string') difficulties.add(difficulty.id);
       if (typeof difficulty.displayName !== 'string' || difficulty.displayName.length === 0) {
