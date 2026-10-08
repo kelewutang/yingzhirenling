@@ -189,10 +189,10 @@ test('ordinary build guard source contains no network orchestration and post-dep
   assert.match(source, /options\.mode === 'post-deploy'/);
 });
 
-test('current production keeps zero launch content, dormant triggers and dynamic baseline counts', async () => {
+test('current production includes one non-spoiler Guide while launch Browser triggers remain dormant', async () => {
   const inventory = await loadProductionInventory(root);
   assert.deepEqual(inventory.counts, fixtures.inventory.baseline);
-  assert.equal(inventory.guides.length, 0);
+  assert.equal(inventory.guides.length, 1);
   const families = {
     weapons: inventory.publishedWeapons.filter((item) => item.spoilerLevel !== 'major').length,
     bosses: inventory.publishedBosses.filter((item) => item.spoilerLevel !== 'major').length,
@@ -202,12 +202,13 @@ test('current production keeps zero launch content, dormant triggers and dynamic
   assert.deepEqual(families, { weapons: 9, bosses: 3, characters: 3, locations: 1 });
   assert.equal(collectionTriggerFromCounts(families).triggered, false);
   const currentEntities = [...inventory.publishedWeapons, ...inventory.publishedBosses, ...inventory.publishedCharacters, ...inventory.publishedLocations];
-  assert.equal(spoilerTriggerFromState({ guides: [], entities: currentEntities, facts: currentEntities.flatMap((item) => item.facts), media: [], renderedHtml: [] }).triggered, false);
+  const guides = inventory.guides.map((guide) => ({ ...guide, status: 'published' }));
+  assert.equal(spoilerTriggerFromState({ guides, entities: currentEntities, facts: currentEntities.flatMap((item) => item.facts), media: [], renderedHtml: [] }).triggered, false);
   assert.equal(siteLifecycle.state, 'pre-release');
 });
 
-test('absence of exact unlock time and Guides remains informational and causes no inferred records', async () => {
+test('absence of exact unlock time remains informational while the approved Guide is explicit', async () => {
   const inventory = await loadProductionInventory(root);
-  assert.equal(inventory.guides.length, 0);
+  assert.deepEqual(inventory.guides.map((guide) => guide.id), ['difficulty-and-sixty-six-days']);
   assert.equal(JSON.stringify(config).includes('unlock'), false);
 });

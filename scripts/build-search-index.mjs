@@ -220,7 +220,7 @@ function deriveAliases(entity, file) {
 function deriveKeywords(entity) {
   const keywords = [ENTITY_LABELS.get(entity.entityType)];
 
-  for (const fact of entity.facts) {
+  for (const fact of entity.facts.filter((item) => item.supersededBy === null)) {
     if (!SEARCHABLE_FACT_STATUSES.has(fact.status) || fact.value === null) continue;
     if ((fact.key === 'weapon.kind' || fact.key === 'weapon.systemCategory' || fact.key === 'weapon.weaponType' || fact.key === 'character.role' || fact.key === 'location.kind') && typeof fact.value === 'string') {
       keywords.push(fact.value);
