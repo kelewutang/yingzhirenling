@@ -37,7 +37,11 @@ function initMobileNav() {
         previousOverflowAnchor = root.style.overflowAnchor;
         root.style.overflowAnchor = 'none';
         const scrollbarWidth = window.innerWidth - root.clientWidth;
+        const previousTransitionProperty = document.body.style.transitionProperty;
+        document.body.style.transitionProperty = 'none';
         document.body.style.paddingRight = `${parseFloat(getComputedStyle(document.body).paddingRight) + scrollbarWidth}px`;
+        void document.body.offsetHeight;
+        document.body.style.transitionProperty = previousTransitionProperty;
       }
     }
     links.classList.toggle('open', isOpen);
