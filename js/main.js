@@ -21,18 +21,51 @@ function initMobileNav() {
   toggle.setAttribute('aria-controls', links.id);
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-label', '打开菜单');
+  const root = document.documentElement;
+  let previousScrollbarGutter = null;
+  let previousBodyPaddingRight = null;
+  let previousOverflowAnchor = null;
 
   function setOpen(isOpen, returnFocus) {
+    if (isOpen) {
+      if (window.matchMedia('(max-width: 680px)').matches) {
+        previousScrollbarGutter = root.style.scrollbarGutter;
+        root.style.scrollbarGutter = 'stable';
+      } else {
+        // 较宽视口保留正文宽度，避免 root gutter 改变 vw 排版。
+        previousBodyPaddingRight = document.body.style.paddingRight;
+        previousOverflowAnchor = root.style.overflowAnchor;
+        root.style.overflowAnchor = 'none';
+        const scrollbarWidth = window.innerWidth - root.clientWidth;
+        const previousTransitionProperty = document.body.style.transitionProperty;
+        document.body.style.transitionProperty = 'none';
+        document.body.style.paddingRight = `${parseFloat(getComputedStyle(document.body).paddingRight) + scrollbarWidth}px`;
+        void document.body.offsetHeight;
+        document.body.style.transitionProperty = previousTransitionProperty;
+      }
+    }
     links.classList.toggle('open', isOpen);
     toggle.classList.toggle('is-open', isOpen);
     document.body.classList.toggle('nav-open', isOpen);
+    if (!isOpen && previousScrollbarGutter !== null) {
+      root.style.scrollbarGutter = previousScrollbarGutter;
+      previousScrollbarGutter = null;
+    }
+    if (!isOpen && previousBodyPaddingRight !== null) {
+      document.body.style.paddingRight = previousBodyPaddingRight;
+      void document.body.offsetHeight;
+      root.style.overflowAnchor = previousOverflowAnchor;
+      previousBodyPaddingRight = null;
+      previousOverflowAnchor = null;
+    }
     toggle.setAttribute('aria-expanded', String(isOpen));
     toggle.setAttribute('aria-label', isOpen ? '关闭菜单' : '打开菜单');
     if (isOpen) {
+      links.scrollTop = 0;
       const firstLink = links.querySelector('a');
-      if (firstLink) firstLink.focus();
+      if (firstLink) firstLink.focus({ preventScroll: true });
     } else if (returnFocus) {
-      toggle.focus();
+      toggle.focus({ preventScroll: true });
     }
   }
 
