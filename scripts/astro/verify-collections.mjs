@@ -41,7 +41,7 @@ async function publishedEntities(directory) {
 const collections = [
   { file: 'weapons.html', directory: 'data/weapons', type: 'weapon', title: '武器', pageTitle: '武器图鉴 - 影之刃零攻略站', route: '/weapons', detailRoute: (entity) => `/weapons/${entity.slug}` },
   { file: 'characters.html', directory: 'data/characters', type: 'character', title: '角色', pageTitle: '角色图鉴 - 影之刃零攻略站', route: '/characters', detailRoute: (entity) => `/characters/${entity.slug}` },
-  { file: 'bosses.html', directory: 'data/bosses', type: 'boss', title: 'Boss', pageTitle: 'Boss攻略 - 影之刃零攻略站', route: '/bosses', detailRoute: (entity) => `/bosses/${entity.slug}` },
+  { file: 'bosses.html', directory: 'data/bosses', type: 'boss', title: 'Boss资料', pageTitle: 'Boss资料 - 影之刃零攻略站', route: '/bosses', detailRoute: (entity) => `/bosses/${entity.slug}` },
   { file: 'world.html', directory: 'data/locations', type: 'location', title: '世界', pageTitle: '世界观设定 - 影之刃零攻略站', route: '/world', detailRoute: (entity) => `/world/${entity.slug}` }
 ];
 

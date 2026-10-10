@@ -9,4 +9,4 @@ const bosses = getPublishedBosses(await loadKnowledge());
 const cards = await Promise.all(bosses.map(async (entity) => ({ card: buildBossCollectionCard(entity), media: await getProductionCardMedia(entity.id) })));
 const { boss } = siteLifecycle.copy.collections;
 ---
-<CollectionLayout pageTitle="Boss攻略 - 影之刃零攻略站" title="Boss" description={boss.description} canonical="https://www.yingzhirenling.cn/bosses" activeSection="bosses" entityType="boss" eyebrow="Boss 图鉴" intro={boss.intro} inventoryLabel="Boss" cards={cards} supportingTitle="如何阅读本页" supportingText={boss.supportingText} />
+<CollectionLayout pageTitle="Boss资料 - 影之刃零攻略站" title="Boss资料" description={boss.description} canonical="https://www.yingzhirenling.cn/bosses" activeSection="bosses" entityType="boss" eyebrow="Boss 图鉴" intro={boss.intro} inventoryLabel="Boss" cards={cards} supportingTitle="如何阅读本页" supportingText={boss.supportingText} />

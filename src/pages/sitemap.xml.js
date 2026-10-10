@@ -6,7 +6,7 @@ const site = 'https://www.yingzhirenling.cn';
 const legacyPages = [
   ['/', '2026-08-12'], ['/weapons', '2026-08-12'],
   ['/characters', '2026-08-12'], ['/bosses', '2026-08-12'], ['/world', '2026-08-12'],
-  ['/videos', '2026-08-12'], ['/about', '2026-10-06'], ['/about-site', '2026-08-18']
+  ['/videos', '2026-08-12'], ['/about', '2026-10-10'], ['/about-site', '2026-08-18']
 ];
 
 export async function GET() {
