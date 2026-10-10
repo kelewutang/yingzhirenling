@@ -465,9 +465,33 @@ function closeSearch() {
     searchOverlay = null;
     document.body.classList.remove('search-open');
     setSearchBackgroundInert(false);
-    if (searchReturnFocus && searchReturnFocus.focus && document.contains(searchReturnFocus)) {
-      searchReturnFocus.focus();
+    const fallback = document.querySelector('.site-header .nav-search-btn');
+    const original = searchReturnFocus;
+    let visible = original instanceof HTMLElement && original !== document.body && original.isConnected &&
+      typeof original.focus === 'function' && !original.closest('[inert], [hidden], [aria-hidden="true"]');
+    for (let ancestor = original; visible && ancestor; ancestor = ancestor.parentElement) {
+      const style = getComputedStyle(ancestor);
+      visible = style.display !== 'none' && style.visibility === 'visible' && style.opacity !== '0';
     }
+    if (visible) {
+      const rect = original.getBoundingClientRect();
+      const viewport = window.visualViewport;
+      const left = viewport?.offsetLeft ?? 0;
+      const top = viewport?.offsetTop ?? 0;
+      const right = left + (viewport?.width ?? window.innerWidth);
+      const bottom = top + (viewport?.height ?? window.innerHeight);
+      const edge = 4;
+      visible = rect.width > edge * 2 && rect.height > edge * 2 &&
+        rect.left >= left + edge && rect.top >= top + edge &&
+        rect.right <= right - edge && rect.bottom <= bottom - edge &&
+        [[rect.left + edge, rect.top + edge], [rect.right - edge, rect.top + edge],
+          [rect.left + edge, rect.bottom - edge], [rect.right - edge, rect.bottom - edge],
+          [rect.left + rect.width / 2, rect.top + rect.height / 2]].every(([x, y]) =>
+          original.contains(document.elementFromPoint(x, y)));
+    }
+    const target = visible ? original : fallback;
+    target?.focus({ preventScroll: true });
+    if (document.activeElement !== target && target !== fallback) fallback?.focus({ preventScroll: true });
     searchReturnFocus = null;
   }
 }
