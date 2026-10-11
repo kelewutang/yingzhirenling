@@ -111,6 +111,12 @@ assert.doesNotMatch([landingHtml, sitemap, JSON.stringify(search), ...distFiles]
 for (const fixtureRoute of ['published-guide', 'story-guide-01', 'draft-guide']) {
   assert.equal(await absent(resolve(dist, 'guide', `${fixtureRoute}.html`)), true, `Fixture route ${fixtureRoute} must remain absent`);
 }
-for (const gate of Object.values(launchConfig.browserGates)) assert.deepEqual(gate, { contractVersion: 1, status: 'deferred', approvedAt: null, evidenceRef: null });
+assert.deepEqual(launchConfig.browserGates['collection-browser-interaction'], { contractVersion: 1, status: 'deferred', approvedAt: null, evidenceRef: null });
+assert.deepEqual(launchConfig.browserGates['spoiler-disclosure-interaction'], {
+  contractVersion: 1,
+  status: 'passed',
+  approvedAt: '2026-10-11',
+  evidenceRef: 'https://github.com/kelewutang/yingzhirenling/pull/63'
+});
 
 console.log('Targeted pre-release content verification passed: official source, four difficulties, one Guide, White Shadow supersession, PS5 facts, 27/29/30/18 inventory, and private fixture isolation.');

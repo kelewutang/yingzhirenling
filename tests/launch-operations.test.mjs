@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import {
+  approvedP3Cn8gSpoilerScope,
   collectionTriggerFromCounts,
   evaluateBrowserGate,
   evaluateCurrentness,
@@ -27,10 +28,16 @@ function status(results, value) {
   return results.some((result) => result.status === value);
 }
 
-test('launch operations config contains exactly two deferred, internally consistent Browser gates', () => {
+test('launch operations config keeps Collection Browser deferred and records the approved spoiler evidence', () => {
   assert.deepEqual(validateLaunchConfig(config), []);
   assert.deepEqual(Object.keys(config.browserGates).sort(), [collectionId, spoilerId].sort());
-  for (const gate of Object.values(config.browserGates)) assert.deepEqual(gate, fixtures.approvals.deferred);
+  assert.deepEqual(config.browserGates[collectionId], fixtures.approvals.deferred);
+  assert.deepEqual(config.browserGates[spoilerId], {
+    contractVersion: 1,
+    status: 'passed',
+    approvedAt: '2026-10-11',
+    evidenceRef: 'https://github.com/kelewutang/yingzhirenling/pull/63'
+  });
 });
 
 test('T-14 and T-72 currentness distinguish fresh reviews from warnings', () => {
@@ -92,6 +99,19 @@ test('spoiler trigger covers Guide, Entity, first minor Fact, first minor Media 
   ];
   for (const item of cases) assert.equal(spoilerTriggerFromState({ guides: [], entities: [], facts: [], media: [], renderedHtml: [], ...item }).triggered, true);
   assert.equal(spoilerTriggerFromState({ guides: [], entities: [], facts: [], media: [], renderedHtml: [] }).triggered, false);
+});
+
+test('P3-CN-8G spoiler approval cannot cover another Entity, Fact, Guide, Media or major disclosure', () => {
+  const entity = { id: 'weapon:chizhe-canjian', recordState: 'published', spoilerLevel: 'minor' };
+  const fact = { id: 'fact:weapon:chizhe-canjian:acquisition', published: true, spoilerLevel: 'minor' };
+  const state = { guides: [], entities: [entity], facts: [fact], media: [], renderedHtml: [] };
+  assert.equal(approvedP3Cn8gSpoilerScope(state), true);
+  assert.equal(approvedP3Cn8gSpoilerScope({ ...state, entities: [{ ...entity, spoilerLevel: 'major' }] }), false);
+  assert.equal(approvedP3Cn8gSpoilerScope({ ...state, facts: [{ ...fact, spoilerLevel: 'major' }] }), false);
+  assert.equal(approvedP3Cn8gSpoilerScope({ ...state, facts: [...state.facts, { id: 'fact:other', published: true, spoilerLevel: 'minor' }] }), false);
+  assert.equal(approvedP3Cn8gSpoilerScope({ ...state, guides: [{ status: 'published', spoilerLevel: 'minor' }] }), false);
+  assert.equal(approvedP3Cn8gSpoilerScope({ ...state, media: [{ recordState: 'published', spoilerLevel: 'major' }] }), false);
+  assert.equal(approvedP3Cn8gSpoilerScope({ ...state, renderedHtml: ['<details data-spoiler-level="major">'] }), false);
 });
 
 test('unpublished or unreachable minor Fact and Media do not activate the production spoiler gate', () => {

@@ -110,6 +110,16 @@ export function spoilerTriggerFromState({ guides = [], entities = [], facts = []
   return { triggered: reasons.length > 0, reasons: [...new Set(reasons)] };
 }
 
+export function approvedP3Cn8gSpoilerScope({ guides = [], entities = [], facts = [], media = [], renderedHtml = [] }) {
+  const spoilerEntities = entities.filter((item) => item.recordState === 'published' && spoilerLevel(item) !== 'none');
+  const spoilerFacts = facts.filter((item) => item.published === true && spoilerLevel(item) !== 'none');
+  return spoilerEntities.length === 1 && spoilerEntities[0].id === 'weapon:chizhe-canjian' && spoilerLevel(spoilerEntities[0]) === 'minor' &&
+    spoilerFacts.length === 1 && spoilerFacts[0].id === 'fact:weapon:chizhe-canjian:acquisition' && spoilerLevel(spoilerFacts[0]) === 'minor' &&
+    !guides.some((item) => item.status === 'published' && spoilerLevel(item) !== 'none') &&
+    !media.some((item) => item.recordState === 'published' && spoilerLevel(item) !== 'none') &&
+    !renderedHtml.some((html) => /data-spoiler-level=["']major["']/.test(html) || html.includes('含部分剧情信息'));
+}
+
 export function evaluateBrowserGate({ id, triggered, approval, enforcement }) {
   if (!triggered) return finding(id === GATE_IDS[0] ? 'Collection gate' : 'Spoiler gate', 'NOT APPLICABLE', `${id}: trigger is false`);
   const approvalErrors = validateLaunchConfig({
@@ -302,6 +312,9 @@ async function evaluateRepositoryGates(config, enforcement, requireDist) {
     evaluateBrowserGate({ id: GATE_IDS[0], triggered: collection.triggered, approval: config.browserGates[GATE_IDS[0]], enforcement }),
     evaluateBrowserGate({ id: GATE_IDS[1], triggered: spoiler.triggered, approval: config.browserGates[GATE_IDS[1]], enforcement })
   ];
+  if (config.browserGates[GATE_IDS[1]].status === 'passed' && !approvedP3Cn8gSpoilerScope(state)) {
+    results.push(finding('Spoiler gate', 'BLOCK', 'P3-CN-8G approval covers only the current minor-spoiler Broken Blade Entity and acquisition Fact'));
+  }
   if (requireDist) {
     const leakage = findFixtureLeakage(state.renderedHtml);
     results.push(leakage.length ? finding('Content validity', 'BLOCK', `fixture leakage detected: ${leakage.join(', ')}`) : finding('Content validity', 'PASS', 'No known fixture markers occur in rendered HTML'));
