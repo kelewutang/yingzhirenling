@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "version:prelaunch-materials-2026-10",
+  "stage": "prelaunch-materials",
+  "displayName": "2026 年 10 月媒体试玩材料阶段",
+  "versionLabel": null,
+  "track": "prelaunch",
+  "sequence": 30,
+  "platformIds": [],
+  "releasedAt": "2026-10-09",
+  "sourceIds": ["source:a9vg-beijing-hands-on-2026-10-09", "source:4gamer-beijing-hands-on-2026-10-09"],
+  "checkedAt": "2026-10-11",
+  "supersedesVersionId": null,
+  "supersededBy": null
+}

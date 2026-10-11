@@ -1,0 +1,266 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:chizhe-canjian",
+  "entityType": "weapon",
+  "slug": "chizhe-canjian",
+  "displayName": "痴者残剑",
+  "aliases": [
+    {
+      "value": "The Fanatic's Broken Blade",
+      "locale": "en",
+      "kind": "legacy-title",
+      "status": "observation",
+      "sourceIds": [
+        "source:4gamer-beijing-hands-on-2026-10-09",
+        "source:a9vg-beijing-hands-on-2026-10-09"
+      ],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "reviewNote": "英文和中文亲历试玩对同一 Boss 或其掉落武器的名称交叉核验；非正式版名称确认。"
+    }
+  ],
+  "summary": "发售前媒体试玩中，痴者残剑以饮酒恢复杀气，并在微醺时使用远程飞剑；下文含试玩版取得方式的轻度剧透，正式版仍待核。",
+  "summaryFactIds": [
+    "fact:weapon:chizhe-canjian:exists",
+    "fact:weapon:chizhe-canjian:name",
+    "fact:weapon:chizhe-canjian:drink-sha-chi",
+    "fact:weapon:chizhe-canjian:flying-swords"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:chizhe-canjian:exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "痴者残剑",
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "editorial",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [
+        "fact:weapon:chizhe-canjian:name",
+        "fact:weapon:chizhe-canjian:flying-swords"
+      ],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "依据媒体对该可装备武器的 L1／L2 操作描述及与 R2 影之武装的区分作分类判断；正式版分类待核。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:weapon-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "剑",
+      "status": "editorial",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [
+        "fact:weapon:chizhe-canjian:name",
+        "fact:weapon:chizhe-canjian:flying-swords"
+      ],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "中文名与两家亲历媒体对剑及飞剑的描述支持当前资料分类；正式版分类待核。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:public-appearance",
+      "key": "weapon.publicAppearance",
+      "valueType": "enum",
+      "value": "demo",
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "两家亲历媒体记录 2026 年北京试玩，非正式版验证。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:acquisition",
+      "key": "weapon.acquisition",
+      "valueType": "string",
+      "value": "2026 年北京媒体试玩中，击败花千笑后获得；正式版取得方式待核。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "仅限亲历媒体试玩版本；不推断正式版固定掉落或路线。",
+      "spoilerLevel": "minor"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:drink-sha-chi",
+      "key": "weapon.observedTrait",
+      "valueType": "string",
+      "value": "试玩中使用这把武器饮酒，可恢复杀气并进入微醺状态。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "两家亲历媒体均将饮酒效果明确归于玩家装备痴者残剑后的表现。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:flying-swords",
+      "key": "weapon.observedTrait",
+      "valueType": "string",
+      "value": "试玩中的微醺状态下，普通攻击与杀气攻击会变为远程飞剑攻击。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "来源明确描述玩家取得并使用痴者残剑后的攻击；不混同 Boss 自身的飞剑。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-10-11",
+  "updatedAt": "2026-10-11",
+  "recordState": "published",
+  "spoilerLevel": "minor",
+  "resolution": null
+}

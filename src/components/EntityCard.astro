@@ -13,7 +13,7 @@ const compact = variant === 'compact';
   <span class="entity-card__body">
     <span class="entity-card__eyebrow">{card.typeLabel}</span>
     <h3 class="entity-card__title">{card.displayName}</h3>
-    {!compact && card.aliases.length > 0 && <span class="entity-card__aliases">{card.aliases.join('、')}</span>}
+    {card.aliases.length > 0 && <span class="entity-card__aliases">{card.aliases.join('、')}</span>}
     {!compact && card.secondary && <span class="entity-card__secondary">{card.secondary}</span>}
     {!compact && card.context && <span class="entity-card__context">{card.context}</span>}
     {!compact && card.summary && <span class="entity-card__summary">{card.summary}</span>}

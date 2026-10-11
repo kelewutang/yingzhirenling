@@ -189,9 +189,9 @@ test('ordinary build guard source contains no network orchestration and post-dep
   assert.match(source, /options\.mode === 'post-deploy'/);
 });
 
-test('current production includes one non-spoiler Guide while launch Browser triggers remain dormant', async () => {
+test('current candidate includes one non-spoiler Guide and one minor-spoiler Weapon', async () => {
   const inventory = await loadProductionInventory(root);
-  assert.deepEqual(inventory.counts, fixtures.inventory.baseline);
+  assert.deepEqual(inventory.counts, { sitemap: 27, canonical: 29, pageHtml: 30, searchDocs: 18 });
   assert.equal(inventory.guides.length, 1);
   const families = {
     weapons: inventory.publishedWeapons.filter((item) => item.spoilerLevel !== 'major').length,
@@ -199,11 +199,13 @@ test('current production includes one non-spoiler Guide while launch Browser tri
     characters: inventory.publishedCharacters.filter((item) => item.spoilerLevel !== 'major').length,
     locations: inventory.publishedLocations.filter((item) => item.spoilerLevel !== 'major').length
   };
-  assert.deepEqual(families, { weapons: 9, bosses: 3, characters: 3, locations: 1 });
+  assert.deepEqual(families, { weapons: 10, bosses: 3, characters: 3, locations: 1 });
   assert.equal(collectionTriggerFromCounts(families).triggered, false);
   const currentEntities = [...inventory.publishedWeapons, ...inventory.publishedBosses, ...inventory.publishedCharacters, ...inventory.publishedLocations];
   const guides = inventory.guides.map((guide) => ({ ...guide, status: 'published' }));
-  assert.equal(spoilerTriggerFromState({ guides, entities: currentEntities, facts: currentEntities.flatMap((item) => item.facts), media: [], renderedHtml: [] }).triggered, false);
+  const spoilerTrigger = spoilerTriggerFromState({ guides, entities: currentEntities, facts: currentEntities.flatMap((item) => item.facts), media: [], renderedHtml: [] });
+  assert.equal(spoilerTrigger.triggered, true);
+  assert.deepEqual(spoilerTrigger.reasons, ['published Entity']);
   assert.equal(siteLifecycle.state, 'pre-release');
 });
 

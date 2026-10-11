@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:hongzhuang-guizhan",
+  "entityType": "weapon",
+  "slug": "hongzhuang-guizhan",
+  "displayName": "红妆鬼斩",
+  "aliases": [],
+  "summary": "制作人在发售前媒体采访中提及的武器；正式版信息待核。",
+  "summaryFactIds": [
+    "fact:weapon:hongzhuang-guizhan:exists",
+    "fact:weapon:hongzhuang-guizhan:name"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "红妆鬼斩",
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-10-11",
+  "recordState": "draft",
+  "spoilerLevel": "none",
+  "resolution": null
+}

@@ -3,12 +3,13 @@
   "id": "weapon:soft-snake-sword",
   "entityType": "weapon",
   "slug": "soft-snake-sword",
-  "displayName": "Soft Snake Sword",
-  "aliases": [],
-  "summary": "Gamescom 2025 公开试玩将 Soft Snake Sword 列为可装备的主武器，并标注为剑；目前不扩展正式版动作、强度或获取结论。",
+  "displayName": "灵蛇软剑",
+  "aliases": [{"value":"Soft Snake Sword","locale":"en","kind":"legacy-title","status":"observation","sourceIds":["source:playstation-blog-de-gamescom-hands-on-2025-08-28","source:ucg-snake-demo-2025"],"checkedAt":"2026-10-11","gameVersionId":"version:prelaunch-demo-2025","reviewNote":"同一蛇年试玩武器的中英文名称由两份亲历试玩记录和独特软剑动作交叉核验；非正式版名称确认。"}],
+  "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
   "summaryFactIds": [
     "fact:weapon:soft-snake-sword:exists",
     "fact:weapon:soft-snake-sword:name",
+    "fact:weapon:soft-snake-sword:name-zh",
     "fact:weapon:soft-snake-sword:kind",
     "fact:weapon:soft-snake-sword:public-appearance"
   ],
@@ -49,7 +50,7 @@
       "validFromVersionId": null,
       "validToVersionId": null,
       "supersededBy": null,
-      "reviewNote": "保留试玩记录直接使用的英文名称，不自行添加中文译名。"
+      "reviewNote": "保留 Gamescom 2025 试玩记录的英文名称；中文试玩名称另记为新 Fact。"
     },
     {
       "id": "fact:weapon:soft-snake-sword:kind",
@@ -70,6 +71,7 @@
       "supersededBy": null,
       "reviewNote": null
     },
+    {"id":"fact:weapon:soft-snake-sword:name-zh","key":"weapon.name","valueType":"string","value":"灵蛇软剑","status":"observation","sourceIds":["source:ucg-snake-demo-2025","source:playstation-blog-de-gamescom-hands-on-2025-08-28"],"basisFactIds":[],"checkedAt":"2026-10-11","gameVersionId":"version:prelaunch-demo-2025","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":"中英文试玩分别使用灵蛇软剑与 Soft Snake Sword；结合两份记录的软剑身份与试玩语境进行映射，待正式版复核。"},
     {"id": "fact:weapon:soft-snake-sword:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
     {"id": "fact:weapon:soft-snake-sword:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "剑", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
     {
@@ -94,7 +96,7 @@
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-08-30",
-  "updatedAt": "2026-08-30",
+  "updatedAt": "2026-10-11",
   "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null

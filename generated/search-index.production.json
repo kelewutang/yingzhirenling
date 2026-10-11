@@ -150,14 +150,40 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:chizhe-canjian",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "chizhe-canjian",
+    "route": "/weapons/chizhe-canjian",
+    "displayName": "痴者残剑",
+    "aliases": [
+      "The Fanatic's Broken Blade"
+    ],
+    "displayAliases": [
+      "The Fanatic's Broken Blade"
+    ],
+    "keywords": [
+      "demo",
+      "武器",
+      "试玩"
+    ],
+    "summary": "发售前媒体试玩中，痴者残剑以饮酒恢复杀气，并在微醺时使用远程飞剑；下文含试玩版取得方式的轻度剧透，正式版仍待核。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:jagged-steel",
     "documentType": "entity",
     "entityType": "weapon",
     "slug": "jagged-steel",
     "route": "/weapons/jagged-steel",
-    "displayName": "Jagged Steel",
-    "aliases": [],
-    "displayAliases": [],
+    "displayName": "残钢刃",
+    "aliases": [
+      "Jagged Steel"
+    ],
+    "displayAliases": [
+      "Jagged Steel"
+    ],
     "keywords": [
       "demo",
       "主武器",
@@ -166,7 +192,7 @@
       "武器",
       "试玩"
     ],
-    "summary": "Gamescom 2025 公开试玩将 Jagged Steel 列为可装备的主武器，并标注为剑；目前不扩展正式版动作、强度或获取结论。",
+    "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -218,9 +244,13 @@
     "entityType": "weapon",
     "slug": "soft-snake-sword",
     "route": "/weapons/soft-snake-sword",
-    "displayName": "Soft Snake Sword",
-    "aliases": [],
-    "displayAliases": [],
+    "displayName": "灵蛇软剑",
+    "aliases": [
+      "Soft Snake Sword"
+    ],
+    "displayAliases": [
+      "Soft Snake Sword"
+    ],
     "keywords": [
       "demo",
       "主武器",
@@ -229,7 +259,7 @@
       "武器",
       "试玩"
     ],
-    "summary": "Gamescom 2025 公开试玩将 Soft Snake Sword 列为可装备的主武器，并标注为剑；目前不扩展正式版动作、强度或获取结论。",
+    "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

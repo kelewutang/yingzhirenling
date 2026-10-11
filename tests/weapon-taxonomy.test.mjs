@@ -8,6 +8,7 @@ import { projectWeaponDetail } from '../src/lib/projections.mjs';
 const root = resolve(process.cwd());
 const expectedTaxonomy = new Map([
   ['bashpole', ['影之武', '大锤']],
+  ['chizhe-canjian', ['主武器', '剑']],
   ['jagged-steel', ['主武器', '剑']],
   ['night-owl', ['影之武', '弓']],
   ['seamless-death', ['主武器', '投掷类']],
@@ -68,8 +69,8 @@ test('published Weapon taxonomy is normalized into systemCategory and weaponType
   }
 });
 
-test('White Serpent historical alias remains searchable data but is absent from its public card model', async () => {
+test('White Serpent historical English alias remains searchable and appears beneath its Chinese card name', async () => {
   const weapon = await readWeapon('white-serpent-crimson-viper');
   assert.ok(weapon.aliases.some((alias) => alias.value === 'White Serpent & Crimson Viper'));
-  assert.ok(!buildWeaponCollectionCard(weapon).aliases.includes('White Serpent & Crimson Viper'));
+  assert.ok(buildWeaponCollectionCard(weapon).aliases.includes('White Serpent & Crimson Viper'));
 });

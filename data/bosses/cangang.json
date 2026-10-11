@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "boss:cangang",
+  "entityType": "boss",
+  "slug": "cangang",
+  "displayName": "痴狂暴徒：残钢",
+  "aliases": [
+    {
+      "value": "Jagged Steel, the Frenzied Brute",
+      "locale": "en",
+      "kind": "legacy-title",
+      "status": "observation",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "reviewNote": "两家亲历媒体试玩对同一 Boss 的中英文名称交叉核验；非正式版名称确认。"
+    }
+  ],
+  "summary": "2026 年媒体试玩中出现的痴狂暴徒：残钢；正式版资料待核。",
+  "summaryFactIds": [
+    "fact:boss:cangang:exists",
+    "fact:boss:cangang:name"
+  ],
+  "facts": [
+    {
+      "id": "fact:boss:cangang:exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
+    },
+    {
+      "id": "fact:boss:cangang:name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "痴狂暴徒：残钢",
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
+    },
+    {
+      "id": "fact:boss:cangang:kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:a9vg-beijing-hands-on-2026-10-09",
+        "source:4gamer-beijing-hands-on-2026-10-09"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-materials-2026-10",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-10-11",
+  "recordState": "draft",
+  "spoilerLevel": "minor",
+  "resolution": null
+}
