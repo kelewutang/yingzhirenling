@@ -356,7 +356,7 @@
     "slug": "difficulty-and-sixty-six-days",
     "route": "/guide/difficulty-and-sixty-six-days",
     "title": "影之刃零难度怎么选：入阵者、破局者、逆天者与六十六天",
-    "description": "整理影之刃零四档官方难度、一周目可选范围、六十六天解锁和存档规则，以及成就与白金奖杯关系。",
+    "description": "整理影之刃零四档官方难度、一周目可选范围、六十六天死亡限制和存档规则，以及成就与白金奖杯关系。",
     "keywords": [
       "system",
       "入阵者",
@@ -368,7 +368,7 @@
       "逆天者"
     ],
     "relatedEntityNames": [],
-    "updatedAt": "2026-10-06",
+    "updatedAt": "2026-10-11",
     "recordState": "published"
   }
 ]

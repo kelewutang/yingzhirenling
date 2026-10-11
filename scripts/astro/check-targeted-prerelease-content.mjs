@@ -44,7 +44,7 @@ assert.match(guideSource, /spoilerLevel: "none"/);
 assert.match(guideSource, /status: "published"/);
 assert.match(guideSource, /guideType: "system"/);
 assert.match(guideSource, /publishedAt: "2026-10-06"/);
-assert.match(guideSource, /updatedAt: "2026-10-06"/);
+assert.match(guideSource, /updatedAt: "2026-10-11"/);
 assert(!/^ {0,3}#(?!#)\s+\S/m.test(guideSource.split('---').slice(2).join('---')), 'Guide Markdown must not own an H1');
 for (const [id, name] of expectedDifficulties) {
   assert(guideSource.includes(`- "${id}"`), `Guide must reference ${id}`);
@@ -64,9 +64,15 @@ assert(guideHtml.includes(`<link rel="canonical" href="https://www.yingzhirenlin
 assert(guideHtml.includes('"@type":"Article"'), 'Guide Article structured data missing');
 assert(guideHtml.includes('"@type":"BreadcrumbList"'), 'Guide Breadcrumb structured data missing');
 assert(guideHtml.includes(source.url), 'Guide official source link missing');
+for (const newSource of ['https://rpgamer.com/2026/10/phantom-blade-zero-preview-qa/', 'https://automaton-china.com/all/article/interview/20261009-30770-ying-zhi-ren-ling-zhi-zuo-ren-cai-fang/']) {
+  assert(guideHtml.includes(newSource), `Guide interview source link missing: ${newSource}`);
+}
+assert(guideHtml.includes('66 次死亡机会') && guideHtml.includes('六十六天与逆天者的难度相同'), 'Guide must explain the new 66-death and high-difficulty evidence');
 assert(!guideHtml.includes('data-spoiler-level="major"') && !guideHtml.includes('含部分剧情信息'), 'spoilerLevel=none Guide must not render a spoiler disclosure');
 assert(!guideHtml.includes('data-collection-browser'), 'Guide must not render Collection Browser UI');
 assert(landingHtml.includes(`href="${guideRoute}"`), 'Guide landing must link to the published Guide');
+assert(landingHtml.includes('区域探索率') && landingHtml.includes('https://www.4gamer.net/games/709/G070944/20261006026/'), '/guide must attribute the demo map observation');
+assert(landingHtml.includes('https://store.epicgames.com/news/phantom-blade-zero-interview-hands-on-soulslike'), '/guide must link the exploration interview');
 for (const currentName of expectedDifficulties.map(([, name]) => name)) assert(landingHtml.includes(currentName), `/guide must render ${currentName}`);
 for (const obsolete of ['旅人模式', '破路者模式', '地狱行者模式']) assert(!landingHtml.includes(obsolete), `/guide must not present ${obsolete} as current terminology`);
 
@@ -90,7 +96,7 @@ assert.equal(search.length, 18, 'Production Search must contain 18 documents');
 assert.equal(guideDocuments.length, 1, 'Production Search must contain one Guide document');
 assert.deepEqual([guideDocuments[0].id, guideDocuments[0].route, guideDocuments[0].recordState], [`guide:${guideId}`, guideRoute, 'published']);
 assert.equal((sitemap.match(/<url>/g) || []).length, 27, 'Sitemap must contain 27 URLs');
-assert(sitemap.includes(`<loc>https://www.yingzhirenling.cn${guideRoute}</loc><lastmod>2026-10-06</lastmod>`), 'Guide sitemap entry missing or stale');
+assert(sitemap.includes(`<loc>https://www.yingzhirenling.cn${guideRoute}</loc><lastmod>2026-10-11</lastmod>`), 'Guide sitemap entry missing or stale');
 assert.deepEqual(inventory.counts, { sitemap: 27, canonical: 29, pageHtml: 30, searchDocs: 18 });
 assert.deepEqual([
   inventory.publishedWeapons.length,
