@@ -153,7 +153,7 @@ assertOverview(serpent, {
 });
 const historicalAlias = 'White Serpent & Crimson Viper';
 assert(serpent.includes('<h1 class="entity-hero__title">白蟒赤练</h1>'), 'White Serpent current H1 must render');
-assert(!serpent.includes(historicalAlias) && !serpent.includes(historicalAlias.replace('&', '&amp;')), 'Historical English alias must not render on the public Weapon page');
+assert(serpent.includes(`<p class="entity-hero__aliases">${historicalAlias.replace('&', '&amp;')}</p>`), 'Historical English alias must render beneath the Chinese Weapon name');
 assert(whiteSerpentData.aliases.some((alias) => alias.value === historicalAlias), 'Historical English alias must remain in Weapon Knowledge data');
 const whiteSerpentSearchDocument = (searchIndex.documents || searchIndex).find((document) => document.id === 'weapon:white-serpent-crimson-viper');
 assert(whiteSerpentSearchDocument, 'White Serpent production search document missing');
@@ -161,16 +161,17 @@ assert(whiteSerpentSearchDocument.aliases.includes(historicalAlias), 'Historical
 assert(whiteSerpentSearchDocument.displayAliases.includes(historicalAlias), 'Historical English alias must remain in production search display aliases');
 const whiteSerpentCard = collection.match(/<a class="entity-card" href="\/weapons\/white-serpent-crimson-viper"[\s\S]*?<\/a>/)?.[0];
 assert(whiteSerpentCard, 'White Serpent public collection card missing');
-assert(!whiteSerpentCard.includes(historicalAlias) && !whiteSerpentCard.includes(historicalAlias.replace('&', '&amp;')), 'Historical English alias must not render on the White Serpent public collection card');
+assert(whiteSerpentCard.includes(historicalAlias.replace('&', '&amp;')), 'Historical English alias must render on the White Serpent public collection card');
 assert(!whiteSerpentCard.includes('entity-card__summary') && !whiteSerpentCard.includes(whiteSerpentData.summary), 'Weapon collection card must omit its long summary while Knowledge retains it');
 assert.match(collection, /<main[^>]*\bsite-main--weapon-collection\b/, 'Weapon collection must opt into its dedicated wide content container');
 assert.doesNotMatch(charactersCollection, /\bsite-main--weapon-collection\b/, 'Non-Weapon collections must not opt into the Weapon-wide container');
 for (const [slug, displayName, systemCategory, weaponType] of [
   ['bashpole', 'Bashpole', '影之武', '大锤'],
-  ['jagged-steel', 'Jagged Steel', '主武器', '剑'],
+  ['chizhe-canjian', '痴者残剑', '主武器', '剑'],
+  ['jagged-steel', '残钢刃', '主武器', '剑'],
   ['night-owl', 'Night Owl', '影之武', '弓'],
   ['seamless-death', 'Seamless Death', '主武器', '投掷类'],
-  ['soft-snake-sword', 'Soft Snake Sword', '主武器', '剑'],
+  ['soft-snake-sword', '灵蛇软剑', '主武器', '剑'],
   ['tang-hengdao', '唐横刀', '主武器', '刀类'],
   ['white-serpent-crimson-viper', '白蟒赤练', '主武器', '双剑'],
   ['white-shadow', '白影', '主武器', '苗刀'],
@@ -197,7 +198,7 @@ for (const [slug, displayName, systemCategory, weaponType] of [
 const bashpoleCard = collection.match(/<a class="entity-card" href="\/weapons\/bashpole"[\s\S]*?<\/a>/)?.[0];
 assert(bashpoleCard?.includes('entity-media__fallback'), 'Bashpole card must retain its fallback media');
 assert(bashpoleCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
-assert.equal(count(collection, 'class="entity-card__context"'), 8, 'Weapon collection must retain every currently published pre-release status');
+assert.equal(count(collection, 'class="entity-card__context"'), 9, 'Weapon collection must retain every currently published pre-release status');
 const bashpoleFallback = bashpoleCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
 assert(!bashpoleFallback.includes('entity-media__name') && !bashpoleFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';

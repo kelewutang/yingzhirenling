@@ -24,10 +24,12 @@ test('Guide validation rejects missing classification and unsafe major Guides', 
   assert.doesNotThrow(() => validateGuides([{ ...base, data: { ...base.data, spoilerLevel: 'major', safeTitle: '剧情相关攻略', safeDescription: '需主动展开。' } }], knowledge));
 });
 
-test('all current published Entities explicitly classify as none', async () => {
+test('published Entities classify the Broken Blade acquisition as minor and retain all other classifications', async () => {
   const directories = ['weapons', 'characters', 'bosses', 'locations'];
   const records = (await Promise.all(directories.map(async (directory) => Promise.all((await readdir(new URL(`../data/${directory}/`, import.meta.url))).filter((file) => file.endsWith('.json')).map(async (file) => JSON.parse(await readFile(new URL(`../data/${directory}/${file}`, import.meta.url), 'utf8'))))))).flat();
-  for (const record of records.filter((record) => record.recordState === 'published')) assert.equal(record.spoilerLevel, 'none', record.id);
+  for (const record of records.filter((record) => record.recordState === 'published')) {
+    assert.equal(record.spoilerLevel, record.id === 'weapon:chizhe-canjian' ? 'minor' : 'none', record.id);
+  }
 });
 
 test('published Entity classification is enforced by the data validator', async () => {

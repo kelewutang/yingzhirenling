@@ -106,6 +106,12 @@
   force = true
 
 [[redirects]]
+  from = "/weapons/chizhe-canjian.html"
+  to = "/weapons/chizhe-canjian"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/weapons/jagged-steel.html"
   to = "/weapons/jagged-steel"
   status = 301
@@ -287,6 +293,11 @@ force = true
 [[redirects]]
   from = "/weapons/bashpole"
   to = "/weapons/bashpole.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/chizhe-canjian"
+  to = "/weapons/chizhe-canjian.html"
   status = 200
 
 [[redirects]]

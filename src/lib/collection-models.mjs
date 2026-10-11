@@ -15,7 +15,7 @@ function compactAppearance(entity, key) {
 }
 
 function publicCardAliases(entity) {
-  return entity.aliases.filter((alias) => alias.kind !== 'legacy-title').map((alias) => alias.value);
+  return entity.aliases.filter((alias) => alias.kind !== 'legacy-title' || (alias.locale === 'en' && alias.status === 'observation')).map((alias) => alias.value);
 }
 
 function weaponTaxonomy(entity) {

@@ -40,9 +40,9 @@
     },
     "spoiler-disclosure-interaction": {
       "contractVersion": 1,
-      "status": "deferred",
-      "approvedAt": null,
-      "evidenceRef": null
+      "status": "passed",
+      "approvedAt": "2026-10-11",
+      "evidenceRef": "https://github.com/kelewutang/yingzhirenling/pull/63"
     }
   }
 }

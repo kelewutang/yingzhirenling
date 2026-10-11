@@ -3,12 +3,13 @@
   "id": "weapon:jagged-steel",
   "entityType": "weapon",
   "slug": "jagged-steel",
-  "displayName": "Jagged Steel",
-  "aliases": [],
-  "summary": "Gamescom 2025 公开试玩将 Jagged Steel 列为可装备的主武器，并标注为剑；目前不扩展正式版动作、强度或获取结论。",
+  "displayName": "残钢刃",
+  "aliases": [{"value":"Jagged Steel","locale":"en","kind":"legacy-title","status":"observation","sourceIds":["source:playstation-blog-de-gamescom-hands-on-2025-08-28","source:4gamer-beijing-hands-on-2026-10-09"],"checkedAt":"2026-10-11","gameVersionId":"version:prelaunch-materials-2026-10","reviewNote":"英文试玩名称与中文试玩中的残钢刃均对应击败残钢后取得的武器；这是跨媒体试玩映射，非正式版名称确认。"}],
+  "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
   "summaryFactIds": [
     "fact:weapon:jagged-steel:exists",
     "fact:weapon:jagged-steel:name",
+    "fact:weapon:jagged-steel:name-zh",
     "fact:weapon:jagged-steel:kind",
     "fact:weapon:jagged-steel:public-appearance"
   ],
@@ -49,7 +50,7 @@
       "validFromVersionId": null,
       "validToVersionId": null,
       "supersededBy": null,
-      "reviewNote": "保留试玩记录直接使用的英文名称，不自行添加中文译名。"
+      "reviewNote": "保留 Gamescom 2025 试玩记录的英文名称；2026 年 10 月的中文试玩名称另记为新 Fact。"
     },
     {
       "id": "fact:weapon:jagged-steel:kind",
@@ -70,6 +71,7 @@
       "supersededBy": null,
       "reviewNote": null
     },
+    {"id":"fact:weapon:jagged-steel:name-zh","key":"weapon.name","valueType":"string","value":"残钢刃","status":"observation","sourceIds":["source:a9vg-beijing-hands-on-2026-10-09","source:4gamer-beijing-hands-on-2026-10-09"],"basisFactIds":[],"checkedAt":"2026-10-11","gameVersionId":"version:prelaunch-materials-2026-10","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":"两家亲历媒体分别记录同一残钢 Boss 取得的武器中文、英文名；按试玩资料采用，不标为官方最终名称。"},
     {"id": "fact:weapon:jagged-steel:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
     {"id": "fact:weapon:jagged-steel:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "剑", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
     {
@@ -94,7 +96,7 @@
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-08-30",
-  "updatedAt": "2026-08-30",
+  "updatedAt": "2026-10-11",
   "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null

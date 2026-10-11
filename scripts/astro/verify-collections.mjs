@@ -74,7 +74,44 @@ for (const collection of collections) {
 const weapons = await publishedEntities('data/weapons');
 const draftWeapons = (await Promise.all((await readdir(resolve(root, 'data/weapons'))).filter((name) => name.endsWith('.json')).map(async (name) => JSON.parse(await readFile(resolve(root, 'data/weapons', name), 'utf8'))))).filter((entity) => entity.recordState === 'draft');
 const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');
-assert.equal(weapons.length, 9, 'Expected 9 published Weapons');
+assert.equal(weapons.length, 10, 'Expected 10 published Weapons');
 for (const weapon of draftWeapons) assert(!weaponCollection.includes(`/weapons/${weapon.slug}`), `Draft Weapon must not appear in collection: ${weapon.id}`);
+
+const search = JSON.parse(await readFile(resolve(root, 'generated/search-index.production.json'), 'utf8'));
+for (const [slug, chinese, english] of [
+  ['jagged-steel', '残钢刃', 'Jagged Steel'],
+  ['soft-snake-sword', '灵蛇软剑', 'Soft Snake Sword']
+]) {
+  const card = weaponCollection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
+  const detail = await readFile(resolve(dist, `weapons/${slug}.html`), 'utf8');
+  const document = search.find((item) => item.id === `weapon:${slug}`);
+  assert(card.includes(`<h3 class="entity-card__title">${chinese}</h3>`) && card.includes(english), `${slug}: bilingual collection name missing`);
+  assert(detail.includes(`<h1 class="entity-hero__title">${chinese}</h1>`) && detail.includes(`<p class="entity-hero__aliases">${english}</p>`), `${slug}: bilingual detail name missing`);
+  assert.equal(document?.route, `/weapons/${slug}`, `${slug}: original Search URL changed`);
+  assert.equal(document?.displayName, chinese, `${slug}: Chinese Search title missing`);
+  assert(document?.aliases.includes(english), `${slug}: English Search alias missing`);
+}
+for (const slug of ['heishang-shuangren', 'hongzhuang-guizhan']) {
+  assert(!weaponCollection.includes(`/weapons/${slug}`), `${slug}: unpublished Weapon entered collection`);
+  assert(!search.some((item) => item.route === `/weapons/${slug}`), `${slug}: unpublished Weapon entered Search`);
+}
+for (const slug of ['cangang', 'peng-meng', 'hua-qianxiao']) {
+  assert(!search.some((item) => item.route === `/bosses/${slug}`), `${slug}: unpublished Boss entered Search`);
+}
+const blackBlades = JSON.parse(await readFile(resolve(root, 'data/weapons/heishang-shuangren.json'), 'utf8'));
+assert.equal(blackBlades.displayName, '黑伤双刃', 'Black Blades must use the correct simplified Chinese character');
+
+const brokenBlade = await readFile(resolve(dist, 'weapons/chizhe-canjian.html'), 'utf8');
+const brokenBladeCard = weaponCollection.match(/<a class="entity-card" href="\/weapons\/chizhe-canjian"[\s\S]*?<\/a>/)?.[0] || '';
+const brokenBladeSearch = search.filter((item) => item.id === 'weapon:chizhe-canjian');
+assert(brokenBladeCard.includes('痴者残剑') && brokenBladeCard.includes('The Fanatic&#39;s Broken Blade'), 'Broken Blade bilingual collection card missing');
+assert(brokenBlade.includes('<h1 class="entity-hero__title">痴者残剑</h1>'), 'Broken Blade detail H1 missing');
+for (const factId of ['acquisition', 'drink-sha-chi', 'flying-swords']) {
+  assert(brokenBlade.includes(`data-fact-id="fact:weapon:chizhe-canjian:${factId}"`), `Broken Blade independent Fact missing: ${factId}`);
+}
+assert(brokenBlade.includes('本页来源') && brokenBlade.includes('A9VG电玩部落') && brokenBlade.includes('4Gamer.net'), 'Broken Blade sources missing');
+assert.equal(brokenBladeSearch.length, 1, 'Broken Blade must have one Search result');
+assert.equal(brokenBladeSearch[0].route, '/weapons/chizhe-canjian', 'Broken Blade Search route changed');
+assert(brokenBladeSearch[0].aliases.includes("The Fanatic's Broken Blade"), 'Broken Blade English alias missing from Search');
 
 console.log(`Collection verification passed: ${collections.length} collections, ${weapons.length} Weapon, 3 Character, 3 Boss, and 1 Location cards.`);

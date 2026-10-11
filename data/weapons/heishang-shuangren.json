@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:heishang-shuangren",
+  "entityType": "weapon",
+  "slug": "heishang-shuangren",
+  "displayName": "黑伤双刃",
+  "aliases": [],
+  "summary": "2025 年北京试玩记录中的独立主武器；正式版信息待核。",
+  "summaryFactIds": [
+    "fact:weapon:heishang-shuangren:exists",
+    "fact:weapon:heishang-shuangren:name"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:heishang-shuangren:exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:taptap-memocheng-beijing-demo-2025"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "黑伤双刃",
+      "status": "third-party",
+      "sourceIds": [
+        "source:taptap-memocheng-beijing-demo-2025"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-11",
+      "gameVersionId": "version:prelaunch-demo-2025",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": null,
+  "updatedAt": "2026-10-11",
+  "recordState": "draft",
+  "spoilerLevel": "none",
+  "resolution": null
+}
