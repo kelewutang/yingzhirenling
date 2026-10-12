@@ -1,13 +1,15 @@
 ---
 title: "影之刃零难度怎么选：入阵者、破局者、逆天者与六十六天"
-description: "整理影之刃零四档官方难度、一周目可选范围、六十六天解锁和存档规则，以及成就与白金奖杯关系。"
+description: "整理影之刃零四档官方难度、一周目可选范围、六十六天死亡限制和存档规则，以及成就与白金奖杯关系。"
 spoilerLevel: "none"
 status: "published"
 guideType: "system"
 publishedAt: "2026-10-06"
-updatedAt: "2026-10-06"
+updatedAt: "2026-10-11"
 sourceIds:
   - "source:official-bilibili-producer-2026-09-09-difficulty-weapons-players"
+  - "source:rpgamer-producer-qa-2026-10-08"
+  - "source:automaton-producer-interview-2026-10-09"
 difficultyIds:
   - "difficulty:wayfarer"
   - "difficulty:pathbreaker"
@@ -38,6 +40,10 @@ keywords:
 ### 六十六天
 
 六十六天是二周目开始后才能选择的挑战难度，不是一周目可选项。一周目仍采用传统流程，剩余天数只有剧情意义，不会限制正常流程。
+
+制作人在 [RPGamer 问答](https://rpgamer.com/2026/10/phantom-blade-zero-preview-qa/)中说明，六十六天模式最多只有 **66 次死亡机会**；这不是要求玩家在游戏内 66 个自然日内通关。第 66 次死亡后的具体处理方式，仍待正式版核验。
+
+制作人在 [AUTOMATON 采访](https://automaton-china.com/all/article/interview/20261009-30770-ying-zhi-ren-ling-zhi-zuo-ren-cai-fang/)中说明，六十六天与逆天者的难度相同，额外增加死亡次数限制。逆天者的敌人设计目标包括以假动作诱导出招、中断连招观察反应，再根据玩家行动调整攻击；这是开发者对高难度行为的说明，正式版表现仍待验证。
 
 ## 六十六天怎么存档
 
