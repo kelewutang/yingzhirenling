@@ -8,7 +8,7 @@ import { loadProductionInventory } from './production-inventory.mjs';
 const root = resolve(import.meta.dirname, '../..');
 
 const targets = [
-  { page: 'about', variant: 'facts', heading: '发售信息', rows: 7, columns: 2, minWidthPx: 448, hash: '0c7a03de3ea5dd58db2e3c7a8786df84fe88fad9d58a46f4b7cd8c00f03eea6a' },
+  { page: 'about', variant: 'facts', heading: '发售信息', rows: 9, columns: 2, minWidthPx: 448, hash: '966c0647966e0530e8caf770d22f960a70656fb22a346e14b18c3c493b7166f2' },
   { page: 'about', variant: 'prices', heading: '各平台售价', rows: 8, columns: 4, minWidthPx: 544, hash: '7f27fc6b819395034f672dfec6b71e741b800805959db461a7c916202d55df1f', thead: true },
   { page: 'about', variant: 'editions', heading: '版本内容对比', rows: 8, columns: 3, minWidthPx: 512, hash: '8a9e7a3cfa6b4602ea5e0c5c3e1740d5e971c98c0b84d417b9b90b97d0a334c1', thead: true },
   { page: 'about', variant: 'hardware', heading: '最低配置（1080p / 30FPS）', rows: 6, columns: 2, minWidthPx: 512, hash: 'c5941cfd5e6c0c0123581b1abf8e5840deff851652dd89218370d6a5dcecc3b7' },
