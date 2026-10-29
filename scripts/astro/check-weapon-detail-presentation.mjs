@@ -445,7 +445,18 @@ const weaponMobileBlock = css.match(/@media \(max-width: 700px\) \{([\s\S]*?)\n\
 assert.match(weaponMobileBlock, /\.entity-detail\[data-entity-type="weapon"\] \.entity-hero\s*\{\s*grid-template-columns:\s*1fr;/, 'Weapon Hero must collapse to one column on mobile');
 assert(serpent.indexOf('class="entity-hero__identity"') < serpent.indexOf('<figure class="entity-media"'), 'Weapon mobile stack must show the title block before media');
 
-console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, and non-Weapon detail isolation.');
+for (const slug of ['muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu']) {
+  const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  const caption = html.match(/<figcaption class="entity-media__caption">([\s\S]*?)<\/figcaption>/)?.[1];
+  assert.equal(caption?.replace(/<[^>]*>/g, '').trim(), 'PC正式版武器界面截图', `${slug}: release caption must contain only the approved label`);
+  assert(!/主武器获取顺序|第[0-9]+把|weapon\.acquisitionOrder/.test(html), `${slug}: collection order must stay out of detail HTML`);
+  const panel = html.match(/<section class="source-panel"[\s\S]*?<\/section>/)?.[0] || '';
+  assert.equal(count(panel, '<h3>PC正式版武器界面截图</h3>'), 1, `${slug}: screenshot source must appear once`);
+  assert(panel.includes('<li class="source-panel__item"><div><h3>PC正式版武器界面截图</h3></div></li>'), `${slug}: screenshot source must contain only its name`);
+  assert(!/负责人提供|项目负责人/.test(panel), `${slug}: screenshot source must not repeat internal provenance`);
+}
+
+console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, concise release screenshots, and non-Weapon detail isolation.');
 
 function cssRule(selector) {
   const start = css.indexOf(selector);

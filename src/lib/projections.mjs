@@ -8,7 +8,6 @@ const specs = [
   ['weapon.grip', '核心资料', '持握方式'],
   ['weapon.description', '核心资料', '武器介绍'],
   ['weapon.baseStat', '基础属性', '正式版显示属性'],
-  ['weapon.acquisitionOrder', '获取顺序', '主武器获取顺序'],
   ['weapon.publicAppearance', '核心资料', '公开出现方式'],
   ['weapon.observedTrait', '试玩与公开实机观察', '演示观察'],
   ['weapon.mechanic', '战斗机制', '机制名称'],
@@ -32,7 +31,6 @@ function displayValue(fact) {
   if (['weapon.previewStat', 'weapon.baseStat'].includes(fact.key)) {
     return `Lv${fact.value.displayedLevel}：${fact.value.statName} ${fact.value.displayedValue}`;
   }
-  if (fact.key === 'weapon.acquisitionOrder') return `第${fact.value.position}把`;
   if (['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) &&
       fact.valueType === 'object') {
     return fact.value.name;
@@ -126,7 +124,6 @@ export function projectWeaponDetail(weapon, knowledge) {
     .map((fact) => projectWeaponFact(fact, '武器概览', '预发布 Lv30 展示', knowledge));
   const overviewNotes = [
     ['weapon.description', '武器介绍'],
-    ['weapon.acquisitionOrder', '主武器获取顺序'],
     ['weapon.observedTrait', '演示观察'],
     ['weapon.editorRating', '编辑评价'],
     ['weapon.acquisition', '获取方式']
@@ -147,7 +144,7 @@ export function projectWeaponDetail(weapon, knowledge) {
       .map((fact) => projectWeaponFact(fact, '招式与机制', '招式与机制', knowledge)),
     progressionNodes: activeWeaponFacts(weapon, 'weapon.progressionNode')
       .map((fact) => projectWeaponFact(fact, '武器成长', '武器成长', knowledge)),
-    sourceFacts: weapon.facts.filter((fact) => fact.supersededBy === null && fact.validToVersionId == null)
+    sourceFacts: weapon.facts.filter((fact) => fact.key !== 'weapon.acquisitionOrder' && fact.supersededBy === null && fact.validToVersionId == null)
   };
 }
 

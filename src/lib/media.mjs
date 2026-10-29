@@ -24,7 +24,11 @@ async function getProductionMedia(entityId, usage, entity = null) {
     media.usage.includes(usage) &&
     ['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed', 'official-promotional-risk-accepted'].includes(media.rightsStatus)
   ));
-  return media && !mediaIsConcealed(media, entity) ? { ...media, src: `/assets/media/${media.src}` } : null;
+  if (!media || mediaIsConcealed(media, entity)) return null;
+  const presentation = media.sourceId === 'source:owner-pc-release-weapons-2026-10-29'
+    ? { caption: 'PC正式版武器界面截图', credit: null, sourceUrl: null }
+    : {};
+  return { ...media, ...presentation, src: `/assets/media/${media.src}` };
 }
 
 export function getProductionHeroMedia(entityId, entity = null) {

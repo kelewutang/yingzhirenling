@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import test from 'node:test';
 import { getFact, getPublishedWeapons, loadKnowledge } from '../src/lib/knowledge.mjs';
-import { projectWeaponDetail } from '../src/lib/projections.mjs';
+import { projectWeaponDetail, projectWeaponFacts } from '../src/lib/projections.mjs';
 import { buildWeaponCollectionCard } from '../src/lib/collection-models.mjs';
 import { getProductionHeroMedia, getProductionCardMedia } from '../src/lib/media.mjs';
 
@@ -50,8 +50,9 @@ test('all six release weapons share admitted portrait Hero/Card Masters without 
     assert.equal(hero.rightsStatus, 'self-captured-reviewed');
     assert.equal(hero.sourceId, sourceId);
     assert.equal(hero.sourceUrl, null);
+    assert.equal(hero.caption, 'PC正式版武器界面截图');
+    assert.equal(hero.credit, null);
     if (slug !== 'heishang-shuangren') {
-      assert.match(hero.caption, /截断/);
       assert.match(hero.processing, /not a complete weapon/);
     } else {
       const bytes = await readFile(join(root, 'assets/media/heishang-shuangren-master.jpg'));
@@ -70,6 +71,9 @@ test('approved release UI values, optional categories and opening acquisition or
     assert.equal(getFact(weapon, 'weapon.grip')?.value ?? null, grip);
     assert.equal(getFact(weapon, 'weapon.weaponType')?.value, grip ? `${grip}武器` : '破坏');
     const detail = projectWeaponDetail(weapon, knowledge);
+    assert(!detail.overview.notes.some((fact) => fact.key === 'weapon.acquisitionOrder'));
+    assert(!detail.sourceFacts.some((fact) => fact.key === 'weapon.acquisitionOrder'));
+    assert(!projectWeaponFacts(weapon, knowledge).some((fact) => fact.key === 'weapon.acquisitionOrder'));
     assert.deepEqual(detail.overview.baseStats.map((fact) => [fact.value.statName, fact.value.displayedValue]), stats);
     assert(detail.overview.baseStats.every((fact) => fact.value.displayedLevel === 1 && fact.value.displayContext === 'release-game-ui'));
     assert.deepEqual(detail.progressionNodes.map((fact) => fact.level), [5, 10, 15, 25]);

@@ -50,8 +50,12 @@ async function assertDetailVisualContract(file, entity) {
     assertMediaImage(html, media, file);
     if (media.sourceUrl === null) {
       assert.equal(media.sourceType, 'self-captured', `${file}: only registered captures may omit an external media URL`);
-      assert(media.sourceId && html.includes('负责人提供的正式版游戏截图'), `${file}: capture Source must remain visible`);
-      assert(html.includes(escapeHtml(media.credit)), `${file}: local capture credit missing`);
+      if (media.sourceId === 'source:owner-pc-release-weapons-2026-10-29') {
+        assert(html.includes('<h3>PC正式版武器界面截图</h3>'), `${file}: concise capture Source must remain visible`);
+      } else {
+        assert(media.sourceId && html.includes('负责人提供的正式版游戏截图'), `${file}: capture Source must remain visible`);
+        assert(html.includes(escapeHtml(media.credit)), `${file}: local capture credit missing`);
+      }
       assert(!entityHero.includes('查看媒体来源') && !entityHero.includes('href="null"'), `${file}: capture must not invent an external source link`);
     } else {
       assert(html.includes(`<a href="${renderedExternalUrl(media.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), `${file}: hero Media source link missing`);
