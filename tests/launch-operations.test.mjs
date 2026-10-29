@@ -57,6 +57,38 @@ test('release candidate blocks stale or missing mandatory reviews but only warns
   assert(status(evaluateCurrentness([{ ...fixtures.currentness.fresh[0], checkedAt: '2026-10-30' }], { mode: 't-14', asOf: '2026-10-29', maxAgeDays: 14 }), 'BLOCK'));
 });
 
+test('configured commercial pricing is warning-only while mandatory release evidence still blocks', () => {
+  assert.deepEqual(config.freshnessPolicy, { 't-14': 14, 't-72': 3, 'release-candidate': 3 });
+  assert.deepEqual(config.launchCriticalSubjects.map(({ id, mandatoryForReleaseCandidate }) => [id, mandatoryForReleaseCandidate]), [
+    ['release-date-platform-store', true], ['commercial-pricing', false], ['physical-edition', false], ['pc-requirements', false]
+  ]);
+  const options = { mode: 'release-candidate', asOf: '2026-10-29', maxAgeDays: config.freshnessPolicy['release-candidate'] };
+  const subjects = config.launchCriticalSubjects.map((subject) => ({
+    ...subject, checkedAt: ['commercial-pricing', 'physical-edition'].includes(subject.id) ? '2026-08-26' : '2026-10-26'
+  }));
+  const results = evaluateCurrentness(subjects, options);
+  assert.deepEqual(results.map(({ status }) => status), ['PASS', 'WARN', 'WARN', 'PASS']);
+  assert.equal(status(results, 'BLOCK'), false);
+  assert.equal(results[1].message, 'commercial-pricing: review is 64 days old (window 3)');
+  const staleRelease = evaluateCurrentness(subjects.map((subject) => subject.id === 'release-date-platform-store' ? { ...subject, checkedAt: '2026-10-25' } : subject), options);
+  assert.deepEqual(staleRelease.map(({ status }) => status), ['BLOCK', 'WARN', 'WARN', 'PASS']);
+  for (const checkedAt of ['invalid', '2026-10-30']) {
+    assert.equal(evaluateCurrentness([{ ...subjects[1], checkedAt }], options)[0].status, 'BLOCK');
+  }
+});
+
+test('warning-only pricing retains unverified shop prices as dated historical evidence', async () => {
+  const html = await readFile(path.join(root, 'pages/about.html'), 'utf8');
+  const review = html.match(/<aside\b[^>]*aria-label="区域价格信息状态"[\s\S]*?<\/aside>/)?.[0];
+  assert(review, 'Pricing provenance must remain present');
+  assert.equal(review.match(/<time\s+datetime="([^"]+)"/)?.[1], '2026-08-26');
+  for (const platform of ['Epic国区', 'WeGame']) {
+    const row = html.match(new RegExp(`<tr><td>${platform}</td>[\\s\\S]*?</tr>`))?.[0];
+    assert(row, `${platform}: historical price row must remain present`);
+    assert(row.includes('datetime="2026-08-26"') && row.includes('历史快照') && row.includes('未核实'), `${platform}: unverified prices must not become current verified facts`);
+  }
+});
+
 test('release evidence permits an empty foundation and blocks missing or malformed dependencies', () => {
   const empty = evaluateReleaseState({ releaseVersions: [], releaseDependencies: [], releaseVerifiedFacts: [] });
   assert.equal(status(empty, 'BLOCK'), false);

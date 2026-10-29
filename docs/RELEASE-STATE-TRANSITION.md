@@ -4,7 +4,7 @@
 
 `src/lib/site-lifecycle.mjs` explicitly selects `released` for the Launch-2 candidate. The same `lifecycleState` selects both `siteLifecycle.state` and its copy. This candidate reflects the official October 29, 2026 release announcement; it does not claim first-party gameplay verification.
 
-Launch-2 permits a PR and Deploy Preview while commercial-pricing still blocks Release Candidate approval. Regional client startup evidence remains pending. Production retains its existing state until a separately approved merge and deployment; Preview success does not authorize either.
+The approved Launch-2 commercial-pricing adjustment treats stale pricing as WARN rather than a Release Candidate BLOCK. Review dates and freshness windows remain unchanged; other mandatory sources retain their BLOCK rules. Regional client startup evidence remains pending. Production retains its existing state until a separately approved merge and deployment; Preview success does not authorize either.
 
 This is an explicit editorial setting. It must never change from the calendar, a deployment timestamp, a browser setting, or a remote configuration request.
 
@@ -13,7 +13,7 @@ This is an explicit editorial setting. It must never change from the calendar, a
 Before approving the lifecycle transition for production, confirm all of the following:
 
 1. The game is actually playable in the relevant production region.
-2. Store availability, price, edition, preorder and reward status have been reviewed as separate commercial facts.
+2. Store availability, edition, preorder and reward status have been reviewed as separate commercial facts. Prices remain separately dated auxiliary information; stale commercial-pricing currentness is a visible WARN, not a release approval blocker.
 3. A real release GameVersion is ready if any formal-version Fact will be published.
 4. An internal `site-release-test` Source and test session exist before any `release-verified` Fact is published.
 
@@ -35,7 +35,7 @@ Collection Browser and spoiler disclosure have separate Browser approvals. The f
 2. Independently update confirmed commercial facts and Entity evidence. Do not infer either from the lifecycle setting.
 3. Run `npm run test:site-lifecycle` and `npm run build`.
 4. Review the Deploy Preview and perform the lifecycle Browser Gate.
-5. Merge only after the Preview, build, lifecycle check, full `release-candidate` check and commercial review pass, and the user explicitly approves production merge. Do not relax freshness rules or reorder review dates to clear a commercial BLOCK.
+5. Merge only after the Preview, build, lifecycle check, full `release-candidate` check and required human review pass, and the user explicitly approves production merge. Retain commercial-pricing WARN output; do not change freshness windows or reorder review dates to conceal stale evidence.
 6. After production deployment, check the homepage, `/guide`, `/about-site`, shared Footer, sitemap, Search and production smoke results.
 
 Run the first-party HTTP smoke only with an explicit deployment URL:
