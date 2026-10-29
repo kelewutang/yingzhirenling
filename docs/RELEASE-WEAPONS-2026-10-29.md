@@ -53,3 +53,5 @@ Source增加真实本地游戏截图locator，未知日期和版本使用null。
 预期构建数量：15 published Weapons、2 draft Weapons，Sitemap32／Canonical34／页面HTML35／Search23。字体沿用PBZ Serif既有生成流程与OFL许可；新增字符不得接受静默回退。
 
 任务止于Commit、PR及Netlify Preview验收。禁止自动合并、Production部署或任何仓库tmp操作。实际验证和Preview结果在最终交接记录中报告；本文件不预先宣称Browser Gate通过。
+
+本地验收已完成：完整构建、数据fixtures、12项搜索fixtures、媒体回归、34项相关测试及控制器解析全部通过。连续两次完整构建的52个dist文件逐字节一致。Chromium151完成20组页面检查，覆盖六把武器390／1280详情、图鉴320／390／900／1280／1800、白影／白蟒赤练回归及无JS阅读；3组中英文实体搜索、移动菜单、索引请求失败后的Page Search回退通过，无第一方HTTP错误或JS异常。Netlify Preview须在推送后单独验证，不以本地结果代替。
