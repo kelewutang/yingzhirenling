@@ -210,7 +210,7 @@ try {
       const firstSegment = relativeSource.split(sep)[0];
       const productionMediaDirectory = join('assets', 'media');
       const isProductionMedia = relativeSource === productionMediaDirectory || relativeSource.startsWith(`${productionMediaDirectory}${sep}`);
-      return !['.git', 'node_modules', 'dist'].includes(firstSegment) && !isProductionMedia;
+      return !['.git', 'node_modules', 'dist', 'tmp'].includes(firstSegment) && !isProductionMedia;
     }
   });
   await symlink(resolve(root, 'node_modules'), join(fixture, 'node_modules'), 'dir');
@@ -249,7 +249,8 @@ try {
   assert(detail.includes(`src="/assets/media/${admitted.src}"`), 'admitted hero Media src must be static HTML');
   assert(detail.includes(`alt="${admitted.alt}"`), 'admitted hero Media alt must be static HTML');
   assert(detail.includes(`width="${admitted.width}"`) && detail.includes(`height="${admitted.height}"`), 'admitted hero Media must emit intrinsic dimensions');
-  assert(detail.includes(`<a href="${admitted.sourceUrl}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), 'detail hero must retain its media source link');
+  assert(!detail.includes('<figcaption'), 'Weapon detail Hero must not render caption, credit, or a media source link');
+  assert(detail.includes('id="sources-title"'), 'Weapon detail must retain its bottom source section');
   const cardFigure = collection.match(new RegExp('<figure class="entity-media entity-media--card"[\\s\\S]*?</figure>'))?.[0];
   assert(cardFigure, 'collection cards must use card Media mode');
   assert(!cardFigure.includes('<a '), 'card Media must not create a nested source anchor');

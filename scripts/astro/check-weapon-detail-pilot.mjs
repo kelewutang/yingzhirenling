@@ -22,12 +22,13 @@ if (heroMedia) {
   assert(page.includes('data-media-state="ready"'), 'Admitted Tang Hengdao hero Media must render ready state');
   assert(page.includes(`src="/assets/media/${heroMedia.src}"`), 'Admitted Tang Hengdao hero Media src missing');
   assert(page.includes(`alt="${escapeHtml(heroMedia.alt)}"`), 'Admitted Tang Hengdao hero Media alt missing');
-  assert(page.includes(`<a href="${escapeHtml(new URL(heroMedia.sourceUrl).href)}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), 'Tang Hengdao hero Media source link missing');
+  assert(!entityHero.includes('<figcaption'), 'Tang Hengdao hero Media must not render a caption');
 } else {
   assert(page.includes('entity-media__fallback'), 'Tang Hengdao fallback missing without admitted hero Media');
   assert(!entityHero.includes('<img'), 'Tang Hengdao Entity Hero must not emit an image without admitted hero Media');
 }
-assert(page.includes(weapon.summary), 'Tang Hengdao summary missing');
+assert(page.includes(weapon.summary), 'Tang Hengdao SEO summary missing');
+assert(!entityHero.includes('entity-hero__summary'), 'Tang Hengdao Hero must not render its summary');
 assert(page.includes('id="weapon-overview-title"'), 'Tang Hengdao Weapon overview missing');
 assert(page.includes('id="sources-title"'), 'Tang Hengdao Sources missing');
 assert(page.includes('class="footer site-footer"'), 'Tang Hengdao shared footer missing');

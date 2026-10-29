@@ -57,7 +57,7 @@ async function assertDetailVisualContract(file, entity) {
         assert(html.includes(escapeHtml(media.credit)), `${file}: local capture credit missing`);
       }
       assert(!entityHero.includes('查看媒体来源') && !entityHero.includes('href="null"'), `${file}: capture must not invent an external source link`);
-    } else {
+    } else if (entity.entityType !== 'weapon') {
       assert(html.includes(`<a href="${renderedExternalUrl(media.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), `${file}: hero Media source link missing`);
     }
   }
@@ -556,7 +556,10 @@ for (const weapon of publishedWeapons) {
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回武器图鉴']) {
     assert(html.includes(token), `${weapon.slug}: missing static Weapon contract token ${token}`);
   }
-  assert(html.includes(escapeHtml(weapon.summary)), `${weapon.slug}: summary missing from static Weapon page`);
+  assert(metaContent(html, 'name', 'description', weapon.slug).includes(weapon.summary), `${weapon.slug}: Weapon SEO summary must remain`);
+  assert(!html.includes('entity-hero__summary'), `${weapon.slug}: Weapon Hero must omit its summary`);
+  assert(!html.includes('data-weapon-overview-note="weapon.description"') && !html.includes('<dt>武器介绍</dt>'), `${weapon.slug}: Weapon overview must omit the description module`);
+  assert(!html.includes('<figcaption'), `${weapon.slug}: Weapon Media must not leave a caption container`);
   assert(!html.includes('noindex'), `${weapon.slug}: published Weapon must be indexable`);
 }
 const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');

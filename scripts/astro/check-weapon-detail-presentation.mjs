@@ -448,8 +448,7 @@ assert(serpent.indexOf('class="entity-hero__identity"') < serpent.indexOf('<figu
 
 for (const slug of ['muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu']) {
   const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
-  const caption = html.match(/<figcaption class="entity-media__caption">([\s\S]*?)<\/figcaption>/)?.[1];
-  assert.equal(caption?.replace(/<[^>]*>/g, '').trim(), 'PC正式版武器界面截图', `${slug}: release caption must contain only the approved label`);
+  assert(!html.includes('<figcaption'), `${slug}: Weapon media must not leave a caption container`);
   assert(!/主武器获取顺序|第[0-9]+把|weapon\.acquisitionOrder/.test(html), `${slug}: collection order must stay out of detail HTML`);
   const panel = html.match(/<section class="source-panel"[\s\S]*?<\/section>/)?.[0] || '';
   assert.equal(count(panel, '<h3>PC正式版武器界面截图</h3>'), 1, `${slug}: screenshot source must appear once`);

@@ -7,6 +7,7 @@ import { isMajorSpoiler } from '../lib/spoilers.mjs';
 
 const { detail } = Astro.props;
 const { overview, mechanics, progressionNodes } = detail;
+const overviewNotes = overview.notes.filter((fact) => fact.key !== 'weapon.description');
 const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || isMajorSpoiler(overview.taxonomy?.weaponType);
 ---
 <section class="weapon-detail-section weapon-detail-overview" aria-labelledby="weapon-overview-title" data-weapon-section="overview">
@@ -35,8 +36,8 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
       <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
     </div>)}</dl>
   </section>}
-  {overview.notes.length > 0 && <dl class="weapon-overview__notes">
-    {overview.notes.map((fact) => <div data-weapon-overview-note={fact.key} data-fact-id={fact.id}>
+  {overviewNotes.length > 0 && <dl class="weapon-overview__notes">
+    {overviewNotes.map((fact) => <div data-weapon-overview-note={fact.key} data-fact-id={fact.id}>
       <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.title}</dt>
       <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.valueText}{fact.description && <span>{fact.description}</span>}<WeaponEvidenceMeta fact={fact} /></SpoilerDisclosure> : <>{fact.valueText}{fact.description && <span>{fact.description}</span>}<WeaponEvidenceMeta fact={fact} /></>}</dd>
     </div>)}
