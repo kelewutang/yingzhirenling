@@ -145,7 +145,11 @@ if (!isObject(document)) {
       if (typeof media.credit !== 'string' || !media.credit.trim()) error(`${location}.credit`, '必须提供 credit');
       if (typeof media.owner !== 'string' || !media.owner.trim()) error(`${location}.owner`, '必须记录权利主体或发布方');
       if (media.sourceId !== undefined && (typeof media.sourceId !== 'string' || !sourceIds.has(media.sourceId))) error(`${location}.sourceId`, '如提供必须引用存在的 Source');
-      if (!isHttpUrl(media.sourceUrl)) error(`${location}.sourceUrl`, '必须是合法的 HTTP(S) URL');
+      const screenshotSource = sources.find((source) => source.id === media.sourceId);
+      const localCapture = media.sourceType === 'self-captured' && media.sourceUrl === null &&
+        screenshotSource?.sourceType === 'user-game-screenshot' && screenshotSource?.url === null &&
+        screenshotSource?.locator?.type === 'user-supplied-game-screenshot';
+      if (!isHttpUrl(media.sourceUrl) && !localCapture) error(`${location}.sourceUrl`, '必须是合法 HTTP(S) URL，或由已登记游戏截图 Source 支持的 self-captured 本地证据');
       if (!sourceTypes.has(media.sourceType)) error(`${location}.sourceType`, '必须是受支持的媒体来源类型');
       if (!rightsStatuses.has(media.rightsStatus)) error(`${location}.rightsStatus`, '必须是 Media Source Policy 定义的 rightsStatus');
       if (!recordStates.has(media.recordState)) error(`${location}.recordState`, '必须为 draft、published 或 retired');

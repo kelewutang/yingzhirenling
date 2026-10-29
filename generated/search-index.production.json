@@ -129,23 +129,21 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
-    "id": "weapon:bashpole",
+    "id": "weapon:changxing-heishang",
     "documentType": "entity",
     "entityType": "weapon",
-    "slug": "bashpole",
-    "route": "/weapons/bashpole",
-    "displayName": "Bashpole",
+    "slug": "changxing-heishang",
+    "route": "/weapons/changxing-heishang",
+    "displayName": "长形黑伤",
     "aliases": [],
     "displayAliases": [],
     "keywords": [
-      "demo",
-      "大锤",
-      "影之武",
-      "次要武器（影之武，大锤）",
-      "武器",
-      "试玩"
+      "主武器",
+      "双手",
+      "双手武器",
+      "武器"
     ],
-    "summary": "Gamescom 2025 公开试玩将 Bashpole 列为可装备的次要武器（影之武），并标注为大锤；目前不扩展正式版动作、强度或获取结论。",
+    "summary": "PC正式版界面确认的双手主武器；炼邪以黑伤材料仿制的长刀，大开大合，横扫千军。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -172,6 +170,44 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:heishang",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "heishang",
+    "route": "/weapons/heishang",
+    "displayName": "黑伤",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "单手",
+      "单手武器",
+      "武器"
+    ],
+    "summary": "PC正式版界面确认的单手主武器；通体血红，似刀似剑，与魂一同经历无数风雨。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:heishang-shuangren",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "heishang-shuangren",
+    "route": "/weapons/heishang-shuangren",
+    "displayName": "黑伤双刃",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "双持",
+      "双持武器",
+      "武器"
+    ],
+    "summary": "PC正式版界面确认的双持主武器；炼邪以黑伤材料仿制的短柄双刀，攻势如雨，迅捷无伦。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:jagged-steel",
     "documentType": "entity",
     "entityType": "weapon",
@@ -185,56 +221,49 @@
       "Jagged Steel"
     ],
     "keywords": [
-      "demo",
       "主武器",
-      "主武器（剑）",
-      "剑",
-      "武器",
-      "试玩"
+      "单手",
+      "单手武器",
+      "武器"
     ],
-    "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
+    "summary": "PC正式版界面确认的单手主武器；刀身残破，锈痕如疮，能令敌人流血并可能引发大出血。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
-    "id": "weapon:night-owl",
+    "id": "weapon:juxiong-fu",
     "documentType": "entity",
     "entityType": "weapon",
-    "slug": "night-owl",
-    "route": "/weapons/night-owl",
-    "displayName": "Night Owl",
+    "slug": "juxiong-fu",
+    "route": "/weapons/juxiong-fu",
+    "displayName": "巨凶斧",
     "aliases": [],
     "displayAliases": [],
     "keywords": [
-      "demo",
-      "弓",
-      "影之武",
-      "次要武器（影之武，弓）",
+      "影之武装",
       "武器",
-      "试玩"
+      "破坏"
     ],
-    "summary": "Gamescom 2025 公开试玩将 Night Owl 列为可装备的次要武器（影之武），并标注为弓；目前不扩展正式版动作、强度或获取结论。",
+    "summary": "PC正式版界面确认的影之武装；斧身厚重，一击可开山裂甲，破盾能力强。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
-    "id": "weapon:seamless-death",
+    "id": "weapon:muzhi-heishang",
     "documentType": "entity",
     "entityType": "weapon",
-    "slug": "seamless-death",
-    "route": "/weapons/seamless-death",
-    "displayName": "Seamless Death",
+    "slug": "muzhi-heishang",
+    "route": "/weapons/muzhi-heishang",
+    "displayName": "木制黑伤",
     "aliases": [],
     "displayAliases": [],
     "keywords": [
-      "demo",
       "主武器",
-      "主武器（投掷武器）",
-      "投掷类",
-      "武器",
-      "试玩"
+      "单手",
+      "单手武器",
+      "武器"
     ],
-    "summary": "Gamescom 2025 公开试玩将 Seamless Death 列为可装备的主武器，并标注为投掷武器；目前不扩展正式版动作、强度或获取结论。",
+    "summary": "PC正式版界面确认的单手主武器；少年时使用的木刀，却也是极致技艺和自信的证明。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -254,8 +283,6 @@
     "keywords": [
       "demo",
       "主武器",
-      "主武器（剑）",
-      "剑",
       "武器",
       "试玩"
     ],
@@ -275,8 +302,6 @@
     "keywords": [
       "demo",
       "主武器",
-      "刀类",
-      "单手刀",
       "武器",
       "试玩"
     ],
@@ -300,9 +325,6 @@
     "keywords": [
       "demo",
       "主武器",
-      "主武器（双剑）",
-      "双剑",
-      "双持武器",
       "武器",
       "试玩"
     ],
@@ -321,9 +343,7 @@
     "displayAliases": [],
     "keywords": [
       "主武器",
-      "双手武器",
-      "武器",
-      "苗刀"
+      "武器"
     ],
     "summary": "白影是一把双手武器，以冰冻相关机制为主要特色。刀身无影，寒光似雪。",
     "recordState": "published",
@@ -341,7 +361,6 @@
     "keywords": [
       "demo",
       "主武器",
-      "刀类",
       "武器",
       "试玩"
     ],

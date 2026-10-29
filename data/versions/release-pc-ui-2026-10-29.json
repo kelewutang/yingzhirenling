@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "version:release-pc-ui-2026-10-29",
+  "track": "release",
+  "stage": "release-launch",
+  "displayName": "PC 正式版界面（2026-10-29 提交，具体版本号未知）",
+  "versionLabel": null,
+  "sequence": 100,
+  "platformIds": [
+    "platform:pc"
+  ],
+  "releasedAt": "2026-10-29",
+  "sourceIds": [
+    "source:owner-pc-release-weapons-2026-10-29"
+  ],
+  "checkedAt": "2026-10-29",
+  "supersedesVersionId": null,
+  "supersededBy": null
+}

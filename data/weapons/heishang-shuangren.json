@@ -5,10 +5,14 @@
   "slug": "heishang-shuangren",
   "displayName": "黑伤双刃",
   "aliases": [],
-  "summary": "2025 年北京试玩记录中的独立主武器；正式版信息待核。",
+  "summary": "PC正式版界面确认的双持主武器；炼邪以黑伤材料仿制的短柄双刀，攻势如雨，迅捷无伦。",
   "summaryFactIds": [
-    "fact:weapon:heishang-shuangren:exists",
-    "fact:weapon:heishang-shuangren:name"
+    "fact:weapon:heishang-shuangren:release-exists",
+    "fact:weapon:heishang-shuangren:release-name",
+    "fact:weapon:heishang-shuangren:release-system-category",
+    "fact:weapon:heishang-shuangren:release-description",
+    "fact:weapon:heishang-shuangren:release-grip",
+    "fact:weapon:heishang-shuangren:release-acquisition-order"
   ],
   "facts": [
     {
@@ -35,7 +39,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:weapon:heishang-shuangren:release-exists",
       "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
     },
     {
@@ -62,14 +66,520 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:weapon:heishang-shuangren:release-name",
       "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "黑伤双刃",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "炼邪以黑伤材料仿制的短柄双刀，攻势如雨，迅捷无伦。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "双持",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-acquisition-order",
+      "key": "weapon.acquisitionOrder",
+      "valueType": "object",
+      "value": {
+        "series": "opening-main-weapons",
+        "position": 3
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "顺序由负责人确认，不证明获取地点或条件。"
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-base-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 200,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-base-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 100,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-basic-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-killing-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △ △ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-l2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "双刃乱舞",
+        "input": "L2",
+        "description": "消耗1精纯杀气，发动令人眼花缭乱的乱舞。无法被敌人防御。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "凝气于刃",
+        "level": 5,
+        "description": "可凝气于刃，使伤害大幅提升，持续20秒。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "影杀·之一",
+        "level": 10,
+        "description": "【作用于全部双持类型武器】发动幻影三连斩，可瞬间逼近敌人施展强劲斩击，将其斩杀或重创。只有杀气>90%时可以发动并会消耗全部杀气，发动招式后15秒内无法切换主武器。",
+        "input": "L1 + ○"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "连环追斩",
+        "level": 15,
+        "description": "所有 △ 连招结束后，还可衔接 □ □ □。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "刃随意转",
+        "level": 25,
+        "description": "在 □ □ □ □ □ □ 之后，还可衔接 △ △ △ 乘势腾身跃起，施展凌厉连斩。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-weapon-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "双持武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "负责人2026-10-29补充确认的正式版分类；装备类型与分类分别记录，不从刀剑等历史描述推断。"
     }
   ],
   "taxonomyIds": [],
-  "publishedAt": null,
-  "updatedAt": "2026-10-11",
-  "recordState": "draft",
+  "publishedAt": "2026-10-29",
+  "updatedAt": "2026-10-29",
+  "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null
 }

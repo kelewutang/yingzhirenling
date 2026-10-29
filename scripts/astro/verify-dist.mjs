@@ -48,7 +48,18 @@ async function assertDetailVisualContract(file, entity) {
   } else {
     assert(html.includes('data-media-state="ready"'), `${file}: admitted hero Media must render ready state`);
     assertMediaImage(html, media, file);
-    assert(html.includes(`<a href="${renderedExternalUrl(media.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), `${file}: hero Media source link missing`);
+    if (media.sourceUrl === null) {
+      assert.equal(media.sourceType, 'self-captured', `${file}: only registered captures may omit an external media URL`);
+      if (media.sourceId === 'source:owner-pc-release-weapons-2026-10-29') {
+        assert(html.includes('<h3>PC正式版武器界面截图</h3>'), `${file}: concise capture Source must remain visible`);
+      } else {
+        assert(media.sourceId && html.includes('负责人提供的正式版游戏截图'), `${file}: capture Source must remain visible`);
+        assert(html.includes(escapeHtml(media.credit)), `${file}: local capture credit missing`);
+      }
+      assert(!entityHero.includes('查看媒体来源') && !entityHero.includes('href="null"'), `${file}: capture must not invent an external source link`);
+    } else if (entity.entityType !== 'weapon') {
+      assert(html.includes(`<a href="${renderedExternalUrl(media.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), `${file}: hero Media source link missing`);
+    }
   }
 }
 
@@ -545,7 +556,16 @@ for (const weapon of publishedWeapons) {
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回武器图鉴']) {
     assert(html.includes(token), `${weapon.slug}: missing static Weapon contract token ${token}`);
   }
-  assert(html.includes(escapeHtml(weapon.summary)), `${weapon.slug}: summary missing from static Weapon page`);
+  assert(metaContent(html, 'name', 'description', weapon.slug).includes(weapon.summary), `${weapon.slug}: Weapon SEO summary must remain`);
+  const description = weapon.facts.find((fact) => fact.key === 'weapon.description' && fact.supersededBy === null && fact.validToVersionId == null && !['pending-review', 'editorial'].includes(fact.status));
+  if (description) {
+    assert(html.includes(`<p class="entity-hero__summary" data-weapon-hero-description="${description.id}">${escapeHtml(description.value)}</p>`), `${weapon.slug}: Hero must use the original description Fact without an editorial prefix`);
+    assert.equal((html.match(/data-weapon-hero-description=/g) || []).length, 1, `${weapon.slug}: description must appear once`);
+  } else {
+    assert(!html.includes('entity-hero__summary'), `${weapon.slug}: do not invent a Hero description without a reliable Fact`);
+  }
+  assert(!html.includes('data-weapon-overview-note="weapon.description"') && !html.includes('<dt>武器介绍</dt>'), `${weapon.slug}: Weapon overview must omit the description module`);
+  assert(!html.includes('<figcaption'), `${weapon.slug}: Weapon Media must not leave a caption container`);
   assert(!html.includes('noindex'), `${weapon.slug}: published Weapon must be indexable`);
 }
 const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');

@@ -116,14 +116,15 @@ function assertDerivedInput(block, { label, labelKind, inputs, description }) {
   }
 }
 
-function assertOverview(html, { name, taxonomy, systemCategoryFactId, weaponTypeFactId, historicalNameFactId, historicalTypeFactIds, previewStats }) {
+function assertOverview(html, { name, taxonomy, systemCategoryFactId, historicalNameFactId, historicalTypeFactIds, previewStats }) {
   const rendered = overview(html);
   assert.equal(count(html, 'data-weapon-section="overview"'), 1, 'Weapon overview must render once');
   assert.equal(count(html, 'data-weapon-overview-field="name"'), 1, 'Current display name must have one overview row');
   assert.equal(count(html, '<dt>武器名称</dt>'), 1, 'Weapon page must not duplicate a primary name row');
-  assert.equal(count(html, '<dt>武器分类</dt>'), 1, 'Weapon page must not duplicate a primary taxonomy row');
+  assert.equal(count(html, '<dt>装备类型</dt>'), 1, 'Weapon page must have exactly one equipment type row');
   assert(rendered.includes(`<dd>${name}</dd>`), `Current display name missing: ${name}`);
-  assert(rendered.includes(`data-weapon-overview-field="taxonomy" data-system-category-fact-id="${systemCategoryFactId}" data-weapon-type-fact-id="${weaponTypeFactId}"`), 'Normalized taxonomy Facts missing');
+  assert(rendered.includes(`data-weapon-overview-field="taxonomy" data-system-category-fact-id="${systemCategoryFactId}"`), 'Equipment type Fact missing');
+  assert(!rendered.includes('data-weapon-type-fact-id=') && !rendered.includes('data-weapon-overview-field="weapon-type"'), 'Unknown release class must remain absent');
   assert(rendered.includes(`<dd>${taxonomy}</dd>`), `Normalized taxonomy missing: ${taxonomy}`);
   if (historicalNameFactId) assert(!html.includes(`data-fact-id="${historicalNameFactId}"`), 'Historical name must not duplicate the primary overview');
   for (const historicalTypeFactId of historicalTypeFactIds || []) {
@@ -141,9 +142,8 @@ function assertOverview(html, { name, taxonomy, systemCategoryFactId, weaponType
 
 assertOverview(serpent, {
   name: '白蟒赤练',
-  taxonomy: '主武器 · 双剑',
+  taxonomy: '主武器',
   systemCategoryFactId: 'fact:weapon:white-serpent-crimson-viper:system-category',
-  weaponTypeFactId: 'fact:weapon:white-serpent-crimson-viper:weapon-type',
   historicalNameFactId: 'fact:weapon:white-serpent-crimson-viper:name',
   historicalTypeFactIds: ['fact:weapon:white-serpent-crimson-viper:kind', 'fact:weapon:white-serpent-crimson-viper:kind-dual-wield'],
   previewStats: [
@@ -166,18 +166,14 @@ assert(!whiteSerpentCard.includes('entity-card__summary') && !whiteSerpentCard.i
 assert.match(collection, /<main[^>]*\bsite-main--weapon-collection\b/, 'Weapon collection must opt into its dedicated wide content container');
 assert.doesNotMatch(charactersCollection, /\bsite-main--weapon-collection\b/, 'Non-Weapon collections must not opt into the Weapon-wide container');
 for (const [slug, displayName, systemCategory, weaponType] of [
-  ['bashpole', 'Bashpole', '影之武', '大锤'],
   ['chizhe-canjian', '痴者残剑', '主武器', '剑'],
-  ['jagged-steel', '残钢刃', '主武器', '剑'],
-  ['night-owl', 'Night Owl', '影之武', '弓'],
-  ['seamless-death', 'Seamless Death', '主武器', '投掷类'],
   ['soft-snake-sword', '灵蛇软剑', '主武器', '剑'],
   ['tang-hengdao', '唐横刀', '主武器', '刀类'],
   ['white-serpent-crimson-viper', '白蟒赤练', '主武器', '双剑'],
   ['white-shadow', '白影', '主武器', '苗刀'],
   ['ya-hengdao', '牙横刀', '主武器', '刀类']
 ]) {
-  const taxonomy = `${systemCategory} · ${weaponType}`;
+  const taxonomy = systemCategory;
   const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0];
   assert(card, `${slug}: public collection card missing`);
   assert(card.includes(`<h3 class="entity-card__title">${displayName}</h3>`), `${slug}: collection card name missing`);
@@ -191,16 +187,16 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   const renderedOverview = overview(detail);
   assert(renderedOverview.includes(`data-system-category-fact-id="fact:weapon:${slug}:system-category"`), `${slug}: overview system category must use its normalized Fact`);
   const weaponTypeFactId = slug === 'white-shadow' ? 'fact:weapon:white-shadow:weapon-type-official' : `fact:weapon:${slug}:weapon-type`;
-  assert(renderedOverview.includes(`data-weapon-type-fact-id="${weaponTypeFactId}"`), `${slug}: overview weapon type must use its normalized Fact`);
-  assert(renderedOverview.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: overview taxonomy missing`);
+  assert(!renderedOverview.includes(`data-weapon-type-fact-id="${weaponTypeFactId}"`), `${slug}: historical custom type must not become a formal release class`);
+  assert(renderedOverview.includes(`<dt>装备类型</dt><dd>${taxonomy}</dd>`), `${slug}: unconfirmed class must leave only the equipment type`);
   assert(!renderedOverview.includes('data-weapon-overview-field="type"'), `${slug}: legacy mixed kind must not render in overview`);
 }
-const bashpoleCard = collection.match(/<a class="entity-card" href="\/weapons\/bashpole"[\s\S]*?<\/a>/)?.[0];
-assert(bashpoleCard?.includes('entity-media__fallback'), 'Bashpole card must retain its fallback media');
-assert(bashpoleCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
-assert.equal(count(collection, 'class="entity-card__context"'), 9, 'Weapon collection must retain every currently published pre-release status');
-const bashpoleFallback = bashpoleCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
-assert(!bashpoleFallback.includes('entity-media__name') && !bashpoleFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
+const sparseWeaponCard = collection.match(/<a class="entity-card" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
+assert(sparseWeaponCard?.includes('entity-media__fallback'), 'Soft Snake Sword card must retain its fallback media');
+assert(sparseWeaponCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
+assert.equal(count(collection, 'class="entity-card__context"'), 11, 'Weapon collection must retain 5 historical and 6 release UI contexts');
+const sparseWeaponFallback = sparseWeaponCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
+assert(!sparseWeaponFallback.includes('entity-media__name') && !sparseWeaponFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
 assert(characterFallback.includes('entity-media__fallback'), 'Character card must retain its fallback media');
 assert(characterFallback.includes('entity-media__name') && characterFallback.includes('entity-media__type'), 'Non-Weapon card fallback must retain fallback name and type classes');
@@ -221,9 +217,23 @@ for (const [entityId, slug, expectedId, expectedSrc, html] of [
   assert(html.includes(`src="/assets/media/${media.src}"`), `${entityId} detail must render approved portrait media`);
   assert(collection.includes(`src="/assets/media/${media.src}"`), `${entityId} collection card must render approved portrait media`);
 }
-for (const slug of ['bashpole', 'jagged-steel', 'night-owl', 'seamless-death', 'soft-snake-sword', 'tang-hengdao', 'ya-hengdao']) {
+for (const slug of ['soft-snake-sword', 'tang-hengdao', 'ya-hengdao']) {
   const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
   assert(card.includes('data-media-state="fallback"'), `${slug}: Weapon without an approved Master must retain fallback media`);
+}
+for (const [slug, system, category] of [
+  ['muzhi-heishang', '主武器', '单手武器'], ['heishang', '主武器', '单手武器'],
+  ['heishang-shuangren', '主武器', '双持武器'], ['changxing-heishang', '主武器', '双手武器'],
+  ['jagged-steel', '主武器', '单手武器'], ['juxiong-fu', '影之武装', '破坏']
+]) {
+  const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  const rendered = overview(html);
+  assert(rendered.includes(`<dt>装备类型</dt><dd>${system} · ${category}</dd>`), `${slug}: equipment type must include the confirmed class`);
+  assert(!rendered.includes('<dt>武器分类</dt>') && !rendered.includes('data-weapon-overview-field="weapon-type"'), `${slug}: classification must not occupy a separate row`);
+  const baseStats = rendered.match(/<section[^>]*data-weapon-base-stats[\s\S]*?<\/section>/)?.[0] || '';
+  assert(baseStats.includes('Lv1 基础属性') && !baseStats.includes('<p>'), `${slug}: base stats must contain only the heading, names and values`);
+  const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
+  assert(card.replace(/<[^>]*>/gu, '').includes(`${system} · ${category}`), `${slug}: collection formal category missing`);
 }
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '使用赤练短刃进行凌厉攻击。');
 assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '使用白蟒长刃进行斩击；交替点按可循环连招并进入“双蛇共舞”状态，期间伤害不断提升，可穿插变招，也可掷出赤练短刃结束“双蛇共舞”。');
@@ -261,9 +271,8 @@ assertProgressionLevel(serpent, 'fact:weapon:white-serpent-crimson-viper:node-ho
 
 assertOverview(shadow, {
   name: '白影',
-  taxonomy: '主武器 · 苗刀',
+  taxonomy: '主武器',
   systemCategoryFactId: 'fact:weapon:white-shadow:system-category',
-  weaponTypeFactId: 'fact:weapon:white-shadow:weapon-type-official',
   previewStats: [
     ['fact:weapon:white-shadow:preview-damage-ability-lv30', '伤害能力', 1443],
     ['fact:weapon:white-shadow:preview-break-ability-lv30', '破防能力', 757]
@@ -437,7 +446,17 @@ const weaponMobileBlock = css.match(/@media \(max-width: 700px\) \{([\s\S]*?)\n\
 assert.match(weaponMobileBlock, /\.entity-detail\[data-entity-type="weapon"\] \.entity-hero\s*\{\s*grid-template-columns:\s*1fr;/, 'Weapon Hero must collapse to one column on mobile');
 assert(serpent.indexOf('class="entity-hero__identity"') < serpent.indexOf('<figure class="entity-media"'), 'Weapon mobile stack must show the title block before media');
 
-console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, and non-Weapon detail isolation.');
+for (const slug of ['muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu']) {
+  const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  assert(!html.includes('<figcaption'), `${slug}: Weapon media must not leave a caption container`);
+  assert(!/主武器获取顺序|第[0-9]+把|weapon\.acquisitionOrder/.test(html), `${slug}: collection order must stay out of detail HTML`);
+  const panel = html.match(/<section class="source-panel"[\s\S]*?<\/section>/)?.[0] || '';
+  assert.equal(count(panel, '<h3>PC正式版武器界面截图</h3>'), 1, `${slug}: screenshot source must appear once`);
+  assert(panel.includes('<li class="source-panel__item"><div><h3>PC正式版武器界面截图</h3></div></li>'), `${slug}: screenshot source must contain only its name`);
+  assert(!/负责人提供|项目负责人/.test(panel), `${slug}: screenshot source must not repeat internal provenance`);
+}
+
+console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, concise release screenshots, and non-Weapon detail isolation.');
 
 function cssRule(selector) {
   const start = css.indexOf(selector);

@@ -45,7 +45,7 @@ function mediaRecord(overrides = {}) {
   };
 }
 
-async function writeValidationFixture({ records = [], assets = [] }) {
+async function writeValidationFixture({ records = [], assets = [], sources = [] }) {
   const fixture = await mkdtemp(join(tmpdir(), 'yingzhirenling-media-'));
   for (const directory of ['weapons', 'characters', 'bosses', 'locations', 'sources']) {
     await mkdir(join(fixture, 'data', directory), { recursive: true });
@@ -55,6 +55,7 @@ async function writeValidationFixture({ records = [], assets = [] }) {
   await writeFile(join(fixture, 'data', 'bosses', 'commander-cleave.json'), JSON.stringify({ id: 'boss:commander-cleave', entityType: 'boss', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'locations', 'pangzhen.json'), JSON.stringify({ id: 'location:pangzhen', entityType: 'location', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'media.json'), JSON.stringify({ schemaVersion: '1.0-media-pilot', records }));
+  for (const [index, source] of sources.entries()) await writeFile(join(fixture, 'data', 'sources', `source-${index}.json`), JSON.stringify(source));
   if (assets.length > 0) {
     await mkdir(join(fixture, 'assets', 'media'), { recursive: true });
     await Promise.all(assets.map(({ name, contents = bitmap() }) => writeFile(join(fixture, 'assets', 'media', name), contents)));
@@ -95,6 +96,17 @@ async function expectValidation(name, fixtureOptions, expectedCode, expectedText
 }
 
 const base = mediaRecord();
+const screenshotSource = { id: 'source:owner-capture', sourceType: 'user-game-screenshot', url: null, locator: { type: 'user-supplied-game-screenshot' } };
+const localCapture = mediaRecord({ sourceType: 'self-captured', sourceId: screenshotSource.id, sourceUrl: null, rightsStatus: 'self-captured-reviewed' });
+await expectValidation('reviewed local capture has no invented external URL', {
+  records: [localCapture], sources: [screenshotSource], assets: [{ name: localCapture.src }]
+}, 0);
+await expectValidation('URL-less capture requires its real Source record', {
+  records: [localCapture], assets: [{ name: localCapture.src }]
+}, 1, /sourceUrl/);
+await expectValidation('URL-less promotional image cannot masquerade as local capture', {
+  records: [{ ...localCapture, sourceType: 'official-promotional' }], sources: [screenshotSource], assets: [{ name: localCapture.src }]
+}, 1, /sourceUrl/);
 const riskAccepted = mediaRecord({ rightsStatus: 'official-promotional-risk-accepted' });
 await expectValidation('zero Media remains valid', {}, 0);
 await expectValidation('official press use reviewed remains valid', { records: [base], assets: [{ name: base.src }] }, 0);
@@ -198,7 +210,7 @@ try {
       const firstSegment = relativeSource.split(sep)[0];
       const productionMediaDirectory = join('assets', 'media');
       const isProductionMedia = relativeSource === productionMediaDirectory || relativeSource.startsWith(`${productionMediaDirectory}${sep}`);
-      return !['.git', 'node_modules', 'dist'].includes(firstSegment) && !isProductionMedia;
+      return !['.git', 'node_modules', 'dist', 'tmp'].includes(firstSegment) && !isProductionMedia;
     }
   });
   await symlink(resolve(root, 'node_modules'), join(fixture, 'node_modules'), 'dir');
@@ -237,7 +249,8 @@ try {
   assert(detail.includes(`src="/assets/media/${admitted.src}"`), 'admitted hero Media src must be static HTML');
   assert(detail.includes(`alt="${admitted.alt}"`), 'admitted hero Media alt must be static HTML');
   assert(detail.includes(`width="${admitted.width}"`) && detail.includes(`height="${admitted.height}"`), 'admitted hero Media must emit intrinsic dimensions');
-  assert(detail.includes(`<a href="${admitted.sourceUrl}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), 'detail hero must retain its media source link');
+  assert(!detail.includes('<figcaption'), 'Weapon detail Hero must not render caption, credit, or a media source link');
+  assert(detail.includes('id="sources-title"'), 'Weapon detail must retain its bottom source section');
   const cardFigure = collection.match(new RegExp('<figure class="entity-media entity-media--card"[\\s\\S]*?</figure>'))?.[0];
   assert(cardFigure, 'collection cards must use card Media mode');
   assert(!cardFigure.includes('<a '), 'card Media must not create a nested source anchor');

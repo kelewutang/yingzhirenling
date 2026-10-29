@@ -7,6 +7,8 @@ import { isMajorSpoiler } from '../lib/spoilers.mjs';
 
 const { detail } = Astro.props;
 const { overview, mechanics, progressionNodes } = detail;
+const overviewNotes = overview.notes.filter((fact) => fact.key !== 'weapon.description');
+const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || isMajorSpoiler(overview.taxonomy?.weaponType);
 ---
 <section class="weapon-detail-section weapon-detail-overview" aria-labelledby="weapon-overview-title" data-weapon-section="overview">
   <div class="detail-section-heading">
@@ -18,13 +20,24 @@ const { overview, mechanics, progressionNodes } = detail;
       <dt>武器名称</dt>
       <dd>{overview.displayName}</dd>
     </div>
-    {overview.taxonomy && <div data-weapon-overview-field="taxonomy" data-system-category-fact-id={overview.taxonomy.systemCategory.id} data-weapon-type-fact-id={overview.taxonomy.weaponType.id} data-fact-id={overview.taxonomy.systemCategory.id}>
-      <dt>{isMajorSpoiler(overview.taxonomy.systemCategory) || isMajorSpoiler(overview.taxonomy.weaponType) ? '重大剧情资料' : '武器分类'}</dt>
-      <dd>{isMajorSpoiler(overview.taxonomy.systemCategory) || isMajorSpoiler(overview.taxonomy.weaponType) ? <SpoilerDisclosure>{overview.taxonomy.valueText}</SpoilerDisclosure> : overview.taxonomy.valueText}</dd>
+    {overview.taxonomy && <div data-weapon-overview-field="taxonomy" data-system-category-fact-id={overview.taxonomy.systemCategory.id} data-weapon-type-fact-id={overview.taxonomy.weaponType?.id} data-fact-id={overview.taxonomy.systemCategory.id}>
+      <dt>{concealedTaxonomy ? '重大剧情资料' : '装备类型'}</dt>
+      <dd>{concealedTaxonomy ? <SpoilerDisclosure>{overview.taxonomy.valueText}</SpoilerDisclosure> : overview.taxonomy.valueText}</dd>
+    </div>}
+    {overview.taxonomy?.grip && !overview.taxonomy.weaponType && <div data-weapon-overview-field="grip" data-fact-id={overview.taxonomy.grip.id}>
+      <dt>持握方式</dt>
+      <dd>{isMajorSpoiler(overview.taxonomy.grip) ? <SpoilerDisclosure>{overview.taxonomy.grip.valueText}</SpoilerDisclosure> : overview.taxonomy.grip.valueText}</dd>
     </div>}
   </dl>
-  {overview.notes.length > 0 && <dl class="weapon-overview__notes">
-    {overview.notes.map((fact) => <div data-weapon-overview-note={fact.key} data-fact-id={fact.id}>
+  {overview.baseStats.length > 0 && <section class="weapon-preview-stats" aria-labelledby="weapon-base-stats-title" data-weapon-base-stats>
+    <h3 id="weapon-base-stats-title">Lv{overview.baseStats[0].value.displayedLevel} 基础属性</h3>
+    <dl>{overview.baseStats.map((fact) => <div data-base-stat-id={fact.id}>
+      <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.value.statName}</dt>
+      <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
+    </div>)}</dl>
+  </section>}
+  {overviewNotes.length > 0 && <dl class="weapon-overview__notes">
+    {overviewNotes.map((fact) => <div data-weapon-overview-note={fact.key} data-fact-id={fact.id}>
       <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.title}</dt>
       <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.valueText}{fact.description && <span>{fact.description}</span>}<WeaponEvidenceMeta fact={fact} /></SpoilerDisclosure> : <>{fact.valueText}{fact.description && <span>{fact.description}</span>}<WeaponEvidenceMeta fact={fact} /></>}</dd>
     </div>)}
@@ -87,6 +100,7 @@ const { overview, mechanics, progressionNodes } = detail;
     <p class="detail-section-heading__eyebrow">PROGRESSION</p>
     <h2 id="weapon-progression-title">武器成长</h2>
   </div>
+  {overview.baseStats.length > 0 && <p>以下为截图中可见的成长节点及解锁等级，不表示当前1级武器已解锁。</p>}
   <ol class="weapon-detail-list">
     {progressionNodes.map((fact) => <li data-weapon-progression-node-id={fact.id}>{isMajorSpoiler(fact) ? <SpoilerDisclosure>
       {fact.level && <p class="weapon-progression-level" data-weapon-progression-level-for={fact.id}>Lv{fact.level}</p>}

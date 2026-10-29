@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 const root = process.cwd();
 const dist = resolve(root, 'dist');
 const pages = [
-  ['weapons.html', 10],
+  ['weapons.html', 12],
   ['bosses.html', 3],
   ['characters.html', 3],
   ['world.html', 1]

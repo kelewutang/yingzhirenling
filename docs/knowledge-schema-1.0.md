@@ -26,6 +26,16 @@ Fact 的更新使用单值 `supersededBy` 指向直接替代它的新 Fact。它
 
 ## 3. Source
 
+2026-10-29 正式版武器准入补充（负责人已确认）：
+
+- `weapon.systemCategory` 为必需的独立装备类型，当前公开值仅“主武器”／“影之武装”；历史“影之武”只保留在退稿或历史数据。复用 `weapon.weaponType` 表达可选且至多一项的正式分类：主武器仅“单手武器／双手武器／双持武器”，影之武装仅“破坏／远程／奇门／武学／召唤”。必须按装备类型分别校验，不能交叉取值，不能用“刀／剑／斧”等自定义类别替代；未核实则不填，不由模型推断。
+- `weapon.grip` 为可选 enum：单手／双手／双持；`weapon.description` 保存截图武器介绍；`weapon.acquisitionOrder` 为 `{series, position}`，位置为正整数，同序列不得重复，不证明获取地点。
+- `weapon.baseStat` 为 `{statName, displayedValue, displayedLevel, displayContext: "release-game-ui"}`，仅记录有 release GameVersion 支持的正式版界面观察或正式版已验证事实。名称限伤害能力、破防能力、异常效果；显示等级为正整数。本站本批仅录入截图1级值。已有 `weapon.previewStat` 的预发布语境和 observation 限制保持不变。
+- 当前武器等级由基础属性的显示等级表达；成长节点的 `level` 表示解锁等级，两者不得混写。未知字段不填，不将“未显示”写成0。
+- `validToVersionId` 非空的历史 Fact 继续保留审计证据，但不进入当前属性、类别和搜索关键词；不得把已结束的试玩类别自动作为正式版类别。
+- 游戏截图 Source 可以使用 `locator.type: "user-supplied-game-screenshot"`，`sourceType: "user-game-screenshot"`、`url: null`，记录 captureOwner、platformId、suppliedAt、confirmedAt、可空的 capturedAt／versionLabel，以及带稳定 id、原文件名和 SHA-256 的 evidenceItems。具体版本号和截图日期未知时保留 null，不伪造官方账号、外链或内部测试会话。普通官方截图 locator 的原有要求不变。
+- 本批PC截图的事实状态为 observation，不自动升级为“本站正式版实测”；`release-verified` 仍要求原有内部测试 Source 与 release Version，所有保护继续执行。
+
 Source 独立存储，并由多个 Fact 引用。Source 的 `authority` 只描述来源主体：`official`、`third-party`、`community`、`internal`。
 
 `authority` 不自动决定 Fact `status`。官方视频画面中直接观察到的信息通常仍是 `observation`；`official` Fact 必须有官方文字或其他满足官方确认标准的直接来源。

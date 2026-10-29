@@ -81,10 +81,11 @@ const currentType = weapon.facts.find((fact) => fact.id === 'fact:weapon:white-s
 assert.equal(oldType?.value, '双手剑', 'Historical White Shadow Fact must remain intact');
 assert.equal(oldType?.supersededBy, currentType?.id, 'Historical White Shadow Fact must point to its successor');
 assert.deepEqual([currentType?.value, currentType?.status, currentType?.sourceIds, currentType?.supersededBy], ['苗刀', 'official', [sourceId], null]);
-assert(weaponHtml.includes('主武器 · 苗刀'), 'White Shadow public detail must render 苗刀');
+assert.equal(currentType.validToVersionId, 'version:release-pc-ui-2026-10-29', 'Historical 苗刀 must not become an unconfirmed release class');
+assert(!weaponHtml.includes('主武器 · 苗刀'), 'White Shadow must not use historical 苗刀 as its formal class');
 assert(!weaponHtml.includes('主武器 · 双手剑'), 'White Shadow public detail must not render 双手剑 as current taxonomy');
 const whiteShadowSearch = search.find((document) => document.id === 'weapon:white-shadow');
-assert(whiteShadowSearch?.keywords.includes('苗刀'), 'White Shadow Search document must include current type 苗刀');
+assert(!whiteShadowSearch?.keywords.includes('苗刀'), 'White Shadow Search must exclude ended custom type 苗刀');
 assert(!whiteShadowSearch?.keywords.includes('双手剑'), 'White Shadow Search document must exclude superseded type 双手剑');
 
 for (const text of ['PS5 Pro 增强', '游戏帮助', '自适应扳机', '触觉反馈', 'Tempest 3D 音效技术']) assert(aboutHtml.includes(text), `/about missing ${text}`);
@@ -92,25 +93,25 @@ assert(aboutHtml.includes('https://www.playstation.com/zh-hans-cn/games/phantom-
 assert(!aboutHtml.includes('影之刃零支持手动存档'), '/about must not make a broad manual-save claim');
 
 const guideDocuments = search.filter((document) => document.documentType === 'guide');
-assert.equal(search.length, 18, 'Production Search must contain 18 documents');
+assert.equal(search.length, 20, 'Production Search must contain 20 documents');
 assert.equal(guideDocuments.length, 1, 'Production Search must contain one Guide document');
 assert.deepEqual([guideDocuments[0].id, guideDocuments[0].route, guideDocuments[0].recordState], [`guide:${guideId}`, guideRoute, 'published']);
-assert.equal((sitemap.match(/<url>/g) || []).length, 27, 'Sitemap must contain 27 URLs');
+assert.equal((sitemap.match(/<url>/g) || []).length, 29, 'Sitemap must contain 29 URLs');
 assert(sitemap.includes(`<loc>https://www.yingzhirenling.cn${guideRoute}</loc><lastmod>2026-10-11</lastmod>`), 'Guide sitemap entry missing or stale');
-assert.deepEqual(inventory.counts, { sitemap: 27, canonical: 29, pageHtml: 30, searchDocs: 18 });
+assert.deepEqual(inventory.counts, { sitemap: 29, canonical: 31, pageHtml: 32, searchDocs: 20 });
 assert.deepEqual([
   inventory.publishedWeapons.length,
   inventory.publishedBosses.length,
   inventory.publishedCharacters.length,
   inventory.publishedLocations.length,
   inventory.guides.length
-], [10, 3, 3, 1, 1]);
+], [12, 3, 3, 1, 1]);
 
 const canonicalTagCount = (await Promise.all(distFiles.filter((file) => file.endsWith('.html')).map((file) => readFile(resolve(dist, file), 'utf8'))))
   .reduce((count, html) => count + (html.match(/<link\s+rel="canonical"\s+href="/gi) || []).length, 0);
 const pageHtmlCount = distFiles.filter((file) => file.endsWith('.html') && !file.startsWith('baidu_verify_')).length;
-assert.equal(canonicalTagCount, 29, 'Rendered canonical-tag count must be 29');
-assert.equal(pageHtmlCount, 30, 'Rendered page-HTML count must be 30');
+assert.equal(canonicalTagCount, 31, 'Rendered canonical-tag count must be 31');
+assert.equal(pageHtmlCount, 32, 'Rendered page-HTML count must be 32');
 
 assert.equal(await absent(resolve(dist, 'generated/guide-search-manifest.json')), true, 'Private Guide handoff manifest must not be deployed');
 assert.doesNotMatch([landingHtml, sitemap, JSON.stringify(search), ...distFiles].join('\n'), /growth-guide-[a-f]/, 'Synthetic growth fixtures must not leak into production landing, sitemap, Search or files');
@@ -125,4 +126,4 @@ assert.deepEqual(launchConfig.browserGates['spoiler-disclosure-interaction'], {
   evidenceRef: 'https://github.com/kelewutang/yingzhirenling/pull/63'
 });
 
-console.log('Targeted pre-release content verification passed: official source, four difficulties, one Guide, White Shadow supersession, PS5 facts, 27/29/30/18 inventory, and private fixture isolation.');
+console.log('Targeted pre-release content verification passed: official source, four difficulties, one Guide, White Shadow supersession, PS5 facts, 29/31/32/20 inventory, and private fixture isolation.');

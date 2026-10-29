@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-release-weapons-2026-10-29",
+  "sourceType": "user-game-screenshot",
+  "authority": "community",
+  "publisher": "项目负责人（本人截图）",
+  "title": "PC 正式版武器界面截图（负责人提供）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-game-screenshot",
+    "platformId": "platform:pc",
+    "versionLabel": null,
+    "capturedAt": null,
+    "suppliedAt": "2026-10-29",
+    "confirmedAt": "2026-10-29",
+    "captureOwner": "项目负责人（本人截图）",
+    "evidenceItems": [
+      {
+        "id": "pc-release-weapon-7",
+        "filename": "4115450_7.jpg",
+        "sha256": "31d1bba27775ce82624655f7e97d8cb15a91881776123b59b5eb0419ed18331b"
+      },
+      {
+        "id": "pc-release-weapon-204",
+        "filename": "4115450_204.jpg",
+        "sha256": "59ff58004921d47c95b7c59c30548e84fcc9d255703d5788cb23f892d638f2b6"
+      },
+      {
+        "id": "pc-release-weapon-205",
+        "filename": "4115450_205.jpg",
+        "sha256": "5df158fb6b063d390859ed538a881c9a486f28a4d3ff0245e1a263e6b4489a79"
+      },
+      {
+        "id": "pc-release-weapon-216",
+        "filename": "4115450_216.jpg",
+        "sha256": "cdac6785ce1460c9916b609fc2c794b2c5cb918c97115d0e4b444fce2864dc58"
+      },
+      {
+        "id": "pc-release-weapon-215",
+        "filename": "4115450_215.jpg",
+        "sha256": "2f471121df0e31391fbc83e8f318fc5e3c8c7c2723882c1844cda7ff6e56e8c4"
+      },
+      {
+        "id": "pc-release-weapon-214",
+        "filename": "4115450_214.jpg",
+        "sha256": "5d02ed33dade0239aebef2874844dc51ea07b7fb5f8eb0cb12562e75fd652f73"
+      },
+      {
+        "id": "pc-release-weapon-210",
+        "filename": "4115450_210.jpg",
+        "sha256": "20e6322aa5a9bdd3422f70161659bc54273feca6b8fdc5aaebdc991bd8f36b8f"
+      },
+      {
+        "id": "pc-release-weapon-209",
+        "filename": "4115450_209.jpg",
+        "sha256": "196de65b3e684ed03552ff3ce1eba4360bf907cce7a32172744cf1cbcc2022ae"
+      },
+      {
+        "id": "pc-release-weapon-208",
+        "filename": "4115450_208.jpg",
+        "sha256": "955575e3733824e876f41d10d7bf8888ee269a1399edab26acdcabcc6eac8802"
+      },
+      {
+        "id": "pc-release-weapon-207",
+        "filename": "4115450_207.jpg",
+        "sha256": "77e6b34b40777cf546e6623417b8b85ad0a774032e27e4b425bdcad649efff9a"
+      },
+      {
+        "id": "pc-release-weapon-212",
+        "filename": "4115450_212.jpg",
+        "sha256": "f94af655d4a311c800454ef34a8754903b3b4baaca446fdba9d2838fc5e5bfaa"
+      },
+      {
+        "id": "pc-release-weapon-213",
+        "filename": "4115450_213.jpg",
+        "sha256": "1dea5c9f962a057499811b1242ce6c8fd59ce4de321c285a79ede4dcc383a6d7"
+      },
+      {
+        "id": "pc-release-weapon-217",
+        "filename": "4115450_217.jpg",
+        "sha256": "ec771189c8aeb916a2fa332c549a3bf37c6836f78c9891f32a71ceeb0cfc4a61"
+      },
+      {
+        "id": "pc-release-weapon-218",
+        "filename": "4115450_218.jpg",
+        "sha256": "4776ed7b664674c48a59eda59941c6e87faff4a4be3ca9f74d470bef4416a87e"
+      },
+      {
+        "id": "pc-release-weapon-219",
+        "filename": "4115450_219.jpg",
+        "sha256": "2e75507289e809899bfa568e62fdaeb799a46c74c2de32655ca9225d8095e330"
+      }
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-10-29",
+  "archivedUrl": null,
+  "notes": "负责人确认全部15张均为本人在PC正式版截取，2026-10-29提交并授权www.yingzhirenling.cn使用。具体版本号、捕获日期未知；不是本站内部游戏测试会话。205为残钢刃3级，排除其288/148数值。获取顺序及资源术语按同次负责人确认；未知L2标题及残钢乱舞截断效果暂缓。 负责人同日补充确认正式分类：主武器为单手武器、双手武器、双持武器；影之武装为破坏、远程、奇门、武学、召唤。木制黑伤、黑伤、残钢刃为单手武器，黑伤双刃为双持武器，长形黑伤为双手武器，巨凶斧为破坏。"
+}

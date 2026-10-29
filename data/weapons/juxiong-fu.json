@@ -1,0 +1,433 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:juxiong-fu",
+  "entityType": "weapon",
+  "slug": "juxiong-fu",
+  "displayName": "巨凶斧",
+  "aliases": [],
+  "summary": "PC正式版界面确认的影之武装；斧身厚重，一击可开山裂甲，破盾能力强。",
+  "summaryFactIds": [
+    "fact:weapon:juxiong-fu:release-exists",
+    "fact:weapon:juxiong-fu:release-name",
+    "fact:weapon:juxiong-fu:release-system-category",
+    "fact:weapon:juxiong-fu:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:juxiong-fu:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "巨凶斧",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "影之武装",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "斧身厚重，一击可开山裂甲，破盾能力强。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-base-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 309,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-base-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 208,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-charge",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "R2",
+        "input": "R2",
+        "description": "按住 R2 最多可进行2段蓄力，释放后施展势大力沉的劈砍，蓄力段数越多造成伤害越高。消耗1暗源。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "原图未单列技能名称，使用已确认按键作为条目标题，不编造官方技能名。"
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-chain",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "斩铁断链",
+        "description": "拥有便可斩断阻碍道路的铁链（无须装备）。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "强行蓄力",
+        "level": 5,
+        "description": "连按两次 R2 会额外消耗1点暗源，直接进行满蓄力斩击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "厚甲护身·之一",
+        "level": 10,
+        "description": "蓄力过程中受到的伤害小幅降低。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "疾行斧",
+        "level": 15,
+        "description": "在闪避后或快速奔行中按下 R2 可一边奔跑一边蓄力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "千钧之势",
+        "level": 25,
+        "description": "在奔跑过程中达到满蓄力后释放，施展的凌空一劈更为强劲有力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:juxiong-fu:release-weapon-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "破坏",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "负责人2026-10-29补充确认的正式版分类；装备类型与分类分别记录，不从刀剑等历史描述推断。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-10-29",
+  "updatedAt": "2026-10-29",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

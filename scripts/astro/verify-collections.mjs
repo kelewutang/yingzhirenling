@@ -74,7 +74,7 @@ for (const collection of collections) {
 const weapons = await publishedEntities('data/weapons');
 const draftWeapons = (await Promise.all((await readdir(resolve(root, 'data/weapons'))).filter((name) => name.endsWith('.json')).map(async (name) => JSON.parse(await readFile(resolve(root, 'data/weapons', name), 'utf8'))))).filter((entity) => entity.recordState === 'draft');
 const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');
-assert.equal(weapons.length, 10, 'Expected 10 published Weapons');
+assert.equal(weapons.length, 12, 'Expected 12 published Weapons after the approved Chinese-name withdrawal');
 for (const weapon of draftWeapons) assert(!weaponCollection.includes(`/weapons/${weapon.slug}`), `Draft Weapon must not appear in collection: ${weapon.id}`);
 
 const search = JSON.parse(await readFile(resolve(root, 'generated/search-index.production.json'), 'utf8'));
@@ -91,7 +91,7 @@ for (const [slug, chinese, english] of [
   assert.equal(document?.displayName, chinese, `${slug}: Chinese Search title missing`);
   assert(document?.aliases.includes(english), `${slug}: English Search alias missing`);
 }
-for (const slug of ['heishang-shuangren', 'hongzhuang-guizhan']) {
+for (const slug of ['hongzhuang-guizhan']) {
   assert(!weaponCollection.includes(`/weapons/${slug}`), `${slug}: unpublished Weapon entered collection`);
   assert(!search.some((item) => item.route === `/weapons/${slug}`), `${slug}: unpublished Weapon entered Search`);
 }
@@ -100,6 +100,8 @@ for (const slug of ['cangang', 'peng-meng', 'hua-qianxiao']) {
 }
 const blackBlades = JSON.parse(await readFile(resolve(root, 'data/weapons/heishang-shuangren.json'), 'utf8'));
 assert.equal(blackBlades.displayName, '黑伤双刃', 'Black Blades must use the correct simplified Chinese character');
+assert(weaponCollection.includes('/weapons/heishang-shuangren'), 'Approved Black Blades must enter the collection');
+assert.equal(search.filter((item) => item.id === blackBlades.id).length, 1, 'Reused Black Blades identity must have exactly one Search document');
 
 const brokenBlade = await readFile(resolve(dist, 'weapons/chizhe-canjian.html'), 'utf8');
 const brokenBladeCard = weaponCollection.match(/<a class="entity-card" href="\/weapons\/chizhe-canjian"[\s\S]*?<\/a>/)?.[0] || '';

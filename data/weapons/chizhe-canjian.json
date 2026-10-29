@@ -139,7 +139,7 @@
         }
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-10-29",
       "supersededBy": null,
       "reviewNote": "中文名与两家亲历媒体对剑及飞剑的描述支持当前资料分类；正式版分类待核。"
     },
@@ -259,7 +259,7 @@
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-10-11",
-  "updatedAt": "2026-10-11",
+  "updatedAt": "2026-10-29",
   "recordState": "published",
   "spoilerLevel": "minor",
   "resolution": null

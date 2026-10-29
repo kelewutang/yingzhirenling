@@ -21,7 +21,7 @@ function publicCardAliases(entity) {
 function weaponTaxonomy(entity) {
   const systemCategory = factValue(entity, 'weapon.systemCategory');
   const weaponType = factValue(entity, 'weapon.weaponType');
-  return systemCategory && weaponType ? `${systemCategory} · ${weaponType}` : null;
+  return [systemCategory, weaponType].filter(Boolean).join(' · ') || null;
 }
 
 function baseCard(entity, href, secondary, context) {
@@ -31,7 +31,7 @@ function baseCard(entity, href, secondary, context) {
 
 export function buildWeaponCollectionCard(entity) {
   return {
-    ...baseCard(entity, `/weapons/${entity.slug}`, weaponTaxonomy(entity), compactAppearance(entity, 'weapon.publicAppearance')),
+    ...baseCard(entity, `/weapons/${entity.slug}`, weaponTaxonomy(entity), getFact(entity, 'weapon.baseStat') ? 'PC正式版界面记录' : compactAppearance(entity, 'weapon.publicAppearance')),
     summary: null
   };
 }

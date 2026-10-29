@@ -5,13 +5,14 @@
   "slug": "jagged-steel",
   "displayName": "残钢刃",
   "aliases": [{"value":"Jagged Steel","locale":"en","kind":"legacy-title","status":"observation","sourceIds":["source:playstation-blog-de-gamescom-hands-on-2025-08-28","source:4gamer-beijing-hands-on-2026-10-09"],"checkedAt":"2026-10-11","gameVersionId":"version:prelaunch-materials-2026-10","reviewNote":"英文试玩名称与中文试玩中的残钢刃均对应击败残钢后取得的武器；这是跨媒体试玩映射，非正式版名称确认。"}],
-  "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
+  "summary": "PC正式版界面确认的单手主武器；刀身残破，锈痕如疮，能令敌人流血并可能引发大出血。",
   "summaryFactIds": [
-    "fact:weapon:jagged-steel:exists",
-    "fact:weapon:jagged-steel:name",
-    "fact:weapon:jagged-steel:name-zh",
-    "fact:weapon:jagged-steel:kind",
-    "fact:weapon:jagged-steel:public-appearance"
+    "fact:weapon:jagged-steel:release-exists",
+    "fact:weapon:jagged-steel:release-name",
+    "fact:weapon:jagged-steel:release-system-category",
+    "fact:weapon:jagged-steel:release-description",
+    "fact:weapon:jagged-steel:release-grip",
+    "fact:weapon:jagged-steel:release-acquisition-order"
   ],
   "facts": [
     {
@@ -30,7 +31,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:weapon:jagged-steel:release-exists",
       "reviewNote": null
     },
     {
@@ -49,7 +50,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:weapon:jagged-steel:release-name",
       "reviewNote": "保留 Gamescom 2025 试玩记录的英文名称；2026 年 10 月的中文试玩名称另记为新 Fact。"
     },
     {
@@ -67,13 +68,13 @@
         "difficulties": {"mode": "all", "ids": []}
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-10-29",
       "supersededBy": null,
       "reviewNote": null
     },
-    {"id":"fact:weapon:jagged-steel:name-zh","key":"weapon.name","valueType":"string","value":"残钢刃","status":"observation","sourceIds":["source:a9vg-beijing-hands-on-2026-10-09","source:4gamer-beijing-hands-on-2026-10-09"],"basisFactIds":[],"checkedAt":"2026-10-11","gameVersionId":"version:prelaunch-materials-2026-10","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":null,"reviewNote":"两家亲历媒体分别记录同一残钢 Boss 取得的武器中文、英文名；按试玩资料采用，不标为官方最终名称。"},
-    {"id": "fact:weapon:jagged-steel:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:jagged-steel:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "剑", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id":"fact:weapon:jagged-steel:name-zh","key":"weapon.name","valueType":"string","value":"残钢刃","status":"observation","sourceIds":["source:a9vg-beijing-hands-on-2026-10-09","source:4gamer-beijing-hands-on-2026-10-09"],"basisFactIds":[],"checkedAt":"2026-10-11","gameVersionId":"version:prelaunch-materials-2026-10","scope":{"platforms":{"mode":"all","ids":[]},"difficulties":{"mode":"all","ids":[]}},"validFromVersionId":null,"validToVersionId":null,"supersededBy":"fact:weapon:jagged-steel:release-name","reviewNote":"两家亲历媒体分别记录同一残钢 Boss 取得的武器中文、英文名；按试玩资料采用，不标为官方最终名称。"},
+    {"id": "fact:weapon:jagged-steel:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": "fact:weapon:jagged-steel:release-system-category", "reviewNote": null},
+    {"id": "fact:weapon:jagged-steel:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "剑", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-ui-2026-10-29", "supersededBy": null, "reviewNote": null},
     {
       "id": "fact:weapon:jagged-steel:public-appearance",
       "key": "weapon.publicAppearance",
@@ -89,14 +90,551 @@
         "difficulties": {"mode": "all", "ids": []}
       },
       "validFromVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-10-29",
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "残钢刃",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "刀身残破，锈痕如疮，能令敌人流血并可能引发大出血。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "单手",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-acquisition-order",
+      "key": "weapon.acquisitionOrder",
+      "valueType": "object",
+      "value": {
+        "series": "opening-main-weapons",
+        "position": 5
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "顺序由负责人确认，不证明获取地点或条件。"
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-base-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 240,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-base-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "异常效果",
+        "displayedValue": 124,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-basic-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-killing-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-l2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "残钢乱舞",
+        "input": "L2",
+        "description": "消耗1精纯杀气。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "仅显示名称、按键与资源消耗；1级效果说明被截断，暂缓。"
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-bleeding",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "流血",
+        "description": "攻击命中敌人时，使其流血，并叠加流血计量条，叠满后引发大出血，对人偶、金身、幻体无效。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "血刃",
+        "level": 5,
+        "description": "当敌人破防时，可 △ 施展嗜血斩击，对敌人造成伤害，积累大量流血计量条，并为自身叠加一层【血刃】，5秒内造成的伤害和流血计量条积累速度提升，该效果最多叠加3层，对人偶、金身、幻体无效。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "流血不止·之一",
+        "level": 10,
+        "description": "小幅提升流血计量条积累速度。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "血刃蓄力",
+        "level": 15,
+        "description": "按住 △ 可以进行蓄力，蓄力期间不断叠加【血刃】，最多叠加3层。释放 △ 后，发动一次强力斩击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "癫狂血刃",
+        "level": 25,
+        "description": "会消耗自身15%当前生命值并获得3层【血刃】，通过该方式获得的【血刃】效果持续时间为15秒。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:jagged-steel:release-weapon-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "单手武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "负责人2026-10-29补充确认的正式版分类；装备类型与分类分别记录，不从刀剑等历史描述推断。"
     }
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-08-30",
-  "updatedAt": "2026-10-11",
+  "updatedAt": "2026-10-29",
   "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null

@@ -16,7 +16,9 @@ export async function getStaticPaths() {
 const { weapon } = Astro.props;
 const knowledge = await loadKnowledge();
 const detail = projectWeaponDetail(weapon, knowledge);
-const sources = collectDisplayedSources(isMajorSpoiler(weapon) ? detail.sourceFacts : detail.sourceFacts.filter((fact) => !factIsConcealed(fact, weapon)), knowledge);
+const visibleFacts = isMajorSpoiler(weapon) ? detail.sourceFacts : detail.sourceFacts.filter((fact) => !factIsConcealed(fact, weapon));
+const displayedAliases = detail.overview.baseStats.length && !isMajorSpoiler(weapon) ? weapon.aliases : [];
+const sources = collectDisplayedSources([...visibleFacts, ...displayedAliases], knowledge);
 const canonical = `https://www.yingzhirenling.cn/weapons/${weapon.slug}`;
 const safe = entitySafeProjection(weapon);
 const description = `${safe.displayName}：${safe.summary}`;

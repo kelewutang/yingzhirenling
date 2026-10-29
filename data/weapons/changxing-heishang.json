@@ -1,0 +1,531 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:changxing-heishang",
+  "entityType": "weapon",
+  "slug": "changxing-heishang",
+  "displayName": "长形黑伤",
+  "aliases": [],
+  "summary": "PC正式版界面确认的双手主武器；炼邪以黑伤材料仿制的长刀，大开大合，横扫千军。",
+  "summaryFactIds": [
+    "fact:weapon:changxing-heishang:release-exists",
+    "fact:weapon:changxing-heishang:release-name",
+    "fact:weapon:changxing-heishang:release-system-category",
+    "fact:weapon:changxing-heishang:release-description",
+    "fact:weapon:changxing-heishang:release-grip",
+    "fact:weapon:changxing-heishang:release-acquisition-order"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:changxing-heishang:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "长形黑伤",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "炼邪以黑伤材料仿制的长刀，大开大合，横扫千军。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "双手",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-acquisition-order",
+      "key": "weapon.acquisitionOrder",
+      "valueType": "object",
+      "value": {
+        "series": "opening-main-weapons",
+        "position": 4
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "顺序由负责人确认，不证明获取地点或条件。"
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-base-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 200,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-base-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 100,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-basic-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-killing-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-l2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "长刃连斩",
+        "input": "L2",
+        "description": "消耗1精纯杀气，发动刚猛与迅捷合一的长刀斩击。无法被敌人防御。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "旋风斩击",
+        "level": 5,
+        "description": "消耗大量杀气使出旋风斩击。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "炽杀·之一",
+        "level": 10,
+        "description": "【作用于全部双手类型武器】可向前重劈，留下一道燃烧裂隙。破防力较强。只有杀气>90%时可以发动并会消耗全部杀气，发动招式后15秒内无法切换主武器。",
+        "input": "L1 + ○"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "横扫刀劲",
+        "level": 15,
+        "description": "普通连招的末尾衔接 □，或在任何 △ 之后衔接 □，可施展一招横扫。此招与敌人的攻击对撞，会形成拼刀，并叠加【刀劲】，【刀劲】蓄满时造成的伤害和杀气削减提升，持续25秒。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "风回云卷",
+        "level": 25,
+        "description": "【刀劲】蓄满时，按 L1 + △，会消耗全部【刀劲】，使出强力旋风斩击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:release-weapon-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "双手武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "负责人2026-10-29补充确认的正式版分类；装备类型与分类分别记录，不从刀剑等历史描述推断。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-10-29",
+  "updatedAt": "2026-10-29",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}
