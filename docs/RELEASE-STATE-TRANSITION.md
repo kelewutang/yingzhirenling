@@ -1,14 +1,16 @@
 # Release State Transition
 
-## Current production state
+## Current release candidate state
 
-`src/lib/site-lifecycle.mjs` currently sets `siteLifecycle.state` to `pre-release`.
+`src/lib/site-lifecycle.mjs` explicitly selects `released` for the Launch-2 candidate. The same `lifecycleState` selects both `siteLifecycle.state` and its copy. This candidate reflects the official October 29, 2026 release announcement; it does not claim first-party gameplay verification.
+
+Launch-2 permits a PR and Deploy Preview while commercial-pricing still blocks Release Candidate approval. Regional client startup evidence remains pending. Production retains its existing state until a separately approved merge and deployment; Preview success does not authorize either.
 
 This is an explicit editorial setting. It must never change from the calendar, a deployment timestamp, a browser setting, or a remote configuration request.
 
 ## Launch Day prerequisites
 
-Before changing the lifecycle state, confirm all of the following:
+Before approving the lifecycle transition for production, confirm all of the following:
 
 1. The game is actually playable in the relevant production region.
 2. Store availability, price, edition, preorder and reward status have been reviewed as separate commercial facts.
@@ -29,11 +31,11 @@ Collection Browser and spoiler disclosure have separate Browser approvals. The f
 
 ## Lifecycle switch
 
-1. Change only `siteLifecycle.state` from `pre-release` to `released` in `src/lib/site-lifecycle.mjs`.
+1. Set the explicit `lifecycleState` in `src/lib/site-lifecycle.mjs`; `siteLifecycle.state` and `copy` must use that same selection. Never change the state independently of the copy.
 2. Independently update confirmed commercial facts and Entity evidence. Do not infer either from the lifecycle setting.
 3. Run `npm run test:site-lifecycle` and `npm run build`.
 4. Review the Deploy Preview and perform the lifecycle Browser Gate.
-5. Merge only after the Preview, build, lifecycle check and commercial review pass.
+5. Merge only after the Preview, build, lifecycle check, full `release-candidate` check and commercial review pass, and the user explicitly approves production merge. Do not relax freshness rules or reorder review dates to clear a commercial BLOCK.
 6. After production deployment, check the homepage, `/guide`, `/about-site`, shared Footer, sitemap, Search and production smoke results.
 
 Run the first-party HTTP smoke only with an explicit deployment URL:

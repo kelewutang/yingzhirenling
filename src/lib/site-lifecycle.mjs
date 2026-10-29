@@ -42,20 +42,20 @@ const lifecycleCopy = Object.freeze({
   }),
   released: Object.freeze({
     homepage: Object.freeze({
-      title: '影之刃零攻略站 - 正式版可核验资料库',
-      description: '影之刃零非官方玩家知识库，整理按版本、平台和核验状态标注的正式版资料，并保留公开资料的来源边界。',
+      title: '影之刃零攻略站 - 可核验玩家资料库',
+      description: '影之刃零已正式发售。本站整理官方公开资料、试玩观察与第三方资料，保留来源边界；正式版玩法仍待实测核验。',
       eyebrow: 'RELEASE KNOWLEDGE BASE',
-      status: '本站已进入正式版攻略与实测更新阶段；内容按版本、平台和核验状态持续更新。'
+      status: '《影之刃零》已于2026年10月29日正式发售。本站尚未完成正式版玩法实测；现有内容仍按官方公开资料、试玩观察与第三方来源分别标注。'
     }),
     guide: Object.freeze({
-      metaDescription: '影之刃零攻略中心，整理按版本与核验状态更新的正式版资料，并保留公开试玩内容的来源边界。',
-      jsonLdHeadline: '影之刃零攻略中心 - 正式版资料与公开资料边界',
-      jsonLdDescription: '影之刃零攻略中心持续整理正式版资料与公开试玩观察；内容按版本、平台和核验状态更新。',
-      status: '正式版资料 · 公开试玩观察 · 持续核验',
-      notice: '本站已进入正式版攻略与实测更新阶段；下方公开试玩内容仍按原始资料范围标注。'
+      metaDescription: '影之刃零已正式发售。攻略中心整理官方公开资料与试玩观察，正式版玩法仍待实测核验；历史试玩内容保留原始来源与版本范围。',
+      jsonLdHeadline: '影之刃零攻略中心 - 公开资料与正式版核验进度',
+      jsonLdDescription: '影之刃零已正式发售；本页仍以官方公开资料与试玩观察为主，正式版玩法尚未完成实测核验。',
+      status: '游戏已发售 · 公开试玩观察 · 正式版待核验',
+      notice: '《影之刃零》已于2026年10月29日正式发售（见 <a href="https://pbz.s-game.com/zh-CN/" target="_blank" rel="noopener noreferrer">S-GAME 官方公告</a>）。本站尚未完成正式版玩法实测；下方内容仍按官方公开资料与试玩来源标注，不能视为已完成首日版本核验。'
     }),
     aboutSite: Object.freeze({
-      introduction: '《影之刃零》已进入正式版持续维护阶段。本站持续整理可核验的资料，并按版本与实际测试更新内容。',
+      introduction: '《影之刃零》已正式发售。本站仍以官方公开资料、公开试玩观察与明确标注的第三方资料为主；正式版玩法尚待实测核验。',
       evidenceNotice: '发售前宣传信息可能与正式版不同；页面上的玩法观察、角色关系和数据仍会按各自来源与核验状态呈现。没有可靠来源的内容会保留“待核”状态。'
     }),
     collections: Object.freeze({
@@ -67,25 +67,27 @@ const lifecycleCopy = Object.freeze({
       boss: Object.freeze({
         description: '影之刃零 Boss 资料，整理当前可核验的敌人与战斗信息；部分条目仍保留公开试玩观察，已实测内容会明确标注。',
         intro: '当前已发布的 Boss 实体按 Fact 与 Source 展示资料。集合页不会把尚未核验的弱点、掉落或战斗机制写成正式版结论。',
-        supportingText: '部分 Boss 记录仍来自公开实机视频说明；名称、身份、策略、遭遇流程与战斗机制会按各自来源和正式版核验状态更新。'
+        supportingText: '当前 Boss 记录仍来自公开实机视频说明，名称与 Boss 身份均保持为引用第三方来源的信息；本页不代表正式版完整名单，策略、遭遇流程与战斗机制仍待正式版核验。'
       })
     }),
     detail: Object.freeze({
       defaultScope: '本页整理公开资料与已核验内容。每条事实与关系均单独标注来源状态和核验范围；历史公开画面观察不会自动等同于正式版事实。',
       weaponScope: '本页保留公开资料；招式和成长说明只展示有明确文字或正式版实测支持的内容。'
     }),
-    footer: '面向全球玩家的《影之刃零》知识库。内容按 Fact 与 Source 保留可核查边界，并按游戏版本与实际核验持续更新。',
+    footer: '面向全球玩家的《影之刃零》知识库。内容按 Fact 与 Source 保留可核查边界；正式版玩法仍待实测核验。',
     pageSearch: Object.freeze({
-      guide: '整理按版本与核验状态更新的正式版资料，并保留公开试玩观察的来源边界',
+      guide: '游戏已发售；整理官方公开资料与试玩观察，正式版玩法仍待实测核验',
       weapons: '影之刃零武器资料，整理当前已发布武器与可核验信息；部分条目仍保留公开材料，已实测内容会明确标注。',
       bosses: '影之刃零 Boss 资料，整理当前可核验的敌人与战斗信息；部分条目仍保留公开试玩观察，已实测内容会明确标注。'
     })
   })
 });
 
+const lifecycleState = 'released';
+
 export const siteLifecycle = Object.freeze({
-  state: 'pre-release',
-  copy: lifecycleCopy['pre-release']
+  state: lifecycleState,
+  copy: lifecycleCopy[lifecycleState]
 });
 
 export function getLifecycleCopy(state = siteLifecycle.state) {

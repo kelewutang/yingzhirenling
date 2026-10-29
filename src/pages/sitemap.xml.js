@@ -4,15 +4,15 @@ import { getPublishedGuideEntries, guideRoute } from '../lib/guides.mjs';
 export const prerender = true;
 const site = 'https://www.yingzhirenling.cn';
 const legacyPages = [
-  ['/', '2026-08-12'], ['/weapons', '2026-08-12'],
+  ['/', '2026-10-29'], ['/weapons', '2026-08-12'],
   ['/characters', '2026-08-12'], ['/bosses', '2026-08-12'], ['/world', '2026-08-12'],
-  ['/videos', '2026-08-12'], ['/about', '2026-10-26'], ['/about-site', '2026-08-18']
+  ['/videos', '2026-08-12'], ['/about', '2026-10-29'], ['/about-site', '2026-10-29']
 ];
 
 export async function GET() {
   const knowledge = await loadKnowledge();
   const guides = await getPublishedGuideEntries(knowledge);
-  const guideLandingLastmod = guides.reduce((latest, guide) => guide.data.updatedAt > latest ? guide.data.updatedAt : latest, '2026-08-26');
+  const guideLandingLastmod = guides.reduce((latest, guide) => guide.data.updatedAt > latest ? guide.data.updatedAt : latest, '2026-10-29');
   const entries = [
     ...legacyPages.slice(0, 1), ['/guide', guideLandingLastmod], ...legacyPages.slice(1),
     ...getPublishedWeapons(knowledge).map((weapon) => [`/weapons/${weapon.slug}`, weapon.updatedAt]),

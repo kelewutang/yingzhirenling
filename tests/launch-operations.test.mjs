@@ -226,7 +226,7 @@ test('current candidate includes one non-spoiler Guide and one minor-spoiler Wea
   const spoilerTrigger = spoilerTriggerFromState({ guides, entities: currentEntities, facts: currentEntities.flatMap((item) => item.facts), media: [], renderedHtml: [] });
   assert.equal(spoilerTrigger.triggered, true);
   assert.deepEqual(spoilerTrigger.reasons, ['published Entity']);
-  assert.equal(siteLifecycle.state, 'pre-release');
+  assert.equal(siteLifecycle.state, 'released');
 });
 
 test('absence of exact unlock time remains informational while the approved Guide is explicit', async () => {
