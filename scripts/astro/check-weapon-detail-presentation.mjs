@@ -188,7 +188,7 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   assert(renderedOverview.includes(`data-system-category-fact-id="fact:weapon:${slug}:system-category"`), `${slug}: overview system category must use its normalized Fact`);
   const weaponTypeFactId = slug === 'white-shadow' ? 'fact:weapon:white-shadow:weapon-type-official' : `fact:weapon:${slug}:weapon-type`;
   assert(!renderedOverview.includes(`data-weapon-type-fact-id="${weaponTypeFactId}"`), `${slug}: historical custom type must not become a formal release class`);
-  assert(renderedOverview.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: overview taxonomy missing`);
+  assert(renderedOverview.includes(`<dt>装备类型</dt><dd>${taxonomy}</dd>`), `${slug}: unconfirmed class must leave only the equipment type`);
   assert(!renderedOverview.includes('data-weapon-overview-field="type"'), `${slug}: legacy mixed kind must not render in overview`);
 }
 const sparseWeaponCard = collection.match(/<a class="entity-card" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
@@ -228,9 +228,10 @@ for (const [slug, system, category] of [
 ]) {
   const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
   const rendered = overview(html);
-  assert(rendered.includes(`<dt>装备类型</dt><dd>${system}</dd>`), `${slug}: equipment type must use its exact term`);
-  assert(rendered.includes(`<dt>武器分类</dt><dd>${category}</dd>`), `${slug}: formal category must use its exact term`);
-  assert.equal(count(rendered, '<dt>武器分类</dt>'), 1, `${slug}: do not duplicate classification fields`);
+  assert(rendered.includes(`<dt>装备类型</dt><dd>${system} · ${category}</dd>`), `${slug}: equipment type must include the confirmed class`);
+  assert(!rendered.includes('<dt>武器分类</dt>') && !rendered.includes('data-weapon-overview-field="weapon-type"'), `${slug}: classification must not occupy a separate row`);
+  const baseStats = rendered.match(/<section[^>]*data-weapon-base-stats[\s\S]*?<\/section>/)?.[0] || '';
+  assert(baseStats.includes('Lv1 基础属性') && !baseStats.includes('<p>'), `${slug}: base stats must contain only the heading, names and values`);
   const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
   assert(card.replace(/<[^>]*>/gu, '').includes(`${system} · ${category}`), `${slug}: collection formal category missing`);
 }

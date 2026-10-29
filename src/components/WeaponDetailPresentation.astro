@@ -7,6 +7,7 @@ import { isMajorSpoiler } from '../lib/spoilers.mjs';
 
 const { detail } = Astro.props;
 const { overview, mechanics, progressionNodes } = detail;
+const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || isMajorSpoiler(overview.taxonomy?.weaponType);
 ---
 <section class="weapon-detail-section weapon-detail-overview" aria-labelledby="weapon-overview-title" data-weapon-section="overview">
   <div class="detail-section-heading">
@@ -19,12 +20,8 @@ const { overview, mechanics, progressionNodes } = detail;
       <dd>{overview.displayName}</dd>
     </div>
     {overview.taxonomy && <div data-weapon-overview-field="taxonomy" data-system-category-fact-id={overview.taxonomy.systemCategory.id} data-weapon-type-fact-id={overview.taxonomy.weaponType?.id} data-fact-id={overview.taxonomy.systemCategory.id}>
-      <dt>{isMajorSpoiler(overview.taxonomy.systemCategory) ? '重大剧情资料' : '装备类型'}</dt>
-      <dd>{isMajorSpoiler(overview.taxonomy.systemCategory) ? <SpoilerDisclosure>{overview.taxonomy.systemCategory.valueText}</SpoilerDisclosure> : overview.taxonomy.systemCategory.valueText}</dd>
-    </div>}
-    {overview.taxonomy?.weaponType && <div data-weapon-overview-field="weapon-type" data-fact-id={overview.taxonomy.weaponType.id}>
-      <dt>{isMajorSpoiler(overview.taxonomy.weaponType) ? '重大剧情资料' : '武器分类'}</dt>
-      <dd>{isMajorSpoiler(overview.taxonomy.weaponType) ? <SpoilerDisclosure>{overview.taxonomy.weaponType.valueText}</SpoilerDisclosure> : overview.taxonomy.weaponType.valueText}</dd>
+      <dt>{concealedTaxonomy ? '重大剧情资料' : '装备类型'}</dt>
+      <dd>{concealedTaxonomy ? <SpoilerDisclosure>{overview.taxonomy.valueText}</SpoilerDisclosure> : overview.taxonomy.valueText}</dd>
     </div>}
     {overview.taxonomy?.grip && !overview.taxonomy.weaponType && <div data-weapon-overview-field="grip" data-fact-id={overview.taxonomy.grip.id}>
       <dt>持握方式</dt>
@@ -37,7 +34,6 @@ const { overview, mechanics, progressionNodes } = detail;
       <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.value.statName}</dt>
       <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
     </div>)}</dl>
-    <p>PC正式版截图显示值，具体版本号未知。</p>
   </section>}
   {overview.notes.length > 0 && <dl class="weapon-overview__notes">
     {overview.notes.map((fact) => <div data-weapon-overview-note={fact.key} data-fact-id={fact.id}>
