@@ -74,7 +74,7 @@ for (const collection of collections) {
 const weapons = await publishedEntities('data/weapons');
 const draftWeapons = (await Promise.all((await readdir(resolve(root, 'data/weapons'))).filter((name) => name.endsWith('.json')).map(async (name) => JSON.parse(await readFile(resolve(root, 'data/weapons', name), 'utf8'))))).filter((entity) => entity.recordState === 'draft');
 const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');
-assert.equal(weapons.length, 15, 'Expected 15 published Weapons after the approved release update');
+assert.equal(weapons.length, 12, 'Expected 12 published Weapons after the approved Chinese-name withdrawal');
 for (const weapon of draftWeapons) assert(!weaponCollection.includes(`/weapons/${weapon.slug}`), `Draft Weapon must not appear in collection: ${weapon.id}`);
 
 const search = JSON.parse(await readFile(resolve(root, 'generated/search-index.production.json'), 'utf8'));

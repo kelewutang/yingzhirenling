@@ -33,7 +33,7 @@
       "key": "weapon.weaponType",
       "applicableEntityTypes": ["weapon"],
       "allowedValueTypes": ["string"],
-      "description": "可选的、有来源的武器类别；不与装备类型或单手／双手／双持混写，缺少证据时不填。",
+      "description": "正式版分类：主武器仅单手武器、双手武器、双持武器；影之武装仅破坏、远程、奇门、武学、召唤。分类可选，缺少证据不填；刀剑等历史类别不作当前分类。",
       "requiresAsOf": false
     },
     {

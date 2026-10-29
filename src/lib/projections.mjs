@@ -118,7 +118,7 @@ export function projectWeaponDetail(weapon, knowledge) {
     systemCategory: projectWeaponFact(systemCategoryFact, '武器概览', '武器定位', knowledge),
     weaponType: weaponTypeFact ? projectWeaponFact(weaponTypeFact, '武器概览', '武器类型', knowledge) : null,
     grip: gripFact ? projectWeaponFact(gripFact, '武器概览', '持握方式', knowledge) : null,
-    valueText: [systemCategoryFact, gripFact || weaponTypeFact].filter(Boolean).map(displayValue).join(' · ')
+    valueText: [systemCategoryFact, weaponTypeFact].filter(Boolean).map(displayValue).join(' · ')
   } : null;
   const baseStats = activeWeaponFacts(weapon, 'weapon.baseStat')
     .map((fact) => projectWeaponFact(fact, '基础属性', '正式版显示属性', knowledge));

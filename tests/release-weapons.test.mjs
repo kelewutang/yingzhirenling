@@ -3,10 +3,12 @@ import { cp, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import test from 'node:test';
 import { getFact, getPublishedWeapons, loadKnowledge } from '../src/lib/knowledge.mjs';
 import { projectWeaponDetail } from '../src/lib/projections.mjs';
 import { buildWeaponCollectionCard } from '../src/lib/collection-models.mjs';
+import { getProductionHeroMedia, getProductionCardMedia } from '../src/lib/media.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const sourceId = 'source:owner-pc-release-weapons-2026-10-29';
@@ -19,6 +21,45 @@ const expectations = [
   ['juxiong-fu', '巨凶斧', null, [['伤害能力', 309], ['破防能力', 208]]]
 ];
 
+test('only the three English-only identities are withdrawn while Chinese names and historical aliases survive', async () => {
+  const knowledge = await loadKnowledge();
+  const published = getPublishedWeapons(knowledge);
+  assert.equal(published.length, 12);
+  for (const [slug, name] of [['bashpole', 'Bashpole'], ['night-owl', 'Night Owl'], ['seamless-death', 'Seamless Death']]) {
+    const entity = knowledge.entityById.get(`weapon:${slug}`);
+    assert.equal(entity.recordState, 'draft');
+    assert.equal(entity.displayName, name);
+    assert(entity.publishedAt && entity.facts.length > 0, 'Withdrawn historical evidence must remain in Knowledge');
+    assert(!published.some((item) => item.id === entity.id));
+  }
+  for (const [slug, name] of [['jagged-steel', '残钢刃'], ['soft-snake-sword', '灵蛇软剑'], ['white-serpent-crimson-viper', '白蟒赤练']]) {
+    const entity = published.find((item) => item.slug === slug);
+    assert.equal(entity?.displayName, name);
+    assert(entity.aliases.length > 0, 'An English historical alias must not cause withdrawal');
+  }
+});
+
+test('all six release weapons share admitted portrait Hero/Card Masters without replacing the approved dual-blade asset', async () => {
+  for (const [slug] of expectations) {
+    const hero = await getProductionHeroMedia(`weapon:${slug}`);
+    const card = await getProductionCardMedia(`weapon:${slug}`);
+    assert(hero && card);
+    assert.equal(hero.id, card.id);
+    assert.equal(hero.src, card.src);
+    assert.deepEqual([hero.width, hero.height, hero.objectFit], [1200, 1800, 'contain']);
+    assert.equal(hero.rightsStatus, 'self-captured-reviewed');
+    assert.equal(hero.sourceId, sourceId);
+    assert.equal(hero.sourceUrl, null);
+    if (slug !== 'heishang-shuangren') {
+      assert.match(hero.caption, /截断/);
+      assert.match(hero.processing, /not a complete weapon/);
+    } else {
+      const bytes = await readFile(join(root, 'assets/media/heishang-shuangren-master.jpg'));
+      assert.equal(createHash('sha256').update(bytes).digest('hex'), '9758c9f0a3b71df99d02f617f6a1378a8e971b177bb115c8d6ce1d2344314d5b');
+    }
+  }
+});
+
 test('approved release UI values, optional categories and opening acquisition order stay distinct', async () => {
   const knowledge = await loadKnowledge();
   assert.deepEqual(getPublishedWeapons(knowledge).slice(0, 5).map((item) => item.displayName), expectations.slice(0, 5).map(([, name]) => name));
@@ -27,13 +68,13 @@ test('approved release UI values, optional categories and opening acquisition or
     assert.equal(weapon.displayName, name);
     assert.equal(weapon.recordState, 'published');
     assert.equal(getFact(weapon, 'weapon.grip')?.value ?? null, grip);
-    assert.equal(getFact(weapon, 'weapon.weaponType'), null, 'A release screenshot must not inherit an unconfirmed demo category');
+    assert.equal(getFact(weapon, 'weapon.weaponType')?.value, grip ? `${grip}武器` : '破坏');
     const detail = projectWeaponDetail(weapon, knowledge);
     assert.deepEqual(detail.overview.baseStats.map((fact) => [fact.value.statName, fact.value.displayedValue]), stats);
     assert(detail.overview.baseStats.every((fact) => fact.value.displayedLevel === 1 && fact.value.displayContext === 'release-game-ui'));
     assert.deepEqual(detail.progressionNodes.map((fact) => fact.level), [5, 10, 15, 25]);
     assert.equal(detail.overview.previewStats.length, 0);
-    assert.equal(buildWeaponCollectionCard(weapon).secondary, grip ? `主武器 · ${grip}` : '影之武装');
+    assert.equal(buildWeaponCollectionCard(weapon).secondary, grip ? `主武器 · ${grip}武器` : '影之武装 · 破坏');
     const current = detail.sourceFacts.filter((fact) => fact.gameVersionId === 'version:release-pc-ui-2026-10-29');
     assert(current.every((fact) => fact.status === 'observation' && fact.sourceIds.includes(sourceId)));
     assert(current.every((fact) => fact.scope.platforms.mode === 'include' && fact.scope.platforms.ids.length === 1 && fact.scope.platforms.ids[0] === 'platform:pc'));
@@ -70,6 +111,25 @@ test('PC screenshot evidence preserves unknown metadata and never invents an int
   assert.equal([...knowledge.factById.values()].filter((item) => item.status === 'release-verified').length, 0);
 });
 
+test('main and shadow armament classes use separate official vocabularies', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'pbz-formal-classes-'));
+  try {
+    await cp(join(root, 'data'), directory, { recursive: true });
+    const file = join(directory, 'weapons/juxiong-fu.json');
+    const original = JSON.parse(await readFile(file, 'utf8'));
+    for (const [category, valid] of [['破坏', true], ['远程', true], ['奇门', true], ['武学', true], ['召唤', true], ['单手武器', false], ['斧', false]]) {
+      const entity = structuredClone(original);
+      entity.facts.find((fact) => fact.key === 'weapon.weaponType').value = category;
+      await writeFile(file, JSON.stringify(entity));
+      const result = spawnSync(process.execPath, [join(root, 'scripts/validate-data.mjs'), `--data-dir=${directory}`], { cwd: root, encoding: 'utf8' });
+      assert.equal(result.status === 0, valid, `${category}: ${result.stderr}`);
+      if (!valid) assert.match(result.stderr, /不符合装备类型的正式版分类/);
+    }
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
 test('new data contract rejects malformed values without weakening historical evidence gates', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'pbz-release-weapon-contract-'));
   try {
@@ -82,6 +142,8 @@ test('new data contract rejects malformed values without weakening historical ev
       [(weapon) => { weapon.facts.find((fact) => fact.key === 'weapon.baseStat').value.displayContext = 'official-pre-release-ui'; }, /release-game-ui/],
       [(weapon) => { weapon.facts.find((fact) => fact.key === 'weapon.baseStat').gameVersionId = 'version:prelaunch-demo-2025'; }, /引用 release GameVersion/],
       [(weapon) => { weapon.facts.find((fact) => fact.key === 'weapon.grip').value = '双手或双持'; }, /enum value/],
+      [(weapon) => { weapon.facts.find((fact) => fact.key === 'weapon.weaponType').value = '远程'; }, /不符合装备类型的正式版分类/],
+      [(weapon) => { weapon.facts.find((fact) => fact.key === 'weapon.weaponType').value = '剑'; }, /不符合装备类型的正式版分类/],
       [(weapon) => { weapon.facts.find((fact) => fact.key === 'weapon.acquisitionOrder').value.position = 1; }, /位置不得重复/],
       [(weapon) => { weapon.facts.find((fact) => fact.key === 'weapon.baseStat').status = 'release-verified'; }, /release-verified Fact 至少需要一个/]
     ]) {

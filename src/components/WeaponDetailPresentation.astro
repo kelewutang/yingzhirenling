@@ -19,10 +19,14 @@ const { overview, mechanics, progressionNodes } = detail;
       <dd>{overview.displayName}</dd>
     </div>
     {overview.taxonomy && <div data-weapon-overview-field="taxonomy" data-system-category-fact-id={overview.taxonomy.systemCategory.id} data-weapon-type-fact-id={overview.taxonomy.weaponType?.id} data-fact-id={overview.taxonomy.systemCategory.id}>
-      <dt>{isMajorSpoiler(overview.taxonomy.systemCategory) || isMajorSpoiler(overview.taxonomy.weaponType) ? '重大剧情资料' : overview.baseStats.length ? '装备类型' : '武器分类'}</dt>
-      <dd>{isMajorSpoiler(overview.taxonomy.systemCategory) || isMajorSpoiler(overview.taxonomy.weaponType) ? <SpoilerDisclosure>{overview.taxonomy.valueText}</SpoilerDisclosure> : overview.baseStats.length ? overview.taxonomy.systemCategory.valueText : overview.taxonomy.valueText}</dd>
+      <dt>{isMajorSpoiler(overview.taxonomy.systemCategory) ? '重大剧情资料' : '装备类型'}</dt>
+      <dd>{isMajorSpoiler(overview.taxonomy.systemCategory) ? <SpoilerDisclosure>{overview.taxonomy.systemCategory.valueText}</SpoilerDisclosure> : overview.taxonomy.systemCategory.valueText}</dd>
     </div>}
-    {overview.taxonomy?.grip && <div data-weapon-overview-field="grip" data-fact-id={overview.taxonomy.grip.id}>
+    {overview.taxonomy?.weaponType && <div data-weapon-overview-field="weapon-type" data-fact-id={overview.taxonomy.weaponType.id}>
+      <dt>{isMajorSpoiler(overview.taxonomy.weaponType) ? '重大剧情资料' : '武器分类'}</dt>
+      <dd>{isMajorSpoiler(overview.taxonomy.weaponType) ? <SpoilerDisclosure>{overview.taxonomy.weaponType.valueText}</SpoilerDisclosure> : overview.taxonomy.weaponType.valueText}</dd>
+    </div>}
+    {overview.taxonomy?.grip && !overview.taxonomy.weaponType && <div data-weapon-overview-field="grip" data-fact-id={overview.taxonomy.grip.id}>
       <dt>持握方式</dt>
       <dd>{isMajorSpoiler(overview.taxonomy.grip) ? <SpoilerDisclosure>{overview.taxonomy.grip.valueText}</SpoilerDisclosure> : overview.taxonomy.grip.valueText}</dd>
     </div>}

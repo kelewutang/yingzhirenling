@@ -21,8 +21,7 @@ function publicCardAliases(entity) {
 function weaponTaxonomy(entity) {
   const systemCategory = factValue(entity, 'weapon.systemCategory');
   const weaponType = factValue(entity, 'weapon.weaponType');
-  const grip = factValue(entity, 'weapon.grip');
-  return [systemCategory, grip || weaponType].filter(Boolean).join(' · ') || null;
+  return [systemCategory, weaponType].filter(Boolean).join(' · ') || null;
 }
 
 function baseCard(entity, href, secondary, context) {

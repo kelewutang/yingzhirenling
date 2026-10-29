@@ -83,6 +83,7 @@ Production-eligible Weapon Media uses one frozen Master per Weapon, rather than 
 - Crop, resize, JPEG re-encoding, and non-generative compositing onto the neutral canvas are allowed where a direct clean crop is unavailable and the result does not create a misleading frame. Generative fill or extension, AI reconstruction, repainting, or inventing missing blade/tip/handle geometry are prohibited.
 - Remove phone/browser chrome, game menus, skill text, button prompts, page indicators, and screenshot borders where this can be done without damaging weapon identity. Original game/environment background may remain.
 - If a source is truncated, the Master must remain truncated. It must never be made to look complete through reconstruction.
+- 2026-10-29负责人补充确认：本批PC正式版截图中的木制黑伤、黑伤、长形黑伤、残钢刃、巨凶斧允许按上述白影先例展示自然截断的可见主体；主体不完整本身不作为否决条件。继续直接裁切干净的2:3原图区域并缩放，不添加边框、补画或声称完整武器；caption及processing须记录截断和为去除UI而省略的区域。已准入黑伤双刃Master保持不变。
 - `provisional-official` is the current editorial lifecycle for traceable official promotional material; after release, approved self-captured replacements become `canonical-self-captured`. This is documented lifecycle vocabulary, not a new Media Schema field; a later gate may add a machine-readable field.
 - When no acceptable Master passes this standard, the deterministic Weapon fallback remains the required production presentation.
 

@@ -98,7 +98,7 @@ test('weapon detail prefers current overview values and groups active guide cont
       { id: 'fact:weapon:test:name-current', key: 'weapon.name', valueType: 'string', value: '白蟒赤练', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
       { id: 'fact:weapon:test:kind-legacy', key: 'weapon.kind', valueType: 'string', value: '主武器（双剑）', status: 'observation', gameVersionId: 'version:demo', checkedAt: '2026-08-30', supersededBy: null },
       { id: 'fact:weapon:test:system-category', key: 'weapon.systemCategory', valueType: 'string', value: '主武器', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
-      { id: 'fact:weapon:test:weapon-type', key: 'weapon.weaponType', valueType: 'string', value: '双剑', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
+      { id: 'fact:weapon:test:weapon-type', key: 'weapon.weaponType', valueType: 'string', value: '双持武器', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
       { id: 'fact:weapon:test:mechanic-string', key: 'weapon.mechanic', valueType: 'string', value: '普通连招', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
       { id: 'fact:weapon:test:mechanic-detail', key: 'weapon.mechanic', valueType: 'object', value: { name: '冰冻', input: '□ △', description: '累计至满时触发冰冻。', derivedInputs: [{ inputs: ['○'], label: '结束冰冻', labelKind: 'functional' }] }, status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
       { id: 'fact:weapon:test:node-string', key: 'weapon.progressionNode', valueType: 'string', value: '赤练追魂', status: 'observation', gameVersionId: 'version:current', checkedAt: '2026-09-10', supersededBy: null },
@@ -111,7 +111,7 @@ test('weapon detail prefers current overview values and groups active guide cont
 
   const detail = projectWeaponDetail(weapon, knowledge);
   assert.equal(detail.overview.displayName, '白蟒赤练');
-  assert.equal(detail.taxonomy?.valueText, '主武器 · 双剑');
+  assert.equal(detail.taxonomy?.valueText, '主武器 · 双持武器');
   assert.equal(detail.overview.taxonomy?.systemCategory.id, 'fact:weapon:test:system-category');
   assert.equal(detail.overview.taxonomy?.weaponType.id, 'fact:weapon:test:weapon-type');
   assert.equal(detail.overview.type, undefined);

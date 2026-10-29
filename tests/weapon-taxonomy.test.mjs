@@ -7,10 +7,7 @@ import { projectWeaponDetail } from '../src/lib/projections.mjs';
 
 const root = resolve(process.cwd());
 const expectedTaxonomy = new Map([
-  ['bashpole', ['影之武', '大锤']],
   ['chizhe-canjian', ['主武器', '剑']],
-  ['night-owl', ['影之武', '弓']],
-  ['seamless-death', ['主武器', '投掷类']],
   ['soft-snake-sword', ['主武器', '剑']],
   ['tang-hengdao', ['主武器', '刀类']],
   ['white-serpent-crimson-viper', ['主武器', '双剑']],
@@ -37,7 +34,7 @@ function activeFact(weapon, key) {
   return facts[0];
 }
 
-test('published Weapon taxonomy is normalized into systemCategory and weaponType', async () => {
+test('unverified release categories remain absent while historical evidence is retained', async () => {
   const allWeapons = await readAllWeapons();
   const publishedWeapons = allWeapons.filter((weapon) => weapon.recordState === 'published');
   const publishedSlugs = publishedWeapons.map((weapon) => weapon.slug).sort();
@@ -51,18 +48,19 @@ test('published Weapon taxonomy is normalized into systemCategory and weaponType
     const weapon = weaponsBySlug.get(slug);
     assert(weapon, `${slug}: frozen Weapon must be published`);
     const systemCategoryFact = activeFact(weapon, 'weapon.systemCategory');
-    const weaponTypeFact = activeFact(weapon, 'weapon.weaponType');
+    const weaponTypeFact = weapon.facts.find((fact) => fact.key === 'weapon.weaponType' && fact.value === weaponType);
+    assert(weaponTypeFact?.validToVersionId, 'Historical custom categories must not remain active');
     assert.equal(systemCategoryFact.value, systemCategory);
     assert.equal(weaponTypeFact.value, weaponType);
     assert.ok(systemCategoryFact.sourceIds.length > 0, `${weapon.id}: system category must remain sourced`);
     assert.ok(weaponTypeFact.sourceIds.length > 0, `${weapon.id}: weapon type must remain sourced`);
 
     const detail = projectWeaponDetail(weapon, { versionById: new Map() });
-    assert.equal(detail.taxonomy?.valueText, `${systemCategory} · ${weaponType}`);
-    assert.equal(detail.overview.taxonomy?.valueText, `${systemCategory} · ${weaponType}`);
+    assert.equal(detail.taxonomy?.valueText, systemCategory);
+    assert.equal(detail.overview.taxonomy?.valueText, systemCategory);
     assert.equal(detail.overview.type, undefined, `${weapon.id}: legacy kind must not drive public detail taxonomy`);
     const card = buildWeaponCollectionCard(weapon);
-    assert.equal(card.secondary, `${systemCategory} · ${weaponType}`);
+    assert.equal(card.secondary, systemCategory);
     assert.equal(card.summary, null, `${weapon.id}: collection presentation must not expose the long summary`);
     assert.ok(weapon.summary.length > 0, `${weapon.id}: Knowledge summary must remain available outside the card presentation`);
   }

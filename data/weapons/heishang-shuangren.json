@@ -545,6 +545,35 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang-shuangren:release-weapon-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "双持武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-29",
+      "gameVersionId": "version:release-pc-ui-2026-10-29",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-29",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "负责人2026-10-29补充确认的正式版分类；装备类型与分类分别记录，不从刀剑等历史描述推断。"
     }
   ],
   "taxonomyIds": [],

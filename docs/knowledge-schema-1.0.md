@@ -28,7 +28,7 @@ Fact 的更新使用单值 `supersededBy` 指向直接替代它的新 Fact。它
 
 2026-10-29 正式版武器准入补充（负责人已确认）：
 
-- `weapon.systemCategory` 继续为必需的独立装备类型，新增允许“影之武装”，已有“影之武”历史记录保留。`weapon.weaponType` 改为可选且至多一项，存在时仍须满足原有受控类别。不得用类别替代持握方式。
+- `weapon.systemCategory` 为必需的独立装备类型，当前公开值仅“主武器”／“影之武装”；历史“影之武”只保留在退稿或历史数据。复用 `weapon.weaponType` 表达可选且至多一项的正式分类：主武器仅“单手武器／双手武器／双持武器”，影之武装仅“破坏／远程／奇门／武学／召唤”。必须按装备类型分别校验，不能交叉取值，不能用“刀／剑／斧”等自定义类别替代；未核实则不填，不由模型推断。
 - `weapon.grip` 为可选 enum：单手／双手／双持；`weapon.description` 保存截图武器介绍；`weapon.acquisitionOrder` 为 `{series, position}`，位置为正整数，同序列不得重复，不证明获取地点。
 - `weapon.baseStat` 为 `{statName, displayedValue, displayedLevel, displayContext: "release-game-ui"}`，仅记录有 release GameVersion 支持的正式版界面观察或正式版已验证事实。名称限伤害能力、破防能力、异常效果；显示等级为正整数。本站本批仅录入截图1级值。已有 `weapon.previewStat` 的预发布语境和 observation 限制保持不变。
 - 当前武器等级由基础属性的显示等级表达；成长节点的 `level` 表示解锁等级，两者不得混写。未知字段不填，不将“未显示”写成0。

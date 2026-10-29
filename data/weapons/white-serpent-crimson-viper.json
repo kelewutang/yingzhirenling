@@ -68,12 +68,12 @@
         "difficulties": {"mode": "all", "ids": []}
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-10-29",
       "supersededBy": null,
       "reviewNote": null
     },
     {"id": "fact:weapon:white-serpent-crimson-viper:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-serpent-crimson-viper:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "双剑", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "双剑", "status": "observation", "sourceIds": ["source:playstation-blog-de-gamescom-hands-on-2025-08-28"], "basisFactIds": [], "checkedAt": "2026-08-30", "gameVersionId": "version:prelaunch-demo-2025", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-ui-2026-10-29", "supersededBy": null, "reviewNote": null},
     {
       "id": "fact:weapon:white-serpent-crimson-viper:public-appearance",
       "key": "weapon.publicAppearance",
@@ -94,7 +94,7 @@
       "reviewNote": null
     },
     {"id": "fact:weapon:white-serpent-crimson-viper:name-zh", "key": "weapon.name", "valueType": "string", "value": "白蟒赤练", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-serpent-crimson-viper:kind-dual-wield", "key": "weapon.kind", "valueType": "string", "value": "双持武器", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-serpent-crimson-viper:kind-dual-wield", "key": "weapon.kind", "valueType": "string", "value": "双持武器", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-ui-2026-10-29", "supersededBy": null, "reviewNote": null},
     {"id": "fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "普通连招", "description": "使用赤练短刃进行凌厉攻击。", "input": "□ □ □"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
     {"id": "fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "杀气连招", "description": "使用白蟒长刃进行斩击；交替点按可循环连招并进入“双蛇共舞”状态，期间伤害不断提升，可穿插变招，也可掷出赤练短刃结束“双蛇共舞”。", "input": "△ △", "derivedInputs": [{"inputs": ["□ △", "△ □"], "label": "双蛇共舞", "labelKind": "official"}, {"inputs": ["□ □", "△ △"], "label": "变招", "labelKind": "functional"}, {"inputs": ["○"], "label": "结束双蛇共舞", "labelKind": "functional"}]}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
     {"id": "fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "赤练环身", "description": "让赤练短刃围绕自身持续旋转；旋转期间持续消耗杀气，杀气不足时会强制回收，也可再次按下 L1 + △ 主动回收。", "input": "L1 + △"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
@@ -107,7 +107,7 @@
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-08-30",
-  "updatedAt": "2026-09-11",
+  "updatedAt": "2026-10-29",
   "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null

@@ -45,8 +45,11 @@ const WEAPON_DERIVED_INPUTS_MAX_ITEMS = 8;
 const WEAPON_DERIVED_INPUT_VARIANTS_MAX_ITEMS = 4;
 const NAMED_WEAPON_DETAIL_KEYS = new Set(['weapon.mechanic', 'weapon.progressionNode']);
 const DERIVED_INPUT_LABEL_KINDS = new Set(['official', 'functional']);
-const WEAPON_SYSTEM_CATEGORIES = new Set(['主武器', '影之武', '影之武装']);
-const WEAPON_TYPES = new Set(['大锤', '剑', '弓', '投掷类', '刀类', '双剑', '双手剑', '苗刀']);
+const WEAPON_SYSTEM_CATEGORIES = new Set(['主武器', '影之武装']);
+const WEAPON_TYPES_BY_SYSTEM = new Map([
+  ['主武器', new Set(['单手武器', '双手武器', '双持武器'])],
+  ['影之武装', new Set(['破坏', '远程', '奇门', '武学', '召唤'])]
+]);
 const SPOILER_LEVELS = new Set(['none', 'minor', 'major']);
 
 const errors = [];
@@ -406,8 +409,8 @@ function validatePublishedWeaponTaxonomy(entity, location, report = error) {
   }
   if (weaponTypeFacts.length > 1) {
     report(`${location}.facts`, '已发布 Weapon 最多可有一个 active weapon.weaponType Fact');
-  } else if (weaponTypeFacts.length && !WEAPON_TYPES.has(weaponTypeFacts[0].value)) {
-    report(`${location}.facts`, `weapon.weaponType 不在允许 taxonomy 中：${weaponTypeFacts[0].value}`);
+  } else if (weaponTypeFacts.length && !WEAPON_TYPES_BY_SYSTEM.get(systemCategoryFacts[0]?.value)?.has(weaponTypeFacts[0].value)) {
+    report(`${location}.facts`, `weapon.weaponType 不符合装备类型的正式版分类：${systemCategoryFacts[0]?.value} / ${weaponTypeFacts[0].value}`);
   }
   for (const key of ['weapon.grip', 'weapon.description', 'weapon.acquisitionOrder']) {
     if (activeFacts(key).length > 1) report(`${location}.facts`, `${key} 最多可有一个 active Fact`);
