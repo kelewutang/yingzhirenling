@@ -1,0 +1,434 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:yu-gong",
+  "entityType": "weapon",
+  "slug": "yu-gong",
+  "displayName": "羽弓",
+  "aliases": [],
+  "summary": "经老弓手修理后，重新绷紧弓弦的强弓，乃远攻之利器。",
+  "summaryFactIds": [
+    "fact:weapon:yu-gong:release-exists",
+    "fact:weapon:yu-gong:release-name",
+    "fact:weapon:yu-gong:release-system-category",
+    "fact:weapon:yu-gong:release-type",
+    "fact:weapon:yu-gong:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:yu-gong:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "羽弓",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "影之武装",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "远程",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "经老弓手修理后，重新绷紧弓弦的强弓，乃远攻之利器。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-base-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 180,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-base-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 164,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-charge",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "R2",
+        "input": "R2",
+        "description": "按住 R2 蓄力，释放后射出箭矢。消耗1暗源。对生命值全满的敌人造成更多伤害。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-shoot-objects",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "远射破物",
+        "description": "拥有便可击落中远距离上特定的悬挂物品（无须装备）。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "跨蹑柳行·侧",
+        "level": 5,
+        "description": "左摇杆向左 + R1 或左摇杆向右 + R1 闪避后，衔接 R2 可以快速移动射击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "百步穿杨·之一",
+        "level": 10,
+        "description": "未被任何敌人发现时，造成的伤害小幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "跨蹑柳行·进",
+        "level": 15,
+        "description": "左摇杆向前 + R1 前冲后，衔接 R2 可以快速移动射击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:yu-gong:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "跨蹑柳行·退",
+        "level": 25,
+        "description": "左摇杆向后 + R1 后撤后，衔接 R2 可以快速移动射击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-10-30",
+  "updatedAt": "2026-10-30",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

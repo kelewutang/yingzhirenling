@@ -1,7 +1,7 @@
 ---
 import { safeExternalUrl, sourceTypeLabel } from '../lib/knowledge.mjs';
 const { sources } = Astro.props;
-const isReleaseScreenshot = (source) => source.id === 'source:owner-pc-release-weapons-2026-10-29';
+const isReleaseScreenshot = (source) => ['source:owner-pc-release-weapons-2026-10-29', 'source:owner-pc-release-weapons-2026-10-30'].includes(source.id);
 ---
 {sources.length > 0 && <section class="source-panel" aria-labelledby="sources-title">
   <div class="detail-section-heading">

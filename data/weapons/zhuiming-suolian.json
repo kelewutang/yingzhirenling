@@ -1,0 +1,434 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:zhuiming-suolian",
+  "entityType": "weapon",
+  "slug": "zhuiming-suolian",
+  "displayName": "追命锁镰",
+  "aliases": [],
+  "summary": "盘绕、牵拽、收割，精准如其主人臂膀的延伸。利于中远距离攻击，也能钩住远处锚点进行移动。",
+  "summaryFactIds": [
+    "fact:weapon:zhuiming-suolian:release-exists",
+    "fact:weapon:zhuiming-suolian:release-name",
+    "fact:weapon:zhuiming-suolian:release-system-category",
+    "fact:weapon:zhuiming-suolian:release-type",
+    "fact:weapon:zhuiming-suolian:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "追命锁镰",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "影之武装",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "武学",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "盘绕、牵拽、收割，精准如其主人臂膀的延伸。利于中远距离攻击，也能钩住远处锚点进行移动。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-base-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 247,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-base-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 213,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "R2",
+        "input": "R2",
+        "description": "连按 R2，最多可施展3段中远距离的砍绞。镰刃命中时威力最强，链身仅有镰刃30%的威力。一套连招消耗1暗源。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-grapple",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "钩锁飞渡",
+        "description": "拥有便可钩住远方的锚点移动（无须装备）。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "如影附形",
+        "level": 5,
+        "description": "连招可接 △ 或 □，将锁定的敌人拽到面前。若锁定的敌人处于霸体状态或为大体型敌人，则将自己牵拉到敌人面前。不额外消耗暗源。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "穷追猛打·之一",
+        "level": 10,
+        "description": "锁镰对处于燃烧、冰冻、麻痹、中毒、流血状态的敌人造成的伤害小幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "锁镰飞渡",
+        "level": 15,
+        "description": "L1 + R2 可将锁镰甩向地面或墙面，借力飞身跃向目标点。非战斗期间使用不消耗暗源。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:zhuiming-suolian:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "追命龙卷",
+        "level": 25,
+        "description": "连招末尾按下 R2，挥舞锁镰掀起龙卷风，被卷入其中的敌人将受到持续伤害。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-10-30",
+  "updatedAt": "2026-10-30",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

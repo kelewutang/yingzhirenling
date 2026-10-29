@@ -418,6 +418,39 @@ status = 200
   status = 200
 
 [[redirects]]
+  from = "/weapons/hongzhuang-guizhan.html"
+  to = "/weapons/hongzhuang-guizhan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/hongzhuang-guizhan"
+  to = "/weapons/hongzhuang-guizhan.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/yu-gong.html"
+  to = "/weapons/yu-gong"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/yu-gong"
+  to = "/weapons/yu-gong.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/zhuiming-suolian.html"
+  to = "/weapons/zhuiming-suolian"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/zhuiming-suolian"
+  to = "/weapons/zhuiming-suolian.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404

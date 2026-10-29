@@ -208,6 +208,24 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:hongzhuang-guizhan",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "hongzhuang-guizhan",
+    "route": "/weapons/hongzhuang-guizhan",
+    "displayName": "红妆鬼斩",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "双手武器",
+      "武器"
+    ],
+    "summary": "刀柄鬼首狞笑，破盾能力强，可使石蒜花铺满地面，腐蚀敌人的杀气和生命。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:jagged-steel",
     "documentType": "entity",
     "entityType": "weapon",
@@ -365,6 +383,42 @@
       "试玩"
     ],
     "summary": "发售前媒体试玩记录中出现的刀类武器；详细特点和获取方式尚待可靠资料确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:yu-gong",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "yu-gong",
+    "route": "/weapons/yu-gong",
+    "displayName": "羽弓",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "影之武装",
+      "武器",
+      "远程"
+    ],
+    "summary": "经老弓手修理后，重新绷紧弓弦的强弓，乃远攻之利器。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:zhuiming-suolian",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "zhuiming-suolian",
+    "route": "/weapons/zhuiming-suolian",
+    "displayName": "追命锁镰",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "影之武装",
+      "武器",
+      "武学"
+    ],
+    "summary": "盘绕、牵拽、收割，精准如其主人臂膀的延伸。利于中远距离攻击，也能钩住远处锚点进行移动。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
