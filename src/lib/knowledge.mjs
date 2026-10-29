@@ -15,7 +15,8 @@ const sourceTypeLabels = {
   'media-hands-on': '媒体试玩',
   'media-demo-report': '媒体试玩',
   'media-gameplay-video': '媒体实机视频',
-  'site-release-test': '本站正式版实测记录'
+  'site-release-test': '本站正式版实测记录',
+  'user-game-screenshot': '负责人提供的正式版游戏截图'
 };
 let cached;
 
@@ -62,7 +63,9 @@ export async function loadKnowledge() {
 }
 
 export function getPublishedWeapons(knowledge) {
-  return knowledge.weapons.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
+  const order = (entity) => getFact(entity, 'weapon.acquisitionOrder', knowledge)?.value.position ?? Infinity;
+  return knowledge.weapons.filter((item) => item.recordState === 'published')
+    .sort((a, b) => order(a) - order(b) || a.id.localeCompare(b.id));
 }
 
 export function getPublishedCharacters(knowledge) {
@@ -97,7 +100,7 @@ export function safeExternalUrl(value) {
 
 export function getFact(entity, key, knowledge = null) {
   return entity.facts
-    .filter((fact) => fact.key === key && fact.supersededBy === null)
+    .filter((fact) => fact.key === key && fact.supersededBy === null && fact.validToVersionId == null)
     .sort((left, right) => {
       const versionDelta = (knowledge?.versionById?.get(right.gameVersionId)?.sequence ?? -1) -
         (knowledge?.versionById?.get(left.gameVersionId)?.sequence ?? -1);
@@ -121,8 +124,9 @@ export function collectDisplayedSources(facts, knowledge, relations = []) {
   ])].sort();
   const urls = new Set();
   return ids.map((id) => knowledge.sourceById.get(id)).filter((source) => {
-    if (!source || urls.has(source.url)) return false;
-    urls.add(source.url);
+    const identity = source?.url || source?.id;
+    if (!source || urls.has(identity)) return false;
+    urls.add(identity);
     return true;
   });
 }

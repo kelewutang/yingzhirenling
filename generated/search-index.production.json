@@ -150,6 +150,24 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:changxing-heishang",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "changxing-heishang",
+    "route": "/weapons/changxing-heishang",
+    "displayName": "长形黑伤",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "双手",
+      "武器"
+    ],
+    "summary": "PC正式版界面确认的双手主武器；炼邪以黑伤材料仿制的长刀，大开大合，横扫千军。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:chizhe-canjian",
     "documentType": "entity",
     "entityType": "weapon",
@@ -172,6 +190,42 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:heishang",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "heishang",
+    "route": "/weapons/heishang",
+    "displayName": "黑伤",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "单手",
+      "武器"
+    ],
+    "summary": "PC正式版界面确认的单手主武器；通体血红，似刀似剑，与魂一同经历无数风雨。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:heishang-shuangren",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "heishang-shuangren",
+    "route": "/weapons/heishang-shuangren",
+    "displayName": "黑伤双刃",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "双持",
+      "武器"
+    ],
+    "summary": "PC正式版界面确认的双持主武器；炼邪以黑伤材料仿制的短柄双刀，攻势如雨，迅捷无伦。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:jagged-steel",
     "documentType": "entity",
     "entityType": "weapon",
@@ -185,14 +239,46 @@
       "Jagged Steel"
     ],
     "keywords": [
-      "demo",
       "主武器",
-      "主武器（剑）",
-      "剑",
-      "武器",
-      "试玩"
+      "单手",
+      "武器"
     ],
-    "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
+    "summary": "PC正式版界面确认的单手主武器；刀身残破，锈痕如疮，能令敌人流血并可能引发大出血。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:juxiong-fu",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "juxiong-fu",
+    "route": "/weapons/juxiong-fu",
+    "displayName": "巨凶斧",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "影之武装",
+      "武器"
+    ],
+    "summary": "PC正式版界面确认的影之武装；斧身厚重，一击可开山裂甲，破盾能力强。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:muzhi-heishang",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "muzhi-heishang",
+    "route": "/weapons/muzhi-heishang",
+    "displayName": "木制黑伤",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "单手",
+      "武器"
+    ],
+    "summary": "PC正式版界面确认的单手主武器；少年时使用的木刀，却也是极致技艺和自信的证明。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

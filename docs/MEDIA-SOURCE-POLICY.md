@@ -28,6 +28,8 @@ For each official asset, retain the exact source page/video/press-kit URL, publi
 
 ### 2.2 Self-captured media
 
+2026-10-29 正式版截图准入补充：负责人已确认本批15张为本人在PC正式版截取，并授权本站使用。具体游戏版本号与捕获日期未知，提交及确认日期为2026-10-29。符合质量标准的裁剪可以登记 `self-captured-reviewed`，不得将未知信息补为已知或声称另获发行方许可。经 Knowledge 游戏截图 Source 登记的本地原始证据不应伪造外部地址：此类 `sourceType=self-captured` Media 可以使用 `sourceUrl=null`，但必须通过 `sourceId` 引用 `user-game-screenshot` Source，且该 Source 使用 `user-supplied-game-screenshot` locator 并记录原始文件标识、SHA-256、贡献者和平台。其他媒体继续要求原有HTTP(S)来源。
+
 Self-captured media should record:
 
 - project contributor/capture owner

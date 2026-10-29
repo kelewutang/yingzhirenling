@@ -5,6 +5,10 @@ const specs = [
   ['weapon.name', '核心资料', '名称记录'],
   ['weapon.systemCategory', '核心资料', '武器定位'],
   ['weapon.weaponType', '核心资料', '武器类型'],
+  ['weapon.grip', '核心资料', '持握方式'],
+  ['weapon.description', '核心资料', '武器介绍'],
+  ['weapon.baseStat', '基础属性', '正式版显示属性'],
+  ['weapon.acquisitionOrder', '获取顺序', '主武器获取顺序'],
   ['weapon.publicAppearance', '核心资料', '公开出现方式'],
   ['weapon.observedTrait', '试玩与公开实机观察', '演示观察'],
   ['weapon.mechanic', '战斗机制', '机制名称'],
@@ -25,9 +29,10 @@ function displayValue(fact) {
   if (fact.key === 'weapon.editorRating') {
     return '★'.repeat(fact.value.score) + '☆'.repeat(fact.value.max - fact.value.score) + `（${fact.value.score}/${fact.value.max}）`;
   }
-  if (fact.key === 'weapon.previewStat') {
+  if (['weapon.previewStat', 'weapon.baseStat'].includes(fact.key)) {
     return `Lv${fact.value.displayedLevel}：${fact.value.statName} ${fact.value.displayedValue}`;
   }
+  if (fact.key === 'weapon.acquisitionOrder') return `第${fact.value.position}把`;
   if (['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) &&
       fact.valueType === 'object') {
     return fact.value.name;
@@ -37,6 +42,7 @@ function displayValue(fact) {
 
 function detailDescription(fact) {
   if (fact.key === 'weapon.previewStat') return '官方预发布界面观察，数值可能随正式版平衡调整。';
+  if (fact.key === 'weapon.baseStat') return 'PC正式版界面显示值，具体版本号未知。';
   if (['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) &&
       fact.valueType === 'object') return fact.value.description || null;
   if (fact.status === 'editorial') return '本站发售前编辑判断，不是官方评分或试玩客观数值。';
@@ -86,13 +92,13 @@ function scopeText(scope, labels) {
 
 export function projectWeaponFacts(weapon, knowledge) {
   return specs.flatMap(([key, section, title]) =>
-    weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null)
+    weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null && fact.validToVersionId == null)
       .map((fact) => projectWeaponFact(fact, section, title, knowledge))
   );
 }
 
 function activeWeaponFacts(weapon, key) {
-  return weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null);
+  return weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null && fact.validToVersionId == null);
 }
 
 function preferredWeaponFact(facts, knowledge) {
@@ -107,14 +113,20 @@ function preferredWeaponFact(facts, knowledge) {
 export function projectWeaponDetail(weapon, knowledge) {
   const systemCategoryFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.systemCategory'), knowledge);
   const weaponTypeFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.weaponType'), knowledge);
-  const taxonomy = systemCategoryFact && weaponTypeFact ? {
+  const gripFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.grip'), knowledge);
+  const taxonomy = systemCategoryFact ? {
     systemCategory: projectWeaponFact(systemCategoryFact, '武器概览', '武器定位', knowledge),
-    weaponType: projectWeaponFact(weaponTypeFact, '武器概览', '武器类型', knowledge),
-    valueText: `${displayValue(systemCategoryFact)} · ${displayValue(weaponTypeFact)}`
+    weaponType: weaponTypeFact ? projectWeaponFact(weaponTypeFact, '武器概览', '武器类型', knowledge) : null,
+    grip: gripFact ? projectWeaponFact(gripFact, '武器概览', '持握方式', knowledge) : null,
+    valueText: [systemCategoryFact, gripFact || weaponTypeFact].filter(Boolean).map(displayValue).join(' · ')
   } : null;
+  const baseStats = activeWeaponFacts(weapon, 'weapon.baseStat')
+    .map((fact) => projectWeaponFact(fact, '基础属性', '正式版显示属性', knowledge));
   const previewStats = activeWeaponFacts(weapon, 'weapon.previewStat')
     .map((fact) => projectWeaponFact(fact, '武器概览', '预发布 Lv30 展示', knowledge));
   const overviewNotes = [
+    ['weapon.description', '武器介绍'],
+    ['weapon.acquisitionOrder', '主武器获取顺序'],
     ['weapon.observedTrait', '演示观察'],
     ['weapon.editorRating', '编辑评价'],
     ['weapon.acquisition', '获取方式']
@@ -128,13 +140,14 @@ export function projectWeaponDetail(weapon, knowledge) {
       displayName: weapon.displayName,
       taxonomy,
       notes: overviewNotes,
-      previewStats
+      previewStats,
+      baseStats
     },
     mechanics: activeWeaponFacts(weapon, 'weapon.mechanic')
       .map((fact) => projectWeaponFact(fact, '招式与机制', '招式与机制', knowledge)),
     progressionNodes: activeWeaponFacts(weapon, 'weapon.progressionNode')
       .map((fact) => projectWeaponFact(fact, '武器成长', '武器成长', knowledge)),
-    sourceFacts: weapon.facts.filter((fact) => fact.supersededBy === null)
+    sourceFacts: weapon.facts.filter((fact) => fact.supersededBy === null && fact.validToVersionId == null)
   };
 }
 

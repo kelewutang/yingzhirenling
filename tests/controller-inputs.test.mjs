@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { parseControllerInput, parseInlineControllerText } from '../src/lib/controller-inputs.mjs';
 
-const labels = { '□': '方块键', '△': '三角键', '○': '圆圈键', L1: 'L1', L2: 'L2' };
+const labels = { '□': '方块键', '△': '三角键', '○': '圆圈键', L1: 'L1', L2: 'L2', R2: 'R2' };
 
 for (const [input, values] of [
   ['□', ['□']],
@@ -9,6 +9,7 @@ for (const [input, values] of [
   ['○', ['○']],
   ['L1', ['L1']],
   ['L2', ['L2']],
+  ['R2', ['R2']],
   ['L1 + △', ['L1', '+', '△']],
   ['□ □ □ □ □', ['□', '□', '□', '□', '□']]
 ]) {

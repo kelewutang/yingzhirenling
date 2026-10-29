@@ -19,7 +19,7 @@
       "key": "weapon.kind",
       "applicableEntityTypes": ["weapon"],
       "allowedValueTypes": ["string"],
-      "description": "历史兼容用的混合武器分类描述；已发布 Weapon 的公开 taxonomy 必须使用 weapon.systemCategory 与 weapon.weaponType。",
+      "description": "历史兼容用的混合武器分类描述；已发布 Weapon 的公开 taxonomy 使用独立装备类型与可选武器类别。",
       "requiresAsOf": false
     },
     {
@@ -33,7 +33,7 @@
       "key": "weapon.weaponType",
       "applicableEntityTypes": ["weapon"],
       "allowedValueTypes": ["string"],
-      "description": "武器本体类型，例如剑、弓、双剑或双手剑；不与系统定位混写。",
+      "description": "可选的、有来源的武器类别；不与装备类型或单手／双手／双持混写，缺少证据时不填。",
       "requiresAsOf": false
     },
     {
@@ -219,6 +219,55 @@
       "applicableEntityTypes": ["location"],
       "allowedValueTypes": ["string"],
       "description": "可从公开实机或场景展示直接观察到的地点特征，不用于推断地图结构或流程位置。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.grip",
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "enum"
+      ],
+      "description": "截图确认的持握方式，独立于装备类型及可选武器类别。",
+      "requiresAsOf": false,
+      "enumValues": [
+        "单手",
+        "双手",
+        "双持"
+      ]
+    },
+    {
+      "key": "weapon.description",
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "游戏内武器介绍原文，仅作最小标点及换行规范化。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.baseStat",
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "正式版界面在明确显示等级下的属性观察；不等同跨平台固定数值或本站实测。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.acquisitionOrder",
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "负责人确认的同一获取顺序序列及正整数位置；不证明获取地点或条件。",
       "requiresAsOf": false
     }
   ]

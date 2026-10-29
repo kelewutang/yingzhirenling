@@ -36,7 +36,7 @@ const VERSION_STAGES_BY_TRACK = new Map([
 ]);
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot', 'internal-test-session']);
+const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot', 'user-supplied-game-screenshot', 'internal-test-session']);
 const INTERNAL_RELEASE_TEST_SOURCE_TYPE = 'site-release-test';
 const PREVIEW_STAT_CONTEXT = 'official-pre-release-ui';
 const WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH = 280;
@@ -45,7 +45,7 @@ const WEAPON_DERIVED_INPUTS_MAX_ITEMS = 8;
 const WEAPON_DERIVED_INPUT_VARIANTS_MAX_ITEMS = 4;
 const NAMED_WEAPON_DETAIL_KEYS = new Set(['weapon.mechanic', 'weapon.progressionNode']);
 const DERIVED_INPUT_LABEL_KINDS = new Set(['official', 'functional']);
-const WEAPON_SYSTEM_CATEGORIES = new Set(['主武器', '影之武']);
+const WEAPON_SYSTEM_CATEGORIES = new Set(['主武器', '影之武', '影之武装']);
 const WEAPON_TYPES = new Set(['大锤', '剑', '弓', '投掷类', '刀类', '双剑', '双手剑', '苗刀']);
 const SPOILER_LEVELS = new Set(['none', 'minor', 'major']);
 
@@ -222,11 +222,35 @@ function validateSourceLocator(source, location, report = error) {
   }
   const locator = source.locator;
   if (!SOURCE_LOCATOR_TYPES.has(locator.type)) {
-    report(`${location}.locator.type`, '仅支持 url、user-supplied-screenshot 或 internal-test-session');
+    report(`${location}.locator.type`, '仅支持 url、user-supplied-screenshot、user-supplied-game-screenshot 或 internal-test-session');
     return;
   }
   if (locator.type === 'url') {
     validateUrl(source.url, `${location}.url`, { report });
+    return;
+  }
+  if (locator.type === 'user-supplied-game-screenshot') {
+    if (source.url !== null || source.sourceType !== 'user-game-screenshot') {
+      report(location, '游戏截图必须使用 sourceType=user-game-screenshot 及 url=null');
+    }
+    if (typeof locator.captureOwner !== 'string' || !locator.captureOwner.trim()) report(`${location}.locator.captureOwner`, '必须记录截图贡献者');
+    if (!['platform:pc', 'platform:playstation-5'].includes(locator.platformId)) report(`${location}.locator.platformId`, '必须引用已确认平台');
+    for (const field of ['suppliedAt', 'confirmedAt']) validateDate(locator[field], `${location}.locator.${field}`, { report });
+    validateDate(locator.capturedAt, `${location}.locator.capturedAt`, { nullable: true, report });
+    if (locator.versionLabel !== null && (typeof locator.versionLabel !== 'string' || !locator.versionLabel.trim())) report(`${location}.locator.versionLabel`, '未知版本号必须为 null');
+    if (!Array.isArray(locator.evidenceItems) || !locator.evidenceItems.length) {
+      report(`${location}.locator.evidenceItems`, '必须记录原始截图标识与 SHA-256');
+    } else {
+      const ids = new Set();
+      for (const item of locator.evidenceItems) {
+        if (!isObject(item) || typeof item.id !== 'string' || !SLUG_PATTERN.test(item.id) || ids.has(item.id) ||
+            typeof item.filename !== 'string' || !/^[a-zA-Z0-9_-]+\.(jpg|png|webp)$/.test(item.filename) ||
+            typeof item.sha256 !== 'string' || !/^[a-f0-9]{64}$/.test(item.sha256)) {
+          report(`${location}.locator.evidenceItems`, '截图必须具有唯一稳定 ID、安全文件名及合法 SHA-256');
+        }
+        ids.add(item?.id);
+      }
+    }
     return;
   }
   if (locator.type === 'internal-test-session') {
@@ -371,7 +395,7 @@ function validateSpoilerClassification(record, location, report = error, { publi
 
 function validatePublishedWeaponTaxonomy(entity, location, report = error) {
   if (entity.entityType !== 'weapon' || entity.recordState !== 'published' || !Array.isArray(entity.facts)) return;
-  const activeFacts = (key) => entity.facts.filter((fact) => fact?.key === key && fact.supersededBy === null);
+  const activeFacts = (key) => entity.facts.filter((fact) => fact?.key === key && fact.supersededBy === null && fact.validToVersionId == null);
   const systemCategoryFacts = activeFacts('weapon.systemCategory');
   const weaponTypeFacts = activeFacts('weapon.weaponType');
 
@@ -380,11 +404,18 @@ function validatePublishedWeaponTaxonomy(entity, location, report = error) {
   } else if (!WEAPON_SYSTEM_CATEGORIES.has(systemCategoryFacts[0].value)) {
     report(`${location}.facts`, `weapon.systemCategory 不在允许 taxonomy 中：${systemCategoryFacts[0].value}`);
   }
-  if (weaponTypeFacts.length !== 1) {
-    report(`${location}.facts`, '已发布 Weapon 必须恰有一个 active weapon.weaponType Fact');
-  } else if (!WEAPON_TYPES.has(weaponTypeFacts[0].value)) {
+  if (weaponTypeFacts.length > 1) {
+    report(`${location}.facts`, '已发布 Weapon 最多可有一个 active weapon.weaponType Fact');
+  } else if (weaponTypeFacts.length && !WEAPON_TYPES.has(weaponTypeFacts[0].value)) {
     report(`${location}.facts`, `weapon.weaponType 不在允许 taxonomy 中：${weaponTypeFacts[0].value}`);
   }
+  for (const key of ['weapon.grip', 'weapon.description', 'weapon.acquisitionOrder']) {
+    if (activeFacts(key).length > 1) report(`${location}.facts`, `${key} 最多可有一个 active Fact`);
+  }
+  const statNames = activeFacts('weapon.baseStat').map((fact) => fact.value?.statName);
+  if (new Set(statNames).size !== statNames.length) report(`${location}.facts`, '当前基础属性名称不得重复');
+  const statLevels = activeFacts('weapon.baseStat').map((fact) => fact.value?.displayedLevel);
+  if (new Set(statLevels).size > 1) report(`${location}.facts`, '同一武器的当前基础属性不得混用等级');
 }
 
 async function runFixtureFile(fixtureFile) {
@@ -803,6 +834,16 @@ for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ..
   }
 }
 
+const acquisitionPositions = new Set();
+for (const { relative, entity } of entities.values()) {
+  if (entity.entityType !== 'weapon' || entity.recordState !== 'published' || !Array.isArray(entity.facts)) continue;
+  for (const fact of entity.facts.filter((fact) => fact?.key === 'weapon.acquisitionOrder' && fact.supersededBy === null && fact.validToVersionId == null)) {
+    const position = `${fact.value?.series}:${fact.value?.position}`;
+    if (acquisitionPositions.has(position)) error(`${relative}.facts`, '同一获取序列的位置不得重复');
+    acquisitionPositions.add(position);
+  }
+}
+
 validateEntityResolutions(
   new Map([...entities].map(([id, { relative, entity }]) => [id, { location: relative, entity }])),
   error
@@ -947,10 +988,17 @@ function validateFactValue(fact, registryEntry, location, report = error) {
     report(`${location}.value`, 'valueType=object 时 value 必须是对象');
   }
 
-  if (fact.key === 'weapon.previewStat' && isObject(fact.value)) {
+  if (fact.key === 'weapon.acquisitionOrder' && isObject(fact.value)) {
+    if (Object.keys(fact.value).some((key) => !['series', 'position'].includes(key)) ||
+        typeof fact.value.series !== 'string' || !SLUG_PATTERN.test(fact.value.series) ||
+        !Number.isInteger(fact.value.position) || fact.value.position < 1) {
+      report(`${location}.value`, '获取顺序必须包含稳定 series 与正整数 position，不能混入地点');
+    }
+  }
+  if (['weapon.previewStat', 'weapon.baseStat'].includes(fact.key) && isObject(fact.value)) {
     const expectedKeys = new Set(['statName', 'displayedValue', 'displayedLevel', 'displayContext']);
     for (const key of Object.keys(fact.value)) {
-      if (!expectedKeys.has(key)) report(`${location}.value.${key}`, 'previewStat 不允许未定义字段');
+      if (!expectedKeys.has(key)) report(`${location}.value.${key}`, '武器属性不允许未定义字段');
     }
     if (typeof fact.value.statName !== 'string' || fact.value.statName.trim().length === 0) {
       report(`${location}.value.statName`, '必须是非空字符串');
@@ -961,9 +1009,11 @@ function validateFactValue(fact, registryEntry, location, report = error) {
     if (!Number.isInteger(fact.value.displayedLevel) || fact.value.displayedLevel < 1) {
       report(`${location}.value.displayedLevel`, '必须是大于 0 的整数');
     }
-    if (fact.value.displayContext !== PREVIEW_STAT_CONTEXT) {
-      report(`${location}.value.displayContext`, `必须为 ${PREVIEW_STAT_CONTEXT}`);
+    const context = fact.key === 'weapon.baseStat' ? 'release-game-ui' : PREVIEW_STAT_CONTEXT;
+    if (fact.value.displayContext !== context) {
+      report(`${location}.value.displayContext`, `必须为 ${context}`);
     }
+    if (fact.key === 'weapon.baseStat' && !['伤害能力', '破防能力', '异常效果'].includes(fact.value.statName)) report(`${location}.value.statName`, '基础属性仅允许已确认的伤害能力、破防能力或异常效果');
   }
 
   if (NAMED_WEAPON_DETAIL_KEYS.has(fact.key) && fact.valueType === 'object' && isObject(fact.value)) {
@@ -1155,6 +1205,10 @@ for (const [factId, { relative: location, fact }] of facts) {
   }
   if (fact.key === 'weapon.previewStat' && fact.status !== 'observation') {
     error(`${location}.status`, 'weapon.previewStat 必须保持 observation，不能作为正式版固定数值');
+  }
+  if (fact.key === 'weapon.baseStat' &&
+      (!['observation', 'release-verified'].includes(fact.status) || versions.get(fact.gameVersionId)?.track !== 'release')) {
+    error(location, 'weapon.baseStat 必须为正式版观察或已验证 Fact，并引用 release GameVersion');
   }
   validateOfficialSourceRule(fact, sources, location, error);
   validateReleaseVerifiedSourceRule(fact, sources, location, error);

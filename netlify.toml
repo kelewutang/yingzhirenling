@@ -147,6 +147,36 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/weapons/muzhi-heishang.html"
+  to = "/weapons/muzhi-heishang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/heishang.html"
+  to = "/weapons/heishang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/heishang-shuangren.html"
+  to = "/weapons/heishang-shuangren"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/changxing-heishang.html"
+  to = "/weapons/changxing-heishang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/juxiong-fu.html"
+  to = "/weapons/juxiong-fu"
+  status = 301
+  force = true
+
 # Character file output uses the same published-only canonicalization rule.
 [[redirects]]
   from = "/characters/soul.html"
@@ -393,6 +423,31 @@ status = 200
 [[redirects]]
   from = "/about-site"
   to = "/pages/about-site.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/muzhi-heishang"
+  to = "/weapons/muzhi-heishang.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/heishang"
+  to = "/weapons/heishang.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/heishang-shuangren"
+  to = "/weapons/heishang-shuangren.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/changxing-heishang"
+  to = "/weapons/changxing-heishang.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/juxiong-fu"
+  to = "/weapons/juxiong-fu.html"
   status = 200
 
 [[redirects]]

@@ -9,7 +9,6 @@ const root = resolve(process.cwd());
 const expectedTaxonomy = new Map([
   ['bashpole', ['影之武', '大锤']],
   ['chizhe-canjian', ['主武器', '剑']],
-  ['jagged-steel', ['主武器', '剑']],
   ['night-owl', ['影之武', '弓']],
   ['seamless-death', ['主武器', '投掷类']],
   ['soft-snake-sword', ['主武器', '剑']],
@@ -33,7 +32,7 @@ async function readAllWeapons() {
 }
 
 function activeFact(weapon, key) {
-  const facts = weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null);
+  const facts = weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null && fact.validToVersionId == null);
   assert.equal(facts.length, 1, `${weapon.id}: ${key} must have exactly one active Fact`);
   return facts[0];
 }
@@ -42,7 +41,7 @@ test('published Weapon taxonomy is normalized into systemCategory and weaponType
   const allWeapons = await readAllWeapons();
   const publishedWeapons = allWeapons.filter((weapon) => weapon.recordState === 'published');
   const publishedSlugs = publishedWeapons.map((weapon) => weapon.slug).sort();
-  const expectedSlugs = [...expectedTaxonomy.keys()].sort();
+  const expectedSlugs = [...expectedTaxonomy.keys(), 'muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu'].sort();
   assert.deepEqual(publishedSlugs, expectedSlugs, 'Published Weapon set must exactly match the frozen taxonomy table');
   assert(!publishedSlugs.includes('qinglong-lueyue-dao'), 'Draft Qinglong must stay outside the published taxonomy gate');
 

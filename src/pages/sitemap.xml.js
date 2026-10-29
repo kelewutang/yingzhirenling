@@ -4,7 +4,7 @@ import { getPublishedGuideEntries, guideRoute } from '../lib/guides.mjs';
 export const prerender = true;
 const site = 'https://www.yingzhirenling.cn';
 const legacyPages = [
-  ['/', '2026-10-29'], ['/weapons', '2026-08-12'],
+  ['/', '2026-10-29'], ['/weapons', '2026-10-29'],
   ['/characters', '2026-08-12'], ['/bosses', '2026-08-12'], ['/world', '2026-08-12'],
   ['/videos', '2026-08-12'], ['/about', '2026-10-29'], ['/about-site', '2026-10-29']
 ];

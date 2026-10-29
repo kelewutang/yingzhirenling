@@ -168,7 +168,6 @@ assert.doesNotMatch(charactersCollection, /\bsite-main--weapon-collection\b/, 'N
 for (const [slug, displayName, systemCategory, weaponType] of [
   ['bashpole', 'Bashpole', '影之武', '大锤'],
   ['chizhe-canjian', '痴者残剑', '主武器', '剑'],
-  ['jagged-steel', '残钢刃', '主武器', '剑'],
   ['night-owl', 'Night Owl', '影之武', '弓'],
   ['seamless-death', 'Seamless Death', '主武器', '投掷类'],
   ['soft-snake-sword', '灵蛇软剑', '主武器', '剑'],
@@ -198,7 +197,7 @@ for (const [slug, displayName, systemCategory, weaponType] of [
 const bashpoleCard = collection.match(/<a class="entity-card" href="\/weapons\/bashpole"[\s\S]*?<\/a>/)?.[0];
 assert(bashpoleCard?.includes('entity-media__fallback'), 'Bashpole card must retain its fallback media');
 assert(bashpoleCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
-assert.equal(count(collection, 'class="entity-card__context"'), 9, 'Weapon collection must retain every currently published pre-release status');
+assert.equal(count(collection, 'class="entity-card__context"'), 14, 'Weapon collection must retain 8 historical and 6 release UI contexts');
 const bashpoleFallback = bashpoleCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
 assert(!bashpoleFallback.includes('entity-media__name') && !bashpoleFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';

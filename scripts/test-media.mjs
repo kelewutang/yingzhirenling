@@ -45,7 +45,7 @@ function mediaRecord(overrides = {}) {
   };
 }
 
-async function writeValidationFixture({ records = [], assets = [] }) {
+async function writeValidationFixture({ records = [], assets = [], sources = [] }) {
   const fixture = await mkdtemp(join(tmpdir(), 'yingzhirenling-media-'));
   for (const directory of ['weapons', 'characters', 'bosses', 'locations', 'sources']) {
     await mkdir(join(fixture, 'data', directory), { recursive: true });
@@ -55,6 +55,7 @@ async function writeValidationFixture({ records = [], assets = [] }) {
   await writeFile(join(fixture, 'data', 'bosses', 'commander-cleave.json'), JSON.stringify({ id: 'boss:commander-cleave', entityType: 'boss', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'locations', 'pangzhen.json'), JSON.stringify({ id: 'location:pangzhen', entityType: 'location', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'media.json'), JSON.stringify({ schemaVersion: '1.0-media-pilot', records }));
+  for (const [index, source] of sources.entries()) await writeFile(join(fixture, 'data', 'sources', `source-${index}.json`), JSON.stringify(source));
   if (assets.length > 0) {
     await mkdir(join(fixture, 'assets', 'media'), { recursive: true });
     await Promise.all(assets.map(({ name, contents = bitmap() }) => writeFile(join(fixture, 'assets', 'media', name), contents)));
@@ -95,6 +96,17 @@ async function expectValidation(name, fixtureOptions, expectedCode, expectedText
 }
 
 const base = mediaRecord();
+const screenshotSource = { id: 'source:owner-capture', sourceType: 'user-game-screenshot', url: null, locator: { type: 'user-supplied-game-screenshot' } };
+const localCapture = mediaRecord({ sourceType: 'self-captured', sourceId: screenshotSource.id, sourceUrl: null, rightsStatus: 'self-captured-reviewed' });
+await expectValidation('reviewed local capture has no invented external URL', {
+  records: [localCapture], sources: [screenshotSource], assets: [{ name: localCapture.src }]
+}, 0);
+await expectValidation('URL-less capture requires its real Source record', {
+  records: [localCapture], assets: [{ name: localCapture.src }]
+}, 1, /sourceUrl/);
+await expectValidation('URL-less promotional image cannot masquerade as local capture', {
+  records: [{ ...localCapture, sourceType: 'official-promotional' }], sources: [screenshotSource], assets: [{ name: localCapture.src }]
+}, 1, /sourceUrl/);
 const riskAccepted = mediaRecord({ rightsStatus: 'official-promotional-risk-accepted' });
 await expectValidation('zero Media remains valid', {}, 0);
 await expectValidation('official press use reviewed remains valid', { records: [base], assets: [{ name: base.src }] }, 0);

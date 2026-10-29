@@ -69,7 +69,7 @@
     {
       "name": "source-locator-unknown-invalid",
       "expected": "fail",
-      "expectedErrorIncludes": "仅支持 url、user-supplied-screenshot 或 internal-test-session",
+      "expectedErrorIncludes": "仅支持 url、user-supplied-screenshot、user-supplied-game-screenshot 或 internal-test-session",
       "source": {
         "url": null,
         "locator": { "type": "unknown" }
