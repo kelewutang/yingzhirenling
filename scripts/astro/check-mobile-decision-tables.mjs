@@ -8,9 +8,9 @@ import { loadProductionInventory } from './production-inventory.mjs';
 const root = resolve(import.meta.dirname, '../..');
 
 const targets = [
-  { page: 'about', variant: 'facts', heading: '发售信息', rows: 9, columns: 2, minWidthPx: 448, hash: '966c0647966e0530e8caf770d22f960a70656fb22a346e14b18c3c493b7166f2' },
+  { page: 'about', variant: 'facts', heading: '发售信息', rows: 9, columns: 2, minWidthPx: 448, hash: '42689a88e3cd35bc1434b8d442533d9665030277b5c14b14e2f833d209267bd9' },
   { page: 'about', variant: 'prices', heading: '各平台售价', rows: 8, columns: 4, minWidthPx: 544, hash: '7f27fc6b819395034f672dfec6b71e741b800805959db461a7c916202d55df1f', thead: true },
-  { page: 'about', variant: 'editions', heading: '版本内容对比', rows: 8, columns: 3, minWidthPx: 512, hash: '8a9e7a3cfa6b4602ea5e0c5c3e1740d5e971c98c0b84d417b9b90b97d0a334c1', thead: true },
+  { page: 'about', variant: 'editions', heading: '版本内容对比', rows: 8, columns: 3, minWidthPx: 512, hash: '3bcae0a3d0a826748d73aea1ccccd688f373cdd40d99a1f72a9565a8f7397922', thead: true },
   { page: 'about', variant: 'hardware', heading: '最低配置（1080p / 30FPS）', rows: 6, columns: 2, minWidthPx: 512, hash: 'c5941cfd5e6c0c0123581b1abf8e5840deff851652dd89218370d6a5dcecc3b7' },
   { page: 'about', variant: 'hardware', heading: '推荐配置（1440p / 60FPS）', rows: 6, columns: 2, minWidthPx: 512, hash: '0c1354cb8bee83cdba12c84c126907a30163794177a95389d8eff97786a23ff3' },
   { page: 'about-site', variant: 'policy', heading: '内容更新原则', rows: 4, columns: 3, minWidthPx: 480, hash: '9a46e76110ac23a81ec1c76839c9db1dadb35688dcb0e0f143cd0ed7b4666aa0', thead: true }

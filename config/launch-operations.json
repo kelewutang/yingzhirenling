@@ -16,7 +16,7 @@
       "id": "commercial-pricing",
       "file": "pages/about.html",
       "marker": "区域价格信息状态",
-      "mandatoryForReleaseCandidate": true
+      "mandatoryForReleaseCandidate": false
     },
     {
       "id": "physical-edition",

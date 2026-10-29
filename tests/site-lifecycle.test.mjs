@@ -2,10 +2,21 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { applyLifecycleTokens, getLifecycleCopy, isPreRelease, isReleased, siteLifecycle } from '../src/lib/site-lifecycle.mjs';
 
-test('current production lifecycle remains explicitly pre-release', () => {
-  assert.equal(siteLifecycle.state, 'pre-release');
-  assert.equal(isPreRelease(), true);
-  assert.equal(isReleased(), false);
+test('approved release transition keeps state and copy consistent without claiming gameplay tests', () => {
+  assert.equal(siteLifecycle.state, 'released');
+  assert.equal(siteLifecycle.copy, getLifecycleCopy(siteLifecycle.state));
+  assert.equal(isPreRelease(), false);
+  assert.equal(isReleased(), true);
+  assert.equal(isPreRelease('pre-release'), true);
+  assert.equal(isReleased('pre-release'), false);
+  assert.equal(isPreRelease('released'), false);
+  assert.equal(isReleased('released'), true);
+  assert(siteLifecycle.copy.homepage.status.includes('已于2026年10月29日正式发售'));
+  assert(siteLifecycle.copy.homepage.status.includes('尚未完成正式版玩法实测'));
+  assert(siteLifecycle.copy.guide.notice.includes('尚未完成正式版玩法实测'));
+  assert(siteLifecycle.copy.aboutSite.introduction.includes('正式版玩法尚待实测核验'));
+  assert(siteLifecycle.copy.collections.boss.supportingText.includes('名称与 Boss 身份均保持为引用第三方来源的信息'));
+  assert.equal(applyLifecycleTokens('__SITE_LIFECYCLE_GUIDE_NOTICE__'), siteLifecycle.copy.guide.notice);
 });
 
 test('released lifecycle copy removes only lifecycle-controlled stale copy', () => {
@@ -45,4 +56,5 @@ test('released lifecycle copy removes only lifecycle-controlled stale copy', () 
 
 test('lifecycle token replacement rejects unknown tokens', () => {
   assert.throws(() => applyLifecycleTokens('__SITE_LIFECYCLE_UNKNOWN__'), /Unknown site lifecycle token/);
+  assert.throws(() => getLifecycleCopy('automatic'), /Unsupported site lifecycle state/);
 });

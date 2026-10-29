@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { getVideoUrls, isProductionEligibleVideo } from '../../src/lib/video.mjs';
+import { siteLifecycle } from '../../src/lib/site-lifecycle.mjs';
 import { loadProductionInventory } from './production-inventory.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
@@ -495,8 +496,10 @@ assert.match(videos, /<a class="video-card__source" href="https:\/\/www\.bilibil
 assert(!videos.includes('embedHtml') && !videos.includes('embedUrl"'), 'Videos must not project arbitrary embed fields');
 await assert.rejects(() => stat(resolve(dist, 'pages', 'videos.html')), { code: 'ENOENT' });
 assert(purchase.includes('<a href="/characters/soul">魂</a>1/12可动人偶及配件'), 'Purchase must link the explicit Soul collector-edition mention');
-const guideLaunchDateCitation = `游戏计划于2026年10月29日发售（见 <a href="${steamProductUrl}" target="_blank" rel="noopener noreferrer">Steam 官方商品页</a>）。以下内容来自官方发布材料与公开试玩`;
-assert(guide.includes(guideLaunchDateCitation), 'Guide launch-date alert must place the official Steam link adjacent to the release-date statement');
+const guideLaunchDateCitation = siteLifecycle.state === 'pre-release'
+  ? `游戏计划于2026年10月29日发售（见 <a href="${steamProductUrl}" target="_blank" rel="noopener noreferrer">Steam 官方商品页</a>）。以下内容来自官方发布材料与公开试玩`
+  : '《影之刃零》已于2026年10月29日正式发售（见 <a href="https://pbz.s-game.com/zh-CN/" target="_blank" rel="noopener noreferrer">S-GAME 官方公告</a>）。本站尚未完成正式版玩法实测';
+assert(guide.includes(guideLaunchDateCitation), 'Guide launch-date alert must retain the lifecycle-specific release statement and adjacent official citation');
 assert(guide.includes(`预购特典"聚宝盆"可提升意识尘埃掉落率+10%；<a href="${steamProductUrl}"`), 'Guide preorder accessory claim must cite the official Steam product page');
 assert(guide.includes(`<strong>隐藏路径与机关</strong>：<a href="${steamProductUrl}"`), 'Guide hidden-path claim must cite the official Steam product page');
 for (const page of [guide, videos, purchase]) assert(!page.includes('href="/weapons/qinglong-lueyue-dao"'), 'Legacy content must not link draft Qinglong');
