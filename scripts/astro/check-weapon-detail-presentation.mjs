@@ -194,7 +194,7 @@ for (const [slug, displayName, systemCategory, weaponType] of [
 const sparseWeaponCard = collection.match(/<a class="entity-card" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
 assert(sparseWeaponCard?.includes('entity-media__fallback'), 'Soft Snake Sword card must retain its fallback media');
 assert(sparseWeaponCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
-assert.equal(count(collection, 'class="entity-card__context"'), 11, 'Weapon collection must retain 5 historical and 6 release UI contexts');
+assert.equal(count(collection, 'class="entity-card__context"'), 14, 'Weapon collection must retain 5 historical and 9 release UI contexts');
 const sparseWeaponFallback = sparseWeaponCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
 assert(!sparseWeaponFallback.includes('entity-media__name') && !sparseWeaponFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
@@ -224,7 +224,8 @@ for (const slug of ['soft-snake-sword', 'tang-hengdao', 'ya-hengdao']) {
 for (const [slug, system, category] of [
   ['muzhi-heishang', '主武器', '单手武器'], ['heishang', '主武器', '单手武器'],
   ['heishang-shuangren', '主武器', '双持武器'], ['changxing-heishang', '主武器', '双手武器'],
-  ['jagged-steel', '主武器', '单手武器'], ['juxiong-fu', '影之武装', '破坏']
+  ['jagged-steel', '主武器', '单手武器'], ['juxiong-fu', '影之武装', '破坏'],
+  ['hongzhuang-guizhan', '主武器', '双手武器'], ['yu-gong', '影之武装', '远程'], ['zhuiming-suolian', '影之武装', '武学']
 ]) {
   const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
   const rendered = overview(html);

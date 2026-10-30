@@ -233,6 +233,84 @@
       "processing": "Source 4115450_207.jpg / SHA-256 77e6b34b40777cf546e6623417b8b85ad0a774032e27e4b425bdcad649efff9a, 2560x1440. Non-generative crop rectangle [777,108,1665,1440] (left,top,right,bottom), directly resize 888x1332 (2:3) with Lanczos to 1200x1800; progressive JPEG quality 90 / 4:4:4. Retain original game background and natural truncation. Menu area removed; visible segment only, not a complete weapon. No matte, padding, inpainting, extension, generative editing, repainting or reconstructed geometry. Output SHA-256 5d1ac8aa6459928fe6779d0c27646167426e2f3ecfbdcaf035830739c822ad19.",
       "objectFit": "contain",
       "objectPosition": "center"
+    },
+    {
+      "id": "media:hongzhuang-guizhan-master",
+      "entityId": "weapon:hongzhuang-guizhan",
+      "src": "hongzhuang-guizhan-master.jpg",
+      "alt": "红妆鬼斩PC正式版武器展示。",
+      "caption": "PC正式版武器界面截图",
+      "credit": "截图：本站负责人；游戏：S-GAME / PARAWULIN PRODUCTION LIMITED",
+      "owner": "游戏画面：S-GAME / PARAWULIN PRODUCTION LIMITED；截图贡献者：本站负责人",
+      "sourceId": "source:owner-pc-release-weapons-2026-10-30",
+      "sourceUrl": null,
+      "sourceType": "self-captured",
+      "rightsStatus": "self-captured-reviewed",
+      "recordState": "published",
+      "usage": [
+        "hero",
+        "card"
+      ],
+      "width": 1200,
+      "height": 1800,
+      "mimeType": "image/jpeg",
+      "retrievedAt": "2026-10-30",
+      "rightsEvidence": "负责人2026-10-30提供本批本人PC正式版截图，明确授权本站按既有1200×1800 Master规范裁剪及公开使用，允许原图自然截断；不生成缺失部件。未知捕获日期与客户端版本号保持未知；不冒充本站内部实测或发行方另行许可。",
+      "processing": "Source codex-clipboard-ada917ba-9e83-446c-aa4c-0fd7cf4f5eea.jpg / SHA-256 34e2ac0c0fe803e36149de7c467083666e58a6f03bc10ea97063b5ddd87b13f2, 2048x1152. Non-generative crop rectangle [652,78,1368,1152] (left,top,right,bottom); directly resize 716x1074 (2:3) with Lanczos to 1200x1800; progressive JPEG quality 90 / 4:4:4. Remove top/side UI; keep original game background. Original lower weapon extends outside the source frame; preserve natural truncation. No canvas, matte, padding, generative editing, inpainting, extension or reconstruction. Output SHA-256 492262e2f33b0479d47db2028a360c1fd5f623efd81361b8f879ad68c84d90d5.",
+      "objectFit": "contain",
+      "objectPosition": "center"
+    },
+    {
+      "id": "media:yu-gong-master",
+      "entityId": "weapon:yu-gong",
+      "src": "yu-gong-master.jpg",
+      "alt": "羽弓PC正式版武器展示。",
+      "caption": "PC正式版武器界面截图",
+      "credit": "截图：本站负责人；游戏：S-GAME / PARAWULIN PRODUCTION LIMITED",
+      "owner": "游戏画面：S-GAME / PARAWULIN PRODUCTION LIMITED；截图贡献者：本站负责人",
+      "sourceId": "source:owner-pc-release-weapons-2026-10-30",
+      "sourceUrl": null,
+      "sourceType": "self-captured",
+      "rightsStatus": "self-captured-reviewed",
+      "recordState": "published",
+      "usage": [
+        "hero",
+        "card"
+      ],
+      "width": 1200,
+      "height": 1800,
+      "mimeType": "image/jpeg",
+      "retrievedAt": "2026-10-30",
+      "rightsEvidence": "负责人2026-10-30提供本批本人PC正式版截图，明确授权本站按既有1200×1800 Master规范裁剪及公开使用，允许原图自然截断；不生成缺失部件。未知捕获日期与客户端版本号保持未知；不冒充本站内部实测或发行方另行许可。",
+      "processing": "Source codex-clipboard-b6879209-04c4-4e82-8e3b-059f0379b0b1.jpg / SHA-256 c754647f725d87da103e9d14a33f0f17ddde412a87184c23b54c8089d2b5ba78, 2048x1152. Non-generative crop rectangle [652,78,1368,1152] (left,top,right,bottom); directly resize 716x1074 (2:3) with Lanczos to 1200x1800; progressive JPEG quality 90 / 4:4:4. Remove top/side UI; keep original game background. Original lower weapon extends outside the source frame; preserve natural truncation. No canvas, matte, padding, generative editing, inpainting, extension or reconstruction. Output SHA-256 8a115934055a872efa1ed24cd224e75f66471d67e147f253d15f5c45a3fc2445.",
+      "objectFit": "contain",
+      "objectPosition": "center"
+    },
+    {
+      "id": "media:zhuiming-suolian-master",
+      "entityId": "weapon:zhuiming-suolian",
+      "src": "zhuiming-suolian-master.jpg",
+      "alt": "追命锁镰PC正式版武器展示。",
+      "caption": "PC正式版武器界面截图",
+      "credit": "截图：本站负责人；游戏：S-GAME / PARAWULIN PRODUCTION LIMITED",
+      "owner": "游戏画面：S-GAME / PARAWULIN PRODUCTION LIMITED；截图贡献者：本站负责人",
+      "sourceId": "source:owner-pc-release-weapons-2026-10-30",
+      "sourceUrl": null,
+      "sourceType": "self-captured",
+      "rightsStatus": "self-captured-reviewed",
+      "recordState": "published",
+      "usage": [
+        "hero",
+        "card"
+      ],
+      "width": 1200,
+      "height": 1800,
+      "mimeType": "image/jpeg",
+      "retrievedAt": "2026-10-30",
+      "rightsEvidence": "负责人2026-10-30提供本批本人PC正式版截图，明确授权本站按既有1200×1800 Master规范裁剪及公开使用，允许原图自然截断；不生成缺失部件。未知捕获日期与客户端版本号保持未知；不冒充本站内部实测或发行方另行许可。",
+      "processing": "Source codex-clipboard-37125bf9-7aa8-4ef4-b0e8-d6fb4f0c7bf7.jpg / SHA-256 f33db28a2b0f2ec6d0840c3ed559c4491d8f05ab0884076f542218aab1adc6ea, 2048x1152. Non-generative crop rectangle [652,78,1368,1152] (left,top,right,bottom); directly resize 716x1074 (2:3) with Lanczos to 1200x1800; progressive JPEG quality 90 / 4:4:4. Remove top/side UI; keep original game background. Rightmost visible component is cropped at the UI boundary; visible segment only, not a reconstructed complete weapon. No canvas, matte, padding, generative editing, inpainting, extension or reconstruction. Output SHA-256 669f55595f49c822df5dee201a175752a1a51f1337ad604a98e997232d9c0cd3.",
+      "objectFit": "contain",
+      "objectPosition": "center"
     }
   ]
 }

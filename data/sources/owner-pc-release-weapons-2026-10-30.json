@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-release-weapons-2026-10-30",
+  "sourceType": "user-game-screenshot",
+  "authority": "community",
+  "publisher": "项目负责人（本人截图）",
+  "title": "PC正式版红妆鬼斩、羽弓与追命锁镰界面截图（负责人提供）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-game-screenshot",
+    "platformId": "platform:pc",
+    "versionLabel": null,
+    "capturedAt": null,
+    "suppliedAt": "2026-10-30",
+    "confirmedAt": "2026-10-30",
+    "captureOwner": "项目负责人（本人截图）",
+    "evidenceItems": [
+      {
+        "id": "pc-release-weapon-1",
+        "filename": "codex-clipboard-de985d92-e2cf-430a-a13f-ec58038bfff2.jpg",
+        "sha256": "c178473b07fa0ea72c41a7fc15288f7d76ed69df157952204a50339e67839d1b"
+      },
+      {
+        "id": "pc-release-weapon-2",
+        "filename": "codex-clipboard-ada917ba-9e83-446c-aa4c-0fd7cf4f5eea.jpg",
+        "sha256": "34e2ac0c0fe803e36149de7c467083666e58a6f03bc10ea97063b5ddd87b13f2"
+      },
+      {
+        "id": "pc-release-weapon-3",
+        "filename": "codex-clipboard-fdbc8428-e641-41ec-b4ef-d0fe3ef3f8d4.jpg",
+        "sha256": "05102c09b9bbbcad6332a6d2a1ae4ee6cc25f8ede1864608b27c73ba95a89daf"
+      },
+      {
+        "id": "pc-release-weapon-4",
+        "filename": "codex-clipboard-ab3a4cf3-190b-40f5-a2af-100081568301.jpg",
+        "sha256": "23dd6713381c639a33ffe98ac6437573842847374838a98c7c156dcfb0da5a9a"
+      },
+      {
+        "id": "pc-release-weapon-5",
+        "filename": "codex-clipboard-b6879209-04c4-4e82-8e3b-059f0379b0b1.jpg",
+        "sha256": "c754647f725d87da103e9d14a33f0f17ddde412a87184c23b54c8089d2b5ba78"
+      },
+      {
+        "id": "pc-release-weapon-6",
+        "filename": "codex-clipboard-17f9a8bc-5127-478a-b9d5-c0fb5dee8f21.jpg",
+        "sha256": "81df23c5c1d2c483f6b6d91497c8d7913bb91d7ff7854c330e1b08016c82c413"
+      },
+      {
+        "id": "pc-release-weapon-7",
+        "filename": "codex-clipboard-37125bf9-7aa8-4ef4-b0e8-d6fb4f0c7bf7.jpg",
+        "sha256": "f33db28a2b0f2ec6d0840c3ed559c4491d8f05ab0884076f542218aab1adc6ea"
+      },
+      {
+        "id": "pc-release-weapon-8",
+        "filename": "codex-clipboard-0baa0fd8-bacc-456e-bf74-080f24c6e3c3.jpg",
+        "sha256": "cf8608dbc001e1cec189dc7c3dcb34f03380589f65645c2902667bee948a8ecd"
+      }
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-10-30",
+  "archivedUrl": null,
+  "notes": "负责人本次提供并授权使用的8张本人PC正式版截图。未知捕获日期与具体客户端版本号保持null；不是本站内部游戏测试会话。负责人确认装备类型与分类：红妆鬼斩为主武器·双手武器，羽弓为影之武装·远程，追命锁镰为影之武装·武学。同日确认羽弓进阶技能名为跨蹑柳行·侧／进／退。Lv1属性与5／10／15／25级解锁节点分别记录；主武器绝技消耗精纯杀气，影之武装消耗暗源，其他杀气与特殊效果按截图原文保留。"
+}

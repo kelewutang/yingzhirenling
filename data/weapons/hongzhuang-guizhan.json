@@ -5,10 +5,13 @@
   "slug": "hongzhuang-guizhan",
   "displayName": "红妆鬼斩",
   "aliases": [],
-  "summary": "制作人在发售前媒体采访中提及的武器；正式版信息待核。",
+  "summary": "刀柄鬼首狞笑，破盾能力强，可使石蒜花铺满地面，腐蚀敌人的杀气和生命。",
   "summaryFactIds": [
-    "fact:weapon:hongzhuang-guizhan:exists",
-    "fact:weapon:hongzhuang-guizhan:name"
+    "fact:weapon:hongzhuang-guizhan:release-exists",
+    "fact:weapon:hongzhuang-guizhan:release-name",
+    "fact:weapon:hongzhuang-guizhan:release-system-category",
+    "fact:weapon:hongzhuang-guizhan:release-type",
+    "fact:weapon:hongzhuang-guizhan:release-description"
   ],
   "facts": [
     {
@@ -35,7 +38,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:weapon:hongzhuang-guizhan:release-exists",
       "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
     },
     {
@@ -62,14 +65,489 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:weapon:hongzhuang-guizhan:release-name",
       "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "红妆鬼斩",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "双手武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "刀柄鬼首狞笑，破盾能力强，可使石蒜花铺满地面，腐蚀敌人的杀气和生命。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-base-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 240,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-base-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 117,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-normal",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-killing-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-flowers",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "石蒜花",
+        "description": "△ 连招会在地面留下【石蒜花】，使踏入花丛的敌人移动速度降低，持续损耗杀气。3秒后，【石蒜花】爆炸，使范围内敌人短时间内持续受到伤害。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-ultimate",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "红妆漫天",
+        "input": "L2",
+        "description": "消耗1精纯杀气，挥出绝念一斩，并使【石蒜花】遍地漫生。无法被敌人防御。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "遍地红妆",
+        "level": 5,
+        "description": "场上最多可同时存在的【石蒜花】数量增加，【石蒜花】的存在时间延长至15秒。○ 可主动引爆【石蒜花】。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "花中藏刃·之一",
+        "level": 10,
+        "description": "小幅提升【石蒜花】的爆炸伤害和杀气削减效果。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "断情绝路",
+        "level": 15,
+        "description": "施展绝技【红妆漫天】后，进入【断情】状态，持续8秒，若身处花丛范围内，该状态将持续存在。期间 △ 连招末尾，衔接 △ 可施展强力一斩，留下大型【石蒜花】，并使踏入花丛的敌人受到的杀气削减提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:hongzhuang-guizhan:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "火照黄泉",
+        "level": 25,
+        "description": "长按 △ 可以蓄力，开始蓄力时，召唤巨型【白石蒜花】飞向敌人，接触敌人后发生爆炸。蓄力完成时，瞬移至敌人面前并发动一次强力斩击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-10-30"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-10-30",
+      "gameVersionId": "version:release-pc-ui-2026-10-30",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-10-30",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
     }
   ],
   "taxonomyIds": [],
-  "publishedAt": null,
-  "updatedAt": "2026-10-11",
-  "recordState": "draft",
+  "publishedAt": "2026-10-30",
+  "updatedAt": "2026-10-30",
+  "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null
 }
