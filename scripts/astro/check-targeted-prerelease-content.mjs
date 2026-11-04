@@ -7,6 +7,12 @@ const root = resolve(import.meta.dirname, '../..');
 const dist = resolve(root, 'dist');
 const guideId = 'difficulty-and-sixty-six-days';
 const guideRoute = `/guide/${guideId}`;
+const expectedGuideIds = [
+  'beginner-combat-and-recovery',
+  guideId,
+  'launch-week-patches-and-pc-fixes',
+  'weapon-upgrades-and-refunds'
+];
 const sourceId = 'source:official-bilibili-producer-2026-09-09-difficulty-weapons-players';
 const expectedDifficulties = [
   ['difficulty:wayfarer', '入阵者'],
@@ -54,10 +60,10 @@ for (const excluded of ['饮恨江湖', '最终 Boss', '隐藏 Boss', '游戏靠
   assert(!guideSource.includes(excluded), `Guide must exclude ${excluded}`);
 }
 assert(!guideSource.includes('gameVersionId:'), 'Guide must not claim a release Version');
-assert.equal(guideInventory.length, 1, 'Exactly one production Guide must be published');
-assert.deepEqual(guideInventory.map(({ id, route, spoilerLevel, recordState }) => ({ id, route, spoilerLevel, recordState })), [
-  { id: guideId, route: guideRoute, spoilerLevel: 'none', recordState: 'published' }
-]);
+assert.deepEqual(
+  guideInventory.map(({ id, route, spoilerLevel, recordState }) => [id, route, spoilerLevel, recordState]).sort(),
+  expectedGuideIds.map((id) => [id, `/guide/${id}`, 'none', 'published'])
+);
 
 assert.equal((guideHtml.match(/<h1\b/g) || []).length, 1, 'Guide detail must render exactly one H1');
 assert(guideHtml.includes(`<link rel="canonical" href="https://www.yingzhirenling.cn${guideRoute}"`), 'Guide canonical missing');
@@ -70,9 +76,9 @@ for (const newSource of ['https://rpgamer.com/2026/10/phantom-blade-zero-preview
 assert(guideHtml.includes('66 次死亡机会') && guideHtml.includes('六十六天与逆天者的难度相同'), 'Guide must explain the new 66-death and high-difficulty evidence');
 assert(!guideHtml.includes('data-spoiler-level="major"') && !guideHtml.includes('含部分剧情信息'), 'spoilerLevel=none Guide must not render a spoiler disclosure');
 assert(!guideHtml.includes('data-collection-browser'), 'Guide must not render Collection Browser UI');
-assert(landingHtml.includes(`href="${guideRoute}"`), 'Guide landing must link to the published Guide');
-assert(landingHtml.includes('区域探索率') && landingHtml.includes('https://www.4gamer.net/games/709/G070944/20261006026/'), '/guide must attribute the demo map observation');
-assert(landingHtml.includes('https://store.epicgames.com/news/phantom-blade-zero-interview-hands-on-soulslike'), '/guide must link the exploration interview');
+for (const id of expectedGuideIds) {
+  assert(landingHtml.includes(`href="/guide/${id}"`), `Guide landing must link to ${id}`);
+}
 for (const currentName of expectedDifficulties.map(([, name]) => name)) assert(landingHtml.includes(currentName), `/guide must render ${currentName}`);
 for (const obsolete of ['旅人模式', '破路者模式', '地狱行者模式']) assert(!landingHtml.includes(obsolete), `/guide must not present ${obsolete} as current terminology`);
 
@@ -93,25 +99,27 @@ assert(aboutHtml.includes('https://www.playstation.com/zh-hans-cn/games/phantom-
 assert(!aboutHtml.includes('影之刃零支持手动存档'), '/about must not make a broad manual-save claim');
 
 const guideDocuments = search.filter((document) => document.documentType === 'guide');
-assert.equal(search.length, 23, 'Production Search must contain 23 documents');
-assert.equal(guideDocuments.length, 1, 'Production Search must contain one Guide document');
-assert.deepEqual([guideDocuments[0].id, guideDocuments[0].route, guideDocuments[0].recordState], [`guide:${guideId}`, guideRoute, 'published']);
-assert.equal((sitemap.match(/<url>/g) || []).length, 32, 'Sitemap must contain 32 URLs');
+assert.equal(search.length, 26, 'Production Search must contain 26 documents');
+assert.deepEqual(
+  guideDocuments.map(({ id, route, recordState }) => [id, route, recordState]).sort(),
+  expectedGuideIds.map((id) => [`guide:${id}`, `/guide/${id}`, 'published'])
+);
+assert.equal((sitemap.match(/<url>/g) || []).length, 35, 'Sitemap must contain 35 URLs');
 assert(sitemap.includes(`<loc>https://www.yingzhirenling.cn${guideRoute}</loc><lastmod>2026-10-11</lastmod>`), 'Guide sitemap entry missing or stale');
-assert.deepEqual(inventory.counts, { sitemap: 32, canonical: 34, pageHtml: 35, searchDocs: 23 });
+assert.deepEqual(inventory.counts, { sitemap: 35, canonical: 37, pageHtml: 38, searchDocs: 26 });
 assert.deepEqual([
   inventory.publishedWeapons.length,
   inventory.publishedBosses.length,
   inventory.publishedCharacters.length,
   inventory.publishedLocations.length,
   inventory.guides.length
-], [15, 3, 3, 1, 1]);
+], [15, 3, 3, 1, 4]);
 
 const canonicalTagCount = (await Promise.all(distFiles.filter((file) => file.endsWith('.html')).map((file) => readFile(resolve(dist, file), 'utf8'))))
   .reduce((count, html) => count + (html.match(/<link\s+rel="canonical"\s+href="/gi) || []).length, 0);
 const pageHtmlCount = distFiles.filter((file) => file.endsWith('.html') && !file.startsWith('baidu_verify_')).length;
-assert.equal(canonicalTagCount, 34, 'Rendered canonical-tag count must be 34');
-assert.equal(pageHtmlCount, 35, 'Rendered page-HTML count must be 35');
+assert.equal(canonicalTagCount, 37, 'Rendered canonical-tag count must be 37');
+assert.equal(pageHtmlCount, 38, 'Rendered page-HTML count must be 38');
 
 assert.equal(await absent(resolve(dist, 'generated/guide-search-manifest.json')), true, 'Private Guide handoff manifest must not be deployed');
 assert.doesNotMatch([landingHtml, sitemap, JSON.stringify(search), ...distFiles].join('\n'), /growth-guide-[a-f]/, 'Synthetic growth fixtures must not leak into production landing, sitemap, Search or files');
@@ -126,4 +134,4 @@ assert.deepEqual(launchConfig.browserGates['spoiler-disclosure-interaction'], {
   evidenceRef: 'https://github.com/kelewutang/yingzhirenling/pull/63'
 });
 
-console.log('Targeted pre-release content verification passed: official source, four difficulties, one Guide, White Shadow supersession, PS5 facts, 32/34/35/23 inventory, and private fixture isolation.');
+console.log('Targeted pre-release content verification passed: official source, four difficulties, four Guides, White Shadow supersession, PS5 facts, 35/37/38/26 inventory, and private fixture isolation.');

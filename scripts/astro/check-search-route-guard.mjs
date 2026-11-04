@@ -124,7 +124,8 @@ function assertResultKeys(query, expected) {
 
 assertResultKeys('武器', [
   '武器图鉴\t/weapons\tpage',
-  ...publishedEntityResultKeys('weapon')
+  ...publishedEntityResultKeys('weapon'),
+  '影之刃零武器进阶：分类、强化与逆炼\t/guide/weapon-upgrades-and-refunds\tguide'
 ]);
 assertResultKeys('角色', [
   '角色图鉴\t/characters\tpage',

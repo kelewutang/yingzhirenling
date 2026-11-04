@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:gamersky-wegame-rollout-2026-11-03",
+  "sourceType": "media-report",
+  "authority": "third-party",
+  "publisher": "游民星空",
+  "title": "《影之刃零》最新更新：打击感增强！新增音效调节",
+  "url": "https://www.gamersky.com/news/202611/2240111.shtml",
+  "language": "zh-CN",
+  "publishedAt": "2026-11-03",
+  "checkedAt": "2026-11-04",
+  "archivedUrl": null,
+  "notes": "用于 WeGame 率先灰度推送的渠道和范围，具体客户端版本未确认。"
+}

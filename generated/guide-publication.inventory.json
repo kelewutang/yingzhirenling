@@ -1,5 +1,70 @@
 [
   {
+    "id": "beginner-combat-and-recovery",
+    "spoilerLevel": "none",
+    "title": "影之刃零新手战斗：红蓝光、杀气与药瓶",
+    "description": "从序章练起，分清蓝光格挡、红光闪避、杀气、精纯杀气与暗源，学会在铃铛处补给和回访地图障碍。",
+    "guideType": "system",
+    "route": "/guide/beginner-combat-and-recovery",
+    "keywords": [
+      "红光",
+      "蓝光",
+      "鬼步",
+      "精纯杀气",
+      "暗源",
+      "铃铛",
+      "药瓶"
+    ],
+    "relatedEntityNames": [],
+    "updatedAt": "2026-11-04",
+    "recordState": "published"
+  },
+  {
+    "id": "launch-week-patches-and-pc-fixes",
+    "spoilerLevel": "none",
+    "title": "影之刃零首周补丁与 PC 常见问题",
+    "description": "核对 Steam 首日补丁与 11 月 3 日灰度更新，排查 PC 着色器编译、掉帧和 DualSense 触觉反馈问题。",
+    "guideType": "performance",
+    "route": "/guide/launch-week-patches-and-pc-fixes",
+    "keywords": [
+      "首日补丁",
+      "WeGame",
+      "着色器",
+      "光追",
+      "掉帧",
+      "手柄",
+      "DualSense"
+    ],
+    "relatedEntityNames": [],
+    "updatedAt": "2026-11-04",
+    "recordState": "published"
+  },
+  {
+    "id": "weapon-upgrades-and-refunds",
+    "spoilerLevel": "none",
+    "title": "影之刃零武器进阶：分类、强化与逆炼",
+    "description": "用现有武器图鉴挑主武器和影之武装，查看成长节点、暗源消耗与逆炼返还，决定强化材料先投在哪里。",
+    "guideType": "weapon",
+    "route": "/guide/weapon-upgrades-and-refunds",
+    "keywords": [
+      "主武器",
+      "影之武装",
+      "成长节点",
+      "逆炼",
+      "强化材料",
+      "兵刃逆炼符"
+    ],
+    "relatedEntityNames": [
+      "黑伤",
+      "长形黑伤",
+      "黑伤双刃",
+      "巨凶斧",
+      "羽弓"
+    ],
+    "updatedAt": "2026-11-04",
+    "recordState": "published"
+  },
+  {
     "id": "difficulty-and-sixty-six-days",
     "spoilerLevel": "none",
     "title": "影之刃零难度怎么选：入阵者、破局者、逆天者与六十六天",

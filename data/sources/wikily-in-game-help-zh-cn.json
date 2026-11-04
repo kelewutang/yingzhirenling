@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:wikily-in-game-help-zh-cn",
+  "sourceType": "community-reference",
+  "authority": "community",
+  "publisher": "Wikily",
+  "title": "《影之刃零》游戏内帮助 · 探索、进攻、防御",
+  "url": "https://wikily.gg/zh-cn/phantom-blade-zero/help",
+  "language": "zh-CN",
+  "publishedAt": null,
+  "checkedAt": "2026-11-04",
+  "archivedUrl": null,
+  "notes": "公开简中游戏帮助转录，用于攻防、战斗资源、铃铛与药瓶操作。页面未注明原始记录日期、平台和客户端版本。"
+}
