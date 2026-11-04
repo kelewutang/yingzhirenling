@@ -12,6 +12,10 @@ const statusLabels = {
 };
 const sourceTypeLabels = {
   'official-article': '官方发布材料',
+  'official-site': '官方网站',
+  'media-report': '媒体报道',
+  'community-reference': '社区资料',
+  'community-gameplay-video': '玩家实况',
   'media-hands-on': '媒体试玩',
   'media-demo-report': '媒体试玩',
   'media-gameplay-video': '媒体实机视频',

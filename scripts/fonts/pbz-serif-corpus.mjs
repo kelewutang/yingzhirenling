@@ -2,7 +2,7 @@ import { readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
-const textExtensions = new Set(['.astro', '.css', '.html', '.js', '.json', '.mjs']);
+const textExtensions = new Set(['.astro', '.css', '.html', '.js', '.json', '.md', '.mjs']);
 // Fixtures used by production validation currently use ASCII-only titles, which
 // are included below as the mandatory ASCII range.
 const sourceInputs = ['data', 'src'];
@@ -62,7 +62,13 @@ export async function collectDisplayCorpus() {
     else legacyFiles.push(inputPath);
   }
   for (const file of files.filter((file) => !excludedSourceFiles.has(file)).sort((left, right) => left.localeCompare(right, 'en'))) {
-    addCharacters(characters, await readFile(file, 'utf8'));
+    const content = await readFile(file, 'utf8');
+    if (extension(file) === '.md') {
+      const displayText = [...content.matchAll(/^(?:title: |#{2,6} )(.+)$/gm)].map((match) => match[1]).join(' ');
+      addCharacters(characters, displayText);
+    } else {
+      addCharacters(characters, content);
+    }
   }
   for (const file of legacyFiles.sort((left, right) => left.localeCompare(right, 'en'))) {
     addCharacters(characters, extractLegacyDisplayText(await readFile(file, 'utf8')));

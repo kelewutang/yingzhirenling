@@ -423,6 +423,28 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "guide:beginner-combat-and-recovery",
+    "documentType": "guide",
+    "guideType": "system",
+    "slug": "beginner-combat-and-recovery",
+    "route": "/guide/beginner-combat-and-recovery",
+    "title": "影之刃零新手战斗：红蓝光、杀气与药瓶",
+    "description": "从序章练起，分清蓝光格挡、红光闪避、杀气、精纯杀气与暗源，学会在铃铛处补给和回访地图障碍。",
+    "keywords": [
+      "system",
+      "暗源",
+      "精纯杀气",
+      "红光",
+      "药瓶",
+      "蓝光",
+      "铃铛",
+      "鬼步"
+    ],
+    "relatedEntityNames": [],
+    "updatedAt": "2026-11-04",
+    "recordState": "published"
+  },
+  {
     "id": "guide:difficulty-and-sixty-six-days",
     "documentType": "guide",
     "guideType": "system",
@@ -442,6 +464,60 @@
     ],
     "relatedEntityNames": [],
     "updatedAt": "2026-10-11",
+    "recordState": "published"
+  },
+  {
+    "id": "guide:launch-week-patches-and-pc-fixes",
+    "documentType": "guide",
+    "guideType": "performance",
+    "slug": "launch-week-patches-and-pc-fixes",
+    "route": "/guide/launch-week-patches-and-pc-fixes",
+    "title": "影之刃零首周补丁与 PC 常见问题",
+    "description": "核对 Steam 首日补丁与 11 月 3 日灰度更新，排查 PC 着色器编译、掉帧和 DualSense 触觉反馈问题。",
+    "keywords": [
+      "DualSense",
+      "WeGame",
+      "performance",
+      "光追",
+      "手柄",
+      "掉帧",
+      "着色器",
+      "首日补丁"
+    ],
+    "relatedEntityNames": [],
+    "updatedAt": "2026-11-04",
+    "recordState": "published"
+  },
+  {
+    "id": "guide:weapon-upgrades-and-refunds",
+    "documentType": "guide",
+    "guideType": "weapon",
+    "slug": "weapon-upgrades-and-refunds",
+    "route": "/guide/weapon-upgrades-and-refunds",
+    "title": "影之刃零武器进阶：分类、强化与逆炼",
+    "description": "用现有武器图鉴挑主武器和影之武装，查看成长节点、暗源消耗与逆炼返还，决定强化材料先投在哪里。",
+    "keywords": [
+      "weapon",
+      "主武器",
+      "兵刃逆炼符",
+      "巨凶斧",
+      "强化材料",
+      "影之武装",
+      "成长节点",
+      "羽弓",
+      "逆炼",
+      "长形黑伤",
+      "黑伤",
+      "黑伤双刃"
+    ],
+    "relatedEntityNames": [
+      "巨凶斧",
+      "羽弓",
+      "长形黑伤",
+      "黑伤",
+      "黑伤双刃"
+    ],
+    "updatedAt": "2026-11-04",
     "recordState": "published"
   }
 ]

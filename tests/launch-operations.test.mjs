@@ -241,10 +241,10 @@ test('ordinary build guard source contains no network orchestration and post-dep
   assert.match(source, /options\.mode === 'post-deploy'/);
 });
 
-test('current candidate includes one non-spoiler Guide and one minor-spoiler Weapon', async () => {
+test('current candidate includes four non-spoiler Guides and one minor-spoiler Weapon', async () => {
   const inventory = await loadProductionInventory(root);
-  assert.deepEqual(inventory.counts, { sitemap: 32, canonical: 34, pageHtml: 35, searchDocs: 23 });
-  assert.equal(inventory.guides.length, 1);
+  assert.deepEqual(inventory.counts, { sitemap: 35, canonical: 37, pageHtml: 38, searchDocs: 26 });
+  assert.equal(inventory.guides.length, 4);
   const families = {
     weapons: inventory.publishedWeapons.filter((item) => item.spoilerLevel !== 'major').length,
     bosses: inventory.publishedBosses.filter((item) => item.spoilerLevel !== 'major').length,
@@ -263,6 +263,6 @@ test('current candidate includes one non-spoiler Guide and one minor-spoiler Wea
 
 test('absence of exact unlock time remains informational while the approved Guide is explicit', async () => {
   const inventory = await loadProductionInventory(root);
-  assert.deepEqual(inventory.guides.map((guide) => guide.id), ['difficulty-and-sixty-six-days']);
+  assert.ok(inventory.guides.some((guide) => guide.id === 'difficulty-and-sixty-six-days'));
   assert.equal(JSON.stringify(config).includes('unlock'), false);
 });

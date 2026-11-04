@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:sgame-customer-support-cn",
+  "sourceType": "official-site",
+  "authority": "official",
+  "publisher": "S-GAME",
+  "title": "《影之刃零》客户支持",
+  "url": "https://pbz.s-game.com/supportCN/",
+  "language": "zh-CN",
+  "publishedAt": null,
+  "checkedAt": "2026-11-04",
+  "archivedUrl": null,
+  "notes": "中文官方反馈入口。"
+}
