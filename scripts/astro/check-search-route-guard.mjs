@@ -100,7 +100,9 @@ assert.equal(
 const productionSearch = JSON.parse(await readFile(join(import.meta.dirname, '../../generated/search-index.production.json'), 'utf8'));
 assert(productionSearch.every((document) => document.recordState === 'published'), 'Production Entity Search must contain only published documents');
 assert(!productionSearch.some((document) => document.id === 'weapon:qinglong-lueyue-dao'), 'Production Entity Search must exclude draft Qinglong');
-assert(productionSearch.some((document) => document.id === 'weapon:tang-hengdao'), 'Production Entity Search must retain published Tang Hengdao');
+for (const id of ['weapon:tang-hengdao', 'weapon:ya-hengdao', 'boss:commander-cleave', 'boss:huangxing-sunken-pillar-kunlun', 'boss:tie-sha-the-frenzy']) {
+  assert(!productionSearch.some((document) => document.id === id), `Retired Entity must not appear in production Search: ${id}`);
+}
 
 function publishedEntityResultKeys(entityType) {
   return productionSearch
@@ -146,11 +148,12 @@ assertResultKeys('攻略', [
 ]);
 assertResultKeys('视频', ['视频中心\t/videos\tpage']);
 assertResultKeys('购买', ['购买指南\t/about\tpage']);
-assertResultKeys('唐横刀', ['唐横刀\t/weapons/tang-hengdao\tentity']);
+assertResultKeys('唐横刀', []);
+assertResultKeys('牙横刀', []);
 assertResultKeys('魂', ['魂\t/characters/soul\tentity']);
 assertResultKeys('Soul', ['魂\t/characters/soul\tentity']);
-assertResultKeys('Commander Cleave', ['Commander Cleave\t/bosses/commander-cleave\tentity']);
-assertResultKeys('  commander   cleave  ', ['Commander Cleave\t/bosses/commander-cleave\tentity']);
+assertResultKeys('Commander Cleave', []);
+assertResultKeys('  commander   cleave  ', []);
 assertResultKeys('庞镇', ['庞镇\t/world/pangzhen\tentity']);
 assertResultKeys('青龙掠月刀', []);
 

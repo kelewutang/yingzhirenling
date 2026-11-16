@@ -25,6 +25,10 @@ const publishedBosses = (await Promise.all(
   (await readdir(bossDirectory)).filter((name) => name.endsWith('.json')).sort()
     .map(async (name) => JSON.parse(await readFile(resolve(bossDirectory, name), 'utf8')))
 )).filter((boss) => boss.recordState === 'published');
+const draftBosses = (await Promise.all(
+  (await readdir(bossDirectory)).filter((name) => name.endsWith('.json')).sort()
+    .map(async (name) => JSON.parse(await readFile(resolve(bossDirectory, name), 'utf8')))
+)).filter((boss) => boss.recordState === 'draft');
 const locationDirectory = resolve(root, 'data/locations');
 const locations = await Promise.all(
   (await readdir(locationDirectory)).filter((name) => name.endsWith('.json')).sort()
@@ -61,6 +65,11 @@ for (const weapon of draftWeapons) {
   assert(!indexByFrom.has(`/weapons/${weapon.slug}`), `Draft Weapon canonical route must remain 404: ${weapon.slug}`);
   assert(!indexByFrom.has(`/weapons/${weapon.slug}.html`), `Draft Weapon .html route must remain 404: ${weapon.slug}`);
 }
+for (const slug of ['tang-hengdao', 'ya-hengdao']) {
+  for (const route of [`/pages/generated/weapons/${slug}`, `/pages/generated/weapons/${slug}.html`]) {
+    assert(!indexByFrom.has(route), `Retired Weapon legacy URL must remain unavailable: ${route}`);
+  }
+}
 
 assert(!indexByFrom.has('/characters/:slug.html'), 'Parameterized Character .html redirect would change unknown/draft 404 behavior');
 for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
@@ -80,6 +89,10 @@ for (const boss of publishedBosses) {
   assert(indexByFrom.get(htmlRoute) < indexByFrom.get(canonicalRoute), `${htmlRoute} redirect must precede its 200 rewrite`);
 }
 
+for (const boss of draftBosses) {
+  assert(!indexByFrom.has(`/bosses/${boss.slug}`), `Draft Boss canonical route must stay unavailable: ${boss.slug}`);
+  assert(!indexByFrom.has(`/bosses/${boss.slug}.html`), `Draft Boss .html route must stay unavailable: ${boss.slug}`);
+}
 assert(!indexByFrom.has('/world/:slug.html'), 'Parameterized Location .html redirect would change unknown/draft 404 behavior');
 for (const location of publishedLocations) {
   const htmlRoute = `/world/${location.slug}.html`;

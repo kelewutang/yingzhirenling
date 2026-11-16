@@ -36,22 +36,6 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
-    "id": "boss:commander-cleave",
-    "documentType": "entity",
-    "entityType": "boss",
-    "slug": "commander-cleave",
-    "route": "/bosses/commander-cleave",
-    "displayName": "Commander Cleave",
-    "aliases": [],
-    "displayAliases": [],
-    "keywords": [
-      "Boss"
-    ],
-    "summary": "IGN 的独家实机视频说明将 Commander Cleave 列为其中一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
-    "recordState": "published",
-    "sourceSchemaVersion": "1.0-implementation"
-  },
-  {
     "id": "boss:hua-qianxiao",
     "documentType": "entity",
     "entityType": "boss",
@@ -72,22 +56,6 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
-    "id": "boss:huangxing-sunken-pillar-kunlun",
-    "documentType": "entity",
-    "entityType": "boss",
-    "slug": "huangxing-sunken-pillar-kunlun",
-    "route": "/bosses/huangxing-sunken-pillar-kunlun",
-    "displayName": "Huangxing, the Sunken Pillar of Kunlun",
-    "aliases": [],
-    "displayAliases": [],
-    "keywords": [
-      "Boss"
-    ],
-    "summary": "IGN 的独家实机视频说明将 Huangxing, the Sunken Pillar of Kunlun 列为一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
-    "recordState": "published",
-    "sourceSchemaVersion": "1.0-implementation"
-  },
-  {
     "id": "boss:peng-meng",
     "documentType": "entity",
     "entityType": "boss",
@@ -104,22 +72,6 @@
       "Boss"
     ],
     "summary": "悲泣溪谷驿站后方的首领。黑光攻击应闪避处理，破防后再用残钢刃争取输出。",
-    "recordState": "published",
-    "sourceSchemaVersion": "1.0-implementation"
-  },
-  {
-    "id": "boss:tie-sha-the-frenzy",
-    "documentType": "entity",
-    "entityType": "boss",
-    "slug": "tie-sha-the-frenzy",
-    "route": "/bosses/tie-sha-the-frenzy",
-    "displayName": "Tie Sha the Frenzy",
-    "aliases": [],
-    "displayAliases": [],
-    "keywords": [
-      "Boss"
-    ],
-    "summary": "IGN 的独家实机视频说明将 Tie Sha the Frenzy 列为其中一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -504,25 +456,6 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
-    "id": "weapon:tang-hengdao",
-    "documentType": "entity",
-    "entityType": "weapon",
-    "slug": "tang-hengdao",
-    "route": "/weapons/tang-hengdao",
-    "displayName": "唐横刀",
-    "aliases": [],
-    "displayAliases": [],
-    "keywords": [
-      "demo",
-      "主武器",
-      "武器",
-      "试玩"
-    ],
-    "summary": "发售前公开试玩中出现的单手刀；当前演示整理认为其攻防节奏较均衡，获取方式仍待确认。",
-    "recordState": "published",
-    "sourceSchemaVersion": "1.0-implementation"
-  },
-  {
     "id": "weapon:tie-quantao",
     "documentType": "entity",
     "entityType": "weapon",
@@ -596,25 +529,6 @@
       "武器"
     ],
     "summary": "白影是一把双手武器，以冰冻相关机制为主要特色。刀身无影，寒光似雪。",
-    "recordState": "published",
-    "sourceSchemaVersion": "1.0-implementation"
-  },
-  {
-    "id": "weapon:ya-hengdao",
-    "documentType": "entity",
-    "entityType": "weapon",
-    "slug": "ya-hengdao",
-    "route": "/weapons/ya-hengdao",
-    "displayName": "牙横刀",
-    "aliases": [],
-    "displayAliases": [],
-    "keywords": [
-      "demo",
-      "主武器",
-      "武器",
-      "试玩"
-    ],
-    "summary": "发售前媒体试玩记录中出现的刀类武器；详细特点和获取方式尚待可靠资料确认。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

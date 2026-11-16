@@ -10,7 +10,7 @@ const ENTITY_FAMILIES = Object.freeze([
   ['weapons', 'weapons', 'weapon'], ['characters', 'characters', 'character'],
   ['bosses', 'bosses', 'boss'], ['locations', 'world', 'location']
 ]);
-const COMPATIBILITY_CANONICAL_FILES = 2;
+const COMPATIBILITY_CANONICAL_FILES = 0; // Retired legacy weapon compatibility copies no longer ship.
 const NON_CANONICAL_HTML_FILES = 1;
 
 async function readRecords(root, directory) {

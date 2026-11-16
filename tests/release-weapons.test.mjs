@@ -70,11 +70,14 @@ test('five owner screenshot weapons reuse identities, separate Lv1 from unlocks 
   assert(!detail('white-serpent-crimson-viper').progressionNodes[0].description.includes('延长破防'));
 });
 
-test('only the three English-only identities are withdrawn while Chinese names and historical aliases survive', async () => {
+test('withdrawn preview weapons stay draft while published Chinese names and historical aliases survive', async () => {
   const knowledge = await loadKnowledge();
   const published = getPublishedWeapons(knowledge);
-  assert.equal(published.length, 18);
-  for (const [slug, name] of [['bashpole', 'Bashpole'], ['night-owl', 'Night Owl'], ['seamless-death', 'Seamless Death']]) {
+  assert.equal(published.length, 16);
+  for (const [slug, name] of [
+    ['bashpole', 'Bashpole'], ['night-owl', 'Night Owl'], ['seamless-death', 'Seamless Death'],
+    ['tang-hengdao', '唐横刀'], ['ya-hengdao', '牙横刀']
+  ]) {
     const entity = knowledge.entityById.get(`weapon:${slug}`);
     assert.equal(entity.recordState, 'draft');
     assert.equal(entity.displayName, name);

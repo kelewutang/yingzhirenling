@@ -20,13 +20,21 @@
       "valueType": "boolean",
       "value": true,
       "status": "observation",
-      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "sourceIds": [
+        "source:ucg-demo-report-2024-06-08"
+      ],
       "basisFactIds": [],
       "checkedAt": "2026-08-27",
       "gameVersionId": "version:prelaunch-demo-2024",
       "scope": {
-        "platforms": {"mode": "all", "ids": []},
-        "difficulties": {"mode": "all", "ids": []}
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
       },
       "validFromVersionId": null,
       "validToVersionId": null,
@@ -39,13 +47,21 @@
       "valueType": "string",
       "value": "牙横刀",
       "status": "observation",
-      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "sourceIds": [
+        "source:ucg-demo-report-2024-06-08"
+      ],
       "basisFactIds": [],
       "checkedAt": "2026-08-27",
       "gameVersionId": "version:prelaunch-demo-2024",
       "scope": {
-        "platforms": {"mode": "all", "ids": []},
-        "difficulties": {"mode": "all", "ids": []}
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
       },
       "validFromVersionId": null,
       "validToVersionId": null,
@@ -58,34 +74,102 @@
       "valueType": "string",
       "value": "刀类",
       "status": "observation",
-      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "sourceIds": [
+        "source:ucg-demo-report-2024-06-08"
+      ],
       "basisFactIds": [],
       "checkedAt": "2026-08-27",
       "gameVersionId": "version:prelaunch-demo-2024",
       "scope": {
-        "platforms": {"mode": "all", "ids": []},
-        "difficulties": {"mode": "all", "ids": []}
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
       },
       "validFromVersionId": null,
       "validToVersionId": "version:release-pc-ui-2026-10-29",
       "supersededBy": null,
       "reviewNote": null
     },
-    {"id": "fact:weapon:ya-hengdao:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:ucg-demo-report-2024-06-08"], "basisFactIds": [], "checkedAt": "2026-08-27", "gameVersionId": "version:prelaunch-demo-2024", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:ya-hengdao:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "刀类", "status": "observation", "sourceIds": ["source:ucg-demo-report-2024-06-08"], "basisFactIds": [], "checkedAt": "2026-08-27", "gameVersionId": "version:prelaunch-demo-2024", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-ui-2026-10-29", "supersededBy": null, "reviewNote": null},
+    {
+      "id": "fact:weapon:ya-hengdao:system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:ucg-demo-report-2024-06-08"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:ya-hengdao:weapon-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "刀类",
+      "status": "observation",
+      "sourceIds": [
+        "source:ucg-demo-report-2024-06-08"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-08-27",
+      "gameVersionId": "version:prelaunch-demo-2024",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-10-29",
+      "supersededBy": null,
+      "reviewNote": null
+    },
     {
       "id": "fact:weapon:ya-hengdao:public-appearance",
       "key": "weapon.publicAppearance",
       "valueType": "enum",
       "value": "demo",
       "status": "observation",
-      "sourceIds": ["source:ucg-demo-report-2024-06-08"],
+      "sourceIds": [
+        "source:ucg-demo-report-2024-06-08"
+      ],
       "basisFactIds": [],
       "checkedAt": "2026-08-27",
       "gameVersionId": "version:prelaunch-demo-2024",
       "scope": {
-        "platforms": {"mode": "all", "ids": []},
-        "difficulties": {"mode": "all", "ids": []}
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
       },
       "validFromVersionId": null,
       "validToVersionId": null,
@@ -103,8 +187,14 @@
       "checkedAt": "2026-08-27",
       "gameVersionId": "version:prelaunch-demo-2024",
       "scope": {
-        "platforms": {"mode": "all", "ids": []},
-        "difficulties": {"mode": "all", "ids": []}
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
       },
       "validFromVersionId": null,
       "validToVersionId": null,
@@ -122,8 +212,14 @@
       "checkedAt": "2026-08-27",
       "gameVersionId": "version:prelaunch-demo-2024",
       "scope": {
-        "platforms": {"mode": "all", "ids": []},
-        "difficulties": {"mode": "all", "ids": []}
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
       },
       "validFromVersionId": null,
       "validToVersionId": null,
@@ -133,8 +229,8 @@
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-08-27",
-  "updatedAt": "2026-10-29",
-  "recordState": "published",
+  "updatedAt": "2026-11-16",
+  "recordState": "draft",
   "spoilerLevel": "none",
   "resolution": null
 }

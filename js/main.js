@@ -518,7 +518,7 @@ function doSearch() {
   if (!input || !resultsEl) return;
   var q = normalizeSearchText(input.value);
   if (!q) {
-    resultsEl.innerHTML = '<div class="search-empty">搜索站内栏目和已收录资料，如“唐横刀”或“攻略”。</div>';
+    resultsEl.innerHTML = '<div class="search-empty">搜索站内栏目和已收录资料，如“黑伤”或“攻略”。</div>';
     return;
   }
   var results = findSearchResults(q, getSearchDocuments());

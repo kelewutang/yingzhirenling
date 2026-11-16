@@ -10,9 +10,9 @@ sourceIds:
   - source:ucg-demo-report-2024-06-08
 gameVersionId: version:prelaunch-demo-2024
 factIds:
-  - fact:weapon:tang-hengdao:exists
+  - fact:weapon:soft-snake-sword:exists
 relatedEntityIds:
-  - weapon:tang-hengdao
+  - weapon:soft-snake-sword
 platformIds:
   - platform:pc
 keywords:

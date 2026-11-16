@@ -9,10 +9,8 @@ const root = resolve(process.cwd());
 const expectedTaxonomy = new Map([
   ['chizhe-canjian', ['主武器', '剑']],
   ['soft-snake-sword', ['主武器', '剑']],
-  ['tang-hengdao', ['主武器', '刀类']],
   ['white-serpent-crimson-viper', ['主武器', '双剑']],
   ['white-shadow', ['主武器', '苗刀']],
-  ['ya-hengdao', ['主武器', '刀类']]
 ]);
 
 async function readWeapon(slug) {
@@ -41,6 +39,9 @@ test('unverified release categories remain absent while historical evidence is r
   const expectedSlugs = [...expectedTaxonomy.keys(), 'muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu', 'hongzhuang-guizhan', 'yu-gong', 'zhuiming-suolian', 'wangming-zhanmadao', 'zhuobi-dun', 'tie-quantao'].sort();
   assert.deepEqual(publishedSlugs, expectedSlugs, 'Published Weapon set must exactly match the frozen taxonomy table');
   assert(!publishedSlugs.includes('qinglong-lueyue-dao'), 'Draft Qinglong must stay outside the published taxonomy gate');
+  for (const slug of ['tang-hengdao', 'ya-hengdao']) {
+    assert(!publishedSlugs.includes(slug), `Retired Weapon must remain unpublished: ${slug}`);
+  }
 
   const weaponsBySlug = new Map(publishedWeapons.map((weapon) => [weapon.slug, weapon]));
 

@@ -9,7 +9,7 @@ const sourceId = 'source:official-douyin-2026-09-09-gameplay-article';
 const [serpent, shadow, sparse, collection, charactersCollection, whiteSerpentData, whiteShadowData, source, searchIndex, mediaRecords] = await Promise.all([
   readFile(resolve(dist, 'white-serpent-crimson-viper.html'), 'utf8'),
   readFile(resolve(dist, 'white-shadow.html'), 'utf8'),
-  readFile(resolve(dist, 'tang-hengdao.html'), 'utf8'),
+  readFile(resolve(dist, 'soft-snake-sword.html'), 'utf8'),
   readFile(resolve(root, 'dist', 'weapons.html'), 'utf8'),
   readFile(resolve(root, 'dist', 'characters.html'), 'utf8'),
   readJson('data/weapons/white-serpent-crimson-viper.json'),
@@ -156,9 +156,7 @@ assert.match(collection, /<main[^>]*\bsite-main--weapon-collection\b/, 'Weapon c
 assert.doesNotMatch(charactersCollection, /\bsite-main--weapon-collection\b/, 'Non-Weapon collections must not opt into the Weapon-wide container');
 for (const [slug, displayName, systemCategory, weaponType] of [
   ['soft-snake-sword', '灵蛇软剑', '主武器', '剑'],
-  ['tang-hengdao', '唐横刀', '主武器', '刀类'],
   ['white-shadow', '白影', '主武器', '苗刀'],
-  ['ya-hengdao', '牙横刀', '主武器', '刀类']
 ]) {
   const taxonomy = systemCategory;
   const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0];
@@ -181,7 +179,7 @@ for (const [slug, displayName, systemCategory, weaponType] of [
 const sparseWeaponCard = collection.match(/<a class="entity-card" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
 assert(sparseWeaponCard?.includes('entity-media__fallback'), 'Soft Snake Sword card must retain its fallback media');
 assert(sparseWeaponCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
-assert.equal(count(collection, 'class="entity-card__context"'), 17, 'Weapon collection must retain 3 historical and 14 release UI contexts');
+assert.equal(count(collection, 'class="entity-card__context"'), 15, 'Weapon collection must retain 1 historical and 14 release UI contexts');
 const sparseWeaponFallback = sparseWeaponCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
 assert(!sparseWeaponFallback.includes('entity-media__name') && !sparseWeaponFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
@@ -204,7 +202,7 @@ for (const [entityId, slug, expectedId, expectedSrc, html] of [
   assert(html.includes(`src="/assets/media/${media.src}"`), `${entityId} detail must render approved portrait media`);
   assert(collection.includes(`src="/assets/media/${media.src}"`), `${entityId} collection card must render approved portrait media`);
 }
-for (const slug of ['soft-snake-sword', 'tang-hengdao', 'ya-hengdao']) {
+for (const slug of ['soft-snake-sword']) {
   const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
   assert(card.includes('data-media-state="fallback"'), `${slug}: Weapon without an approved Master must retain fallback media`);
 }
@@ -327,13 +325,13 @@ assert(!sparse.includes('data-weapon-section="progression"'), 'Sparse Weapon mus
 assert(!sparse.includes('data-weapon-preview-stats'), 'Sparse Weapon must not emit an empty preview-stat group');
 assert(!sparse.includes('data-weapon-input-for'), 'Sparse Weapon must not emit input rows');
 assert(!sparse.includes('data-weapon-derived-inputs-for'), 'Sparse Weapon must not emit an empty derived-control block');
-assert(sparse.includes('演示中呈现较均衡的攻防节奏'), 'Sparse Weapon observed trait content must remain visible');
-assert(sparse.includes('★★★★☆（4/5）'), 'Sparse Weapon editor-rating content must remain visible');
-assert(sparse.includes('获取方式尚待后续官方资料或正式版验证。'), 'Sparse Weapon acquisition content must remain visible');
+assert(sparse.includes('发售前媒体试玩记录中的主武器'), 'Sparse Weapon historical summary must remain visible');
+assert(!sparse.includes('data-weapon-overview-note="weapon.observedTrait"'), 'Sparse Weapon must not invent an unrecorded observed trait');
+assert(!sparse.includes('data-weapon-base-stats'), 'Sparse Weapon must not invent release base stats');
 
 for (const [file, expectedText] of [
   ['characters/soul.html', '快速信息'],
-  ['bosses/commander-cleave.html', '快速信息'],
+  ['bosses/cangang.html', '快速信息'],
   ['world/pangzhen.html', '快速信息']
 ]) {
   const html = await readFile(resolve(root, 'dist', file), 'utf8');

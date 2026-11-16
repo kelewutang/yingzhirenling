@@ -154,14 +154,6 @@ for (const [destinationPath, route] of legacyShellPages) {
   await writeFile(destination, metadata ? legacyStructuredData(withMetadata, route, metadata) : withMetadata, 'utf8');
 }
 
-// Preserve the existing exact Netlify rewrites while making their targets
-// Astro-generated. This compatibility copy disappears with the migration bridge.
-for (const slug of ['tang-hengdao', 'ya-hengdao']) {
-  const destination = resolve(dist, 'pages/generated/weapons', `${slug}.html`);
-  await mkdir(dirname(destination), { recursive: true });
-  await cp(resolve(dist, 'weapons', `${slug}.html`), destination);
-}
-
 // Netlify supplies CONTEXT. Never add noindex to a future production build.
 if (process.env.CONTEXT === 'deploy-preview') {
   await writeFile(resolve(dist, '_headers'), '/*\n  X-Robots-Tag: noindex, nofollow\n', 'utf8');
