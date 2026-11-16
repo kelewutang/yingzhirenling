@@ -19,12 +19,13 @@
       "reviewNote": "英文和中文亲历试玩对同一 Boss 或其掉落武器的名称交叉核验；非正式版名称确认。"
     }
   ],
-  "summary": "发售前媒体试玩中，痴者残剑以饮酒恢复杀气，并在微醺时使用远程飞剑；下文含试玩版取得方式的轻度剧透，正式版仍待核。",
+  "summary": "半截残剑，可通过喝酒激发其威力，更可漂浮空中，攻击远处敌人，但远距离下伤害会衰减。",
   "summaryFactIds": [
-    "fact:weapon:chizhe-canjian:exists",
-    "fact:weapon:chizhe-canjian:name",
-    "fact:weapon:chizhe-canjian:drink-sha-chi",
-    "fact:weapon:chizhe-canjian:flying-swords"
+    "fact:weapon:chizhe-canjian:release-exists",
+    "fact:weapon:chizhe-canjian:release-name",
+    "fact:weapon:chizhe-canjian:release-system-category",
+    "fact:weapon:chizhe-canjian:release-type",
+    "fact:weapon:chizhe-canjian:release-description"
   ],
   "facts": [
     {
@@ -50,7 +51,7 @@
         }
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-11-16",
       "supersededBy": null,
       "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
     },
@@ -77,7 +78,7 @@
         }
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-11-16",
       "supersededBy": null,
       "reviewNote": "仅据发售前亲历试玩/采访确认名称和独立身份，正式版待核。"
     },
@@ -108,7 +109,7 @@
         }
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-11-16",
       "supersededBy": null,
       "reviewNote": "依据媒体对该可装备武器的 L1／L2 操作描述及与 R2 影之武装的区分作分类判断；正式版分类待核。"
     },
@@ -167,7 +168,7 @@
         }
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-11-16",
       "supersededBy": null,
       "reviewNote": "两家亲历媒体记录 2026 年北京试玩，非正式版验证。"
     },
@@ -195,7 +196,7 @@
         }
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-11-16",
       "supersededBy": null,
       "reviewNote": "仅限亲历媒体试玩版本；不推断正式版固定掉落或路线。",
       "spoilerLevel": "minor"
@@ -224,7 +225,7 @@
         }
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-11-16",
       "supersededBy": null,
       "reviewNote": "两家亲历媒体均将饮酒效果明确归于玩家装备痴者残剑后的表现。"
     },
@@ -252,14 +253,521 @@
         }
       },
       "validFromVersionId": null,
-      "validToVersionId": null,
+      "validToVersionId": "version:release-pc-ui-2026-11-16",
       "supersededBy": null,
       "reviewNote": "来源明确描述玩家取得并使用痴者残剑后的攻击；不混同 Boss 自身的飞剑。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "痴者残剑",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "单手武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "半截残剑，可通过喝酒激发其威力，更可漂浮空中，攻击远处敌人，但远距离下伤害会衰减。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "单手",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-damage",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 228,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-guard",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 96,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "description": "在微醺及大醉状态下会变成远程攻击。",
+        "input": "□ □ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_247.jpg／248／249；畅饮跨247、248补全。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-mechanic-2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力，在微醺及大醉状态下会变成远程攻击。",
+        "input": "△ △ △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_247.jpg／248／249；畅饮跨247、248补全。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-mechanic-3",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "畅饮",
+        "description": "L1 + △【喝酒】回复杀气并进入微醺状态，招式变成【飞剑】，伤害随距离衰减，15秒后会恢复为清醒状态。可按住 L1 + △【喝酒】提升杀气回复量。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_247.jpg／248／249；畅饮跨247、248补全。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-mechanic-4",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "一醉方休",
+        "description": "清醒状态下 L2 消耗1精纯杀气施展【飞剑连斩】并进入微醺状态。无法被敌人防御。微醺状态下 L2 消耗1精纯杀气进入大醉状态，持续20秒。期间自身行动能力大幅受限，L1 无法格挡攻击，但可自动闪避攻击，且【飞剑】威力大增。大醉状态下再次按 L2，可不消耗精纯杀气发出【强力飞剑连斩】并恢复为清醒状态。无法被敌人防御。",
+        "input": "L2"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_247.jpg／248／249；畅饮跨247、248补全。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "海量",
+        "description": "提升【喝酒】回复的杀气值，加快【喝酒】速度。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_247.jpg／248／249；畅饮跨247、248补全。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 10,
+        "name": "难得糊涂·之一",
+        "description": "微醺状态的持续时间延长5秒。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_247.jpg／248／249；畅饮跨247、248补全。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "醉月反击",
+        "description": "大醉状态下，在可格挡的攻击命中前，精准按下 L1，会在躲闪攻击同时【喝酒】并反击。",
+        "input": "L1"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_247.jpg／248／249；畅饮跨247、248补全。"
+    },
+    {
+      "id": "fact:weapon:chizhe-canjian:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "这酒有力气",
+        "description": "微醺和大醉状态的攻击力大幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_247.jpg／248／249；畅饮跨247、248补全。"
     }
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-10-11",
-  "updatedAt": "2026-10-29",
+  "updatedAt": "2026-11-16",
   "recordState": "published",
   "spoilerLevel": "minor",
   "resolution": null

@@ -21,10 +21,59 @@ const expectations = [
   ['juxiong-fu', '巨凶斧', null, [['伤害能力', 309], ['破防能力', 208]]]
 ];
 
+test('five owner screenshot weapons reuse identities, separate Lv1 from unlocks and preserve evidence', async () => {
+  const knowledge = await loadKnowledge();
+  const source = knowledge.sourceById.get('source:owner-pc-release-weapons-2026-11-16');
+  assert.equal(source.locator.evidenceItems.length, 16);
+  assert.equal(new Set(source.locator.evidenceItems.map((item) => item.sha256)).size, 16);
+  assert.equal(source.locator.capturedAt, null);
+  assert.equal(source.locator.versionLabel, null);
+  for (const [slug, name, system, category, damage, guard, mechanics] of [
+    ['chizhe-canjian', '痴者残剑', '主武器', '单手武器', 228, 96, 4],
+    ['wangming-zhanmadao', '亡命斩马刀', '主武器', '双手武器', 240, 106, 4],
+    ['zhuobi-dun', '拙壁盾', '影之武装', '奇门', 226, 198, 3],
+    ['tie-quantao', '铁拳套', '影之武装', '武学', 261, 223, 2],
+    ['white-serpent-crimson-viper', '白蟒赤练', '主武器', '双持武器', 260, 110, 5]
+  ]) {
+    const entity = knowledge.entityById.get(`weapon:${slug}`);
+    const detail = projectWeaponDetail(entity, knowledge);
+    assert.equal(entity.displayName, name);
+    assert.equal(entity.slug, slug);
+    assert.equal(detail.taxonomy.valueText, `${system} · ${category}`);
+    assert.deepEqual(detail.overview.baseStats.map((f) => [f.value.displayedLevel, f.value.displayedValue]), [[1, damage], [1, guard]]);
+    assert.deepEqual(detail.progressionNodes.map((f) => f.level), [5, 10, 15, 25]);
+    assert.equal(detail.mechanics.length, mechanics);
+    assert.equal(detail.overview.previewStats.length, 0);
+    assert(!entity.facts.some((f) => f.key === 'weapon.acquisitionOrder'));
+    assert(detail.sourceFacts.every((f) => f.status === 'observation' && f.sourceIds.includes(source.id)));
+    assert.equal(getFact(entity, 'weapon.grip')?.value ?? null, system === '主武器' ? category.slice(0, 2) : null);
+    const hero = await getProductionHeroMedia(entity.id);
+    const card = await getProductionCardMedia(entity.id);
+    assert.equal(hero.src, card.src);
+    assert.deepEqual([hero.width, hero.height, hero.objectFit, hero.sourceId, hero.rightsStatus], [1200, 1800, 'contain', source.id, 'self-captured-reviewed']);
+  }
+  for (const slug of ['chizhe-canjian', 'white-serpent-crimson-viper']) {
+    const entity = knowledge.entityById.get(`weapon:${slug}`);
+    const historical = entity.facts.filter((f) => f.gameVersionId.startsWith('version:prelaunch-'));
+    assert(entity.aliases.length > 0);
+    assert(historical.length > 0 && historical.every((f) => f.validToVersionId || f.supersededBy));
+  }
+  const detail = (slug) => projectWeaponDetail(knowledge.entityById.get(`weapon:${slug}`), knowledge);
+  assert.match(detail('chizhe-canjian').mechanics[3].description, /消耗1精纯杀气[\s\S]*持续20秒[\s\S]*不消耗精纯杀气/);
+  assert.match(detail('wangming-zhanmadao').mechanics[1].description, /12秒[\s\S]*临时损血变为实际损血/);
+  assert.match(detail('wangming-zhanmadao').progressionNodes[2].description, /30%[\s\S]*10秒[\s\S]*60秒/);
+  assert.match(detail('wangming-zhanmadao').progressionNodes[3].description, /血箭射出后，【紧急护盾】效果结束/);
+  assert.match(detail('zhuobi-dun').mechanics[0].description, /持续消耗杀气[\s\S]*消耗1暗源/);
+  assert.match(detail('tie-quantao').progressionNodes[2].description, /消耗1暗源[\s\S]*回复1暗源[\s\S]*增加2秒/);
+  assert.match(detail('tie-quantao').progressionNodes[3].description, /下一套连招不消耗暗源/);
+  assert.match(detail('white-serpent-crimson-viper').mechanics[4].description, /消耗1精纯杀气/);
+  assert(!detail('white-serpent-crimson-viper').progressionNodes[0].description.includes('延长破防'));
+});
+
 test('only the three English-only identities are withdrawn while Chinese names and historical aliases survive', async () => {
   const knowledge = await loadKnowledge();
   const published = getPublishedWeapons(knowledge);
-  assert.equal(published.length, 15);
+  assert.equal(published.length, 18);
   for (const [slug, name] of [['bashpole', 'Bashpole'], ['night-owl', 'Night Owl'], ['seamless-death', 'Seamless Death']]) {
     const entity = knowledge.entityById.get(`weapon:${slug}`);
     assert.equal(entity.recordState, 'draft');

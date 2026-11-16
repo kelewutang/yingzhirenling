@@ -1,0 +1,539 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:wangming-zhanmadao",
+  "entityType": "weapon",
+  "slug": "wangming-zhanmadao",
+  "displayName": "亡命斩马刀",
+  "aliases": [],
+  "summary": "无坚不摧的饮血之刃，破盾能力强，可以吸取敌人之血治疗自身，也可消耗自身之血斩杀敌人。",
+  "summaryFactIds": [
+    "fact:weapon:wangming-zhanmadao:release-exists",
+    "fact:weapon:wangming-zhanmadao:release-name",
+    "fact:weapon:wangming-zhanmadao:release-system-category",
+    "fact:weapon:wangming-zhanmadao:release-type",
+    "fact:weapon:wangming-zhanmadao:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "亡命斩马刀",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "双手武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "无坚不摧的饮血之刃，破盾能力强，可以吸取敌人之血治疗自身，也可消耗自身之血斩杀敌人。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "双手",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-damage",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 240,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-guard",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 106,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "description": "攻击命中时汲取生命，若自身处于临时损血状态，则获得额外回复效果。对人偶、金身、幻体无效。",
+        "input": "□ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_250.jpg／251／252／253；25级血箭由253补全。"
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-mechanic-2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。可使自身临时损血，同时伤害提升。可以使用 □ 连招或其他治疗手段回复。但如果超过12秒没有任何回复，或受到伤害，则临时损血变为实际损血。",
+        "input": "△ △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_250.jpg／251／252／253；25级血箭由253补全。"
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-mechanic-3",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "闪身夺血",
+        "description": "所有 △ 攻击后可衔接 □，使出后撤斩并汲取生命，对自身的临时损血有额外回复效果。对人偶、金身、幻体无效。",
+        "derivedInputs": [
+          {
+            "inputs": [
+              "△ □"
+            ],
+            "label": "闪身夺血",
+            "labelKind": "official"
+          }
+        ]
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_250.jpg／251／252／253；25级血箭由253补全。"
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-mechanic-4",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "嗜血狂刃",
+        "description": "L2 消耗1精纯杀气发动狂乱强横的连斩攻势，若命中敌人可将其压制吸血，对人偶、金身、幻体无效。无法被敌人防御。",
+        "input": "L2"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_250.jpg／251／252／253；25级血箭由253补全。"
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "亡命蓄斩",
+        "description": "L1 + △ 可以蓄力，发动亡命蓄斩，蓄力期间受到的伤害全部计为临时损血，如果命中敌人，会回复在此期间受到的50%的临时损血，对人偶、金身、幻体无效。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_250.jpg／251／252／253；25级血箭由253补全。"
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 10,
+        "name": "无坚不摧·之一",
+        "description": "小幅提升使用 □ 回复临时损血的速度。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_250.jpg／251／252／253；25级血箭由253补全。"
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "血盾",
+        "description": "临时损血达到30%总生命值后，获得一层【紧急护盾】，持续10秒。护盾消失后60秒才能再次生成护盾。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_250.jpg／251／252／253；25级血箭由253补全。"
+    },
+    {
+      "id": "fact:weapon:wangming-zhanmadao:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "血箭",
+        "description": "在【紧急护盾】持续时间内，自身可进入临时损血状态。当临时损失的生命值回满时，会生成血箭攻击周围敌人，并使被血箭击中的敌人受到的伤害提升。血箭射出后，【紧急护盾】效果结束。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "4115450_250.jpg／251／252／253；25级血箭由253补全。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

@@ -161,11 +161,12 @@
       "The Fanatic's Broken Blade"
     ],
     "keywords": [
-      "demo",
-      "武器",
-      "试玩"
+      "主武器",
+      "单手",
+      "单手武器",
+      "武器"
     ],
-    "summary": "发售前媒体试玩中，痴者残剑以饮酒恢复杀气，并在微醺时使用远程飞剑；下文含试玩版取得方式的轻度剧透，正式版仍待核。",
+    "summary": "半截残剑，可通过喝酒激发其威力，更可漂浮空中，攻击远处敌人，但远距离下伤害会衰减。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -328,6 +329,43 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:tie-quantao",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "tie-quantao",
+    "route": "/weapons/tie-quantao",
+    "displayName": "铁拳套",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "影之武装",
+      "武器",
+      "武学"
+    ],
+    "summary": "沉重而朴实的钢铁拳套，钉刺与铁面已磨得发亮。破盾能力强，能够积累拳意使得每次攻击更加强大。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:wangming-zhanmadao",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "wangming-zhanmadao",
+    "route": "/weapons/wangming-zhanmadao",
+    "displayName": "亡命斩马刀",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "双手",
+      "双手武器",
+      "武器"
+    ],
+    "summary": "无坚不摧的饮血之刃，破盾能力强，可以吸取敌人之血治疗自身，也可消耗自身之血斩杀敌人。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:white-serpent-crimson-viper",
     "documentType": "entity",
     "entityType": "weapon",
@@ -341,12 +379,12 @@
       "White Serpent & Crimson Viper"
     ],
     "keywords": [
-      "demo",
       "主武器",
-      "武器",
-      "试玩"
+      "双持",
+      "双持武器",
+      "武器"
     ],
-    "summary": "白蟒赤练是一组双持武器；已公开的预发布界面可见普通连招、杀气连招与赤练环身等机制。",
+    "summary": "短刀轻灵曼妙，长刀蜿蜒遒劲，如双蛇共舞，变幻无穷。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -419,6 +457,24 @@
       "武学"
     ],
     "summary": "盘绕、牵拽、收割，精准如其主人臂膀的延伸。利于中远距离攻击，也能钩住远处锚点进行移动。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:zhuobi-dun",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "zhuobi-dun",
+    "route": "/weapons/zhuobi-dun",
+    "displayName": "拙壁盾",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "奇门",
+      "影之武装",
+      "武器"
+    ],
+    "summary": "守门人拙壁之盾，可以抵挡任何攻击，并能吸收伤害化为反击之力。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
