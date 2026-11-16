@@ -1,0 +1,313 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "location:beiqi-xigu",
+  "entityType": "location",
+  "slug": "beiqi-xigu",
+  "displayName": "悲泣溪谷",
+  "aliases": [],
+  "summary": "以开端之地、红丝线障壁和驿站为前段探索节点；取得新的影之武装后可回访此前受阻的位置。",
+  "summaryFactIds": [
+    "fact:location:beiqi-xigu:release-exists",
+    "fact:location:beiqi-xigu:release-name",
+    "fact:location:beiqi-xigu:release-kind",
+    "fact:location:beiqi-xigu:release-route",
+    "fact:location:beiqi-xigu:release-outpost"
+  ],
+  "facts": [
+    {
+      "id": "fact:location:beiqi-xigu:release-exists",
+      "key": "location.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-name",
+      "key": "location.name",
+      "valueType": "string",
+      "value": "悲泣溪谷",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-kind",
+      "key": "location.kind",
+      "valueType": "string",
+      "value": "区域",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-route",
+      "key": "location.route",
+      "valueType": "object",
+      "value": {
+        "name": "前段探索顺序",
+        "description": "从开端之地出发，与火堆旁玉儿对话，再向初见玉儿处、红丝线障壁和锈刃凉亭推进。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-bells",
+      "key": "location.bell",
+      "valueType": "object",
+      "value": {
+        "name": "前段铃铛",
+        "description": "开端之地、初见玉儿处、红丝线障壁、残偶谷底、锈刃凉亭是原流程记录的定位点；分支不必按编号强行跑成一条直线。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-outpost",
+      "key": "location.route",
+      "valueType": "object",
+      "value": {
+        "name": "驿站与溪谷平原",
+        "description": "锈刃凉亭之后可到驿站前小院；驿站区域处理彭猛与NPC委托，再向溪谷平原入口、恶弓手营地探索。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-outpost-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-quest",
+      "key": "location.quest",
+      "valueType": "object",
+      "value": {
+        "name": "清理门户",
+        "description": "在恶弓手营地取得断弦的羽弓后，回驿站找老弓手交付，可完成该异闻并获得羽弓。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-outpost-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-return",
+      "key": "location.hiddenArea",
+      "valueType": "object",
+      "value": {
+        "name": "锁镰回访",
+        "description": "大瀑布取得追命锁镰后，可回开端之地反向走到断崖，利用钩点抵达对面平台取宝箱。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-tower-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-hidden-outpost",
+      "key": "location.hiddenArea",
+      "valueType": "object",
+      "value": {
+        "name": "驿站封锁区",
+        "description": "该桥初访有人把守；推进至陆家村与老根头对话、接取并完成一个不留相关清理后，再回驿站探索。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-hidden-outpost-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null,
+      "spoilerLevel": "major"
+    },
+    {
+      "id": "fact:location:beiqi-xigu:release-connection",
+      "key": "location.connection",
+      "valueType": "string",
+      "value": "从大瀑布继续前进可进入下一处区域血色森林。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

@@ -6,9 +6,9 @@ const root = process.cwd();
 const dist = resolve(root, 'dist');
 const pages = [
   ['weapons.html', 15],
-  ['bosses.html', 3],
-  ['characters.html', 3],
-  ['world.html', 1]
+  ['bosses.html', 8],
+  ['characters.html', 6],
+  ['world.html', 4]
 ];
 
 for (const [file, expectedCards] of pages) {

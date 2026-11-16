@@ -13,6 +13,8 @@ const statusLabels = {
 const sourceTypeLabels = {
   'official-article': '官方发布材料',
   'media-hands-on': '媒体试玩',
+  'media-release-guide': '发售后媒体攻略',
+  'community-game-text': '社区游戏文本整理',
   'media-demo-report': '媒体试玩',
   'media-gameplay-video': '媒体实机视频',
   'site-release-test': '本站正式版实测记录',

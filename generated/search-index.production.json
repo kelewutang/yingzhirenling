@@ -1,5 +1,41 @@
 [
   {
+    "id": "boss:a-hua",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "a-hua",
+    "route": "/bosses/a-hua",
+    "displayName": "新娘阿花",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "悲泣溪谷杀气塔下层的首领。战斗需要同时注意连招、地面红花与追踪白花。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:cangang",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "cangang",
+    "route": "/bosses/cangang",
+    "displayName": "痴狂暴徒：残钢",
+    "aliases": [
+      "Jagged Steel, the Frenzied Brute"
+    ],
+    "displayAliases": [
+      "Jagged Steel, the Frenzied Brute"
+    ],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "悲泣溪谷红丝线障壁之后遭遇的首领，可先利用混战观察，再围绕杀气与破防展开攻防。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "boss:commander-cleave",
     "documentType": "entity",
     "entityType": "boss",
@@ -12,6 +48,26 @@
       "Boss"
     ],
     "summary": "IGN 的独家实机视频说明将 Commander Cleave 列为其中一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:hua-qianxiao",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "hua-qianxiao",
+    "route": "/bosses/hua-qianxiao",
+    "displayName": "剑痴：花千笑",
+    "aliases": [
+      "Hua Qianxiao, the Sword Fanatic"
+    ],
+    "displayAliases": [
+      "Hua Qianxiao, the Sword Fanatic"
+    ],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "血色森林远眺庞镇之桥的首领，喝酒时杀气转为护盾，结束后可利用杀气下降寻找反击窗口。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -32,6 +88,26 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "boss:peng-meng",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "peng-meng",
+    "route": "/bosses/peng-meng",
+    "displayName": "斧老大：彭猛",
+    "aliases": [
+      "Peng Meng, the Axemaster"
+    ],
+    "displayAliases": [
+      "Peng Meng, the Axemaster"
+    ],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "悲泣溪谷驿站后方的首领。黑光攻击应闪避处理，破防后再用残钢刃争取输出。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "boss:tie-sha-the-frenzy",
     "documentType": "entity",
     "entityType": "boss",
@@ -44,6 +120,22 @@
       "Boss"
     ],
     "summary": "IGN 的独家实机视频说明将 Tie Sha the Frenzy 列为其中一场 Boss 战；其背景与正式版设定仍待更多资料确认。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:zhui-ming",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "zhui-ming",
+    "route": "/bosses/zhui-ming",
+    "displayName": "追命",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "悲泣溪谷主线首领；大瀑布一战包含连续阶段，锁链落点和龙卷风是应对重点。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -64,6 +156,23 @@
       "角色"
     ],
     "summary": "官方材料在《影之刃零》公开资料中提及魔渊。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "character:mu-xiaokui",
+    "documentType": "entity",
+    "entityType": "character",
+    "slug": "mu-xiaokui",
+    "route": "/characters/mu-xiaokui",
+    "displayName": "沐小葵",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "组织少主",
+      "角色"
+    ],
+    "summary": "“组织”少主。发售后陆家村流程包含她留下的红丝带线索，本页只整理公开身份与相关流程提醒。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -105,6 +214,74 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "character:yu-er",
+    "documentType": "entity",
+    "entityType": "character",
+    "slug": "yu-er",
+    "route": "/characters/yu-er",
+    "displayName": "玉儿",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "任务NPC",
+      "角色"
+    ],
+    "summary": "在悲泣溪谷与血色森林出现的任务NPC，与血肉花、见习医师和救死扶伤等委托有关。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "character:zuo-shang",
+    "documentType": "entity",
+    "entityType": "character",
+    "slug": "zuo-shang",
+    "route": "/characters/zuo-shang",
+    "displayName": "左殇",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "组织剑客",
+      "角色"
+    ],
+    "summary": "与魂有昔日同伴关系的组织成员；本页区分序章人物资料与后续剧情，不展开结局身份。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "location:beiqi-xigu",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "beiqi-xigu",
+    "route": "/world/beiqi-xigu",
+    "displayName": "悲泣溪谷",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "区域",
+      "地点"
+    ],
+    "summary": "以开端之地、红丝线障壁和驿站为前段探索节点；取得新的影之武装后可回访此前受阻的位置。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "location:lujia-cun",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "lujia-cun",
+    "route": "/world/lujia-cun",
+    "displayName": "陆家村",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "地点",
+      "村落区域"
+    ],
+    "summary": "以梦醒之地、岔路口、三人偶水井与幽蓝萤火之庙为探索节点，包含记忆之花、村民委托和需要回访的分支。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "location:pangzhen",
     "documentType": "entity",
     "entityType": "location",
@@ -125,6 +302,23 @@
       "小镇"
     ],
     "summary": "S-GAME 官方资料将庞镇称为一座小镇，并在 2025 年 RTX 光线追踪演示中首次公开其游戏场景。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "location:xuese-senlin",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "xuese-senlin",
+    "route": "/world/xuese-senlin",
+    "displayName": "血色森林",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "区域",
+      "地点"
+    ],
+    "summary": "从大瀑布接续进入的区域，包含荒废官道、远眺庞镇之桥、飞贼营地和镜林等探索节点。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

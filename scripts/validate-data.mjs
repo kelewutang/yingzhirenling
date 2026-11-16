@@ -43,6 +43,7 @@ const WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH = 280;
 const WEAPON_DETAIL_INPUT_MAX_LENGTH = 80;
 const WEAPON_DERIVED_INPUTS_MAX_ITEMS = 8;
 const WEAPON_DERIVED_INPUT_VARIANTS_MAX_ITEMS = 4;
+const NAMED_ENTITY_DETAIL_KEYS = new Set(['boss.mechanic', 'boss.strategy', 'location.route', 'location.bell', 'location.hiddenArea', 'location.quest', 'character.encounter', 'character.quest']);
 const NAMED_WEAPON_DETAIL_KEYS = new Set(['weapon.mechanic', 'weapon.progressionNode']);
 const DERIVED_INPUT_LABEL_KINDS = new Set(['official', 'functional']);
 const WEAPON_SYSTEM_CATEGORIES = new Set(['主武器', '影之武装']);
@@ -478,7 +479,7 @@ async function runFixtureFile(fixtureFile) {
       }
       if (entity.entityType === 'boss') {
         const ownedFacts = new Set((Array.isArray(entity.facts) ? entity.facts : []).map((fact) => fact.id));
-        const bossFactKeys = new Set(['boss.exists', 'boss.name', 'boss.kind', 'boss.publicAppearance']);
+        const bossFactKeys = new Set(['boss.exists', 'boss.name', 'boss.kind', 'boss.publicAppearance', 'boss.location', 'boss.mechanic', 'boss.strategy', 'boss.reward']);
         validateStringArray(entity.summaryFactIds, `${location}.summaryFactIds`);
         for (const factId of entity.summaryFactIds ?? []) {
           if (!ownedFacts.has(factId)) report(`${location}.summaryFactIds`, `Fact 不属于当前 Boss：${factId}`);
@@ -501,7 +502,7 @@ async function runFixtureFile(fixtureFile) {
           'location.name',
           'location.kind',
           'location.publicAppearance',
-          'location.observedTrait'
+          'location.observedTrait', 'location.route', 'location.bell', 'location.hiddenArea', 'location.quest', 'location.connection'
         ]);
         validateStringArray(entity.summaryFactIds, `${location}.summaryFactIds`);
         for (const factId of entity.summaryFactIds ?? []) {
@@ -989,6 +990,14 @@ function validateFactValue(fact, registryEntry, location, report = error) {
     }
   } else if (fact.valueType === 'object' && !isObject(fact.value)) {
     report(`${location}.value`, 'valueType=object 时 value 必须是对象');
+  }
+
+  if (NAMED_ENTITY_DETAIL_KEYS.has(fact.key) && isObject(fact.value)) {
+    if (Object.keys(fact.value).some((key) => !['name', 'description'].includes(key)) ||
+        typeof fact.value.name !== 'string' || !fact.value.name.trim() || fact.value.name.length > 80 ||
+        typeof fact.value.description !== 'string' || !fact.value.description.trim() || fact.value.description.length > 650) {
+      report(`${location}.value`, '实体攻略条目必须仅含非空name（最多80字）和description（最多650字）');
+    }
   }
 
   if (fact.key === 'weapon.acquisitionOrder' && isObject(fact.value)) {

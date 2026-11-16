@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "location:xuese-senlin",
+  "entityType": "location",
+  "slug": "xuese-senlin",
+  "displayName": "血色森林",
+  "aliases": [],
+  "summary": "从大瀑布接续进入的区域，包含荒废官道、远眺庞镇之桥、飞贼营地和镜林等探索节点。",
+  "summaryFactIds": [
+    "fact:location:xuese-senlin:release-exists",
+    "fact:location:xuese-senlin:release-name",
+    "fact:location:xuese-senlin:release-kind",
+    "fact:location:xuese-senlin:release-route",
+    "fact:location:xuese-senlin:release-mirror"
+  ],
+  "facts": [
+    {
+      "id": "fact:location:xuese-senlin:release-exists",
+      "key": "location.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:xuese-senlin:release-name",
+      "key": "location.name",
+      "valueType": "string",
+      "value": "血色森林",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:xuese-senlin:release-kind",
+      "key": "location.kind",
+      "valueType": "string",
+      "value": "区域",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:xuese-senlin:release-route",
+      "key": "location.route",
+      "valueType": "object",
+      "value": {
+        "name": "初访路线",
+        "description": "入口铃铛之后沿主路前往荒废官道、远眺庞镇之桥；桥上会遇到花千笑，继续探索可抵达挂笼小道。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:xuese-senlin:release-bells",
+      "key": "location.bell",
+      "valueType": "object",
+      "value": {
+        "name": "定位铃铛",
+        "description": "血色森林、荒废官道、远眺庞镇之桥、挂笼小道可用于定位前段路线。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:xuese-senlin:release-connection",
+      "key": "location.connection",
+      "valueType": "string",
+      "value": "入口承接悲泣溪谷大瀑布之后的推进路线。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:xuese-senlin:release-healing",
+      "key": "location.quest",
+      "valueType": "object",
+      "value": {
+        "name": "救死扶伤",
+        "description": "飞贼营地剧情后与玉儿对话，领取保命丹并接取救治伤患的委托；该流程记录提示应在推进第三章前完成。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-quests-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:xuese-senlin:release-mirror",
+      "key": "location.route",
+      "valueType": "object",
+      "value": {
+        "name": "镜林方向",
+        "description": "从湖岸拱桥周边继续探索，经悬崖山崖的橙色灯笼门匾与木桥推进，可到镜林入口。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-mirror-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:xuese-senlin:release-hidden",
+      "key": "location.hiddenArea",
+      "valueType": "object",
+      "value": {
+        "name": "坑道入口需钥匙",
+        "description": "入口附近的血色森林坑道开关初访不能直接打开；先记下位置，取得对应钥匙后回访。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

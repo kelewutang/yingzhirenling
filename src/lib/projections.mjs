@@ -148,74 +148,64 @@ export function projectWeaponDetail(weapon, knowledge) {
   };
 }
 
+const namedEntityDetailKeys = new Set(['boss.mechanic', 'boss.strategy', 'location.route', 'location.bell', 'location.hiddenArea', 'location.quest', 'character.encounter', 'character.quest']);
+
+function projectEntityFacts(entity, knowledge, specs, existsText) {
+  return specs.flatMap(([key, section, title]) => {
+    const candidates = namedEntityDetailKeys.has(key)
+      ? entity.facts.filter((fact) => fact.key === key && fact.supersededBy === null && fact.validToVersionId == null && fact.status !== 'pending-review')
+      : [getFact(entity, key, knowledge)].filter(Boolean);
+    return candidates.map((fact) => {
+      const release = knowledge.versionById.get(fact.gameVersionId)?.track === 'release';
+      let valueText = namedEntityDetailKeys.has(key) ? fact.value.description : String(fact.value);
+      if (key.endsWith('.exists')) valueText = release ? '已在可核查的发售后资料中收录。' : existsText;
+      if (key === 'location.publicAppearance') valueText = '已在官方场景展示中公开';
+      return {
+        ...fact, section, title: namedEntityDetailKeys.has(key) ? fact.value.name : title, valueText,
+        description: null,
+        statusText: statusLabel(fact.status), versionText: versionLabel(fact.gameVersionId, knowledge),
+        platformText: scopeText(fact.scope?.platforms, knowledge.platformById),
+        difficultyText: scopeText(fact.scope?.difficulties, knowledge.difficultyById)
+      };
+    });
+  });
+}
+
 export function projectCharacterFacts(character, knowledge) {
-  const characterSpecs = [
-    ['character.exists', '公开记录'],
-    ['character.name', '名称记录'],
-    ['character.role', '身份定位']
-  ];
-  return characterSpecs.map(([key, title]) => {
-    const fact = getFact(character, key, knowledge);
-    return fact && {
-      ...fact,
-      section: '核心资料',
-      title,
-      valueText: fact.key === 'character.exists' ? '已在可核查的发售前官方材料中出现。' : String(fact.value),
-      description: null,
-      statusText: statusLabel(fact.status),
-      versionText: versionLabel(fact.gameVersionId, knowledge),
-      platformText: scopeText(fact.scope?.platforms, knowledge.platformById),
-      difficultyText: scopeText(fact.scope?.difficulties, knowledge.difficultyById)
-    };
-  }).filter(Boolean);
+  return projectEntityFacts(character, knowledge, [
+    ['character.exists', '核心资料', '公开记录'],
+    ['character.name', '核心资料', '名称记录'],
+    ['character.role', '核心资料', '身份定位'],
+    ['character.affiliation', '核心资料', '所属势力'],
+    ['character.encounter', '相遇与流程', '相遇记录'],
+    ['character.quest', '相关任务', '任务提醒']
+  ], '已在可核查的发售前官方材料中出现。');
 }
 
 export function projectBossFacts(boss, knowledge) {
-  const bossSpecs = [
+  return projectEntityFacts(boss, knowledge, [
     ['boss.exists', '核心资料', '公开记录'],
     ['boss.name', '核心资料', '名称记录'],
     ['boss.kind', '核心资料', '敌人类型'],
-    ['boss.publicAppearance', '公开资料', '公开出现方式']
-  ];
-  return bossSpecs.map(([key, section, title]) => {
-    const fact = getFact(boss, key, knowledge);
-    return fact && {
-      ...fact,
-      section,
-      title,
-      valueText: fact.key === 'boss.exists' ? '已在可核查的发售前公开资料中作为 Boss 战出现。' : String(fact.value),
-      description: null,
-      statusText: statusLabel(fact.status),
-      versionText: versionLabel(fact.gameVersionId, knowledge),
-      platformText: scopeText(fact.scope?.platforms, knowledge.platformById),
-      difficultyText: scopeText(fact.scope?.difficulties, knowledge.difficultyById)
-    };
-  }).filter(Boolean);
+    ['boss.publicAppearance', '公开资料', '公开出现方式'],
+    ['boss.location', '出现位置', '区域与地标'],
+    ['boss.mechanic', '攻击与机制', '攻击机制'],
+    ['boss.strategy', '应对要点', '打法建议'],
+    ['boss.reward', '战后奖励', '已记录奖励']
+  ], '已在可核查的发售前公开资料中作为 Boss 战出现。');
 }
 
 export function projectLocationFacts(location, knowledge) {
-  const locationSpecs = [
+  return projectEntityFacts(location, knowledge, [
     ['location.exists', '核心资料', '公开记录'],
     ['location.name', '核心资料', '名称记录'],
     ['location.kind', '核心资料', '地点类型'],
     ['location.publicAppearance', '公开资料', '公开出现方式'],
-    ['location.observedTrait', '公开场景观察', '场景特征']
-  ];
-  return locationSpecs.map(([key, section, title]) => {
-    const fact = getFact(location, key, knowledge);
-    let valueText = fact ? String(fact.value) : '';
-    if (fact?.key === 'location.exists') valueText = '已在可核查的发售前官方资料中作为地点出现。';
-    if (fact?.key === 'location.publicAppearance') valueText = '已在官方场景展示中公开';
-    return fact && {
-      ...fact,
-      section,
-      title,
-      valueText,
-      description: null,
-      statusText: statusLabel(fact.status),
-      versionText: versionLabel(fact.gameVersionId, knowledge),
-      platformText: scopeText(fact.scope?.platforms, knowledge.platformById),
-      difficultyText: scopeText(fact.scope?.difficulties, knowledge.difficultyById)
-    };
-  }).filter(Boolean);
+    ['location.observedTrait', '公开场景观察', '场景特征'],
+    ['location.connection', '区域关系', '相邻入口'],
+    ['location.route', '探索路线', '路线提示'],
+    ['location.bell', '铃铛定位', '铃铛记录'],
+    ['location.hiddenArea', '隐藏区域与回访', '回访条件'],
+    ['location.quest', '相关任务', '任务提醒']
+  ], '已在可核查的发售前官方资料中作为地点出现。');
 }

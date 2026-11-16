@@ -19,10 +19,16 @@
       "reviewNote": "两家亲历媒体试玩对同一 Boss 的中英文名称交叉核验；非正式版名称确认。"
     }
   ],
-  "summary": "2026 年媒体试玩中出现的斧老大：彭猛；正式版资料待核。",
+  "summary": "悲泣溪谷驿站后方的首领。黑光攻击应闪避处理，破防后再用残钢刃争取输出。",
   "summaryFactIds": [
     "fact:boss:peng-meng:exists",
-    "fact:boss:peng-meng:name"
+    "fact:boss:peng-meng:name",
+    "fact:boss:peng-meng:release-exists",
+    "fact:boss:peng-meng:release-name",
+    "fact:boss:peng-meng:release-kind",
+    "fact:boss:peng-meng:release-location",
+    "fact:boss:peng-meng:release-mechanic",
+    "fact:boss:peng-meng:release-strategy"
   ],
   "facts": [
     {
@@ -50,7 +56,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:peng-meng:release-exists",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
     },
     {
@@ -78,7 +84,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:peng-meng:release-name",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
     },
     {
@@ -106,14 +112,209 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:peng-meng:release-kind",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
+    },
+    {
+      "id": "fact:boss:peng-meng:release-exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-2-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:peng-meng:release-name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "斧老大：彭猛",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-2-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:peng-meng:release-kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-2-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:peng-meng:release-location",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "悲泣溪谷：驿站后方推进路线上的必经战斗。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-2-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:peng-meng:release-mechanic",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "黑光起手",
+        "description": "向前冲撞、背身砸地都可能以黑光起手；格挡此类攻击会使自身杀气归零。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-2-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:peng-meng:release-strategy",
+      "key": "boss.strategy",
+      "valueType": "object",
+      "value": {
+        "name": "黑光闪避，破防输出",
+        "description": "黑光出现时闪避处理；其余攻防留意红蓝光，使用黑伤双刃周旋，破防窗口换残钢刃攻击。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-2-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:peng-meng:release-reward",
+      "key": "boss.reward",
+      "valueType": "string",
+      "value": "击败彭猛获得影之武装巨凶斧。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-reward-peng-meng-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
     }
   ],
   "taxonomyIds": [],
-  "publishedAt": null,
-  "updatedAt": "2026-10-11",
-  "recordState": "draft",
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
   "spoilerLevel": "minor",
   "resolution": null
 }

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "relation:character:zuo-shang:formerCompanionOf:character:soul",
+  "sourceEntityId": "character:zuo-shang",
+  "relationType": "formerCompanionOf",
+  "targetEntityId": "character:soul",
+  "status": "third-party",
+  "sourceIds": [
+    "source:bwiki-young-zuo-shang-2026-11-07"
+  ],
+  "checkedAt": "2026-11-16",
+  "gameVersionId": "version:release-guides-2026-11-16",
+  "scope": {
+    "platforms": {
+      "mode": "all",
+      "ids": []
+    },
+    "difficulties": {
+      "mode": "all",
+      "ids": []
+    }
+  },
+  "validFromVersionId": "version:release-guides-2026-11-16",
+  "validToVersionId": null,
+  "reviewNote": "仅表达发售版序章图鉴明确记载的昔日同伴关系，不由此推定结局或当前同盟。"
+}

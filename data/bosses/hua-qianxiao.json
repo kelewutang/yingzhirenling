@@ -19,10 +19,16 @@
       "reviewNote": "两家亲历媒体试玩对同一 Boss 的中英文名称交叉核验；非正式版名称确认。"
     }
   ],
-  "summary": "2026 年媒体试玩中出现的剑痴：花千笑；正式版资料待核。",
+  "summary": "血色森林远眺庞镇之桥的首领，喝酒时杀气转为护盾，结束后可利用杀气下降寻找反击窗口。",
   "summaryFactIds": [
     "fact:boss:hua-qianxiao:exists",
-    "fact:boss:hua-qianxiao:name"
+    "fact:boss:hua-qianxiao:name",
+    "fact:boss:hua-qianxiao:release-exists",
+    "fact:boss:hua-qianxiao:release-name",
+    "fact:boss:hua-qianxiao:release-kind",
+    "fact:boss:hua-qianxiao:release-location",
+    "fact:boss:hua-qianxiao:release-drink",
+    "fact:boss:hua-qianxiao:release-strategy"
   ],
   "facts": [
     {
@@ -50,7 +56,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:hua-qianxiao:release-exists",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
     },
     {
@@ -78,7 +84,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:hua-qianxiao:release-name",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
     },
     {
@@ -106,14 +112,209 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:hua-qianxiao:release-kind",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
+    },
+    {
+      "id": "fact:boss:hua-qianxiao:release-exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-5-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:hua-qianxiao:release-name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "剑痴：花千笑",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-5-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:hua-qianxiao:release-kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-5-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:hua-qianxiao:release-location",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "血色森林：沿荒废官道来到远眺庞镇之桥，首领位于铃铛旁的大桥。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-5-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:hua-qianxiao:release-drink",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "喝酒与杀气变化",
+        "description": "喝酒时杀气转为护盾，动作结束会震开近处玩家；之后杀气自行下降。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-5-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:hua-qianxiao:release-strategy",
+      "key": "boss.strategy",
+      "valueType": "object",
+      "value": {
+        "name": "利用大桥拉开距离",
+        "description": "看到喝酒先退向桥另一端，等他追来且杀气下降后再争取破防和连招；杀气恢复后重复观察。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-5-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:hua-qianxiao:release-reward",
+      "key": "boss.reward",
+      "valueType": "string",
+      "value": "击败花千笑获得武器痴者残剑。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-reward-hua-qianxiao-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
     }
   ],
   "taxonomyIds": [],
-  "publishedAt": null,
-  "updatedAt": "2026-10-11",
-  "recordState": "draft",
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
   "spoilerLevel": "minor",
   "resolution": null
 }
