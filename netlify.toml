@@ -451,6 +451,160 @@ status = 200
   status = 200
 
 [[redirects]]
+  from = "/weapons/wangming-zhanmadao.html"
+  to = "/weapons/wangming-zhanmadao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/wangming-zhanmadao"
+  to = "/weapons/wangming-zhanmadao.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/zhuobi-dun.html"
+  to = "/weapons/zhuobi-dun"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/zhuobi-dun"
+  to = "/weapons/zhuobi-dun.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/tie-quantao.html"
+  to = "/weapons/tie-quantao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/tie-quantao"
+  to = "/weapons/tie-quantao.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/cangang.html"
+  to = "/bosses/cangang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/cangang"
+  to = "/bosses/cangang.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/peng-meng.html"
+  to = "/bosses/peng-meng"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/peng-meng"
+  to = "/bosses/peng-meng.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/hua-qianxiao.html"
+  to = "/bosses/hua-qianxiao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/hua-qianxiao"
+  to = "/bosses/hua-qianxiao.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/a-hua.html"
+  to = "/bosses/a-hua"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/a-hua"
+  to = "/bosses/a-hua.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/zhui-ming.html"
+  to = "/bosses/zhui-ming"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/zhui-ming"
+  to = "/bosses/zhui-ming.html"
+  status = 200
+
+[[redirects]]
+  from = "/world/beiqi-xigu.html"
+  to = "/world/beiqi-xigu"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/world/beiqi-xigu"
+  to = "/world/beiqi-xigu.html"
+  status = 200
+
+[[redirects]]
+  from = "/world/xuese-senlin.html"
+  to = "/world/xuese-senlin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/world/xuese-senlin"
+  to = "/world/xuese-senlin.html"
+  status = 200
+
+[[redirects]]
+  from = "/world/lujia-cun.html"
+  to = "/world/lujia-cun"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/world/lujia-cun"
+  to = "/world/lujia-cun.html"
+  status = 200
+
+[[redirects]]
+  from = "/characters/yu-er.html"
+  to = "/characters/yu-er"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/characters/yu-er"
+  to = "/characters/yu-er.html"
+  status = 200
+
+[[redirects]]
+  from = "/characters/zuo-shang.html"
+  to = "/characters/zuo-shang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/characters/zuo-shang"
+  to = "/characters/zuo-shang.html"
+  status = 200
+
+[[redirects]]
+  from = "/characters/mu-xiaokui.html"
+  to = "/characters/mu-xiaokui"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/characters/mu-xiaokui"
+  to = "/characters/mu-xiaokui.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404

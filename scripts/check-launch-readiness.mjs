@@ -53,6 +53,7 @@ export function validateLaunchConfig(config) {
     if (!['deferred', 'passed'].includes(gate.status)) errors.push(`${id}.status must be deferred or passed`);
     if (gate.status === 'passed' && (typeof gate.approvedAt !== 'string' || !gate.approvedAt.trim())) errors.push(`${id}.approvedAt is required when passed`);
     if (gate.status === 'passed' && (typeof gate.evidenceRef !== 'string' || !gate.evidenceRef.trim())) errors.push(`${id}.evidenceRef is required when passed`);
+    if (gate.scopeId !== undefined && (id !== GATE_IDS[1] || gate.scopeId !== 'release-world-2026-11-16')) errors.push(`${id}.scopeId is not an approved scope`);
     if (gate.status === 'deferred' && (gate.approvedAt !== null || gate.evidenceRef !== null)) errors.push(`${id}.deferred approval fields must be null`);
     if (typeof gate.approvedAt === 'string') {
       try { parseDate(gate.approvedAt, `${id}.approvedAt`); } catch (error) { errors.push(error.message); }
@@ -118,6 +119,30 @@ export function approvedP3Cn8gSpoilerScope({ guides = [], entities = [], facts =
     !guides.some((item) => item.status === 'published' && spoilerLevel(item) !== 'none') &&
     !media.some((item) => item.recordState === 'published' && spoilerLevel(item) !== 'none') &&
     !renderedHtml.some((html) => /data-spoiler-level=["']major["']/.test(html) || html.includes('含部分剧情信息'));
+}
+
+export function approvedReleaseWorldSpoilerScope({ guides = [], entities = [], facts = [], media = [], renderedHtml = [] }) {
+  const expectedEntities = ['weapon:chizhe-canjian', 'boss:cangang', 'boss:peng-meng', 'boss:hua-qianxiao', 'boss:a-hua', 'boss:zhui-ming'].sort();
+  const expectedFacts = [
+    ['fact:weapon:chizhe-canjian:acquisition', 'minor'],
+    ['fact:location:beiqi-xigu:release-hidden-outpost', 'major'],
+    ['fact:character:mu-xiaokui:release-encounter', 'major']
+  ].sort(([a], [b]) => a.localeCompare(b));
+  const spoilerEntities = entities.filter((item) => item.recordState === 'published' && spoilerLevel(item) !== 'none');
+  const spoilerFacts = facts.filter((item) => item.published === true && spoilerLevel(item) !== 'none');
+  if (JSON.stringify(spoilerEntities.map((item) => item.id).sort()) !== JSON.stringify(expectedEntities) ||
+      spoilerEntities.some((item) => spoilerLevel(item) !== 'minor') ||
+      JSON.stringify(spoilerFacts.map((item) => [item.id, spoilerLevel(item)]).sort(([a], [b]) => a.localeCompare(b))) !== JSON.stringify(expectedFacts) ||
+      guides.some((item) => item.status === 'published' && spoilerLevel(item) !== 'none') ||
+      media.some((item) => item.recordState === 'published' && spoilerLevel(item) !== 'none')) return false;
+  if (renderedHtml.length === 0) return true;
+  const disclosures = renderedHtml.flatMap((html) => [...html.matchAll(/<details\b[^>]*data-spoiler-level="major"[^>]*>[\s\S]*?<\/details>/g)].map(([markup]) => markup));
+  const expectedConcealed = expectedFacts.filter(([, level]) => level === 'major').map(([id]) => id).sort();
+  const concealed = disclosures.map((markup) => markup.match(/data-fact-id="([^"]+)"/)?.[1]).sort();
+  return JSON.stringify(concealed) === JSON.stringify(expectedConcealed) &&
+    disclosures.every((markup) => !/\bopen(?:\s|=|$)/.test(markup.split('>')[0]) && markup.split('>')[0].includes('data-nosnippet') && markup.includes('显示重大剧情内容')) &&
+    renderedHtml.reduce((count, html) => count + (html.match(/data-spoiler-level=["']major["']/g) || []).length, 0) === 2 &&
+    !renderedHtml.some((html) => html.includes('含部分剧情信息'));
 }
 
 export function evaluateBrowserGate({ id, triggered, approval, enforcement }) {
@@ -189,6 +214,17 @@ async function readRenderedHtml() {
   return output;
 }
 
+export function extractCurrentnessReviewDate(scope, subjectId) {
+  if (subjectId !== 'release-date-platform-store') {
+    return scope.match(/<time\s+datetime="(\d{4}-\d{2}-\d{2})"/)?.[1] || null;
+  }
+  // Release/preload dates are historical events; only an explicit state review counts.
+  const reviews = [...scope.matchAll(/<time\b([^>]*)>/g)]
+    .filter(([, attributes]) => /(?:^|\s)data-review-subject="release-date-platform-store"(?:\s|$)/.test(attributes));
+  if (reviews.length !== 1) return null;
+  return reviews[0][1].match(/(?:^|\s)datetime="([^"]+)"(?:\s|$)/)?.[1] || null;
+}
+
 async function readCurrentnessSubjects(config) {
   return Promise.all(config.launchCriticalSubjects.map(async (subject) => {
     const html = await readFile(path.join(ROOT, subject.file), 'utf8');
@@ -197,7 +233,7 @@ async function readCurrentnessSubjects(config) {
     if (start < 0) return { ...subject, checkedAt: null };
     const end = html.indexOf('</aside>', start);
     const scope = html.slice(start, end < 0 ? undefined : end);
-    return { ...subject, checkedAt: scope.match(/<time\s+datetime="(\d{4}-\d{2}-\d{2})"/)?.[1] || null };
+    return { ...subject, checkedAt: extractCurrentnessReviewDate(scope, subject.id) };
   }));
 }
 
@@ -312,8 +348,13 @@ async function evaluateRepositoryGates(config, enforcement, requireDist) {
     evaluateBrowserGate({ id: GATE_IDS[0], triggered: collection.triggered, approval: config.browserGates[GATE_IDS[0]], enforcement }),
     evaluateBrowserGate({ id: GATE_IDS[1], triggered: spoiler.triggered, approval: config.browserGates[GATE_IDS[1]], enforcement })
   ];
-  if (config.browserGates[GATE_IDS[1]].status === 'passed' && !approvedP3Cn8gSpoilerScope(state)) {
-    results.push(finding('Spoiler gate', 'BLOCK', 'P3-CN-8G approval covers only the current minor-spoiler Broken Blade Entity and acquisition Fact'));
+  const spoilerApproval = config.browserGates[GATE_IDS[1]];
+  const scopeApproved = spoilerApproval.scopeId === 'release-world-2026-11-16'
+    ? approvedReleaseWorldSpoilerScope(state) : approvedP3Cn8gSpoilerScope(state);
+  if (spoilerApproval.status === 'passed' && !scopeApproved) {
+    results.push(finding('Spoiler gate', 'BLOCK', spoilerApproval.scopeId
+      ? 'Release world approval does not cover the current spoiler records or disclosure markup'
+      : 'P3-CN-8G approval covers only the current minor-spoiler Broken Blade Entity and acquisition Fact'));
   }
   if (requireDist) {
     const leakage = findFixtureLeakage(state.renderedHtml);

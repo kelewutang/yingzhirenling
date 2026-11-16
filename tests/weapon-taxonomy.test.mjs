@@ -38,7 +38,7 @@ test('unverified release categories remain absent while historical evidence is r
   const allWeapons = await readAllWeapons();
   const publishedWeapons = allWeapons.filter((weapon) => weapon.recordState === 'published');
   const publishedSlugs = publishedWeapons.map((weapon) => weapon.slug).sort();
-  const expectedSlugs = [...expectedTaxonomy.keys(), 'muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu', 'hongzhuang-guizhan', 'yu-gong', 'zhuiming-suolian'].sort();
+  const expectedSlugs = [...expectedTaxonomy.keys(), 'muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu', 'hongzhuang-guizhan', 'yu-gong', 'zhuiming-suolian', 'wangming-zhanmadao', 'zhuobi-dun', 'tie-quantao'].sort();
   assert.deepEqual(publishedSlugs, expectedSlugs, 'Published Weapon set must exactly match the frozen taxonomy table');
   assert(!publishedSlugs.includes('qinglong-lueyue-dao'), 'Draft Qinglong must stay outside the published taxonomy gate');
 
@@ -56,11 +56,13 @@ test('unverified release categories remain absent while historical evidence is r
     assert.ok(weaponTypeFact.sourceIds.length > 0, `${weapon.id}: weapon type must remain sourced`);
 
     const detail = projectWeaponDetail(weapon, { versionById: new Map() });
-    assert.equal(detail.taxonomy?.valueText, systemCategory);
-    assert.equal(detail.overview.taxonomy?.valueText, systemCategory);
+    const currentType = weapon.facts.find((f) => f.key === 'weapon.weaponType' && f.validToVersionId === null && f.supersededBy === null);
+    const currentTaxonomy = currentType ? `${systemCategory} · ${currentType.value}` : systemCategory;
+    assert.equal(detail.taxonomy?.valueText, currentTaxonomy);
+    assert.equal(detail.overview.taxonomy?.valueText, currentTaxonomy);
     assert.equal(detail.overview.type, undefined, `${weapon.id}: legacy kind must not drive public detail taxonomy`);
     const card = buildWeaponCollectionCard(weapon);
-    assert.equal(card.secondary, systemCategory);
+    assert.equal(card.secondary, currentTaxonomy);
     assert.equal(card.summary, null, `${weapon.id}: collection presentation must not expose the long summary`);
     assert.ok(weapon.summary.length > 0, `${weapon.id}: Knowledge summary must remain available outside the card presentation`);
   }

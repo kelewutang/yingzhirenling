@@ -92,10 +92,10 @@ test('result model covers reset, visible counts, and zero results', () => {
 
 test('current production collections remain below the activation threshold', async () => {
   const families = [
-    ['weapons', 15],
-    ['bosses', 3],
-    ['characters', 3],
-    ['locations', 1]
+    ['weapons', 18],
+    ['bosses', 8],
+    ['characters', 6],
+    ['locations', 4]
   ];
   for (const [directory, expectedCount] of families) {
     const records = await Promise.all((await readdir(new URL(`../data/${directory}/`, import.meta.url)))

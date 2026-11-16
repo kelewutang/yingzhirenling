@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:bwiki-mu-xiaokui-release",
+  "sourceType": "community-game-text",
+  "authority": "third-party",
+  "publisher": "哔哩哔哩BWIKI（社区维护）",
+  "title": "“组织”少主：沐小葵：发售版图鉴整理",
+  "url": "https://wiki.biligame.com/yingzhiren/%E7%BB%84%E7%BB%87%E5%B0%91%E4%B8%BB%EF%BC%9A%E6%B2%90%E5%B0%8F%E8%91%B5",
+  "language": "zh-CN",
+  "publishedAt": null,
+  "checkedAt": "2026-11-16",
+  "archivedUrl": null,
+  "notes": "仅采用明确标为《影之刃零》陆家村图鉴的身份与阵营；未采用同站系列总页中的铁扇等冲突设定。图鉴中的家人遭遇、隐藏阶段与结局不进入公开摘要。原文未明确首发日期，保持null。"
+}

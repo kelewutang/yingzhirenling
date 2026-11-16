@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "boss:zhui-ming",
+  "entityType": "boss",
+  "slug": "zhui-ming",
+  "displayName": "追命",
+  "aliases": [],
+  "summary": "悲泣溪谷主线首领；大瀑布一战包含连续阶段，锁链落点和龙卷风是应对重点。",
+  "summaryFactIds": [
+    "fact:boss:zhui-ming:release-exists",
+    "fact:boss:zhui-ming:release-name",
+    "fact:boss:zhui-ming:release-kind",
+    "fact:boss:zhui-ming:release-location",
+    "fact:boss:zhui-ming:release-chains",
+    "fact:boss:zhui-ming:release-strategy"
+  ],
+  "facts": [
+    {
+      "id": "fact:boss:zhui-ming:release-exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-4-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:zhui-ming:release-name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "追命",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-4-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:zhui-ming:release-kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-4-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:zhui-ming:release-location",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "悲泣溪谷大瀑布一带；随主线推进遭遇。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-tower-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:zhui-ming:release-chains",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "紫色锁链落点",
+        "description": "追命消失后会降下紫色锁链，先横向离开落点，再准备应对随后的突进。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-4-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:zhui-ming:release-strategy",
+      "key": "boss.strategy",
+      "valueType": "object",
+      "value": {
+        "name": "防守与撤离时机",
+        "description": "连段中留意蓝光，成功精准格挡后争取近身反击；出现龙卷风时先拉开，待其消失再回到攻防。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-4-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:zhui-ming:release-reward",
+      "key": "boss.reward",
+      "valueType": "string",
+      "value": "大瀑布击败追命后获得影之武装追命锁镰。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-tower-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "minor",
+  "resolution": null
+}

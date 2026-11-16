@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-release-weapons-2026-11-16",
+  "sourceType": "user-game-screenshot",
+  "authority": "community",
+  "publisher": "项目负责人（本人截图）",
+  "title": "PC正式版五把武器界面截图（负责人提供）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-game-screenshot",
+    "platformId": "platform:pc",
+    "versionLabel": null,
+    "capturedAt": null,
+    "suppliedAt": "2026-11-16",
+    "confirmedAt": "2026-11-16",
+    "captureOwner": "项目负责人（本人截图）",
+    "evidenceItems": [
+      {
+        "id": "pc-release-4115450-247",
+        "filename": "4115450_247.jpg",
+        "sha256": "6fec7d8bad87dc9900a476e2a9b5c0a5e5b39a54f0392557fd15aa92f8768555"
+      },
+      {
+        "id": "pc-release-4115450-248",
+        "filename": "4115450_248.jpg",
+        "sha256": "05b7ae1376a243079b06bdb7e83f6cf35d6db17ec0cc57284cdd964d4debb0e3"
+      },
+      {
+        "id": "pc-release-4115450-249",
+        "filename": "4115450_249.jpg",
+        "sha256": "8264b587f42ecac93f0636753fbf8273a4ef3e82bd80e9c295a3b889aa7864a9"
+      },
+      {
+        "id": "pc-release-4115450-250",
+        "filename": "4115450_250.jpg",
+        "sha256": "4aa8acbff1d016891b4e3617c531b34af41d0cd150c2eac48918a36ba7423385"
+      },
+      {
+        "id": "pc-release-4115450-251",
+        "filename": "4115450_251.jpg",
+        "sha256": "96e81afca803d2dd318b5c0283b6ff02400b7224135112c84a571cbbf9f0a0e1"
+      },
+      {
+        "id": "pc-release-4115450-252",
+        "filename": "4115450_252.jpg",
+        "sha256": "ed20a7cf4f8f4b0e98954104035a2e15972c3f31bc847aed8593a4ab3f3483d1"
+      },
+      {
+        "id": "pc-release-4115450-253",
+        "filename": "4115450_253.jpg",
+        "sha256": "5ffbadaa5b13056ecf2dca048f88142c65e9b97eb672eb9554cb3e150d72275b"
+      },
+      {
+        "id": "pc-release-20261031103014-1",
+        "filename": "20261031103014_1.jpg",
+        "sha256": "71f9224587e69a4fd38cedf0b2c3fa3bf7e4b018c407b9c51cf6cc358cef6191"
+      },
+      {
+        "id": "pc-release-20261031103018-1",
+        "filename": "20261031103018_1.jpg",
+        "sha256": "1f6803fea260fa2cf5b191e9c676dfc575ffad4db92d56360227b8ca08c26245"
+      },
+      {
+        "id": "pc-release-20261031103058-1",
+        "filename": "20261031103058_1.jpg",
+        "sha256": "40f9b71a4263a591f412ba3ef7f971216600946b0bead3a504a902c291e938fe"
+      },
+      {
+        "id": "pc-release-20261031103103-1",
+        "filename": "20261031103103_1.jpg",
+        "sha256": "5cb1a35d41df15b88037c6efe0c0fa04e8338406c1bf6df2e32f6b0276337273"
+      },
+      {
+        "id": "pc-release-20261031103105-1",
+        "filename": "20261031103105_1.jpg",
+        "sha256": "a504c03e7e28449e73788d6e8b67a773a89b6a07e98b611fa1ae7ffaa2352cdb"
+      },
+      {
+        "id": "pc-release-20261031102935-1",
+        "filename": "20261031102935_1.jpg",
+        "sha256": "8ae720949b943c922970359f2915d1c7d7bbfed9b02821258f605b9af32e4ae4"
+      },
+      {
+        "id": "pc-release-20261031102923-1",
+        "filename": "20261031102923_1.jpg",
+        "sha256": "adca66f632f55f99b48204fae84afef995d31d2447e8e03870a99e6e779001be"
+      },
+      {
+        "id": "pc-release-20261031102928-1",
+        "filename": "20261031102928_1.jpg",
+        "sha256": "db4ba30dcbf88d8f80ac86c0cf7caea5afa7b02f09de7dbf85fbeee5522b27ee"
+      },
+      {
+        "id": "pc-release-20261031102932-1",
+        "filename": "20261031102932_1.jpg",
+        "sha256": "d8ea1edeceacb81d5c2399f46b8c0a3aace8a9ae21fd88dd8b2ff7beebc7ada1"
+      }
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-16",
+  "archivedUrl": null,
+  "notes": "负责人确认本批16张均为本人PC正式版游戏截图，授权本站使用。全部逐图查看，原始文件SHA-256实际计算；原图不在生产站重托管。捕获日期及具体补丁版本未知，不从文件名推定。痴者残剑：4115450_247.jpg／248／249；畅饮跨247、248补全。 亡命斩马刀：4115450_250.jpg／251／252／253；25级血箭由253补全。 拙壁盾：20261031103014_1.jpg／20261031103018_1.jpg；名称首字核对为拙，非扯。基础说明无单列招式名，以可见R2作标题。 铁拳套：20261031103058_1.jpg／20261031103103_1.jpg／20261031103105_1.jpg；25级由103105补全。基础说明无单列招式名，以可见R2作标题。 白蟒赤练：20261031102923_1.jpg／102928／102932／102935；赤练环身由102928补全；25级由102935补全。不沿用试玩版赤练追魂延长破防的效果。 Lv1为当前显示属性，5／10／15／25为升级节点；主武器紫色资源图标按用户确认转录为精纯杀气，影之武装粉色资源图标为暗源；杀气、临时损血、生命值不替换。不是本站内部实测。"
+}

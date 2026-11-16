@@ -32,7 +32,7 @@ const breadcrumbStructuredData = createBreadcrumbList([
   <StructuredData data={breadcrumbStructuredData} />
   <Breadcrumb collectionHref={collectionHref} collectionLabel={collectionLabel} currentLabel={safe.displayName} />
   <EntityHero entity={entity} aliases={aliases} eyebrow={eyebrow} taxonomy={heroTaxonomy} media={media} />
-  <p class="entity-detail__scope">{scopeNotice}</p>
+  {!weaponDetail?.overview.baseStats.length && <p class="entity-detail__scope">{scopeNotice}</p>}
   {major ? <SpoilerDisclosure class="entity-detail__spoiler"><>
     {weaponDetail ? <WeaponDetailPresentation detail={weaponDetail} /> : <>
     <QuickFacts facts={facts.quick} />

@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "character:zuo-shang",
+  "entityType": "character",
+  "slug": "zuo-shang",
+  "displayName": "左殇",
+  "aliases": [],
+  "summary": "与魂有昔日同伴关系的组织成员；本页区分序章人物资料与后续剧情，不展开结局身份。",
+  "summaryFactIds": [
+    "fact:character:zuo-shang:release-exists",
+    "fact:character:zuo-shang:release-name",
+    "fact:character:zuo-shang:release-faction"
+  ],
+  "facts": [
+    {
+      "id": "fact:character:zuo-shang:release-exists",
+      "key": "character.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-young-zuo-shang-2026-11-07"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:zuo-shang:release-name",
+      "key": "character.name",
+      "valueType": "string",
+      "value": "左殇",
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-young-zuo-shang-2026-11-07"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:zuo-shang:release-role",
+      "key": "character.role",
+      "valueType": "string",
+      "value": "组织剑客",
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-young-zuo-shang-2026-11-07"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:zuo-shang:release-faction",
+      "key": "character.affiliation",
+      "valueType": "string",
+      "value": "组织",
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-young-zuo-shang-2026-11-07"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:zuo-shang:release-prologue",
+      "key": "character.encounter",
+      "valueType": "object",
+      "value": {
+        "name": "序章切磋",
+        "description": "社区整理的序章图鉴记载左殇与魂曾一起修习，切磋时使用木剑。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-young-zuo-shang-2026-11-07"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

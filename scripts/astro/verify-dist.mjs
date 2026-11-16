@@ -50,7 +50,7 @@ async function assertDetailVisualContract(file, entity) {
     assertMediaImage(html, media, file);
     if (media.sourceUrl === null) {
       assert.equal(media.sourceType, 'self-captured', `${file}: only registered captures may omit an external media URL`);
-      if (['source:owner-pc-release-weapons-2026-10-29', 'source:owner-pc-release-weapons-2026-10-30'].includes(media.sourceId)) {
+      if (['source:owner-pc-release-weapons-2026-10-29', 'source:owner-pc-release-weapons-2026-10-30', 'source:owner-pc-release-weapons-2026-11-16'].includes(media.sourceId)) {
         assert(html.includes('<h3>PC正式版武器界面截图</h3>'), `${file}: concise capture Source must remain visible`);
       } else {
         assert(media.sourceId && html.includes('负责人提供的正式版游戏截图'), `${file}: capture Source must remain visible`);
@@ -582,7 +582,7 @@ for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
   assert(!html.includes('noindex'), `${slug}: published Character must be indexable`);
 }
 const soul = await readFile(resolve(dist, 'characters/soul.html'), 'utf8');
-assert.equal((soul.match(/data-relation-id=/g) || []).length, 2, 'Soul must render two unique Relations');
+assert.equal((soul.match(/data-relation-id=/g) || []).length, 3, 'Soul must render three unique Relations');
 for (const wording of ['魔渊', '父亲', 'The Hunt', '曾经的同伴']) assert(soul.includes(wording), `Soul Relation presentation missing: ${wording}`);
 const hunt = await readFile(resolve(dist, 'characters/the-hunt.html'), 'utf8');
 assert(!hunt.includes('猎杀'), 'The Hunt must not gain an invented Chinese name');

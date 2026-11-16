@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "character:yu-er",
+  "entityType": "character",
+  "slug": "yu-er",
+  "displayName": "玉儿",
+  "aliases": [],
+  "summary": "在悲泣溪谷与血色森林出现的任务NPC，与血肉花、见习医师和救死扶伤等委托有关。",
+  "summaryFactIds": [
+    "fact:character:yu-er:release-exists",
+    "fact:character:yu-er:release-name",
+    "fact:character:yu-er:release-doctor",
+    "fact:character:yu-er:release-heal"
+  ],
+  "facts": [
+    {
+      "id": "fact:character:yu-er:release-exists",
+      "key": "character.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:yu-er:release-name",
+      "key": "character.name",
+      "valueType": "string",
+      "value": "玉儿",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:yu-er:release-role",
+      "key": "character.role",
+      "valueType": "string",
+      "value": "任务NPC",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:yu-er:release-first",
+      "key": "character.encounter",
+      "valueType": "object",
+      "value": {
+        "name": "初次相遇",
+        "description": "沿悲泣溪谷前段路线与火堆旁的玉儿交谈，可开启血肉花相关线索。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:yu-er:release-doctor",
+      "key": "character.quest",
+      "valueType": "object",
+      "value": {
+        "name": "见习医师",
+        "description": "悲泣溪谷驿站的采药委托要求收集止血藤、凝脂叶和金创草，收齐后应回玉儿处交付。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-apprentice-healer-2026-11-03"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:yu-er:release-heal",
+      "key": "character.quest",
+      "valueType": "object",
+      "value": {
+        "name": "救死扶伤",
+        "description": "在血色森林飞贼营地与玉儿对话，可接到救治林中伤患的委托；领取保命丹后仍要完成救治并回报。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-forest-quests-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

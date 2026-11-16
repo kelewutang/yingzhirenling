@@ -28,7 +28,7 @@ test('published Entities classify the Broken Blade acquisition as minor and reta
   const directories = ['weapons', 'characters', 'bosses', 'locations'];
   const records = (await Promise.all(directories.map(async (directory) => Promise.all((await readdir(new URL(`../data/${directory}/`, import.meta.url))).filter((file) => file.endsWith('.json')).map(async (file) => JSON.parse(await readFile(new URL(`../data/${directory}/${file}`, import.meta.url), 'utf8'))))))).flat();
   for (const record of records.filter((record) => record.recordState === 'published')) {
-    assert.equal(record.spoilerLevel, record.id === 'weapon:chizhe-canjian' ? 'minor' : 'none', record.id);
+    assert.equal(record.spoilerLevel, ['weapon:chizhe-canjian', 'boss:cangang', 'boss:peng-meng', 'boss:hua-qianxiao', 'boss:a-hua', 'boss:zhui-ming'].includes(record.id) ? 'minor' : 'none', record.id);
   }
 });
 

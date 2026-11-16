@@ -269,6 +269,138 @@
       ],
       "description": "负责人确认的同一获取顺序序列及正整数位置；不证明获取地点或条件。",
       "requiresAsOf": false
+    },
+    {
+      "key": "boss.location",
+      "applicableEntityTypes": [
+        "boss"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "来源支持的出现区域与地标，不由演示场景推断。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "boss.mechanic",
+      "applicableEntityTypes": [
+        "boss"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "具名攻击或机制，value仅含name与description。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "boss.strategy",
+      "applicableEntityTypes": [
+        "boss"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "有来源的具名应对建议，value仅含name与description，不保证跨难度或补丁通用。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "boss.reward",
+      "applicableEntityTypes": [
+        "boss"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "来源明确记载的战后奖励，不补推掉落数量。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.route",
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "具名探索路线提示，value仅含name与description，不构造未核实坐标。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.bell",
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "原资料明确记录的铃铛名称与定位，value仅含name与description。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.hiddenArea",
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "具名隐藏区域的进入条件或回访提醒，value仅含name与description；剧情揭示使用Fact级剧透保护。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.quest",
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "区域相关任务的已核实起点或推进提醒，value仅含name与description。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "location.connection",
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "明确有来源的区域连接或入口条件，不建立推测地图图谱。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "character.affiliation",
+      "applicableEntityTypes": [
+        "character"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "来源直接支持的所属势力；角色间关系仍用Relation。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "character.encounter",
+      "applicableEntityTypes": [
+        "character"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "具名相遇位置或流程语境，value仅含name与description。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "character.quest",
+      "applicableEntityTypes": [
+        "character"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "角色相关任务的已核实目标或交付提醒，value仅含name与description。",
+      "requiresAsOf": false
     }
   ]
 }

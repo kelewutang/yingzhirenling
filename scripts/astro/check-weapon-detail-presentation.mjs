@@ -140,20 +140,9 @@ function assertOverview(html, { name, taxonomy, systemCategoryFactId, historical
   assert(!rendered.includes('基础属性') && !rendered.includes('永久属性') && !rendered.includes('满级属性'), 'Preview values must not be presented as permanent or max-level stats');
 }
 
-assertOverview(serpent, {
-  name: '白蟒赤练',
-  taxonomy: '主武器',
-  systemCategoryFactId: 'fact:weapon:white-serpent-crimson-viper:system-category',
-  historicalNameFactId: 'fact:weapon:white-serpent-crimson-viper:name',
-  historicalTypeFactIds: ['fact:weapon:white-serpent-crimson-viper:kind', 'fact:weapon:white-serpent-crimson-viper:kind-dual-wield'],
-  previewStats: [
-    ['fact:weapon:white-serpent-crimson-viper:preview-damage-ability-lv30', '伤害能力', 1217],
-    ['fact:weapon:white-serpent-crimson-viper:preview-break-ability-lv30', '破防能力', 640]
-  ]
-});
 const historicalAlias = 'White Serpent & Crimson Viper';
 assert(serpent.includes('<h1 class="entity-hero__title">白蟒赤练</h1>'), 'White Serpent current H1 must render');
-assert(serpent.includes(`<p class="entity-hero__aliases">${historicalAlias.replace('&', '&amp;')}</p>`), 'Historical English alias must render beneath the Chinese Weapon name');
+assert(!serpent.includes('entity-hero__aliases'), 'Release Hero must keep its concise Chinese identity');
 assert(whiteSerpentData.aliases.some((alias) => alias.value === historicalAlias), 'Historical English alias must remain in Weapon Knowledge data');
 const whiteSerpentSearchDocument = (searchIndex.documents || searchIndex).find((document) => document.id === 'weapon:white-serpent-crimson-viper');
 assert(whiteSerpentSearchDocument, 'White Serpent production search document missing');
@@ -166,10 +155,8 @@ assert(!whiteSerpentCard.includes('entity-card__summary') && !whiteSerpentCard.i
 assert.match(collection, /<main[^>]*\bsite-main--weapon-collection\b/, 'Weapon collection must opt into its dedicated wide content container');
 assert.doesNotMatch(charactersCollection, /\bsite-main--weapon-collection\b/, 'Non-Weapon collections must not opt into the Weapon-wide container');
 for (const [slug, displayName, systemCategory, weaponType] of [
-  ['chizhe-canjian', '痴者残剑', '主武器', '剑'],
   ['soft-snake-sword', '灵蛇软剑', '主武器', '剑'],
   ['tang-hengdao', '唐横刀', '主武器', '刀类'],
-  ['white-serpent-crimson-viper', '白蟒赤练', '主武器', '双剑'],
   ['white-shadow', '白影', '主武器', '苗刀'],
   ['ya-hengdao', '牙横刀', '主武器', '刀类']
 ]) {
@@ -194,17 +181,17 @@ for (const [slug, displayName, systemCategory, weaponType] of [
 const sparseWeaponCard = collection.match(/<a class="entity-card" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
 assert(sparseWeaponCard?.includes('entity-media__fallback'), 'Soft Snake Sword card must retain its fallback media');
 assert(sparseWeaponCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
-assert.equal(count(collection, 'class="entity-card__context"'), 14, 'Weapon collection must retain 5 historical and 9 release UI contexts');
+assert.equal(count(collection, 'class="entity-card__context"'), 17, 'Weapon collection must retain 3 historical and 14 release UI contexts');
 const sparseWeaponFallback = sparseWeaponCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
 assert(!sparseWeaponFallback.includes('entity-media__name') && !sparseWeaponFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
 assert(characterFallback.includes('entity-media__fallback'), 'Character card must retain its fallback media');
 assert(characterFallback.includes('entity-media__name') && characterFallback.includes('entity-media__type'), 'Non-Weapon card fallback must retain fallback name and type classes');
 for (const [entityId, slug, expectedId, expectedSrc, html] of [
-  ['weapon:white-serpent-crimson-viper', 'white-serpent-crimson-viper', 'media:white-serpent-crimson-viper-master', 'white-serpent-crimson-viper-master.jpg', serpent],
+  ['weapon:white-serpent-crimson-viper', 'white-serpent-crimson-viper', 'media:white-serpent-crimson-viper-master', 'white-serpent-crimson-viper-release-master.jpg', serpent],
   ['weapon:white-shadow', 'white-shadow', 'media:white-shadow-master', 'white-shadow-master.jpg', shadow]
 ]) {
-  const media = mediaRecords.find((record) => record.entityId === entityId);
+  const media = mediaRecords.find((record) => record.entityId === entityId && record.recordState === 'published');
   assert.equal(media?.id, expectedId, `${entityId} must use its singular Weapon Master record`);
   assert.equal(media?.src, expectedSrc, `${entityId} must use its stable Weapon Master asset`);
   assert.deepEqual(media?.usage, ['hero', 'card'], `${entityId} Master must serve Hero and card from one record`);
@@ -212,8 +199,8 @@ for (const [entityId, slug, expectedId, expectedSrc, html] of [
   assert.equal(media?.height, 1800, `${entityId} Master must be 1800px high`);
   assert.equal(media.width / media.height, 2 / 3, `${entityId} Master must use the 2:3 portrait standard`);
   assert.equal(media.objectFit, 'contain', `${entityId} portrait media must preserve the weapon with contain`);
-  assert.equal(media.rightsStatus, 'official-promotional-risk-accepted', `${entityId} Master must retain its reviewed production rights state`);
-  assert.equal(media.sourceId, sourceId, `${entityId} Master must retain the official Douyin provenance`);
+  assert.equal(media.rightsStatus, entityId === 'weapon:white-shadow' ? 'official-promotional-risk-accepted' : 'self-captured-reviewed', `${entityId} Master must retain its reviewed production rights state`);
+  assert.equal(media.sourceId, entityId === 'weapon:white-shadow' ? sourceId : 'source:owner-pc-release-weapons-2026-11-16', `${entityId} Master must retain its actual provenance`);
   assert(html.includes(`src="/assets/media/${media.src}"`), `${entityId} detail must render approved portrait media`);
   assert(collection.includes(`src="/assets/media/${media.src}"`), `${entityId} collection card must render approved portrait media`);
 }
@@ -229,46 +216,49 @@ for (const [slug, system, category] of [
 ]) {
   const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
   const rendered = overview(html);
-  assert(rendered.includes(`<dt>装备类型</dt><dd>${system} · ${category}</dd>`), `${slug}: equipment type must include the confirmed class`);
+  assert(html.includes(`data-weapon-hero-taxonomy>${system} · ${category}</p>`), `${slug}: Hero must include the confirmed class`);
+  assert(!rendered.includes('weapon-overview__primary'), `${slug}: release overview must not duplicate Hero identity`);
   assert(!rendered.includes('<dt>武器分类</dt>') && !rendered.includes('data-weapon-overview-field="weapon-type"'), `${slug}: classification must not occupy a separate row`);
   const baseStats = rendered.match(/<section[^>]*data-weapon-base-stats[\s\S]*?<\/section>/)?.[0] || '';
   assert(baseStats.includes('Lv1 基础属性') && !baseStats.includes('<p>'), `${slug}: base stats must contain only the heading, names and values`);
   const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
   assert(card.replace(/<[^>]*>/gu, '').includes(`${system} · ${category}`), `${slug}: collection formal category missing`);
 }
-assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '使用赤练短刃进行凌厉攻击。');
-assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '使用白蟒长刃进行斩击；交替点按可循环连招并进入“双蛇共舞”状态，期间伤害不断提升，可穿插变招，也可掷出赤练短刃结束“双蛇共舞”。');
-assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround', '让赤练短刃围绕自身持续旋转；旋转期间持续消耗杀气，杀气不足时会强制回收，也可再次按下 L1 + △ 主动回收。');
-assertEffect(serpent, 'data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-ranged-execution', '当远距离敌人残血时，可进行处决。');
-assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', '掷出赤练短刃时会标记敌人，提高其受到的伤害和杀气削减；若目标处于破防状态，标记还会延长破防时间。短刃脱手期间持续消耗杀气，杀气不足时强制回收，也可再次按下 L1 + △ 回收脱手的赤练短刃。');
-assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-phantom-crimson-viper', '通过“赤练环身”或“赤练追魂”扔出赤练短刃后，手中会幻化出另一把赤练短刃，可继续使用“双蛇共舞”和赤练普通连招。');
-assertEffect(serpent, 'data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-hold-tight', '通过“赤练环身”或“赤练追魂”扔出的赤练短刃，在切换武器后仍会继续存在。');
-const killingIntentFactId = 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo';
-const derivedControls = derivedInputBlock(serpent, killingIntentFactId);
-assert(derivedControls.includes('>派生按键</h4>'), 'Derived-control block must use the approved player-facing label');
+for (const [slug, name, category, damage, guard] of [
+  ['chizhe-canjian', '痴者残剑', '主武器 · 单手武器', 228, 96],
+  ['wangming-zhanmadao', '亡命斩马刀', '主武器 · 双手武器', 240, 106],
+  ['zhuobi-dun', '拙壁盾', '影之武装 · 奇门', 226, 198],
+  ['tie-quantao', '铁拳套', '影之武装 · 武学', 261, 223],
+  ['white-serpent-crimson-viper', '白蟒赤练', '主武器 · 双持武器', 260, 110]
+]) {
+  const data = await readJson(`data/weapons/${slug}.json`);
+  const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  const active = data.facts.filter((f) => f.supersededBy === null && f.validToVersionId === null);
+  const rendered = overview(html);
+  assert(html.includes(`data-weapon-hero-taxonomy>${category}</p>`), `${slug}: release class missing`);
+  assert.equal(count(html, `<h1 class="entity-hero__title">${name}</h1>`), 1);
+  assert(!rendered.includes('weapon-overview__primary'), `${slug}: duplicated Hero identity`);
+  assert(rendered.includes('<dt>伤害能力</dt><dd>'+damage+'</dd>'));
+  assert(rendered.includes('<dt>破防能力</dt><dd>'+guard+'</dd>'));
+  assert(!html.includes('data-weapon-preview-stats'), `${slug}: historical Lv30 must not render`);
+  const description = active.find((f) => f.key === 'weapon.description');
+  const main = html.match(/<main\b[\s\S]*?<\/main>/)?.[0] || '';
+  assert.equal(count(main, description.value), 1, `${slug}: visible description must appear once`);
+  for (const f of active.filter((f) => ['weapon.mechanic','weapon.progressionNode'].includes(f.key))) {
+    const attr = f.key === 'weapon.mechanic' ? 'data-weapon-mechanic-id' : 'data-weapon-progression-node-id';
+    assertInput(html, attr, f);
+    assertEffect(html, attr, f.id, f.value.description);
+    if (f.key === 'weapon.progressionNode') assertProgressionLevel(html, f.id, f.value.level, f.value.name);
+  }
+  assert.equal(count(html, 'class="source-panel"'), 1);
+  assert(html.includes('<h3>PC正式版武器界面截图</h3>'));
+  assert(!/<figcaption|第[0-9]+把|weapon\.acquisitionOrder/.test(html));
+}
+const derivedControls = derivedInputBlock(serpent, 'fact:weapon:white-serpent-crimson-viper:release-mechanic-2');
 assertDerivedInput(derivedControls, { label: '双蛇共舞', labelKind: 'official', inputs: ['□ △', '△ □'] });
 assertDerivedInput(derivedControls, { label: '变招', labelKind: 'functional', inputs: ['□ □', '△ △'] });
 assertDerivedInput(derivedControls, { label: '结束双蛇共舞', labelKind: 'functional', inputs: ['○'] });
-for (const redundantDescription of ['交替点按可循环连招。', '掷出赤练短刃并结束“双蛇共舞”。']) {
-  assert(!derivedControls.includes(redundantDescription), `Derived controls must not repeat the primary description: ${redundantDescription}`);
-}
-for (const [attribute, id, input] of [
-  ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-basic-combo', '□ □ □'],
-  ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-killing-intent-combo', '△ △'],
-  ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-crimson-viper-surround', 'L1 + △'],
-  ['data-weapon-mechanic-id', 'fact:weapon:white-serpent-crimson-viper:mechanic-ranged-execution', '○'],
-  ['data-weapon-progression-node-id', 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', '○']
-]) assertConfirmedInput(serpent, attribute, id, input);
-assert.equal(count(serpent, 'data-weapon-input-for='), 5, 'White Serpent must render each confirmed input row exactly once');
-for (const term of ['赤练短刃', '白蟒长刃', '交替点按', '伤害不断提升', '循环连招', '双蛇共舞', '变招', '结束双蛇共舞', '围绕自身', '持续消耗杀气', '强制回收', '远距离敌人', '残血', '处决']) {
-  assert(serpent.includes(term), `White Serpent supported gameplay terminology missing: ${term}`);
-}
-for (const incorrectTerm of ['赤练短刀', '白蟒长刀', '交替输入', '伤害显著提升', '衍生输入：']) {
-  assert(!serpent.includes(incorrectTerm), `White Serpent must reject transcription error: ${incorrectTerm}`);
-}
-assertProgressionLevel(serpent, 'fact:weapon:white-serpent-crimson-viper:node-crimson-viper-pursuit', 5, '赤练追魂');
-assertProgressionLevel(serpent, 'fact:weapon:white-serpent-crimson-viper:node-phantom-crimson-viper', 15, '幻化赤练');
-assertProgressionLevel(serpent, 'fact:weapon:white-serpent-crimson-viper:node-hold-tight', 25, '死死咬住');
+assert(!serpent.includes('延长破防时间'), 'Release wording must not inherit the pre-release pursuit effect');
 
 assertOverview(shadow, {
   name: '白影',
@@ -316,18 +306,18 @@ for (const forbiddenClaim of ['白影完整成长树', '白影共有四个成长
 
 for (const [label, html] of [['White Serpent', serpent], ['White Shadow', shadow]]) {
   assert.equal(count(html, 'class="source-panel"'), 1, `${label} must have one grouped source panel`);
-  assert(html.includes('《难度，武器，玩家》'), `${label} must retain the aggregated screenshot source`);
+  assert(html.includes(label === 'White Shadow' ? '《难度，武器，玩家》' : 'PC正式版武器界面截图'), `${label} must retain its current screenshot source`);
   assert(!html.includes('detail-fact__provenance'), `${label} must not repeat per-Fact provenance blocks`);
 }
 
 for (const [html, data] of [[serpent, whiteSerpentData], [shadow, whiteShadowData]]) {
-  for (const fact of data.facts.filter((fact) => fact.key === 'weapon.mechanic')) {
+  for (const fact of data.facts.filter((fact) => fact.key === 'weapon.mechanic' && fact.validToVersionId === null && fact.supersededBy === null)) {
     assertInput(html, 'data-weapon-mechanic-id', fact);
   }
-  for (const fact of data.facts.filter((fact) => fact.key === 'weapon.progressionNode')) {
+  for (const fact of data.facts.filter((fact) => fact.key === 'weapon.progressionNode' && fact.validToVersionId === null && fact.supersededBy === null)) {
     assertInput(html, 'data-weapon-progression-node-id', fact);
   }
-  assert(!html.includes('键盘') && !html.includes('PC') && !html.includes('Xbox'), 'Weapon page must not invent PC or Xbox mappings');
+  assert(!html.includes('键盘') && !html.includes('Xbox'), 'Weapon page must not invent PC or Xbox mappings');
   assert(!html.includes('输入：□') && !html.includes('输入：△') && !html.includes('输入：○') && !html.includes('输入：L1') && !html.includes('输入：L2'), 'Weapon controls must not regress to raw visual input text');
 }
 
@@ -353,7 +343,7 @@ for (const [file, expectedText] of [
 
 for (const weapon of [whiteSerpentData, whiteShadowData]) {
   for (const fact of weapon.facts.filter((fact) => ['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key))) {
-    assert.deepEqual(fact.sourceIds, [sourceId], `${fact.id} must remain traceable to the official screenshot source`);
+    assert.deepEqual(fact.sourceIds, [fact.gameVersionId === 'version:release-pc-ui-2026-11-16' ? 'source:owner-pc-release-weapons-2026-11-16' : sourceId], `${fact.id} must remain traceable to its actual screenshot source`);
   }
 }
 assert(source.locator.evidenceItems.some((item) => item.page === 4 && item.totalPages === 14), 'White Serpent page 4/14 evidence mapping missing');

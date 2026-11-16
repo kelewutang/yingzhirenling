@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "version:release-guides-2026-11-16",
+  "track": "release",
+  "stage": "release-launch",
+  "displayName": "发售后公开攻略（截至2026-11-16）",
+  "versionLabel": null,
+  "sequence": 103,
+  "platformIds": [
+    "platform:pc",
+    "platform:playstation-5"
+  ],
+  "releasedAt": "2026-10-29",
+  "sourceIds": [
+    "source:gamersky-boss-1-2026-10-29",
+    "source:gamersky-boss-2-2026-10-29",
+    "source:gamersky-boss-3-2026-10-29",
+    "source:gamersky-boss-4-2026-10-29",
+    "source:gamersky-boss-5-2026-10-29",
+    "source:gamersky-creek-route-2026-11-06",
+    "source:gamersky-creek-outpost-2026-11-06",
+    "source:gamersky-creek-tower-2026-11-06",
+    "source:gamersky-forest-route-2026-11-06",
+    "source:gamersky-forest-quests-2026-11-06",
+    "source:gamersky-forest-mirror-2026-11-06",
+    "source:gamersky-village-route-2026-11-06",
+    "source:gamersky-village-temple-2026-11-06",
+    "source:gamersky-village-lake-2026-11-06",
+    "source:gamersky-creek-hidden-outpost-2026-10-29",
+    "source:gamersky-lake-secret-2026-10-29",
+    "source:gamersky-reward-cangang-2026-10-29",
+    "source:gamersky-reward-peng-meng-2026-10-29",
+    "source:gamersky-reward-a-hua-2026-10-29",
+    "source:gamersky-reward-hua-qianxiao-2026-10-29",
+    "source:bwiki-young-zuo-shang-2026-11-07",
+    "source:bwiki-mu-xiaokui-release",
+    "source:gamersky-apprentice-healer-2026-11-03",
+    "source:s-game-patch-2026-11-03"
+  ],
+  "checkedAt": "2026-11-16",
+  "supersedesVersionId": null,
+  "supersededBy": null
+}

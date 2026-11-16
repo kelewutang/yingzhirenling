@@ -4,9 +4,11 @@ import path from 'node:path';
 import test from 'node:test';
 import {
   approvedP3Cn8gSpoilerScope,
+  approvedReleaseWorldSpoilerScope,
   collectionTriggerFromCounts,
   evaluateBrowserGate,
   evaluateCurrentness,
+  extractCurrentnessReviewDate,
   evaluateInventory,
   evaluateReleaseState,
   findFixtureLeakage,
@@ -35,8 +37,9 @@ test('launch operations config keeps Collection Browser deferred and records the
   assert.deepEqual(config.browserGates[spoilerId], {
     contractVersion: 1,
     status: 'passed',
-    approvedAt: '2026-10-11',
-    evidenceRef: 'https://github.com/kelewutang/yingzhirenling/pull/63'
+    approvedAt: '2026-11-16',
+    evidenceRef: 'docs/RELEASE-WORLD-CONTENT-2026-11-16.md',
+    scopeId: 'release-world-2026-11-16'
   });
 });
 
@@ -243,7 +246,7 @@ test('ordinary build guard source contains no network orchestration and post-dep
 
 test('current candidate includes one non-spoiler Guide and one minor-spoiler Weapon', async () => {
   const inventory = await loadProductionInventory(root);
-  assert.deepEqual(inventory.counts, { sitemap: 32, canonical: 34, pageHtml: 35, searchDocs: 23 });
+  assert.deepEqual(inventory.counts, { sitemap: 46, canonical: 48, pageHtml: 49, searchDocs: 37 });
   assert.equal(inventory.guides.length, 1);
   const families = {
     weapons: inventory.publishedWeapons.filter((item) => item.spoilerLevel !== 'major').length,
@@ -251,7 +254,7 @@ test('current candidate includes one non-spoiler Guide and one minor-spoiler Wea
     characters: inventory.publishedCharacters.filter((item) => item.spoilerLevel !== 'major').length,
     locations: inventory.publishedLocations.filter((item) => item.spoilerLevel !== 'major').length
   };
-  assert.deepEqual(families, { weapons: 15, bosses: 3, characters: 3, locations: 1 });
+  assert.deepEqual(families, { weapons: 18, bosses: 8, characters: 6, locations: 4 });
   assert.equal(collectionTriggerFromCounts(families).triggered, false);
   const currentEntities = [...inventory.publishedWeapons, ...inventory.publishedBosses, ...inventory.publishedCharacters, ...inventory.publishedLocations];
   const guides = inventory.guides.map((guide) => ({ ...guide, status: 'published' }));
@@ -265,4 +268,57 @@ test('absence of exact unlock time remains informational while the approved Guid
   const inventory = await loadProductionInventory(root);
   assert.deepEqual(inventory.guides.map((guide) => guide.id), ['difficulty-and-sixty-six-days']);
   assert.equal(JSON.stringify(config).includes('unlock'), false);
+});
+
+test('release-world approval is limited to the named minor Entities and two closed major Fact disclosures', () => {
+  const entities = ['weapon:chizhe-canjian', 'boss:cangang', 'boss:peng-meng', 'boss:hua-qianxiao', 'boss:a-hua', 'boss:zhui-ming'].map((id) => ({ id, recordState: 'published', spoilerLevel: 'minor' }));
+  const facts = [
+    { id: 'fact:weapon:chizhe-canjian:acquisition', published: true, spoilerLevel: 'minor' },
+    { id: 'fact:location:beiqi-xigu:release-hidden-outpost', published: true, spoilerLevel: 'major' },
+    { id: 'fact:character:mu-xiaokui:release-encounter', published: true, spoilerLevel: 'major' }
+  ];
+  const renderedHtml = facts.filter((f) => f.spoilerLevel === 'major').map((f) => `<details data-spoiler-level="major" data-nosnippet><summary>显示重大剧情内容</summary><article data-fact-id="${f.id}">测试数据</article></details>`);
+  const state = { entities, facts, guides: [], media: [], renderedHtml };
+  assert.equal(approvedReleaseWorldSpoilerScope(state), true);
+  assert.equal(approvedP3Cn8gSpoilerScope(state), false, 'Old approval cannot authorize the new content');
+  for (const mutation of [
+    { entities: [...entities, { id: 'boss:unapproved', recordState: 'published', spoilerLevel: 'minor' }] },
+    { entities: entities.map((e, i) => i === 0 ? { ...e, spoilerLevel: 'major' } : e) },
+    { facts: [...facts, { id: 'fact:unapproved', published: true, spoilerLevel: 'major' }] },
+    { facts: facts.map((f, i) => i === 1 ? { ...f, spoilerLevel: 'minor' } : f) },
+    { guides: [{ status: 'published', spoilerLevel: 'minor' }] },
+    { media: [{ recordState: 'published', spoilerLevel: 'minor' }] },
+    { renderedHtml: renderedHtml.map((html) => html.replace('<details ', '<details open ')) },
+    { renderedHtml: renderedHtml.map((html) => html.replace(' data-nosnippet', '')) },
+    { renderedHtml: [...renderedHtml, '<details data-spoiler-level="major"></details>'] },
+    { renderedHtml: renderedHtml.map((html) => html.replace('release-hidden-outpost', 'unapproved')) }
+  ]) assert.equal(approvedReleaseWorldSpoilerScope({ ...state, ...mutation }), false, JSON.stringify(mutation));
+});
+
+test('unknown spoiler scope identifiers are rejected', () => {
+  const changed = structuredClone(config);
+  changed.browserGates[spoilerId].scopeId = 'all-spoilers';
+  assert(validateLaunchConfig(changed).some((error) => error.includes('scopeId')));
+});
+
+test('release currentness reads the explicitly marked review without reordering historical dates', async () => {
+  const html = await readFile(path.join(root, 'pages/about.html'), 'utf8');
+  const section = html.match(/<aside\b[^>]*aria-label="发售信息来源"[\s\S]*?<\/aside>/)[0];
+  assert.equal(section.match(/<time\s+datetime="([^"]+)"/)[1], '2026-10-26');
+  assert(section.includes('datetime="2026-10-29"'));
+  assert.equal(extractCurrentnessReviewDate(section, 'release-date-platform-store'), '2026-11-16');
+  const explicit = '<time data-review-subject="release-date-platform-store" datetime="2026-11-16">review</time>';
+  const history = '<time datetime="2026-10-27">preload</time><time datetime="2026-10-29">launch</time>';
+  assert.equal(extractCurrentnessReviewDate(explicit + history, 'release-date-platform-store'), '2026-11-16');
+  assert.equal(extractCurrentnessReviewDate(history + explicit, 'release-date-platform-store'), '2026-11-16');
+  for (const invalid of [history, explicit + explicit, explicit.replace(' datetime="2026-11-16"', '')]) {
+    assert.equal(extractCurrentnessReviewDate(invalid, 'release-date-platform-store'), null);
+  }
+  for (const date of ['2026-11-12', '2026-11-17', 'invalid']) {
+    const checkedAt = extractCurrentnessReviewDate(explicit.replaceAll('2026-11-16', date), 'release-date-platform-store');
+    assert.equal(evaluateCurrentness([{ id: 'release-date-platform-store', mandatoryForReleaseCandidate: true, checkedAt }], { mode: 'release-candidate', asOf: '2026-11-16', maxAgeDays: 3 })[0].status, 'BLOCK');
+  }
+  for (const id of ['commercial-pricing', 'physical-edition', 'pc-requirements']) {
+    assert.equal(extractCurrentnessReviewDate(history + explicit, id), '2026-10-27');
+  }
 });
