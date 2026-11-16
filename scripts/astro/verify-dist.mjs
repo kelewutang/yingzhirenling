@@ -582,7 +582,7 @@ for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
   assert(!html.includes('noindex'), `${slug}: published Character must be indexable`);
 }
 const soul = await readFile(resolve(dist, 'characters/soul.html'), 'utf8');
-assert.equal((soul.match(/data-relation-id=/g) || []).length, 2, 'Soul must render two unique Relations');
+assert.equal((soul.match(/data-relation-id=/g) || []).length, 3, 'Soul must render three unique Relations');
 for (const wording of ['魔渊', '父亲', 'The Hunt', '曾经的同伴']) assert(soul.includes(wording), `Soul Relation presentation missing: ${wording}`);
 const hunt = await readFile(resolve(dist, 'characters/the-hunt.html'), 'utf8');
 assert(!hunt.includes('猎杀'), 'The Hunt must not gain an invented Chinese name');

@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "character:mu-xiaokui",
+  "entityType": "character",
+  "slug": "mu-xiaokui",
+  "displayName": "沐小葵",
+  "aliases": [],
+  "summary": "“组织”少主。发售后陆家村流程包含她留下的红丝带线索，本页只整理公开身份与相关流程提醒。",
+  "summaryFactIds": [
+    "fact:character:mu-xiaokui:release-exists",
+    "fact:character:mu-xiaokui:release-name",
+    "fact:character:mu-xiaokui:release-ribbons"
+  ],
+  "facts": [
+    {
+      "id": "fact:character:mu-xiaokui:release-exists",
+      "key": "character.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-mu-xiaokui-release"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:mu-xiaokui:release-name",
+      "key": "character.name",
+      "valueType": "string",
+      "value": "沐小葵",
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-mu-xiaokui-release"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:mu-xiaokui:release-role",
+      "key": "character.role",
+      "valueType": "string",
+      "value": "组织少主",
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-mu-xiaokui-release"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:mu-xiaokui:release-faction",
+      "key": "character.affiliation",
+      "valueType": "string",
+      "value": "组织",
+      "status": "third-party",
+      "sourceIds": [
+        "source:bwiki-mu-xiaokui-release"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:mu-xiaokui:release-ribbons",
+      "key": "character.quest",
+      "valueType": "object",
+      "value": {
+        "name": "少主线索",
+        "description": "陆家村可调查红丝带推进相关收集；圣母雕像场的铃铛旁与幽蓝萤火之庙附近均有流程记录中的线索。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-route-2026-11-06",
+        "source:gamersky-village-temple-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:character:mu-xiaokui:release-encounter",
+      "key": "character.encounter",
+      "valueType": "object",
+      "value": {
+        "name": "陆家村后段相遇",
+        "description": "原流程在陆家村湖畔记录与沐小葵的战斗；乘升降机前应先核对少主相关收集，离开湖畔前完成现场拾取。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-lake-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null,
+      "spoilerLevel": "major"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

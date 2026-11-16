@@ -96,8 +96,8 @@ for (const slug of ['hongzhuang-guizhan', 'yu-gong', 'zhuiming-suolian']) {
   assert(weaponCollection.includes(`href="/weapons/${slug}"`), `${slug}: published Weapon missing from collection`);
   assert.equal(search.filter((item) => item.route === `/weapons/${slug}`).length, 1, `${slug}: published Weapon must have exactly one Search document`);
 }
-for (const slug of ['cangang', 'peng-meng', 'hua-qianxiao']) {
-  assert(!search.some((item) => item.route === `/bosses/${slug}`), `${slug}: unpublished Boss entered Search`);
+for (const slug of ['cangang', 'peng-meng', 'hua-qianxiao', 'a-hua', 'zhui-ming']) {
+  assert.equal(search.filter((item) => item.route === `/bosses/${slug}`).length, 1, `${slug}: published Boss must have exactly one Search document`);
 }
 const blackBlades = JSON.parse(await readFile(resolve(root, 'data/weapons/heishang-shuangren.json'), 'utf8'));
 assert.equal(blackBlades.displayName, '黑伤双刃', 'Black Blades must use the correct simplified Chinese character');
@@ -116,4 +116,4 @@ assert.equal(brokenBladeSearch.length, 1, 'Broken Blade must have one Search res
 assert.equal(brokenBladeSearch[0].route, '/weapons/chizhe-canjian', 'Broken Blade Search route changed');
 assert(brokenBladeSearch[0].aliases.includes("The Fanatic's Broken Blade"), 'Broken Blade English alias missing from Search');
 
-console.log(`Collection verification passed: ${collections.length} collections, ${weapons.length} Weapon, 3 Character, 3 Boss, and 1 Location cards.`);
+console.log(`Collection verification passed: ${collections.length} collections, ${weapons.length} Weapon, 6 Character, 8 Boss, and 4 Location cards.`);

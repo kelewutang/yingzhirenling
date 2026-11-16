@@ -6,7 +6,7 @@ const root = resolve(import.meta.dirname, '../..');
 const directories = ['weapons', 'characters', 'bosses', 'locations'];
 const entities = (await Promise.all(directories.map(async (directory) => Promise.all((await readdir(resolve(root, 'data', directory))).filter((file) => file.endsWith('.json')).map(async (file) => JSON.parse(await readFile(resolve(root, 'data', directory, file), 'utf8'))))))).flat();
 for (const entity of entities.filter((entity) => entity.recordState === 'published')) {
-  assert.equal(entity.spoilerLevel, entity.id === 'weapon:chizhe-canjian' ? 'minor' : 'none', `${entity.id}: published Entity must explicitly classify spoilerLevel`);
+  assert.equal(entity.spoilerLevel, ['weapon:chizhe-canjian', 'boss:cangang', 'boss:peng-meng', 'boss:hua-qianxiao', 'boss:a-hua', 'boss:zhui-ming'].includes(entity.id) ? 'minor' : 'none', `${entity.id}: published Entity must explicitly classify spoilerLevel`);
 }
 const search = JSON.parse(await readFile(resolve(root, 'generated/search-index.production.json'), 'utf8'));
 for (const document of search) assert.notEqual(document.spoilerLevel, 'major', 'production Search must not contain a major spoiler document');

@@ -9,4 +9,4 @@ const bosses = getPublishedBosses(await loadKnowledge());
 const cards = await Promise.all(bosses.map(async (entity) => ({ card: buildBossCollectionCard(entity), media: await getProductionCardMedia(entity.id) })));
 const { boss } = siteLifecycle.copy.collections;
 ---
-<CollectionLayout pageTitle="Boss资料 - 影之刃零攻略站" title="Boss资料" description={boss.description} canonical="https://www.yingzhirenling.cn/bosses" activeSection="bosses" entityType="boss" eyebrow="Boss 图鉴" intro={boss.intro} inventoryLabel="Boss" cards={cards} supportingTitle="如何阅读本页" supportingText={boss.supportingText} />
+<CollectionLayout pageTitle="Boss资料 - 影之刃零攻略站" title="Boss资料" description={boss.description} canonical="https://www.yingzhirenling.cn/bosses" activeSection="bosses" entityType="boss" eyebrow="Boss 图鉴" intro={boss.intro} inventoryLabel="Boss" cards={cards} supportingTitle="如何阅读本页" supportingText="本批名称与 Boss 身份均保持为引用第三方来源的信息；详情按条目区分发售后攻略、历史试玩和官方补丁。打法与奖励不冒充本站实测，本页也不代表完整名单。" />

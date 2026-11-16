@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "boss:a-hua",
+  "entityType": "boss",
+  "slug": "a-hua",
+  "displayName": "新娘阿花",
+  "aliases": [],
+  "summary": "悲泣溪谷杀气塔下层的首领。战斗需要同时注意连招、地面红花与追踪白花。",
+  "summaryFactIds": [
+    "fact:boss:a-hua:release-exists",
+    "fact:boss:a-hua:release-name",
+    "fact:boss:a-hua:release-kind",
+    "fact:boss:a-hua:release-location",
+    "fact:boss:a-hua:release-flowers",
+    "fact:boss:a-hua:release-white-flowers",
+    "fact:boss:a-hua:release-strategy"
+  ],
+  "facts": [
+    {
+      "id": "fact:boss:a-hua:release-exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-3-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:release-name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "新娘阿花",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-3-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:release-kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-3-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:release-location",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "从悲泣溪谷杀气塔一层正门进入，右前方楼梯下到底，再爬左侧梯子至顶部。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-3-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:release-flowers",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "地面红花",
+        "description": "连招会在地面留下更鲜艳的红花，随后爆炸；旋转花环缩拢时应远离，不要只盯着首领。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-3-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:release-white-flowers",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "追踪白花与近身追击",
+        "description": "白花可用格挡应对，花朵消失前后仍需防备阿花瞬移到身旁的追加攻击。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-3-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:release-strategy",
+      "key": "boss.strategy",
+      "valueType": "object",
+      "value": {
+        "name": "更换出血配装",
+        "description": "阿花属于人偶型敌人，残钢刃的出血不起作用；可换黑伤与黑伤双刃，优先处理场地危险，再争取反击。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-3-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:release-reward",
+      "key": "boss.reward",
+      "valueType": "string",
+      "value": "击败阿花获得武器红妆鬼斩。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-reward-a-hua-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:release-patch-throw-frequency",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "1.0302256补丁的难度差异",
+        "description": "11月3日官方补丁降低了入阵者、破局者难度下阿花的投技使用频率；该项调整不适用于其他难度。"
+      },
+      "status": "official",
+      "sourceIds": [
+        "source:s-game-patch-2026-11-03"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "minor",
+  "resolution": null
+}

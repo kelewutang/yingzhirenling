@@ -19,10 +19,16 @@
       "reviewNote": "两家亲历媒体试玩对同一 Boss 的中英文名称交叉核验；非正式版名称确认。"
     }
   ],
-  "summary": "2026 年媒体试玩中出现的痴狂暴徒：残钢；正式版资料待核。",
+  "summary": "悲泣溪谷红丝线障壁之后遭遇的首领，可先利用混战观察，再围绕杀气与破防展开攻防。",
   "summaryFactIds": [
     "fact:boss:cangang:exists",
-    "fact:boss:cangang:name"
+    "fact:boss:cangang:name",
+    "fact:boss:cangang:release-exists",
+    "fact:boss:cangang:release-name",
+    "fact:boss:cangang:release-kind",
+    "fact:boss:cangang:release-location",
+    "fact:boss:cangang:release-mechanic",
+    "fact:boss:cangang:release-strategy"
   ],
   "facts": [
     {
@@ -50,7 +56,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:cangang:release-exists",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
     },
     {
@@ -78,7 +84,7 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:cangang:release-name",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
     },
     {
@@ -106,14 +112,209 @@
       },
       "validFromVersionId": null,
       "validToVersionId": null,
-      "supersededBy": null,
+      "supersededBy": "fact:boss:cangang:release-kind",
       "reviewNote": "两家亲历媒体分别记录中文和英文名称；正式版待核。"
+    },
+    {
+      "id": "fact:boss:cangang:release-exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-1-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:cangang:release-name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "痴狂暴徒：残钢",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-1-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:cangang:release-kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-1-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:cangang:release-location",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "悲泣溪谷：穿过红丝线障壁后，在敌人混战的区域遇到。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-1-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:cangang:release-mechanic",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "先观察混战",
+        "description": "首领出场时正在与其他敌人交手，可以先观察并让敌人消耗其状态。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-1-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:cangang:release-strategy",
+      "key": "boss.strategy",
+      "valueType": "object",
+      "value": {
+        "name": "围绕破防反击",
+        "description": "用防守和适量进攻削减敌方杀气，破防后再集中连招；留意自身杀气，并用切换武器维持攻防。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-1-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:boss:cangang:release-reward",
+      "key": "boss.reward",
+      "valueType": "string",
+      "value": "击败后获得武器残钢刃。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-reward-cangang-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
     }
   ],
   "taxonomyIds": [],
-  "publishedAt": null,
-  "updatedAt": "2026-10-11",
-  "recordState": "draft",
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
   "spoilerLevel": "minor",
   "resolution": null
 }

@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "location:lujia-cun",
+  "entityType": "location",
+  "slug": "lujia-cun",
+  "displayName": "陆家村",
+  "aliases": [],
+  "summary": "以梦醒之地、岔路口、三人偶水井与幽蓝萤火之庙为探索节点，包含记忆之花、村民委托和需要回访的分支。",
+  "summaryFactIds": [
+    "fact:location:lujia-cun:release-exists",
+    "fact:location:lujia-cun:release-name",
+    "fact:location:lujia-cun:release-kind",
+    "fact:location:lujia-cun:release-route"
+  ],
+  "facts": [
+    {
+      "id": "fact:location:lujia-cun:release-exists",
+      "key": "location.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:lujia-cun:release-name",
+      "key": "location.name",
+      "valueType": "string",
+      "value": "陆家村",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:lujia-cun:release-kind",
+      "key": "location.kind",
+      "valueType": "string",
+      "value": "村落区域",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:lujia-cun:release-route",
+      "key": "location.route",
+      "valueType": "object",
+      "value": {
+        "name": "初访分路",
+        "description": "梦醒之地过桥后，与此处NPC交谈可解锁饰品强化，再到岔路口；右路先开正道大营外门铃铛，主路继续寻找老根头藏身处。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:lujia-cun:release-bells",
+      "key": "location.bell",
+      "valueType": "object",
+      "value": {
+        "name": "常用回访点",
+        "description": "梦醒之地、岔路口、老根头藏身处、三人偶水井、幽蓝萤火之庙可作为本批探索资料的定位点。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:lujia-cun:release-connection",
+      "key": "location.connection",
+      "valueType": "string",
+      "value": "正道大营外门与陆家村岔路相连，但初访没有钥匙时不能进入营地。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-route-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:lujia-cun:release-hidden",
+      "key": "location.hiddenArea",
+      "valueType": "object",
+      "value": {
+        "name": "庙后雾区",
+        "description": "先收集萤火的记忆之花；未集齐时，幽蓝萤火之庙后方雾气不会消散。集齐后再回庙后探索。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-temple-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:lujia-cun:release-lake",
+      "key": "location.quest",
+      "valueType": "object",
+      "value": {
+        "name": "湖心秘密",
+        "description": "拾取任意一朵萤火的记忆之花即可接取；后续需要收集整组记忆之花，不把拾到首朵视为完成。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-lake-secret-2026-10-29"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:location:lujia-cun:release-wood-heart",
+      "key": "location.quest",
+      "valueType": "object",
+      "value": {
+        "name": "人偶木心",
+        "description": "在幽蓝萤火之庙铃铛左侧与歌女人偶对话接信；后续到梯田寻找沛郎的消息，再返回歌女人偶交付。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-village-route-2026-11-06",
+        "source:gamersky-village-temple-2026-11-06"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-guides-2026-11-16",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-16",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

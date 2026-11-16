@@ -424,6 +424,166 @@
         },
         "status": "official"
       }
+    },
+    {
+      "name": "boss-mechanic-named-valid",
+      "expected": "pass",
+      "ownerType": "boss",
+      "fact": {
+        "key": "boss.mechanic",
+        "valueType": "object",
+        "value": {
+          "name": "测试条目",
+          "description": "测试数据，不是生产事实。"
+        }
+      }
+    },
+    {
+      "name": "boss-strategy-named-valid",
+      "expected": "pass",
+      "ownerType": "boss",
+      "fact": {
+        "key": "boss.strategy",
+        "valueType": "object",
+        "value": {
+          "name": "测试条目",
+          "description": "测试数据，不是生产事实。"
+        }
+      }
+    },
+    {
+      "name": "location-route-named-valid",
+      "expected": "pass",
+      "ownerType": "location",
+      "fact": {
+        "key": "location.route",
+        "valueType": "object",
+        "value": {
+          "name": "测试条目",
+          "description": "测试数据，不是生产事实。"
+        }
+      }
+    },
+    {
+      "name": "location-bell-named-valid",
+      "expected": "pass",
+      "ownerType": "location",
+      "fact": {
+        "key": "location.bell",
+        "valueType": "object",
+        "value": {
+          "name": "测试条目",
+          "description": "测试数据，不是生产事实。"
+        }
+      }
+    },
+    {
+      "name": "location-hiddenArea-named-valid",
+      "expected": "pass",
+      "ownerType": "location",
+      "fact": {
+        "key": "location.hiddenArea",
+        "valueType": "object",
+        "value": {
+          "name": "测试条目",
+          "description": "测试数据，不是生产事实。"
+        }
+      }
+    },
+    {
+      "name": "location-quest-named-valid",
+      "expected": "pass",
+      "ownerType": "location",
+      "fact": {
+        "key": "location.quest",
+        "valueType": "object",
+        "value": {
+          "name": "测试条目",
+          "description": "测试数据，不是生产事实。"
+        }
+      }
+    },
+    {
+      "name": "character-encounter-named-valid",
+      "expected": "pass",
+      "ownerType": "character",
+      "fact": {
+        "key": "character.encounter",
+        "valueType": "object",
+        "value": {
+          "name": "测试条目",
+          "description": "测试数据，不是生产事实。"
+        }
+      }
+    },
+    {
+      "name": "character-quest-named-valid",
+      "expected": "pass",
+      "ownerType": "character",
+      "fact": {
+        "key": "character.quest",
+        "valueType": "object",
+        "value": {
+          "name": "测试条目",
+          "description": "测试数据，不是生产事实。"
+        }
+      }
+    },
+    {
+      "name": "boss-mechanic-empty-name-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "实体攻略条目",
+      "ownerType": "boss",
+      "fact": {
+        "key": "boss.mechanic",
+        "valueType": "object",
+        "value": {
+          "name": " ",
+          "description": "测试"
+        }
+      }
+    },
+    {
+      "name": "boss-mechanic-missing-description-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "实体攻略条目",
+      "ownerType": "boss",
+      "fact": {
+        "key": "boss.mechanic",
+        "valueType": "object",
+        "value": {
+          "name": "测试"
+        }
+      }
+    },
+    {
+      "name": "boss-mechanic-unknown-field-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "实体攻略条目",
+      "ownerType": "boss",
+      "fact": {
+        "key": "boss.mechanic",
+        "valueType": "object",
+        "value": {
+          "name": "测试",
+          "description": "测试",
+          "reward": "假字段"
+        }
+      }
+    },
+    {
+      "name": "boss-mechanic-wrong-owner-invalid",
+      "expected": "fail",
+      "expectedErrorIncludes": "不适用于",
+      "ownerType": "weapon",
+      "fact": {
+        "key": "boss.mechanic",
+        "valueType": "object",
+        "value": {
+          "name": "测试",
+          "description": "测试"
+        }
+      }
     }
   ]
 }
