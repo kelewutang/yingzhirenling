@@ -15,7 +15,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
     <p class="detail-section-heading__eyebrow">WEAPON GUIDE</p>
     <h2 id="weapon-overview-title">武器概览</h2>
   </div>
-  <dl class="weapon-overview__primary">
+  {overview.baseStats.length === 0 && <dl class="weapon-overview__primary">
     <div data-weapon-overview-field="name">
       <dt>武器名称</dt>
       <dd>{overview.displayName}</dd>
@@ -28,10 +28,10 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
       <dt>持握方式</dt>
       <dd>{isMajorSpoiler(overview.taxonomy.grip) ? <SpoilerDisclosure>{overview.taxonomy.grip.valueText}</SpoilerDisclosure> : overview.taxonomy.grip.valueText}</dd>
     </div>}
-  </dl>
+  </dl>}
   {overview.baseStats.length > 0 && <section class="weapon-preview-stats" aria-labelledby="weapon-base-stats-title" data-weapon-base-stats>
     <h3 id="weapon-base-stats-title">Lv{overview.baseStats[0].value.displayedLevel} 基础属性</h3>
-    <dl>{overview.baseStats.map((fact) => <div data-base-stat-id={fact.id}>
+    <dl>{overview.baseStats.map((fact) => <div data-base-stat-id={fact.id} data-fact-id={fact.id}>
       <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.value.statName}</dt>
       <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
     </div>)}</dl>
