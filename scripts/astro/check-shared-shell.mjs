@@ -14,11 +14,9 @@ const pages = [
   'videos.html',
   'about.html',
   'about-site.html',
-  'pages/generated/weapons/tang-hengdao.html',
-  'pages/generated/weapons/ya-hengdao.html',
-  'weapons/tang-hengdao.html',
+  'weapons/soft-snake-sword.html',
   'characters/soul.html',
-  'bosses/commander-cleave.html',
+  'bosses/cangang.html',
   'world/pangzhen.html'
 ];
 

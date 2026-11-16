@@ -30,7 +30,7 @@ try {
     readFile(resolve(output, 'guide/published-guide.html'), 'utf8'),
     readFile(resolve(output, 'guide/story-guide-01.html'), 'utf8'),
     readFile(resolve(output, 'guide.html'), 'utf8'),
-    readFile(resolve(output, 'weapons/tang-hengdao.html'), 'utf8'),
+    readFile(resolve(output, 'weapons/soft-snake-sword.html'), 'utf8'),
     readFile(resolve(output, 'sitemap.xml'), 'utf8'),
     readFile(resolve(output, 'generated/guide-search-manifest.json'), 'utf8').then(JSON.parse)
   ]);
