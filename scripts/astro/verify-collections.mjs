@@ -74,7 +74,7 @@ for (const collection of collections) {
 const weapons = await publishedEntities('data/weapons');
 const draftWeapons = (await Promise.all((await readdir(resolve(root, 'data/weapons'))).filter((name) => name.endsWith('.json')).map(async (name) => JSON.parse(await readFile(resolve(root, 'data/weapons', name), 'utf8'))))).filter((entity) => entity.recordState === 'draft');
 const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');
-assert.equal(weapons.length, 18, 'Expected 18 published Weapons after the screenshot-backed additions');
+assert.equal(weapons.length, 16, 'Expected 16 published Weapons after retiring the unverified entries');
 for (const weapon of draftWeapons) assert(!weaponCollection.includes(`/weapons/${weapon.slug}`), `Draft Weapon must not appear in collection: ${weapon.id}`);
 
 const search = JSON.parse(await readFile(resolve(root, 'generated/search-index.production.json'), 'utf8'));
@@ -116,4 +116,7 @@ assert.equal(brokenBladeSearch.length, 1, 'Broken Blade must have one Search res
 assert.equal(brokenBladeSearch[0].route, '/weapons/chizhe-canjian', 'Broken Blade Search route changed');
 assert(brokenBladeSearch[0].aliases.includes("The Fanatic's Broken Blade"), 'Broken Blade English alias missing from Search');
 
-console.log(`Collection verification passed: ${collections.length} collections, ${weapons.length} Weapon, 6 Character, 8 Boss, and 4 Location cards.`);
+const bossHtml = await readFile(resolve(dist, 'bosses.html'), 'utf8');
+const bossSlugs = [...bossHtml.matchAll(/<a class="entity-card" href="\/bosses\/([^"]+)"/g)].map((match) => match[1]);
+assert.deepEqual(bossSlugs, ['cangang', 'peng-meng', 'a-hua', 'zhui-ming', 'hua-qianxiao'], 'Boss cards must follow the owner-approved five-name ordering');
+console.log(`Collection verification passed: ${collections.length} collections, ${weapons.length} Weapon, 6 Character, 5 Boss, and 4 Location cards.`);

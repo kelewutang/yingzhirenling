@@ -100,12 +100,8 @@ for (const [file] of canonicalRoutes) {
 }
 assert.equal(canonicalUrls.size, inventory.counts.sitemap, 'Production canonical URL inventory drifted');
 assert.deepEqual(ogUrls, canonicalUrls, 'Production OG URLs must exactly match canonical URLs');
-for (const file of ['pages/generated/weapons/tang-hengdao.html', 'pages/generated/weapons/ya-hengdao.html']) {
-  const html = await readFile(resolve(dist, file), 'utf8');
-  const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"\s*\/?\s*>/i)?.[1];
-  assert(canonical, `${file}: canonical missing`);
-  assert.equal(metaContent(html, 'property', 'og:url', file), canonical, `${file}: legacy OG URL must match canonical`);
-  assert(canonicalUrls.has(canonical), `${file}: legacy canonical must not create a new identity`);
+for (const slug of ['tang-hengdao', 'ya-hengdao']) {
+  await assert.rejects(() => stat(resolve(dist, 'pages/generated/weapons', `${slug}.html`)), { code: 'ENOENT' });
 }
 const notFound = await readFile(resolve(dist, '404.html'), 'utf8');
 assert(notFound.includes('<meta name="robots" content="noindex,follow">'), '404 must remain noindex,follow');
@@ -358,12 +354,6 @@ for (const [file] of canonicalRoutes) {
   assert(canonical, `${file}: canonical missing for structured-data verification`);
   assertStructuredData(html, file, canonical, expectedSchemaTypes(file));
 }
-for (const file of ['pages/generated/weapons/tang-hengdao.html', 'pages/generated/weapons/ya-hengdao.html']) {
-  const html = await readFile(resolve(dist, file), 'utf8');
-  const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"\s*\/?\s*>/i)?.[1];
-  assert(canonical, `${file}: legacy canonical missing for structured-data verification`);
-  assertStructuredData(html, file, canonical, ['WebPage', 'BreadcrumbList']);
-}
 assert.equal(jsonLdDocuments(notFound, '404.html').length, 0, '404 must not receive production structured data');
 
 function clone(value) {
@@ -515,27 +505,6 @@ assert(guide.includes(`预购特典"聚宝盆"可提升意识尘埃掉落率+10%
 assert(guide.includes(`<strong>隐藏路径与机关</strong>：<a href="${steamProductUrl}"`), 'Guide hidden-path claim must cite the official Steam product page');
 for (const page of [guide, videos, purchase]) assert(!page.includes('href="/weapons/qinglong-lueyue-dao"'), 'Legacy content must not link draft Qinglong');
 
-for (const slug of ['tang-hengdao', 'ya-hengdao']) {
-  const candidate = await readFile(resolve(dist, 'weapons', `${slug}.html`), 'utf8');
-  const legacy = await readFile(resolve(root, 'pages/generated/weapons', `${slug}.html`), 'utf8');
-  const canonical = `https://www.yingzhirenling.cn/weapons/${slug}`;
-  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回武器图鉴']) {
-    assert(candidate.includes(token), `${slug}: missing static contract token ${token}`);
-  }
-  const candidateFacts = [...candidate.matchAll(/data-fact-id="([^"]+)"/g)].map((match) => match[1]);
-  assert(candidateFacts.length > 0, `${slug}: concise Weapon overview must retain rendered fact anchors`);
-  const contracts = [
-    /<title>([^<]+)<\/title>/,
-    /<meta name="description" content="([^"]+)"/,
-    /<link rel="canonical" href="([^"]+)"/,
-    /<h1[^>]*>([^<]+)<\/h1>/
-  ];
-  for (const contract of contracts) {
-    assert.equal(candidate.match(contract)?.[1], legacy.match(contract)?.[1], `${slug}: SEO semantic parity failed: ${contract}`);
-  }
-  const sourceUrls = [...legacy.matchAll(/href="(https?:\/\/[^"]+)"/g)].map((match) => match[1]);
-  for (const url of sourceUrls) assert(candidate.includes(`href="${url}"`), `${slug}: Source link missing: ${url}`);
-}
 
 for (const path of [
   'weapons/not-real.html',
