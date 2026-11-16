@@ -21,6 +21,17 @@ const expectations = [
   ['juxiong-fu', '巨凶斧', null, [['伤害能力', 309], ['破防能力', 208]]]
 ];
 
+test('Sharp loads the patched native libraries and round-trips a PNG in memory', async () => {
+  const { default: sharp } = await import('sharp');
+  assert.equal(sharp.versions.sharp, '0.35.5');
+  assert.equal(sharp.versions.rsvg, '2.63.2');
+  const png = await sharp({ create: { width: 2, height: 3, channels: 3, background: '#123456' } }).png().toBuffer();
+  const metadata = await sharp(png).metadata();
+  assert.equal(metadata.format, 'png');
+  assert.equal(metadata.width, 2);
+  assert.equal(metadata.height, 3);
+});
+
 test('second owner screenshot batch keeps five unique published weapons, exact Lv1 labels and separate unlock levels', async () => {
   const knowledge = await loadKnowledge();
   const source = 'source:owner-pc-release-weapons-2026-11-16-batch2';
