@@ -317,6 +317,24 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:cuixin-pipa",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "cuixin-pipa",
+    "route": "/weapons/cuixin-pipa",
+    "displayName": "催心琵琶",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "奇门",
+      "影之武装",
+      "武器"
+    ],
+    "summary": "一面仿制琵琶，音色清冽哀婉，催人心伤，可弹奏出切割一切的音刃。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:heishang",
     "documentType": "entity",
     "entityType": "weapon",
@@ -414,6 +432,43 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:kuye-si-zhuchuan",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "kuye-si-zhuchuan",
+    "route": "/weapons/kuye-si-zhuchuan",
+    "displayName": "苦叶寺珠串",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "召唤",
+      "影之武装",
+      "武器"
+    ],
+    "summary": "苦叶寺碧海大师留下的古朴念珠，不施雕琢，唯余岁月之厚重。若祭出此物，便可召唤青年苦叶寺弟子出战。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:luanying-jian",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "luanying-jian",
+    "route": "/weapons/luanying-jian",
+    "displayName": "乱莺剑",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "单手",
+      "单手武器",
+      "武器"
+    ],
+    "summary": "锋锐和迅捷无比的少主利刃，刃身轻巧，却可缭乱长空。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:muzhi-heishang",
     "documentType": "entity",
     "entityType": "weapon",
@@ -452,6 +507,25 @@
       "试玩"
     ],
     "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:tianxuan-qingtong-jian",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "tianxuan-qingtong-jian",
+    "route": "/weapons/tianxuan-qingtong-jian",
+    "displayName": "天玄青铜剑",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "单手",
+      "单手武器",
+      "武器"
+    ],
+    "summary": "青铜重剑，大巧不工，攻时破盾能力较强，守则坚如磐石。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -529,6 +603,25 @@
       "武器"
     ],
     "summary": "白影是一把双手武器，以冰冻相关机制为主要特色。刀身无影，寒光似雪。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:yao-ju",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "yao-ju",
+    "route": "/weapons/yao-ju",
+    "displayName": "妖锯",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "双持",
+      "双持武器",
+      "武器"
+    ],
+    "summary": "玉妖以腿法驾驭的一对奇特刀刃，魂将其握持使用，但其渗入骨髓的妖气分毫未减。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

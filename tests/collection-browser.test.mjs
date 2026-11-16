@@ -90,9 +90,9 @@ test('result model covers reset, visible counts, and zero results', () => {
   assert.equal(collectionBrowserResult(model.items, resetCollectionBrowserQuery()).count, 20);
 });
 
-test('current production collections remain below the activation threshold', async () => {
+test('only the 21-weapon collection activates the existing browser', async () => {
   const families = [
-    ['weapons', 16],
+    ['weapons', 21],
     ['bosses', 5],
     ['characters', 6],
     ['locations', 4]
@@ -110,7 +110,7 @@ test('current production collections remain below the activation threshold', asy
       aliases: record.aliases.map((alias) => alias.value),
       concealed: false
     })));
-    assert.equal(model.active, false, directory);
+    assert.equal(model.active, directory === 'weapons', directory);
   }
 });
 

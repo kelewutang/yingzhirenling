@@ -418,6 +418,10 @@ function validatePublishedWeaponTaxonomy(entity, location, report = error) {
   }
   const statNames = activeFacts('weapon.baseStat').map((fact) => fact.value?.statName);
   if (new Set(statNames).size !== statNames.length) report(`${location}.facts`, '当前基础属性名称不得重复');
+  if (statNames.some((name) => ['召唤物生命', '召唤物伤害'].includes(name)) &&
+      (systemCategoryFacts[0]?.value !== '影之武装' || weaponTypeFacts[0]?.value !== '召唤')) {
+    report(`${location}.facts`, '召唤物基础属性仅允许用于召唤类影之武装');
+  }
   const statLevels = activeFacts('weapon.baseStat').map((fact) => fact.value?.displayedLevel);
   if (new Set(statLevels).size > 1) report(`${location}.facts`, '同一武器的当前基础属性不得混用等级');
 }
@@ -1025,7 +1029,7 @@ function validateFactValue(fact, registryEntry, location, report = error) {
     if (fact.value.displayContext !== context) {
       report(`${location}.value.displayContext`, `必须为 ${context}`);
     }
-    if (fact.key === 'weapon.baseStat' && !['伤害能力', '破防能力', '异常效果'].includes(fact.value.statName)) report(`${location}.value.statName`, '基础属性仅允许已确认的伤害能力、破防能力或异常效果');
+    if (fact.key === 'weapon.baseStat' && !['伤害能力', '破防能力', '异常效果', '召唤物生命', '召唤物伤害'].includes(fact.value.statName)) report(`${location}.value.statName`, '基础属性仅允许已确认的伤害能力、破防能力、异常效果、召唤物生命或召唤物伤害');
   }
 
   if (NAMED_WEAPON_DETAIL_KEYS.has(fact.key) && fact.valueType === 'object' && isObject(fact.value)) {

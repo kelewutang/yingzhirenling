@@ -21,6 +21,94 @@ const expectations = [
   ['juxiong-fu', '巨凶斧', null, [['伤害能力', 309], ['破防能力', 208]]]
 ];
 
+test('second owner screenshot batch keeps five unique published weapons, exact Lv1 labels and separate unlock levels', async () => {
+  const knowledge = await loadKnowledge();
+  const source = 'source:owner-pc-release-weapons-2026-11-16-batch2';
+  const version = 'version:release-pc-ui-2026-11-16-batch2';
+  const evidence = knowledge.sourceById.get(source);
+  assert.equal(evidence.locator.evidenceItems.length, 14);
+  assert.equal(new Set(evidence.locator.evidenceItems.map((item) => item.sha256)).size, 14);
+  assert.equal(evidence.locator.capturedAt, null);
+  assert.equal(evidence.locator.versionLabel, null);
+  for (const [slug, name, category, labels, values, mechanics] of [
+    ['tianxuan-qingtong-jian', '天玄青铜剑', '主武器 · 单手武器', ['伤害能力', '破防能力'], [240, 106], 4],
+    ['kuye-si-zhuchuan', '苦叶寺珠串', '影之武装 · 召唤', ['召唤物生命', '召唤物伤害'], [1236, 22], 1],
+    ['cuixin-pipa', '催心琵琶', '影之武装 · 奇门', ['伤害能力', '破防能力'], [276, 234], 2],
+    ['luanying-jian', '乱莺剑', '主武器 · 单手武器', ['伤害能力', '破防能力'], [295, 104], 4],
+    ['yao-ju', '妖锯', '主武器 · 双持武器', ['伤害能力', '破防能力'], [302, 120], 4]
+  ]) {
+    const entity = knowledge.entityById.get(`weapon:${slug}`);
+    assert.equal(getPublishedWeapons(knowledge).filter((item) => item.displayName === name).length, 1);
+    assert.equal(entity.recordState, 'published');
+    assert.equal(entity.slug, slug);
+    assert.equal(entity.aliases.length, 0, 'No unsupported English translation may be invented');
+    assert.equal(getFact(entity, 'weapon.acquisitionOrder', knowledge), null);
+    const detail = projectWeaponDetail(entity, knowledge);
+    assert.equal(detail.taxonomy.valueText, category);
+    assert.deepEqual(detail.overview.baseStats.map((f) => [f.value.statName, f.value.displayedValue, f.value.displayedLevel]), labels.map((label, i) => [label, values[i], 1]));
+    assert.deepEqual(detail.progressionNodes.map((f) => f.level), [5, 10, 15, 25]);
+    assert.equal(detail.mechanics.length, mechanics);
+    assert.equal(detail.overview.previewStats.length, 0);
+    assert(entity.facts.every((f) => f.status === 'observation' && f.gameVersionId === version && f.sourceIds.length === 1 && f.sourceIds[0] === source));
+    assert(entity.facts.every((f) => f.scope.platforms.mode === 'include' && f.scope.platforms.ids.length === 1 && f.scope.platforms.ids[0] === 'platform:pc'));
+    const hero = await getProductionHeroMedia(entity.id);
+    const card = await getProductionCardMedia(entity.id);
+    assert.deepEqual([hero.id, hero.src, hero.width, hero.height, hero.objectFit, hero.sourceId, hero.rightsStatus], [card.id, card.src, 1200, 1800, 'contain', source, 'self-captured-reviewed']);
+  }
+});
+
+test('second batch preserves summon conditions, ordinary rage, dark source and free follow-up boundaries', async () => {
+  const knowledge = await loadKnowledge();
+  const detail = (slug) => projectWeaponDetail(knowledge.entityById.get(`weapon:${slug}`), knowledge);
+  const summon = detail('kuye-si-zhuchuan');
+  assert.match(summon.mechanics[0].description, /在杀气浓郁的区域[\s\S]*召唤3个拳法活铜人[\s\S]*最多15秒[\s\S]*重复召唤[\s\S]*消耗2暗源/);
+  assert(!summon.overview.baseStats.some((f) => ['伤害能力', '破防能力'].includes(f.value.statName)));
+  const lute = detail('cuixin-pipa');
+  assert.match(lute.mechanics[0].description, /2段蓝色音刃及1段红色音刃[\s\S]*一套连招消耗1暗源/);
+  assert.match(lute.progressionNodes[3].description, /持续消耗暗源/);
+  assert(!/持续消耗\d/.test(lute.progressionNodes[3].description), 'No unseen ongoing resource rate may be invented');
+  const sword = detail('luanying-jian');
+  assert.match(sword.mechanics.find((f) => f.valueText === '鸣剑').description, /消耗一定杀气[\s\S]*持续10秒/);
+  assert(!sword.mechanics.find((f) => f.valueText === '鸣剑').description.includes('精纯杀气'));
+  assert.match(sword.progressionNodes[0].description, /持续5秒[\s\S]*消散后的6秒/);
+  assert.match(sword.progressionNodes[3].description, /10秒[\s\S]*3秒/);
+  const saw = detail('yao-ju');
+  assert.match(saw.mechanics.find((f) => f.valueText === '妖之形').description, /消耗1精纯杀气[\s\S]*持续10秒[\s\S]*不消耗精纯杀气[\s\S]*退出/);
+  assert.match(saw.progressionNodes[0].description, /幽蓝侵蚀[\s\S]*削减更多杀气/);
+  assert.match(saw.progressionNodes[2].description, /深红侵蚀[\s\S]*更多伤害/);
+  assert.match(detail('tianxuan-qingtong-jian').mechanics.find((f) => f.valueText === '道法自然').description, /无法进行完美格挡/);
+});
+
+test('summon labels are admitted narrowly and remain invalid for ordinary weapons or unknown stat names', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'pbz-summon-stat-contract-'));
+  try {
+    await cp(join(root, 'data'), directory, { recursive: true });
+    const summonFile = join(directory, 'weapons/kuye-si-zhuchuan.json');
+    const summon = JSON.parse(await readFile(summonFile, 'utf8'));
+    for (const [mutate, diagnostic] of [
+      [(entity) => { entity.facts.find((f) => f.key === 'weapon.weaponType').value = '奇门'; }, /召唤物基础属性仅允许用于召唤类影之武装/],
+      [(entity) => { entity.facts.find((f) => f.key === 'weapon.baseStat').value.statName = '召唤物破防'; }, /基础属性仅允许/]
+    ]) {
+      const entity = structuredClone(summon);
+      mutate(entity);
+      await writeFile(summonFile, JSON.stringify(entity));
+      const result = spawnSync(process.execPath, [join(root, 'scripts/validate-data.mjs'), `--data-dir=${directory}`], { cwd: root, encoding: 'utf8' });
+      assert.notEqual(result.status, 0);
+      assert.match(result.stderr, diagnostic);
+    }
+    await writeFile(summonFile, JSON.stringify(summon));
+    const ordinaryFile = join(directory, 'weapons/tianxuan-qingtong-jian.json');
+    const ordinary = JSON.parse(await readFile(ordinaryFile, 'utf8'));
+    ordinary.facts.find((f) => f.key === 'weapon.baseStat').value.statName = '召唤物生命';
+    await writeFile(ordinaryFile, JSON.stringify(ordinary));
+    const result = spawnSync(process.execPath, [join(root, 'scripts/validate-data.mjs'), `--data-dir=${directory}`], { cwd: root, encoding: 'utf8' });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /召唤物基础属性仅允许用于召唤类影之武装/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
 test('five owner screenshot weapons reuse identities, separate Lv1 from unlocks and preserve evidence', async () => {
   const knowledge = await loadKnowledge();
   const source = knowledge.sourceById.get('source:owner-pc-release-weapons-2026-11-16');
@@ -73,7 +161,7 @@ test('five owner screenshot weapons reuse identities, separate Lv1 from unlocks 
 test('withdrawn preview weapons stay draft while published Chinese names and historical aliases survive', async () => {
   const knowledge = await loadKnowledge();
   const published = getPublishedWeapons(knowledge);
-  assert.equal(published.length, 16);
+  assert.equal(published.length, 21);
   for (const [slug, name] of [
     ['bashpole', 'Bashpole'], ['night-owl', 'Night Owl'], ['seamless-death', 'Seamless Death'],
     ['tang-hengdao', '唐横刀'], ['ya-hengdao', '牙横刀']

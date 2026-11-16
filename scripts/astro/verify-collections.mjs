@@ -74,7 +74,7 @@ for (const collection of collections) {
 const weapons = await publishedEntities('data/weapons');
 const draftWeapons = (await Promise.all((await readdir(resolve(root, 'data/weapons'))).filter((name) => name.endsWith('.json')).map(async (name) => JSON.parse(await readFile(resolve(root, 'data/weapons', name), 'utf8'))))).filter((entity) => entity.recordState === 'draft');
 const weaponCollection = await readFile(resolve(dist, 'weapons.html'), 'utf8');
-assert.equal(weapons.length, 16, 'Expected 16 published Weapons after retiring the unverified entries');
+assert.equal(weapons.length, 21, 'Expected 21 published Weapons after adding the five screenshot-backed entries');
 for (const weapon of draftWeapons) assert(!weaponCollection.includes(`/weapons/${weapon.slug}`), `Draft Weapon must not appear in collection: ${weapon.id}`);
 
 const search = JSON.parse(await readFile(resolve(root, 'generated/search-index.production.json'), 'utf8'));
@@ -82,7 +82,7 @@ for (const [slug, chinese, english] of [
   ['jagged-steel', '残钢刃', 'Jagged Steel'],
   ['soft-snake-sword', '灵蛇软剑', 'Soft Snake Sword']
 ]) {
-  const card = weaponCollection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
+  const card = weaponCollection.match(new RegExp(`<a class="entity-card entity-card--compact" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
   const detail = await readFile(resolve(dist, `weapons/${slug}.html`), 'utf8');
   const document = search.find((item) => item.id === `weapon:${slug}`);
   assert(card.includes(`<h3 class="entity-card__title">${chinese}</h3>`) && card.includes(english), `${slug}: bilingual collection name missing`);
@@ -105,7 +105,7 @@ assert(weaponCollection.includes('/weapons/heishang-shuangren'), 'Approved Black
 assert.equal(search.filter((item) => item.id === blackBlades.id).length, 1, 'Reused Black Blades identity must have exactly one Search document');
 
 const brokenBlade = await readFile(resolve(dist, 'weapons/chizhe-canjian.html'), 'utf8');
-const brokenBladeCard = weaponCollection.match(/<a class="entity-card" href="\/weapons\/chizhe-canjian"[\s\S]*?<\/a>/)?.[0] || '';
+const brokenBladeCard = weaponCollection.match(/<a class="entity-card entity-card--compact" href="\/weapons\/chizhe-canjian"[\s\S]*?<\/a>/)?.[0] || '';
 const brokenBladeSearch = search.filter((item) => item.id === 'weapon:chizhe-canjian');
 assert(brokenBladeCard.includes('痴者残剑') && brokenBladeCard.includes('The Fanatic&#39;s Broken Blade'), 'Broken Blade bilingual collection card missing');
 assert(brokenBlade.includes('<h1 class="entity-hero__title">痴者残剑</h1>'), 'Broken Blade detail H1 missing');

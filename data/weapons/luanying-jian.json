@@ -1,0 +1,529 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:luanying-jian",
+  "entityType": "weapon",
+  "slug": "luanying-jian",
+  "displayName": "乱莺剑",
+  "aliases": [],
+  "summary": "锋锐和迅捷无比的少主利刃，刃身轻巧，却可缭乱长空。",
+  "summaryFactIds": [
+    "fact:weapon:luanying-jian:release-exists",
+    "fact:weapon:luanying-jian:release-name",
+    "fact:weapon:luanying-jian:release-system-category",
+    "fact:weapon:luanying-jian:release-type",
+    "fact:weapon:luanying-jian:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:luanying-jian:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "乱莺剑",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "单手武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "锋锐和迅捷无比的少主利刃，刃身轻巧，却可缭乱长空。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "单手",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 295,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 104,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-mechanic-2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。",
+        "input": "△ △ △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-mechanic-3",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "鸣剑",
+        "description": "消耗一定杀气进入【鸣剑】状态，持续10秒。期间所有 △ 攻击都会斩出破空剑气，锐如莺鸣。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-mechanic-4",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "乱莺剑法",
+        "description": "消耗1精纯杀气施展乱莺剑法，以密不透风的剑招攻击强敌。无法被敌人防御。",
+        "input": "L2"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "莺痕",
+        "description": "【鸣剑】状态下斩出的剑光击中敌人，会施加标记【莺痕】，使得其受到的伤害和杀气削减提升，持续5秒。【莺痕】标记时及消散后的6秒内，不会再次被标记。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 10,
+        "name": "莺痕·展锋·之一",
+        "description": "小幅提升【莺痕】的伤害和杀气削减提升效果。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "莺痕·爆裂",
+        "description": "【莺痕】持续期间敌人若被破防，将额外触发一次剑气爆裂。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "莺痕·重现",
+        "description": "【莺痕】持续时间提升为10秒，消散后再次被标记的时间缩短为3秒。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

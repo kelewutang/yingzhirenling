@@ -1,0 +1,528 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:tianxuan-qingtong-jian",
+  "entityType": "weapon",
+  "slug": "tianxuan-qingtong-jian",
+  "displayName": "天玄青铜剑",
+  "aliases": [],
+  "summary": "青铜重剑，大巧不工，攻时破盾能力较强，守则坚如磐石。",
+  "summaryFactIds": [
+    "fact:weapon:tianxuan-qingtong-jian:release-exists",
+    "fact:weapon:tianxuan-qingtong-jian:release-name",
+    "fact:weapon:tianxuan-qingtong-jian:release-system-category",
+    "fact:weapon:tianxuan-qingtong-jian:release-type",
+    "fact:weapon:tianxuan-qingtong-jian:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "天玄青铜剑",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "单手武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "青铜重剑，大巧不工，攻时破盾能力较强，守则坚如磐石。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "单手",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 240,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 106,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031112401_1.jpg／20261031112407_1.jpg／20261031112409_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-mechanic-2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。",
+        "input": "△ △ △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031112401_1.jpg／20261031112407_1.jpg／20261031112409_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-mechanic-3",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "道法自然",
+        "description": "降低格挡攻击时的杀气损耗，但无法进行完美格挡。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031112401_1.jpg／20261031112407_1.jpg／20261031112409_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-mechanic-4",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "大象无形",
+        "description": "消耗1精纯杀气施展一套沉着有力的重剑法，可击退中远距离敌人。无法被敌人防御。",
+        "input": "L2"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031112401_1.jpg／20261031112407_1.jpg／20261031112409_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "致虚极",
+        "description": "按住 △ 可施展蓄力重击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031112401_1.jpg／20261031112407_1.jpg／20261031112409_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 10,
+        "name": "心如止水·之一",
+        "description": "普通格挡的杀气损耗小幅降低。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031112401_1.jpg／20261031112407_1.jpg／20261031112409_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "守静笃",
+        "description": "△ 后衔接 □，向前方释放剑气。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031112401_1.jpg／20261031112407_1.jpg／20261031112409_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:tianxuan-qingtong-jian:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "万物并作",
+        "description": "在敌人攻击命中前精准点按 L1 可触发特殊格挡，而后衔接 △ 可施展强力一击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031112401_1.jpg／20261031112407_1.jpg／20261031112409_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

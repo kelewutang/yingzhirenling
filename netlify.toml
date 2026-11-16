@@ -524,6 +524,61 @@ status = 200
   status = 200
 
 [[redirects]]
+  from = "/weapons/tianxuan-qingtong-jian.html"
+  to = "/weapons/tianxuan-qingtong-jian"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/tianxuan-qingtong-jian"
+  to = "/weapons/tianxuan-qingtong-jian.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/kuye-si-zhuchuan.html"
+  to = "/weapons/kuye-si-zhuchuan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/kuye-si-zhuchuan"
+  to = "/weapons/kuye-si-zhuchuan.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/cuixin-pipa.html"
+  to = "/weapons/cuixin-pipa"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/cuixin-pipa"
+  to = "/weapons/cuixin-pipa.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/luanying-jian.html"
+  to = "/weapons/luanying-jian"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/luanying-jian"
+  to = "/weapons/luanying-jian.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/yao-ju.html"
+  to = "/weapons/yao-ju"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/yao-ju"
+  to = "/weapons/yao-ju.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-release-weapons-2026-11-16-batch2",
+  "sourceType": "user-game-screenshot",
+  "authority": "community",
+  "publisher": "项目负责人（本人截图）",
+  "title": "PC正式版第二批五件武器界面截图（负责人提供）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-game-screenshot",
+    "platformId": "platform:pc",
+    "versionLabel": null,
+    "capturedAt": null,
+    "suppliedAt": "2026-11-16",
+    "confirmedAt": "2026-11-16",
+    "captureOwner": "项目负责人（本人截图）",
+    "evidenceItems": [
+      {
+        "id": "pc-release-batch2-20261031112401-1",
+        "filename": "20261031112401_1.jpg",
+        "sha256": "aa6b000844779aab5de4d6e6dd966faca8763d47696ea8c06460befd6c43e8a4"
+      },
+      {
+        "id": "pc-release-batch2-20261031112407-1",
+        "filename": "20261031112407_1.jpg",
+        "sha256": "5af2eff1fe38e0d3f04a4927099981cdb2d10e085134a1a22622c663b43e6a4b"
+      },
+      {
+        "id": "pc-release-batch2-20261031112409-1",
+        "filename": "20261031112409_1.jpg",
+        "sha256": "599c1c1eb6df7941cba127e48d631559933c377fcd1d38cae43e8ff5288c6110"
+      },
+      {
+        "id": "pc-release-batch2-20261031115959-1",
+        "filename": "20261031115959_1.jpg",
+        "sha256": "75f1c555607221cdc43edfda78637f0f6288145e7bb27231a5de2007094f2348"
+      },
+      {
+        "id": "pc-release-batch2-20261031120002-1",
+        "filename": "20261031120002_1.jpg",
+        "sha256": "ec84723bf6910f59642985df751be1e1dee3e16ec8f8e4c316aa9a9c483f8c2a"
+      },
+      {
+        "id": "pc-release-batch2-20261031132642-1",
+        "filename": "20261031132642_1.jpg",
+        "sha256": "dc0c48afdc5ef406e274c9cccdd391dda09d66158cf91fbc1f2d20dfd1736a28"
+      },
+      {
+        "id": "pc-release-batch2-20261031132645-1",
+        "filename": "20261031132645_1.jpg",
+        "sha256": "93567e9f840f3d12797465f967b70889fb7beef4bd5e9ea6bfbcca33f5c88420"
+      },
+      {
+        "id": "pc-release-batch2-20261031214645-1",
+        "filename": "20261031214645_1.jpg",
+        "sha256": "63f493a03cb926de8a141b6d028264e998fcd0f56d57277de70751dbc2e036d9"
+      },
+      {
+        "id": "pc-release-batch2-20261031214647-1",
+        "filename": "20261031214647_1.jpg",
+        "sha256": "532c83e8fc001639317f90915e7d705ee2afb8fdb5bbc00302d91df5766d4fbc"
+      },
+      {
+        "id": "pc-release-batch2-20261031214651-1",
+        "filename": "20261031214651_1.jpg",
+        "sha256": "488f5498deee21c033b796b8411874b0b17683698ebd440dc99638853a0d08ec"
+      },
+      {
+        "id": "pc-release-batch2-20261031214903-1",
+        "filename": "20261031214903_1.jpg",
+        "sha256": "ed2dcd7fbf3f85e8331218000682e1958210e4d50aff1dbf9e4af3000c3b9b34"
+      },
+      {
+        "id": "pc-release-batch2-20261031214907-1",
+        "filename": "20261031214907_1.jpg",
+        "sha256": "2246e373ba68a1a65ddb0d4f402a5e2d63a1987fb2b3a95d70401a1ef2925c3c"
+      },
+      {
+        "id": "pc-release-batch2-20261031214916-1",
+        "filename": "20261031214916_1.jpg",
+        "sha256": "80a538e15fd2190d8467b45d0137e0c3696dc6a7eda7f61a3de1e98d1a006c27"
+      },
+      {
+        "id": "pc-release-batch2-20261031214919-1",
+        "filename": "20261031214919_1.jpg",
+        "sha256": "cd170c80ed7ac2b5ac23b47228da99712b72892afb11b39bfa5e5ba3e990c976"
+      }
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-16",
+  "archivedUrl": null,
+  "notes": "本批14张原图由负责人提供，沿用本人PC正式版截图授权及既有Master裁剪规范。全部逐图查看并计算原始SHA-256；捕获日期及具体补丁版本未知，不从文件名推定。未通过客户端实测，不创建release-verified Fact或site-release-test Source。Lv1为当时显示属性，Lv5／10／15／25为进阶节点。紫色资源沿用已确认术语精纯杀气，影之武装粉色资源为暗源，普通杀气不替换。苦叶寺珠串如实记录召唤物生命与召唤物伤害，不改写为伤害能力或破防能力。"
+}
