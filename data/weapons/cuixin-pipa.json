@@ -1,0 +1,434 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:cuixin-pipa",
+  "entityType": "weapon",
+  "slug": "cuixin-pipa",
+  "displayName": "催心琵琶",
+  "aliases": [],
+  "summary": "一面仿制琵琶，音色清冽哀婉，催人心伤，可弹奏出切割一切的音刃。",
+  "summaryFactIds": [
+    "fact:weapon:cuixin-pipa:release-exists",
+    "fact:weapon:cuixin-pipa:release-name",
+    "fact:weapon:cuixin-pipa:release-system-category",
+    "fact:weapon:cuixin-pipa:release-type",
+    "fact:weapon:cuixin-pipa:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:cuixin-pipa:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "催心琵琶",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "影之武装",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "奇门",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "一面仿制琵琶，音色清冽哀婉，催人心伤，可弹奏出切割一切的音刃。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 276,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 234,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "R2",
+        "description": "连按 R2，可弹奏出2段蓝色音刃及1段红色音刃。一套连招消耗1暗源。",
+        "input": "R2"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031132642_1.jpg／20261031132645_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-mechanic-2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "音刃",
+        "description": "蓝色音刃：造成伤害和杀气削减，无法被格挡。红色音刃：造成更多伤害，无法被格挡，无视任何伤害免疫效果。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031132642_1.jpg／20261031132645_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "转轴拨弦",
+        "description": "左摇杆向左 + R1 或左摇杆向右 + R1 闪避后，衔接 R2 可以快速释放音刃。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031132642_1.jpg／20261031132645_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 10,
+        "name": "金戈鸣·之一",
+        "description": "蓝色音刃造成的杀气削减及红色音刃造成的伤害均小幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031132642_1.jpg／20261031132645_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "移商换羽",
+        "description": "左摇杆向前 + R1 前冲或左摇杆向后 + R1 后撤后，衔接 R2 可以快速释放音刃。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031132642_1.jpg／20261031132645_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:cuixin-pipa:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "破阵曲",
+        "description": "按住 L1 + R2 可以原地坐下，持续弹奏琵琶，向前方释放大量蓝色音刃及红色音刃。持续消耗暗源。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031132642_1.jpg／20261031132645_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

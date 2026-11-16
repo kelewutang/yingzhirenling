@@ -1,0 +1,402 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:kuye-si-zhuchuan",
+  "entityType": "weapon",
+  "slug": "kuye-si-zhuchuan",
+  "displayName": "苦叶寺珠串",
+  "aliases": [],
+  "summary": "苦叶寺碧海大师留下的古朴念珠，不施雕琢，唯余岁月之厚重。若祭出此物，便可召唤青年苦叶寺弟子出战。",
+  "summaryFactIds": [
+    "fact:weapon:kuye-si-zhuchuan:release-exists",
+    "fact:weapon:kuye-si-zhuchuan:release-name",
+    "fact:weapon:kuye-si-zhuchuan:release-system-category",
+    "fact:weapon:kuye-si-zhuchuan:release-type",
+    "fact:weapon:kuye-si-zhuchuan:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "苦叶寺珠串",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "影之武装",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "召唤",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "苦叶寺碧海大师留下的古朴念珠，不施雕琢，唯余岁月之厚重。若祭出此物，便可召唤青年苦叶寺弟子出战。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "召唤物生命",
+        "displayedValue": 1236,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "召唤物伤害",
+        "displayedValue": 22,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "R2",
+        "description": "在杀气浓郁的区域（图标闪起特殊光效时），按下 R2 可以召唤3个拳法活铜人，并持续战斗最多15秒，若被敌人击杀则提前退场。不可堆叠，重复召唤会清除此前的召唤物。消耗2暗源。",
+        "input": "R2"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031115959_1.jpg／20261031120002_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "金身",
+        "description": "活铜人可使用金身之法，变得刀枪不入。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031115959_1.jpg／20261031120002_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 10,
+        "name": "不灭·之一",
+        "description": "召唤物在场时间小幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031115959_1.jpg／20261031120002_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "铜人阵",
+        "description": "3个铜人同时在场时会使用阵法。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031115959_1.jpg／20261031120002_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:kuye-si-zhuchuan:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "反弹",
+        "description": "若敌人攻击金身状态下的活铜人，会消耗自身杀气。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-16-batch2"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-16",
+      "gameVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-16-batch2",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261031115959_1.jpg／20261031120002_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-16",
+  "updatedAt": "2026-11-16",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

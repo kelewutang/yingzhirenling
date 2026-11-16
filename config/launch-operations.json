@@ -34,9 +34,9 @@
   "browserGates": {
     "collection-browser-interaction": {
       "contractVersion": 1,
-      "status": "deferred",
-      "approvedAt": null,
-      "evidenceRef": null
+      "status": "passed",
+      "approvedAt": "2026-11-16",
+      "evidenceRef": "docs/RELEASE-FIVE-WEAPONS-BATCH2-2026-11-16.md"
     },
     "spoiler-disclosure-interaction": {
       "contractVersion": 1,

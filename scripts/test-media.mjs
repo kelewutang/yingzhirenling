@@ -214,6 +214,13 @@ try {
     }
   });
   await symlink(resolve(root, 'node_modules'), join(fixture, 'node_modules'), 'dir');
+  // This private render fixture tests Media admission independently of live publication state.
+  for (const slug of ['tang-hengdao', 'ya-hengdao']) {
+    const file = join(fixture, 'data', 'weapons', `${slug}.json`);
+    const entity = JSON.parse(await readFile(file, 'utf8'));
+    entity.recordState = 'published';
+    await writeFile(file, JSON.stringify(entity));
+  }
   const admitted = mediaRecord({ rightsStatus: 'official-promotional-risk-accepted', usage: ['hero', 'card'] });
   const draft = mediaRecord({
     id: 'media:ya-card-review',

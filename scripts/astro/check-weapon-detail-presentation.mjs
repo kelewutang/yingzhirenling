@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { buildWeaponCollectionCard } from '../../src/lib/collection-models.mjs';
 import { parseControllerInput, parseInlineControllerText } from '../../src/lib/controller-inputs.mjs';
 
 const root = resolve(process.cwd());
@@ -148,7 +149,7 @@ const whiteSerpentSearchDocument = (searchIndex.documents || searchIndex).find((
 assert(whiteSerpentSearchDocument, 'White Serpent production search document missing');
 assert(whiteSerpentSearchDocument.aliases.includes(historicalAlias), 'Historical English alias must remain searchable through production index aliases');
 assert(whiteSerpentSearchDocument.displayAliases.includes(historicalAlias), 'Historical English alias must remain in production search display aliases');
-const whiteSerpentCard = collection.match(/<a class="entity-card" href="\/weapons\/white-serpent-crimson-viper"[\s\S]*?<\/a>/)?.[0];
+const whiteSerpentCard = collection.match(/<a class="entity-card entity-card--compact" href="\/weapons\/white-serpent-crimson-viper"[\s\S]*?<\/a>/)?.[0];
 assert(whiteSerpentCard, 'White Serpent public collection card missing');
 assert(whiteSerpentCard.includes(historicalAlias.replace('&', '&amp;')), 'Historical English alias must render on the White Serpent public collection card');
 assert(!whiteSerpentCard.includes('entity-card__summary') && !whiteSerpentCard.includes(whiteSerpentData.summary), 'Weapon collection card must omit its long summary while Knowledge retains it');
@@ -159,10 +160,10 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   ['white-shadow', '白影', '主武器', '苗刀'],
 ]) {
   const taxonomy = systemCategory;
-  const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0];
+  const card = collection.match(new RegExp(`<a class="entity-card entity-card--compact" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0];
   assert(card, `${slug}: public collection card missing`);
   assert(card.includes(`<h3 class="entity-card__title">${displayName}</h3>`), `${slug}: collection card name missing`);
-  assert(card.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: collection card taxonomy missing`);
+  assert(card.includes('entity-card--compact') && !card.includes('entity-card__secondary'), `${slug}: compact card must use the existing name-and-alias layout`);
   assert(!card.includes('entity-card__summary'), `${slug}: collection card must omit the long summary`);
 
   const detail = await readFile(resolve(dist, `${slug}.html`), 'utf8');
@@ -176,10 +177,10 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   assert(renderedOverview.includes(`<dt>装备类型</dt><dd>${taxonomy}</dd>`), `${slug}: unconfirmed class must leave only the equipment type`);
   assert(!renderedOverview.includes('data-weapon-overview-field="type"'), `${slug}: legacy mixed kind must not render in overview`);
 }
-const sparseWeaponCard = collection.match(/<a class="entity-card" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
+const sparseWeaponCard = collection.match(/<a class="entity-card entity-card--compact" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
 assert(sparseWeaponCard?.includes('entity-media__fallback'), 'Soft Snake Sword card must retain its fallback media');
-assert(sparseWeaponCard?.includes('entity-card__context'), 'Weapon cards with public-appearance Facts must retain their pre-release status');
-assert.equal(count(collection, 'class="entity-card__context"'), 15, 'Weapon collection must retain 1 historical and 14 release UI contexts');
+assert.equal(buildWeaponCollectionCard(await readJson('data/weapons/soft-snake-sword.json')).context, '公开试玩记录', 'Compact presentation must not erase the historical card context from its model');
+assert.equal(count(collection, 'class="entity-card__context"'), 0, 'Existing compact cards must omit rich-card contexts');
 const sparseWeaponFallback = sparseWeaponCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
 assert(!sparseWeaponFallback.includes('entity-media__name') && !sparseWeaponFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
@@ -203,7 +204,7 @@ for (const [entityId, slug, expectedId, expectedSrc, html] of [
   assert(collection.includes(`src="/assets/media/${media.src}"`), `${entityId} collection card must render approved portrait media`);
 }
 for (const slug of ['soft-snake-sword']) {
-  const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
+  const card = collection.match(new RegExp(`<a class="entity-card entity-card--compact" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
   assert(card.includes('data-media-state="fallback"'), `${slug}: Weapon without an approved Master must retain fallback media`);
 }
 for (const [slug, system, category] of [
@@ -219,8 +220,8 @@ for (const [slug, system, category] of [
   assert(!rendered.includes('<dt>武器分类</dt>') && !rendered.includes('data-weapon-overview-field="weapon-type"'), `${slug}: classification must not occupy a separate row`);
   const baseStats = rendered.match(/<section[^>]*data-weapon-base-stats[\s\S]*?<\/section>/)?.[0] || '';
   assert(baseStats.includes('Lv1 基础属性') && !baseStats.includes('<p>'), `${slug}: base stats must contain only the heading, names and values`);
-  const card = collection.match(new RegExp(`<a class="entity-card" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
-  assert(card.replace(/<[^>]*>/gu, '').includes(`${system} · ${category}`), `${slug}: collection formal category missing`);
+  const card = collection.match(new RegExp(`<a class="entity-card entity-card--compact" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
+  assert(card.includes('entity-card--compact') && !card.includes('entity-card__secondary'), `${slug}: compact card must not render a rich-card category row`);
 }
 for (const [slug, name, category, damage, guard] of [
   ['chizhe-canjian', '痴者残剑', '主武器 · 单手武器', 228, 96],
@@ -328,6 +329,24 @@ assert(!sparse.includes('data-weapon-derived-inputs-for'), 'Sparse Weapon must n
 assert(sparse.includes('发售前媒体试玩记录中的主武器'), 'Sparse Weapon historical summary must remain visible');
 assert(!sparse.includes('data-weapon-overview-note="weapon.observedTrait"'), 'Sparse Weapon must not invent an unrecorded observed trait');
 assert(!sparse.includes('data-weapon-base-stats'), 'Sparse Weapon must not invent release base stats');
+
+for (const slug of ['tianxuan-qingtong-jian', 'kuye-si-zhuchuan', 'cuixin-pipa', 'luanying-jian', 'yao-ju']) {
+  const data = await readJson(`data/weapons/${slug}.json`);
+  const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  const rendered = overview(html);
+  const active = data.facts.filter((fact) => fact.supersededBy === null && fact.validToVersionId === null);
+  assert.equal(count(html, `<h1 class="entity-hero__title">${data.displayName}</h1>`), 1);
+  assert.equal(count(html.match(/<main\b[\s\S]*?<\/main>/)?.[0] || '', active.find((fact) => fact.key === 'weapon.description').value), 1, `${slug}: game description must appear once`);
+  for (const fact of active.filter((fact) => fact.key === 'weapon.baseStat')) assert(rendered.includes(`<dt>${fact.value.statName}</dt><dd>${fact.value.displayedValue}</dd>`), `${slug}: exact Lv1 attribute missing`);
+  for (const fact of active.filter((fact) => ['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key))) {
+    const attribute = fact.key === 'weapon.mechanic' ? 'data-weapon-mechanic-id' : 'data-weapon-progression-node-id';
+    assertInput(html, attribute, fact);
+    if (fact.value.description) assertEffect(html, attribute, fact.id, fact.value.description);
+    if (fact.key === 'weapon.progressionNode') assertProgressionLevel(html, fact.id, fact.value.level, fact.value.name);
+  }
+  assert(html.includes('<h3>PC正式版武器界面截图</h3>'), `${slug}: screenshot provenance must remain visible`);
+  assert(!html.includes('获取顺序') && !html.includes('data-weapon-preview-stats'), `${slug}: no acquisition or preview values may be invented`);
+}
 
 for (const [file, expectedText] of [
   ['characters/soul.html', '快速信息'],
