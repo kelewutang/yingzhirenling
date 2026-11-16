@@ -74,8 +74,11 @@ export function getPublishedCharacters(knowledge) {
   return knowledge.characters.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
 }
 
+const releaseBossOrder = new Map(['boss:cangang', 'boss:peng-meng', 'boss:a-hua', 'boss:zhui-ming', 'boss:hua-qianxiao'].map((id, index) => [id, index]));
+
 export function getPublishedBosses(knowledge) {
-  return knowledge.bosses.filter((item) => item.recordState === 'published').sort((a, b) => a.id.localeCompare(b.id));
+  return knowledge.bosses.filter((item) => item.recordState === 'published')
+    .sort((a, b) => (releaseBossOrder.get(a.id) ?? Infinity) - (releaseBossOrder.get(b.id) ?? Infinity) || a.id.localeCompare(b.id));
 }
 
 export function getPublishedLocations(knowledge) {
