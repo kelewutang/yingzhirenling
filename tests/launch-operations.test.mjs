@@ -7,6 +7,7 @@ import {
   collectionTriggerFromCounts,
   evaluateBrowserGate,
   evaluateCurrentness,
+  extractCurrentnessReviewDate,
   evaluateInventory,
   evaluateReleaseState,
   findFixtureLeakage,
@@ -265,4 +266,27 @@ test('absence of exact unlock time remains informational while the approved Guid
   const inventory = await loadProductionInventory(root);
   assert.deepEqual(inventory.guides.map((guide) => guide.id), ['difficulty-and-sixty-six-days']);
   assert.equal(JSON.stringify(config).includes('unlock'), false);
+});
+
+
+test('release currentness reads the explicitly marked review without reordering historical dates', async () => {
+  const html = await readFile(path.join(root, 'pages/about.html'), 'utf8');
+  const section = html.match(/<aside\b[^>]*aria-label="发售信息来源"[\s\S]*?<\/aside>/)[0];
+  assert.equal(section.match(/<time\s+datetime="([^"]+)"/)[1], '2026-10-26');
+  assert(section.includes('datetime="2026-10-29"'));
+  assert.equal(extractCurrentnessReviewDate(section, 'release-date-platform-store'), '2026-11-16');
+  const explicit = '<time data-review-subject="release-date-platform-store" datetime="2026-11-16">review</time>';
+  const history = '<time datetime="2026-10-27">preload</time><time datetime="2026-10-29">launch</time>';
+  assert.equal(extractCurrentnessReviewDate(explicit + history, 'release-date-platform-store'), '2026-11-16');
+  assert.equal(extractCurrentnessReviewDate(history + explicit, 'release-date-platform-store'), '2026-11-16');
+  for (const invalid of [history, explicit + explicit, explicit.replace(' datetime="2026-11-16"', '')]) {
+    assert.equal(extractCurrentnessReviewDate(invalid, 'release-date-platform-store'), null);
+  }
+  for (const date of ['2026-11-12', '2026-11-17', 'invalid']) {
+    const checkedAt = extractCurrentnessReviewDate(explicit.replaceAll('2026-11-16', date), 'release-date-platform-store');
+    assert.equal(evaluateCurrentness([{ id: 'release-date-platform-store', mandatoryForReleaseCandidate: true, checkedAt }], { mode: 'release-candidate', asOf: '2026-11-16', maxAgeDays: 3 })[0].status, 'BLOCK');
+  }
+  for (const id of ['commercial-pricing', 'physical-edition', 'pc-requirements']) {
+    assert.equal(extractCurrentnessReviewDate(history + explicit, id), '2026-10-27');
+  }
 });

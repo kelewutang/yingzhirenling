@@ -189,6 +189,17 @@ async function readRenderedHtml() {
   return output;
 }
 
+export function extractCurrentnessReviewDate(scope, subjectId) {
+  if (subjectId !== 'release-date-platform-store') {
+    return scope.match(/<time\s+datetime="(\d{4}-\d{2}-\d{2})"/)?.[1] || null;
+  }
+  // Release/preload dates are historical events; only an explicit state review counts.
+  const reviews = [...scope.matchAll(/<time\b([^>]*)>/g)]
+    .filter(([, attributes]) => /(?:^|\s)data-review-subject="release-date-platform-store"(?:\s|$)/.test(attributes));
+  if (reviews.length !== 1) return null;
+  return reviews[0][1].match(/(?:^|\s)datetime="([^"]+)"(?:\s|$)/)?.[1] || null;
+}
+
 async function readCurrentnessSubjects(config) {
   return Promise.all(config.launchCriticalSubjects.map(async (subject) => {
     const html = await readFile(path.join(ROOT, subject.file), 'utf8');
@@ -197,7 +208,7 @@ async function readCurrentnessSubjects(config) {
     if (start < 0) return { ...subject, checkedAt: null };
     const end = html.indexOf('</aside>', start);
     const scope = html.slice(start, end < 0 ? undefined : end);
-    return { ...subject, checkedAt: scope.match(/<time\s+datetime="(\d{4}-\d{2}-\d{2})"/)?.[1] || null };
+    return { ...subject, checkedAt: extractCurrentnessReviewDate(scope, subject.id) };
   }));
 }
 
