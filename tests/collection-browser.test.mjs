@@ -92,8 +92,8 @@ test('result model covers reset, visible counts, and zero results', () => {
 
 test('current production collections remain below the activation threshold', async () => {
   const families = [
-    ['weapons', 18],
-    ['bosses', 8],
+    ['weapons', 16],
+    ['bosses', 5],
     ['characters', 6],
     ['locations', 4]
   ];
