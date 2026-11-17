@@ -93,25 +93,25 @@ assert(aboutHtml.includes('https://www.playstation.com/zh-hans-cn/games/phantom-
 assert(!aboutHtml.includes('影之刃零支持手动存档'), '/about must not make a broad manual-save claim');
 
 const guideDocuments = search.filter((document) => document.documentType === 'guide');
-assert.equal(search.length, 37, 'Production Search must contain 37 documents');
+assert.equal(search.length, 42, 'Production Search must contain 42 documents');
 assert.equal(guideDocuments.length, 1, 'Production Search must contain one Guide document');
 assert.deepEqual([guideDocuments[0].id, guideDocuments[0].route, guideDocuments[0].recordState], [`guide:${guideId}`, guideRoute, 'published']);
-assert.equal((sitemap.match(/<url>/g) || []).length, 46, 'Sitemap must contain 46 URLs');
+assert.equal((sitemap.match(/<url>/g) || []).length, 51, 'Sitemap must contain 51 URLs');
 assert(sitemap.includes(`<loc>https://www.yingzhirenling.cn${guideRoute}</loc><lastmod>2026-10-11</lastmod>`), 'Guide sitemap entry missing or stale');
-assert.deepEqual(inventory.counts, { sitemap: 46, canonical: 46, pageHtml: 47, searchDocs: 37 });
+assert.deepEqual(inventory.counts, { sitemap: 51, canonical: 51, pageHtml: 52, searchDocs: 42 });
 assert.deepEqual([
   inventory.publishedWeapons.length,
   inventory.publishedBosses.length,
   inventory.publishedCharacters.length,
   inventory.publishedLocations.length,
   inventory.guides.length
-], [21, 5, 6, 4, 1]);
+], [26, 5, 6, 4, 1]);
 
 const canonicalTagCount = (await Promise.all(distFiles.filter((file) => file.endsWith('.html')).map((file) => readFile(resolve(dist, file), 'utf8'))))
   .reduce((count, html) => count + (html.match(/<link\s+rel="canonical"\s+href="/gi) || []).length, 0);
 const pageHtmlCount = distFiles.filter((file) => file.endsWith('.html') && !file.startsWith('baidu_verify_')).length;
-assert.equal(canonicalTagCount, 46, 'Rendered canonical-tag count must be 46');
-assert.equal(pageHtmlCount, 47, 'Rendered page-HTML count must be 47');
+assert.equal(canonicalTagCount, 51, 'Rendered canonical-tag count must be 51');
+assert.equal(pageHtmlCount, 52, 'Rendered page-HTML count must be 52');
 
 assert.equal(await absent(resolve(dist, 'generated/guide-search-manifest.json')), true, 'Private Guide handoff manifest must not be deployed');
 assert.doesNotMatch([landingHtml, sitemap, JSON.stringify(search), ...distFiles].join('\n'), /growth-guide-[a-f]/, 'Synthetic growth fixtures must not leak into production landing, sitemap, Search or files');
@@ -132,4 +132,4 @@ assert.deepEqual(launchConfig.browserGates['spoiler-disclosure-interaction'], {
   scopeId: 'release-world-2026-11-16'
 });
 
-console.log('Targeted pre-release content verification passed: official source, four difficulties, one Guide, White Shadow supersession, PS5 facts, 46/46/47/37 inventory, and private fixture isolation.');
+console.log('Targeted pre-release content verification passed: official source, four difficulties, one Guide, White Shadow supersession, PS5 facts, 51/51/52/42 inventory, and private fixture isolation.');

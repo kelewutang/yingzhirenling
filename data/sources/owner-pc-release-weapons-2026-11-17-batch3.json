@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-release-weapons-2026-11-17-batch3",
+  "sourceType": "user-game-screenshot",
+  "authority": "community",
+  "publisher": "项目负责人（本人截图）",
+  "title": "PC正式版第三批五件武器界面截图（负责人提供）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-game-screenshot",
+    "platformId": "platform:pc",
+    "versionLabel": null,
+    "capturedAt": null,
+    "suppliedAt": "2026-11-17",
+    "confirmedAt": "2026-11-17",
+    "captureOwner": "项目负责人（本人截图）",
+    "evidenceItems": [
+      {
+        "id": "pc-release-batch3-20261101111904-1",
+        "filename": "20261101111904_1.jpg",
+        "sha256": "794f5b950287242cd956d306cc88ee6fde53e34c9c3f1fa80b0749aa57c85933"
+      },
+      {
+        "id": "pc-release-batch3-20261101111907-1",
+        "filename": "20261101111907_1.jpg",
+        "sha256": "0e5b74c99ab425ea70a02da7491db7386f4a65074b5452e33e0b3c811e76b7cb"
+      },
+      {
+        "id": "pc-release-batch3-20261101111918-1",
+        "filename": "20261101111918_1.jpg",
+        "sha256": "c4a59ae72ed962fd9375c5de2c3a8dccd1061c1398bec0f9d218c4fbd7c7b07a"
+      },
+      {
+        "id": "pc-release-batch3-20261101111920-1",
+        "filename": "20261101111920_1.jpg",
+        "sha256": "e099242b4dc7626616343fa2e1284d229729e6f8ae0f938102d0ada5e5fcb747"
+      },
+      {
+        "id": "pc-release-batch3-20261101132048-1",
+        "filename": "20261101132048_1.jpg",
+        "sha256": "9316603174f686c6bff40135b3be6f9e8e9f8de870d0959fd34628f3f3e00ba6"
+      },
+      {
+        "id": "pc-release-batch3-20261101132057-1",
+        "filename": "20261101132057_1.jpg",
+        "sha256": "a18880886761eaee41191c5d7dbe06d7059fdb297dca1a93857f9f875c162873"
+      },
+      {
+        "id": "pc-release-batch3-20261101132101-1",
+        "filename": "20261101132101_1.jpg",
+        "sha256": "ab0aec68604b1532178f85e6d10d90227c8a07ef973011ec745199ab8c78e403"
+      },
+      {
+        "id": "pc-release-batch3-20261102085740-1",
+        "filename": "20261102085740_1.jpg",
+        "sha256": "d7c96937ab0fae40f5bc09443e262b367ce4c25added5fa84398574af02382c6"
+      },
+      {
+        "id": "pc-release-batch3-20261102085749-1",
+        "filename": "20261102085749_1.jpg",
+        "sha256": "1aa1e67ab688536c96bb5849bf05f98337cf65a63f8eb98fbdbce383373eefe4"
+      },
+      {
+        "id": "pc-release-batch3-20261102201531-1",
+        "filename": "20261102201531_1.jpg",
+        "sha256": "1243fa5f91d72c40e14bd1029dea224ef062471d0926f5d0ef3342150963b075"
+      },
+      {
+        "id": "pc-release-batch3-20261102201534-1",
+        "filename": "20261102201534_1.jpg",
+        "sha256": "b7488eb05d31167378ca106fb62581bb477ec71dbac01013f14cb59f3e8a3e17"
+      },
+      {
+        "id": "pc-release-batch3-20261102201600-1",
+        "filename": "20261102201600_1.jpg",
+        "sha256": "c2a1b4ba5a28a3ce44a63e481e88949f7f0fb58598dddcb1592ccdb3d834f8a4"
+      },
+      {
+        "id": "pc-release-batch3-20261102201603-1",
+        "filename": "20261102201603_1.jpg",
+        "sha256": "f3b150ba7c8ef105981a8b4b747701e2b59f8ce9fe901687ee4d7c5e243b6226"
+      }
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-17",
+  "archivedUrl": null,
+  "notes": "本批13张由负责人提供，沿用本人PC正式版截图授权和非生成Master裁剪规范。逐图查看并计算原始SHA-256；捕获日期及客户端补丁版本未知，不从文件名推断。前四件显示Lv1，天煞双钺显示Lv24伤害1030及破防390，绝不换算Lv1。紫色标题成长条目未显示解锁等级，保留无等级，不推断为Lv1或Lv10。天煞双钺显示Lv20煞气流转·之二，不从下一档提示推断Lv30效果。火流星Lv5技能名铁花飞溅已由负责人于2026-11-17确认。Ⓛ表示左摇杆，R1沿用截图PlayStation提示，不补写键盘/Xbox映射。粉色资源按既有核验为暗源，天煞破敌紫色资源为精纯杀气；煞气、普通杀气各按原文区分。没有客户端实测，不创建release-verified Fact或site-release-test Source。"
+}

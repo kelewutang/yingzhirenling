@@ -172,7 +172,7 @@ test('five owner screenshot weapons reuse identities, separate Lv1 from unlocks 
 test('withdrawn preview weapons stay draft while published Chinese names and historical aliases survive', async () => {
   const knowledge = await loadKnowledge();
   const published = getPublishedWeapons(knowledge);
-  assert.equal(published.length, 21);
+  assert.equal(published.length, 26);
   for (const [slug, name] of [
     ['bashpole', 'Bashpole'], ['night-owl', 'Night Owl'], ['seamless-death', 'Seamless Death'],
     ['tang-hengdao', '唐横刀'], ['ya-hengdao', '牙横刀']
@@ -376,5 +376,67 @@ test('new data contract rejects malformed values without weakening historical ev
     assert.match(result.stderr, /SHA-256/);
   } finally {
     await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('third owner screenshot batch preserves four Lv1 entries and the separately evidenced Lv24 weapon', async () => {
+  const knowledge = await loadKnowledge();
+  const source = 'source:owner-pc-release-weapons-2026-11-17-batch3';
+  const version = 'version:release-pc-ui-2026-11-17-batch3';
+  const evidence = knowledge.sourceById.get(source);
+  assert.equal(evidence.locator.evidenceItems.length, 13);
+  assert.equal(new Set(evidence.locator.evidenceItems.map((item) => item.sha256)).size, 13);
+  assert.equal(evidence.locator.capturedAt, null);
+  assert.equal(evidence.locator.versionLabel, null);
+  for (const [slug, name, category, labels, values, level, nodes] of [
+    ['huo-liuxing', '火流星', '影之武装 · 武学', ['伤害能力', '异常效果'], [380, 309], 1, [5, 10, 15, 25]],
+    ['caoou-lingdang', '操偶铃铛', '影之武装 · 召唤', ['召唤物生命', '召唤物伤害'], [1911, 22], 1, [5, 10, 15, 25]],
+    ['tan-lang', '贪狼', '影之武装 · 破坏', ['伤害能力', '破防能力'], [261, 280], 1, [null, 5, 10, 15, 25]],
+    ['leiting-qiang', '雷霆枪', '影之武装 · 武学', ['伤害能力', '异常效果'], [450, 360], 1, [null, 5, 10, 15, 25]],
+    ['tiansha-shuangyue', '天煞双钺', '主武器 · 双持武器', ['伤害能力', '破防能力'], [1030, 390], 24, [null, 5, 15, 20, 25]]
+  ]) {
+    const entity = knowledge.entityById.get(`weapon:${slug}`);
+    const detail = projectWeaponDetail(entity, knowledge);
+    assert.equal(getPublishedWeapons(knowledge).filter((weapon) => weapon.displayName === name).length, 1);
+    assert.equal(entity.recordState, 'published');
+    assert.equal(detail.taxonomy.valueText, category);
+    assert.deepEqual(entity.aliases, [], 'No English name may be inferred from a historical draft');
+    assert.equal(getFact(entity, 'weapon.acquisitionOrder', knowledge), null);
+    assert.deepEqual(detail.overview.baseStats.map((fact) => [fact.value.statName, fact.value.displayedValue, fact.value.displayedLevel]), labels.map((label, i) => [label, values[i], level]));
+    assert.deepEqual(detail.progressionNodes.map((fact) => fact.level ?? null), nodes);
+    assert(entity.facts.every((fact) => fact.status === 'observation' && fact.gameVersionId === version && fact.sourceIds.length === 1 && fact.sourceIds[0] === source));
+    assert(entity.facts.every((fact) => fact.scope.platforms.mode === 'include' && fact.scope.platforms.ids.join(',') === 'platform:pc'));
+    const hero = await getProductionHeroMedia(entity.id);
+    const card = await getProductionCardMedia(entity.id);
+    assert.deepEqual([hero.id, hero.width, hero.height, hero.objectFit, hero.sourceId, hero.rightsStatus], [card.id, 1200, 1800, 'contain', source, 'self-captured-reviewed']);
+  }
+});
+
+test('third screenshot batch retains exact resources, summon restrictions and unlabelled growth without inferred levels', async () => {
+  const knowledge = await loadKnowledge();
+  const detail = (slug) => projectWeaponDetail(knowledge.entityById.get(`weapon:${slug}`), knowledge);
+  const meteor = detail('huo-liuxing');
+  assert.match(meteor.mechanics[0].description, /3段[\s\S]*一套连招消耗1暗源/);
+  assert.equal(meteor.progressionNodes[0].valueText, '铁花飞溅');
+  assert.match(meteor.mechanics[1].description, /降低其攻击力/);
+  const summon = detail('caoou-lingdang');
+  assert.match(summon.mechanics[0].description, /杀气浓郁[\s\S]*1名剑盾人偶及1名枪盾人偶[\s\S]*最多15秒[\s\S]*重复召唤[\s\S]*消耗2暗源/);
+  assert.equal(summon.progressionNodes[3].valueText, '无意识强击');
+  const club = detail('tan-lang');
+  assert.match(club.mechanics[0].description, /人偶、金身、幻体无效[\s\S]*消耗1暗源/);
+  assert.match(club.progressionNodes.find((fact) => fact.valueText === '全力一击').description, /不消耗暗源/);
+  assert.match(club.progressionNodes.find((fact) => fact.valueText === '贪狼穿心').description, /12秒/);
+  const spear = detail('leiting-qiang');
+  assert.equal(spear.progressionNodes.find((fact) => fact.valueText === '雷枪突刺').input, 'Ⓛ + R1');
+  const axes = detail('tiansha-shuangyue');
+  assert.match(axes.mechanics.find((fact) => fact.valueText === '煞气').description, /20秒/);
+  assert.match(axes.mechanics.find((fact) => fact.valueText === '天煞破敌').description, /消耗1精纯杀气/);
+  assert.match(axes.progressionNodes.find((fact) => fact.valueText === '天煞双劫').description, /16秒/);
+  assert.equal(axes.progressionNodes.find((fact) => fact.valueText === '群煞击').input, 'L1 + △');
+  assert.match(axes.progressionNodes.find((fact) => fact.valueText === '群煞击').description, /消耗全部煞气/);
+  assert(!axes.progressionNodes.some((fact) => fact.level === 10 || fact.level === 30), 'Unseen Lv10 and next-tier Lv30 effects must not be inferred');
+  for (const [slug, name] of [['tan-lang', '鬼火缠身'], ['leiting-qiang', '连环惊雷'], ['tiansha-shuangyue', '天煞双劫']]) {
+    const fact = knowledge.entityById.get(`weapon:${slug}`).facts.find((item) => item.key === 'weapon.progressionNode' && item.value.name === name);
+    assert(!Object.hasOwn(fact.value, 'level'), 'Unlabelled growth must not be assigned Lv1');
   }
 });

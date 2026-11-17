@@ -1,0 +1,402 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:caoou-lingdang",
+  "entityType": "weapon",
+  "slug": "caoou-lingdang",
+  "displayName": "操偶铃铛",
+  "aliases": [],
+  "summary": "操偶师的古旧铃铛，铃音空灵，响动间，可号令各式人偶。",
+  "summaryFactIds": [
+    "fact:weapon:caoou-lingdang:release-exists",
+    "fact:weapon:caoou-lingdang:release-name",
+    "fact:weapon:caoou-lingdang:release-system-category",
+    "fact:weapon:caoou-lingdang:release-type",
+    "fact:weapon:caoou-lingdang:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:caoou-lingdang:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "操偶铃铛",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "影之武装",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "召唤",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "操偶师的古旧铃铛，铃音空灵，响动间，可号令各式人偶。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "召唤物生命",
+        "displayedValue": 1911,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "召唤物伤害",
+        "displayedValue": 22,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "R2",
+        "input": "R2",
+        "description": "在杀气浓郁的区域（图标闪起特殊光效时），按下 R2 可以召唤1名剑盾人偶及1名枪盾人偶，并持续战斗最多15秒，若被敌人击杀则提前退场。不可堆叠，重复召唤会清除此前的召唤物。消耗2暗源。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "强盾",
+        "description": "剑盾人偶及枪盾人偶的盾牌耐久度大幅增强。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 10,
+        "name": "不灭·之一",
+        "description": "召唤物在场时间小幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "防守反击",
+        "description": "剑盾人偶及枪盾人偶均会格挡敌人攻势后进行反击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:caoou-lingdang:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "无意识强击",
+        "description": "所有召唤人偶的破防力大幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111918_1.jpg／20261101111920_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-17",
+  "updatedAt": "2026-11-17",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

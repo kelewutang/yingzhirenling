@@ -490,3 +490,24 @@ function assertMediaRule(query, declaration, message) {
 async function readJson(path) {
   return JSON.parse(await readFile(resolve(root, path), 'utf8'));
 }
+
+for (const [slug, level] of [['huo-liuxing', 1], ['caoou-lingdang', 1], ['tan-lang', 1], ['leiting-qiang', 1], ['tiansha-shuangyue', 24]]) {
+  const data = await readJson(`data/weapons/${slug}.json`);
+  const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  const rendered = overview(html);
+  assert(rendered.includes(`Lv${level} 基础属性`), `${slug}: observed attribute level must remain exact`);
+  if (level !== 1) assert(!rendered.includes('Lv1 基础属性') && !html.includes('当前1级武器'), `${slug}: Lv24 evidence must not be labelled Lv1`);
+  assert.equal(count(html.match(/<main\b[\s\S]*?<\/main>/)?.[0] || '', data.summary), 1, `${slug}: game description must appear once`);
+  assert.equal(count(html, 'class="source-panel"'), 1);
+  assert(html.includes('<h3>PC正式版武器界面截图</h3>'));
+  assert(!html.includes('获取顺序') && !html.includes('<figcaption') && !html.includes('data-weapon-preview-stats'));
+  for (const fact of data.facts.filter((item) => ['weapon.mechanic', 'weapon.progressionNode'].includes(item.key))) {
+    const attribute = fact.key === 'weapon.mechanic' ? 'data-weapon-mechanic-id' : 'data-weapon-progression-node-id';
+    assertInput(html, attribute, fact);
+    if (fact.value.description) assertEffect(html, attribute, fact.id, fact.value.description);
+    if (fact.key === 'weapon.progressionNode') {
+      if (Object.hasOwn(fact.value, 'level')) assertProgressionLevel(html, fact.id, fact.value.level, fact.value.name);
+      else assert(!entry(html, attribute, fact.id).includes('data-weapon-progression-level-for'), `${slug}: unlabelled growth must remain unlabelled`);
+    }
+  }
+}

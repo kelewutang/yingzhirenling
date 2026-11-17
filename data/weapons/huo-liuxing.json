@@ -1,0 +1,436 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:huo-liuxing",
+  "entityType": "weapon",
+  "slug": "huo-liuxing",
+  "displayName": "火流星",
+  "aliases": [],
+  "summary": "流星锤中装有烈性磷粉，出手如流火破空，将战场化为黄泉炼狱。",
+  "summaryFactIds": [
+    "fact:weapon:huo-liuxing:release-exists",
+    "fact:weapon:huo-liuxing:release-name",
+    "fact:weapon:huo-liuxing:release-system-category",
+    "fact:weapon:huo-liuxing:release-type",
+    "fact:weapon:huo-liuxing:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:huo-liuxing:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "火流星",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "影之武装",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "武学",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "流星锤中装有烈性磷粉，出手如流火破空，将战场化为黄泉炼狱。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 380,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "异常效果",
+        "displayedValue": 309,
+        "displayedLevel": 1,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "R2",
+        "input": "R2",
+        "description": "连按 R2，最多可施展3段中远距离抡打，磷火会点燃敌人。一套连招消耗1暗源。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-mechanic-2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "磷火",
+        "description": "绿色的火焰，可点燃敌人，并在造成伤害的同时降低其攻击力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "铁花飞溅",
+        "input": "R2",
+        "description": "连招提升至4段，最后一段按住 R2 可持续甩动，释放砸出漫天铁花。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-node-10",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 10,
+        "name": "烈火灼心·之一",
+        "description": "小幅提升【磷火】造成的攻击力削减效果。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "磷火爆炸",
+        "description": "当被【磷火】点燃的敌人死亡时，发生一次【磷火爆炸】并点燃周围的敌人。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:huo-liuxing:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "磷火龙卷",
+        "input": "L1 + R2",
+        "description": "使用 L1 + R2，持续甩动火流星，期间提高免伤，同时在上方生成一片【磷火龙卷】。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261101111904_1.jpg／20261101111907_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-17",
+  "updatedAt": "2026-11-17",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}

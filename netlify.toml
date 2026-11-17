@@ -583,6 +583,61 @@ status = 200
   status = 200
 
 [[redirects]]
+  from = "/weapons/huo-liuxing.html"
+  to = "/weapons/huo-liuxing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/huo-liuxing"
+  to = "/weapons/huo-liuxing.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/caoou-lingdang.html"
+  to = "/weapons/caoou-lingdang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/caoou-lingdang"
+  to = "/weapons/caoou-lingdang.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/tan-lang.html"
+  to = "/weapons/tan-lang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/tan-lang"
+  to = "/weapons/tan-lang.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/leiting-qiang.html"
+  to = "/weapons/leiting-qiang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/leiting-qiang"
+  to = "/weapons/leiting-qiang.html"
+  status = 200
+
+[[redirects]]
+  from = "/weapons/tiansha-shuangyue.html"
+  to = "/weapons/tiansha-shuangyue"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/weapons/tiansha-shuangyue"
+  to = "/weapons/tiansha-shuangyue.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404

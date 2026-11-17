@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { parseControllerInput, parseInlineControllerText } from '../src/lib/controller-inputs.mjs';
 
-const labels = { '□': '方块键', '△': '三角键', '○': '圆圈键', L1: 'L1', L2: 'L2', R2: 'R2' };
+const labels = { '□': '方块键', '△': '三角键', '○': '圆圈键', L1: 'L1', L2: 'L2', R1: 'R1', R2: 'R2', 'Ⓛ': '左摇杆' };
 
 for (const [input, values] of [
   ['□', ['□']],
@@ -9,6 +9,8 @@ for (const [input, values] of [
   ['○', ['○']],
   ['L1', ['L1']],
   ['L2', ['L2']],
+  ['R1', ['R1']],
+  ['Ⓛ + R1', ['Ⓛ', '+', 'R1']],
   ['R2', ['R2']],
   ['L1 + △', ['L1', '+', '△']],
   ['□ □ □ □ □', ['□', '□', '□', '□', '□']]
@@ -25,7 +27,7 @@ assert.deepEqual(
   ['text', 'input', 'text'],
   'Inline controller combinations must remain structured keycaps'
 );
-assert.throws(() => parseControllerInput('R1'), /Unsupported controller input/, 'Unsupported platform controls must not silently render as keycaps');
+assert.throws(() => parseControllerInput('R3'), /Unsupported controller input/, 'Unverified platform controls must not silently render as keycaps');
 for (const input of [
   '+ △',
   'L1 +',
