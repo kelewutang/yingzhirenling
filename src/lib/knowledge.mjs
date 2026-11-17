@@ -1,5 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { gameplayRelationEndpoints, relationIsActive } from './relations.mjs';
 
 const root = resolve(process.cwd());
 const statusLabels = {
@@ -136,9 +137,15 @@ export function collectDisplayedSources(facts, knowledge, relations = []) {
   });
 }
 
-export function getProductionRelationsForEntity(entityId, knowledge) {
+export function getProductionRelationsForEntity(entityId, knowledge, versionId = null) {
   return knowledge.relations
-    .filter((relation) => relation.validToVersionId === null)
+    .filter((relation) => !gameplayRelationEndpoints[relation.relationType] || versionId || relation.basisFactIds.every((id) => {
+      const fact = knowledge.factById.get(id);
+      return fact && fact.supersededBy === null && fact.validToVersionId === null;
+    }))
+    .filter((relation) => gameplayRelationEndpoints[relation.relationType]
+      ? relationIsActive(relation, knowledge, versionId)
+      : relation.validToVersionId === null)
     .filter((relation) => relation.sourceEntityId === entityId || relation.targetEntityId === entityId)
     .filter((relation) => {
       const source = knowledge.entityById.get(relation.sourceEntityId);

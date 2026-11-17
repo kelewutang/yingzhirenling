@@ -20,7 +20,8 @@ export function guideSafeProjection(guide) {
 export function factIsConcealed(fact, entity) { return isMajorSpoiler(entity) || isMajorSpoiler(fact); }
 export function mediaIsConcealed(media, entity) { return isMajorSpoiler(entity) || isMajorSpoiler(media); }
 export function relationIsConcealed(relation, knowledge) {
-  return isMajorSpoiler(knowledge.entityById.get(relation.sourceEntityId)) || isMajorSpoiler(knowledge.entityById.get(relation.targetEntityId));
+  return isMajorSpoiler(relation) || (relation.basisFactIds || []).some((id) => isMajorSpoiler(knowledge.factById?.get(id))) ||
+    isMajorSpoiler(knowledge.entityById.get(relation.sourceEntityId)) || isMajorSpoiler(knowledge.entityById.get(relation.targetEntityId));
 }
 
 export const spoilerDisclosureLabel = '显示重大剧情内容';

@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseControllerInput } from '../src/lib/controller-inputs.mjs';
+import { gameplayRelationEndpoints, relationWindowsOverlap } from '../src/lib/relations.mjs';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(SCRIPT_DIR, '..');
@@ -27,7 +28,7 @@ const STATUS_VALUES = new Set([
 ]);
 const AUTHORITY_VALUES = new Set(['official', 'third-party', 'community', 'internal']);
 const ENTITY_TYPES = new Set(['weapon', 'character', 'boss', 'location', 'system']);
-const RELATION_TYPES = new Set(['parentOf', 'formerCompanionOf']);
+const RELATION_TYPES = new Set(['parentOf', 'formerCompanionOf', ...Object.keys(gameplayRelationEndpoints)]);
 const RECORD_STATES = new Set(['draft', 'published', 'archived']);
 const RESOLUTION_TYPES = new Set(['duplicate', 'merge', 'split', 'misidentified']);
 const VERSION_STAGES_BY_TRACK = new Map([
@@ -868,11 +869,11 @@ for (const { relative, value: relation } of relationFiles) {
   if (typeof relation.id === 'string') relations.set(relation.id, { relative, relation });
   validateRelation(relation, relative, entities, sources, versions, error);
   const tuple = `${relation.sourceEntityId}|${relation.relationType}|${relation.targetEntityId}`;
-  if (relationTuples.has(tuple)) {
-    error(relative, `Relation 与 ${relationTuples.get(tuple)} 重复`);
-  } else {
-    relationTuples.set(tuple, relative);
+  const prior = relationTuples.get(tuple) || [];
+  if (prior.some((entry) => !gameplayRelationEndpoints[relation.relationType] || relationWindowsOverlap(entry.relation, relation, versions))) {
+    error(relative, `Relation 与已有记录的有效区间重复：${tuple}`);
   }
+  relationTuples.set(tuple, [...prior, { relation, relative }]);
 }
 
 function validateReferences(ids, location, index, label, report = error) {
@@ -939,11 +940,38 @@ function validateRelation(relation, location, entityIndex, sourceIndex, versionI
   if (!RELATION_TYPES.has(relation.relationType)) {
     report(`${location}.relationType`, `不支持 relationType：${relation.relationType}`);
   }
-  for (const [field, entityId] of [['sourceEntityId', relation.sourceEntityId], ['targetEntityId', relation.targetEntityId]]) {
+  const endpointTypes = gameplayRelationEndpoints[relation.relationType] || ['character', 'character'];
+  for (const [index, field] of ['sourceEntityId', 'targetEntityId'].entries()) {
+    const entityId = relation[field];
     const entityType = entityIndex.get(entityId)?.entity.entityType ?? entityId?.split(':')[0];
-    if (entityIndex.has(entityId) && entityType !== 'character') {
-      report(`${location}.${field}`, `${relation.relationType} 仅适用于 Character Entity`);
+    if (entityIndex.has(entityId) && entityType !== endpointTypes[index]) {
+      report(`${location}.${field}`, `${relation.relationType} 必须是 ${endpointTypes.join(' → ')}`);
     }
+  }
+  if (gameplayRelationEndpoints[relation.relationType]) {
+    if (!SPOILER_LEVELS.has(relation.spoilerLevel)) report(`${location}.spoilerLevel`, '必须声明合法的关系剧透等级');
+    if (!Array.isArray(relation.basisFactIds) || relation.basisFactIds.length !== 1) {
+      report(`${location}.basisFactIds`, '攻略关系必须引用一条对应的 Boss Fact');
+    } else {
+      const boss = entityIndex.get(relation.sourceEntityId)?.entity;
+      const fact = boss?.facts?.find((f) => f.id === relation.basisFactIds[0]);
+      const key = relation.relationType === 'appearsIn' ? 'boss.location' : 'boss.reward';
+      if (!fact || fact.key !== key) report(`${location}.basisFactIds`, `必须引用关系起点的 ${key} Fact`);
+      else {
+        if (fact.supersededBy != null && relation.validToVersionId === null) report(location, '有效关系不得引用已被取代的 Fact');
+        if (fact.validToVersionId != null && relation.validToVersionId === null) report(location, '有效关系不得引用已失效的 Fact');
+        for (const field of ['status', 'gameVersionId', 'scope']) {
+          if (JSON.stringify(relation[field]) !== JSON.stringify(fact[field])) report(`${location}.${field}`, '不得超出依据 Fact 的状态、版本和范围');
+        }
+        if (JSON.stringify(relation.sourceIds) !== JSON.stringify(fact.sourceIds)) report(`${location}.sourceIds`, '必须保留依据 Fact 的来源');
+        if (relation.checkedAt < fact.checkedAt) report(`${location}.checkedAt`, '关联核验不得早于依据 Fact');
+        if (fact.spoilerLevel === 'major' && relation.spoilerLevel !== 'major') report(`${location}.spoilerLevel`, '不得降低依据 Fact 的重大剧透等级');
+      }
+    }
+    const from = versionIndex.get(relation.validFromVersionId)?.sequence;
+    const to = versionIndex.get(relation.validToVersionId)?.sequence;
+    if (from != null && to != null && from >= to) report(location, '关系版本区间必须递增');
+    if (typeof relation.reviewNote !== 'string' || !relation.reviewNote.trim()) report(`${location}.reviewNote`, '攻略关系必须说明证据边界');
   }
   if (!STATUS_VALUES.has(relation.status)) report(`${location}.status`, 'status 不合法');
   validateReferences(relation.sourceIds, `${location}.sourceIds`, sourceIndex, 'Source', report);

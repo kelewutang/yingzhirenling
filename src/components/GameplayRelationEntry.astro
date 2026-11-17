@@ -1,0 +1,21 @@
+---
+import { statusLabel, safeExternalUrl } from '../lib/knowledge.mjs';
+const { entry, sourceById, acquisition = false } = Astro.props;
+---
+<article class="relation-panel__item" data-gameplay-relation-id={entry.relation.id} data-status={entry.relation.status}>
+  <h3 class="info-provenance__title">{acquisition && '击败 '}<a href={entry.href}>{entry.entity.displayName}</a></h3>
+  {entry.description && <p class="info-provenance__description">{entry.description}</p>}
+  <dl class="info-provenance__meta">
+    <div class="info-source"><dt>来源状态</dt><dd>{statusLabel(entry.relation.status)}</dd></div>
+    <div class="info-source"><dt>来源</dt><dd>{entry.relation.sourceIds.map((id, i) => {const s = sourceById.get(id);return <>{i > 0 && '、'}<a href={safeExternalUrl(s.url)} target="_blank" rel="noopener noreferrer">{s.publisher}</a></>;})}</dd></div>
+    <div class="info-source"><dt>资料阶段</dt><dd>{entry.versionText}</dd></div>
+    <div class="info-source"><dt>适用范围</dt><dd>{entry.scopeText}</dd></div>
+    <div class="info-source"><dt>关联核验</dt><dd><time datetime={entry.relation.checkedAt}>{entry.relation.checkedAt}</time></dd></div>
+  </dl>
+  {entry.children.map((child) => <div class="relation-panel__item" data-gameplay-relation-id={child.relation.id} data-status={child.relation.status}>
+    <p>{child.entity.entityType === 'weapon' ? '奖励武器：' : '所在区域：'}<a href={child.href}>{child.entity.displayName}</a> · {statusLabel(child.relation.status)}</p>
+    {child.description && <p class="info-provenance__description">{child.description}</p>}
+    <p class="info-provenance__description">{child.versionText} · {child.scopeText} · <time datetime={child.relation.checkedAt}>{child.relation.checkedAt}</time></p>
+    <p>来源：{child.relation.sourceIds.map((id, i) => {const s = sourceById.get(id);return <>{i > 0 && '、'}<a href={safeExternalUrl(s.url)} target="_blank" rel="noopener noreferrer">{s.publisher}</a></>;})}</p>
+  </div>)}
+</article>
