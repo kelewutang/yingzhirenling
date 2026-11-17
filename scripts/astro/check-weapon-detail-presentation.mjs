@@ -249,8 +249,8 @@ for (const [slug, name, category, damage, guard] of [
     assertEffect(html, attr, f.id, f.value.description);
     if (f.key === 'weapon.progressionNode') assertProgressionLevel(html, f.id, f.value.level, f.value.name);
   }
-  assert.equal(count(html, 'class="source-panel"'), 1);
-  assert(html.includes('<h3>PC正式版武器界面截图</h3>'));
+  assert.equal(count(html, 'class="source-panel"'), 0, 'Owner-approved detail must not render source panels');
+  assert(!html.includes('<h3>PC正式版武器界面截图</h3>'), 'Screenshot records must remain in data, not a page source panel');
   assert(!/<figcaption|第[0-9]+把|weapon\.acquisitionOrder/.test(html));
 }
 const derivedControls = derivedInputBlock(serpent, 'fact:weapon:white-serpent-crimson-viper:release-mechanic-2');
@@ -304,8 +304,8 @@ for (const forbiddenClaim of ['白影完整成长树', '白影共有四个成长
 }
 
 for (const [label, html] of [['White Serpent', serpent], ['White Shadow', shadow]]) {
-  assert.equal(count(html, 'class="source-panel"'), 1, `${label} must have one grouped source panel`);
-  assert(html.includes(label === 'White Shadow' ? '《难度，武器，玩家》' : 'PC正式版武器界面截图'), `${label} must retain its current screenshot source`);
+  assert.equal(count(html, 'class="source-panel"'), 0, `${label} must follow the Owner-approved detail layout`);
+  assert(!html.includes('id="sources-title"'), `${label} must not render a source section`);
   assert(!html.includes('detail-fact__provenance'), `${label} must not repeat per-Fact provenance blocks`);
 }
 
@@ -344,7 +344,7 @@ for (const slug of ['tianxuan-qingtong-jian', 'kuye-si-zhuchuan', 'cuixin-pipa',
     if (fact.value.description) assertEffect(html, attribute, fact.id, fact.value.description);
     if (fact.key === 'weapon.progressionNode') assertProgressionLevel(html, fact.id, fact.value.level, fact.value.name);
   }
-  assert(html.includes('<h3>PC正式版武器界面截图</h3>'), `${slug}: screenshot provenance must remain visible`);
+  assert(data.facts.filter((f) => f.validToVersionId === null).every((f) => f.sourceIds.length > 0), `${slug}: underlying screenshot evidence must remain intact`);
   assert(!html.includes('获取顺序') && !html.includes('data-weapon-preview-stats'), `${slug}: no acquisition or preview values may be invented`);
 }
 
@@ -459,12 +459,13 @@ for (const slug of ['muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxi
   assert(!html.includes('<figcaption'), `${slug}: Weapon media must not leave a caption container`);
   assert(!/主武器获取顺序|第[0-9]+把|weapon\.acquisitionOrder/.test(html), `${slug}: collection order must stay out of detail HTML`);
   const panel = html.match(/<section class="source-panel"[\s\S]*?<\/section>/)?.[0] || '';
-  assert.equal(count(panel, '<h3>PC正式版武器界面截图</h3>'), 1, `${slug}: screenshot source must appear once`);
-  assert(panel.includes('<li class="source-panel__item"><div><h3>PC正式版武器界面截图</h3></div></li>'), `${slug}: screenshot source must contain only its name`);
-  assert(!/负责人提供|项目负责人/.test(panel), `${slug}: screenshot source must not repeat internal provenance`);
+  assert.equal(panel, '', `${slug}: detail must not render a source panel`);
+  const weapon = await readJson(`data/weapons/${slug}.json`);
+  const evidence = weapon.facts.filter((fact) => fact.key === 'weapon.baseStat' && fact.validToVersionId === null);
+  assert(evidence.length > 0 && evidence.every((fact) => fact.sourceIds.length > 0), `${slug}: screenshot evidence must remain in data`);
 }
 
-console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, concise release screenshots, and non-Weapon detail isolation.');
+console.log('Weapon detail presentation verification passed: source-backed official wording, accessible controller keycaps, grouped preview observations, sparse Weapon content, screenshot limits, retained screenshot evidence, source-free detail UI, and non-Weapon detail isolation.');
 
 function cssRule(selector) {
   const start = css.indexOf(selector);
@@ -498,8 +499,8 @@ for (const [slug, level] of [['huo-liuxing', 1], ['caoou-lingdang', 1], ['tan-la
   assert(rendered.includes(`Lv${level} 基础属性`), `${slug}: observed attribute level must remain exact`);
   if (level !== 1) assert(!rendered.includes('Lv1 基础属性') && !html.includes('当前1级武器'), `${slug}: Lv24 evidence must not be labelled Lv1`);
   assert.equal(count(html.match(/<main\b[\s\S]*?<\/main>/)?.[0] || '', data.summary), 1, `${slug}: game description must appear once`);
-  assert.equal(count(html, 'class="source-panel"'), 1);
-  assert(html.includes('<h3>PC正式版武器界面截图</h3>'));
+  assert.equal(count(html, 'class="source-panel"'), 0, 'Owner-approved detail must not render source panels');
+  assert(!html.includes('<h3>PC正式版武器界面截图</h3>'), 'Screenshot records must remain in data, not a page source panel');
   assert(!html.includes('获取顺序') && !html.includes('<figcaption') && !html.includes('data-weapon-preview-stats'));
   for (const fact of data.facts.filter((item) => ['weapon.mechanic', 'weapon.progressionNode'].includes(item.key))) {
     const attribute = fact.key === 'weapon.mechanic' ? 'data-weapon-mechanic-id' : 'data-weapon-progression-node-id';

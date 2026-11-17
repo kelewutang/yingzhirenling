@@ -32,15 +32,18 @@ Weapon、Character、Boss 和 Location 都使用统一的生产 detail pattern�
 
 - 首页、对应 Collection、当前 Entity 的 breadcrumb；
 - 唯一 H1；
-- summary 和资料更新时间；
-- 发售前资料边界说明；
+- summary；
+- 按事实记录保留必要的玩法与适用条件；
 - 按主题分组的 Fact；
-- 本页实际使用的 Source；
+- 2026-11-17 Owner已批准：实体详情不显示状态标签、资料阶段、核验日期及页底来源区；完整Source/Fact/Version记录仍在数据层保留并严格验证；
 - 返回 `/weapons` 的链接。
 
 只有真实数据存在时才输出可选区块。Relation、Build、获取地点等没有数据时，不显示空 section、占位列表或猜测内容。
 
 # Fact Status UI
+
+2026-11-17 Owner批准的实体详情采用无可信度元信息展示：以下映射仍可供后台及其他既有页面使用，但不得在Weapon/Character/Boss/Location详情重新显示状态badge、来源/阶段/核验列表或页底SourcePanel。此决定不改变Fact状态、来源等级、数据验证、Draft及重大剧透保护。
+
 
 | Fact status | User-facing label |
 | --- | --- |

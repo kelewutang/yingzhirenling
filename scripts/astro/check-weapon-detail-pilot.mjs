@@ -30,7 +30,8 @@ if (heroMedia) {
 assert(page.includes(weapon.summary), 'Soft Snake Sword SEO summary missing');
 assert(!entityHero.includes('entity-hero__summary'), 'Soft Snake Sword Hero must not render its summary');
 assert(page.includes('id="weapon-overview-title"'), 'Soft Snake Sword Weapon overview missing');
-assert(page.includes('id="sources-title"'), 'Soft Snake Sword Sources missing');
+assert(!page.includes('id="sources-title"'), 'Owner-approved detail must not render a source panel');
+assert(weapon.facts.every((fact) => fact.sourceIds.every((id) => typeof id === 'string')), 'Underlying source references must remain intact');
 assert(page.includes('class="footer site-footer"'), 'Soft Snake Sword shared footer missing');
 
 assert(page.includes('data-weapon-overview-field="taxonomy" data-system-category-fact-id="fact:weapon:soft-snake-sword:system-category"'), 'Soft Snake Sword normalized taxonomy missing');
@@ -48,4 +49,4 @@ for (const [file, canonical] of [
   assert(html.includes(`<link rel="canonical" href="${canonical}">`), `Regression route canonical missing: ${file}`);
 }
 
-console.log('Weapon detail verification passed: Soft Snake Sword hero, sparse overview, sources, and static regression routes.');
+console.log('Weapon detail verification passed: Soft Snake Sword hero, sparse overview, retained source records, and static regression routes.');

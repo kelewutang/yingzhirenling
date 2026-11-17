@@ -1,0 +1,11 @@
+---
+const { entry, acquisition = false } = Astro.props;
+---
+<article class="relation-panel__item" data-gameplay-relation-id={entry.relation.id} data-status={entry.relation.status}>
+  <h3 class="info-provenance__title">{acquisition && '击败 '}<a href={entry.href}>{entry.entity.displayName}</a></h3>
+  {entry.description && <p class="info-provenance__description">{entry.description}</p>}
+  {entry.children.map((child) => <div class="relation-panel__item" data-gameplay-relation-id={child.relation.id} data-status={child.relation.status}>
+    <p>{child.entity.entityType === 'weapon' ? '奖励武器：' : '所在区域：'}<a href={child.href}>{child.entity.displayName}</a></p>
+    {child.description && <p class="info-provenance__description">{child.description}</p>}
+  </div>)}
+</article>

@@ -50,12 +50,12 @@ async function assertDetailVisualContract(file, entity) {
     assertMediaImage(html, media, file);
     if (media.sourceUrl === null) {
       assert.equal(media.sourceType, 'self-captured', `${file}: only registered captures may omit an external media URL`);
-      if (['source:owner-pc-release-weapons-2026-10-29', 'source:owner-pc-release-weapons-2026-10-30', 'source:owner-pc-release-weapons-2026-11-16', 'source:owner-pc-release-weapons-2026-11-16-batch2', 'source:owner-pc-release-weapons-2026-11-17-batch3'].includes(media.sourceId)) {
-        assert(html.includes('<h3>PC正式版武器界面截图</h3>'), `${file}: concise capture Source must remain visible`);
-      } else {
-        assert(media.sourceId && html.includes('负责人提供的正式版游戏截图'), `${file}: capture Source must remain visible`);
-        assert(html.includes(escapeHtml(media.credit)), `${file}: local capture credit missing`);
-      }
+      assert(media.sourceId, `${file}: capture must retain a registered Source`);
+      const source = JSON.parse(await readFile(resolve(root, 'data/sources', media.sourceId.replace('source:', '') + '.json'), 'utf8'));
+      assert.equal(source.sourceType, 'user-game-screenshot', `${file}: capture must retain screenshot evidence`);
+      assert.equal(source.locator.type, 'user-supplied-game-screenshot', `${file}: capture locator missing`);
+      assert(source.locator.evidenceItems.length > 0, `${file}: original screenshot evidence missing`);
+      assert(!html.includes('id="sources-title"'), `${file}: Owner-approved detail must not render a source panel`);
       assert(!entityHero.includes('查看媒体来源') && !entityHero.includes('href="null"'), `${file}: capture must not invent an external source link`);
     } else if (entity.entityType !== 'weapon') {
       assert(html.includes(`<a href="${renderedExternalUrl(media.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看媒体来源</a>`), `${file}: hero Media source link missing`);
@@ -522,7 +522,7 @@ for (const weapon of publishedWeapons) {
   const html = await readFile(resolve(dist, 'weapons', `${weapon.slug}.html`), 'utf8');
   await assertDetailVisualContract(`weapons/${weapon.slug}.html`, weapon);
   const canonical = `https://www.yingzhirenling.cn/weapons/${weapon.slug}`;
-  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回武器图鉴']) {
+  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '返回武器图鉴']) {
     assert(html.includes(token), `${weapon.slug}: missing static Weapon contract token ${token}`);
   }
   assert(metaContent(html, 'name', 'description', weapon.slug).includes(weapon.summary), `${weapon.slug}: Weapon SEO summary must remain`);
@@ -545,7 +545,7 @@ for (const slug of ['soul', 'mo-yuan', 'the-hunt']) {
   const html = await readFile(resolve(dist, 'characters', `${slug}.html`), 'utf8');
   await assertDetailVisualContract(`characters/${slug}.html`, publishedCharacters.find((character) => character.slug === slug));
   const canonical = `https://www.yingzhirenling.cn/characters/${slug}`;
-  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回角色图鉴']) {
+  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '返回角色图鉴']) {
     assert(html.includes(token), `${slug}: missing static Character contract token ${token}`);
   }
   assert(!html.includes('noindex'), `${slug}: published Character must be indexable`);
@@ -563,7 +563,7 @@ for (const boss of publishedBosses) {
   const html = await readFile(resolve(dist, 'bosses', `${boss.slug}.html`), 'utf8');
   await assertDetailVisualContract(`bosses/${boss.slug}.html`, boss);
   const canonical = `https://www.yingzhirenling.cn/bosses/${boss.slug}`;
-  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回 Boss 图鉴']) {
+  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '返回 Boss 图鉴']) {
     assert(html.includes(token), `${boss.slug}: missing static Boss contract token ${token}`);
   }
   assert(html.includes(boss.summary), `${boss.slug}: summary missing from static Boss page`);
@@ -578,7 +578,7 @@ for (const location of publishedLocations) {
   const html = await readFile(resolve(dist, 'world', `${location.slug}.html`), 'utf8');
   await assertDetailVisualContract(`world/${location.slug}.html`, location);
   const canonical = `https://www.yingzhirenling.cn/world/${location.slug}`;
-  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '本页来源', '返回世界与地点']) {
+  for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '返回世界与地点']) {
     assert(html.includes(token), `${location.slug}: missing static Location contract token ${token}`);
   }
   assert(html.includes(escapeHtml(location.summary)), `${location.slug}: summary missing from static Location page`);

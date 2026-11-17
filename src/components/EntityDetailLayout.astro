@@ -3,23 +3,16 @@ import Breadcrumb from './Breadcrumb.astro';
 import EntityHero from './EntityHero.astro';
 import QuickFacts from './QuickFacts.astro';
 import DetailFactSections from './DetailFactSections.astro';
-import SourcePanel from './SourcePanel.astro';
 import RelationList from './RelationList.astro';
+import GameplayRelations from './GameplayRelations.astro';
 import WeaponDetailPresentation from './WeaponDetailPresentation.astro';
 import RelatedGuides from './RelatedGuides.astro';
 import StructuredData from './StructuredData.astro';
 import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
-import { siteLifecycle } from '../lib/site-lifecycle.mjs';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { entitySafeProjection, isMajorSpoiler } from '../lib/spoilers.mjs';
 
-const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, sources, sourceById, media, relations = [], relatedGuides = [], weaponDetail = null, canonical } = Astro.props;
-const hasReleaseEvidence = entity.facts.some((fact) => fact.status === 'release-verified' && fact.supersededBy === null);
-const scopeNotice = hasReleaseEvidence
-  ? '本页整理公开资料与本站正式版实测；每条事实与关系均单独标注来源状态和核验范围。'
-  : weaponDetail
-    ? siteLifecycle.copy.detail.weaponScope
-    : siteLifecycle.copy.detail.defaultScope;
+const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, media, relations = [], gameplayRelations = [], relatedGuides = [], weaponDetail = null, canonical } = Astro.props;
 const safe = entitySafeProjection(entity);
 const major = isMajorSpoiler(entity);
 const breadcrumbStructuredData = createBreadcrumbList([
@@ -32,23 +25,22 @@ const breadcrumbStructuredData = createBreadcrumbList([
   <StructuredData data={breadcrumbStructuredData} />
   <Breadcrumb collectionHref={collectionHref} collectionLabel={collectionLabel} currentLabel={safe.displayName} />
   <EntityHero entity={entity} aliases={aliases} eyebrow={eyebrow} taxonomy={heroTaxonomy} media={media} />
-  {!weaponDetail?.overview.baseStats.length && <p class="entity-detail__scope">{scopeNotice}</p>}
   {major ? <SpoilerDisclosure class="entity-detail__spoiler"><>
     {weaponDetail ? <WeaponDetailPresentation detail={weaponDetail} /> : <>
     <QuickFacts facts={facts.quick} />
-    <DetailFactSections facts={facts.detail} sourceById={sourceById} />
+    <DetailFactSections facts={facts.detail} />
     </>}
-    <RelationList relations={relations} sourceById={sourceById} />
+    <RelationList relations={relations} />
+    <GameplayRelations groups={gameplayRelations} />
     <RelatedGuides guides={relatedGuides} />
-    <SourcePanel sources={sources} />
   </></SpoilerDisclosure> : <>
     {weaponDetail ? <WeaponDetailPresentation detail={weaponDetail} /> : <>
       <QuickFacts facts={facts.quick} />
-      <DetailFactSections facts={facts.detail} sourceById={sourceById} />
+      <DetailFactSections facts={facts.detail} />
     </>}
-    <RelationList relations={relations} sourceById={sourceById} />
+    <RelationList relations={relations} />
+    <GameplayRelations groups={gameplayRelations} />
     <RelatedGuides guides={relatedGuides} />
-    <SourcePanel sources={sources} />
   </>}
   <p class="entity-detail__return"><a class="btn btn-outline" href={collectionHref}>返回{entity.entityType === 'boss' ? ' ' : ''}{returnLabel}</a></p>
 </article>

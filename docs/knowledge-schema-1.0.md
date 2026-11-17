@@ -46,6 +46,14 @@ Source 独立存储，并由多个 Fact 引用。Source 的 `authority` 只描�
 
 Relation 使用独立的有向记录表达 Entity 之间的明确关系，包含稳定 id、source/target Entity、受控 relation type，以及 Fact 同级的 status、来源、时间、版本和 scope。Relation 不要求图数据库；构建时通过索引解析引用。
 
+### P3-CN-REL-01 攻略关系
+
+在既有人物关系外，增加 `appearsIn`（Boss → Location）与 `awardsWeapon`（Boss → Weapon）。稳定实体 ID 为单一关联事实源，构建时生成正向和反向链接，不为未确认获取方式推断掉落。
+
+这两类关系保留原有来源、状态、日期、版本、scope、有效期与 reviewNote，并要求显式 `spoilerLevel` 和一项 `basisFactIds`：分别引用起点 Boss 的 `boss.location` 或 `boss.reward`。关联不复制位置文字；投影读取依据 Fact。状态、来源、资料版本及范围必须与依据一致，不得把第三方攻略升级为本站实测。checkedAt 是实际关系核验日期，不改写原 Source 的核验历史。
+
+相同三元组在相交的平台、难度与版本区间内不得重复；不相交的历史记录可以保留。版本区间采用左闭右开；当前投影排除待核验、已结束和未开始关系。两端只有 published 才可公开，关联、依据或任一端的重大剧透将整个条目及附属链接默认折叠。人物关系既有字段和校验不变。
+
 ## 5. GameVersion
 
 GameVersion 独立记录发售前材料阶段、Demo、正式版本、补丁或热修复。发售前不得虚构官方版本号。Fact 通过 `gameVersionId`、`validFromVersionId`、`validToVersionId` 表达版本适用范围。

@@ -13,7 +13,6 @@ const safeFacts = facts.filter((fact) => !isMajorSpoiler(fact));
       <div class="quick-fact" data-quick-fact-id={fact.id} data-status={fact.status}>
         <dt>{fact.title}</dt>
         <dd class="quick-fact__value">{fact.valueText}</dd>
-        <dd class="quick-fact__status">{fact.statusText}</dd>
       </div>
     ))}
   </dl>

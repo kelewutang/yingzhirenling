@@ -1,0 +1,9 @@
+---
+import GameplayRelationEntry from './GameplayRelationEntry.astro';
+import SpoilerDisclosure from './SpoilerDisclosure.astro';
+const { groups } = Astro.props;
+---
+{groups.map((group) => <section class="relation-panel gameplay-relations" aria-labelledby={`gameplay-${group.key}-title`} data-gameplay-relations={group.key}>
+  <div class="detail-section-heading"><p class="detail-section-heading__eyebrow">RELATED GUIDE</p><h2 id={`gameplay-${group.key}-title`}>{group.title}</h2></div>
+  {group.entries.map((entry) => entry.concealed ? <SpoilerDisclosure><GameplayRelationEntry entry={entry} acquisition={group.key === 'acquisition'} /></SpoilerDisclosure> : <GameplayRelationEntry entry={entry} acquisition={group.key === 'acquisition'} />)}
+</section>)}

@@ -111,7 +111,7 @@ assert(brokenBladeCard.includes('痴者残剑') && brokenBladeCard.includes('The
 assert(brokenBlade.includes('<h1 class="entity-hero__title">痴者残剑</h1>'), 'Broken Blade detail H1 missing');
 assert(brokenBlade.includes('data-weapon-hero-description="fact:weapon:chizhe-canjian:release-description"'), 'Broken Blade release description missing');
 assert(!brokenBlade.includes('data-fact-id="fact:weapon:chizhe-canjian:acquisition"'), 'Historical acquisition must not enter current release presentation');
-assert(brokenBlade.includes('本页来源') && brokenBlade.includes('PC正式版武器界面截图'), 'Broken Blade release source missing');
+assert(!brokenBlade.includes('本页来源') && !brokenBlade.includes('class="source-panel"'), 'Broken Blade must follow the Owner-approved source-free detail layout');
 assert.equal(brokenBladeSearch.length, 1, 'Broken Blade must have one Search result');
 assert.equal(brokenBladeSearch[0].route, '/weapons/chizhe-canjian', 'Broken Blade Search route changed');
 assert(brokenBladeSearch[0].aliases.includes("The Fanatic's Broken Blade"), 'Broken Blade English alias missing from Search');

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "relation:boss:cangang:appearsIn:location:beiqi-xigu",
+  "sourceEntityId": "boss:cangang",
+  "relationType": "appearsIn",
+  "targetEntityId": "location:beiqi-xigu",
+  "status": "third-party",
+  "sourceIds": [
+    "source:gamersky-boss-1-2026-10-29"
+  ],
+  "basisFactIds": [
+    "fact:boss:cangang:release-location"
+  ],
+  "checkedAt": "2026-11-17",
+  "gameVersionId": "version:release-guides-2026-11-16",
+  "scope": {
+    "platforms": {
+      "mode": "all",
+      "ids": []
+    },
+    "difficulties": {
+      "mode": "all",
+      "ids": []
+    }
+  },
+  "validFromVersionId": "version:release-guides-2026-11-16",
+  "validToVersionId": null,
+  "reviewNote": "依据现有发售后攻略事实建立关联；不是本站正式版实测。",
+  "spoilerLevel": "minor"
+}

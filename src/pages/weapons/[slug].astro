@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EntityDetailLayout from '../../components/EntityDetailLayout.astro';
-import { aliasValues, collectDisplayedSources, getPublishedWeapons, loadKnowledge } from '../../lib/knowledge.mjs';
+import { projectGameplayRelations } from '../../lib/gameplay-relations.mjs';
+import { aliasValues, getPublishedWeapons, loadKnowledge } from '../../lib/knowledge.mjs';
 import { projectWeaponDetail } from '../../lib/projections.mjs';
 import { getProductionHeroMedia } from '../../lib/media.mjs';
 import { getPublishedGuideEntries } from '../../lib/guides.mjs';
 import { getRelatedPublishedGuides } from '../../lib/guide-publication.mjs';
-import { entitySafeProjection, factIsConcealed, isMajorSpoiler } from '../../lib/spoilers.mjs';
+import { entitySafeProjection } from '../../lib/spoilers.mjs';
 
 export async function getStaticPaths() {
   const knowledge = await loadKnowledge();
@@ -15,10 +16,8 @@ export async function getStaticPaths() {
 
 const { weapon } = Astro.props;
 const knowledge = await loadKnowledge();
+const gameplayRelations = projectGameplayRelations(weapon, knowledge);
 const detail = projectWeaponDetail(weapon, knowledge);
-const visibleFacts = isMajorSpoiler(weapon) ? detail.sourceFacts : detail.sourceFacts.filter((fact) => !factIsConcealed(fact, weapon));
-const displayedAliases = !detail.overview.baseStats.length && !isMajorSpoiler(weapon) ? weapon.aliases : [];
-const sources = collectDisplayedSources([...visibleFacts, ...displayedAliases], knowledge);
 const canonical = `https://www.yingzhirenling.cn/weapons/${weapon.slug}`;
 const safe = entitySafeProjection(weapon);
 const description = `${safe.displayName}：${safe.summary}`;
@@ -26,5 +25,5 @@ const media = await getProductionHeroMedia(weapon.id);
 const relatedGuides = getRelatedPublishedGuides(weapon.id, await getPublishedGuideEntries(knowledge));
 ---
 <BaseLayout title={`${safe.displayName} - 影之刃零武器资料 | 影之刃零攻略站`} description={description} canonical={canonical} activeSection="weapons" atmosphere="weapon">
-  <EntityDetailLayout entity={weapon} collectionHref="/weapons" collectionLabel="武器图鉴" returnLabel="武器图鉴" eyebrow={detail.eyebrow} aliases={aliasValues(weapon)} heroTaxonomy={detail.taxonomy?.valueText} facts={{ quick: [], detail: [] }} sources={sources} sourceById={knowledge.sourceById} media={media} relatedGuides={relatedGuides} weaponDetail={detail} canonical={canonical} />
+  <EntityDetailLayout entity={weapon} collectionHref="/weapons" collectionLabel="武器图鉴" returnLabel="武器图鉴" eyebrow={detail.eyebrow} aliases={aliasValues(weapon)} heroTaxonomy={detail.taxonomy?.valueText} facts={{ quick: [], detail: [] }} media={media} relatedGuides={relatedGuides} weaponDetail={detail} gameplayRelations={gameplayRelations} canonical={canonical} />
 </BaseLayout>
