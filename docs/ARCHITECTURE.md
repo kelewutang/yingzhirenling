@@ -100,6 +100,8 @@ Entity index 的网络、HTTP、JSON 或 contract 错误只使 enhancement 进�
 
 `generated/search-index.shadow.json` 只供构建和审查，生产运行时从不加载。
 
+2026-11-17 Owner展示决策：四类实体详情不再渲染状态badge、来源/资料阶段/核验元信息或页底SourcePanel。完整Source/Fact/Relation/Version证据与严格验证仍保留在Knowledge层；其他页面不受此展示决定影响。
+
 # Entity Detail Architecture
 
 所有四类 Entity 使用 shared Astro detail architecture：

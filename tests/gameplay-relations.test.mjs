@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { loadKnowledge, getProductionRelationsForEntity } from '../src/lib/knowledge.mjs';
-import { getBossConnections, getLocationBosses, getWeaponAcquisition, projectGameplayRelations, displayedGameplayRelations } from '../src/lib/gameplay-relations.mjs';
+import { getBossConnections, getLocationBosses, getWeaponAcquisition, projectGameplayRelations } from '../src/lib/gameplay-relations.mjs';
 import { projectRelationsForEntity } from '../src/lib/relations.mjs';
 
 const pairs = [
@@ -72,7 +72,7 @@ test('version switches select historical windows and do not expose future relati
   // The explicitly selected version is before this newly announced relation.
   assert.equal(getWeaponAcquisition('weapon:jagged-steel', k, end).length, 0);
 });
-test('relation, basis Fact, endpoint and nested reward spoilers conceal whole entries and public source summaries', async () => {
+test('relation, basis Fact, endpoint and nested reward spoilers conceal whole entries without altering underlying provenance', async () => {
   for (const variant of ['relation', 'basis', 'endpoint', 'nested']) {
     const k = await fresh(), r = k.relations.find((r) => r.sourceEntityId === 'boss:cangang' && r.relationType === 'appearsIn');
     if (variant === 'relation') r.spoilerLevel = 'major';
@@ -80,7 +80,7 @@ test('relation, basis Fact, endpoint and nested reward spoilers conceal whole en
     if (variant === 'endpoint') k.entityById.get('boss:cangang').spoilerLevel = 'major';
     if (variant === 'nested') k.entityById.get('weapon:jagged-steel').spoilerLevel = 'major';
     const g = projectGameplayRelations(k.entityById.get('location:beiqi-xigu'), k), entry = g[0].entries.find((e) => e.entity.id === 'boss:cangang');
-    assert(entry.concealed); assert(!displayedGameplayRelations(g).some((v) => v.id === r.id));
+    assert(entry.concealed); assert.deepEqual(entry.relation.sourceIds, r.sourceIds);
   }
 });
 test('existing character relationship labels and inverse endpoints remain unchanged', async () => {

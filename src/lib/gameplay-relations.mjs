@@ -12,10 +12,6 @@ function item(relation, entityId, knowledge) {
   return {
     relation, entity, href: routes[entity.entityType] + entity.slug,
     description: relation.relationType === 'appearsIn' ? basis.map((f) => f.value).join(' ') : null,
-    versionText: knowledge.versionById.get(relation.gameVersionId).displayName,
-    scopeText: ['platforms', 'difficulties'].map((key) => relation.scope[key].mode === 'all'
-      ? (key === 'platforms' ? '来源未区分平台' : '来源未区分难度')
-      : relation.scope[key].ids.map((id) => (key === 'platforms' ? knowledge.platformById : knowledge.difficultyById).get(id).displayName).join('、')).join('；'),
     concealed: relationIsConcealed(relation, knowledge), children: []
   };
 }
@@ -48,8 +44,4 @@ export function projectGameplayRelations(entity, knowledge) {
   } else if (entity.entityType === 'weapon') groups = [{ key: 'acquisition', title: '获取方式', entries: getWeaponAcquisition(entity.id, knowledge) }];
   else groups = [];
   return groups.filter((group) => group.entries.length);
-}
-export function displayedGameplayRelations(groups) {
-  return groups.flatMap((group) => group.entries).filter((entry) => !entry.concealed)
-    .flatMap((entry) => [entry.relation, ...entry.children.map((child) => child.relation)]);
 }
