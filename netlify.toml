@@ -2,6 +2,10 @@
   publish = "dist"
   command = "npm ci && npm run build"
 
+[build.environment]
+  # Keep npm aligned with packageManager when Node's bundled npm changes.
+  NPM_VERSION = "11.17.0"
+
 # Deploy Preview uses the same static build pipeline as Production.
 [context.deploy-preview]
   publish = "dist"
