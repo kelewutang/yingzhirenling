@@ -4,15 +4,17 @@ const controlLabels = new Map([
   ['○', String.fromCodePoint(0x5706, 0x5708, 0x952e)],
   ['L1', 'L1'],
   ['L2', 'L2'],
+  ['R1', 'R1'],
+  ['Ⓛ', '左摇杆'],
   ['R2', 'R2']
 ]);
-const controlMatcher = /L1|L2|R2|□|△|○|\+/gu;
-const controlTokenPattern = '(?:L1|L2|R2|□|△|○)';
+const controlMatcher = /L1|L2|R1|R2|Ⓛ|□|△|○|\+/gu;
+const controlTokenPattern = '(?:L1|L2|R1|R2|Ⓛ|□|△|○)';
 const controllerInputPattern = new RegExp(
   `^(?:${controlTokenPattern}(?:\\s+${controlTokenPattern})*|${controlTokenPattern}\\s*\\+\\s*${controlTokenPattern})$`,
   'u'
 );
-const inlineInputMatcher = /(?:L1|L2|R2|□|△|○)(?:(?:\s*\+\s*|\s+)(?:L1|L2|R2|□|△|○))*/gu;
+const inlineInputMatcher = /(?:L1|L2|R1|R2|Ⓛ|□|△|○)(?:(?:\s*\+\s*|\s+)(?:L1|L2|R1|R2|Ⓛ|□|△|○))*/gu;
 const connectorLabel = String.fromCodePoint(0x52a0);
 
 export function parseControllerInput(input) {

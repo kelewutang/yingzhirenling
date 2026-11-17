@@ -90,9 +90,9 @@ test('result model covers reset, visible counts, and zero results', () => {
   assert.equal(collectionBrowserResult(model.items, resetCollectionBrowserQuery()).count, 20);
 });
 
-test('only the 21-weapon collection activates the existing browser', async () => {
+test('only the 26-weapon collection activates the existing browser', async () => {
   const families = [
-    ['weapons', 21],
+    ['weapons', 26],
     ['bosses', 5],
     ['characters', 6],
     ['locations', 4]

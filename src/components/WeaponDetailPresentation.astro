@@ -100,7 +100,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
     <p class="detail-section-heading__eyebrow">PROGRESSION</p>
     <h2 id="weapon-progression-title">武器成长</h2>
   </div>
-  {overview.baseStats.length > 0 && <p>以下为截图中可见的成长节点及解锁等级，不表示当前1级武器已解锁。</p>}
+  {overview.baseStats.length > 0 && <p>以下为截图中可见的成长节点，等级仅按截图标注，不代表当前已全部解锁。</p>}
   <ol class="weapon-detail-list">
     {progressionNodes.map((fact) => <li data-weapon-progression-node-id={fact.id}>{isMajorSpoiler(fact) ? <SpoilerDisclosure>
       {fact.level && <p class="weapon-progression-level" data-weapon-progression-level-for={fact.id}>Lv{fact.level}</p>}

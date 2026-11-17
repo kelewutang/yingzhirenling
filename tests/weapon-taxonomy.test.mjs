@@ -36,7 +36,7 @@ test('unverified release categories remain absent while historical evidence is r
   const allWeapons = await readAllWeapons();
   const publishedWeapons = allWeapons.filter((weapon) => weapon.recordState === 'published');
   const publishedSlugs = publishedWeapons.map((weapon) => weapon.slug).sort();
-  const expectedSlugs = [...expectedTaxonomy.keys(), 'muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu', 'hongzhuang-guizhan', 'yu-gong', 'zhuiming-suolian', 'wangming-zhanmadao', 'zhuobi-dun', 'tie-quantao', 'tianxuan-qingtong-jian', 'kuye-si-zhuchuan', 'cuixin-pipa', 'luanying-jian', 'yao-ju'].sort();
+  const expectedSlugs = [...expectedTaxonomy.keys(), 'muzhi-heishang', 'heishang', 'heishang-shuangren', 'changxing-heishang', 'jagged-steel', 'juxiong-fu', 'hongzhuang-guizhan', 'yu-gong', 'zhuiming-suolian', 'wangming-zhanmadao', 'zhuobi-dun', 'tie-quantao', 'tianxuan-qingtong-jian', 'kuye-si-zhuchuan', 'cuixin-pipa', 'luanying-jian', 'yao-ju', 'huo-liuxing', 'caoou-lingdang', 'tan-lang', 'leiting-qiang', 'tiansha-shuangyue'].sort();
   assert.deepEqual(publishedSlugs, expectedSlugs, 'Published Weapon set must exactly match the frozen taxonomy table');
   assert(!publishedSlugs.includes('qinglong-lueyue-dao'), 'Draft Qinglong must stay outside the published taxonomy gate');
   for (const slug of ['tang-hengdao', 'ya-hengdao']) {

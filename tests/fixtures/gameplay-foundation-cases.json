@@ -195,7 +195,7 @@
       "fact": {
         "key": "weapon.mechanic",
         "valueType": "object",
-        "value": {"name": "测试机制", "derivedInputs": [{"inputs": ["R1"], "label": "测试派生", "labelKind": "official"}]},
+        "value": {"name": "测试机制", "derivedInputs": [{"inputs": ["R3"], "label": "测试派生", "labelKind": "official"}]},
         "status": "observation"
       }
     },

@@ -275,6 +275,24 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:caoou-lingdang",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "caoou-lingdang",
+    "route": "/weapons/caoou-lingdang",
+    "displayName": "操偶铃铛",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "召唤",
+      "影之武装",
+      "武器"
+    ],
+    "summary": "操偶师的古旧铃铛，铃音空灵，响动间，可号令各式人偶。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:changxing-heishang",
     "documentType": "entity",
     "entityType": "weapon",
@@ -391,6 +409,24 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "weapon:huo-liuxing",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "huo-liuxing",
+    "route": "/weapons/huo-liuxing",
+    "displayName": "火流星",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "影之武装",
+      "武器",
+      "武学"
+    ],
+    "summary": "流星锤中装有烈性磷粉，出手如流火破空，将战场化为黄泉炼狱。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "weapon:jagged-steel",
     "documentType": "entity",
     "entityType": "weapon",
@@ -446,6 +482,24 @@
       "武器"
     ],
     "summary": "苦叶寺碧海大师留下的古朴念珠，不施雕琢，唯余岁月之厚重。若祭出此物，便可召唤青年苦叶寺弟子出战。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:leiting-qiang",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "leiting-qiang",
+    "route": "/weapons/leiting-qiang",
+    "displayName": "雷霆枪",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "影之武装",
+      "武器",
+      "武学"
+    ],
+    "summary": "随“组织”高手长鸿一同扬名于江湖的长枪，能引四方电芒萦绕，成雷霆之势。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -507,6 +561,43 @@
       "试玩"
     ],
     "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:tan-lang",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "tan-lang",
+    "route": "/weapons/tan-lang",
+    "displayName": "贪狼",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "影之武装",
+      "武器",
+      "破坏"
+    ],
+    "summary": "堕落将军征战沙场的狼牙棒，挥舞如狂狼噬血，击敌即能饮血。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "weapon:tiansha-shuangyue",
+    "documentType": "entity",
+    "entityType": "weapon",
+    "slug": "tiansha-shuangyue",
+    "route": "/weapons/tiansha-shuangyue",
+    "displayName": "天煞双钺",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "主武器",
+      "双持",
+      "双持武器",
+      "武器"
+    ],
+    "summary": "一寸短一寸险，普通连招可积累煞气，并衍生出千变万化的冷酷收割。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

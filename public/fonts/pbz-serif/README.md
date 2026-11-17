@@ -2,7 +2,7 @@
 
 - **Upstream project:** [Adobe Source Han Serif](https://github.com/adobe-fonts/source-han-serif), release `2.003R` / `release` branch.
 - **Upstream source:** `Variable/WOFF2/OTF/Subset/SourceHanSerifCN-VF.otf.woff2` from <https://raw.githubusercontent.com/adobe-fonts/source-han-serif/release/Variable/WOFF2/OTF/Subset/SourceHanSerifCN-VF.otf.woff2> (10,421,244 bytes; SHA-256 `808cb3203bb9cdd6b166a8a656a0c7608a7dc2a31c41c2cd0374550cae445471`). The full upstream asset is intentionally not stored under `public/`.
-- **Production asset:** `PBZSerif-Display-Subset.woff2` (440,364 bytes; SHA-256 `99522e50f95659dddd37e27965d4a81ee49efd50b9166f5ec063d726c3b7f3eb`). It is a project-generated subset that retains the variable `wght` axis only from 400 through 700.
+- **Production asset:** `PBZSerif-Display-Subset.woff2` (458,032 bytes; SHA-256 `589f381d6eb6081989ff2760a0ff10f05da2a1308711653cebd3401962abd1c5`). It is a project-generated subset that retains the variable `wght` axis only from 400 through 700.
 - **License:** SIL Open Font License 1.1. The required Adobe copyright notice and complete license text are in [`OFL.txt`](OFL.txt), copied from <https://raw.githubusercontent.com/adobe-fonts/source-han-serif/release/LICENSE.txt>.
 - **Modified naming:** this subset is a modified distribution. Its embedded family and the CSS family are `PBZ Serif`; it does not use Adobe's Reserved Font Name as its primary font name.
 

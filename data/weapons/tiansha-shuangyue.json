@@ -1,0 +1,562 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "weapon:tiansha-shuangyue",
+  "entityType": "weapon",
+  "slug": "tiansha-shuangyue",
+  "displayName": "天煞双钺",
+  "aliases": [],
+  "summary": "一寸短一寸险，普通连招可积累煞气，并衍生出千变万化的冷酷收割。",
+  "summaryFactIds": [
+    "fact:weapon:tiansha-shuangyue:release-exists",
+    "fact:weapon:tiansha-shuangyue:release-name",
+    "fact:weapon:tiansha-shuangyue:release-system-category",
+    "fact:weapon:tiansha-shuangyue:release-type",
+    "fact:weapon:tiansha-shuangyue:release-description"
+  ],
+  "facts": [
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "天煞双钺",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "双持武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "一寸短一寸险，普通连招可积累煞气，并衍生出千变万化的冷酷收割。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "双持",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 1030,
+        "displayedLevel": 24,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 390,
+        "displayedLevel": 24,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-mechanic-1",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-mechanic-2",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △ △ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。所有 △ 连招的末尾招式可将双钺掷出去并回收。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-mechanic-3",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "煞气",
+        "description": "□ 命中敌人可以积蓄煞气，积满后，造成的伤害及杀气削减提升，20秒后结束且煞气清空。期间 △ 连招会将双钺掷出，缠绕于敌人身上持续切割。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-mechanic-4",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "天煞破敌",
+        "input": "L2",
+        "description": "L2 消耗1精纯杀气以优雅之姿释放凶厉之斩。无法被敌人防御。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-node-ungraded-1",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "天煞双劫",
+        "description": "煞气提升至两层，第一层充满后可继续充能，充满第二层后，△ 连招、【群煞击】、【断肠击】的招式都会增强，并刷新煞气的持续时间。16秒后结束且煞气清空。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。 此紫色标题条目未显示解锁等级，不能认定为当前等级已解锁。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 5,
+        "name": "绕身偷袭",
+        "description": "将闪避替换为短距离绕身腾挪，完美闪避可以大幅提升煞气。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 15,
+        "name": "群煞击",
+        "input": "L1 + △",
+        "description": "L1 + △ 消耗全部煞气扔出大量幻化双钺并追踪攻击锁定的敌人。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-node-20",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 20,
+        "name": "煞气流转·之二",
+        "description": "□ 击中时积蓄煞气的速度中幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    },
+    {
+      "id": "fact:weapon:tiansha-shuangyue:release-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "level": 25,
+        "name": "断肠击",
+        "input": "△ △",
+        "description": "施展绝技【天煞破敌】，完美闪避红光技能，或完美格挡蓝光技能后，可衔接 △ △ 后撤并进行连续强力远程攻击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-release-weapons-2026-11-17-batch3"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-17",
+      "gameVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-ui-2026-11-17-batch3",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261102201531_1.jpg／20261102201534_1.jpg／20261102201600_1.jpg／20261102201603_1.jpg；仅记录截图展示内容、属性等级及可见成长节点，不推断完整成长树或获取地点。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-17",
+  "updatedAt": "2026-11-17",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null
+}
