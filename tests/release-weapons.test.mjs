@@ -21,6 +21,47 @@ const expectations = [
   ['juxiong-fu', '巨凶斧', null, [['伤害能力', 309], ['破防能力', 208]]]
 ];
 
+// Frozen screenshot cohorts from ace9d83b (PR #79). IDs and content digests
+// protect the original evidence independently of the later Owner name record.
+const secondBatchCohorts = {
+  'tianxuan-qingtong-jian': [4, true, 16, 'f98c3eace9a465a9e764dcd6f26febea8e5ae33ce95dc861a68f65b531942776'],
+  'kuye-si-zhuchuan': [1, false, 12, 'c2642d207b440def2c219c79058603fc0dbb27b06bc77ceb88b5d125afd83fbb'],
+  'cuixin-pipa': [2, false, 13, '6c6266f680928c96f88e8257b88f2e93f37cd05c2f080f5c87a58ebbeafae354'],
+  'luanying-jian': [4, true, 16, 'b1bcd6111449eba5cfa1b21465f265da99fcece6a341c1321159bf5673400073'],
+  'yao-ju': [4, true, 16, '94b1c7f4363242126fc2ec26f2d0782f4d4d4369d3c47e46b006d4919942ac9c']
+};
+const ownerSoulSource = 'source:owner-weapon-soul-names-2026-11-18';
+const ownerSoulVersion = 'version:release-owner-soul-names-2026-11-18';
+
+function assertOwnerSoulName(fact, slug, name) {
+  assert.deepEqual(fact, {
+    id: `fact:weapon:${slug}:soul-forged-name-owner`,
+    key: 'weapon.soulForgedName', valueType: 'string', value: name,
+    status: 'observation', sourceIds: [ownerSoulSource], basisFactIds: [],
+    checkedAt: '2026-11-18', gameVersionId: ownerSoulVersion,
+    scope: { platforms: slug === 'heishang-shuangren' ? { mode: 'all', ids: [] } : { mode: 'include', ids: ['platform:pc'] }, difficulties: { mode: 'all', ids: [] } },
+    validFromVersionId: ownerSoulVersion, validToVersionId: null, supersededBy: null,
+    reviewNote: '负责人确认的更名；缺少铸魂后详情截图，不据此推断外观、属性、技能或成长变化。'
+  });
+}
+
+function assertSecondBatchCohort(entity) {
+  const [mechanics, grip, count, digest] = secondBatchCohorts[entity.slug];
+  const suffixes = ['release-exists', 'release-name', 'release-system-category', 'release-type', 'release-description',
+    ...(grip ? ['release-grip'] : []), 'release-stat-1', 'release-stat-2',
+    ...Array.from({ length: mechanics }, (_, i) => `release-mechanic-${i + 1}`),
+    ...[5, 10, 15, 25].map((level) => `release-node-${level}`)];
+  const ids = suffixes.map((suffix) => `fact:weapon:${entity.slug}:${suffix}`);
+  const ownerId = `fact:weapon:${entity.slug}:soul-forged-name-owner`;
+  const allowedIds = entity.slug === 'luanying-jian' ? [...ids, ownerId] : ids;
+  assert.equal(ids.length, count);
+  assert.deepEqual(entity.facts.map((f) => f.id).sort(), [...allowedIds].sort(), 'No deleted, replaced, repeated or unapproved extra Fact');
+  const originals = ids.map((id) => entity.facts.find((f) => f.id === id));
+  assert.equal(createHash('sha256').update(JSON.stringify(originals)).digest('hex'), digest, 'Original screenshot Facts must retain their complete contents and provenance');
+  if (entity.slug === 'luanying-jian') assertOwnerSoulName(entity.facts.find((f) => f.id === ownerId), entity.slug, '天邈·乱莺');
+  return originals;
+}
+
 test('Sharp loads the patched native libraries and round-trips a PNG in memory', async () => {
   const { default: sharp } = await import('sharp');
   assert.equal(sharp.versions.sharp, '0.35.5');
@@ -60,12 +101,51 @@ test('second owner screenshot batch keeps five unique published weapons, exact L
     assert.deepEqual(detail.progressionNodes.map((f) => f.level), [5, 10, 15, 25]);
     assert.equal(detail.mechanics.length, mechanics);
     assert.equal(detail.overview.previewStats.length, 0);
-    assert(entity.facts.every((f) => f.status === 'observation' && f.gameVersionId === version && f.sourceIds.length === 1 && f.sourceIds[0] === source));
+    const screenshotFacts = assertSecondBatchCohort(entity);
+    assert(screenshotFacts.every((f) => f.status === 'observation' && f.gameVersionId === version && f.sourceIds.length === 1 && f.sourceIds[0] === source));
     assert(entity.facts.every((f) => f.scope.platforms.mode === 'include' && f.scope.platforms.ids.length === 1 && f.scope.platforms.ids[0] === 'platform:pc'));
     const hero = await getProductionHeroMedia(entity.id);
     const card = await getProductionCardMedia(entity.id);
     assert.deepEqual([hero.id, hero.src, hero.width, hero.height, hero.objectFit, hero.sourceId, hero.rightsStatus], [card.id, card.src, 1200, 1800, 'contain', source, 'self-captured-reviewed']);
   }
+});
+
+test('Owner soul names remain separate, limited evidence on the four existing identities', async () => {
+  const knowledge = await loadKnowledge(), source = knowledge.sourceById.get(ownerSoulSource), version = knowledge.versionById.get(ownerSoulVersion);
+  assert.equal(source.sourceType, 'owner-confirmation');
+  assert.equal(source.authority, 'community'); assert.equal(source.url, null);
+  assert.equal(source.locator.type, 'user-supplied-statement'); assert.equal(source.locator.confirmedAt, '2026-11-18');
+  assert.equal(source.locator.evidenceItems, undefined, 'Owner statement must not impersonate screenshots');
+  assert.deepEqual(version.sourceIds, [ownerSoulSource]); assert.equal(version.versionLabel, null);
+  for (const [slug, original, forged] of [['heishang', '黑伤', '黑魔伤'], ['heishang-shuangren', '黑伤双刃', '绝影'], ['changxing-heishang', '长形黑伤', '炽刃'], ['luanying-jian', '乱莺剑', '天邈·乱莺']]) {
+    const entity = knowledge.entityById.get(`weapon:${slug}`);
+    assert.equal(entity.displayName, original); assert.equal(entity.slug, slug);
+    assert.equal(getFact(entity, 'weapon.name', knowledge).value, original);
+    const names = entity.facts.filter((f) => f.key === 'weapon.soulForgedName');
+    assert.equal(names.length, 1); assertOwnerSoulName(names[0], slug, forged);
+    assert(!entity.aliases.some((alias) => alias.value.includes('长型黑伤')));
+    assert(!entity.facts.some((f) => ['weapon.formSet', 'weapon.soulForgeEffect'].includes(f.key)), 'Names alone do not substantiate technical form data');
+    assert.deepEqual(entity.facts.filter((f) => f.sourceIds.includes(ownerSoulSource)).map((f) => f.id), [names[0].id]);
+  }
+});
+
+test('second batch evidence grouping still rejects deletion, replacement, reassignment, edits and arbitrary extra Facts', async () => {
+  const knowledge = await loadKnowledge();
+  const mutations = [
+    (entity) => { entity.facts.splice(0, 1); },
+    (entity) => { entity.facts[0].id += '-replacement'; },
+    (entity) => { entity.facts[0].sourceIds = [ownerSoulSource]; },
+    (entity) => { entity.facts[0].gameVersionId = ownerSoulVersion; },
+    (entity) => { entity.facts.find((f) => f.key === 'weapon.baseStat').value.displayedValue += 1; },
+    (entity) => { entity.facts.push({ ...entity.facts[0], id: 'fact:weapon:unapproved:extra' }); }
+  ];
+  for (const slug of Object.keys(secondBatchCohorts)) for (const mutate of mutations) {
+    const entity = structuredClone(knowledge.entityById.get(`weapon:${slug}`)); mutate(entity);
+    assert.throws(() => assertSecondBatchCohort(entity), assert.AssertionError, slug);
+  }
+  const entity = structuredClone(knowledge.entityById.get('weapon:luanying-jian'));
+  entity.facts.find((f) => f.key === 'weapon.soulForgedName').sourceIds = ['source:owner-pc-release-weapons-2026-11-16-batch2'];
+  assert.throws(() => assertSecondBatchCohort(entity), assert.AssertionError);
 });
 
 test('second batch preserves summon conditions, ordinary rage, dark source and free follow-up boundaries', async () => {

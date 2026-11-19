@@ -4,7 +4,8 @@ import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { getFact } from '../lib/knowledge.mjs';
 import { entitySafeProjection, isMajorSpoiler, mediaIsConcealed } from '../lib/spoilers.mjs';
 
-const { entity, aliases = [], eyebrow, taxonomy = null, media = null } = Astro.props;
+const { entity, aliases = [], eyebrow, taxonomy = null, media = null, heading = 'h1' } = Astro.props;
+const Heading = heading;
 const safe = entitySafeProjection(entity);
 const major = isMajorSpoiler(entity);
 const revealMedia = mediaIsConcealed(media, entity);
@@ -16,7 +17,7 @@ const description = descriptionFact && !['pending-review', 'editorial'].includes
 <header class="entity-hero">
   <div class="entity-hero__identity">
     {!releaseWeapon && <p class="entity-hero__eyebrow">{eyebrow}</p>}
-    <h1 class="entity-hero__title">{safe.displayName}</h1>
+    <Heading class="entity-hero__title">{safe.displayName}</Heading>
     {!major && taxonomy && <p class="entity-hero__taxonomy" data-weapon-hero-taxonomy>{taxonomy}</p>}
     {!major && !releaseWeapon && aliases.length > 0 && <p class="entity-hero__aliases">{aliases.join('、')}</p>}
     {showSummary && <p class="entity-hero__summary">{safe.summary}</p>}

@@ -1,0 +1,67 @@
+---
+import EntityHero from './EntityHero.astro';
+import WeaponDetailPresentation from './WeaponDetailPresentation.astro';
+import SpoilerDisclosure from './SpoilerDisclosure.astro';
+import { isMajorSpoiler } from '../lib/spoilers.mjs';
+const { formSet } = Astro.props;
+const base = formSet.forms.base;
+const labels = { base: '铸魂前', soulForged: '铸魂后' };
+---
+<div data-weapon-forms>
+  <h1 class="entity-hero__title" data-form-title>{isMajorSpoiler(formSet) ? '武器资料' : base.name}</h1>
+  {isMajorSpoiler(formSet) ? <SpoilerDisclosure>
+    {Object.entries(formSet.forms).map(([key, form]) => <section aria-label={labels[key]}>
+      <EntityHero entity={form.entity} media={form.media} taxonomy={form.detail.taxonomy?.valueText} heading="h2" />
+      {key === 'soulForged' && <p>由{base.name}铸魂获得</p>}
+      <WeaponDetailPresentation detail={form.detail} idPrefix={`${key}-`} />
+    </section>)}
+  </SpoilerDisclosure> : <>
+    <div class="weapon-form-tabs" data-form-controls hidden>
+      {Object.keys(formSet.forms).map((key) => <button type="button" data-form-button={key} id={`form-tab-${key}`} aria-controls={`weapon-form-${key}`}>{labels[key]}</button>)}
+    </div>
+    {Object.entries(formSet.forms).map(([key, form]) => <section id={`weapon-form-${key}`} data-form-panel={key} data-form-name={form.name} aria-label={`${labels[key]}：${form.name}`}>
+      <EntityHero entity={form.entity} media={form.media} taxonomy={form.detail.taxonomy?.valueText} heading="h2" />
+      {key === 'soulForged' && <p>由{base.name}铸魂获得</p>}
+      <WeaponDetailPresentation detail={form.detail} idPrefix={`${key}-`} />
+    </section>)}
+  </>}
+</div>
+<style>
+  .weapon-form-tabs { display:flex; gap:0.75rem; margin:1.5rem 0; }
+  .weapon-form-tabs[hidden], [data-form-panel][hidden] { display:none; }
+  .weapon-form-tabs button { min-width:7rem; min-height:44px; padding:0.5rem 1rem; border:1px solid currentColor; border-radius:4px; color:inherit; background:transparent; cursor:pointer; }
+  .weapon-form-tabs button[aria-selected="true"] { background:var(--color-bg-tertiary, #292320); color:var(--color-gold, #d6b36a); }
+  .weapon-form-tabs button:focus-visible { outline:3px solid var(--color-gold, #d6b36a); outline-offset:4px; }
+  [data-form-panel] { min-width:0; }
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-weapon-forms]').forEach((root) => {
+    const controls = root.querySelector<HTMLElement>('[data-form-controls]');
+    if (!controls) return;
+    const buttons = [...controls.querySelectorAll<HTMLButtonElement>('[data-form-button]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-form-panel]')];
+    const title = root.querySelector<HTMLElement>('[data-form-title]');
+    const select = (button: HTMLButtonElement) => {
+      buttons.forEach((item) => { const selected = item === button; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.formPanel !== button.dataset.formButton; if (!panel.hidden && title) title.textContent = panel.dataset.formName || ''; });
+    };
+    controls.setAttribute('role', 'tablist');
+    controls.setAttribute('aria-label', '武器形态');
+    buttons.forEach((button, index) => {
+      button.setAttribute('role', 'tab');
+      button.addEventListener('click', () => select(button));
+      button.addEventListener('keydown', (event) => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % buttons.length;
+        if (event.key === 'ArrowLeft') next = (index + buttons.length - 1) % buttons.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = buttons.length - 1;
+        if (next === undefined) return;
+        event.preventDefault(); select(buttons[next]); buttons[next].focus({ preventScroll: true });
+      });
+    });
+    panels.forEach((panel) => { panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-labelledby', `form-tab-${panel.dataset.formPanel}`); panel.tabIndex = 0; });
+    select(buttons[0]);
+    controls.hidden = false;
+  });
+</script>

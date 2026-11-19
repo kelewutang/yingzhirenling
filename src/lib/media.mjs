@@ -16,10 +16,10 @@ async function loadMediaRecords() {
  * Sources, or the Knowledge Schema. The media validator guarantees that this
  * function can only return a production-eligible local record.
  */
-async function getProductionMedia(entityId, usage, entity = null) {
+async function getProductionMedia(entityId, usage, entity = null, form = 'base') {
   const records = await loadMediaRecords();
   const media = records.find((media) => (
-    media.entityId === entityId &&
+    media.entityId === entityId && (media.weaponForm || 'base') === form &&
     media.recordState === 'published' &&
     media.usage.includes(usage) &&
     ['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed', 'official-promotional-risk-accepted'].includes(media.rightsStatus)
@@ -31,8 +31,8 @@ async function getProductionMedia(entityId, usage, entity = null) {
   return { ...media, ...presentation, src: `/assets/media/${media.src}` };
 }
 
-export function getProductionHeroMedia(entityId, entity = null) {
-  return getProductionMedia(entityId, 'hero', entity);
+export function getProductionHeroMedia(entityId, entity = null, form = 'base') {
+  return getProductionMedia(entityId, 'hero', entity, form);
 }
 
 export function getProductionCardMedia(entityId, entity = null) {

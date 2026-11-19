@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseControllerInput } from '../src/lib/controller-inputs.mjs';
+import { validateWeaponForms } from '../src/lib/weapon-forms.mjs';
 import { gameplayRelationEndpoints, relationWindowsOverlap } from '../src/lib/relations.mjs';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -37,7 +38,7 @@ const VERSION_STAGES_BY_TRACK = new Map([
 ]);
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot', 'user-supplied-game-screenshot', 'internal-test-session']);
+const SOURCE_LOCATOR_TYPES = new Set(['url', 'user-supplied-screenshot', 'user-supplied-game-screenshot', 'internal-test-session', 'user-supplied-statement']);
 const INTERNAL_RELEASE_TEST_SOURCE_TYPE = 'site-release-test';
 const PREVIEW_STAT_CONTEXT = 'official-pre-release-ui';
 const WEAPON_DETAIL_DESCRIPTION_MAX_LENGTH = 280;
@@ -228,6 +229,13 @@ function validateSourceLocator(source, location, report = error) {
   const locator = source.locator;
   if (!SOURCE_LOCATOR_TYPES.has(locator.type)) {
     report(`${location}.locator.type`, '仅支持 url、user-supplied-screenshot、user-supplied-game-screenshot 或 internal-test-session');
+    return;
+  }
+  if (locator.type === 'user-supplied-statement') {
+    if (source.url !== null || source.sourceType !== 'owner-confirmation' || source.authority !== 'community' ||
+        typeof locator.recordId !== 'string' || !SLUG_PATTERN.test(locator.recordId) ||
+        typeof locator.statement !== 'string' || !locator.statement.trim()) report(location, 'Owner statement requires community authority, stable record, explicit statement and url=null');
+    validateDate(locator.confirmedAt, `${location}.locator.confirmedAt`, { report });
     return;
   }
   if (locator.type === 'url') {
@@ -1217,6 +1225,7 @@ for (const [factId, { relative: location, fact }] of facts) {
   if ('authority' in fact || 'publisherKind' in fact || 'isOfficial' in fact) {
     error(location, 'Fact 不得复制 Source authority 或使用 isOfficial；可信度只能由 status 表达');
   }
+  if (sourceIds.some((id) => sources.get(id)?.locator?.type === 'user-supplied-statement') && fact.key !== 'weapon.soulForgedName') error(location, 'Owner naming confirmation cannot verify technical Facts');
   const registryEntry = factRegistry.get(fact.key);
   if (!registryEntry) {
     error(`${location}.key`, `Fact key 未注册：${fact.key}`);
@@ -1304,6 +1313,11 @@ for (const [factId, { relative: location, fact }] of facts) {
     seen.add(cursor);
     cursor = facts.get(cursor).fact.supersededBy;
   }
+}
+
+const formMedia = JSON.parse(await fs.readFile(path.join(DATA_DIR, 'media.json'), 'utf8')).records;
+for (const { entity } of entities.values()) {
+  if (entity.entityType === 'weapon') for (const message of validateWeaponForms(entity, { sourceById: sources, versionById: versions, mediaRecords: formMedia })) error('weapon forms', message);
 }
 
 if (errors.length > 0) {

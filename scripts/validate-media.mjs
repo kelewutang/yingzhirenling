@@ -137,6 +137,7 @@ if (!isObject(document)) {
       else if (ids.has(media.id)) error(`${location}.id`, `重复 ID：${media.id}`);
       else ids.add(media.id);
       const entity = entityById.get(media.entityId);
+      if (media.weaponForm !== undefined && (entity?.entityType !== 'weapon' || !['base', 'soulForged'].includes(media.weaponForm))) error(`${location}.weaponForm`, 'Only Weapon base/soulForged media is supported');
       if (typeof media.entityId !== 'string' || !entityIds.has(media.entityId)) error(`${location}.entityId`, '必须引用存在的 Entity');
       else if (media.recordState === 'published' && entity.recordState !== 'published') error(`${location}.entityId`, 'published Media 必须引用 published Entity，draft 或 archived Entity 不得进入 production');
       if (typeof media.src !== 'string' || !filenamePattern.test(media.src)) error(`${location}.src`, '必须是 assets/media 下的小写 ASCII 图像文件名');
@@ -202,7 +203,7 @@ if (isObject(document) && Array.isArray(document.records)) {
     if (!isProductionEligible(media) || typeof media.entityId !== 'string' || !Array.isArray(media.usage)) continue;
     for (const usage of media.usage) {
       if (!productionUsages.has(usage)) continue;
-      const key = `${media.entityId}\u0000${usage}`;
+      const key = `${media.entityId}\u0000${media.weaponForm || 'base'}\u0000${usage}`;
       const first = singularSlots.get(key);
       if (first !== undefined) error(`data/media.json.records[${index}].usage`, `与 records[${first}] 形成重复的 production ${usage} mapping：${media.entityId}`);
       else singularSlots.set(key, index);

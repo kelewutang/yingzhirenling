@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-weapon-soul-names-2026-11-18",
+  "sourceType": "owner-confirmation",
+  "authority": "community",
+  "publisher": "项目负责人",
+  "title": "武器铸魂更名确认（P3-CN-WEAPON-SOUL-01）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-statement",
+    "recordId": "weapon-soul-names-2026-11-18",
+    "confirmedAt": "2026-11-18",
+    "statement": "负责人在本 Gate 确认：黑伤铸魂后为黑魔伤；黑伤双刃铸魂后为绝影；长形黑伤铸魂后为炽刃；乱莺剑铸魂后为天邈·乱莺。每组属于同一武器。原名称以长形黑伤为准，不保留错字别名。"
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-18",
+  "archivedUrl": null,
+  "notes": "仅为负责人名称与身份确认，不是游戏截图独立核验，不支持技能、数值、具体外观、铸魂效果或本站实测结论。"
+}
