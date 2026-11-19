@@ -299,7 +299,9 @@
     "slug": "changxing-heishang",
     "route": "/weapons/changxing-heishang",
     "displayName": "长形黑伤",
-    "aliases": [],
+    "aliases": [
+      "炽刃"
+    ],
     "displayAliases": [],
     "keywords": [
       "主武器",
@@ -359,7 +361,9 @@
     "slug": "heishang",
     "route": "/weapons/heishang",
     "displayName": "黑伤",
-    "aliases": [],
+    "aliases": [
+      "黑魔伤"
+    ],
     "displayAliases": [],
     "keywords": [
       "主武器",
@@ -378,7 +382,9 @@
     "slug": "heishang-shuangren",
     "route": "/weapons/heishang-shuangren",
     "displayName": "黑伤双刃",
-    "aliases": [],
+    "aliases": [
+      "绝影"
+    ],
     "displayAliases": [],
     "keywords": [
       "主武器",
@@ -510,7 +516,9 @@
     "slug": "luanying-jian",
     "route": "/weapons/luanying-jian",
     "displayName": "乱莺剑",
-    "aliases": [],
+    "aliases": [
+      "天邈·乱莺"
+    ],
     "displayAliases": [],
     "keywords": [
       "主武器",

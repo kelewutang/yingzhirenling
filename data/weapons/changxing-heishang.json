@@ -520,6 +520,35 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": "负责人2026-10-29补充确认的正式版分类；装备类型与分类分别记录，不从刀剑等历史描述推断。"
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-forged-name-owner",
+      "key": "weapon.soulForgedName",
+      "valueType": "string",
+      "value": "炽刃",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-weapon-soul-names-2026-11-18"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-18",
+      "gameVersionId": "version:release-owner-soul-names-2026-11-18",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-owner-soul-names-2026-11-18",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "负责人确认的更名；缺少铸魂后详情截图，不据此推断外观、属性、技能或成长变化。"
     }
   ],
   "taxonomyIds": [],

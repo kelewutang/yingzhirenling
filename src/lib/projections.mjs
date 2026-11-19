@@ -1,4 +1,5 @@
 import { getFact, statusLabel, versionLabel } from './knowledge.mjs';
+import { activeFormFact, resolveWeaponForms } from './weapon-forms.mjs';
 
 const specs = [
   ['weapon.exists', '核心资料', '公开记录'],
@@ -31,7 +32,7 @@ function displayValue(fact) {
   if (['weapon.previewStat', 'weapon.baseStat'].includes(fact.key)) {
     return `Lv${fact.value.displayedLevel}：${fact.value.statName} ${fact.value.displayedValue}`;
   }
-  if (['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) &&
+  if (['weapon.mechanic', 'weapon.progressionNode', 'weapon.soulForgeEffect'].includes(fact.key) &&
       fact.valueType === 'object') {
     return fact.value.name;
   }
@@ -41,7 +42,7 @@ function displayValue(fact) {
 function detailDescription(fact) {
   if (fact.key === 'weapon.previewStat') return '官方预发布界面观察，数值可能随正式版平衡调整。';
   if (fact.key === 'weapon.baseStat') return 'PC正式版界面显示值，具体版本号未知。';
-  if (['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key) &&
+  if (['weapon.mechanic', 'weapon.progressionNode', 'weapon.soulForgeEffect'].includes(fact.key) &&
       fact.valueType === 'object') return fact.value.description || null;
   if (fact.status === 'editorial') return '本站发售前编辑判断，不是官方评分或试玩客观数值。';
   return null;
@@ -109,6 +110,8 @@ function preferredWeaponFact(facts, knowledge) {
 }
 
 export function projectWeaponDetail(weapon, knowledge) {
+  const forms = resolveWeaponForms(weapon);
+  if (forms) return projectWeaponDetail(forms.forms.base.entity, knowledge);
   const systemCategoryFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.systemCategory'), knowledge);
   const weaponTypeFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.weaponType'), knowledge);
   const gripFact = preferredWeaponFact(activeWeaponFacts(weapon, 'weapon.grip'), knowledge);
@@ -144,8 +147,18 @@ export function projectWeaponDetail(weapon, knowledge) {
       .map((fact) => projectWeaponFact(fact, '招式与机制', '招式与机制', knowledge)),
     progressionNodes: activeWeaponFacts(weapon, 'weapon.progressionNode')
       .map((fact) => projectWeaponFact(fact, '武器成长', '武器成长', knowledge)),
+    soulForgeEffects: weapon.facts.filter((fact) => fact.key === 'weapon.soulForgeEffect' && activeFormFact(fact))
+      .map((fact) => projectWeaponFact(fact, '铸魂效果', '铸魂效果（铸魂后解锁）', knowledge)),
     sourceFacts: weapon.facts.filter((fact) => fact.key !== 'weapon.acquisitionOrder' && fact.supersededBy === null && fact.validToVersionId == null)
   };
+}
+
+export function projectWeaponFormDetails(weapon, knowledge) {
+  const set = resolveWeaponForms(weapon);
+  if (!set) return null;
+  return { ...set, forms: Object.fromEntries(Object.entries(set.forms).map(([key, form]) => [key,
+    { ...form, detail: projectWeaponDetail(form.entity, knowledge) }
+  ])) };
 }
 
 const namedEntityDetailKeys = new Set(['boss.mechanic', 'boss.strategy', 'location.route', 'location.bell', 'location.hiddenArea', 'location.quest', 'character.encounter', 'character.quest']);

@@ -3,221 +3,359 @@
   "factKeys": [
     {
       "key": "weapon.exists",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["boolean"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "boolean"
+      ],
       "description": "该武器实体是否已在可核查材料中出现。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.name",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "材料中出现或当前整理采用的武器名称；是否属于官方正式名称由 Fact status 决定。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.kind",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "历史兼容用的混合武器分类描述；已发布 Weapon 的公开 taxonomy 使用独立装备类型与可选武器类别。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.systemCategory",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "武器在已确认武器系统中的定位类别，例如主武器或影之武。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.weaponType",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "正式版分类：主武器仅单手武器、双手武器、双持武器；影之武装仅破坏、远程、奇门、武学、召唤。分类可选，缺少证据不填；刀剑等历史类别不作当前分类。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.publicAppearance",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["enum"],
-      "enumValues": ["demo", "trailer", "promotional-material", "state-of-play"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "enum"
+      ],
+      "enumValues": [
+        "demo",
+        "trailer",
+        "promotional-material",
+        "state-of-play"
+      ],
       "description": "武器在当前发售前材料中的公开出现方式，用一个枚举避免 displayedInDemo 等近义 key 扩散。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.observedTrait",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "可从公开试玩或实机材料直接观察到的特点；未知时允许 pending-review 的 null 值。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.editorRating",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["rating"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "rating"
+      ],
       "description": "本站编辑评价，必须保持 editorial，不能被解释为官方或试玩数值。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.acquisition",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "武器获取方式；未有可靠来源时使用 pending-review、null 和 reviewNote。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.mechanic",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["string", "object"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string",
+        "object"
+      ],
       "description": "公开材料明确命名的武器战斗机制；可使用受限 object 记录名称、截图中可明确读出的简短说明和可确认的控制器输入，不推断完整机制或其他平台映射。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.progressionNode",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["string", "object"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string",
+        "object"
+      ],
       "description": "公开武器界面中可明确读出的成长或特性节点名称；可使用受限 object 记录名称、可见解锁等级、截图中可明确读出的简短说明和可确认的控制器输入，不推断完整节点图或其他平台映射。",
       "requiresAsOf": false
     },
     {
       "key": "weapon.previewStat",
-      "applicableEntityTypes": ["weapon"],
-      "allowedValueTypes": ["object"],
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
       "description": "官方发售前 UI 中观察到的属性显示值，必须含属性名、显示数值、显示等级和 official-pre-release-ui 显示场景；不得作为正式版发布后属性。",
       "requiresAsOf": false
     },
     {
       "key": "difficulty.option",
-      "applicableEntityTypes": ["system"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "system"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "游戏系统资料中一个可独立核验的难度选项名称。",
       "requiresAsOf": false
     },
     {
       "key": "difficulty.accessibilityIntent",
-      "applicableEntityTypes": ["system"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "system"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "官方材料直接说明的难度可及性或设计目标。",
       "requiresAsOf": false
     },
     {
       "key": "mode.availability",
-      "applicableEntityTypes": ["system"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "system"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "一种玩法的可用条件或多次流程语境。",
       "requiresAsOf": false
     },
     {
       "key": "mode.saveRule",
-      "applicableEntityTypes": ["system"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "system"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "一种玩法中可独立核验的存档限制。",
       "requiresAsOf": false
     },
     {
       "key": "mode.failureRule",
-      "applicableEntityTypes": ["system"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "system"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "一种玩法中可独立核验的中断或用完限制。",
       "requiresAsOf": false
     },
     {
       "key": "achievement.difficultyRequirement",
-      "applicableEntityTypes": ["system"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "system"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "成就或 trophy 与难度选择之间的已确认要求。",
       "requiresAsOf": false
     },
     {
       "key": "weaponProgression.design",
-      "applicableEntityTypes": ["system"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "system"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "游戏整体的武器成长设计原则；不为个体武器推断统一升级节点。",
       "requiresAsOf": false
     },
     {
       "key": "character.exists",
-      "applicableEntityTypes": ["character"],
-      "allowedValueTypes": ["boolean"],
+      "applicableEntityTypes": [
+        "character"
+      ],
+      "allowedValueTypes": [
+        "boolean"
+      ],
       "description": "该角色实体是否已在可核查材料中明确出现或被提及。",
       "requiresAsOf": false
     },
     {
       "key": "character.name",
-      "applicableEntityTypes": ["character"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "character"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "材料中直接使用的角色名称；语言形式与来源保持一致，不据此推定其他本地化名称。",
       "requiresAsOf": false
     },
     {
       "key": "character.role",
-      "applicableEntityTypes": ["character"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "character"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "角色在作品中的身份或叙事定位，例如主角；不得用于表达 Character-to-Character 关系，父子、同伴、师徒等关系应使用 Relation 表达。",
       "requiresAsOf": false
     },
     {
       "key": "boss.exists",
-      "applicableEntityTypes": ["boss"],
-      "allowedValueTypes": ["boolean"],
+      "applicableEntityTypes": [
+        "boss"
+      ],
+      "allowedValueTypes": [
+        "boolean"
+      ],
       "description": "该 Boss identity 是否已在可核查的公开资料中出现。",
       "requiresAsOf": false
     },
     {
       "key": "boss.name",
-      "applicableEntityTypes": ["boss"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "boss"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "资料中直接使用的 Boss 名称；不据此推定其他本地化名称。",
       "requiresAsOf": false
     },
     {
       "key": "boss.kind",
-      "applicableEntityTypes": ["boss"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "boss"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "来源明确支持的 Boss 或敌人类型描述。",
       "requiresAsOf": false
     },
     {
       "key": "boss.publicAppearance",
-      "applicableEntityTypes": ["boss"],
-      "allowedValueTypes": ["enum"],
-      "enumValues": ["gameplay-video", "demo", "trailer", "official-showcase"],
+      "applicableEntityTypes": [
+        "boss"
+      ],
+      "allowedValueTypes": [
+        "enum"
+      ],
+      "enumValues": [
+        "gameplay-video",
+        "demo",
+        "trailer",
+        "official-showcase"
+      ],
       "description": "Boss 在发售前材料中的公开出现方式。",
       "requiresAsOf": false
     },
     {
       "key": "location.exists",
-      "applicableEntityTypes": ["location"],
-      "allowedValueTypes": ["boolean"],
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "boolean"
+      ],
       "description": "该地点 identity 是否已在可核查的公开资料中出现或被明确提及。",
       "requiresAsOf": false
     },
     {
       "key": "location.name",
-      "applicableEntityTypes": ["location"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "资料中直接使用的地点名称；不根据描述性场景或非官方翻译创造专名。",
       "requiresAsOf": false
     },
     {
       "key": "location.kind",
-      "applicableEntityTypes": ["location"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "来源明确支持的地点类别，例如小镇或建筑；不建立多级地图 taxonomy。",
       "requiresAsOf": false
     },
     {
       "key": "location.publicAppearance",
-      "applicableEntityTypes": ["location"],
-      "allowedValueTypes": ["enum"],
-      "enumValues": ["official-showcase"],
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "enum"
+      ],
+      "enumValues": [
+        "official-showcase"
+      ],
       "description": "地点在当前发售前材料中的公开出现方式。",
       "requiresAsOf": false
     },
     {
       "key": "location.observedTrait",
-      "applicableEntityTypes": ["location"],
-      "allowedValueTypes": ["string"],
+      "applicableEntityTypes": [
+        "location"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
       "description": "可从公开实机或场景展示直接观察到的地点特征，不用于推断地图结构或流程位置。",
       "requiresAsOf": false
     },
@@ -400,6 +538,39 @@
         "object"
       ],
       "description": "角色相关任务的已核实目标或交付提醒，value仅含name与description。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.soulForgedName",
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "同一实体的铸魂后名称，不替换基础名称或创建URL；负责人名称确认可作为依据。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.soulForgeEffect",
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "独立铸魂效果，仅name和description；不能作为等级成长节点。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "weapon.formSet",
+      "applicableEntityTypes": [
+        "weapon"
+      ],
+      "allowedValueTypes": [
+        "object"
+      ],
+      "description": "显式双形态Fact与媒体引用、稳定技能身份及共享/修改/新增/移除映射。",
       "requiresAsOf": false
     }
   ]

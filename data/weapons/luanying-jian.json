@@ -518,6 +518,35 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": "20261031214645_1.jpg／20261031214647_1.jpg／20261031214651_1.jpg；同件装备相邻截图补全基础及进阶内容，未从装备栏中其他武器等级推断本件数值。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-forged-name-owner",
+      "key": "weapon.soulForgedName",
+      "valueType": "string",
+      "value": "天邈·乱莺",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-weapon-soul-names-2026-11-18"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-18",
+      "gameVersionId": "version:release-owner-soul-names-2026-11-18",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-owner-soul-names-2026-11-18",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "负责人确认的更名；缺少铸魂后详情截图，不据此推断外观、属性、技能或成长变化。"
     }
   ],
   "taxonomyIds": [],

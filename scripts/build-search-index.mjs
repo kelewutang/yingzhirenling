@@ -1,3 +1,4 @@
+import { searchableForgedNames } from '../src/lib/weapon-forms.mjs';
 import { spawnSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -198,7 +199,7 @@ function validateSummarySupport(entity, file) {
 }
 
 function deriveAliases(entity, file) {
-  const searchable = [];
+  const searchable = searchableForgedNames(entity);
   const displayable = [];
 
   for (const alias of entity.aliases) {
