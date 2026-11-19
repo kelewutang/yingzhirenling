@@ -8,6 +8,7 @@ import { weaponFormsFixture } from './fixtures/weapon-forms.mjs';
 import { validateWeaponForms, resolveWeaponForms, searchableForgedNames } from '../src/lib/weapon-forms.mjs';
 import { projectWeaponDetail, projectWeaponFormDetails } from '../src/lib/projections.mjs';
 import { loadKnowledge, getPublishedWeapons } from '../src/lib/knowledge.mjs';
+import { getProductionHeroMedia, getProductionCardMedia } from '../src/lib/media.mjs';
 
 const targetPairs = [['heishang', '黑伤', '黑魔伤'], ['heishang-shuangren', '黑伤双刃', '绝影'], ['changxing-heishang', '长形黑伤', '炽刃'], ['luanying-jian', '乱莺剑', '天邈·乱莺']];
 test('four renames retain canonical IDs, slugs and 26 published weapons; no typo alias', async () => {
@@ -20,6 +21,29 @@ test('four renames retain canonical IDs, slugs and 26 published weapons; no typo
     assert(!entity.aliases.some((alias) => alias.value.includes('长型黑伤')));
     assert.deepEqual(validateWeaponForms(entity, k), []);
   }
+});
+test('four reviewed forged appearances keep base Hero/Card and independent screenshot evidence', async () => {
+  const k = await loadKnowledge();
+  for (const [slug, , name] of targetPairs) {
+    const entity = k.entityById.get(`weapon:${slug}`);
+    const base = await getProductionHeroMedia(entity.id, entity);
+    const card = await getProductionCardMedia(entity.id, entity);
+    const forged = await getProductionHeroMedia(entity.id, entity, 'soulForged');
+    assert.equal(base.id, `media:${slug}-master`);
+    assert.equal(card.id, base.id);
+    assert.equal(forged.id, `media:${slug}-soul-forged-master`);
+    assert.equal(forged.weaponForm, 'soulForged');
+    assert.notEqual(forged.src, base.src);
+    assert(forged.alt.includes(name));
+    assert.equal(forged.width, 1200); assert.equal(forged.height, 1800);
+    assert.equal(forged.rightsStatus, 'self-captured-reviewed');
+    const source = k.sourceById.get(forged.sourceId);
+    assert.equal(source.locator.type, 'user-supplied-game-screenshot');
+    assert(source.locator.evidenceItems.some((item) => forged.processing.includes(item.sha256)));
+    assert.equal(resolveWeaponForms(entity), null);
+    assert.equal(await getProductionHeroMedia(entity.id, { ...entity, spoilerLevel: 'major' }, 'soulForged'), null);
+  }
+  assert.equal(await getProductionHeroMedia('weapon:white-shadow', k.entityById.get('weapon:white-shadow'), 'soulForged'), null);
 });
 test('full explicit fixture validates; both forms retain identity and each independent media/name', () => {
   const { entity, knowledge } = weaponFormsFixture();

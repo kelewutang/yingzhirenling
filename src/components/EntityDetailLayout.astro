@@ -1,6 +1,7 @@
 ---
 import Breadcrumb from './Breadcrumb.astro';
 import EntityHero from './EntityHero.astro';
+import EntityMedia from './EntityMedia.astro';
 import QuickFacts from './QuickFacts.astro';
 import DetailFactSections from './DetailFactSections.astro';
 import RelationList from './RelationList.astro';
@@ -13,7 +14,7 @@ import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs'
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { entitySafeProjection, isMajorSpoiler } from '../lib/spoilers.mjs';
 
-const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, media, relations = [], gameplayRelations = [], relatedGuides = [], weaponDetail = null, weaponForms = null, canonical } = Astro.props;
+const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, media, relations = [], gameplayRelations = [], relatedGuides = [], weaponDetail = null, weaponForms = null, soulForgedAppearance = null, canonical } = Astro.props;
 const safe = entitySafeProjection(entity);
 const major = isMajorSpoiler(entity);
 const breadcrumbStructuredData = createBreadcrumbList([
@@ -43,5 +44,12 @@ const breadcrumbStructuredData = createBreadcrumbList([
     <GameplayRelations groups={gameplayRelations} />
     <RelatedGuides guides={relatedGuides} />
   </>}
+  {!major && soulForgedAppearance && <section class="entity-hero" aria-labelledby="soul-appearance-title" data-soul-appearance>
+    <div class="entity-hero__identity">
+      <h2 id="soul-appearance-title">铸魂后外观</h2>
+      <p class="entity-hero__title">{soulForgedAppearance.name}</p>
+    </div>
+    <EntityMedia entity={entity} media={soulForgedAppearance.media} showSourceLink={false} />
+  </section>}
   <p class="entity-detail__return"><a class="btn btn-outline" href={collectionHref}>返回{entity.entityType === 'boss' ? ' ' : ''}{returnLabel}</a></p>
 </article>
