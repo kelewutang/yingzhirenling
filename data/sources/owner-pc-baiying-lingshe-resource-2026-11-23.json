@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-baiying-lingshe-resource-2026-11-23",
+  "sourceType": "owner-confirmation",
+  "authority": "community",
+  "publisher": "项目负责人",
+  "title": "白影、灵蛇软剑紫色资源图标术语确认",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-statement",
+    "recordId": "baiying-lingshe-resource-2026-11-23",
+    "confirmedAt": "2026-11-23",
+    "statement": "负责人确认本批截图紫色资源消耗图标的正式名称为「精纯杀气」，统一写法为「消耗1精纯杀气」（不加「点」）；紫色文字条目为独立铸魂效果。",
+    "screenshotSourceId": "source:owner-pc-baiying-lingshe-2026-11-23",
+    "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+    "resourceName": "精纯杀气",
+    "factIds": [
+      "fact:weapon:white-shadow:pc-20261123-howls",
+      "fact:weapon:soft-snake-sword:pc-20261123-dance"
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-23",
+  "archivedUrl": null,
+  "notes": "仅提供所列两项技能的资源名称；数量1、按键、条件及技能效果仍由截图独立绑定。普通杀气不替换。"
+}

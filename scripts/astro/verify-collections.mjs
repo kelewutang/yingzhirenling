@@ -87,7 +87,7 @@ for (const [slug, chinese, english] of [
   const document = search.find((item) => item.id === `weapon:${slug}`);
   assert(card.includes(`<h3 class="entity-card__title">${chinese}</h3>`) && card.includes(english), `${slug}: bilingual collection name missing`);
   assert(detail.includes(`<h1 class="entity-hero__title">${chinese}</h1>`), `${slug}: Chinese detail name missing`);
-  if (slug === 'soft-snake-sword') assert(detail.includes(`<p class="entity-hero__aliases">${english}</p>`), `${slug}: historical detail alias missing`);
+  if (slug === 'soft-snake-sword') assert(detail.includes('data-weapon-hero-description="fact:weapon:soft-snake-sword:pc-20261123-description"'), `${slug}: current screenshot introduction missing`);
   assert.equal(document?.route, `/weapons/${slug}`, `${slug}: original Search URL changed`);
   assert.equal(document?.displayName, chinese, `${slug}: Chinese Search title missing`);
   assert(document?.aliases.includes(english), `${slug}: English Search alias missing`);

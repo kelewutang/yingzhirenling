@@ -1,5 +1,6 @@
 import { isDeepStrictEqual } from 'node:util';
 import { relationWindowsOverlap } from './relations.mjs';
+import { isIndependentPcEffect, isPcResourceConfirmation, validatePcWeaponDetails } from './weapon-pc-details.mjs';
 
 export const soulKeys = new Set(['weapon.soulForgedName', 'weapon.soulForgeEffect', 'weapon.formSet']);
 export const activeFormFact = (fact) => fact.supersededBy === null && fact.validToVersionId === null && fact.status !== 'pending-review';
@@ -23,7 +24,9 @@ export function isForgedBatchFact(fact) {
 }
 
 // Owner testimony supplies only the label for the resource shown in the PC screenshots.
-export function isSoulResourceConfirmation(fact, source) {
+export function isSoulResourceConfirmation(fact, source, entity) {
+  if (isPcResourceConfirmation(fact, source)) return !entity || fact.id.startsWith(`fact:${entity.id}:`);
+  if (entity && !isSoulFormWeapon(entity)) return false;
   const locator = source?.locator;
   return fact?.key === 'weapon.mechanic' && fact.gameVersionId === batchVersionId &&
     fact.sourceIds?.includes(batchSourceId) && source?.id === resourceSourceId &&
@@ -112,7 +115,7 @@ function verifyBatchEvidence(entity, set, baseIds, forgedIds, { sourceById, vers
 
 /** Validate explicit references, never infer shared skills from a label or a level. */
 export function validateWeaponForms(entity, { sourceById, versionById, mediaRecords = [] }) {
-  const errors = [];
+  const errors = validatePcWeaponDetails(entity, { sourceById, versionById });
   const fail = (message) => errors.push(`${entity.id}: ${message}`);
   if (entity.recordState === 'published' && isSoulFormWeapon(entity)) {
     for (const alias of entity.aliases ?? []) {
@@ -127,12 +130,12 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
     if (fact.sourceIds?.some((id) => {
       const source = sourceById.get(id);
       return source?.locator?.type === 'user-supplied-statement' &&
-        (!isSoulFormWeapon(entity) || !isSoulResourceConfirmation(fact, source));
+        !isSoulResourceConfirmation(fact, source, entity);
     }) && fact.key !== 'weapon.soulForgedName') {
       fail(`${fact.id}: Owner statement may support a name, not technical game facts`);
     }
     if (!soulKeys.has(fact.key)) continue;
-    if (requiresForgedEvidence(entity, fact) && !isBatchSet(entity, fact)) fail(`${fact.id}: cannot publish soulForged technical Facts without entity/form/Fact/version evidence`);
+    if (requiresForgedEvidence(entity, fact) && !isBatchSet(entity, fact) && !isIndependentPcEffect(entity, fact)) fail(`${fact.id}: cannot publish soulForged technical Facts without entity/form/Fact/version evidence`);
     if (!fact.sourceIds?.length || fact.sourceIds.some((id) => !sourceById.has(id))) fail(`${fact.id}: missing Source`);
     if (!versionById.has(fact.gameVersionId)) fail(`${fact.id}: missing GameVersion`);
     if (fact.key === 'weapon.soulForgedName' && (!text(fact.value) || fact.value.length > 80)) fail(`${fact.id}: invalid forged name`);

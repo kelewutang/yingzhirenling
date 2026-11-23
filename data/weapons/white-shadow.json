@@ -5,31 +5,570 @@
   "slug": "white-shadow",
   "displayName": "白影",
   "aliases": [],
-  "summary": "白影是一把双手武器，以冰冻相关机制为主要特色。刀身无影，寒光似雪。",
-  "summaryFactIds": ["fact:weapon:white-shadow:exists", "fact:weapon:white-shadow:name", "fact:weapon:white-shadow:kind", "fact:weapon:white-shadow:freeze-trait", "fact:weapon:white-shadow:description"],
+  "summary": "PC正式版界面确认的双手主武器；刀身无影，寒光似雪。",
+  "summaryFactIds": ["fact:weapon:white-shadow:pc-20261123-system-category","fact:weapon:white-shadow:pc-20261123-grip","fact:weapon:white-shadow:pc-20261123-description"],
   "facts": [
-    {"id": "fact:weapon:white-shadow:exists", "key": "weapon.exists", "valueType": "boolean", "value": true, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:name", "key": "weapon.name", "valueType": "string", "value": "白影", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:exists", "key": "weapon.exists", "valueType": "boolean", "value": true, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:name", "key": "weapon.name", "valueType": "string", "value": "白影", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
     {"id": "fact:weapon:white-shadow:kind", "key": "weapon.kind", "valueType": "string", "value": "双手武器", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-ui-2026-10-29", "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:system-category", "key": "weapon.systemCategory", "valueType": "string", "value": "主武器", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
     {"id": "fact:weapon:white-shadow:weapon-type", "key": "weapon.weaponType", "valueType": "string", "value": "双手剑", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": "fact:weapon:white-shadow:weapon-type-official", "reviewNote": null},
     {"id": "fact:weapon:white-shadow:weapon-type-official", "key": "weapon.weaponType", "valueType": "string", "value": "苗刀", "status": "official", "sourceIds": ["source:official-bilibili-producer-2026-09-09-difficulty-weapons-players"], "basisFactIds": [], "checkedAt": "2026-10-06", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-ui-2026-10-29", "supersededBy": null, "reviewNote": "制作人原文明确称白影为“一把细长的苗刀”；同段中的获取阶段信息不属于本次公开范围。"},
-    {"id": "fact:weapon:white-shadow:freeze-trait", "key": "weapon.observedTrait", "valueType": "string", "value": "具有冰冻相关机制。", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:description", "key": "weapon.observedTrait", "valueType": "string", "value": "刀身无影，寒光似雪。", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:mechanic-basic-combo", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "普通连招", "input": "□ □ □ □ □"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:mechanic-killing-intent-combo", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "杀气连招", "description": "可接在任意段数的普通攻击后释放；杀气充足时会发动强化攻击，具有更高的伤害和破防能力。", "input": "△ △ △"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:mechanic-freeze", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "冰冻", "description": "命中敌人时使其冰缓，并叠加冰冻计量条；计量条叠满后会冰冻敌人。"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:mechanic-white-shadow-howls", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "白影寒啸", "description": "消耗 1 点对应资源，挥舞长刃斩出漫天白影；招式结束后必定冰冻敌人。", "input": "L2"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": "“对应资源”为中性占位，不是 canonical 游戏术语；待后续官方证据确认资源名称后替换。"},
-    {"id": "fact:weapon:white-shadow:node-ice-strike", "key": "weapon.progressionNode", "valueType": "object", "value": {"name": "寒冰击", "level": 5, "description": "使用刀背快速敲击敌人，并为武器短暂附上冰霜；下一招会使敌人的冰冻计量条大幅提升。", "input": "L1 + △"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": "现有 7/14 进阶内容截图在“寒冰击”上方存在裁切，因此可能还有其他成长内容，但无法从当前证据中确认。"},
-    {"id": "fact:weapon:white-shadow:node-pattern-blade", "key": "weapon.progressionNode", "valueType": "object", "value": {"name": "敛刃", "level": 15, "description": "使用“寒冰击”可以回复杀气。"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:node-ice-spike-finisher", "key": "weapon.progressionNode", "valueType": "object", "value": {"name": "冰刺终结", "level": 25, "description": "可突进至最近被冰冻的敌人处，造成伤害并延长冰冻持续时间。", "input": "△"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:node-bone-stripping-three", "key": "weapon.progressionNode", "valueType": "object", "value": {"name": "刺骨·之三", "level": 30, "description": "大幅提高冰冻积累速度。"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:preview-damage-ability-lv30", "key": "weapon.previewStat", "valueType": "object", "value": {"statName": "伤害能力", "displayedValue": 1443, "displayedLevel": 30, "displayContext": "official-pre-release-ui"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null},
-    {"id": "fact:weapon:white-shadow:preview-break-ability-lv30", "key": "weapon.previewStat", "valueType": "object", "value": {"statName": "破防能力", "displayedValue": 757, "displayedLevel": 30, "displayContext": "official-pre-release-ui"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": null, "supersededBy": null, "reviewNote": null}
+    {"id": "fact:weapon:white-shadow:freeze-trait", "key": "weapon.observedTrait", "valueType": "string", "value": "具有冰冻相关机制。", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:description", "key": "weapon.observedTrait", "valueType": "string", "value": "刀身无影，寒光似雪。", "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:mechanic-basic-combo", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "普通连招", "input": "□ □ □ □ □"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:mechanic-killing-intent-combo", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "杀气连招", "description": "可接在任意段数的普通攻击后释放；杀气充足时会发动强化攻击，具有更高的伤害和破防能力。", "input": "△ △ △"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:mechanic-freeze", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "冰冻", "description": "命中敌人时使其冰缓，并叠加冰冻计量条；计量条叠满后会冰冻敌人。"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:mechanic-white-shadow-howls", "key": "weapon.mechanic", "valueType": "object", "value": {"name": "白影寒啸", "description": "消耗 1 点对应资源，挥舞长刃斩出漫天白影；招式结束后必定冰冻敌人。", "input": "L2"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": "“对应资源”为中性占位，不是 canonical 游戏术语；待后续官方证据确认资源名称后替换。"},
+    {"id": "fact:weapon:white-shadow:node-ice-strike", "key": "weapon.progressionNode", "valueType": "object", "value": {"name": "寒冰击", "level": 5, "description": "使用刀背快速敲击敌人，并为武器短暂附上冰霜；下一招会使敌人的冰冻计量条大幅提升。", "input": "L1 + △"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": "现有 7/14 进阶内容截图在“寒冰击”上方存在裁切，因此可能还有其他成长内容，但无法从当前证据中确认。"},
+    {"id": "fact:weapon:white-shadow:node-pattern-blade", "key": "weapon.progressionNode", "valueType": "object", "value": {"name": "敛刃", "level": 15, "description": "使用“寒冰击”可以回复杀气。"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:node-ice-spike-finisher", "key": "weapon.progressionNode", "valueType": "object", "value": {"name": "冰刺终结", "level": 25, "description": "可突进至最近被冰冻的敌人处，造成伤害并延长冰冻持续时间。", "input": "△"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:node-bone-stripping-three", "key": "weapon.progressionNode", "valueType": "object", "value": {"name": "刺骨·之三", "level": 30, "description": "大幅提高冰冻积累速度。"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:preview-damage-ability-lv30", "key": "weapon.previewStat", "valueType": "object", "value": {"statName": "伤害能力", "displayedValue": 1443, "displayedLevel": 30, "displayContext": "official-pre-release-ui"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {"id": "fact:weapon:white-shadow:preview-break-ability-lv30", "key": "weapon.previewStat", "valueType": "object", "value": {"statName": "破防能力", "displayedValue": 757, "displayedLevel": 30, "displayContext": "official-pre-release-ui"}, "status": "observation", "sourceIds": ["source:official-douyin-2026-09-09-gameplay-article"], "basisFactIds": [], "checkedAt": "2026-09-10", "gameVersionId": "version:prelaunch-materials-2026-09", "scope": {"platforms": {"mode": "all", "ids": []}, "difficulties": {"mode": "all", "ids": []}}, "validFromVersionId": null, "validToVersionId": "version:release-pc-baiying-lingshe-2026-11-23", "supersededBy": null, "reviewNote": null},
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-exists",
+      "key": "weapon.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-name",
+      "key": "weapon.name",
+      "valueType": "string",
+      "value": "白影",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-system-category",
+      "key": "weapon.systemCategory",
+      "valueType": "string",
+      "value": "主武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-weapon-type",
+      "key": "weapon.weaponType",
+      "valueType": "string",
+      "value": "双手武器",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-grip",
+      "key": "weapon.grip",
+      "valueType": "enum",
+      "value": "双手",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "刀身无影，寒光似雪。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-stat-1",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 1200,
+        "displayedLevel": 30,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-stat-2",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "异常效果",
+        "displayedValue": 562,
+        "displayedLevel": 30,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-basic-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-killing-intent-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-freeze",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "冰冻",
+        "description": "命中敌人时，使其冰缓，并叠加冰冻计量条，叠满后冰冻敌人。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-howls",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "白影寒啸",
+        "input": "L2",
+        "description": "消耗1精纯杀气挥舞长刀斩出漫天白影。结束后必定冰冻敌人。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23",
+        "source:owner-pc-baiying-lingshe-resource-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102304_1.jpg；逐张原图人工核对。数量1来自截图；精纯杀气名称来自负责人术语确认。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "寒冰击",
+        "level": 5,
+        "input": "L1 + △",
+        "description": "使用刀背快速敲击敌人并为武器短暂附上冰霜，下一招会使敌人的冰冻计量条大幅提升。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102307_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "敛刃",
+        "level": 15,
+        "description": "使用【寒冰击】能回复杀气。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102307_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "冰刺终结",
+        "level": 25,
+        "input": "△",
+        "description": "按下 △ 突进至附近的冰冻状态敌人处，并对其造成伤害。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102307_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-node-30",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "刺骨·之三",
+        "level": 30,
+        "description": "大幅提高冰冻积累速度。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102311_1.jpg；逐张原图人工核对。"
+    },
+    {
+      "id": "fact:weapon:white-shadow:pc-20261123-effect",
+      "key": "weapon.soulForgeEffect",
+      "valueType": "object",
+      "value": {
+        "name": "雪上加霜",
+        "description": "即使攻击被格挡，敌方也会积累冰冻计量条。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-baiying-lingshe-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-baiying-lingshe-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "20261123102307_1.jpg；逐张原图人工核对。"
+    }
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-09-10",
-  "updatedAt": "2026-10-29",
+  "updatedAt": "2026-11-23",
   "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null

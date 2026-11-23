@@ -3,6 +3,7 @@ import test from 'node:test';
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { buildWeaponCollectionCard } from '../src/lib/collection-models.mjs';
+import { loadKnowledge } from '../src/lib/knowledge.mjs';
 import { projectWeaponDetail } from '../src/lib/projections.mjs';
 
 const root = resolve(process.cwd());
@@ -33,6 +34,7 @@ function activeFact(weapon, key) {
 }
 
 test('unverified release categories remain absent while historical evidence is retained', async () => {
+  const knowledge = await loadKnowledge();
   const allWeapons = await readAllWeapons();
   const publishedWeapons = allWeapons.filter((weapon) => weapon.recordState === 'published');
   const publishedSlugs = publishedWeapons.map((weapon) => weapon.slug).sort();
@@ -56,7 +58,7 @@ test('unverified release categories remain absent while historical evidence is r
     assert.ok(systemCategoryFact.sourceIds.length > 0, `${weapon.id}: system category must remain sourced`);
     assert.ok(weaponTypeFact.sourceIds.length > 0, `${weapon.id}: weapon type must remain sourced`);
 
-    const detail = projectWeaponDetail(weapon, { versionById: new Map() });
+    const detail = projectWeaponDetail(weapon, knowledge);
     const currentType = weapon.facts.find((f) => f.key === 'weapon.weaponType' && f.validToVersionId === null && f.supersededBy === null);
     const currentTaxonomy = currentType ? `${systemCategory} · ${currentType.value}` : systemCategory;
     assert.equal(detail.taxonomy?.valueText, currentTaxonomy);

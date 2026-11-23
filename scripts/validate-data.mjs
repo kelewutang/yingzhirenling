@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseControllerInput } from '../src/lib/controller-inputs.mjs';
-import { isForgedBatchFact, isSoulFormWeapon, isSoulResourceConfirmation, validateWeaponForms } from '../src/lib/weapon-forms.mjs';
+import { isForgedBatchFact, isSoulResourceConfirmation, validateWeaponForms } from '../src/lib/weapon-forms.mjs';
 import { gameplayRelationEndpoints, relationWindowsOverlap } from '../src/lib/relations.mjs';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -1229,7 +1229,7 @@ for (const [factId, { relative: location, fact }] of facts) {
   if (fact.key !== 'weapon.soulForgedName' && sourceIds.some((id) => {
     const source = sources.get(id);
     return source?.locator?.type === 'user-supplied-statement' &&
-      (!isSoulFormWeapon(factOwner) || !isSoulResourceConfirmation(fact, source));
+      !isSoulResourceConfirmation(fact, source, factOwner);
   })) error(location, 'Owner naming confirmation cannot verify technical Facts');
   const registryEntry = factRegistry.get(fact.key);
   if (!registryEntry) {

@@ -222,46 +222,6 @@ test('Unicode-equivalent withheld descriptions fall back consistently in page pr
   }
 });
 
-for (const slug of ['white-shadow', 'soft-snake-sword']) {
-  test(`historical summary compatibility is limited to the exact ${slug} record`, async () => {
-    const knowledge = await loadKnowledge();
-    const original = knowledge.entityById.get(`weapon:${slug}`);
-    const readSummary = (entity, sources = knowledge) => projectWeaponPublicContent(entity, sources).summary;
-    const kind = original.facts.find((fact) => fact.key === 'weapon.kind');
-    assert.equal(kind.validToVersionId, 'version:release-pc-ui-2026-10-29');
-    const changes = [
-      (weapon) => { weapon.summary += ' '; },
-      (weapon) => { weapon.summary = weapon.summary.slice(0, -2); },
-      (weapon) => { weapon.id = 'weapon:other'; },
-      (weapon) => { weapon.slug = 'other'; },
-      (weapon) => { weapon.recordState = 'draft'; },
-      (weapon) => { weapon.spoilerLevel = 'major'; },
-      (weapon) => { weapon.summaryFactIds.pop(); },
-      (weapon) => { weapon.summaryFactIds.push(weapon.summaryFactIds[0]); },
-      (weapon) => { weapon.summaryFactIds.push('fact:weapon:other:kind'); },
-      (weapon) => { weapon.facts = weapon.facts.filter((fact) => fact.id !== kind.id); },
-      (weapon) => { weapon.facts.find((fact) => fact.id === kind.id).validToVersionId = null; },
-      (weapon) => { weapon.facts.find((fact) => fact.id === kind.id).gameVersionId = kind.validToVersionId; },
-      (weapon) => { weapon.facts.find((fact) => fact.id === kind.id).sourceIds = []; }
-    ];
-    for (const mutate of changes) {
-      const entity = structuredClone(original);
-      mutate(entity);
-      assert.equal(readSummary(entity), weaponSummaryFallback, mutate.toString());
-    }
-    const changedVersion = new Map(knowledge.versionById);
-    changedVersion.delete(kind.validToVersionId);
-    assert.equal(readSummary(original, { ...knowledge, versionById: changedVersion }), weaponSummaryFallback);
-    changedVersion.set(kind.validToVersionId, { ...knowledge.versionById.get(kind.validToVersionId), sequence: 999 });
-    assert.equal(readSummary(original, { ...knowledge, versionById: changedVersion }), weaponSummaryFallback);
-    const changedSource = new Map(knowledge.sourceById);
-    const [sourceId] = kind.sourceIds;
-    changedSource.set(sourceId, { ...changedSource.get(sourceId), checkedAt: '2026-11-23' });
-    assert.equal(readSummary(original, { ...knowledge, sourceById: changedSource }), weaponSummaryFallback);
-    assert.equal(kind.validToVersionId, 'version:release-pc-ui-2026-10-29');
-  });
-}
-
 test('supported release summary composition ignores free text and needs a shared source and version', async () => {
   const knowledge = await loadKnowledge();
   const entity = structuredClone(knowledge.entityById.get('weapon:heishang'));

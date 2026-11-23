@@ -1,8 +1,8 @@
-import { createHash } from 'node:crypto';
 import { getFact, loadKnowledge, statusLabel, versionLabel } from './knowledge.mjs';
 import { getProductionHeroMedia } from './media.mjs';
 import { assertPublishableWeaponForms, isForgedBatchFact, isSoulFormWeapon, isSoulResourceConfirmation, resolveAppearanceForms } from './weapon-forms.mjs';
 import { isMajorSpoiler } from './spoilers.mjs';
+import { pcDetailsVersionId } from './weapon-pc-details.mjs';
 
 const specs = [
   ['weapon.exists', '核心资料', '公开记录'],
@@ -157,6 +157,8 @@ function projectWeaponDetailFacts(weapon, knowledge) {
       .map((fact) => projectWeaponFact(fact, '招式与机制', '招式与机制', knowledge)),
     progressionNodes: detailFacts('weapon.progressionNode')
       .map((fact) => projectWeaponFact(fact, '武器成长', '武器成长', knowledge)),
+    soulForgeEffects: detailFacts('weapon.soulForgeEffect')
+      .map((fact) => projectWeaponFact(fact, '铸魂效果', '铸魂效果', knowledge)),
     sourceFacts: weapon.facts.filter((fact) => fact.key !== 'weapon.acquisitionOrder' && fact.supersededBy === null && fact.validToVersionId == null)
   };
 }
@@ -164,7 +166,6 @@ function projectWeaponDetailFacts(weapon, knowledge) {
 const weaponSummaryFallback = '武器介绍待补充';
 const reviewedFactStatuses = new Set(['official', 'observation', 'third-party', 'release-verified']);
 const pcReleaseSnapshot = 'version:release-pc-ui-2026-10-29';
-const sha256 = (value) => createHash('sha256').update(value, 'utf8').digest('hex');
 
 function isReviewedWeaponFact(fact, knowledge) {
   if (!fact || !reviewedFactStatuses.has(fact.status) || fact.supersededBy !== null ||
@@ -179,45 +180,10 @@ function isReviewedWeaponFact(fact, knowledge) {
     });
 }
 
-// Owner-authorized compatibility with two exact HEAD outputs. Their historical
-// supporting Facts keep their original validity intervals; this grants no evidence eligibility.
-const historicalWeaponSummaries = new Map([
-  ['weapon:white-shadow', {
-    summary: 'd49489e16378cae8927f2d80263970f95c54421d11bc8bdec287841bbe2ddcb0',
-    support: 'c34c63155e5460ccec32c47be6562a743482a7ce32f2529a31f965a8869584f6'
-  }],
-  ['weapon:soft-snake-sword', {
-    summary: '07216497d60b9cd2cbb122d0d93b650927368974cdc6c4186d450ba39d8e7477',
-    support: '30fb7605f311efa5ca50c19abbb504e47a98a1253aabe192ee24765cd45e2423'
-  }]
-]);
-
-function sortRecordKeys(value) {
-  if (Array.isArray(value)) return value.map(sortRecordKeys);
-  if (value === null || typeof value !== 'object') return value;
-  return Object.fromEntries(Object.keys(value).sort().map((key) => [key, sortRecordKeys(value[key])]));
-}
-
-function historicalSummary(weapon, knowledge, expected) {
-  if (!knowledge || weapon.id !== `weapon:${weapon.slug}` ||
-    typeof weapon.summary !== 'string' || sha256(weapon.summary) !== expected.summary) return weaponSummaryFallback;
-  const ids = weapon.summaryFactIds ?? [];
-  const facts = [...ids].sort().map((id) => weapon.facts.find((fact) => fact.id === id));
-  if (facts.some((fact) => !fact)) return weaponSummaryFallback;
-  const versionIds = new Set(facts.flatMap((fact) => [fact.gameVersionId, fact.validFromVersionId, fact.validToVersionId]).filter(Boolean));
-  const versions = [...versionIds].sort().map((id) => knowledge.versionById.get(id));
-  if (versions.some((version) => !version)) return weaponSummaryFallback;
-  const sourceIds = new Set([...facts, ...versions].flatMap((record) => record.sourceIds));
-  const sources = [...sourceIds].sort().map((id) => knowledge.sourceById.get(id));
-  if (sources.some((source) => !source)) return weaponSummaryFallback;
-  const support = sha256(JSON.stringify(sortRecordKeys({ facts, versions, sources })));
-  return support === expected.support ? weapon.summary : weaponSummaryFallback;
-}
-
 function summaryFromDescription(weapon, description, knowledge) {
   const support = new Set(weapon.summaryFactIds ?? []);
   if (!description || isMajorSpoiler(description) || !support.has(description.id)) return weaponSummaryFallback;
-  if (description.gameVersionId !== pcReleaseSnapshot) return description.value;
+  if (![pcReleaseSnapshot, pcDetailsVersionId].includes(description.gameVersionId)) return description.value;
   const category = getFact(weapon, 'weapon.systemCategory');
   const grip = category?.value === '主武器' ? getFact(weapon, 'weapon.grip') : null;
   const basis = category?.value === '影之武装' ? [category] : [category, grip];
@@ -226,7 +192,7 @@ function summaryFromDescription(weapon, description, knowledge) {
     const locator = knowledge.sourceById.get(id)?.locator;
     return locator?.type === 'user-supplied-game-screenshot' && locator.platformId === 'platform:pc' &&
       appliesToPc(description) && basis.every((fact) => isReviewedWeaponFact(fact, knowledge) && !isMajorSpoiler(fact) &&
-        appliesToPc(fact) && fact.gameVersionId === pcReleaseSnapshot && support.has(fact.id) && fact.sourceIds.includes(id));
+        appliesToPc(fact) && fact.gameVersionId === description.gameVersionId && support.has(fact.id) && fact.sourceIds.includes(id));
   });
   if (!pcSource) return weaponSummaryFallback;
   return `PC正式版界面确认的${grip?.value ?? ''}${category.value}；${description.value}`;
@@ -239,8 +205,7 @@ export function projectWeaponPublicContent(weapon, knowledge) {
   if (weapon.entityType !== 'weapon' || weapon.recordState !== 'published' || isMajorSpoiler(weapon)) {
     return { description: null, summary: weaponSummaryFallback };
   }
-  const historical = historicalWeaponSummaries.get(weapon.id);
-  const summary = historical ? historicalSummary(weapon, knowledge, historical) : summaryFromDescription(weapon, reviewed, knowledge);
+  const summary = summaryFromDescription(weapon, reviewed, knowledge);
   return { description, summary };
 }
 
