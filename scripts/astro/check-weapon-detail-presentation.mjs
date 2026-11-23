@@ -178,11 +178,10 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   assert(!renderedOverview.includes('data-weapon-overview-field="type"'), `${slug}: legacy mixed kind must not render in overview`);
 }
 const sparseWeaponCard = collection.match(/<a class="entity-card entity-card--compact" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
-assert(sparseWeaponCard?.includes('entity-media__fallback'), 'Soft Snake Sword card must retain its fallback media');
+assert(sparseWeaponCard?.includes('data-media-state="ready"'), 'Soft Snake Sword card must render its admitted Master');
 assert.equal(buildWeaponCollectionCard(await readJson('data/weapons/soft-snake-sword.json')).context, 'PC正式版界面记录', 'Compact presentation must not erase the historical card context from its model');
 assert.equal(count(collection, 'class="entity-card__context"'), 0, 'Existing compact cards must omit rich-card contexts');
-const sparseWeaponFallback = sparseWeaponCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
-assert(!sparseWeaponFallback.includes('entity-media__name') && !sparseWeaponFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
+assert(!sparseWeaponCard.includes('entity-media__fallback'), 'Soft Snake Sword card must not retain fallback media after Master admission');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
 assert(characterFallback.includes('entity-media__fallback'), 'Character card must retain its fallback media');
 assert(characterFallback.includes('entity-media__name') && characterFallback.includes('entity-media__type'), 'Non-Weapon card fallback must retain fallback name and type classes');
@@ -205,7 +204,19 @@ for (const [entityId, slug, expectedId, expectedSrc, html] of [
 }
 for (const slug of ['soft-snake-sword']) {
   const card = collection.match(new RegExp(`<a class="entity-card entity-card--compact" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
-  assert(card.includes('data-media-state="fallback"'), `${slug}: Weapon without an approved Master must retain fallback media`);
+  const media = mediaRecords.find((record) => record.entityId === `weapon:${slug}` && record.recordState === 'published');
+  assert.equal(media?.id, 'media:soft-snake-sword-master', `${slug}: singular Master record missing`);
+  assert.equal(media.src, 'soft-snake-sword-master.jpg', `${slug}: stable Master asset missing`);
+  assert.equal(media.sourceId, 'source:owner-pc-baiying-lingshe-2026-11-23', `${slug}: actual screenshot provenance must be retained`);
+  assert.equal(media.rightsStatus, 'self-captured-reviewed', `${slug}: Master must retain its reviewed rights state`);
+  assert.deepEqual(media.usage, ['hero', 'card'], `${slug}: one Master must serve Hero and card`);
+  const hero = sparse.match(/<header class="entity-hero">[\s\S]*?<\/header>/)?.[0] || '';
+  for (const slot of [card, hero]) {
+    assert(slot.includes('data-media-state="ready"'), `${slug}: admitted Master must render ready state`);
+    assert(slot.includes(`src="/assets/media/${media.src}"`), `${slug}: both slots must use the same admitted Master`);
+    assert(slot.includes('width="1200" height="1800"') && slot.includes('object-fit:contain'), `${slug}: both slots must retain the Weapon Master dimensions and contain treatment`);
+    assert(!slot.includes('entity-media__fallback'), `${slug}: admitted Master must replace fallback media`);
+  }
 }
 for (const [slug, system, category] of [
   ['muzhi-heishang', '主武器', '单手武器'], ['heishang', '主武器', '单手武器'],
