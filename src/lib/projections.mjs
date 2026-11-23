@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { getFact, loadKnowledge, statusLabel, versionLabel } from './knowledge.mjs';
 import { getProductionHeroMedia } from './media.mjs';
-import { assertPublishableWeaponForms, isSoulFormWeapon, resolveAppearanceForms } from './weapon-forms.mjs';
+import { assertPublishableWeaponForms, isForgedBatchFact, isSoulFormWeapon, resolveAppearanceForms } from './weapon-forms.mjs';
 import { isMajorSpoiler } from './spoilers.mjs';
 
 const specs = [
@@ -94,7 +94,7 @@ function scopeText(scope, labels) {
 
 export function projectWeaponFacts(weapon, knowledge) {
   return specs.flatMap(([key, section, title]) =>
-    weapon.facts.filter((fact) => fact.key === key && fact.supersededBy === null && fact.validToVersionId == null)
+    weapon.facts.filter((fact) => !isForgedBatchFact(fact) && fact.key === key && fact.supersededBy === null && fact.validToVersionId == null)
       .map((fact) => projectWeaponFact(fact, section, title, knowledge))
   );
 }
@@ -114,6 +114,10 @@ function preferredWeaponFact(facts, knowledge) {
 
 export function projectWeaponDetail(weapon, knowledge) {
   assertPublishableWeaponForms(weapon, knowledge);
+  return projectWeaponDetailFacts({ ...weapon, facts: weapon.facts.filter((fact) => !isForgedBatchFact(fact)) }, knowledge);
+}
+
+function projectWeaponDetailFacts(weapon, knowledge) {
   const needsFormReview = isSoulFormWeapon(weapon);
   const detailFacts = (key) => activeWeaponFacts(weapon, key)
     .filter((fact) => !needsFormReview || isReviewedWeaponFact(fact, knowledge));
@@ -241,15 +245,16 @@ export function projectWeaponPublicContent(weapon, knowledge) {
 }
 
 export function projectWeaponFormDetails(weapon, knowledge, mediaRecords = knowledge.mediaRecords || []) {
-  assertPublishableWeaponForms(weapon, knowledge, mediaRecords);
+  assertPublishableWeaponForms(weapon, knowledge, knowledge.mediaRecords ?? mediaRecords);
   const set = resolveAppearanceForms(weapon, knowledge, mediaRecords);
   if (!set) return null;
   return { ...set, spoilerLevel: weapon.spoilerLevel === 'major' ? 'major' : set.spoilerLevel, forms: Object.fromEntries(Object.entries(set.forms).map(([key, form]) => [key,
     {
       ...form,
-      pendingTechnicalDetails: key === 'soulForged',
-      description: projectWeaponPublicContent(form.entity, knowledge).description,
-      detail: projectWeaponDetail(form.entity, knowledge)
+      pendingTechnicalDetails: key === 'soulForged' && form.entity.facts.length === 0,
+      description: key === 'base' ? projectWeaponPublicContent(form.entity, knowledge).description
+        : form.entity.facts.find((fact) => fact.key === 'weapon.description') ?? null,
+      detail: projectWeaponDetailFacts(form.entity, knowledge)
     }
   ])) };
 }

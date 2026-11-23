@@ -3,6 +3,7 @@ import EntityMedia from './EntityMedia.astro';
 import WeaponDetailPresentation from './WeaponDetailPresentation.astro';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { isMajorSpoiler } from '../lib/spoilers.mjs';
+import { isSoulFormWeapon } from '../lib/weapon-forms.mjs';
 import { loadPublishedWeaponForms } from '../lib/projections.mjs';
 const { weaponId } = Astro.props;
 const formSet = typeof weaponId === 'string' ? await loadPublishedWeaponForms(weaponId) : null;
@@ -34,7 +35,9 @@ const Content = major ? SpoilerDisclosure : 'div';
               ? <SpoilerDisclosure><p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p></SpoilerDisclosure>
               : <p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p>)
               : <p class="weapon-form-pending" data-form-pending="description">武器介绍待补充</p>}
-            <WeaponDetailPresentation detail={form.detail} pendingTechnicalDetails={form.pendingTechnicalDetails} idPrefix={`${key}-`} />
+            <WeaponDetailPresentation detail={form.detail} pendingTechnicalDetails={form.pendingTechnicalDetails}
+              showSoulForgePlaceholder={!isSoulFormWeapon(form.entity)}
+              forged={key === 'soulForged'} idPrefix={`${key}-`} />
           </div>
         </div>
       </section>;

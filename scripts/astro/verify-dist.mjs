@@ -3,6 +3,7 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { getVideoUrls, isProductionEligibleVideo } from '../../src/lib/video.mjs';
 import { projectWeaponPublicContent } from '../../src/lib/projections.mjs';
+import { isForgedBatchFact } from '../../src/lib/weapon-forms.mjs';
 import { loadKnowledge } from '../../src/lib/knowledge.mjs';
 import { entitySafeProjection } from '../../src/lib/spoilers.mjs';
 import { siteLifecycle } from '../../src/lib/site-lifecycle.mjs';
@@ -532,12 +533,21 @@ for (const weapon of publishedWeapons) {
   const { description: reviewedDescription, summary } = projectWeaponPublicContent(weapon, knowledge);
   assert.equal(metaContent(html, 'name', 'description', weapon.slug),
     `${entitySafeProjection(weapon).displayName}：${summary}`, `${weapon.slug}: Weapon SEO must use the public summary`);
+  const forgedStart = html.indexOf('id="weapon-form-soulForged"');
+  const baseHtml = forgedStart === -1 ? html : html.slice(0, forgedStart);
   const description = reviewedDescription;
   if (description) {
-    assert(html.includes(`<p class="entity-hero__summary" data-weapon-hero-description="${description.id}">${escapeHtml(description.value)}</p>`), `${weapon.slug}: Hero must use the original description Fact without an editorial prefix`);
-    assert.equal((html.match(/data-weapon-hero-description=/g) || []).length, 1, `${weapon.slug}: description must appear once`);
+    assert(baseHtml.includes(`<p class="entity-hero__summary" data-weapon-hero-description="${description.id}">${escapeHtml(description.value)}</p>`), `${weapon.slug}: Hero must use the original description Fact without an editorial prefix`);
+    assert.equal((baseHtml.match(/data-weapon-hero-description=/g) || []).length, 1, `${weapon.slug}: base description must appear once`);
   } else {
-    assert(!html.includes('entity-hero__summary'), `${weapon.slug}: do not invent a Hero description without a reliable Fact`);
+    assert(!baseHtml.includes('entity-hero__summary'), `${weapon.slug}: do not invent a Hero description without a reliable Fact`);
+  }
+  const forgedDescription = weapon.facts.find((fact) => fact.key === 'weapon.description' && isForgedBatchFact(fact));
+  if (forgedDescription) {
+    assert(forgedStart !== -1, `${weapon.slug}: forged description requires a separate panel`);
+    const forgedHtml = html.slice(forgedStart);
+    assert(forgedHtml.includes(`<p class="entity-hero__summary" data-weapon-hero-description="${forgedDescription.id}">${escapeHtml(forgedDescription.value)}</p>`));
+    assert.equal((forgedHtml.match(/data-weapon-hero-description=/g) || []).length, 1, `${weapon.slug}: forged description must appear once`);
   }
   assert(!html.includes('data-weapon-overview-note="weapon.description"') && !html.includes('<dt>武器介绍</dt>'), `${weapon.slug}: Weapon overview must omit the description module`);
   assert(!html.includes('<figcaption'), `${weapon.slug}: Weapon Media must not leave a caption container`);

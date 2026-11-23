@@ -1,0 +1,837 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-soul-forms-2026-11-23",
+  "sourceType": "user-game-screenshot",
+  "authority": "community",
+  "publisher": "项目负责人（本人截图）",
+  "title": "PC 铸魂后四武器实机界面（2026-11-23 提供）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-game-screenshot",
+    "platformId": "platform:pc",
+    "versionLabel": null,
+    "capturedAt": null,
+    "suppliedAt": "2026-11-23",
+    "confirmedAt": "2026-11-23",
+    "captureOwner": "项目负责人（本人截图）",
+    "evidenceItems": [
+      {
+        "id": "pc-101916",
+        "filename": "20261123101916_1.jpg",
+        "sha256": "92e43b0fe9094c866e2cebbe41974f3983cfcc30ed6ab566c7b4a0dbfa827492",
+        "weaponId": "weapon:heishang-shuangren",
+        "form": "soulForged",
+        "formName": "绝影"
+      },
+      {
+        "id": "pc-101920",
+        "filename": "20261123101920_1.jpg",
+        "sha256": "5743b76a9a1ab9487d67e57c9de499a145332ebd6b1008c95c22d963c5e92ae6",
+        "weaponId": "weapon:heishang-shuangren",
+        "form": "soulForged",
+        "formName": "绝影"
+      },
+      {
+        "id": "pc-101924",
+        "filename": "20261123101924_1.jpg",
+        "sha256": "ee63a00137d050f79e7a2caf5d66646ebd175fe2e1a037c398119435a608434f",
+        "weaponId": "weapon:heishang-shuangren",
+        "form": "soulForged",
+        "formName": "绝影"
+      },
+      {
+        "id": "pc-101928",
+        "filename": "20261123101928_1.jpg",
+        "sha256": "fb423ca964ec52da3047cfe1df82d342b87b3a992e91ddfe3d8c9c391723b6ca",
+        "weaponId": "weapon:heishang-shuangren",
+        "form": "soulForged",
+        "formName": "绝影"
+      },
+      {
+        "id": "pc-102023",
+        "filename": "20261123102023_1.jpg",
+        "sha256": "ca392a0b6675545543088c3744ed4b88c4bcee057880e20064f77f5cf8dc80ce",
+        "weaponId": "weapon:luanying-jian",
+        "form": "soulForged",
+        "formName": "天邈·乱莺"
+      },
+      {
+        "id": "pc-102025",
+        "filename": "20261123102025_1.jpg",
+        "sha256": "f2929fc48cc19965ed4212c69deb7a490e49109374903e49da10ef852698a9e2",
+        "weaponId": "weapon:luanying-jian",
+        "form": "soulForged",
+        "formName": "天邈·乱莺"
+      },
+      {
+        "id": "pc-102027",
+        "filename": "20261123102027_1.jpg",
+        "sha256": "03d26beac42298c385afaa5bc4396baac3d7bc5aa76127f356d70330f1d25461",
+        "weaponId": "weapon:luanying-jian",
+        "form": "soulForged",
+        "formName": "天邈·乱莺"
+      },
+      {
+        "id": "pc-102030",
+        "filename": "20261123102030_1.jpg",
+        "sha256": "53f1c7da96526fab48425ba2ba06538ddf4921e5bf8a17df42e982bc41dfeba9",
+        "weaponId": "weapon:luanying-jian",
+        "form": "soulForged",
+        "formName": "天邈·乱莺"
+      },
+      {
+        "id": "pc-102148",
+        "filename": "20261123102148_1.jpg",
+        "sha256": "95749e7fd003a350b19be57650db4728460abb2aabf7f00f6958f7fc22213d9a",
+        "weaponId": "weapon:heishang",
+        "form": "soulForged",
+        "formName": "黑魔伤"
+      },
+      {
+        "id": "pc-102152",
+        "filename": "20261123102152_1.jpg",
+        "sha256": "8076b81b98db72f749f291c6060b7f06f05e4d035003a1c1d31fab93cc4de722",
+        "weaponId": "weapon:heishang",
+        "form": "soulForged",
+        "formName": "黑魔伤"
+      },
+      {
+        "id": "pc-102155",
+        "filename": "20261123102155_1.jpg",
+        "sha256": "cf14aa429fb2b39f5df0bafe436df19166661d97bda3b2cc47d5d9b803e384a7",
+        "weaponId": "weapon:heishang",
+        "form": "soulForged",
+        "formName": "黑魔伤"
+      },
+      {
+        "id": "pc-102159",
+        "filename": "20261123102159_1.jpg",
+        "sha256": "f8fed91e81ea977609c9dd9029bfce19e4ab21e5230076129f9b1e02b55ece12",
+        "weaponId": "weapon:heishang",
+        "form": "soulForged",
+        "formName": "黑魔伤"
+      },
+      {
+        "id": "pc-102205",
+        "filename": "20261123102205_1.jpg",
+        "sha256": "30daad890feffcb1fcd8ba3c38ebe64a8ef0dd4d962ff687f23c4e9e65a5e84e",
+        "weaponId": "weapon:changxing-heishang",
+        "form": "soulForged",
+        "formName": "炽刃"
+      },
+      {
+        "id": "pc-102207",
+        "filename": "20261123102207_1.jpg",
+        "sha256": "db5061189b25bc33ef6c0725cee3dd6db177255703f66753f7f505a10d6cc81d",
+        "weaponId": "weapon:changxing-heishang",
+        "form": "soulForged",
+        "formName": "炽刃"
+      },
+      {
+        "id": "pc-102212",
+        "filename": "20261123102212_1.jpg",
+        "sha256": "aae191ecf6dfb5f3918e36ba1352b7b64302211c648447e2edf6dc700a9f6720",
+        "weaponId": "weapon:changxing-heishang",
+        "form": "soulForged",
+        "formName": "炽刃"
+      },
+      {
+        "id": "pc-102214",
+        "filename": "20261123102214_1.jpg",
+        "sha256": "f8dd69cf2d08996cd2aa57f8872671b2fbe230ea1e5dd974ca9835137f55b201",
+        "weaponId": "weapon:changxing-heishang",
+        "form": "soulForged",
+        "formName": "炽刃"
+      }
+    ],
+    "weaponFormClaims": [
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-description",
+        "key": "weapon.description",
+        "value": "黑伤双刃铸魂而来，能令魂分身化形，展开奇诡攻势。",
+        "locations": [
+          {
+            "evidenceItemId": "pc-101916",
+            "position": "右栏属性栏下方"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-damage",
+        "key": "weapon.baseStat",
+        "value": {
+          "statName": "伤害能力",
+          "displayedValue": 1264,
+          "displayedLevel": 30,
+          "displayContext": "release-game-ui"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101916",
+            "position": "右栏顶部等级徽记及属性栏左侧"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-secondary",
+        "key": "weapon.baseStat",
+        "value": {
+          "statName": "破防能力",
+          "displayedValue": 468,
+          "displayedLevel": 30,
+          "displayContext": "release-game-ui"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101916",
+            "position": "右栏顶部等级徽记及属性栏右侧"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-basic-combo",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "普通连招",
+          "input": "□ □ □ □ □ □"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101916",
+            "position": "右栏中部普通连招"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-killing-combo",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "杀气连招",
+          "input": "△ △ △ △",
+          "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101916",
+            "position": "右栏中部杀气连招"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-clone",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "化影",
+          "description": "召唤一个分身，在场上存在20秒，攻击力和破防力与魂一致，优先攻击魂正在攻击的敌人，如没有则自由攻击。上一个分身消失后需要经过10秒才能再次召唤。",
+          "input": "L1 + △"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101916",
+            "position": "右栏下半"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-crow",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "绝杀",
+          "description": "消耗1［紫色图标］化身为黑色乌鸦，掠向前方席卷战场。无法被敌人防御。",
+          "input": "L2"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101920",
+            "position": "右栏底部"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-node-5",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "凝气于刃",
+          "level": 5,
+          "description": "可凝气于刃，使伤害大幅提升，持续20秒。",
+          "input": "L1 + △"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101924",
+            "position": "右栏5级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-node-15",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "连环追斩",
+          "level": 15,
+          "description": "所有 △ 连招结束后，还可衔接 □ □ □。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101924",
+            "position": "右栏15级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-node-25",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "刀随意转",
+          "level": 25,
+          "description": "在 □ □ □ □ □ □ 之后，还可衔接 △ △ △ 乘势腾身跃起，施展凌厉连斩。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101924",
+            "position": "右栏25级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang-shuangren:soul-20261123-node-30",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "影杀·之三",
+          "level": 30,
+          "description": "【作用于全部双持类型武器】发动幻影三连斩，可瞬间逼近敌人施展强劲斩击，将其斩杀或重创。只有杀气>50%时可以发动并会消耗全部杀气，发动招式后15秒内无法切换主武器。如果斩击后敌人破防，可以在收招前衔接 △ 进行追击。",
+          "input": "L1 + ○"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-101928",
+            "position": "右栏30级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-description",
+        "key": "weapon.description",
+        "value": "加入了沐天邈的佩剑，可进行双剑合击，虽还无法发掘天邈剑的全部威力，但已足以让强敌胆寒。",
+        "locations": [
+          {
+            "evidenceItemId": "pc-102023",
+            "position": "右栏属性栏下方"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-damage",
+        "key": "weapon.baseStat",
+        "value": {
+          "statName": "伤害能力",
+          "displayedValue": 1095,
+          "displayedLevel": 30,
+          "displayContext": "release-game-ui"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102023",
+            "position": "右栏顶部等级徽记及属性栏左侧"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-secondary",
+        "key": "weapon.baseStat",
+        "value": {
+          "statName": "破防能力",
+          "displayedValue": 428,
+          "displayedLevel": 30,
+          "displayContext": "release-game-ui"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102023",
+            "position": "右栏顶部等级徽记及属性栏右侧"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-basic-combo",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "普通连招",
+          "input": "□ □ □ □ □"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102023",
+            "position": "右栏中部普通连招"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-killing-combo",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "杀气连招",
+          "input": "△ △ △",
+          "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102023",
+            "position": "右栏中部杀气连招"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-ringing-sword",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "鸣剑",
+          "description": "消耗一定杀气进入【鸣剑】状态，持续10秒。期间所有 △ 攻击都会斩出破空剑气，锐如莺鸣。",
+          "input": "L1 + △"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102023",
+            "position": "右栏下半"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-combined-strike",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "邈影连莺声",
+          "description": "消耗1［紫色图标］施展天邈乱莺合击剑法。长短相护、快慢相掩，剑路虚实交错，无法被敌人防御。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102025",
+            "position": "右栏底部"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-paired-swords",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "天邈·乱莺",
+          "description": "△ 连招中，使用沐天邈的天邈剑，进行双剑合击。【鸣剑】状态下，天邈剑会斩出更强大的剑气。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102027",
+            "position": "右栏顶部紫色条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-node-5",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "莺痕",
+          "level": 5,
+          "description": "【鸣剑】状态下斩出的剑光击中敌人，会施加标记【莺痕】，使得其受到的伤害和杀气削减提升，持续5秒。【莺痕】标记时及消散后的6秒内，不会再次被标记。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102027",
+            "position": "右栏5级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-node-15",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "莺痕·爆裂",
+          "level": 15,
+          "description": "【莺痕】持续期间敌人若被破防，将额外触发一次剑气爆裂。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102027",
+            "position": "右栏15级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-node-25",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "莺痕·重现",
+          "level": 25,
+          "description": "【莺痕】持续时间提升为10秒，消散后可再次被标记的时间缩短为3秒。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102030",
+            "position": "右栏25级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:luanying-jian:soul-20261123-node-30",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "莺痕·展锋·之三",
+          "level": 30,
+          "description": "大幅提升【莺痕】的伤害和杀气削减提升效果。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102030",
+            "position": "右栏30级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-description",
+        "key": "weapon.description",
+        "value": "暗魔天堡的传说兵器，深藏着魂的身世之谜，能够触发血脉重生及血脉觉醒。",
+        "locations": [
+          {
+            "evidenceItemId": "pc-102148",
+            "position": "右栏属性栏下方"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-damage",
+        "key": "weapon.baseStat",
+        "value": {
+          "statName": "伤害能力",
+          "displayedValue": 1264,
+          "displayedLevel": 30,
+          "displayContext": "release-game-ui"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102148",
+            "position": "右栏顶部等级徽记及属性栏左侧"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-secondary",
+        "key": "weapon.baseStat",
+        "value": {
+          "statName": "破防能力",
+          "displayedValue": 468,
+          "displayedLevel": 30,
+          "displayContext": "release-game-ui"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102148",
+            "position": "右栏顶部等级徽记及属性栏右侧"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-basic-combo",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "普通连招",
+          "input": "□ □ □ □ □"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102148",
+            "position": "右栏中部普通连招"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-killing-combo",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "杀气连招",
+          "input": "△ △ △",
+          "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102148",
+            "position": "右栏中部杀气连招"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-rebirth",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "血脉重生",
+          "description": "受到致命伤害时，进入【血脉重生】状态，回复全部生命值，并获得攻击力提升效果，但生命值持续流失且不能主动回复生命值，因该效果损失50%最大生命值后，结束【血脉重生】状态并失去重生能力，触摸铃铛或重生后，可再次触发此技能。若同时存在其他重生效果，则优先触发此效果。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102148",
+            "position": "右栏底部血脉重生标题及开头"
+          },
+          {
+            "evidenceItemId": "pc-102152",
+            "position": "右栏上半"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-awakening",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "血脉觉醒",
+          "description": "消耗1［紫色图标］唤醒暗魔天堡血脉之力化身“魔魂”，持续10秒。期间攻防大增，所有攻击均会斩出气刃。",
+          "input": "L2"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102152",
+            "position": "右栏中部"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-demon-wave",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "魔浪滔天",
+          "description": "在【血脉觉醒】期间 L2，消耗1［紫色图标］可斩出交织如天罗地网般的漫天刀光，而后结束【血脉觉醒】状态。无法被敌人防御。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102152",
+            "position": "右栏底部"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-node-5",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "凝气于刃",
+          "level": 5,
+          "description": "可凝气于刃，使伤害大幅提升，持续40秒。",
+          "input": "L1 + △"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102155",
+            "position": "右栏5级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-node-15",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "行云",
+          "level": 15,
+          "description": "□ 连招结束后，可再次 □ 衔接一个新招式。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102155",
+            "position": "右栏15级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-node-25",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "流水",
+          "level": 25,
+          "description": "△ 连招结束后，可再次 △ 衔接一个新招式。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102155",
+            "position": "右栏25级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:heishang:soul-20261123-node-30",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "瞬杀·之三",
+          "level": 30,
+          "description": "【作用于全部单手类型武器】可瞬间逼近敌人施展强劲斩击，将其斩杀或重创。只有杀气>50%时可以发动并会消耗全部杀气，发动招式后15秒内无法切换主武器。如果斩击后敌人破防，可以在收招前衔接 △ 进行追击。",
+          "input": "L1 + ○"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102159",
+            "position": "右栏30级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-description",
+        "key": "weapon.description",
+        "value": "能将杀气转化为熊熊烈火的长刃，能斩碎盾牌，亦可焚尽世间之敌。",
+        "locations": [
+          {
+            "evidenceItemId": "pc-102205",
+            "position": "右栏属性栏下方"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-damage",
+        "key": "weapon.baseStat",
+        "value": {
+          "statName": "伤害能力",
+          "displayedValue": 1217,
+          "displayedLevel": 30,
+          "displayContext": "release-game-ui"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102205",
+            "position": "右栏顶部等级徽记及属性栏左侧"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-secondary",
+        "key": "weapon.baseStat",
+        "value": {
+          "statName": "异常效果",
+          "displayedValue": 513,
+          "displayedLevel": 30,
+          "displayContext": "release-game-ui"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102205",
+            "position": "右栏顶部等级徽记及属性栏右侧"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-basic-combo",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "普通连招",
+          "input": "□ □ □ □"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102205",
+            "position": "右栏中部普通连招"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-killing-combo",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "杀气连招",
+          "input": "△ △ △",
+          "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力，会点燃敌人。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102205",
+            "position": "右栏中部杀气连招"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-flaming-blade",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "烈焰淌刃",
+          "description": "每次 △ 命中敌人都会积累燃烧能量，能量积满后，炽刃刀刃进入着火状态，持续15秒。期间所有攻击都会对敌人造成燃烧伤害。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102205",
+            "position": "右栏下半"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-charged-flame",
+        "key": "weapon.mechanic",
+        "value": {
+          "name": "燧断",
+          "description": "按住 L2 消耗1［紫色图标］将炽刃高高举起蓄力，最多可蓄力3次，释放后会点燃敌人。处于冰冻状态的敌人将受到更多伤害。无法被敌人防御。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102207",
+            "position": "右栏底部"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-node-5",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "焰波",
+          "level": 5,
+          "description": "消耗杀气斩出火焰波，会点燃敌人。",
+          "input": "L1 + △"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102212",
+            "position": "右栏5级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-node-15",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "横扫刀劲",
+          "level": 15,
+          "description": "普通连招的末尾衔接 □，或在任何 △ 之后衔接 □，可施展一招横扫。此招与敌人的攻击对撞，会形成拼刀，并叠加【刀劲】，【刀劲】蓄满时造成的伤害和杀气削减提升，持续25秒。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102212",
+            "position": "右栏15级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-node-25",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "风回云卷",
+          "level": 25,
+          "description": "【刀劲】蓄满时，按 L1 + △，会消耗全部【刀劲】，使出强力旋风斩击。"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102212",
+            "position": "右栏25级成长条目"
+          }
+        ]
+      },
+      {
+        "factId": "fact:weapon:changxing-heishang:soul-20261123-node-30",
+        "key": "weapon.progressionNode",
+        "value": {
+          "name": "炽杀·之三",
+          "level": 30,
+          "description": "【作用于全部双手类型武器】可向前重劈，留下一道燃烧裂隙。破防力较强。只有杀气>50%时可以发动并会消耗全部杀气，发动招式后15秒内无法切换主武器。可以在收招前衔接 △ 顺势上挑，掀起裂隙中的岩浆，再次造成伤害。",
+          "input": "L1 + ○"
+        },
+        "locations": [
+          {
+            "evidenceItemId": "pc-102214",
+            "position": "右栏30级成长条目"
+          }
+        ]
+      }
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-23",
+  "archivedUrl": null,
+  "notes": "按原图转录界面文案。原图补丁号及捕获日期未确认。紫色图标仅记图标与数量。"
+}

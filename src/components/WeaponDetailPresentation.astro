@@ -4,7 +4,7 @@ import WeaponDescription from './WeaponDescription.astro';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { isMajorSpoiler } from '../lib/spoilers.mjs';
 
-const { detail, idPrefix = '', pendingTechnicalDetails = false } = Astro.props;
+const { detail, idPrefix = '', pendingTechnicalDetails = false, showSoulForgePlaceholder = true, forged = false } = Astro.props;
 const sectionId = (id) => `${idPrefix}${id}`;
 const { overview } = detail;
 const mechanics = pendingTechnicalDetails ? [] : detail.mechanics;
@@ -33,7 +33,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
     </div>}
   </dl>}
   {!pendingTechnicalDetails && overview.baseStats.length > 0 && <section class="weapon-preview-stats" aria-labelledby={sectionId('weapon-base-stats-title')} data-weapon-base-stats>
-    <h3 id={sectionId('weapon-base-stats-title')}>Lv{overview.baseStats[0].value.displayedLevel} 基础属性</h3>
+    <h3 id={sectionId('weapon-base-stats-title')}>{forged ? '30级属性' : `Lv${overview.baseStats[0].value.displayedLevel} 基础属性`}</h3>
     <dl>{overview.baseStats.map((fact) => <div data-base-stat-id={fact.id} data-fact-id={fact.id}>
       <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.value.statName}</dt>
       <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
@@ -67,6 +67,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
       <h3>{fact.valueText}</h3>
       {fact.input && <ControllerInput input={fact.input} factId={fact.id} />}
       {fact.description && <WeaponDescription description={fact.description} />}
+      {forged && fact.id === 'fact:weapon:luanying-jian:soul-20261123-combined-strike' && <p class="weapon-pending">触发按键待补充</p>}
 
       {fact.derivedInputs.length > 0 && <section class="weapon-derived-inputs" aria-labelledby={sectionId(`weapon-derived-inputs-title-${fact.id}`)} data-weapon-derived-inputs-for={fact.id}>
         <h4 id={sectionId(`weapon-derived-inputs-title-${fact.id}`)}>派生按键</h4>
@@ -88,6 +89,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
       <h3>{fact.valueText}</h3>
       {fact.input && <ControllerInput input={fact.input} factId={fact.id} />}
       {fact.description && <WeaponDescription description={fact.description} />}
+      {forged && fact.id === 'fact:weapon:luanying-jian:soul-20261123-combined-strike' && <p class="weapon-pending">触发按键待补充</p>}
 
       {fact.derivedInputs.length > 0 && <section class="weapon-derived-inputs" aria-labelledby={sectionId(`weapon-derived-inputs-title-${fact.id}`)} data-weapon-derived-inputs-for={fact.id}>
         <h4 id={sectionId(`weapon-derived-inputs-title-${fact.id}`)}>派生按键</h4>
@@ -116,7 +118,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
   {pendingTechnicalDetails && <p class="weapon-pending" data-form-pending="progressionNodes">成长节点待补充</p>}
 </section>}
 
-{pendingTechnicalDetails && <section class="weapon-detail-section" data-weapon-section="soul-forge-effect" aria-labelledby={sectionId('weapon-soul-effect-title')}>
+{pendingTechnicalDetails && showSoulForgePlaceholder && <section class="weapon-detail-section" data-weapon-section="soul-forge-effect" aria-labelledby={sectionId('weapon-soul-effect-title')}>
   <h2 id={sectionId('weapon-soul-effect-title')}>铸魂效果（铸魂后解锁）</h2>
   <p class="weapon-pending" data-form-pending="soulForgeEffects">待补充</p>
 </section>}

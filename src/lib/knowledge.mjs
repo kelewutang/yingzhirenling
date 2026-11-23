@@ -1,5 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { loadMediaRecords } from './media.mjs';
+import { isForgedBatchFact } from './weapon-forms.mjs';
 import { gameplayRelationEndpoints, relationIsActive } from './relations.mjs';
 
 const root = resolve(process.cwd());
@@ -42,9 +44,10 @@ export async function loadKnowledge() {
     readDirectory('data/relations'),
     readDirectory('data/sources'),
     readDirectory('data/versions'),
+    loadMediaRecords(),
     readFile(resolve(root, 'data/registries/platforms.json'), 'utf8').then(JSON.parse),
     readFile(resolve(root, 'data/registries/difficulties.json'), 'utf8').then(JSON.parse)
-  ]).then(([weapons, characters, bosses, locations, systems, relations, sources, versions, platformRegistry, difficultyRegistry]) => {
+  ]).then(([weapons, characters, bosses, locations, systems, relations, sources, versions, mediaRecords, platformRegistry, difficultyRegistry]) => {
     const entities = [...weapons, ...characters, ...bosses, ...locations, ...systems];
     const facts = entities.flatMap((entity) => entity.facts.map((fact) => ({ ...fact, entityId: entity.id, entityType: entity.entityType })));
     return {
@@ -54,6 +57,7 @@ export async function loadKnowledge() {
       locations,
       systems,
       relations,
+      mediaRecords,
       sourceById: new Map(sources.map((item) => [item.id, item])),
       versionById: new Map(versions.map((item) => [item.id, item])),
       platformById: new Map(platformRegistry.platforms.map((item) => [item.id, item])),
@@ -106,7 +110,7 @@ export function safeExternalUrl(value) {
 
 export function getFact(entity, key, knowledge = null) {
   return entity.facts
-    .filter((fact) => fact.key === key && fact.supersededBy === null && fact.validToVersionId == null)
+    .filter((fact) => !isForgedBatchFact(fact) && fact.key === key && fact.supersededBy === null && fact.validToVersionId == null)
     .sort((left, right) => {
       const versionDelta = (knowledge?.versionById?.get(right.gameVersionId)?.sequence ?? -1) -
         (knowledge?.versionById?.get(left.gameVersionId)?.sequence ?? -1);

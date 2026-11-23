@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { buildWeaponCollectionCard } from '../../src/lib/collection-models.mjs';
+import { isForgedBatchFact } from '../../src/lib/weapon-forms.mjs';
 import { parseControllerInput, parseInlineControllerText } from '../../src/lib/controller-inputs.mjs';
 
 const root = resolve(process.cwd());
@@ -334,7 +335,7 @@ for (const slug of ['tianxuan-qingtong-jian', 'kuye-si-zhuchuan', 'cuixin-pipa',
   const data = await readJson(`data/weapons/${slug}.json`);
   const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
   const rendered = overview(html);
-  const active = data.facts.filter((fact) => fact.supersededBy === null && fact.validToVersionId === null);
+  const active = data.facts.filter((fact) => !isForgedBatchFact(fact) && fact.supersededBy === null && fact.validToVersionId === null);
   assert.equal(count(html, `<h1 class="entity-hero__title">${data.displayName}</h1>`), 1);
   assert.equal(count(html.match(/<main\b[\s\S]*?<\/main>/)?.[0] || '', active.find((fact) => fact.key === 'weapon.description').value), 1, `${slug}: game description must appear once`);
   for (const fact of active.filter((fact) => fact.key === 'weapon.baseStat')) assert(rendered.includes(`<dt>${fact.value.statName}</dt><dd>${fact.value.displayedValue}</dd>`), `${slug}: exact Lv1 attribute missing`);
@@ -346,6 +347,30 @@ for (const slug of ['tianxuan-qingtong-jian', 'kuye-si-zhuchuan', 'cuixin-pipa',
   }
   assert(data.facts.filter((f) => f.validToVersionId === null).every((f) => f.sourceIds.length > 0), `${slug}: underlying screenshot evidence must remain intact`);
   assert(!html.includes('获取顺序') && !html.includes('data-weapon-preview-stats'), `${slug}: no acquisition or preview values may be invented`);
+}
+
+for (const slug of ['heishang', 'heishang-shuangren', 'changxing-heishang', 'luanying-jian']) {
+  const { facts } = await readJson(`data/weapons/${slug}.json`);
+  const html = await readFile(resolve(dist, `${slug}.html`), 'utf8');
+  const baseStart = html.indexOf('id="weapon-form-base"');
+  const forgedStart = html.indexOf('id="weapon-form-soulForged"');
+  assert(baseStart >= 0 && forgedStart > baseStart, `${slug}: render both forms in static HTML`);
+  const base = html.slice(baseStart, forgedStart);
+  const forged = html.slice(forgedStart);
+  assert(forged.includes('30级属性'));
+  assert(!forged.includes('data-weapon-section="soul-forge-effect"'));
+  for (const fact of facts.filter(isForgedBatchFact)) {
+    assert(!base.includes(fact.id), `${slug}: forged Fact in base panel`);
+    if (fact.key === 'weapon.description') assert(forged.includes(fact.value));
+    if (fact.key === 'weapon.baseStat') {
+      assert(forged.includes(`<dt>${fact.value.statName}</dt><dd>${fact.value.displayedValue}</dd>`));
+    }
+    if (fact.key === 'weapon.mechanic') assertInput(forged, 'data-weapon-mechanic-id', fact);
+    if (fact.key === 'weapon.progressionNode') {
+      assertInput(forged, 'data-weapon-progression-node-id', fact);
+      assertProgressionLevel(forged, fact.id, fact.value.level, fact.value.name);
+    }
+  }
 }
 
 for (const [file, expectedText] of [
