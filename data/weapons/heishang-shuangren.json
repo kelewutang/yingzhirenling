@@ -803,12 +803,13 @@
       "valueType": "object",
       "value": {
         "name": "绝杀",
-        "description": "消耗1［紫色图标］化身为黑色乌鸦，掠向前方席卷战场。无法被敌人防御。",
+        "description": "消耗1点精纯杀气化身为黑色乌鸦，掠向前方席卷战场。无法被敌人防御。",
         "input": "L2"
       },
       "status": "observation",
       "sourceIds": [
-        "source:owner-pc-soul-forms-2026-11-23"
+        "source:owner-pc-soul-forms-2026-11-23",
+        "source:owner-pc-soul-resource-name-2026-11-23"
       ],
       "basisFactIds": [],
       "checkedAt": "2026-11-23",

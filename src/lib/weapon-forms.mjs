@@ -12,11 +12,25 @@ export const isSoulFormWeapon = (entity) => entity?.entityType === 'weapon' && s
 const batchDate = '2026-11-23';
 const batchSourceId = `source:owner-pc-soul-forms-${batchDate}`;
 const batchVersionId = `version:release-pc-soul-forms-${batchDate}`;
+const resourceSourceId = 'source:owner-pc-soul-resource-name-2026-11-23';
+const resourceMarker = '［紫色图标］';
+const confirmedResourceName = '精纯杀气';
 const pcScope = { platforms: { mode: 'include', ids: ['platform:pc'] }, difficulties: { mode: 'all', ids: [] } };
 const technicalKeys = new Set(['weapon.description', 'weapon.baseStat', 'weapon.mechanic', 'weapon.progressionNode']);
 
 export function isForgedBatchFact(fact) {
   return fact?.gameVersionId === batchVersionId || fact?.sourceIds?.includes(batchSourceId);
+}
+
+// Owner testimony supplies only the label for the resource shown in the PC screenshots.
+export function isSoulResourceConfirmation(fact, source) {
+  const locator = source?.locator;
+  return fact?.key === 'weapon.mechanic' && fact.gameVersionId === batchVersionId &&
+    fact.sourceIds?.includes(batchSourceId) && source?.id === resourceSourceId &&
+    source.sourceType === 'owner-confirmation' && locator?.type === 'user-supplied-statement' &&
+    locator.screenshotSourceId === batchSourceId && locator.gameVersionId === batchVersionId &&
+    locator.resourceName === confirmedResourceName && Array.isArray(locator.factIds) &&
+    locator.factIds.includes(fact.id);
 }
 
 const isBatchSet = (entity, fact) => isSoulFormWeapon(entity) && fact.key === 'weapon.formSet' && isForgedBatchFact(fact);
@@ -39,10 +53,10 @@ function verifyBatchEvidence(entity, set, baseIds, forgedIds, { sourceById, vers
   const locator = source?.locator;
   const version = versionById.get(batchVersionId);
   const isPublic = (record) => record && record.spoilerLevel !== 'major' && !['draft', 'archived'].includes(record.recordState);
-  const isBatchObservation = (fact) => fact && activeFormFact(fact) && isPublic(fact) &&
+  const isBatchObservation = (fact, expectedSources = [batchSourceId]) => fact && activeFormFact(fact) && isPublic(fact) &&
     fact.status === 'observation' && fact.checkedAt === batchDate &&
     fact.gameVersionId === batchVersionId && fact.validFromVersionId === batchVersionId &&
-    isDeepStrictEqual(fact.sourceIds, [batchSourceId]) && isDeepStrictEqual(fact.scope, pcScope);
+    isDeepStrictEqual(fact.sourceIds, expectedSources) && isDeepStrictEqual(fact.scope, pcScope);
   if (!isBatchObservation(set) || !isPublic(source) || source.sourceType !== 'user-game-screenshot' ||
       locator?.type !== 'user-supplied-game-screenshot' || locator.platformId !== 'platform:pc' ||
       locator.suppliedAt !== batchDate || locator.versionLabel !== null ||
@@ -60,8 +74,19 @@ function verifyBatchEvidence(entity, set, baseIds, forgedIds, { sourceById, vers
     const fact = facts.get(id);
     const claims = locator.weaponFormClaims.filter((claim) => claim?.factId === id);
     const claim = claims[0];
-    if (baseIds.has(id) || !isBatchObservation(fact) || !technicalKeys.has(fact.key) ||
-        claims.length !== 1 || claim.key !== fact.key || !isDeepStrictEqual(claim.value, fact.value) ||
+    const original = claim?.value;
+    const usesResourceMarker = fact?.key === 'weapon.mechanic' &&
+      typeof original?.description === 'string' && original.description.includes(resourceMarker);
+    const confirmation = sourceById.get(resourceSourceId);
+    const expectedSources = usesResourceMarker ? [batchSourceId, resourceSourceId] : [batchSourceId];
+    const expectedValue = usesResourceMarker ? {
+      ...original,
+      description: original.description.replace(/消耗(\d+)［紫色图标］/g, `消耗$1点${confirmedResourceName}`)
+    } : original;
+    if (baseIds.has(id) || !isBatchObservation(fact, expectedSources) || !technicalKeys.has(fact.key) ||
+        (usesResourceMarker && (!isPublic(confirmation) || !isSoulResourceConfirmation(fact, confirmation) ||
+          expectedValue.description.includes(resourceMarker))) ||
+        claims.length !== 1 || claim.key !== fact.key || !isDeepStrictEqual(expectedValue, fact.value) ||
         !Array.isArray(claim.locations) || !claim.locations.length ||
         claim.locations.some((location) => {
           const item = items.get(location?.evidenceItemId);
@@ -99,7 +124,11 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
   const batchSets = current.filter((fact) => isBatchSet(entity, fact));
   if (entity.facts.some(isForgedBatchFact) && batchSets.length !== 1) fail('PC screenshot Facts require one active supported form set');
   for (const fact of entity.facts) {
-    if (fact.sourceIds?.some((id) => sourceById.get(id)?.locator?.type === 'user-supplied-statement') && fact.key !== 'weapon.soulForgedName') {
+    if (fact.sourceIds?.some((id) => {
+      const source = sourceById.get(id);
+      return source?.locator?.type === 'user-supplied-statement' &&
+        (!isSoulFormWeapon(entity) || !isSoulResourceConfirmation(fact, source));
+    }) && fact.key !== 'weapon.soulForgedName') {
       fail(`${fact.id}: Owner statement may support a name, not technical game facts`);
     }
     if (!soulKeys.has(fact.key)) continue;
