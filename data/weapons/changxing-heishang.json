@@ -750,11 +750,12 @@
       "valueType": "object",
       "value": {
         "name": "燧断",
-        "description": "按住 L2 消耗1［紫色图标］将炽刃高高举起蓄力，最多可蓄力3次，释放后会点燃敌人。处于冰冻状态的敌人将受到更多伤害。无法被敌人防御。"
+        "description": "按住 L2 消耗1精纯杀气将炽刃高高举起蓄力，最多可蓄力3次，释放后会点燃敌人。处于冰冻状态的敌人将受到更多伤害。无法被敌人防御。"
       },
       "status": "observation",
       "sourceIds": [
-        "source:owner-pc-soul-forms-2026-11-23"
+        "source:owner-pc-soul-forms-2026-11-23",
+        "source:owner-pc-soul-resource-name-2026-11-23"
       ],
       "basisFactIds": [],
       "checkedAt": "2026-11-23",

@@ -457,3 +457,46 @@ test('PC screenshot claims reject altered facts, cross-weapon evidence and versi
     assert.throws(() => projectWeaponFormDetails(entity, knowledge), /screenshot claim|screenshot batch|incompatible Fact/);
   }
 });
+
+test('only the five screenshot icon costs use the Owner-confirmed resource name', async () => {
+  const knowledge = await loadKnowledge();
+  const sourceId = 'source:owner-pc-soul-resource-name-2026-11-23';
+  const source = knowledge.sourceById.get(sourceId);
+  const screenshots = knowledge.sourceById.get(soulBatchSource);
+  const expected = ['血脉觉醒', '魔浪滔天', '绝杀', '燧断', '邈影连莺声'];
+  const actual = [];
+  for (const [slug] of targetPairs) {
+    const weapon = knowledge.entityById.get(`weapon:${slug}`);
+    const { forms } = projectWeaponFormDetails(weapon, knowledge);
+    for (const fact of forms.soulForged.detail.mechanics) {
+      const claim = screenshots.locator.weaponFormClaims.find(({ factId }) => factId === fact.id);
+      if (expected.includes(fact.value.name)) {
+        actual.push(fact.value.name);
+        assert(source.locator.factIds.includes(fact.id));
+        assert.deepEqual(fact.sourceIds, [soulBatchSource, sourceId]);
+        assert(claim.value.description.includes('消耗1［紫色图标］'));
+        assert.equal(fact.description, claim.value.description.replace('消耗1［紫色图标］', '消耗1精纯杀气'));
+      } else {
+        assert.deepEqual(fact.sourceIds, [soulBatchSource]);
+        assert.deepEqual(fact.value, claim.value);
+      }
+    }
+  }
+  assert.deepEqual(actual.sort(), expected.sort());
+  assert.equal(source.locator.gameVersionId, soulBatchVersion);
+  assert.equal(knowledge.versionById.get(soulBatchVersion).versionLabel, null);
+  for (const mutate of [
+    (fact, owner) => { fact.value.description = fact.value.description.replace('消耗1', '消耗2'); },
+    (fact, owner) => { fact.value.description = fact.value.description.replace('消耗1精纯杀气', '消耗1点精纯杀气'); },
+    (fact, owner) => { fact.sourceIds = [sourceId]; },
+    (fact, owner) => { owner.locator.gameVersionId = 'version:release-pc-ui-2026-10-29'; },
+    (fact, owner) => { owner.locator.factIds = []; },
+    (fact, owner) => { owner.recordState = 'draft'; }
+  ]) {
+    const fixture = structuredClone(knowledge);
+    const entity = fixture.entityById.get('weapon:heishang');
+    const fact = entity.facts.find(({ id }) => id.endsWith(':soul-20261123-awakening'));
+    mutate(fact, fixture.sourceById.get(sourceId));
+    assert.throws(() => projectWeaponFormDetails(entity, fixture), /screenshot claim|Owner statement/);
+  }
+});

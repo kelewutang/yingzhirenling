@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { getFact, loadKnowledge, statusLabel, versionLabel } from './knowledge.mjs';
 import { getProductionHeroMedia } from './media.mjs';
-import { assertPublishableWeaponForms, isForgedBatchFact, isSoulFormWeapon, resolveAppearanceForms } from './weapon-forms.mjs';
+import { assertPublishableWeaponForms, isForgedBatchFact, isSoulFormWeapon, isSoulResourceConfirmation, resolveAppearanceForms } from './weapon-forms.mjs';
 import { isMajorSpoiler } from './spoilers.mjs';
 
 const specs = [
@@ -175,7 +175,7 @@ function isReviewedWeaponFact(fact, knowledge) {
     fact.sourceIds.every((id) => {
       const source = knowledge.sourceById?.get(id);
       return source && !isMajorSpoiler(source) && !['draft', 'archived'].includes(source.recordState) &&
-        source.locator?.type !== 'user-supplied-statement';
+        (source.locator?.type !== 'user-supplied-statement' || isSoulResourceConfirmation(fact, source));
     });
 }
 

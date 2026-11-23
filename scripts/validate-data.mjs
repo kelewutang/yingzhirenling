@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseControllerInput } from '../src/lib/controller-inputs.mjs';
-import { isForgedBatchFact, validateWeaponForms } from '../src/lib/weapon-forms.mjs';
+import { isForgedBatchFact, isSoulFormWeapon, isSoulResourceConfirmation, validateWeaponForms } from '../src/lib/weapon-forms.mjs';
 import { gameplayRelationEndpoints, relationWindowsOverlap } from '../src/lib/relations.mjs';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -1225,7 +1225,12 @@ for (const [factId, { relative: location, fact }] of facts) {
   if ('authority' in fact || 'publisherKind' in fact || 'isOfficial' in fact) {
     error(location, 'Fact 不得复制 Source authority 或使用 isOfficial；可信度只能由 status 表达');
   }
-  if (sourceIds.some((id) => sources.get(id)?.locator?.type === 'user-supplied-statement') && fact.key !== 'weapon.soulForgedName') error(location, 'Owner naming confirmation cannot verify technical Facts');
+  const factOwner = entities.get(factOwners.get(factId))?.entity;
+  if (fact.key !== 'weapon.soulForgedName' && sourceIds.some((id) => {
+    const source = sources.get(id);
+    return source?.locator?.type === 'user-supplied-statement' &&
+      (!isSoulFormWeapon(factOwner) || !isSoulResourceConfirmation(fact, source));
+  })) error(location, 'Owner naming confirmation cannot verify technical Facts');
   const registryEntry = factRegistry.get(fact.key);
   if (!registryEntry) {
     error(`${location}.key`, `Fact key 未注册：${fact.key}`);

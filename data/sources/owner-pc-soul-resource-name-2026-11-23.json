@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-soul-resource-name-2026-11-23",
+  "sourceType": "owner-confirmation",
+  "authority": "community",
+  "publisher": "项目负责人",
+  "title": "四武器铸魂后消耗资源术语确认",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-statement",
+    "recordId": "soul-resource-name-2026-11-23",
+    "confirmedAt": "2026-11-23",
+    "statement": "负责人确认：本批 PC 实机截图中的紫色消耗图标，正式名称为「精纯杀气」。",
+    "screenshotSourceId": "source:owner-pc-soul-forms-2026-11-23",
+    "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+    "resourceName": "精纯杀气",
+    "factIds": [
+      "fact:weapon:heishang:soul-20261123-awakening",
+      "fact:weapon:heishang:soul-20261123-demon-wave",
+      "fact:weapon:heishang-shuangren:soul-20261123-crow",
+      "fact:weapon:changxing-heishang:soul-20261123-charged-flame",
+      "fact:weapon:luanying-jian:soul-20261123-combined-strike"
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-23",
+  "archivedUrl": null,
+  "notes": "仅补充所列 Fact 中截图图标的资源名称。消耗数量、触发条件及技能效果继续以原图为证，补丁号仍未知。"
+}
