@@ -46,6 +46,8 @@ test('four reviewed forged appearances keep base Hero/Card and independent scree
   }
   assert.equal(await getProductionHeroMedia('weapon:white-shadow', k.entityById.get('weapon:white-shadow'), 'soulForged'), null);
 });
+const soulBatchVersion = 'version:release-pc-soul-forms-2026-11-23';
+const soulBatchSource = 'source:owner-pc-soul-forms-2026-11-23';
 const evidenceRequired = /cannot publish soulForged technical Facts without entity\/form\/Fact\/version evidence/;
 
 test('the frozen formSet shape validates privately but has no technical publication path', () => {
@@ -56,7 +58,7 @@ test('the frozen formSet shape validates privately but has no technical publicat
   assert.throws(() => projectWeaponFormDetails(entity, knowledge), evidenceRequired);
   assert.throws(() => projectWeaponDetail(entity, knowledge), evidenceRequired);
 });
-test('screenshot-only published forms expose names/media but never infer technical Facts', async () => {
+test('published forms expose only their own screenshot-backed technical Facts', async () => {
   const knowledge = await loadKnowledge();
   const media = JSON.parse(await readFile(new URL('../data/media.json', import.meta.url))).records;
   for (const [slug, original, forged] of targetPairs) {
@@ -66,13 +68,24 @@ test('screenshot-only published forms expose names/media but never infer technic
     assert.equal(forms.forms.base.mediaId, `media:${slug}-master`);
     assert.equal(forms.forms.soulForged.mediaId, `media:${slug}-soul-forged-master`);
     assert.deepEqual(forms.forms.base.detail, projectWeaponDetail(entity, knowledge));
-    const pending = forms.forms.soulForged;
-    assert(pending.detail.overview.baseStats.length === 0 && pending.detail.overview.previewStats.length === 0 && pending.detail.mechanics.length === 0 && pending.detail.progressionNodes.length === 0);
-    assert.deepEqual(pending.entity.facts, []);
-    assert.equal(pending.pendingTechnicalDetails, true);
-    assert.equal(pending.description, null);
+    const soul = forms.forms.soulForged;
+    const expected = {
+      heishang: [['伤害能力', 1264], ['破防能力', 468]],
+      'heishang-shuangren': [['伤害能力', 1264], ['破防能力', 468]],
+      'changxing-heishang': [['伤害能力', 1217], ['异常效果', 513]],
+      'luanying-jian': [['伤害能力', 1095], ['破防能力', 428]]
+    };
+    assert.deepEqual(soul.detail.overview.baseStats.map(({ value }) => [value.statName, value.displayedValue]), expected[slug]);
+    assert(soul.detail.overview.baseStats.every(({ value }) => value.displayedLevel === 30));
+    assert.deepEqual(soul.detail.progressionNodes.map(({ level }) => level), [5, 15, 25, 30]);
+    assert.deepEqual(soul.detail.mechanics.slice(0, 2).map(({ valueText }) => valueText), ['普通连招', '杀气连招']);
+    assert(soul.detail.mechanics.length >= 4);
+    assert(soul.entity.facts.every(({ gameVersionId }) => gameVersionId === soulBatchVersion));
+    assert(forms.forms.base.entity.facts.every(({ gameVersionId }) => gameVersionId !== soulBatchVersion));
+    assert.equal(soul.pendingTechnicalDetails, false);
+    assert.equal(soul.description.key, 'weapon.description');
     assert.equal(forms.forms.base.pendingTechnicalDetails, false);
-    assert.equal(pending.entity.id, entity.id); assert.equal(pending.entity.slug, entity.slug);
+    assert.equal(soul.entity.id, entity.id); assert.equal(soul.entity.slug, entity.slug);
     assert.equal(projectWeaponFormDetails({ ...entity, recordState: 'draft' }, knowledge, media), null);
     assert.equal(projectWeaponFormDetails({ ...entity, spoilerLevel: 'major' }, knowledge, media), null);
   }
@@ -181,6 +194,7 @@ test('Unicode-equivalent withheld descriptions fall back consistently in page pr
   const records = JSON.parse(await readFile(new URL('../data/media.json', import.meta.url))).records;
   for (const status of ['pending-review', 'editorial']) {
     const entity = structuredClone(knowledge.entityById.get('weapon:luanying-jian'));
+    entity.facts = entity.facts.filter((fact) => fact.gameVersionId !== soulBatchVersion);
     const fact = entity.facts.find((item) => item.key === 'weapon.description');
     fact.status = status;
     fact.value = 'ＩＲ合成介绍　只供私有核验';
@@ -315,9 +329,9 @@ test('explicit copied stats cannot publish and appearance projection keeps the b
   const { forms } = projectWeaponFormDetails(entity, knowledge, media);
   assert(forms.base.detail.overview.baseStats.some((fact) => fact.id === original.id));
   assert.deepEqual(forms.base.detail.overview.previewStats.map((fact) => fact.id), [preview.id]);
-  assert.deepEqual(forms.soulForged.detail.overview.baseStats, []);
+  assert(forms.soulForged.detail.overview.baseStats.every((fact) => fact.value.displayedLevel === 30));
   assert.deepEqual(forms.soulForged.detail.overview.previewStats, []);
-  assert.equal(forms.soulForged.pendingTechnicalDetails, true);
+  assert.equal(forms.soulForged.pendingTechnicalDetails, false);
 });
 const invalid = [
   ['foreign Fact reference', ({ entity }) => { entity.facts.at(-1).value.base.nameFactId = 'fact:weapon:other:name'; }, /invalid own-entity weapon\.name reference/],
@@ -414,9 +428,32 @@ test('production data validator rejects injected cross-entity form references an
   try {
     await cp(new URL('../data/', import.meta.url), join(directory, 'data'), { recursive: true });
     const path = join(directory, 'data/weapons/heishang.json'), weapon = JSON.parse(await readFile(path, 'utf8'));
-    weapon.facts.at(-1).key = 'weapon.mechanic'; weapon.facts.at(-1).valueType = 'object'; weapon.facts.at(-1).value = { name: 'Fake skill', description: 'Not permitted' };
+    const name = weapon.facts.find((fact) => fact.key === 'weapon.soulForgedName');
+    Object.assign(name, { key: 'weapon.mechanic', valueType: 'object', value: { name: 'Fake skill', description: 'Not permitted' } });
     await writeFile(path, JSON.stringify(weapon));
     const result = spawnSync(process.execPath, ['scripts/validate-data.mjs', `--data-dir=${join(directory, 'data')}`], { encoding: 'utf8' });
     assert.notEqual(result.status, 0); assert.match(result.stderr, /Owner naming confirmation cannot verify technical Facts/);
   } finally { await rm(directory, { recursive: true, force: true }); }
+});
+
+test('PC screenshot claims reject altered facts, cross-weapon evidence and version or scope drift', async () => {
+  const original = await loadKnowledge();
+  for (const mutate of [
+    ({ stat }) => { stat.value.displayedValue++; },
+    ({ stat }) => { stat.scope.platforms.ids = ['platform:playstation-5']; },
+    ({ stat }) => { stat.validFromVersionId = 'version:release-pc-ui-2026-10-29'; },
+    ({ claim }) => { claim.locations[0].evidenceItemId = 'pc-101916'; },
+    ({ claim }) => { claim.locations[0].position = ''; },
+    ({ source }) => { source.recordState = 'draft'; },
+    ({ source }) => { source.spoilerLevel = 'major'; },
+    ({ version }) => { version.versionLabel = 'unverified-build'; }
+  ]) {
+    const knowledge = structuredClone(original);
+    const entity = knowledge.entityById.get('weapon:heishang');
+    const stat = entity.facts.find((fact) => fact.key === 'weapon.baseStat' && fact.gameVersionId === soulBatchVersion);
+    const source = knowledge.sourceById.get(soulBatchSource);
+    const claim = source.locator.weaponFormClaims.find(({ factId }) => factId === stat.id);
+    mutate({ stat, claim, source, version: knowledge.versionById.get(soulBatchVersion) });
+    assert.throws(() => projectWeaponFormDetails(entity, knowledge), /screenshot claim|screenshot batch|incompatible Fact/);
+  }
 });

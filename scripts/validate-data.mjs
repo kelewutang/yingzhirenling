@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseControllerInput } from '../src/lib/controller-inputs.mjs';
-import { validateWeaponForms } from '../src/lib/weapon-forms.mjs';
+import { isForgedBatchFact, validateWeaponForms } from '../src/lib/weapon-forms.mjs';
 import { gameplayRelationEndpoints, relationWindowsOverlap } from '../src/lib/relations.mjs';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -408,7 +408,7 @@ function validateSpoilerClassification(record, location, report = error, { publi
 
 function validatePublishedWeaponTaxonomy(entity, location, report = error) {
   if (entity.entityType !== 'weapon' || entity.recordState !== 'published' || !Array.isArray(entity.facts)) return;
-  const activeFacts = (key) => entity.facts.filter((fact) => fact?.key === key && fact.supersededBy === null && fact.validToVersionId == null);
+  const activeFacts = (key) => entity.facts.filter((fact) => !isForgedBatchFact(fact) && fact?.key === key && fact.supersededBy === null && fact.validToVersionId == null);
   const systemCategoryFacts = activeFacts('weapon.systemCategory');
   const weaponTypeFacts = activeFacts('weapon.weaponType');
 
@@ -1317,6 +1317,7 @@ for (const [factId, { relative: location, fact }] of facts) {
 
 const formMedia = JSON.parse(await fs.readFile(path.join(DATA_DIR, 'media.json'), 'utf8')).records;
 for (const { entity } of entities.values()) {
+  if (entity.entityType !== 'weapon' && entity.facts.some(isForgedBatchFact)) error('weapon forms', `${entity.id}: reserved weapon screenshot batch`);
   if (entity.entityType === 'weapon') for (const message of validateWeaponForms(entity, { sourceById: sources, versionById: versions, mediaRecords: formMedia })) error('weapon forms', message);
 }
 

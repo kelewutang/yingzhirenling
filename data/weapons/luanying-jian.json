@@ -547,6 +547,515 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": "负责人确认的更名；缺少铸魂后详情截图，不据此推断外观、属性、技能或成长变化。"
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "加入了沐天邈的佩剑，可进行双剑合击，虽还无法发掘天邈剑的全部威力，但已足以让强敌胆寒。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-damage",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 1095,
+        "displayedLevel": 30,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-secondary",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 428,
+        "displayedLevel": 30,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-basic-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-killing-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-ringing-sword",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "鸣剑",
+        "description": "消耗一定杀气进入【鸣剑】状态，持续10秒。期间所有 △ 攻击都会斩出破空剑气，锐如莺鸣。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-combined-strike",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "邈影连莺声",
+        "description": "消耗1［紫色图标］施展天邈乱莺合击剑法。长短相护、快慢相掩，剑路虚实交错，无法被敌人防御。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-paired-swords",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "天邈·乱莺",
+        "description": "△ 连招中，使用沐天邈的天邈剑，进行双剑合击。【鸣剑】状态下，天邈剑会斩出更强大的剑气。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "莺痕",
+        "level": 5,
+        "description": "【鸣剑】状态下斩出的剑光击中敌人，会施加标记【莺痕】，使得其受到的伤害和杀气削减提升，持续5秒。【莺痕】标记时及消散后的6秒内，不会再次被标记。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "莺痕·爆裂",
+        "level": 15,
+        "description": "【莺痕】持续期间敌人若被破防，将额外触发一次剑气爆裂。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "莺痕·重现",
+        "level": 25,
+        "description": "【莺痕】持续时间提升为10秒，消散后可再次被标记的时间缩短为3秒。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-node-30",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "莺痕·展锋·之三",
+        "level": 30,
+        "description": "大幅提升【莺痕】的伤害和杀气削减提升效果。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:luanying-jian:soul-20261123-form-set",
+      "key": "weapon.formSet",
+      "valueType": "object",
+      "value": {
+        "base": {
+          "nameFactId": "fact:weapon:luanying-jian:release-name",
+          "descriptionFactId": "fact:weapon:luanying-jian:release-description",
+          "mediaId": "media:luanying-jian-master",
+          "baseStatFactIds": [
+            "fact:weapon:luanying-jian:release-stat-1",
+            "fact:weapon:luanying-jian:release-stat-2"
+          ]
+        },
+        "soulForged": {
+          "nameFactId": "fact:weapon:luanying-jian:soul-forged-name-owner",
+          "descriptionFactId": "fact:weapon:luanying-jian:soul-20261123-description",
+          "mediaId": "media:luanying-jian-soul-forged-master",
+          "baseStatFactIds": [
+            "fact:weapon:luanying-jian:soul-20261123-damage",
+            "fact:weapon:luanying-jian:soul-20261123-secondary"
+          ]
+        },
+        "mechanics": [
+          {
+            "logicalId": "base-4",
+            "change": "removed",
+            "baseFactId": "fact:weapon:luanying-jian:release-mechanic-4",
+            "soulForgedFactId": null
+          },
+          {
+            "logicalId": "base-1",
+            "change": "modified",
+            "baseFactId": "fact:weapon:luanying-jian:release-mechanic-1",
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-basic-combo"
+          },
+          {
+            "logicalId": "base-2",
+            "change": "modified",
+            "baseFactId": "fact:weapon:luanying-jian:release-mechanic-2",
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-killing-combo"
+          },
+          {
+            "logicalId": "base-3",
+            "change": "modified",
+            "baseFactId": "fact:weapon:luanying-jian:release-mechanic-3",
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-ringing-sword"
+          },
+          {
+            "logicalId": "forged-4",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-combined-strike"
+          },
+          {
+            "logicalId": "forged-5",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-paired-swords"
+          }
+        ],
+        "progressionNodes": [
+          {
+            "logicalId": "base-2",
+            "change": "removed",
+            "baseFactId": "fact:weapon:luanying-jian:release-node-10",
+            "soulForgedFactId": null
+          },
+          {
+            "logicalId": "base-1",
+            "change": "modified",
+            "baseFactId": "fact:weapon:luanying-jian:release-node-5",
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-node-5"
+          },
+          {
+            "logicalId": "base-3",
+            "change": "modified",
+            "baseFactId": "fact:weapon:luanying-jian:release-node-15",
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-node-15"
+          },
+          {
+            "logicalId": "base-4",
+            "change": "modified",
+            "baseFactId": "fact:weapon:luanying-jian:release-node-25",
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-node-25"
+          },
+          {
+            "logicalId": "forged-4",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:luanying-jian:soul-20261123-node-30"
+          }
+        ]
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
     }
   ],
   "taxonomyIds": [],

@@ -516,6 +516,511 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": "负责人确认的更名；缺少铸魂后详情截图，不据此推断外观、属性、技能或成长变化。"
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "暗魔天堡的传说兵器，深藏着魂的身世之谜，能够触发血脉重生及血脉觉醒。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-damage",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 1264,
+        "displayedLevel": 30,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-secondary",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "破防能力",
+        "displayedValue": 468,
+        "displayedLevel": 30,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-basic-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-killing-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-rebirth",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "血脉重生",
+        "description": "受到致命伤害时，进入【血脉重生】状态，回复全部生命值，并获得攻击力提升效果，但生命值持续流失且不能主动回复生命值，因该效果损失50%最大生命值后，结束【血脉重生】状态并失去重生能力，触摸铃铛或重生后，可再次触发此技能。若同时存在其他重生效果，则优先触发此效果。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-awakening",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "血脉觉醒",
+        "description": "消耗1［紫色图标］唤醒暗魔天堡血脉之力化身“魔魂”，持续10秒。期间攻防大增，所有攻击均会斩出气刃。",
+        "input": "L2"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-demon-wave",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "魔浪滔天",
+        "description": "在【血脉觉醒】期间 L2，消耗1［紫色图标］可斩出交织如天罗地网般的漫天刀光，而后结束【血脉觉醒】状态。无法被敌人防御。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "凝气于刃",
+        "level": 5,
+        "description": "可凝气于刃，使伤害大幅提升，持续40秒。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "行云",
+        "level": 15,
+        "description": "□ 连招结束后，可再次 □ 衔接一个新招式。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "流水",
+        "level": 25,
+        "description": "△ 连招结束后，可再次 △ 衔接一个新招式。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-node-30",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "瞬杀·之三",
+        "level": 30,
+        "description": "【作用于全部单手类型武器】可瞬间逼近敌人施展强劲斩击，将其斩杀或重创。只有杀气>50%时可以发动并会消耗全部杀气，发动招式后15秒内无法切换主武器。如果斩击后敌人破防，可以在收招前衔接 △ 进行追击。",
+        "input": "L1 + ○"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:heishang:soul-20261123-form-set",
+      "key": "weapon.formSet",
+      "valueType": "object",
+      "value": {
+        "base": {
+          "nameFactId": "fact:weapon:heishang:release-name",
+          "descriptionFactId": "fact:weapon:heishang:release-description",
+          "mediaId": "media:heishang-master",
+          "baseStatFactIds": [
+            "fact:weapon:heishang:release-base-stat-1",
+            "fact:weapon:heishang:release-base-stat-2"
+          ]
+        },
+        "soulForged": {
+          "nameFactId": "fact:weapon:heishang:soul-forged-name-owner",
+          "descriptionFactId": "fact:weapon:heishang:soul-20261123-description",
+          "mediaId": "media:heishang-soul-forged-master",
+          "baseStatFactIds": [
+            "fact:weapon:heishang:soul-20261123-damage",
+            "fact:weapon:heishang:soul-20261123-secondary"
+          ]
+        },
+        "mechanics": [
+          {
+            "logicalId": "base-1",
+            "change": "modified",
+            "baseFactId": "fact:weapon:heishang:release-basic-combo",
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-basic-combo"
+          },
+          {
+            "logicalId": "base-2",
+            "change": "modified",
+            "baseFactId": "fact:weapon:heishang:release-killing-combo",
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-killing-combo"
+          },
+          {
+            "logicalId": "forged-3",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-rebirth"
+          },
+          {
+            "logicalId": "forged-4",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-awakening"
+          },
+          {
+            "logicalId": "forged-5",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-demon-wave"
+          }
+        ],
+        "progressionNodes": [
+          {
+            "logicalId": "base-2",
+            "change": "removed",
+            "baseFactId": "fact:weapon:heishang:release-node-10",
+            "soulForgedFactId": null
+          },
+          {
+            "logicalId": "base-1",
+            "change": "modified",
+            "baseFactId": "fact:weapon:heishang:release-node-5",
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-node-5"
+          },
+          {
+            "logicalId": "base-3",
+            "change": "modified",
+            "baseFactId": "fact:weapon:heishang:release-node-15",
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-node-15"
+          },
+          {
+            "logicalId": "base-4",
+            "change": "modified",
+            "baseFactId": "fact:weapon:heishang:release-node-25",
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-node-25"
+          },
+          {
+            "logicalId": "forged-4",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:heishang:soul-20261123-node-30"
+          }
+        ]
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
     }
   ],
   "taxonomyIds": [],

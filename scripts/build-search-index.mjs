@@ -1,4 +1,4 @@
-import { isPublicBaseWeaponAlias, searchableForgedNames } from '../src/lib/weapon-forms.mjs';
+import { isForgedBatchFact, isPublicBaseWeaponAlias, searchableForgedNames } from '../src/lib/weapon-forms.mjs';
 import { projectWeaponPublicContent } from '../src/lib/projections.mjs';
 import { loadKnowledge } from '../src/lib/knowledge.mjs';
 import { spawnSync } from 'node:child_process';
@@ -224,7 +224,7 @@ function deriveAliases(entity, file, knowledge) {
 function deriveKeywords(entity) {
   const keywords = [ENTITY_LABELS.get(entity.entityType)];
 
-  for (const fact of entity.facts.filter((item) => item.supersededBy == null && item.validToVersionId == null)) {
+  for (const fact of entity.facts.filter((item) => !isForgedBatchFact(item) && item.supersededBy == null && item.validToVersionId == null)) {
     if (!SEARCHABLE_FACT_STATUSES.has(fact.status) || fact.value === null) continue;
     if ((fact.key === 'weapon.kind' || fact.key === 'weapon.systemCategory' || fact.key === 'weapon.weaponType' || fact.key === 'weapon.grip' || fact.key === 'character.role' || fact.key === 'location.kind') && typeof fact.value === 'string') {
       keywords.push(fact.value);

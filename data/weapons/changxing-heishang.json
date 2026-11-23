@@ -549,6 +549,484 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": "负责人确认的更名；缺少铸魂后详情截图，不据此推断外观、属性、技能或成长变化。"
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-description",
+      "key": "weapon.description",
+      "valueType": "string",
+      "value": "能将杀气转化为熊熊烈火的长刃，能斩碎盾牌，亦可焚尽世间之敌。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-damage",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "伤害能力",
+        "displayedValue": 1217,
+        "displayedLevel": 30,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-secondary",
+      "key": "weapon.baseStat",
+      "valueType": "object",
+      "value": {
+        "statName": "异常效果",
+        "displayedValue": 513,
+        "displayedLevel": 30,
+        "displayContext": "release-game-ui"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-basic-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "普通连招",
+        "input": "□ □ □ □"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-killing-combo",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "杀气连招",
+        "input": "△ △ △",
+        "description": "可接在任意段数的普通攻击后放出，自身杀气充足则会放出强化攻击，具备更强的伤害和破防能力，会点燃敌人。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-flaming-blade",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "烈焰淌刃",
+        "description": "每次 △ 命中敌人都会积累燃烧能量，能量积满后，炽刃刀刃进入着火状态，持续15秒。期间所有攻击都会对敌人造成燃烧伤害。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-charged-flame",
+      "key": "weapon.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "燧断",
+        "description": "按住 L2 消耗1［紫色图标］将炽刃高高举起蓄力，最多可蓄力3次，释放后会点燃敌人。处于冰冻状态的敌人将受到更多伤害。无法被敌人防御。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-node-5",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "焰波",
+        "level": 5,
+        "description": "消耗杀气斩出火焰波，会点燃敌人。",
+        "input": "L1 + △"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-node-15",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "横扫刀劲",
+        "level": 15,
+        "description": "普通连招的末尾衔接 □，或在任何 △ 之后衔接 □，可施展一招横扫。此招与敌人的攻击对撞，会形成拼刀，并叠加【刀劲】，【刀劲】蓄满时造成的伤害和杀气削减提升，持续25秒。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-node-25",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "风回云卷",
+        "level": 25,
+        "description": "【刀劲】蓄满时，按 L1 + △，会消耗全部【刀劲】，使出强力旋风斩击。"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-node-30",
+      "key": "weapon.progressionNode",
+      "valueType": "object",
+      "value": {
+        "name": "炽杀·之三",
+        "level": 30,
+        "description": "【作用于全部双手类型武器】可向前重劈，留下一道燃烧裂隙。破防力较强。只有杀气>50%时可以发动并会消耗全部杀气，发动招式后15秒内无法切换主武器。可以在收招前衔接 △ 顺势上挑，掀起裂隙中的岩浆，再次造成伤害。",
+        "input": "L1 + ○"
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
+    },
+    {
+      "id": "fact:weapon:changxing-heishang:soul-20261123-form-set",
+      "key": "weapon.formSet",
+      "valueType": "object",
+      "value": {
+        "base": {
+          "nameFactId": "fact:weapon:changxing-heishang:release-name",
+          "descriptionFactId": "fact:weapon:changxing-heishang:release-description",
+          "mediaId": "media:changxing-heishang-master",
+          "baseStatFactIds": [
+            "fact:weapon:changxing-heishang:release-base-stat-1",
+            "fact:weapon:changxing-heishang:release-base-stat-2"
+          ]
+        },
+        "soulForged": {
+          "nameFactId": "fact:weapon:changxing-heishang:soul-forged-name-owner",
+          "descriptionFactId": "fact:weapon:changxing-heishang:soul-20261123-description",
+          "mediaId": "media:changxing-heishang-soul-forged-master",
+          "baseStatFactIds": [
+            "fact:weapon:changxing-heishang:soul-20261123-damage",
+            "fact:weapon:changxing-heishang:soul-20261123-secondary"
+          ]
+        },
+        "mechanics": [
+          {
+            "logicalId": "base-3",
+            "change": "removed",
+            "baseFactId": "fact:weapon:changxing-heishang:release-l2",
+            "soulForgedFactId": null
+          },
+          {
+            "logicalId": "base-1",
+            "change": "modified",
+            "baseFactId": "fact:weapon:changxing-heishang:release-basic-combo",
+            "soulForgedFactId": "fact:weapon:changxing-heishang:soul-20261123-basic-combo"
+          },
+          {
+            "logicalId": "base-2",
+            "change": "modified",
+            "baseFactId": "fact:weapon:changxing-heishang:release-killing-combo",
+            "soulForgedFactId": "fact:weapon:changxing-heishang:soul-20261123-killing-combo"
+          },
+          {
+            "logicalId": "forged-3",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:changxing-heishang:soul-20261123-flaming-blade"
+          },
+          {
+            "logicalId": "forged-4",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:changxing-heishang:soul-20261123-charged-flame"
+          }
+        ],
+        "progressionNodes": [
+          {
+            "logicalId": "base-1",
+            "change": "removed",
+            "baseFactId": "fact:weapon:changxing-heishang:release-node-5",
+            "soulForgedFactId": null
+          },
+          {
+            "logicalId": "base-2",
+            "change": "removed",
+            "baseFactId": "fact:weapon:changxing-heishang:release-node-10",
+            "soulForgedFactId": null
+          },
+          {
+            "logicalId": "forged-1",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:changxing-heishang:soul-20261123-node-5"
+          },
+          {
+            "logicalId": "base-3",
+            "change": "modified",
+            "baseFactId": "fact:weapon:changxing-heishang:release-node-15",
+            "soulForgedFactId": "fact:weapon:changxing-heishang:soul-20261123-node-15"
+          },
+          {
+            "logicalId": "base-4",
+            "change": "modified",
+            "baseFactId": "fact:weapon:changxing-heishang:release-node-25",
+            "soulForgedFactId": "fact:weapon:changxing-heishang:soul-20261123-node-25"
+          },
+          {
+            "logicalId": "forged-4",
+            "change": "added",
+            "baseFactId": null,
+            "soulForgedFactId": "fact:weapon:changxing-heishang:soul-20261123-node-30"
+          }
+        ]
+      },
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-soul-forms-2026-11-23"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-23",
+      "gameVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-soul-forms-2026-11-23",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": null
     }
   ],
   "taxonomyIds": [],

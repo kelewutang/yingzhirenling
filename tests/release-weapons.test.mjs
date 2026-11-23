@@ -30,6 +30,7 @@ const secondBatchCohorts = {
   'luanying-jian': [4, true, 16, 'b1bcd6111449eba5cfa1b21465f265da99fcece6a341c1321159bf5673400073'],
   'yao-ju': [4, true, 16, '94b1c7f4363242126fc2ec26f2d0782f4d4d4369d3c47e46b006d4919942ac9c']
 };
+const soulBatchVersion = 'version:release-pc-soul-forms-2026-11-23';
 const ownerSoulSource = 'source:owner-weapon-soul-names-2026-11-18';
 const ownerSoulVersion = 'version:release-owner-soul-names-2026-11-18';
 
@@ -55,7 +56,10 @@ function assertSecondBatchCohort(entity) {
   const ownerId = `fact:weapon:${entity.slug}:soul-forged-name-owner`;
   const allowedIds = entity.slug === 'luanying-jian' ? [...ids, ownerId] : ids;
   assert.equal(ids.length, count);
-  assert.deepEqual(entity.facts.map((f) => f.id).sort(), [...allowedIds].sort(), 'No deleted, replaced, repeated or unapproved extra Fact');
+  const originalFacts = entity.slug === 'luanying-jian'
+    ? entity.facts.filter((fact) => fact.gameVersionId !== soulBatchVersion)
+    : entity.facts;
+  assert.deepEqual(originalFacts.map((f) => f.id).sort(), [...allowedIds].sort(), 'No deleted, replaced, repeated or unapproved extra Fact');
   const originals = ids.map((id) => entity.facts.find((f) => f.id === id));
   assert.equal(createHash('sha256').update(JSON.stringify(originals)).digest('hex'), digest, 'Original screenshot Facts must retain their complete contents and provenance');
   if (entity.slug === 'luanying-jian') assertOwnerSoulName(entity.facts.find((f) => f.id === ownerId), entity.slug, '天邈·乱莺');
@@ -124,7 +128,11 @@ test('Owner soul names remain separate, limited evidence on the four existing id
     const names = entity.facts.filter((f) => f.key === 'weapon.soulForgedName');
     assert.equal(names.length, 1); assertOwnerSoulName(names[0], slug, forged);
     assert(!entity.aliases.some((alias) => alias.value.includes('长型黑伤')));
-    assert(!entity.facts.some((f) => ['weapon.formSet', 'weapon.soulForgeEffect'].includes(f.key)), 'Names alone do not substantiate technical form data');
+    assert(!entity.facts.some((f) => f.key === 'weapon.soulForgeEffect'));
+    const sets = entity.facts.filter((f) => f.key === 'weapon.formSet');
+    assert.equal(sets.length, 1);
+    assert.equal(sets[0].gameVersionId, soulBatchVersion);
+    assert(!sets[0].sourceIds.includes(ownerSoulSource), 'Owner name confirmation supports only the name');
     assert.deepEqual(entity.facts.filter((f) => f.sourceIds.includes(ownerSoulSource)).map((f) => f.id), [names[0].id]);
   }
 });

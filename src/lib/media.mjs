@@ -6,7 +6,7 @@ const root = resolve(process.cwd());
 const mediaFile = resolve(root, 'data/media.json');
 let cachedMedia;
 
-async function loadMediaRecords() {
+export async function loadMediaRecords() {
   cachedMedia ??= readFile(mediaFile, 'utf8').then((contents) => JSON.parse(contents).records);
   return cachedMedia;
 }
