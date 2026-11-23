@@ -475,7 +475,7 @@ test('only the five screenshot icon costs use the Owner-confirmed resource name'
         assert(source.locator.factIds.includes(fact.id));
         assert.deepEqual(fact.sourceIds, [soulBatchSource, sourceId]);
         assert(claim.value.description.includes('消耗1［紫色图标］'));
-        assert.equal(fact.description, claim.value.description.replace('消耗1［紫色图标］', '消耗1点精纯杀气'));
+        assert.equal(fact.description, claim.value.description.replace('消耗1［紫色图标］', '消耗1精纯杀气'));
       } else {
         assert.deepEqual(fact.sourceIds, [soulBatchSource]);
         assert.deepEqual(fact.value, claim.value);
@@ -486,7 +486,8 @@ test('only the five screenshot icon costs use the Owner-confirmed resource name'
   assert.equal(source.locator.gameVersionId, soulBatchVersion);
   assert.equal(knowledge.versionById.get(soulBatchVersion).versionLabel, null);
   for (const mutate of [
-    (fact, owner) => { fact.value.description = fact.value.description.replace('1点', '2点'); },
+    (fact, owner) => { fact.value.description = fact.value.description.replace('消耗1', '消耗2'); },
+    (fact, owner) => { fact.value.description = fact.value.description.replace('消耗1精纯杀气', '消耗1点精纯杀气'); },
     (fact, owner) => { fact.sourceIds = [sourceId]; },
     (fact, owner) => { owner.locator.gameVersionId = 'version:release-pc-ui-2026-10-29'; },
     (fact, owner) => { owner.locator.factIds = []; },

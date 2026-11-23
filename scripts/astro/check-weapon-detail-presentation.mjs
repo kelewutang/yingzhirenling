@@ -359,7 +359,8 @@ for (const slug of ['heishang', 'heishang-shuangren', 'changxing-heishang', 'lua
   const forged = html.slice(forgedStart);
   assert(forged.includes('30级属性'));
   assert(!html.includes('紫色图标'), `${slug}: resource icon placeholder leaked into published HTML`);
-  assert.equal(count(forged, '消耗1点精纯杀气'), slug === 'heishang' ? 2 : 1);
+  assert.equal(count(forged, '消耗1精纯杀气'), slug === 'heishang' ? 2 : 1);
+  assert(!html.includes('消耗1点精纯杀气'), `${slug}: resource cost must use the existing site wording`);
   assert(!forged.includes('data-weapon-section="soul-forge-effect"'));
   for (const fact of facts.filter(isForgedBatchFact)) {
     assert(!base.includes(fact.id), `${slug}: forged Fact in base panel`);

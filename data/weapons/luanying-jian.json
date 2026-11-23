@@ -749,7 +749,7 @@
       "valueType": "object",
       "value": {
         "name": "邈影连莺声",
-        "description": "消耗1点精纯杀气施展天邈乱莺合击剑法。长短相护、快慢相掩，剑路虚实交错，无法被敌人防御。"
+        "description": "消耗1精纯杀气施展天邈乱莺合击剑法。长短相护、快慢相掩，剑路虚实交错，无法被敌人防御。"
       },
       "status": "observation",
       "sourceIds": [

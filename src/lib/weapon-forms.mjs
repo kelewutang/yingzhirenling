@@ -81,7 +81,7 @@ function verifyBatchEvidence(entity, set, baseIds, forgedIds, { sourceById, vers
     const expectedSources = usesResourceMarker ? [batchSourceId, resourceSourceId] : [batchSourceId];
     const expectedValue = usesResourceMarker ? {
       ...original,
-      description: original.description.replace(/消耗(\d+)［紫色图标］/g, `消耗$1点${confirmedResourceName}`)
+      description: original.description.replace(/消耗(\d+)［紫色图标］/g, `消耗$1${confirmedResourceName}`)
     } : original;
     if (baseIds.has(id) || !isBatchObservation(fact, expectedSources) || !technicalKeys.has(fact.key) ||
         (usesResourceMarker && (!isPublic(confirmation) || !isSoulResourceConfirmation(fact, confirmation) ||
