@@ -2,6 +2,9 @@ import assert from 'node:assert/strict';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { getVideoUrls, isProductionEligibleVideo } from '../../src/lib/video.mjs';
+import { projectWeaponPublicContent } from '../../src/lib/projections.mjs';
+import { loadKnowledge } from '../../src/lib/knowledge.mjs';
+import { entitySafeProjection } from '../../src/lib/spoilers.mjs';
 import { siteLifecycle } from '../../src/lib/site-lifecycle.mjs';
 import { loadProductionInventory } from './production-inventory.mjs';
 
@@ -20,6 +23,7 @@ function renderedExternalUrl(value) {
   return escapeHtml(new URL(value).href);
 }
 const inventory = await loadProductionInventory(root);
+const knowledge = await loadKnowledge();
 const { publishedWeapons, publishedCharacters, publishedBosses, publishedLocations, draftWeapons, draftBosses, draftLocations } = inventory;
 const mediaRecords = JSON.parse(await readFile(resolve(root, 'data/media.json'), 'utf8')).records;
 const videoRecords = JSON.parse(await readFile(resolve(root, 'data/videos.json'), 'utf8')).records;
@@ -525,8 +529,10 @@ for (const weapon of publishedWeapons) {
   for (const token of ['<title>', 'name="description"', `<link rel="canonical" href="${canonical}"`, '<h1', 'page-breadcrumb', 'data-fact-id=', '返回武器图鉴']) {
     assert(html.includes(token), `${weapon.slug}: missing static Weapon contract token ${token}`);
   }
-  assert(metaContent(html, 'name', 'description', weapon.slug).includes(weapon.summary), `${weapon.slug}: Weapon SEO summary must remain`);
-  const description = weapon.facts.find((fact) => fact.key === 'weapon.description' && fact.supersededBy === null && fact.validToVersionId == null && !['pending-review', 'editorial'].includes(fact.status));
+  const { description: reviewedDescription, summary } = projectWeaponPublicContent(weapon, knowledge);
+  assert.equal(metaContent(html, 'name', 'description', weapon.slug),
+    `${entitySafeProjection(weapon).displayName}：${summary}`, `${weapon.slug}: Weapon SEO must use the public summary`);
+  const description = reviewedDescription;
   if (description) {
     assert(html.includes(`<p class="entity-hero__summary" data-weapon-hero-description="${description.id}">${escapeHtml(description.value)}</p>`), `${weapon.slug}: Hero must use the original description Fact without an editorial prefix`);
     assert.equal((html.match(/data-weapon-hero-description=/g) || []).length, 1, `${weapon.slug}: description must appear once`);
@@ -604,6 +610,7 @@ for (const weapon of publishedWeapons) {
   const document = weaponDocuments.find((item) => item.id === weapon.id);
   assert(document, `Production Search missing ${weapon.id}`);
   assert.equal(document.route, `/weapons/${weapon.slug}`, `${weapon.id}: Search route must be canonical`);
+  assert.equal(document.summary, projectWeaponPublicContent(weapon, knowledge).summary, `${weapon.id}: Search must use the public summary`);
 }
 for (const weapon of draftWeapons) assert(!search.some((item) => item.id === weapon.id), `Production Search must exclude draft ${weapon.id}`);
 const bossDocuments = search.filter((item) => item.entityType === 'boss');

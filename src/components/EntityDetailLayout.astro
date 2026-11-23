@@ -12,10 +12,12 @@ import StructuredData from './StructuredData.astro';
 import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { entitySafeProjection, isMajorSpoiler } from '../lib/spoilers.mjs';
+import { loadPublishedWeaponForms } from '../lib/projections.mjs';
 
-const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, media, relations = [], gameplayRelations = [], relatedGuides = [], weaponDetail = null, weaponForms = null, canonical } = Astro.props;
+const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, media, relations = [], gameplayRelations = [], relatedGuides = [], weaponDetail = null, canonical } = Astro.props;
 const safe = entitySafeProjection(entity);
 const major = isMajorSpoiler(entity);
+const hasWeaponForms = entity.entityType === 'weapon' && !!await loadPublishedWeaponForms(entity.id);
 const breadcrumbStructuredData = createBreadcrumbList([
   { name: '首页', item: productionUrl('/') },
   { name: collectionLabel, item: productionUrl(collectionHref) },
@@ -25,9 +27,9 @@ const breadcrumbStructuredData = createBreadcrumbList([
 <article class="entity-detail entity-detail--pilot" data-detail-system="rollout" data-detail-pilot={entity.id === 'weapon:soft-snake-sword' ? 'weapon' : undefined} data-entity-type={entity.entityType}>
   <StructuredData data={breadcrumbStructuredData} />
   <Breadcrumb collectionHref={collectionHref} collectionLabel={collectionLabel} currentLabel={safe.displayName} />
-  {weaponForms ? <WeaponForms formSet={weaponForms} /> : <EntityHero entity={entity} aliases={aliases} eyebrow={eyebrow} taxonomy={heroTaxonomy} media={media} />}
+  {hasWeaponForms ? <WeaponForms weaponId={entity.id} /> : <EntityHero entity={entity} aliases={aliases} eyebrow={eyebrow} taxonomy={heroTaxonomy} media={media} />}
   {major ? <SpoilerDisclosure class="entity-detail__spoiler"><>
-    {weaponForms ? null : weaponDetail ? <WeaponDetailPresentation detail={weaponDetail} /> : <>
+    {hasWeaponForms ? null : weaponDetail ? <WeaponDetailPresentation detail={weaponDetail} /> : <>
     <QuickFacts facts={facts.quick} />
     <DetailFactSections facts={facts.detail} />
     </>}
@@ -35,7 +37,7 @@ const breadcrumbStructuredData = createBreadcrumbList([
     <GameplayRelations groups={gameplayRelations} />
     <RelatedGuides guides={relatedGuides} />
   </></SpoilerDisclosure> : <>
-    {weaponForms ? null : weaponDetail ? <WeaponDetailPresentation detail={weaponDetail} /> : <>
+    {hasWeaponForms ? null : weaponDetail ? <WeaponDetailPresentation detail={weaponDetail} /> : <>
       <QuickFacts facts={facts.quick} />
       <DetailFactSections facts={facts.detail} />
     </>}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-soul-appearances-2026-11-18",
+  "sourceType": "user-game-screenshot",
+  "authority": "community",
+  "publisher": "项目负责人（本人截图）",
+  "title": "四件武器铸魂后外观截图（负责人提供）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-game-screenshot",
+    "platformId": "platform:pc",
+    "versionLabel": null,
+    "capturedAt": null,
+    "suppliedAt": "2026-11-18",
+    "confirmedAt": "2026-11-19",
+    "captureOwner": "项目负责人（本人截图）",
+    "evidenceItems": [
+      {
+        "id": "soul-appearance-20261118103946",
+        "filename": "20261118103946_1.jpg",
+        "sha256": "889744b81edb86cf511ff358a7c3c1d4d6b9db0d60a485bac94e67d22042287e"
+      },
+      {
+        "id": "soul-appearance-20261118104015",
+        "filename": "20261118104015_1.jpg",
+        "sha256": "075ec06e19ee1c5e50574ead9be36d755ee93cb944349951556066470ee6234a"
+      },
+      {
+        "id": "soul-appearance-20261118104028",
+        "filename": "20261118104028_1.jpg",
+        "sha256": "94854aa0284ab3e1de6001d445fc07df9f974b46e5d0b583387bc9ff631d09ee"
+      },
+      {
+        "id": "soul-appearance-20261118104045",
+        "filename": "20261118104045_1.jpg",
+        "sha256": "90d360a9bc3e91d94d28973a19a2c2a817067999218595a6d27c91136b8c88c5"
+      }
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-19",
+  "archivedUrl": null,
+  "notes": "本轮逐图复核四张PC正式版截图中可见的铸魂后名称和武器外观，并沿用负责人本人截图授权。仅用于媒体登记和外观展示；未核验其他11张截图。没有在本轮录入属性、技能、成长或铸魂效果，不以截图文件名推断捕获日期，不创建release-verified Fact或本站实测记录。四组同实体更名仍引用独立Owner名称确认记录。"
+}
