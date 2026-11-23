@@ -1,55 +1,63 @@
 ---
-import EntityHero from './EntityHero.astro';
+import EntityMedia from './EntityMedia.astro';
 import WeaponDetailPresentation from './WeaponDetailPresentation.astro';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { isMajorSpoiler } from '../lib/spoilers.mjs';
-const { formSet } = Astro.props;
-const base = formSet.forms.base;
+import { loadPublishedWeaponForms } from '../lib/projections.mjs';
+const { weaponId } = Astro.props;
+const formSet = typeof weaponId === 'string' ? await loadPublishedWeaponForms(weaponId) : null;
+const base = formSet?.forms.base;
 const labels = { base: '铸魂前', soulForged: '铸魂后' };
+const major = isMajorSpoiler(formSet);
+const Content = major ? SpoilerDisclosure : 'div';
 ---
-<div data-weapon-forms>
-  <h1 class="entity-hero__title" data-form-title>{isMajorSpoiler(formSet) ? '武器资料' : base.name}</h1>
-  {isMajorSpoiler(formSet) ? <SpoilerDisclosure>
-    {Object.entries(formSet.forms).map(([key, form]) => <section aria-label={labels[key]}>
-      <EntityHero entity={form.entity} media={form.media} taxonomy={form.detail.taxonomy?.valueText} heading="h2" />
-      {key === 'soulForged' && <p>由{base.name}铸魂获得</p>}
-      <WeaponDetailPresentation detail={form.detail} idPrefix={`${key}-`} />
-    </section>)}
-  </SpoilerDisclosure> : <>
+{formSet && <div class="weapon-forms" data-weapon-forms data-forms-concealed={major || undefined}>
+  <header class="entity-hero"><div class="entity-hero__identity"><h1 class="entity-hero__title">{major ? '武器资料' : base.name}</h1></div></header>
+  <Content>
+    <p class="weapon-form-identity">{base.name} → {formSet.forms.soulForged.name}</p>
     <div class="weapon-form-tabs" data-form-controls hidden>
       {Object.keys(formSet.forms).map((key) => <button type="button" data-form-button={key} id={`form-tab-${key}`} aria-controls={`weapon-form-${key}`}>{labels[key]}</button>)}
     </div>
-    {Object.entries(formSet.forms).map(([key, form]) => <section id={`weapon-form-${key}`} data-form-panel={key} data-form-name={form.name} aria-label={`${labels[key]}：${form.name}`}>
-      <EntityHero entity={form.entity} media={form.media} taxonomy={form.detail.taxonomy?.valueText} heading="h2" />
-      {key === 'soulForged' && <p>由{base.name}铸魂获得</p>}
-      <WeaponDetailPresentation detail={form.detail} idPrefix={`${key}-`} />
-    </section>)}
-  </>}
-</div>
-<style>
-  .weapon-form-tabs { display:flex; gap:0.75rem; margin:1.5rem 0; }
-  .weapon-form-tabs[hidden], [data-form-panel][hidden] { display:none; }
-  .weapon-form-tabs button { min-width:7rem; min-height:44px; padding:0.5rem 1rem; border:1px solid currentColor; border-radius:4px; color:inherit; background:transparent; cursor:pointer; }
-  .weapon-form-tabs button[aria-selected="true"] { background:var(--color-bg-tertiary, #292320); color:var(--color-gold, #d6b36a); }
-  .weapon-form-tabs button:focus-visible { outline:3px solid var(--color-gold, #d6b36a); outline-offset:4px; }
-  [data-form-panel] { min-width:0; }
-</style>
-<script>
-  document.querySelectorAll<HTMLElement>('[data-weapon-forms]').forEach((root) => {
-    const controls = root.querySelector<HTMLElement>('[data-form-controls]');
+    {Object.entries(formSet.forms).map(([key, form]) => {
+      const { description } = form;
+      const taxonomy = form.detail.taxonomy;
+      const concealedTaxonomy = isMajorSpoiler(taxonomy?.systemCategory) || isMajorSpoiler(taxonomy?.weaponType);
+      return <section id={`weapon-form-${key}`} data-form-panel={key} data-form-name={form.name} aria-label={`${labels[key]}：${form.name}`}>
+        <h2 class="weapon-form-label">{labels[key]} · {form.name}</h2>
+        <div class="weapon-form-layout">
+          <div class="weapon-form-visual"><EntityMedia entity={form.entity} media={form.media} showSourceLink={false} revealed={major} /></div>
+          <div class="weapon-form-details">
+            {taxonomy && (concealedTaxonomy
+              ? <SpoilerDisclosure><p class="entity-hero__taxonomy" data-weapon-hero-taxonomy>{taxonomy.valueText}</p></SpoilerDisclosure>
+              : <p class="entity-hero__taxonomy" data-weapon-hero-taxonomy>{taxonomy.valueText}</p>)}
+            {description ? (isMajorSpoiler(description)
+              ? <SpoilerDisclosure><p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p></SpoilerDisclosure>
+              : <p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p>)
+              : <p class="weapon-form-pending" data-form-pending="description">武器介绍待补充</p>}
+            <WeaponDetailPresentation detail={form.detail} pendingTechnicalDetails={form.pendingTechnicalDetails} idPrefix={`${key}-`} />
+          </div>
+        </div>
+      </section>;
+    })}
+  </Content>
+</div>}
+<script is:inline>
+  document.querySelectorAll('[data-weapon-forms]:not([data-enhanced])').forEach((root) => {
+    const controls = root.querySelector('[data-form-controls]');
     if (!controls) return;
-    const buttons = [...controls.querySelectorAll<HTMLButtonElement>('[data-form-button]')];
-    const panels = [...root.querySelectorAll<HTMLElement>('[data-form-panel]')];
-    const title = root.querySelector<HTMLElement>('[data-form-title]');
-    const select = (button: HTMLButtonElement) => {
-      buttons.forEach((item) => { const selected = item === button; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; });
-      panels.forEach((panel) => { panel.hidden = panel.dataset.formPanel !== button.dataset.formButton; if (!panel.hidden && title) title.textContent = panel.dataset.formName || ''; });
+    const buttons = [...controls.querySelectorAll('[data-form-button]')];
+    const panels = [...root.querySelectorAll('[data-form-panel]')];
+    const title = root.querySelector('h1');
+    const select = (key) => {
+      root.dataset.activeForm = key;
+      buttons.forEach((item) => { const selected = item.dataset.formButton === key; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.formPanel !== key; if (!panel.hidden && title && !root.dataset.formsConcealed) title.textContent = panel.dataset.formName || ''; });
     };
     controls.setAttribute('role', 'tablist');
     controls.setAttribute('aria-label', '武器形态');
     buttons.forEach((button, index) => {
       button.setAttribute('role', 'tab');
-      button.addEventListener('click', () => select(button));
+      button.addEventListener('click', () => select(button.dataset.formButton));
       button.addEventListener('keydown', (event) => {
         let next;
         if (event.key === 'ArrowRight') next = (index + 1) % buttons.length;
@@ -57,11 +65,38 @@ const labels = { base: '铸魂前', soulForged: '铸魂后' };
         if (event.key === 'Home') next = 0;
         if (event.key === 'End') next = buttons.length - 1;
         if (next === undefined) return;
-        event.preventDefault(); select(buttons[next]); buttons[next].focus({ preventScroll: true });
+        event.preventDefault(); select(buttons[next].dataset.formButton); buttons[next].focus({ preventScroll: true });
       });
     });
     panels.forEach((panel) => { panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-labelledby', `form-tab-${panel.dataset.formPanel}`); panel.tabIndex = 0; });
-    select(buttons[0]);
+    select('base');
+    root.dataset.enhanced = 'true';
     controls.hidden = false;
   });
 </script>
+<style is:global>
+  .weapon-forms { min-width:0; }
+  .entity-detail[data-entity-type="weapon"] .weapon-forms > .entity-hero { display:block; padding:0; border:0; background:none; }
+  .weapon-form-identity { margin:0.5rem 0; color:var(--color-text-muted); font-size:var(--text-sm); }
+  .weapon-form-tabs { display:flex; flex-wrap:wrap; gap:0.75rem; margin:1rem 0 1.5rem; }
+  .weapon-form-tabs[hidden], .weapon-forms [data-form-panel][hidden] { display:none; }
+  .weapon-form-tabs button { min-width:7rem; min-height:44px; padding:0.5rem 1rem; border:1px solid var(--color-border-strong); border-radius:4px; color:inherit; background:transparent; cursor:pointer; }
+  .weapon-form-tabs button[aria-selected="true"] { background:var(--color-bg-tertiary, #292320); color:var(--color-gold, #d6b36a); }
+  .weapon-form-tabs button:focus-visible { outline:3px solid var(--color-gold, #d6b36a); outline-offset:4px; }
+  .weapon-forms [data-form-panel] { min-width:0; }
+  .weapon-form-layout { display:grid; grid-template-columns:minmax(13rem,18rem) minmax(0,1fr); gap:2rem; align-items:start; }
+  .weapon-form-details { min-width:0; }
+  .weapon-form-details > p:first-child { margin-top:0; }
+  .weapon-form-details .weapon-detail-section { margin:1.75rem 0 0; max-width:none; }
+  .weapon-form-details .weapon-detail-overview { margin-top:1rem; }
+  .weapon-form-details .weapon-preview-stats { margin-top:1rem; }
+  .weapon-form-visual .entity-media > img { height:26rem; max-height:48svh; object-fit:contain; }
+  .weapon-form-pending { color:var(--color-text-muted); font-size:var(--text-sm); }
+  .weapon-forms .weapon-pending { color:var(--color-text-muted); font-size:var(--text-sm); }
+  .weapon-forms[data-enhanced] .weapon-form-label { display:none; }
+  .weapon-form-label { margin:1rem 0; font-size:var(--text-lg); }
+  @media (max-width:719px) {
+    .weapon-form-layout { grid-template-columns:minmax(0,1fr); gap:1.25rem; }
+    .weapon-form-visual .entity-media > img { height:17rem; max-height:34svh; }
+  }
+</style>

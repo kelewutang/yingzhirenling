@@ -6,6 +6,19 @@ const object = (value) => value !== null && typeof value === 'object' && !Array.
 const text = (value) => typeof value === 'string' && value.trim().length > 0;
 const only = (value, keys) => object(value) && Object.keys(value).every((key) => keys.includes(key));
 const rights = new Set(['permission-recorded', 'official-press-use-reviewed', 'self-captured-reviewed', 'official-promotional-risk-accepted']);
+const soulFormWeaponIds = new Set(['weapon:heishang', 'weapon:heishang-shuangren', 'weapon:changxing-heishang', 'weapon:luanying-jian']);
+export const isSoulFormWeapon = (entity) => entity?.entityType === 'weapon' && soulFormWeaponIds.has(entity.id);
+const aliasIdentity = (value) => value.normalize('NFKC').trim().toLowerCase();
+
+export function isPublicBaseWeaponAlias(entity, alias, knowledge) {
+  if (entity.entityType !== 'weapon' || typeof alias.value !== 'string') return true;
+  if (isSoulFormWeapon(entity) && (['pending-review', 'editorial'].includes(alias.status) ||
+    alias.sourceIds?.some((id) => knowledge?.sourceById.get(id)?.locator?.type === 'user-supplied-statement'))) return false;
+  return !entity.facts.some((fact) => fact.key === 'weapon.soulForgedName' && typeof fact.value === 'string' &&
+    aliasIdentity(fact.value) === aliasIdentity(alias.value));
+}
+const requiresForgedEvidence = (entity, fact) => entity.recordState === 'published' && activeFormFact(fact) &&
+  (fact.key === 'weapon.formSet' || fact.key === 'weapon.soulForgeEffect');
 const scopeContains = (outer, inner) => ['platforms', 'difficulties'].every((key) => outer?.[key]?.mode === 'all' ||
   (inner?.[key]?.mode === 'include' && inner[key].ids.every((id) => outer?.[key]?.ids?.includes(id))));
 
@@ -13,6 +26,11 @@ const scopeContains = (outer, inner) => ['platforms', 'difficulties'].every((key
 export function validateWeaponForms(entity, { sourceById, versionById, mediaRecords = [] }) {
   const errors = [];
   const fail = (message) => errors.push(`${entity.id}: ${message}`);
+  if (entity.recordState === 'published' && isSoulFormWeapon(entity)) {
+    for (const alias of entity.aliases ?? []) {
+      if (!isPublicBaseWeaponAlias(entity, alias, { sourceById })) fail('base alias cannot publish a reserved soul-forged name or unreviewed alias');
+    }
+  }
   const byId = new Map(entity.facts.map((fact) => [fact.id, fact]));
   const current = entity.facts.filter(activeFormFact);
   for (const fact of entity.facts) {
@@ -20,6 +38,8 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
       fail(`${fact.id}: Owner statement may support a name, not technical game facts`);
     }
     if (!soulKeys.has(fact.key)) continue;
+    // Current Source references do not bind a technical Fact to a reviewed entity, form and version.
+    if (requiresForgedEvidence(entity, fact)) fail(`${fact.id}: cannot publish soulForged technical Facts without entity/form/Fact/version evidence`);
     if (!fact.sourceIds?.length || fact.sourceIds.some((id) => !sourceById.has(id))) fail(`${fact.id}: missing Source`);
     if (!versionById.has(fact.gameVersionId)) fail(`${fact.id}: missing GameVersion`);
     if (fact.key === 'weapon.soulForgedName' && (!text(fact.value) || fact.value.length > 80)) fail(`${fact.id}: invalid forged name`);
@@ -46,7 +66,7 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
       if (fact.spoilerLevel === 'major' && set.spoilerLevel !== 'major') fail(`${set.id}: form set cannot downgrade major spoiler ${id}`);
       return fact;
     };
-    const media = [];
+    const media = {};
     for (const form of ['base', 'soulForged']) {
       const entry = value[form];
       if (!only(entry, ['nameFactId', 'descriptionFactId', 'mediaId', 'baseStatFactIds'])) { fail(`${set.id}: invalid ${form}`); continue; }
@@ -63,23 +83,25 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
         !image.usage?.includes('hero') || (image.weaponForm || 'base') !== form || !sourceById.has(image.sourceId) ||
         sourceById.get(image.sourceId)?.locator?.type === 'user-supplied-statement') fail(`${set.id}: invalid independent ${form} Media`);
       if (image?.spoilerLevel === 'major' && set.spoilerLevel !== 'major') fail(`${set.id}: form set cannot downgrade major Media`);
-      media.push(image);
+      media[form] = image;
     }
-    if (media[0] && media[1] && (media[0].id === media[1].id || media[0].src === media[1].src)) fail(`${set.id}: forged appearance cannot reuse base image`);
+    const { base, soulForged } = media;
+    if (base && soulForged && (base.id === soulForged.id || base.src === soulForged.src)) fail(`${set.id}: forged appearance cannot reuse base image`);
     ref(value.effectFactId, 'weapon.soulForgeEffect');
     for (const [field, key] of [['mechanics', 'weapon.mechanic'], ['progressionNodes', 'weapon.progressionNode']]) {
       const mappings = value[field];
       if (!Array.isArray(mappings) || !mappings.length) { fail(`${set.id}: explicit ${field} mappings required`); continue; }
       const identities = new Set(), used = new Set();
       for (const item of mappings) {
-        if (!only(item, ['logicalId', 'change', 'baseFactId', 'soulForgedFactId']) || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.logicalId) || identities.has(item.logicalId)) { fail(`${set.id}: invalid/repeated logical identity`); continue; }
+        if (!only(item, ['logicalId', 'change', 'baseFactId', 'soulForgedFactId']) || typeof item.logicalId !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.logicalId) || identities.has(item.logicalId)) { fail(`${set.id}: invalid/repeated logical identity`); continue; }
         identities.add(item.logicalId);
         const { baseFactId: a, soulForgedFactId: b, change } = item;
         const valid = change === 'shared' ? text(a) && a === b : change === 'modified' ? text(a) && text(b) && a !== b : change === 'added' ? a === null && text(b) : change === 'removed' ? text(a) && b === null : false;
         if (!valid) fail(`${set.id}: invalid explicit ${change} mapping`);
         for (const id of new Set([a, b].filter(Boolean))) {
           if (used.has(id)) fail(`${set.id}: Fact mapped under multiple logical identities ${id}`);
-          used.add(id); ref(id, key);
+          used.add(id);
+          ref(id, key);
         }
       }
       if (activeFormFact(set)) for (const fact of current.filter((fact) => fact.key === key && scopeContains(fact.scope, set.scope))) {
@@ -90,34 +112,47 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
   return errors;
 }
 
-export function searchableForgedNames(entity) {
-  if (entity.recordState !== 'published' || entity.spoilerLevel === 'major') return [];
-  return entity.facts.filter((fact) => fact.key === 'weapon.soulForgedName' && activeFormFact(fact) && fact.spoilerLevel !== 'major').map((fact) => fact.value);
+const publicNameStatuses = new Set(['official', 'observation', 'release-verified']);
+
+function publicForgedNameFacts(entity, knowledge) {
+  if (!knowledge || !isSoulFormWeapon(entity) || entity.recordState !== 'published' || entity.spoilerLevel === 'major') return [];
+  return entity.facts.filter((fact) => {
+    if (fact.key !== 'weapon.soulForgedName' || !activeFormFact(fact) || !publicNameStatuses.has(fact.status) ||
+      fact.spoilerLevel === 'major' || !text(fact.value) || fact.value.length > 80 || !fact.sourceIds?.length) return false;
+    const version = knowledge.versionById.get(fact.gameVersionId);
+    const starts = knowledge.versionById.get(fact.validFromVersionId || fact.gameVersionId);
+    return Number.isInteger(version?.sequence) && Number.isInteger(starts?.sequence) && starts.sequence <= version.sequence &&
+      fact.sourceIds.every((id) => {
+        const source = knowledge.sourceById.get(id);
+        return source && source.spoilerLevel !== 'major' && !['draft', 'archived'].includes(source.recordState);
+      });
+  });
 }
 
-/** The set determines both forms explicitly; unknown changes never inherit. */
-export function resolveWeaponForms(entity) {
-  if (entity.recordState !== 'published') return null;
-  const sets = entity.facts.filter((fact) => fact.key === 'weapon.formSet' && activeFormFact(fact));
-  if (!sets.length) return null;
-  if (sets.length !== 1) throw new Error(`${entity.id}: ambiguous current form scope`);
-  const set = sets[0], byId = new Map(entity.facts.map((fact) => [fact.id, fact]));
-  const forms = {};
-  for (const form of ['base', 'soulForged']) {
-    const entry = set.value[form];
-    const changes = (field) => set.value[field].filter((item) => item[`${form}FactId`])
-      .map((item) => ({ ...byId.get(item[`${form}FactId`]), formChange: form === 'soulForged' && item.change !== 'shared' ? item.change : null, logicalId: item.logicalId }))
-      .sort((a, b) => field === 'progressionNodes' ? (a.value.level ?? Infinity) - (b.value.level ?? Infinity) : 0);
-    forms[form] = {
-      name: byId.get(entry.nameFactId).value,
-      mediaId: entry.mediaId,
-      entity: { ...entity, displayName: byId.get(entry.nameFactId).value, facts: [
-        ...entity.facts.filter((fact) => !['weapon.description', 'weapon.baseStat', 'weapon.mechanic', 'weapon.progressionNode', ...soulKeys].includes(fact.key)),
-        byId.get(entry.descriptionFactId), ...entry.baseStatFactIds.map((id) => byId.get(id)),
-        ...changes('mechanics'), ...changes('progressionNodes'),
-        ...(form === 'soulForged' ? [byId.get(set.value.effectFactId)] : [])
-      ] }
-    };
-  }
-  return { ...set, forms };
+export function searchableForgedNames(entity, knowledge) {
+  return publicForgedNameFacts(entity, knowledge).map((fact) => fact.value);
+}
+
+export function assertPublishableWeaponForms(entity, knowledge, mediaRecords = knowledge.mediaRecords) {
+  if (!entity.facts.some((fact) => requiresForgedEvidence(entity, fact))) return;
+  const errors = validateWeaponForms(entity, { ...knowledge, mediaRecords });
+  if (errors.length) throw new Error(errors.join('\n'));
+}
+
+/** Name + independently cleared screenshots permit a partial view, never technical inheritance. */
+export function resolveAppearanceForms(entity, knowledge, mediaRecords) {
+  if (entity.recordState !== 'published' || entity.spoilerLevel === 'major') return null;
+  const names = publicForgedNameFacts(entity, knowledge);
+  if (!names.length) return null;
+  const errors = validateWeaponForms(entity, knowledge);
+  if (errors.length) throw new Error(errors.join('\n'));
+  const name = names[0];
+  const media = ['base', 'soulForged'].map((form) => mediaRecords.find((item) => item.entityId === entity.id && (item.weaponForm || 'base') === form && item.recordState === 'published' && rights.has(item.rightsStatus) && item.usage?.includes('hero') && item.spoilerLevel !== 'major' && knowledge.sourceById.get(item.sourceId)?.locator?.type === 'user-supplied-game-screenshot'));
+  if (media.some((item) => !item) || media[0].src === media[1].src) return null;
+  const platform = knowledge.sourceById.get(media[1].sourceId).locator.platformId;
+  if (name.scope.platforms.mode !== 'all' && !name.scope.platforms.ids.includes(platform)) return null;
+  return { spoilerLevel: 'none', forms: {
+    base: { name: entity.displayName, mediaId: media[0].id, entity: { ...entity, facts: entity.facts.filter((fact) => !['weapon.formSet', 'weapon.soulForgeEffect'].includes(fact.key)) } },
+    soulForged: { name: name.value, mediaId: media[1].id, entity: { ...entity, displayName: name.value, aliases: [], summary: '', facts: [] } }
+  } };
 }

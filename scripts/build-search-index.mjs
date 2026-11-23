@@ -1,4 +1,6 @@
-import { searchableForgedNames } from '../src/lib/weapon-forms.mjs';
+import { isPublicBaseWeaponAlias, searchableForgedNames } from '../src/lib/weapon-forms.mjs';
+import { projectWeaponPublicContent } from '../src/lib/projections.mjs';
+import { loadKnowledge } from '../src/lib/knowledge.mjs';
 import { spawnSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -198,14 +200,15 @@ function validateSummarySupport(entity, file) {
   }
 }
 
-function deriveAliases(entity, file) {
-  const searchable = searchableForgedNames(entity);
+function deriveAliases(entity, file, knowledge) {
+  const searchable = searchableForgedNames(entity, knowledge);
   const displayable = [];
 
   for (const alias of entity.aliases) {
     if (!SEARCHABLE_ALIAS_KINDS.has(alias.kind)) {
       throw new Error(`${file}: Alias kind 尚无搜索策略：${alias.kind}`);
     }
+    if (!isPublicBaseWeaponAlias(entity, alias, knowledge)) continue;
     searchable.push(alias.value);
     if (DISPLAY_ALIAS_KINDS.has(alias.kind) && DISPLAY_ALIAS_STATUSES.has(alias.status)) {
       displayable.push(alias.value);
@@ -247,9 +250,9 @@ function deriveEntityRoute(entity, detailPageSlugs) {
   return collectionRoute;
 }
 
-function buildSearchDocument(entity, file, detailPageSlugs) {
+function buildSearchDocument(entity, file, detailPageSlugs, knowledge) {
   validateSummarySupport(entity, file);
-  const { aliases, displayAliases } = deriveAliases(entity, file);
+  const { aliases, displayAliases } = deriveAliases(entity, file, knowledge);
 
   return {
     id: entity.id,
@@ -261,7 +264,9 @@ function buildSearchDocument(entity, file, detailPageSlugs) {
     aliases,
     displayAliases,
     keywords: deriveKeywords(entity),
-    summary: entity.summary,
+    summary: entity.entityType === 'weapon' && entity.recordState === 'published'
+      ? projectWeaponPublicContent(entity, knowledge).summary
+      : entity.summary,
     recordState: entity.recordState,
     sourceSchemaVersion: entity.schemaVersion
   };
@@ -290,7 +295,7 @@ function assertUniqueDocuments(documents, detailPageSlugs) {
   }
 }
 
-export function buildSearchDocuments(records, mode, detailPageSlugs = new Set()) {
+export function buildSearchDocuments(records, mode, detailPageSlugs = new Set(), knowledge = null) {
   const config = MODE_CONFIG.get(mode);
   if (!config) throw new Error(`未知 mode：${mode}`);
   if (!(detailPageSlugs instanceof Set) && !(detailPageSlugs instanceof Map)) throw new Error('detailPageSlugs 必须是 Set 或 Map');
@@ -308,7 +313,7 @@ export function buildSearchDocuments(records, mode, detailPageSlugs = new Set())
       skippedByState.set(entity.recordState, (skippedByState.get(entity.recordState) ?? 0) + 1);
       continue;
     }
-    documents.push(buildSearchDocument(entity, record.file, detailPageSlugs));
+    documents.push(buildSearchDocument(entity, record.file, detailPageSlugs, knowledge));
   }
 
   documents.sort((left, right) =>
@@ -519,7 +524,7 @@ async function main() {
     ['boss', await resolvePublishedBossDetailPageSlugs(records, bossDetailPagesDir)],
     ['location', await resolvePublishedLocationDetailPageSlugs(records, locationDetailPagesDir)]
   ]);
-  const { documents: entityDocuments, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs);
+  const { documents: entityDocuments, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs, await loadKnowledge());
   const guideManifest = mode === 'production' ? await readGuideManifest() : [];
   const guidePageSlugs = await resolvePublishedGuideDetailPageSlugs(guideManifest, guideDetailPagesDir);
   const guideDocuments = buildGuideSearchDocuments(guideManifest, guidePageSlugs);
