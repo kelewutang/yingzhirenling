@@ -28,15 +28,15 @@ if (heroMedia) {
   assert(!entityHero.includes('<img'), 'Soft Snake Sword Entity Hero must not emit an image without admitted hero Media');
 }
 assert(page.includes(weapon.summary), 'Soft Snake Sword SEO summary missing');
-assert(!entityHero.includes('entity-hero__summary'), 'Soft Snake Sword Hero must not render its summary');
+assert(entityHero.includes('data-weapon-hero-description="fact:weapon:soft-snake-sword:pc-20261123-description"'), 'Soft Snake Sword Hero must render the screenshot introduction');
 assert(page.includes('id="weapon-overview-title"'), 'Soft Snake Sword Weapon overview missing');
 assert(!page.includes('id="sources-title"'), 'Owner-approved detail must not render a source panel');
 assert(weapon.facts.every((fact) => fact.sourceIds.every((id) => typeof id === 'string')), 'Underlying source references must remain intact');
 assert(page.includes('class="footer site-footer"'), 'Soft Snake Sword shared footer missing');
 
-assert(page.includes('data-weapon-overview-field="taxonomy" data-system-category-fact-id="fact:weapon:soft-snake-sword:system-category"'), 'Soft Snake Sword normalized taxonomy missing');
-assert(!page.includes('data-weapon-section="mechanics"'), 'Sparse Soft Snake Sword must not emit an empty mechanics section');
-assert(!page.includes('data-weapon-section="progression"'), 'Sparse Soft Snake Sword must not emit an empty progression section');
+assert(page.includes('data-weapon-hero-taxonomy>主武器 · 单手武器</p>'), 'Soft Snake Sword release taxonomy missing');
+assert(page.includes('data-weapon-section="mechanics"'), 'Soft Snake Sword screenshot mechanics missing');
+assert(page.includes('data-weapon-section="progression"'), 'Soft Snake Sword screenshot progression missing');
 
 for (const [file, canonical] of [
   ['weapons/soft-snake-sword.html', 'https://www.yingzhirenling.cn/weapons/soft-snake-sword'],

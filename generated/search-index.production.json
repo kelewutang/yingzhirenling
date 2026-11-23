@@ -563,12 +563,12 @@
       "Soft Snake Sword"
     ],
     "keywords": [
-      "demo",
       "主武器",
-      "武器",
-      "试玩"
+      "单手",
+      "单手武器",
+      "武器"
     ],
-    "summary": "发售前媒体试玩记录中的主武器；名称按跨语言试玩资料核对，正式版名称与玩法资料仍待复核。",
+    "summary": "PC正式版界面确认的单手主武器；刃出灵动如蛇，柔韧飘逸，可化解敌人攻击，更可令身法如游蛇般灵动。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -699,9 +699,11 @@
     "displayAliases": [],
     "keywords": [
       "主武器",
+      "双手",
+      "双手武器",
       "武器"
     ],
-    "summary": "白影是一把双手武器，以冰冻相关机制为主要特色。刀身无影，寒光似雪。",
+    "summary": "PC正式版界面确认的双手主武器；刀身无影，寒光似雪。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

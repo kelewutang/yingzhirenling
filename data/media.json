@@ -813,6 +813,33 @@
       "objectFit": "contain",
       "objectPosition": "center",
       "spoilerLevel": "none"
+    },
+    {
+      "id": "media:soft-snake-sword-master",
+      "entityId": "weapon:soft-snake-sword",
+      "src": "soft-snake-sword-master.jpg",
+      "alt": "灵蛇软剑PC实机武器局部，剑刃下端在原始画面外。",
+      "caption": "负责人提供的PC实机灵蛇软剑画面；保留原图自然截断，未补全缺失部件，具体游戏版本号与拍摄日期未知。",
+      "credit": "截图：本站负责人；游戏：S-GAME / PARAWULIN PRODUCTION LIMITED",
+      "owner": "游戏画面：S-GAME / PARAWULIN PRODUCTION LIMITED；截图贡献者：本站负责人",
+      "sourceId": "source:owner-pc-baiying-lingshe-2026-11-23",
+      "sourceUrl": null,
+      "sourceType": "self-captured",
+      "rightsStatus": "self-captured-reviewed",
+      "recordState": "published",
+      "usage": [
+        "hero",
+        "card"
+      ],
+      "width": 1200,
+      "height": 1800,
+      "mimeType": "image/jpeg",
+      "retrievedAt": "2026-11-23",
+      "rightsEvidence": "负责人于2026-11-23提供本人PC实机截图，并在PR #89图片修复任务中明确要求将正确武器图片用于灵蛇软剑卡片和详情Hero。沿用现有本人截图媒体流程，仅作非生成裁切、缩放及JPEG处理，保留原画面自然截断。具体客户端补丁号及拍摄日期未知；不声称另获发行方版权许可。",
+      "processing": "Source 20261123102400_1.jpg / SHA-256 dd6548bf7168ea4b718732bb3afc003a3d13e7d2267cb7d56ac425104f18f162, decoded original 2048x1152. Non-generative crop [640,84,1352,1152] (left,top,right,bottom); directly resize 712x1068 (2:3) with Lanczos3 to 1200x1800; progressive JPEG quality 90 / 4:4:4. Remove game menu, skill text and button UI; retain original game background and naturally truncated blade. No canvas, padding, inpainting, extension, generative editing or reconstruction. Output SHA-256 5f1d5c0f79cf10425ae89b0051067d3310e099d2b7f68a165edfc41e20809dd5.",
+      "objectFit": "contain",
+      "objectPosition": "center",
+      "spoilerLevel": "none"
     }
   ]
 }

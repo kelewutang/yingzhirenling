@@ -160,7 +160,7 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   ['soft-snake-sword', '灵蛇软剑', '主武器', '剑'],
   ['white-shadow', '白影', '主武器', '苗刀'],
 ]) {
-  const taxonomy = systemCategory;
+  const taxonomy = `${systemCategory} · ${slug === 'white-shadow' ? '双手武器' : '单手武器'}`;
   const card = collection.match(new RegExp(`<a class="entity-card entity-card--compact" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0];
   assert(card, `${slug}: public collection card missing`);
   assert(card.includes(`<h3 class="entity-card__title">${displayName}</h3>`), `${slug}: collection card name missing`);
@@ -172,18 +172,16 @@ for (const [slug, displayName, systemCategory, weaponType] of [
   assert(hero.indexOf(`<h1 class="entity-hero__title">`) < hero.indexOf('data-weapon-hero-taxonomy'), `${slug}: Hero taxonomy must follow the left-aligned name`);
   assert(hero.replace(/<[^>]*>/gu, '').includes(taxonomy), `${slug}: Hero taxonomy missing`);
   const renderedOverview = overview(detail);
-  assert(renderedOverview.includes(`data-system-category-fact-id="fact:weapon:${slug}:system-category"`), `${slug}: overview system category must use its normalized Fact`);
+  assert(!renderedOverview.includes('weapon-overview__primary'), `${slug}: release identity must not duplicate the Hero`);
   const weaponTypeFactId = slug === 'white-shadow' ? 'fact:weapon:white-shadow:weapon-type-official' : `fact:weapon:${slug}:weapon-type`;
   assert(!renderedOverview.includes(`data-weapon-type-fact-id="${weaponTypeFactId}"`), `${slug}: historical custom type must not become a formal release class`);
-  assert(renderedOverview.includes(`<dt>装备类型</dt><dd>${taxonomy}</dd>`), `${slug}: unconfirmed class must leave only the equipment type`);
   assert(!renderedOverview.includes('data-weapon-overview-field="type"'), `${slug}: legacy mixed kind must not render in overview`);
 }
 const sparseWeaponCard = collection.match(/<a class="entity-card entity-card--compact" href="\/weapons\/soft-snake-sword"[\s\S]*?<\/a>/)?.[0];
-assert(sparseWeaponCard?.includes('entity-media__fallback'), 'Soft Snake Sword card must retain its fallback media');
-assert.equal(buildWeaponCollectionCard(await readJson('data/weapons/soft-snake-sword.json')).context, '公开试玩记录', 'Compact presentation must not erase the historical card context from its model');
+assert(sparseWeaponCard?.includes('data-media-state="ready"'), 'Soft Snake Sword card must render its admitted Master');
+assert.equal(buildWeaponCollectionCard(await readJson('data/weapons/soft-snake-sword.json')).context, 'PC正式版界面记录', 'Compact presentation must not erase the historical card context from its model');
 assert.equal(count(collection, 'class="entity-card__context"'), 0, 'Existing compact cards must omit rich-card contexts');
-const sparseWeaponFallback = sparseWeaponCard.match(/<div class="entity-media__fallback[\s\S]*?<\/div>/)?.[0] || '';
-assert(!sparseWeaponFallback.includes('entity-media__name') && !sparseWeaponFallback.includes('entity-media__type'), 'Weapon card fallback must not render fallback name or type classes');
+assert(!sparseWeaponCard.includes('entity-media__fallback'), 'Soft Snake Sword card must not retain fallback media after Master admission');
 const characterFallback = charactersCollection.match(/<a class="entity-card" href="\/characters\/mo-yuan"[\s\S]*?<\/a>/)?.[0] || '';
 assert(characterFallback.includes('entity-media__fallback'), 'Character card must retain its fallback media');
 assert(characterFallback.includes('entity-media__name') && characterFallback.includes('entity-media__type'), 'Non-Weapon card fallback must retain fallback name and type classes');
@@ -206,7 +204,19 @@ for (const [entityId, slug, expectedId, expectedSrc, html] of [
 }
 for (const slug of ['soft-snake-sword']) {
   const card = collection.match(new RegExp(`<a class="entity-card entity-card--compact" href="/weapons/${slug}"[\\s\\S]*?</a>`))?.[0] || '';
-  assert(card.includes('data-media-state="fallback"'), `${slug}: Weapon without an approved Master must retain fallback media`);
+  const media = mediaRecords.find((record) => record.entityId === `weapon:${slug}` && record.recordState === 'published');
+  assert.equal(media?.id, 'media:soft-snake-sword-master', `${slug}: singular Master record missing`);
+  assert.equal(media.src, 'soft-snake-sword-master.jpg', `${slug}: stable Master asset missing`);
+  assert.equal(media.sourceId, 'source:owner-pc-baiying-lingshe-2026-11-23', `${slug}: actual screenshot provenance must be retained`);
+  assert.equal(media.rightsStatus, 'self-captured-reviewed', `${slug}: Master must retain its reviewed rights state`);
+  assert.deepEqual(media.usage, ['hero', 'card'], `${slug}: one Master must serve Hero and card`);
+  const hero = sparse.match(/<header class="entity-hero">[\s\S]*?<\/header>/)?.[0] || '';
+  for (const slot of [card, hero]) {
+    assert(slot.includes('data-media-state="ready"'), `${slug}: admitted Master must render ready state`);
+    assert(slot.includes(`src="/assets/media/${media.src}"`), `${slug}: both slots must use the same admitted Master`);
+    assert(slot.includes('width="1200" height="1800"') && slot.includes('object-fit:contain'), `${slug}: both slots must retain the Weapon Master dimensions and contain treatment`);
+    assert(!slot.includes('entity-media__fallback'), `${slug}: admitted Master must replace fallback media`);
+  }
 }
 for (const [slug, system, category] of [
   ['muzhi-heishang', '主武器', '单手武器'], ['heishang', '主武器', '单手武器'],
@@ -260,49 +270,20 @@ assertDerivedInput(derivedControls, { label: '变招', labelKind: 'functional', 
 assertDerivedInput(derivedControls, { label: '结束双蛇共舞', labelKind: 'functional', inputs: ['○'] });
 assert(!serpent.includes('延长破防时间'), 'Release wording must not inherit the pre-release pursuit effect');
 
-assertOverview(shadow, {
-  name: '白影',
-  taxonomy: '主武器',
-  systemCategoryFactId: 'fact:weapon:white-shadow:system-category',
-  previewStats: [
-    ['fact:weapon:white-shadow:preview-damage-ability-lv30', '伤害能力', 1443],
-    ['fact:weapon:white-shadow:preview-break-ability-lv30', '破防能力', 757]
-  ]
-});
-const whiteShadowBasic = entry(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-basic-combo');
-assert(whiteShadowBasic.includes('<h3>普通连招</h3>'), 'White Shadow basic combo name must render');
-assertConfirmedInput(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-basic-combo', '□ □ □ □ □');
-assert.equal(count(whiteShadowBasic, '<p'), 1, 'White Shadow basic combo must contain only its confirmed input row');
-assertEffect(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-killing-intent-combo', '可接在任意段数的普通攻击后释放；杀气充足时会发动强化攻击，具有更高的伤害和破防能力。');
-assertEffect(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-freeze', '命中敌人时使其冰缓，并叠加冰冻计量条；计量条叠满后会冰冻敌人。');
-assertEffect(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-white-shadow-howls', '消耗 1 点对应资源，挥舞长刃斩出漫天白影；招式结束后必定冰冻敌人。');
-const whiteShadowHowls = entry(shadow, 'data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-white-shadow-howls');
-assert(whiteShadowHowls.includes('消耗 1 点对应资源') && !whiteShadowHowls.includes('杀气'), 'White Shadow resource term must remain a neutral placeholder, not an invented canonical name');
-assertEffect(shadow, 'data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-ice-strike', '使用刀背快速敲击敌人，并为武器短暂附上冰霜；下一招会使敌人的冰冻计量条大幅提升。');
-assertEffect(shadow, 'data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-pattern-blade', '使用“寒冰击”可以回复杀气。');
-assertEffect(shadow, 'data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-ice-spike-finisher', '可突进至最近被冰冻的敌人处，造成伤害并延长冰冻持续时间。');
-assertEffect(shadow, 'data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-bone-stripping-three', '大幅提高冰冻积累速度。');
-for (const [attribute, id, input] of [
-  ['data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-killing-intent-combo', '△ △ △'],
-  ['data-weapon-mechanic-id', 'fact:weapon:white-shadow:mechanic-white-shadow-howls', 'L2'],
-  ['data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-ice-strike', 'L1 + △'],
-  ['data-weapon-progression-node-id', 'fact:weapon:white-shadow:node-ice-spike-finisher', '△']
-]) assertConfirmedInput(shadow, attribute, id, input);
-assert.equal(count(shadow, 'data-weapon-input-for='), 5, 'White Shadow must render each confirmed input row exactly once');
-for (const term of ['任意段数的普通攻击后', '杀气充足', '强化攻击', '更高的伤害', '破防能力', '冰缓', '冰冻计量条', '叠满', '冰冻敌人', '消耗 1 点对应资源', '漫天白影', '结束后必定冰冻']) {
-  assert(shadow.includes(term), `White Shadow supported gameplay terminology missing: ${term}`);
+for (const [slug, html] of [['white-shadow', shadow], ['soft-snake-sword', sparse]]) {
+  const data = await readJson(`data/weapons/${slug}.json`);
+  const active = data.facts.filter((fact) => fact.supersededBy === null && fact.validToVersionId === null);
+  assert(!html.includes('data-weapon-preview-stats'), `${slug}: ended preview stats must not render`);
+  assert(!html.includes('data-weapon-form-switcher'), `${slug}: independent effect must not introduce forms`);
+  assert.equal(count(html, 'data-weapon-section="soul-forge-effect"'), 1);
+  for (const fact of active.filter((fact) => ['weapon.mechanic', 'weapon.progressionNode', 'weapon.soulForgeEffect'].includes(fact.key))) {
+    const attr = fact.key === 'weapon.mechanic' ? 'data-weapon-mechanic-id' : fact.key === 'weapon.progressionNode' ? 'data-weapon-progression-node-id' : 'data-weapon-soul-effect-id';
+    assertInput(html, attr, fact);
+    if (fact.value.description) assertEffect(html, attr, fact.id, fact.value.description);
+    if (fact.key === 'weapon.progressionNode') assertProgressionLevel(html, fact.id, fact.value.level, fact.value.name);
+  }
 }
-assertProgressionLevel(shadow, 'fact:weapon:white-shadow:node-ice-strike', 5, '寒冰击');
-assertProgressionLevel(shadow, 'fact:weapon:white-shadow:node-pattern-blade', 15, '敛刃');
-assertProgressionLevel(shadow, 'fact:weapon:white-shadow:node-ice-spike-finisher', 25, '冰刺终结');
-assertProgressionLevel(shadow, 'fact:weapon:white-shadow:node-bone-stripping-three', 30, '刺骨·之三');
-for (const incorrectTerm of ['纹刃', '剥骨·之三']) {
-  assert(!shadow.includes(incorrectTerm), `White Shadow must reject transcription error: ${incorrectTerm}`);
-}
-assert(!shadow.includes('data-weapon-derived-inputs-for'), 'White Shadow must not receive an empty or invented derived-control block');
-for (const forbiddenClaim of ['白影完整成长树', '白影共有四个成长节点', '全部成长节点', '完整成长树']) {
-  assert(!shadow.includes(forbiddenClaim), `White Shadow must not claim exhaustive progression: ${forbiddenClaim}`);
-}
+assert(!shadow.includes('延长冰冻') && !shadow.includes('对应资源'), 'White Shadow must retire unsupported historical effects and resource placeholder');
 
 for (const [label, html] of [['White Serpent', serpent], ['White Shadow', shadow]]) {
   assert.equal(count(html, 'class="source-panel"'), 0, `${label} must follow the Owner-approved detail layout`);
@@ -320,16 +301,6 @@ for (const [html, data] of [[serpent, whiteSerpentData], [shadow, whiteShadowDat
   assert(!html.includes('键盘') && !html.includes('Xbox'), 'Weapon page must not invent PC or Xbox mappings');
   assert(!html.includes('输入：□') && !html.includes('输入：△') && !html.includes('输入：○') && !html.includes('输入：L1') && !html.includes('输入：L2'), 'Weapon controls must not regress to raw visual input text');
 }
-
-assert.equal(count(sparse, 'data-weapon-section="overview"'), 1, 'Sparse Weapon overview missing');
-assert(!sparse.includes('data-weapon-section="mechanics"'), 'Sparse Weapon must not emit an empty mechanics section');
-assert(!sparse.includes('data-weapon-section="progression"'), 'Sparse Weapon must not emit an empty progression section');
-assert(!sparse.includes('data-weapon-preview-stats'), 'Sparse Weapon must not emit an empty preview-stat group');
-assert(!sparse.includes('data-weapon-input-for'), 'Sparse Weapon must not emit input rows');
-assert(!sparse.includes('data-weapon-derived-inputs-for'), 'Sparse Weapon must not emit an empty derived-control block');
-assert(sparse.includes('发售前媒体试玩记录中的主武器'), 'Sparse Weapon historical summary must remain visible');
-assert(!sparse.includes('data-weapon-overview-note="weapon.observedTrait"'), 'Sparse Weapon must not invent an unrecorded observed trait');
-assert(!sparse.includes('data-weapon-base-stats'), 'Sparse Weapon must not invent release base stats');
 
 for (const slug of ['tianxuan-qingtong-jian', 'kuye-si-zhuchuan', 'cuixin-pipa', 'luanying-jian', 'yao-ju']) {
   const data = await readJson(`data/weapons/${slug}.json`);
@@ -388,7 +359,10 @@ for (const [file, expectedText] of [
 
 for (const weapon of [whiteSerpentData, whiteShadowData]) {
   for (const fact of weapon.facts.filter((fact) => ['weapon.mechanic', 'weapon.progressionNode'].includes(fact.key))) {
-    assert.deepEqual(fact.sourceIds, [fact.gameVersionId === 'version:release-pc-ui-2026-11-16' ? 'source:owner-pc-release-weapons-2026-11-16' : sourceId], `${fact.id} must remain traceable to its actual screenshot source`);
+    const expectedSources = fact.gameVersionId === 'version:release-pc-baiying-lingshe-2026-11-23'
+      ? ['source:owner-pc-baiying-lingshe-2026-11-23', ...(fact.id.endsWith('-howls') ? ['source:owner-pc-baiying-lingshe-resource-2026-11-23'] : [])]
+      : [fact.gameVersionId === 'version:release-pc-ui-2026-11-16' ? 'source:owner-pc-release-weapons-2026-11-16' : sourceId];
+    assert.deepEqual(fact.sourceIds, expectedSources, `${fact.id} must remain traceable to its actual screenshot source`);
   }
 }
 assert(source.locator.evidenceItems.some((item) => item.page === 4 && item.totalPages === 14), 'White Serpent page 4/14 evidence mapping missing');

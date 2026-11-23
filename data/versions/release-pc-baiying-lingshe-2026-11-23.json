@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "version:release-pc-baiying-lingshe-2026-11-23",
+  "track": "release",
+  "stage": "release-launch",
+  "displayName": "PC界面（2026-11-23白影、灵蛇软剑资料批次）",
+  "versionLabel": null,
+  "sequence": 108,
+  "platformIds": [
+    "platform:pc"
+  ],
+  "releasedAt": "2026-10-29",
+  "checkedAt": "2026-11-23",
+  "sourceIds": [
+    "source:owner-pc-baiying-lingshe-2026-11-23"
+  ],
+  "supersedesVersionId": null,
+  "supersededBy": null
+}

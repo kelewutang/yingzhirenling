@@ -118,7 +118,16 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
   {pendingTechnicalDetails && <p class="weapon-pending" data-form-pending="progressionNodes">成长节点待补充</p>}
 </section>}
 
-{pendingTechnicalDetails && showSoulForgePlaceholder && <section class="weapon-detail-section" data-weapon-section="soul-forge-effect" aria-labelledby={sectionId('weapon-soul-effect-title')}>
+{detail.soulForgeEffects?.length > 0 && <section class="weapon-detail-section" data-weapon-section="soul-forge-effect" aria-labelledby={sectionId('weapon-soul-effect-title')}>
+  <div class="detail-section-heading">
+    <p class="detail-section-heading__eyebrow">SOUL FORGE</p>
+    <h2 id={sectionId('weapon-soul-effect-title')}>铸魂效果（铸魂后解锁）</h2>
+  </div>
+  <ol class="weapon-detail-list">
+    {detail.soulForgeEffects.map((fact) => <li data-weapon-soul-effect-id={fact.id}>{isMajorSpoiler(fact) ? <SpoilerDisclosure><h3>{fact.valueText}</h3><WeaponDescription description={fact.description} /></SpoilerDisclosure> : <><h3>{fact.valueText}</h3><WeaponDescription description={fact.description} /></>}</li>)}
+  </ol>
+</section>}
+{pendingTechnicalDetails && showSoulForgePlaceholder && !detail.soulForgeEffects?.length && <section class="weapon-detail-section" data-weapon-section="soul-forge-effect" aria-labelledby={sectionId('weapon-soul-effect-title')}>
   <h2 id={sectionId('weapon-soul-effect-title')}>铸魂效果（铸魂后解锁）</h2>
   <p class="weapon-pending" data-form-pending="soulForgeEffects">待补充</p>
 </section>}

@@ -2,7 +2,7 @@
 
 - **Upstream project:** [Adobe Source Han Serif](https://github.com/adobe-fonts/source-han-serif), release `2.003R` / `release` branch.
 - **Upstream source:** `Variable/WOFF2/OTF/Subset/SourceHanSerifCN-VF.otf.woff2` from <https://raw.githubusercontent.com/adobe-fonts/source-han-serif/release/Variable/WOFF2/OTF/Subset/SourceHanSerifCN-VF.otf.woff2> (10,421,244 bytes; SHA-256 `808cb3203bb9cdd6b166a8a656a0c7608a7dc2a31c41c2cd0374550cae445471`). The full upstream asset is intentionally not stored under `public/`.
-- **Production asset:** `PBZSerif-Display-Subset.woff2` (470,128 bytes; SHA-256 `f8c37dcf8f86a1cd8505135466c35c99ea645dc9e5e1f99a9f96b1d8b50e33af`). It is a project-generated subset that retains the variable `wght` axis only from 400 through 700.
+- **Production asset:** `PBZSerif-Display-Subset.woff2` (474,984 bytes; SHA-256 `cd7697cc266eabcbf33e0c70afa308d510963bfd2fd2a50fcbc6e6cbaf581d5a`). It is a project-generated subset that retains the variable `wght` axis only from 400 through 700. The 2026-11-23 regeneration covers the White Shadow and Soft Snake Sword screenshot text.
 - **License:** SIL Open Font License 1.1. The required Adobe copyright notice and complete license text are in [`OFL.txt`](OFL.txt), copied from <https://raw.githubusercontent.com/adobe-fonts/source-han-serif/release/LICENSE.txt>.
 - **Modified naming:** this subset is a modified distribution. Its embedded family and the CSS family are `PBZ Serif`; it does not use Adobe's Reserved Font Name as its primary font name.
 
