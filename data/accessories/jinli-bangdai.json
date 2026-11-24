@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "accessory:jinli-bangdai",
+  "entityType": "accessory",
+  "slug": "jinli-bangdai",
+  "displayName": "筋力绑带",
+  "aliases": [],
+  "summary": "对敌人的伤害+10%。",
+  "summaryFactIds": [
+    "fact:accessory:jinli-bangdai:pc-20261124-effect"
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-24",
+  "updatedAt": "2026-11-24",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null,
+  "facts": [
+    {
+      "id": "fact:accessory:jinli-bangdai:pc-20261124-name",
+      "key": "accessory.name",
+      "valueType": "string",
+      "value": "筋力绑带",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112230_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:jinli-bangdai:pc-20261124-kind",
+      "key": "accessory.kind",
+      "valueType": "enum",
+      "value": "攻击类饰品",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112230_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:jinli-bangdai:pc-20261124-level",
+      "key": "accessory.level",
+      "valueType": "string",
+      "value": "+1",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112230_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:jinli-bangdai:pc-20261124-effect",
+      "key": "accessory.effect",
+      "valueType": "string",
+      "value": "对敌人的伤害+10%。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112230_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:jinli-bangdai:pc-20261124-description",
+      "key": "accessory.description",
+      "valueType": "string",
+      "value": "守卫在丝线前的怪物们早已失去了理智，但这种特制的绑带，能使他们将狂暴化为可控的战意。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112230_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    }
+  ]
+}

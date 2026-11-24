@@ -1,0 +1,200 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "flask:cihua-ganlu",
+  "entityType": "flask",
+  "slug": "cihua-ganlu",
+  "displayName": "慈花甘露",
+  "aliases": [],
+  "summary": "10秒内回复80%生命值，同时在10秒内杀气自然恢复速度提升150%。",
+  "summaryFactIds": [
+    "fact:flask:cihua-ganlu:pc-20261124-effect"
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-24",
+  "updatedAt": "2026-11-24",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null,
+  "facts": [
+    {
+      "id": "fact:flask:cihua-ganlu:pc-20261124-name",
+      "key": "flask.name",
+      "valueType": "string",
+      "value": "慈花甘露",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112322_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:flask:cihua-ganlu:pc-20261124-kind",
+      "key": "flask.kind",
+      "valueType": "enum",
+      "value": "回复药",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112322_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:flask:cihua-ganlu:pc-20261124-level",
+      "key": "flask.level",
+      "valueType": "string",
+      "value": "6",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112322_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:flask:cihua-ganlu:pc-20261124-effect",
+      "key": "flask.effect",
+      "valueType": "string",
+      "value": "10秒内回复80%生命值，同时在10秒内杀气自然恢复速度提升150%。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112322_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:flask:cihua-ganlu:pc-20261124-description",
+      "key": "flask.description",
+      "valueType": "string",
+      "value": "青年拜入正道那年，母亲倾尽最后的嫁妆，求得一份受过圣母赐福的药方。此后年年，他总能收到母亲亲手酿制的甘露。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112322_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:flask:cihua-ganlu:pc-20261124-uses",
+      "key": "flask.uses",
+      "valueType": "string",
+      "value": "7",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112322_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    }
+  ]
+}

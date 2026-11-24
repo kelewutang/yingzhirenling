@@ -637,6 +637,294 @@ status = 200
   to = "/weapons/tiansha-shuangyue.html"
   status = 200
 
+# Screenshot-backed accessories and flasks.
+
+[[redirects]]
+  from = "/accessories.html"
+  to = "/accessories"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories"
+  to = "/accessories.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks.html"
+  to = "/flasks"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks"
+  to = "/flasks.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/anyuan-fangkuai.html"
+  to = "/accessories/anyuan-fangkuai"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/anyuan-fangkuai"
+  to = "/accessories/anyuan-fangkuai.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/anyuan-xiaolong.html"
+  to = "/accessories/anyuan-xiaolong"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/anyuan-xiaolong"
+  to = "/accessories/anyuan-xiaolong.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/bixue-yuntian.html"
+  to = "/accessories/bixue-yuntian"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/bixue-yuntian"
+  to = "/accessories/bixue-yuntian.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/cimu-hufu.html"
+  to = "/accessories/cimu-hufu"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/cimu-hufu"
+  to = "/accessories/cimu-hufu.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/cucao-huangxin.html"
+  to = "/accessories/cucao-huangxin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/cucao-huangxin"
+  to = "/accessories/cucao-huangxin.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/gujia-canpian.html"
+  to = "/accessories/gujia-canpian"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/gujia-canpian"
+  to = "/accessories/gujia-canpian.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/hundun-kuangjie.html"
+  to = "/accessories/hundun-kuangjie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/hundun-kuangjie"
+  to = "/accessories/hundun-kuangjie.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/jihuang-huxinjing.html"
+  to = "/accessories/jihuang-huxinjing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/jihuang-huxinjing"
+  to = "/accessories/jihuang-huxinjing.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/jinli-bangdai.html"
+  to = "/accessories/jinli-bangdai"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/jinli-bangdai"
+  to = "/accessories/jinli-bangdai.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/kaiguang-yupei.html"
+  to = "/accessories/kaiguang-yupei"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/kaiguang-yupei"
+  to = "/accessories/kaiguang-yupei.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/miefa-fuchensi.html"
+  to = "/accessories/miefa-fuchensi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/miefa-fuchensi"
+  to = "/accessories/miefa-fuchensi.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/shenqi-daoqiao.html"
+  to = "/accessories/shenqi-daoqiao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/shenqi-daoqiao"
+  to = "/accessories/shenqi-daoqiao.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessories/wuming-dashi-banzhi.html"
+  to = "/accessories/wuming-dashi-banzhi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/accessories/wuming-dashi-banzhi"
+  to = "/accessories/wuming-dashi-banzhi.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/beiming-yao.html"
+  to = "/flasks/beiming-yao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/beiming-yao"
+  to = "/flasks/beiming-yao.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/changsheng-yin.html"
+  to = "/flasks/changsheng-yin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/changsheng-yin"
+  to = "/flasks/changsheng-yin.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/cihua-ganlu.html"
+  to = "/flasks/cihua-ganlu"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/cihua-ganlu"
+  to = "/flasks/cihua-ganlu.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/feijiu-niang.html"
+  to = "/flasks/feijiu-niang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/feijiu-niang"
+  to = "/flasks/feijiu-niang.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/guishen-tang.html"
+  to = "/flasks/guishen-tang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/guishen-tang"
+  to = "/flasks/guishen-tang.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/huanti-lingyao.html"
+  to = "/flasks/huanti-lingyao"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/huanti-lingyao"
+  to = "/flasks/huanti-lingyao.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/kuye-lu.html"
+  to = "/flasks/kuye-lu"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/kuye-lu"
+  to = "/flasks/kuye-lu.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/ningfeng-dan.html"
+  to = "/flasks/ningfeng-dan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/ningfeng-dan"
+  to = "/flasks/ningfeng-dan.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/qingshe-yaoji.html"
+  to = "/flasks/qingshe-yaoji"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/qingshe-yaoji"
+  to = "/flasks/qingshe-yaoji.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/rongqi-weihu-yeti.html"
+  to = "/flasks/rongqi-weihu-yeti"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/rongqi-weihu-yeti"
+  to = "/flasks/rongqi-weihu-yeti.html"
+  status = 200
+
+[[redirects]]
+  from = "/flasks/shaqi-rongxue-cuihuaji.html"
+  to = "/flasks/shaqi-rongxue-cuihuaji"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flasks/shaqi-rongxue-cuihuaji"
+  to = "/flasks/shaqi-rongxue-cuihuaji.html"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/404.html"

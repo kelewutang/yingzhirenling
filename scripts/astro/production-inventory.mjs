@@ -3,12 +3,14 @@ import { resolve } from 'node:path';
 
 const STABLE_ROUTES = Object.freeze([
   ['index.html', '/'], ['guide.html', '/guide'], ['weapons.html', '/weapons'],
+  ['accessories.html', '/accessories'], ['flasks.html', '/flasks'],
   ['characters.html', '/characters'], ['bosses.html', '/bosses'], ['world.html', '/world'],
   ['videos.html', '/videos'], ['about.html', '/about'], ['about-site.html', '/about-site']
 ]);
 const ENTITY_FAMILIES = Object.freeze([
   ['weapons', 'weapons', 'weapon'], ['characters', 'characters', 'character'],
-  ['bosses', 'bosses', 'boss'], ['locations', 'world', 'location']
+  ['bosses', 'bosses', 'boss'], ['locations', 'world', 'location'],
+  ['accessories', 'accessories', 'accessory'], ['flasks', 'flasks', 'flask']
 ]);
 const COMPATIBILITY_CANONICAL_FILES = 0; // Retired legacy weapon compatibility copies no longer ship.
 const NON_CANONICAL_HTML_FILES = 1;
@@ -27,10 +29,10 @@ async function readGuideManifest(root) {
 }
 
 export async function loadProductionInventory(root) {
-  const [weaponRecords, characterRecords, bossRecords, locationRecords, guides] = await Promise.all([
-    readRecords(root, 'weapons'), readRecords(root, 'characters'), readRecords(root, 'bosses'), readRecords(root, 'locations'), readGuideManifest(root)
+  const [weaponRecords, characterRecords, bossRecords, locationRecords, accessoryRecords, flaskRecords, guides] = await Promise.all([
+    readRecords(root, 'weapons'), readRecords(root, 'characters'), readRecords(root, 'bosses'), readRecords(root, 'locations'), readRecords(root, 'accessories'), readRecords(root, 'flasks'), readGuideManifest(root)
   ]);
-  const families = [weaponRecords, characterRecords, bossRecords, locationRecords];
+  const families = [weaponRecords, characterRecords, bossRecords, locationRecords, accessoryRecords, flaskRecords];
   const publishedByType = new Map(ENTITY_FAMILIES.map(([, , type], index) => [type, families[index].filter((item) => item.recordState === 'published')]));
   const draftByType = new Map(ENTITY_FAMILIES.map(([, , type], index) => [type, families[index].filter((item) => item.recordState === 'draft')]));
   const canonicalRoutes = [
@@ -46,6 +48,8 @@ export async function loadProductionInventory(root) {
     publishedCharacters: publishedByType.get('character'),
     publishedBosses: publishedByType.get('boss'),
     publishedLocations: publishedByType.get('location'),
+    publishedAccessories: publishedByType.get('accessory'),
+    publishedFlasks: publishedByType.get('flask'),
     draftWeapons: draftByType.get('weapon'),
     draftBosses: draftByType.get('boss'),
     draftLocations: draftByType.get('location'),

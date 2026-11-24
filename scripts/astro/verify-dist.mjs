@@ -175,9 +175,9 @@ function expectedSchemaTypes(file) {
   if (file === 'index.html') return ['WebSite'];
   if (file === 'guide.html') return ['Article', 'FAQPage', 'BreadcrumbList'];
   if (file.startsWith('guide/')) return ['Article', 'BreadcrumbList'];
-  if (['weapons.html', 'characters.html', 'bosses.html', 'world.html'].includes(file)) return ['CollectionPage'];
+  if (['weapons.html', 'characters.html', 'bosses.html', 'world.html', 'accessories.html', 'flasks.html'].includes(file)) return ['CollectionPage'];
   if (file === 'videos.html') return ['WebPage'];
-  if (['about.html', 'about-site.html'].includes(file) || /^(weapons|characters|bosses|world)\//.test(file)) return ['WebPage', 'BreadcrumbList'];
+  if (['about.html', 'about-site.html'].includes(file) || /^(weapons|characters|bosses|world|accessories|flasks)\//.test(file)) return ['WebPage', 'BreadcrumbList'];
   assert.fail(`Unexpected canonical route for structured-data verification: ${file}`);
 }
 
@@ -605,13 +605,20 @@ for (const location of publishedLocations) assert(locationCollection.includes(`h
 for (const location of draftLocations) assert(!locationCollection.includes(`href="/world/${location.slug}"`), `Location collection must exclude draft ${location.slug}`);
 assert(locationCollection.includes('现有官方资料明确提供地点名称'), 'World collection must explain Pangzhen inclusion from official naming evidence');
 
+for (const entity of [...inventory.publishedAccessories, ...inventory.publishedFlasks]) {
+  const directory = entity.entityType === 'accessory' ? 'accessories' : 'flasks';
+  await assertDetailVisualContract(`${directory}/${entity.slug}.html`, entity);
+}
+
 const search = JSON.parse(await readFile(resolve(dist, 'generated/search-index.production.json'), 'utf8'));
 const entitySearch = search.filter((item) => item.documentType === 'entity');
 assert.deepEqual(entitySearch.map((item) => item.id), [
   ...publishedBosses.map((boss) => boss.id),
   ...publishedWeapons.map((weapon) => weapon.id),
   ...publishedLocations.map((location) => location.id),
-  ...publishedCharacters.map((character) => character.id)
+  ...publishedCharacters.map((character) => character.id),
+  ...inventory.publishedAccessories.map((entity) => entity.id),
+  ...inventory.publishedFlasks.map((entity) => entity.id)
 ].sort());
 for (const document of search.filter((item) => item.entityType === 'character')) assert.equal(document.route, `/characters/${document.slug}`);
 const weaponDocuments = search.filter((item) => item.entityType === 'weapon');

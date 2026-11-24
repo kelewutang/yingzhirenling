@@ -180,3 +180,15 @@ Entity detail 的核心 SEO 内容在构建时写入静态 HTML，浏览器不�
 node scripts/validate-data.mjs
 node scripts/validate-data.mjs --fixtures
 ```
+
+## 2026-11-24 饰品与药瓶最小扩展（负责人明确批准）
+
+新增独立 Entity 类型 `accessory`、`flask`，分别使用 `data/accessories/`、`data/flasks/`。不纳入 Weapon taxonomy，不复用30级武器属性、成长或铸魂字段。
+
+两类分别注册 `.name`、`.kind`、`.level`、`.effect`、`.description`；药瓶另有 `flask.uses`。名称、当前等级、效果全文、介绍和使用次数均为原文字符串；当前饰品等级形如 `+1`，药瓶等级和可使用次数分别为正整数字符串，不设置推测上限。分类为 enum，首批严格限截图出现的生存类饰品／攻击类饰品／辅助类饰品及回复药／秘药。
+
+published物品必须每个字段恰有一个当前Fact，保持PC release版本的 observation，不自动使用release-verified。summary等于完整效果，并只引用该效果Fact。每个Fact经Source locator中的itemClaims，绑定entityId、factId、key、value、evidenceItemId与原图位置；evidenceItems必须同时保留物品ID、原文件名、原图SHA-256、可读全文及真实裁切坐标和hash。值与全文不一致、跨物品证据、缺失来源绑定、缺失字段及不合法等级／次数均阻断校验。
+
+继续使用既有Media contract；只增加两个资料目录的实体加载，同一真实960×960裁切用于Hero与Card，contain显示。不改变武器Master尺寸要求。来源与版本保留于Knowledge层；沿用现有Owner决定，详情不新增来源状态面板。
+
+静态栏目和详情采用现有无尾斜杠canonical惯例：`/accessories`、`/flasks`及稳定slug。新增的尾斜杠、.html别名单跳301到canonical；仅为published物品配置精确200重写，未知路径继续404。同步接入生产Search、sitemap与库存校验，保留所有旧类型规则。

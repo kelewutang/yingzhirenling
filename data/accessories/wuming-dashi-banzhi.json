@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "accessory:wuming-dashi-banzhi",
+  "entityType": "accessory",
+  "slug": "wuming-dashi-banzhi",
+  "displayName": "无名大师的扳指",
+  "aliases": [],
+  "summary": "精纯杀气积累速度+15%。",
+  "summaryFactIds": [
+    "fact:accessory:wuming-dashi-banzhi:pc-20261124-effect"
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-24",
+  "updatedAt": "2026-11-24",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null,
+  "facts": [
+    {
+      "id": "fact:accessory:wuming-dashi-banzhi:pc-20261124-name",
+      "key": "accessory.name",
+      "valueType": "string",
+      "value": "无名大师的扳指",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112228_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:wuming-dashi-banzhi:pc-20261124-kind",
+      "key": "accessory.kind",
+      "valueType": "enum",
+      "value": "辅助类饰品",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112228_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:wuming-dashi-banzhi:pc-20261124-level",
+      "key": "accessory.level",
+      "valueType": "string",
+      "value": "+2",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112228_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:wuming-dashi-banzhi:pc-20261124-effect",
+      "key": "accessory.effect",
+      "valueType": "string",
+      "value": "精纯杀气积累速度+15%。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112228_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:wuming-dashi-banzhi:pc-20261124-description",
+      "key": "accessory.description",
+      "valueType": "string",
+      "value": "有些东西，会在漫天杀气中扭曲崩损、沦为邪器；也有些东西，反因杀气的淬炼，激荡出坚冰与岁月皆不可磨灭的浩然正气。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112228_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    }
+  ]
+}

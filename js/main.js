@@ -188,6 +188,8 @@ function initBaiduPush() {
 
 // ===== 全站搜索 =====
 var SEARCH_INDEX = [
+  { title: '饰品图鉴', url: '/accessories', desc: '按生存、攻击、辅助分类查看截图确认的当前强化效果。', tag: '饰品', categoryTerms: ['饰品'], keywords: '饰品 图鉴 装备 生存 攻击 辅助 强化' },
+  { title: '药瓶图鉴', url: '/flasks', desc: '查看药瓶的当前等级、可使用次数、恢复、增益与副作用。', tag: '药瓶', categoryTerms: ['药瓶'], keywords: '药瓶 图鉴 回复药 秘药 等级 恢复 使用次数 副作用' },
   { title: '影之刃零攻略站', url: '/', desc: '影之刃零非官方玩家知识库，整理可核验的公开资料，并明确区分官方资料、公开素材观察与第三方信息。', tag: '首页', keywords: '影之刃零 首页 知识库 玩家资料站 发售前资料 资料来源' },
   { title: '攻略中心', url: '/guide', desc: '__SITE_LIFECYCLE_SEARCH_GUIDE_DESCRIPTION__', tag: '攻略', categoryTerms: ['攻略'], keywords: '攻略 新手 入门 难度 旅人 破路者 地狱行者 六十六天 开荒 探索 构筑 build' },
   { title: '武器图鉴', url: '/weapons', desc: '__SITE_LIFECYCLE_SEARCH_WEAPONS_DESCRIPTION__', tag: '武器', categoryTerms: ['武器'], keywords: '武器 图鉴 武器系统 主武器 影之武 公开试玩 实机观察' },
@@ -203,7 +205,9 @@ var ENTITY_TYPE_TAGS = {
   weapon: '武器',
   character: '角色',
   boss: 'Boss',
-  location: '地点'
+  location: '地点',
+  accessory: '饰品',
+  flask: '药瓶'
 };
 var GUIDE_TYPE_TAGS = {
   walkthrough: '流程攻略',
@@ -443,7 +447,7 @@ function openSearch() {
       '</div>' +
       '<div class="search-modal-input"><input type="search" id="searchInput" aria-label="输入站内搜索关键词" placeholder="搜索栏目、攻略、武器、角色、Boss、地点…" autocomplete="off"></div>' +
       '<div class="search-results" id="searchResults" aria-live="polite"></div>' +
-      '<p class="search-dialog-hint">可搜索站内栏目、已发布攻略，以及已收录的武器、角色、Boss 和地点。按 Esc 关闭。</p>' +
+      '<p class="search-dialog-hint">可搜索站内栏目、已发布攻略，以及已收录的武器、饰品、药瓶、角色、Boss 和地点。按 Esc 关闭。</p>' +
     '</div>';
   document.body.appendChild(searchOverlay);
   searchOverlay.classList.add('active');

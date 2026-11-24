@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "accessory:jihuang-huxinjing",
+  "entityType": "accessory",
+  "slug": "jihuang-huxinjing",
+  "displayName": "机簧护心镜",
+  "aliases": [],
+  "summary": "按住L1保持架势时，杀气的自然流逝速度-90%。",
+  "summaryFactIds": [
+    "fact:accessory:jihuang-huxinjing:pc-20261124-effect"
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-24",
+  "updatedAt": "2026-11-24",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null,
+  "facts": [
+    {
+      "id": "fact:accessory:jihuang-huxinjing:pc-20261124-name",
+      "key": "accessory.name",
+      "valueType": "string",
+      "value": "机簧护心镜",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112239_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:jihuang-huxinjing:pc-20261124-kind",
+      "key": "accessory.kind",
+      "valueType": "enum",
+      "value": "辅助类饰品",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112239_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:jihuang-huxinjing:pc-20261124-level",
+      "key": "accessory.level",
+      "valueType": "string",
+      "value": "+2",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112239_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:jihuang-huxinjing:pc-20261124-effect",
+      "key": "accessory.effect",
+      "valueType": "string",
+      "value": "按住L1保持架势时，杀气的自然流逝速度-90%。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112239_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:jihuang-huxinjing:pc-20261124-description",
+      "key": "accessory.description",
+      "valueType": "string",
+      "value": "精密的黄铜甲片层叠如鳞，发条机簧可在受击瞬间咬合，构成防护。“赠吾麾下至忠至勇之士，拙壁。——武轩”",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124112239_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    }
+  ]
+}

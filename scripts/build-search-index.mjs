@@ -35,13 +35,17 @@ const ENTITY_ROUTES = new Map([
   ['weapon', WEAPON_ROUTE],
   ['character', CHARACTER_ROUTE],
   ['boss', BOSS_ROUTE],
-  ['location', LOCATION_ROUTE]
+  ['location', LOCATION_ROUTE],
+  ['accessory', '/accessories'],
+  ['flask', '/flasks']
 ]);
 const ENTITY_LABELS = new Map([
   ['weapon', '武器'],
   ['character', '角色'],
   ['boss', 'Boss'],
-  ['location', '地点']
+  ['location', '地点'],
+  ['accessory', '饰品'],
+  ['flask', '药瓶']
 ]);
 const MODE_CONFIG = new Map([
   ['shadow', {
@@ -163,7 +167,7 @@ function requireSearchShape(entity, file) {
     throw new Error(`${file}: schemaVersion 必须为 ${SCHEMA_VERSION}`);
   }
   if (!ENTITY_ROUTES.has(entity.entityType)) {
-    throw new Error(`${file}: entityType 必须为 weapon、character、boss 或 location`);
+    throw new Error(`${file}: entityType 必须为 weapon、character、boss、location、accessory 或 flask`);
   }
   for (const field of ['id', 'slug', 'displayName', 'summary', 'recordState']) {
     if (typeof entity[field] !== 'string' || entity[field].trim().length === 0) {
@@ -226,7 +230,7 @@ function deriveKeywords(entity) {
 
   for (const fact of entity.facts.filter((item) => !isForgedBatchFact(item) && item.supersededBy == null && item.validToVersionId == null)) {
     if (!SEARCHABLE_FACT_STATUSES.has(fact.status) || fact.value === null) continue;
-    if ((fact.key === 'weapon.kind' || fact.key === 'weapon.systemCategory' || fact.key === 'weapon.weaponType' || fact.key === 'weapon.grip' || fact.key === 'character.role' || fact.key === 'location.kind') && typeof fact.value === 'string') {
+    if ((fact.key === 'weapon.kind' || fact.key === 'weapon.systemCategory' || fact.key === 'weapon.weaponType' || fact.key === 'weapon.grip' || fact.key === 'character.role' || fact.key === 'location.kind' || fact.key === 'accessory.kind' || fact.key === 'flask.kind') && typeof fact.value === 'string') {
       keywords.push(fact.value);
     }
     if ((fact.key === 'weapon.publicAppearance' || fact.key === 'location.publicAppearance') && typeof fact.value === 'string') {
@@ -490,6 +494,22 @@ export async function resolvePublishedLocationDetailPageSlugs(records, detailPag
   return slugs;
 }
 
+export async function resolvePublishedItemDetailPageSlugs(records, type, detailPagesDir = null) {
+  const route = ENTITY_ROUTES.get(type);
+  if (!['accessory', 'flask'].includes(type)) throw new Error(`Unsupported item type: ${type}`);
+  const directory = detailPagesDir ?? path.join(ROOT_DIR, 'dist', route.slice(1));
+  const slugs = new Set();
+  for (const { entity, file } of records) {
+    requireSearchShape(entity, file);
+    if (entity.entityType !== type || entity.recordState !== 'published') continue;
+    const html = await fs.readFile(path.join(directory, `${entity.slug}.html`), 'utf8');
+    const canonical = `${SITE_ORIGIN}${route}/${entity.slug}`;
+    if (!html.includes(`<link rel="canonical" href="${canonical}"`)) throw new Error(`${file}: item detail canonical mismatch: ${canonical}`);
+    slugs.add(entity.slug);
+  }
+  return slugs;
+}
+
 async function writeDeterministicJson(documents, outputFile) {
   const output = `${JSON.stringify(documents, null, 2)}\n`;
   await fs.mkdir(path.dirname(outputFile), { recursive: true });
@@ -514,7 +534,9 @@ async function main() {
     ...await readEntityRecords(WEAPONS_DIR, 'data/weapons'),
     ...await readEntityRecords(CHARACTERS_DIR, 'data/characters'),
     ...await readEntityRecords(BOSSES_DIR, 'data/bosses'),
-    ...await readEntityRecords(LOCATIONS_DIR, 'data/locations')
+    ...await readEntityRecords(LOCATIONS_DIR, 'data/locations'),
+    ...await readEntityRecords(path.join(ROOT_DIR, 'data/accessories'), 'data/accessories'),
+    ...await readEntityRecords(path.join(ROOT_DIR, 'data/flasks'), 'data/flasks')
   ];
   const systemRecords = await readEntityRecords(SYSTEMS_DIR, 'data/systems');
   for (const record of systemRecords) requireKnowledgeOnlySystemShape(record.entity, record.file);
@@ -522,7 +544,9 @@ async function main() {
     ['weapon', await resolvePublishedWeaponDetailPageSlugs(records, detailPagesDir, requireLegacyMarker)],
     ['character', await resolvePublishedCharacterDetailPageSlugs(records, characterDetailPagesDir)],
     ['boss', await resolvePublishedBossDetailPageSlugs(records, bossDetailPagesDir)],
-    ['location', await resolvePublishedLocationDetailPageSlugs(records, locationDetailPagesDir)]
+    ['location', await resolvePublishedLocationDetailPageSlugs(records, locationDetailPagesDir)],
+    ['accessory', await resolvePublishedItemDetailPageSlugs(records, 'accessory')],
+    ['flask', await resolvePublishedItemDetailPageSlugs(records, 'flask')]
   ]);
   const { documents: entityDocuments, skippedByState } = buildSearchDocuments(records, mode, detailPageSlugs, await loadKnowledge());
   const guideManifest = mode === 'production' ? await readGuideManifest() : [];

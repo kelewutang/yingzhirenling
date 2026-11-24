@@ -1,0 +1,1590 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "source:owner-pc-items-2026-11-24",
+  "sourceType": "user-game-screenshot",
+  "authority": "community",
+  "publisher": "项目负责人（本人截图）",
+  "title": "饰品13件与药瓶11种PC实机原始截图（24张）",
+  "language": "zh-CN",
+  "url": null,
+  "locator": {
+    "type": "user-supplied-game-screenshot",
+    "platformId": "platform:pc",
+    "versionLabel": null,
+    "capturedAt": null,
+    "suppliedAt": "2026-11-24",
+    "confirmedAt": "2026-11-24",
+    "captureOwner": "项目负责人（本人截图）",
+    "evidenceItems": [
+      {
+        "id": "pc-20261124101946-1",
+        "filename": "20261124101946_1.jpg",
+        "sha256": "5a73a1996f807bd4d6492643f5d4f26af72b4687b316e19a79deae250fc6ebd9",
+        "entityId": "accessory:shenqi-daoqiao",
+        "readableText": {
+          "name": "神奇刀鞘",
+          "kind": "生存类饰品",
+          "level": "+1",
+          "effect": "切换主武器时，获得霸体及40%伤害减免，持续3秒。",
+          "description": "曾于暗魔天堡覆灭之夜散佚的诸多珍奇之一。今虽配刀已失，但这遗存的双鞘，仍可代刀而御，护主周全。"
+        },
+        "crop": {
+          "src": "shenqi-daoqiao-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "cf55e89ae2ec9b60ba03f59704399d608bd64812acf3da41d156ee83e142cd2b"
+        }
+      },
+      {
+        "id": "pc-20261124101950-1",
+        "filename": "20261124101950_1.jpg",
+        "sha256": "5defc74c51184e2b64afe7d11f3030f7a84d8fc3bfd3e3866f19f879d9a0bb17",
+        "entityId": "accessory:bixue-yuntian",
+        "readableText": {
+          "name": "碧血云天",
+          "kind": "攻击类饰品",
+          "level": "+2",
+          "effect": "1秒内连续超过两次命中敌人，在随后2秒内对敌人的伤害+35%。有4秒的冷却时间。",
+          "description": "一定有人笑他痴傻，为了换粮、换水、换回一群孩童的命，他不仅家财散尽，树敌无数，还把家传的玉扳指押给了江湖中人。可兰少狄的心里，只觉一片坦荡快意。"
+        },
+        "crop": {
+          "src": "bixue-yuntian-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "572f5e47f8e4ac80d47360f97bb18ba05a4deb32a9765a631dfd86b147b5fcb7"
+        }
+      },
+      {
+        "id": "pc-20261124112223-1",
+        "filename": "20261124112223_1.jpg",
+        "sha256": "cda9b010d951a785f73bdc6e005757841922b36bd142023fdd69b33a16d165a6",
+        "entityId": "accessory:cimu-hufu",
+        "readableText": {
+          "name": "慈母护符",
+          "kind": "生存类饰品",
+          "level": "+1",
+          "effect": "被破防时，回复自身生命值的20%。",
+          "description": "有村人说，有个疯妇，抱着木墩子喂奶，嘴里还哼着歌谣。可后来，被那些吱呀作响的小东西一吓，再没谁敢提了。"
+        },
+        "crop": {
+          "src": "cimu-hufu-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "e04fe8f0c580131d36940b5b94b64ea3088e71fd45a428cac1f5df0d042ca0e2"
+        }
+      },
+      {
+        "id": "pc-20261124112228-1",
+        "filename": "20261124112228_1.jpg",
+        "sha256": "d20b3285d00ea58329b9f3f5e9bdc71c9ef80f6c9e2b5032da7912c400b9b3af",
+        "entityId": "accessory:wuming-dashi-banzhi",
+        "readableText": {
+          "name": "无名大师的扳指",
+          "kind": "辅助类饰品",
+          "level": "+2",
+          "effect": "精纯杀气积累速度+15%。",
+          "description": "有些东西，会在漫天杀气中扭曲崩损、沦为邪器；也有些东西，反因杀气的淬炼，激荡出坚冰与岁月皆不可磨灭的浩然正气。"
+        },
+        "crop": {
+          "src": "wuming-dashi-banzhi-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "cd9bb8aacbaaa47183b5fc0c247f175b6ed14db090789cdbd6ba3f435fe00068"
+        }
+      },
+      {
+        "id": "pc-20261124112229-1",
+        "filename": "20261124112229_1.jpg",
+        "sha256": "9d60b3a2f08f3fbed77b2347e92c2340531f670a05309735dcf406e5b4a7e3e6",
+        "entityId": "accessory:gujia-canpian",
+        "readableText": {
+          "name": "古甲残片",
+          "kind": "生存类饰品",
+          "level": "+2",
+          "effect": "生命值越高，获得的伤害减免越高，生命值全满时伤害减免为40%。",
+          "description": "古代将军战甲残片，尘封于悲泣溪谷杀气塔地下已久，但那份不甘长眠地底的执念，依然留存在残片之中。"
+        },
+        "crop": {
+          "src": "gujia-canpian-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "99c03f680547a40b7bc955ef30483dbf2e591b0e9f2dc306bc31c9ed5dbd4261"
+        }
+      },
+      {
+        "id": "pc-20261124112230-1",
+        "filename": "20261124112230_1.jpg",
+        "sha256": "4a62371792eb03f12e55d00f1e15b94ab50d57a37c25c6214993e386de97ca36",
+        "entityId": "accessory:jinli-bangdai",
+        "readableText": {
+          "name": "筋力绑带",
+          "kind": "攻击类饰品",
+          "level": "+1",
+          "effect": "对敌人的伤害+10%。",
+          "description": "守卫在丝线前的怪物们早已失去了理智，但这种特制的绑带，能使他们将狂暴化为可控的战意。"
+        },
+        "crop": {
+          "src": "jinli-bangdai-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "05ea401e2dd022a6712185ac5ad9188699566af6e817af61d3db82cac9abfd73"
+        }
+      },
+      {
+        "id": "pc-20261124112232-1",
+        "filename": "20261124112232_1.jpg",
+        "sha256": "47328d6f3f3b15771f472b1ba63c8923e9126769b9f8b0f28b960585f240c063",
+        "entityId": "accessory:anyuan-fangkuai",
+        "readableText": {
+          "name": "暗源方块",
+          "kind": "攻击类饰品",
+          "level": "+2",
+          "effect": "所有影之武装造成的伤害+25%。",
+          "description": "经幻鬼修缮后重归完整的暗源方块，虽已无法归还于那遨游天外的船只，但用以辅助操控影之武装，依然绰绰有余。"
+        },
+        "crop": {
+          "src": "anyuan-fangkuai-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "265296952b13a0aa69b7b558426cf03b52635f9e85b6442272d07ec68f517d73"
+        }
+      },
+      {
+        "id": "pc-20261124112233-1",
+        "filename": "20261124112233_1.jpg",
+        "sha256": "67961d065e5189e32eebbee5aec8fc3bcbff0cdff4a4c6913db3709cff6fdb28",
+        "entityId": "accessory:hundun-kuangjie",
+        "readableText": {
+          "name": "混沌狂戒",
+          "kind": "辅助类饰品",
+          "level": "+2",
+          "effect": "混沌火焰对敌人造成杀气灼烧后，会使自身回复敌人杀气损失量的100%。",
+          "description": "三师太“混沌”体内的邪火向来难以驾驭，曾焚毁无数物事。但这枚师姐赠予的戒指，她一直小心地保管着，甚至不曾佩戴。"
+        },
+        "crop": {
+          "src": "hundun-kuangjie-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "d880f7ed7e16cea7859f3a8954525302da3f327bee06e33200c2403814a7ab49"
+        }
+      },
+      {
+        "id": "pc-20261124112234-1",
+        "filename": "20261124112234_1.jpg",
+        "sha256": "e1c66e29eade465845ba46682609d1125b9c38829aba713aca8685f116d6af4d",
+        "entityId": "accessory:miefa-fuchensi",
+        "readableText": {
+          "name": "灭法拂尘丝",
+          "kind": "辅助类饰品",
+          "level": "+2",
+          "effect": "对敌人造成火/冰/雷/毒效果时，大幅积攒元素能量，攒满时会回复1暗源。",
+          "description": "禁忌之术下，一丝一缕，皆有其价。越是超脱凡理之物，所需代价越重……这缕丝线或许只是个开始，想要拥有完整的拂尘，还需付出更多。"
+        },
+        "crop": {
+          "src": "miefa-fuchensi-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "fad71491363b17dbbfe7478e856e4dc6c12c896946685865c985272dc44a9f17"
+        }
+      },
+      {
+        "id": "pc-20261124112235-1",
+        "filename": "20261124112235_1.jpg",
+        "sha256": "d5c6842a35f9ea8e6e0a2e90b5c3b819c476ef151e59796f60a6b5d7710e4e3e",
+        "entityId": "accessory:anyuan-xiaolong",
+        "readableText": {
+          "name": "暗源小笼",
+          "kind": "辅助类饰品",
+          "level": "+2",
+          "effect": "触发影之武装的追击招式时，有100%概率回复1暗源。",
+          "description": "陆五叔年轻时是走南闯北的镖师，这笼子是他从某处古墓里顺来的“镇邪物”。不然，为何他嘴上说用来关蛐蛐，可谁也没见他真养过什么虫子？又为何这小笼所在之处，总有幽光涌动？"
+        },
+        "crop": {
+          "src": "anyuan-xiaolong-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "0937e7f9f1bfa68d6fbae20fb43dab32698fd85c3ca01ab94315f9cfc63c43cc"
+        }
+      },
+      {
+        "id": "pc-20261124112236-1",
+        "filename": "20261124112236_1.jpg",
+        "sha256": "12e113b9f354a8d0c51142e4addebd6b21773325dce87e407bb58117e3ca0d16",
+        "entityId": "accessory:kaiguang-yupei",
+        "readableText": {
+          "name": "开光玉佩",
+          "kind": "辅助类饰品",
+          "level": "+2",
+          "effect": "喝药时会随机获得以下一种效果：\n1. 使自身与附近敌人陷入燃烧状态，且燃烧造成的火属性伤害更高。\n2. 使自身与附近敌人陷入中毒状态，且中毒造成的毒属性伤害更高。\n3. 凝聚强力混沌火球，并自动攻击附近的敌人。\n4. 立刻回复全部生命值和杀气值。\n5. 消耗30%最大生命值和最大杀气值，并引发自爆，对附近敌人造成伤害。",
+          "description": "朴实的玉佩，玉质虽非上佳，但光泽莹润如有灵气。妻子离世后，玉儿的父亲一直将此物贴身保存，如今又把它交托到了魂的手中。"
+        },
+        "crop": {
+          "src": "kaiguang-yupei-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "d3b21260561eec9d7f5accc420a0d89c80463eb500b8377b53e3bf7387a529e3"
+        }
+      },
+      {
+        "id": "pc-20261124112237-1",
+        "filename": "20261124112237_1.jpg",
+        "sha256": "7d73e774cd89f5d1f700a8a6bdd1cf33f5e44f843b9287bb20aa76ed97c889ab",
+        "entityId": "accessory:cucao-huangxin",
+        "readableText": {
+          "name": "粗糙煌心",
+          "kind": "辅助类饰品",
+          "level": "+2",
+          "effect": "任何△攻击击中敌人都会积蓄临时暗源，“武学”类影之武装将优先消耗临时暗源，且“武学”类影之武装伤害+7%。",
+          "description": "植于陆三迁胸腔中的心脏状“楔子”，相较以往的样式更为精巧，旨在保留杀气改造所成就的强大力量，而尽可能消除其引发的疯狂。"
+        },
+        "crop": {
+          "src": "cucao-huangxin-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "9ad632c89c71bf4e712b28096067c743fe686134512d3b952c3a45437ea6d10e"
+        }
+      },
+      {
+        "id": "pc-20261124112239-1",
+        "filename": "20261124112239_1.jpg",
+        "sha256": "9ff416db5a97305c1171ea4a9661e63082db19e2ec0777fd76d773c11c81b1e7",
+        "entityId": "accessory:jihuang-huxinjing",
+        "readableText": {
+          "name": "机簧护心镜",
+          "kind": "辅助类饰品",
+          "level": "+2",
+          "effect": "按住L1保持架势时，杀气的自然流逝速度-90%。",
+          "description": "精密的黄铜甲片层叠如鳞，发条机簧可在受击瞬间咬合，构成防护。“赠吾麾下至忠至勇之士，拙壁。——武轩”"
+        },
+        "crop": {
+          "src": "jihuang-huxinjing-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "96917f0dd2d5e5d012449aae38dbe3863aafdfc77bf46a02791e817fe15524b4"
+        }
+      },
+      {
+        "id": "pc-20261124102002-1",
+        "filename": "20261124102002_1.jpg",
+        "sha256": "665d5c6baeeef1916b0fb610999ae31a4cf70e7411a59a4e3e08cfe6bbd87a39",
+        "entityId": "flask:kuye-lu",
+        "readableText": {
+          "name": "苦叶露",
+          "kind": "秘药",
+          "level": "6",
+          "effect": "持续25秒伤害减免40%，同时10秒内回复60%生命值。",
+          "description": "苦叶寺至宝灵药，服之可暂使体魄坚若金石，刀剑难伤。然自其流入武林，便有不少正道弟子争相抢夺，甚至不惜拔剑相向。",
+          "uses": "6"
+        },
+        "crop": {
+          "src": "kuye-lu-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "c2b41bde40de81ff756f5e99fa4848ec7d04d3edb2e19f72efd00fbff2734527"
+        }
+      },
+      {
+        "id": "pc-20261124102003-1",
+        "filename": "20261124102003_1.jpg",
+        "sha256": "48e94b9b0d11a0a5fb39d5083c6f5e021a0fd9c20c6f4eb7b84a0025e7cac569",
+        "entityId": "flask:huanti-lingyao",
+        "readableText": {
+          "name": "幻体灵药",
+          "kind": "回复药",
+          "level": "6",
+          "effect": "回复70%生命值并且获得3秒“无形”状态，“无形”状态下无法被任何攻击击中。",
+          "description": "创制此药的幻术师原为正道弃徒，无心习武，唯痴迷奇术、药理。从半部古卷中，他悟得真正的幻法不仅欺人耳目，更可颠倒虚实，蒙蔽周身外物。",
+          "uses": "5"
+        },
+        "crop": {
+          "src": "huanti-lingyao-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "5587a43ffa85453829fe87f319f440b7d0c3a3a2ac44ef0d118194d157b9ea30"
+        }
+      },
+      {
+        "id": "pc-20261124112320-1",
+        "filename": "20261124112320_1.jpg",
+        "sha256": "b6f79ca2b79fc10eea548dd5eb00f59df0131f1a9bb340faeccfba02ae8d1b1d",
+        "entityId": "flask:rongqi-weihu-yeti",
+        "readableText": {
+          "name": "容器维护液体",
+          "kind": "回复药",
+          "level": "6",
+          "effect": "回复100%生命值，同时在10秒内杀气自然恢复速度+200%。",
+          "description": "有棱有角的金属容器。底部粘着张泛黄的字条：“十三号已用此剂，恢复效果极佳，可进一步改造研究。”",
+          "uses": "2"
+        },
+        "crop": {
+          "src": "rongqi-weihu-yeti-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "103c211a6e0576acf674cf296d18c20b628eb2656b7b9213be2f52dc5bed9a51"
+        }
+      },
+      {
+        "id": "pc-20261124112321-1",
+        "filename": "20261124112321_1.jpg",
+        "sha256": "8f4622423546ceb78fa07fc175008a277b7a4de1587015d20c8319bbed2ee78a",
+        "entityId": "flask:ningfeng-dan",
+        "readableText": {
+          "name": "凝锋丹",
+          "kind": "秘药",
+          "level": "6",
+          "effect": "持续20秒所有杀气损耗-40%，持续时间内缓缓回复50%生命值。",
+          "description": "本是正道中人为平复杀气躁动所炼之药，奈何此效不成，却另得妙用——服之可激荡战意，聚力而不散。",
+          "uses": "5"
+        },
+        "crop": {
+          "src": "ningfeng-dan-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "12ab8badb15580a32904c775d21d9c51fa7608177ff5bc03d8e78f19d36b5996"
+        }
+      },
+      {
+        "id": "pc-20261124112322-1",
+        "filename": "20261124112322_1.jpg",
+        "sha256": "556e9af56d2737bda92b716cc2456f51b7680cbb5261cd8c2affd708a4a43396",
+        "entityId": "flask:cihua-ganlu",
+        "readableText": {
+          "name": "慈花甘露",
+          "kind": "回复药",
+          "level": "6",
+          "effect": "10秒内回复80%生命值，同时在10秒内杀气自然恢复速度提升150%。",
+          "description": "青年拜入正道那年，母亲倾尽最后的嫁妆，求得一份受过圣母赐福的药方。此后年年，他总能收到母亲亲手酿制的甘露。",
+          "uses": "7"
+        },
+        "crop": {
+          "src": "cihua-ganlu-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "b076e00a7650e09db9c440ea25959f311fb3c9ac08f0018c35505206dd456dcf"
+        }
+      },
+      {
+        "id": "pc-20261124112323-1",
+        "filename": "20261124112323_1.jpg",
+        "sha256": "501a9b950c895f1a4cc1ba49b47ba234d1b0d39a5a913cd5cab595fd6ff8d316",
+        "entityId": "flask:changsheng-yin",
+        "readableText": {
+          "name": "长生饮",
+          "kind": "回复药",
+          "level": "6",
+          "effect": "回复全部生命值，饮用后20秒内，生命值保持全满状态时，+20%对敌人造成的伤害。",
+          "description": "本是商旅贩运的药饮，却于半途为强盗所劫。强盗将此物视作珍奇，无奈不通机巧之术，至死亦未能尝得半滴。",
+          "uses": "4"
+        },
+        "crop": {
+          "src": "changsheng-yin-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "f0cc17e0e2afb9bb5b8884255e8d8a696c59ee5fe3fa23b32ee741aa20191998"
+        }
+      },
+      {
+        "id": "pc-20261124112324-1",
+        "filename": "20261124112324_1.jpg",
+        "sha256": "d215f67bdf8c780c564982b160c1f7b08b1998ab22b725f1ce0df5ef63b879c9",
+        "entityId": "flask:feijiu-niang",
+        "readableText": {
+          "name": "沸酒酿",
+          "kind": "秘药",
+          "level": "6",
+          "effect": "持续25秒杀气源源不断产生，杀气回复速度+100%，持续时间内缓缓回复50%生命值。",
+          "description": "剑痴花千笑的酿酒瓶，其中所盛之物可令酒液沸腾，口感更添香醇绵柔。饮下可凝聚一身酒意，生发杀气。",
+          "uses": "5"
+        },
+        "crop": {
+          "src": "feijiu-niang-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "b25b4c0f3f933e3478ce5f4d1171e24a658c7d2024c4001c74b8cfec639f0753"
+        }
+      },
+      {
+        "id": "pc-20261124112325-1",
+        "filename": "20261124112325_1.jpg",
+        "sha256": "1738e97dc541b9bb43554c73594bf8b57ecf94a0afe95d723496bca2e0fb22d7",
+        "entityId": "flask:guishen-tang",
+        "readableText": {
+          "name": "归神汤",
+          "kind": "秘药",
+          "level": "6",
+          "effect": "持续40秒破防力+15%，同时回复40%生命值。",
+          "description": "一些受荡秽指引的陆家村村民，试图制出唤醒沉睡亲眷的秘方。怎奈凡药难医诡症，绝望的村民只得将此物供奉在圣母龛前，寄望于神明显灵。",
+          "uses": "5"
+        },
+        "crop": {
+          "src": "guishen-tang-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "06f0e8e5a6d235efb24dfea53ebf7c351ecdbbd5557f0ae5ed655197590e56f1"
+        }
+      },
+      {
+        "id": "pc-20261124112326-1",
+        "filename": "20261124112326_1.jpg",
+        "sha256": "0b0e55b6923931e3265ae63d3f93b4621e13cda11a49b30a1e54d60b09c43ae6",
+        "entityId": "flask:qingshe-yaoji",
+        "readableText": {
+          "name": "青蛇药剂",
+          "kind": "秘药",
+          "level": "6",
+          "effect": "移除所有异常状态，在25秒内+80%的异常状态抵抗，持续时间内缓缓回复40%生命值。",
+          "description": "昔年谢回春穷尽半生心血，探求解除杀气改造之法。那未竟的遗方后来流入青蛇屋，几经修订，终成此方。",
+          "uses": "6"
+        },
+        "crop": {
+          "src": "qingshe-yaoji-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "f0dfd3600f9285802cbb2bc984550200ae0b80dea3582343ad301134ec3b34ec"
+        }
+      },
+      {
+        "id": "pc-20261124112327-1",
+        "filename": "20261124112327_1.jpg",
+        "sha256": "4a8d54d408feadd2170922b920fa9e5097e1c95c75de3ccc649a184753c76e29",
+        "entityId": "flask:shaqi-rongxue-cuihuaji",
+        "readableText": {
+          "name": "杀气溶血催化剂",
+          "kind": "秘药",
+          "level": "6",
+          "effect": "持续25秒△杀气连招伤害+40%，并回复30%生命值，但是自身同时被点燃。",
+          "description": "妙手小张去岁从水行帮众处淘得的“搏命”秘药。虽药效拔群，却会引杀气溶入血脉，如烈火灼烧。然梅谷湖上的船夫水客，多凭此药在风浪中讨生活。",
+          "uses": "5"
+        },
+        "crop": {
+          "src": "shaqi-rongxue-cuihuaji-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "34913bbf7845f0c568d9c3eed82c5db12bf64c1dba548b0ac35dde1057015dec"
+        }
+      },
+      {
+        "id": "pc-20261124112328-1",
+        "filename": "20261124112328_1.jpg",
+        "sha256": "5bf96878d5b8a76578e80142b0c97e99dd74bfc1430d8ca3a4f6fc07d4594259",
+        "entityId": "flask:beiming-yao",
+        "readableText": {
+          "name": "悲鸣药",
+          "kind": "秘药",
+          "level": "6",
+          "effect": "持续40秒对敌人的伤害+20%，同时回复40%生命值。",
+          "description": "原为“组织”蛇屋制作，似乎流落到了江湖之中。封存着残缺的悲伤记忆的药瓶。",
+          "uses": "5"
+        },
+        "crop": {
+          "src": "beiming-yao-pc-20261124.jpg",
+          "top": 240,
+          "width": 960,
+          "height": 960,
+          "left": 740,
+          "sha256": "bf8c956abd986354b14ae69a40ad63b82476b38d4e59ea59bc629503fd73c11e"
+        }
+      }
+    ],
+    "itemClaims": [
+      {
+        "entityId": "accessory:shenqi-daoqiao",
+        "factId": "fact:accessory:shenqi-daoqiao:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "神奇刀鞘",
+        "evidenceItemId": "pc-20261124101946-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:shenqi-daoqiao",
+        "factId": "fact:accessory:shenqi-daoqiao:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "生存类饰品",
+        "evidenceItemId": "pc-20261124101946-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:shenqi-daoqiao",
+        "factId": "fact:accessory:shenqi-daoqiao:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+1",
+        "evidenceItemId": "pc-20261124101946-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:shenqi-daoqiao",
+        "factId": "fact:accessory:shenqi-daoqiao:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "切换主武器时，获得霸体及40%伤害减免，持续3秒。",
+        "evidenceItemId": "pc-20261124101946-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:shenqi-daoqiao",
+        "factId": "fact:accessory:shenqi-daoqiao:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "曾于暗魔天堡覆灭之夜散佚的诸多珍奇之一。今虽配刀已失，但这遗存的双鞘，仍可代刀而御，护主周全。",
+        "evidenceItemId": "pc-20261124101946-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:bixue-yuntian",
+        "factId": "fact:accessory:bixue-yuntian:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "碧血云天",
+        "evidenceItemId": "pc-20261124101950-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:bixue-yuntian",
+        "factId": "fact:accessory:bixue-yuntian:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "攻击类饰品",
+        "evidenceItemId": "pc-20261124101950-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:bixue-yuntian",
+        "factId": "fact:accessory:bixue-yuntian:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124101950-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:bixue-yuntian",
+        "factId": "fact:accessory:bixue-yuntian:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "1秒内连续超过两次命中敌人，在随后2秒内对敌人的伤害+35%。有4秒的冷却时间。",
+        "evidenceItemId": "pc-20261124101950-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:bixue-yuntian",
+        "factId": "fact:accessory:bixue-yuntian:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "一定有人笑他痴傻，为了换粮、换水、换回一群孩童的命，他不仅家财散尽，树敌无数，还把家传的玉扳指押给了江湖中人。可兰少狄的心里，只觉一片坦荡快意。",
+        "evidenceItemId": "pc-20261124101950-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:cimu-hufu",
+        "factId": "fact:accessory:cimu-hufu:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "慈母护符",
+        "evidenceItemId": "pc-20261124112223-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:cimu-hufu",
+        "factId": "fact:accessory:cimu-hufu:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "生存类饰品",
+        "evidenceItemId": "pc-20261124112223-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:cimu-hufu",
+        "factId": "fact:accessory:cimu-hufu:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+1",
+        "evidenceItemId": "pc-20261124112223-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:cimu-hufu",
+        "factId": "fact:accessory:cimu-hufu:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "被破防时，回复自身生命值的20%。",
+        "evidenceItemId": "pc-20261124112223-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:cimu-hufu",
+        "factId": "fact:accessory:cimu-hufu:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "有村人说，有个疯妇，抱着木墩子喂奶，嘴里还哼着歌谣。可后来，被那些吱呀作响的小东西一吓，再没谁敢提了。",
+        "evidenceItemId": "pc-20261124112223-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:wuming-dashi-banzhi",
+        "factId": "fact:accessory:wuming-dashi-banzhi:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "无名大师的扳指",
+        "evidenceItemId": "pc-20261124112228-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:wuming-dashi-banzhi",
+        "factId": "fact:accessory:wuming-dashi-banzhi:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "辅助类饰品",
+        "evidenceItemId": "pc-20261124112228-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:wuming-dashi-banzhi",
+        "factId": "fact:accessory:wuming-dashi-banzhi:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112228-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:wuming-dashi-banzhi",
+        "factId": "fact:accessory:wuming-dashi-banzhi:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "精纯杀气积累速度+15%。",
+        "evidenceItemId": "pc-20261124112228-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:wuming-dashi-banzhi",
+        "factId": "fact:accessory:wuming-dashi-banzhi:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "有些东西，会在漫天杀气中扭曲崩损、沦为邪器；也有些东西，反因杀气的淬炼，激荡出坚冰与岁月皆不可磨灭的浩然正气。",
+        "evidenceItemId": "pc-20261124112228-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:gujia-canpian",
+        "factId": "fact:accessory:gujia-canpian:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "古甲残片",
+        "evidenceItemId": "pc-20261124112229-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:gujia-canpian",
+        "factId": "fact:accessory:gujia-canpian:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "生存类饰品",
+        "evidenceItemId": "pc-20261124112229-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:gujia-canpian",
+        "factId": "fact:accessory:gujia-canpian:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112229-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:gujia-canpian",
+        "factId": "fact:accessory:gujia-canpian:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "生命值越高，获得的伤害减免越高，生命值全满时伤害减免为40%。",
+        "evidenceItemId": "pc-20261124112229-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:gujia-canpian",
+        "factId": "fact:accessory:gujia-canpian:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "古代将军战甲残片，尘封于悲泣溪谷杀气塔地下已久，但那份不甘长眠地底的执念，依然留存在残片之中。",
+        "evidenceItemId": "pc-20261124112229-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:jinli-bangdai",
+        "factId": "fact:accessory:jinli-bangdai:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "筋力绑带",
+        "evidenceItemId": "pc-20261124112230-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:jinli-bangdai",
+        "factId": "fact:accessory:jinli-bangdai:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "攻击类饰品",
+        "evidenceItemId": "pc-20261124112230-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:jinli-bangdai",
+        "factId": "fact:accessory:jinli-bangdai:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+1",
+        "evidenceItemId": "pc-20261124112230-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:jinli-bangdai",
+        "factId": "fact:accessory:jinli-bangdai:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "对敌人的伤害+10%。",
+        "evidenceItemId": "pc-20261124112230-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:jinli-bangdai",
+        "factId": "fact:accessory:jinli-bangdai:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "守卫在丝线前的怪物们早已失去了理智，但这种特制的绑带，能使他们将狂暴化为可控的战意。",
+        "evidenceItemId": "pc-20261124112230-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:anyuan-fangkuai",
+        "factId": "fact:accessory:anyuan-fangkuai:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "暗源方块",
+        "evidenceItemId": "pc-20261124112232-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:anyuan-fangkuai",
+        "factId": "fact:accessory:anyuan-fangkuai:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "攻击类饰品",
+        "evidenceItemId": "pc-20261124112232-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:anyuan-fangkuai",
+        "factId": "fact:accessory:anyuan-fangkuai:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112232-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:anyuan-fangkuai",
+        "factId": "fact:accessory:anyuan-fangkuai:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "所有影之武装造成的伤害+25%。",
+        "evidenceItemId": "pc-20261124112232-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:anyuan-fangkuai",
+        "factId": "fact:accessory:anyuan-fangkuai:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "经幻鬼修缮后重归完整的暗源方块，虽已无法归还于那遨游天外的船只，但用以辅助操控影之武装，依然绰绰有余。",
+        "evidenceItemId": "pc-20261124112232-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:hundun-kuangjie",
+        "factId": "fact:accessory:hundun-kuangjie:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "混沌狂戒",
+        "evidenceItemId": "pc-20261124112233-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:hundun-kuangjie",
+        "factId": "fact:accessory:hundun-kuangjie:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "辅助类饰品",
+        "evidenceItemId": "pc-20261124112233-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:hundun-kuangjie",
+        "factId": "fact:accessory:hundun-kuangjie:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112233-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:hundun-kuangjie",
+        "factId": "fact:accessory:hundun-kuangjie:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "混沌火焰对敌人造成杀气灼烧后，会使自身回复敌人杀气损失量的100%。",
+        "evidenceItemId": "pc-20261124112233-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:hundun-kuangjie",
+        "factId": "fact:accessory:hundun-kuangjie:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "三师太“混沌”体内的邪火向来难以驾驭，曾焚毁无数物事。但这枚师姐赠予的戒指，她一直小心地保管着，甚至不曾佩戴。",
+        "evidenceItemId": "pc-20261124112233-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:miefa-fuchensi",
+        "factId": "fact:accessory:miefa-fuchensi:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "灭法拂尘丝",
+        "evidenceItemId": "pc-20261124112234-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:miefa-fuchensi",
+        "factId": "fact:accessory:miefa-fuchensi:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "辅助类饰品",
+        "evidenceItemId": "pc-20261124112234-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:miefa-fuchensi",
+        "factId": "fact:accessory:miefa-fuchensi:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112234-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:miefa-fuchensi",
+        "factId": "fact:accessory:miefa-fuchensi:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "对敌人造成火/冰/雷/毒效果时，大幅积攒元素能量，攒满时会回复1暗源。",
+        "evidenceItemId": "pc-20261124112234-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:miefa-fuchensi",
+        "factId": "fact:accessory:miefa-fuchensi:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "禁忌之术下，一丝一缕，皆有其价。越是超脱凡理之物，所需代价越重……这缕丝线或许只是个开始，想要拥有完整的拂尘，还需付出更多。",
+        "evidenceItemId": "pc-20261124112234-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:anyuan-xiaolong",
+        "factId": "fact:accessory:anyuan-xiaolong:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "暗源小笼",
+        "evidenceItemId": "pc-20261124112235-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:anyuan-xiaolong",
+        "factId": "fact:accessory:anyuan-xiaolong:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "辅助类饰品",
+        "evidenceItemId": "pc-20261124112235-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:anyuan-xiaolong",
+        "factId": "fact:accessory:anyuan-xiaolong:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112235-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:anyuan-xiaolong",
+        "factId": "fact:accessory:anyuan-xiaolong:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "触发影之武装的追击招式时，有100%概率回复1暗源。",
+        "evidenceItemId": "pc-20261124112235-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:anyuan-xiaolong",
+        "factId": "fact:accessory:anyuan-xiaolong:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "陆五叔年轻时是走南闯北的镖师，这笼子是他从某处古墓里顺来的“镇邪物”。不然，为何他嘴上说用来关蛐蛐，可谁也没见他真养过什么虫子？又为何这小笼所在之处，总有幽光涌动？",
+        "evidenceItemId": "pc-20261124112235-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:kaiguang-yupei",
+        "factId": "fact:accessory:kaiguang-yupei:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "开光玉佩",
+        "evidenceItemId": "pc-20261124112236-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:kaiguang-yupei",
+        "factId": "fact:accessory:kaiguang-yupei:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "辅助类饰品",
+        "evidenceItemId": "pc-20261124112236-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:kaiguang-yupei",
+        "factId": "fact:accessory:kaiguang-yupei:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112236-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:kaiguang-yupei",
+        "factId": "fact:accessory:kaiguang-yupei:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "喝药时会随机获得以下一种效果：\n1. 使自身与附近敌人陷入燃烧状态，且燃烧造成的火属性伤害更高。\n2. 使自身与附近敌人陷入中毒状态，且中毒造成的毒属性伤害更高。\n3. 凝聚强力混沌火球，并自动攻击附近的敌人。\n4. 立刻回复全部生命值和杀气值。\n5. 消耗30%最大生命值和最大杀气值，并引发自爆，对附近敌人造成伤害。",
+        "evidenceItemId": "pc-20261124112236-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:kaiguang-yupei",
+        "factId": "fact:accessory:kaiguang-yupei:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "朴实的玉佩，玉质虽非上佳，但光泽莹润如有灵气。妻子离世后，玉儿的父亲一直将此物贴身保存，如今又把它交托到了魂的手中。",
+        "evidenceItemId": "pc-20261124112236-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:cucao-huangxin",
+        "factId": "fact:accessory:cucao-huangxin:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "粗糙煌心",
+        "evidenceItemId": "pc-20261124112237-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:cucao-huangxin",
+        "factId": "fact:accessory:cucao-huangxin:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "辅助类饰品",
+        "evidenceItemId": "pc-20261124112237-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:cucao-huangxin",
+        "factId": "fact:accessory:cucao-huangxin:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112237-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:cucao-huangxin",
+        "factId": "fact:accessory:cucao-huangxin:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "任何△攻击击中敌人都会积蓄临时暗源，“武学”类影之武装将优先消耗临时暗源，且“武学”类影之武装伤害+7%。",
+        "evidenceItemId": "pc-20261124112237-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:cucao-huangxin",
+        "factId": "fact:accessory:cucao-huangxin:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "植于陆三迁胸腔中的心脏状“楔子”，相较以往的样式更为精巧，旨在保留杀气改造所成就的强大力量，而尽可能消除其引发的疯狂。",
+        "evidenceItemId": "pc-20261124112237-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "accessory:jihuang-huxinjing",
+        "factId": "fact:accessory:jihuang-huxinjing:pc-20261124-name",
+        "key": "accessory.name",
+        "value": "机簧护心镜",
+        "evidenceItemId": "pc-20261124112239-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "accessory:jihuang-huxinjing",
+        "factId": "fact:accessory:jihuang-huxinjing:pc-20261124-kind",
+        "key": "accessory.kind",
+        "value": "辅助类饰品",
+        "evidenceItemId": "pc-20261124112239-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "accessory:jihuang-huxinjing",
+        "factId": "fact:accessory:jihuang-huxinjing:pc-20261124-level",
+        "key": "accessory.level",
+        "value": "+2",
+        "evidenceItemId": "pc-20261124112239-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "accessory:jihuang-huxinjing",
+        "factId": "fact:accessory:jihuang-huxinjing:pc-20261124-effect",
+        "key": "accessory.effect",
+        "value": "按住L1保持架势时，杀气的自然流逝速度-90%。",
+        "evidenceItemId": "pc-20261124112239-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "accessory:jihuang-huxinjing",
+        "factId": "fact:accessory:jihuang-huxinjing:pc-20261124-description",
+        "key": "accessory.description",
+        "value": "精密的黄铜甲片层叠如鳞，发条机簧可在受击瞬间咬合，构成防护。“赠吾麾下至忠至勇之士，拙壁。——武轩”",
+        "evidenceItemId": "pc-20261124112239-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:kuye-lu",
+        "factId": "fact:flask:kuye-lu:pc-20261124-name",
+        "key": "flask.name",
+        "value": "苦叶露",
+        "evidenceItemId": "pc-20261124102002-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:kuye-lu",
+        "factId": "fact:flask:kuye-lu:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "秘药",
+        "evidenceItemId": "pc-20261124102002-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:kuye-lu",
+        "factId": "fact:flask:kuye-lu:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124102002-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:kuye-lu",
+        "factId": "fact:flask:kuye-lu:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "持续25秒伤害减免40%，同时10秒内回复60%生命值。",
+        "evidenceItemId": "pc-20261124102002-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:kuye-lu",
+        "factId": "fact:flask:kuye-lu:pc-20261124-description",
+        "key": "flask.description",
+        "value": "苦叶寺至宝灵药，服之可暂使体魄坚若金石，刀剑难伤。然自其流入武林，便有不少正道弟子争相抢夺，甚至不惜拔剑相向。",
+        "evidenceItemId": "pc-20261124102002-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:kuye-lu",
+        "factId": "fact:flask:kuye-lu:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "6",
+        "evidenceItemId": "pc-20261124102002-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:huanti-lingyao",
+        "factId": "fact:flask:huanti-lingyao:pc-20261124-name",
+        "key": "flask.name",
+        "value": "幻体灵药",
+        "evidenceItemId": "pc-20261124102003-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:huanti-lingyao",
+        "factId": "fact:flask:huanti-lingyao:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "回复药",
+        "evidenceItemId": "pc-20261124102003-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:huanti-lingyao",
+        "factId": "fact:flask:huanti-lingyao:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124102003-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:huanti-lingyao",
+        "factId": "fact:flask:huanti-lingyao:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "回复70%生命值并且获得3秒“无形”状态，“无形”状态下无法被任何攻击击中。",
+        "evidenceItemId": "pc-20261124102003-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:huanti-lingyao",
+        "factId": "fact:flask:huanti-lingyao:pc-20261124-description",
+        "key": "flask.description",
+        "value": "创制此药的幻术师原为正道弃徒，无心习武，唯痴迷奇术、药理。从半部古卷中，他悟得真正的幻法不仅欺人耳目，更可颠倒虚实，蒙蔽周身外物。",
+        "evidenceItemId": "pc-20261124102003-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:huanti-lingyao",
+        "factId": "fact:flask:huanti-lingyao:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "5",
+        "evidenceItemId": "pc-20261124102003-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:rongqi-weihu-yeti",
+        "factId": "fact:flask:rongqi-weihu-yeti:pc-20261124-name",
+        "key": "flask.name",
+        "value": "容器维护液体",
+        "evidenceItemId": "pc-20261124112320-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:rongqi-weihu-yeti",
+        "factId": "fact:flask:rongqi-weihu-yeti:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "回复药",
+        "evidenceItemId": "pc-20261124112320-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:rongqi-weihu-yeti",
+        "factId": "fact:flask:rongqi-weihu-yeti:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112320-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:rongqi-weihu-yeti",
+        "factId": "fact:flask:rongqi-weihu-yeti:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "回复100%生命值，同时在10秒内杀气自然恢复速度+200%。",
+        "evidenceItemId": "pc-20261124112320-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:rongqi-weihu-yeti",
+        "factId": "fact:flask:rongqi-weihu-yeti:pc-20261124-description",
+        "key": "flask.description",
+        "value": "有棱有角的金属容器。底部粘着张泛黄的字条：“十三号已用此剂，恢复效果极佳，可进一步改造研究。”",
+        "evidenceItemId": "pc-20261124112320-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:rongqi-weihu-yeti",
+        "factId": "fact:flask:rongqi-weihu-yeti:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "2",
+        "evidenceItemId": "pc-20261124112320-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:ningfeng-dan",
+        "factId": "fact:flask:ningfeng-dan:pc-20261124-name",
+        "key": "flask.name",
+        "value": "凝锋丹",
+        "evidenceItemId": "pc-20261124112321-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:ningfeng-dan",
+        "factId": "fact:flask:ningfeng-dan:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "秘药",
+        "evidenceItemId": "pc-20261124112321-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:ningfeng-dan",
+        "factId": "fact:flask:ningfeng-dan:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112321-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:ningfeng-dan",
+        "factId": "fact:flask:ningfeng-dan:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "持续20秒所有杀气损耗-40%，持续时间内缓缓回复50%生命值。",
+        "evidenceItemId": "pc-20261124112321-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:ningfeng-dan",
+        "factId": "fact:flask:ningfeng-dan:pc-20261124-description",
+        "key": "flask.description",
+        "value": "本是正道中人为平复杀气躁动所炼之药，奈何此效不成，却另得妙用——服之可激荡战意，聚力而不散。",
+        "evidenceItemId": "pc-20261124112321-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:ningfeng-dan",
+        "factId": "fact:flask:ningfeng-dan:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "5",
+        "evidenceItemId": "pc-20261124112321-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:cihua-ganlu",
+        "factId": "fact:flask:cihua-ganlu:pc-20261124-name",
+        "key": "flask.name",
+        "value": "慈花甘露",
+        "evidenceItemId": "pc-20261124112322-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:cihua-ganlu",
+        "factId": "fact:flask:cihua-ganlu:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "回复药",
+        "evidenceItemId": "pc-20261124112322-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:cihua-ganlu",
+        "factId": "fact:flask:cihua-ganlu:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112322-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:cihua-ganlu",
+        "factId": "fact:flask:cihua-ganlu:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "10秒内回复80%生命值，同时在10秒内杀气自然恢复速度提升150%。",
+        "evidenceItemId": "pc-20261124112322-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:cihua-ganlu",
+        "factId": "fact:flask:cihua-ganlu:pc-20261124-description",
+        "key": "flask.description",
+        "value": "青年拜入正道那年，母亲倾尽最后的嫁妆，求得一份受过圣母赐福的药方。此后年年，他总能收到母亲亲手酿制的甘露。",
+        "evidenceItemId": "pc-20261124112322-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:cihua-ganlu",
+        "factId": "fact:flask:cihua-ganlu:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "7",
+        "evidenceItemId": "pc-20261124112322-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:changsheng-yin",
+        "factId": "fact:flask:changsheng-yin:pc-20261124-name",
+        "key": "flask.name",
+        "value": "长生饮",
+        "evidenceItemId": "pc-20261124112323-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:changsheng-yin",
+        "factId": "fact:flask:changsheng-yin:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "回复药",
+        "evidenceItemId": "pc-20261124112323-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:changsheng-yin",
+        "factId": "fact:flask:changsheng-yin:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112323-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:changsheng-yin",
+        "factId": "fact:flask:changsheng-yin:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "回复全部生命值，饮用后20秒内，生命值保持全满状态时，+20%对敌人造成的伤害。",
+        "evidenceItemId": "pc-20261124112323-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:changsheng-yin",
+        "factId": "fact:flask:changsheng-yin:pc-20261124-description",
+        "key": "flask.description",
+        "value": "本是商旅贩运的药饮，却于半途为强盗所劫。强盗将此物视作珍奇，无奈不通机巧之术，至死亦未能尝得半滴。",
+        "evidenceItemId": "pc-20261124112323-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:changsheng-yin",
+        "factId": "fact:flask:changsheng-yin:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "4",
+        "evidenceItemId": "pc-20261124112323-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:feijiu-niang",
+        "factId": "fact:flask:feijiu-niang:pc-20261124-name",
+        "key": "flask.name",
+        "value": "沸酒酿",
+        "evidenceItemId": "pc-20261124112324-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:feijiu-niang",
+        "factId": "fact:flask:feijiu-niang:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "秘药",
+        "evidenceItemId": "pc-20261124112324-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:feijiu-niang",
+        "factId": "fact:flask:feijiu-niang:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112324-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:feijiu-niang",
+        "factId": "fact:flask:feijiu-niang:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "持续25秒杀气源源不断产生，杀气回复速度+100%，持续时间内缓缓回复50%生命值。",
+        "evidenceItemId": "pc-20261124112324-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:feijiu-niang",
+        "factId": "fact:flask:feijiu-niang:pc-20261124-description",
+        "key": "flask.description",
+        "value": "剑痴花千笑的酿酒瓶，其中所盛之物可令酒液沸腾，口感更添香醇绵柔。饮下可凝聚一身酒意，生发杀气。",
+        "evidenceItemId": "pc-20261124112324-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:feijiu-niang",
+        "factId": "fact:flask:feijiu-niang:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "5",
+        "evidenceItemId": "pc-20261124112324-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:guishen-tang",
+        "factId": "fact:flask:guishen-tang:pc-20261124-name",
+        "key": "flask.name",
+        "value": "归神汤",
+        "evidenceItemId": "pc-20261124112325-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:guishen-tang",
+        "factId": "fact:flask:guishen-tang:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "秘药",
+        "evidenceItemId": "pc-20261124112325-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:guishen-tang",
+        "factId": "fact:flask:guishen-tang:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112325-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:guishen-tang",
+        "factId": "fact:flask:guishen-tang:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "持续40秒破防力+15%，同时回复40%生命值。",
+        "evidenceItemId": "pc-20261124112325-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:guishen-tang",
+        "factId": "fact:flask:guishen-tang:pc-20261124-description",
+        "key": "flask.description",
+        "value": "一些受荡秽指引的陆家村村民，试图制出唤醒沉睡亲眷的秘方。怎奈凡药难医诡症，绝望的村民只得将此物供奉在圣母龛前，寄望于神明显灵。",
+        "evidenceItemId": "pc-20261124112325-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:guishen-tang",
+        "factId": "fact:flask:guishen-tang:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "5",
+        "evidenceItemId": "pc-20261124112325-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:qingshe-yaoji",
+        "factId": "fact:flask:qingshe-yaoji:pc-20261124-name",
+        "key": "flask.name",
+        "value": "青蛇药剂",
+        "evidenceItemId": "pc-20261124112326-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:qingshe-yaoji",
+        "factId": "fact:flask:qingshe-yaoji:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "秘药",
+        "evidenceItemId": "pc-20261124112326-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:qingshe-yaoji",
+        "factId": "fact:flask:qingshe-yaoji:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112326-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:qingshe-yaoji",
+        "factId": "fact:flask:qingshe-yaoji:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "移除所有异常状态，在25秒内+80%的异常状态抵抗，持续时间内缓缓回复40%生命值。",
+        "evidenceItemId": "pc-20261124112326-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:qingshe-yaoji",
+        "factId": "fact:flask:qingshe-yaoji:pc-20261124-description",
+        "key": "flask.description",
+        "value": "昔年谢回春穷尽半生心血，探求解除杀气改造之法。那未竟的遗方后来流入青蛇屋，几经修订，终成此方。",
+        "evidenceItemId": "pc-20261124112326-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:qingshe-yaoji",
+        "factId": "fact:flask:qingshe-yaoji:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112326-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:shaqi-rongxue-cuihuaji",
+        "factId": "fact:flask:shaqi-rongxue-cuihuaji:pc-20261124-name",
+        "key": "flask.name",
+        "value": "杀气溶血催化剂",
+        "evidenceItemId": "pc-20261124112327-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:shaqi-rongxue-cuihuaji",
+        "factId": "fact:flask:shaqi-rongxue-cuihuaji:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "秘药",
+        "evidenceItemId": "pc-20261124112327-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:shaqi-rongxue-cuihuaji",
+        "factId": "fact:flask:shaqi-rongxue-cuihuaji:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112327-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:shaqi-rongxue-cuihuaji",
+        "factId": "fact:flask:shaqi-rongxue-cuihuaji:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "持续25秒△杀气连招伤害+40%，并回复30%生命值，但是自身同时被点燃。",
+        "evidenceItemId": "pc-20261124112327-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:shaqi-rongxue-cuihuaji",
+        "factId": "fact:flask:shaqi-rongxue-cuihuaji:pc-20261124-description",
+        "key": "flask.description",
+        "value": "妙手小张去岁从水行帮众处淘得的“搏命”秘药。虽药效拔群，却会引杀气溶入血脉，如烈火灼烧。然梅谷湖上的船夫水客，多凭此药在风浪中讨生活。",
+        "evidenceItemId": "pc-20261124112327-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:shaqi-rongxue-cuihuaji",
+        "factId": "fact:flask:shaqi-rongxue-cuihuaji:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "5",
+        "evidenceItemId": "pc-20261124112327-1",
+        "position": "可使用次数"
+      },
+      {
+        "entityId": "flask:beiming-yao",
+        "factId": "fact:flask:beiming-yao:pc-20261124-name",
+        "key": "flask.name",
+        "value": "悲鸣药",
+        "evidenceItemId": "pc-20261124112328-1",
+        "position": "右上名称"
+      },
+      {
+        "entityId": "flask:beiming-yao",
+        "factId": "fact:flask:beiming-yao:pc-20261124-kind",
+        "key": "flask.kind",
+        "value": "秘药",
+        "evidenceItemId": "pc-20261124112328-1",
+        "position": "名称上方分类"
+      },
+      {
+        "entityId": "flask:beiming-yao",
+        "factId": "fact:flask:beiming-yao:pc-20261124-level",
+        "key": "flask.level",
+        "value": "6",
+        "evidenceItemId": "pc-20261124112328-1",
+        "position": "名称后的强化等级或药瓶等级徽记"
+      },
+      {
+        "entityId": "flask:beiming-yao",
+        "factId": "fact:flask:beiming-yao:pc-20261124-effect",
+        "key": "flask.effect",
+        "value": "持续40秒对敌人的伤害+20%，同时回复40%生命值。",
+        "evidenceItemId": "pc-20261124112328-1",
+        "position": "分隔线下完整效果文字"
+      },
+      {
+        "entityId": "flask:beiming-yao",
+        "factId": "fact:flask:beiming-yao:pc-20261124-description",
+        "key": "flask.description",
+        "value": "原为“组织”蛇屋制作，似乎流落到了江湖之中。封存着残缺的悲伤记忆的药瓶。",
+        "evidenceItemId": "pc-20261124112328-1",
+        "position": "效果与使用次数下方介绍"
+      },
+      {
+        "entityId": "flask:beiming-yao",
+        "factId": "fact:flask:beiming-yao:pc-20261124-uses",
+        "key": "flask.uses",
+        "value": "5",
+        "evidenceItemId": "pc-20261124112328-1",
+        "position": "可使用次数"
+      }
+    ]
+  },
+  "publishedAt": null,
+  "checkedAt": "2026-11-24",
+  "archivedUrl": null,
+  "notes": "已逐张读取24张2560×1440原始JPEG，原文件SHA-256绑定物品、完整可读文字、逐Fact位置和真实裁切。仅合并版面换行；控制器图标转写为△、L1；图标旁明示暗源与精纯杀气时保留文字术语。不把普通杀气混作精纯杀气或暗源。未提供补丁号和拍摄日期，不以文件名推定。药瓶未写明即时或持续时只保留原文，不推断恢复方式。开光玉佩五项效果完整保留；介绍仅作原文引述，不作为现实获取方式。"
+}

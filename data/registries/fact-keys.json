@@ -572,6 +572,136 @@
       ],
       "description": "显式双形态Fact与媒体引用、稳定技能身份及共享/修改/新增/移除映射。",
       "requiresAsOf": false
+    },
+    {
+      "key": "accessory.name",
+      "applicableEntityTypes": [
+        "accessory"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "名称，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "accessory.kind",
+      "applicableEntityTypes": [
+        "accessory"
+      ],
+      "allowedValueTypes": [
+        "enum"
+      ],
+      "description": "游戏内分类，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false,
+      "enumValues": [
+        "生存类饰品",
+        "攻击类饰品",
+        "辅助类饰品"
+      ]
+    },
+    {
+      "key": "accessory.level",
+      "applicableEntityTypes": [
+        "accessory"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "截图显示等级，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "accessory.effect",
+      "applicableEntityTypes": [
+        "accessory"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "当前等级效果全文，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "accessory.description",
+      "applicableEntityTypes": [
+        "accessory"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "游戏内介绍，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "flask.name",
+      "applicableEntityTypes": [
+        "flask"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "名称，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "flask.kind",
+      "applicableEntityTypes": [
+        "flask"
+      ],
+      "allowedValueTypes": [
+        "enum"
+      ],
+      "description": "游戏内分类，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false,
+      "enumValues": [
+        "回复药",
+        "秘药"
+      ]
+    },
+    {
+      "key": "flask.level",
+      "applicableEntityTypes": [
+        "flask"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "截图显示等级，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "flask.effect",
+      "applicableEntityTypes": [
+        "flask"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "当前等级效果全文，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "flask.description",
+      "applicableEntityTypes": [
+        "flask"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "游戏内介绍，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
+    },
+    {
+      "key": "flask.uses",
+      "applicableEntityTypes": [
+        "flask"
+      ],
+      "allowedValueTypes": [
+        "string"
+      ],
+      "description": "可使用次数，仅记录来源原文；不推算其他等级、获取方式或强化上限。",
+      "requiresAsOf": false
     }
   ]
 }

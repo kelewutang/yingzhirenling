@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "accessory:shenqi-daoqiao",
+  "entityType": "accessory",
+  "slug": "shenqi-daoqiao",
+  "displayName": "神奇刀鞘",
+  "aliases": [],
+  "summary": "切换主武器时，获得霸体及40%伤害减免，持续3秒。",
+  "summaryFactIds": [
+    "fact:accessory:shenqi-daoqiao:pc-20261124-effect"
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-24",
+  "updatedAt": "2026-11-24",
+  "recordState": "published",
+  "spoilerLevel": "none",
+  "resolution": null,
+  "facts": [
+    {
+      "id": "fact:accessory:shenqi-daoqiao:pc-20261124-name",
+      "key": "accessory.name",
+      "valueType": "string",
+      "value": "神奇刀鞘",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124101946_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:shenqi-daoqiao:pc-20261124-kind",
+      "key": "accessory.kind",
+      "valueType": "enum",
+      "value": "生存类饰品",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124101946_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:shenqi-daoqiao:pc-20261124-level",
+      "key": "accessory.level",
+      "valueType": "string",
+      "value": "+1",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124101946_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:shenqi-daoqiao:pc-20261124-effect",
+      "key": "accessory.effect",
+      "valueType": "string",
+      "value": "切换主武器时，获得霸体及40%伤害减免，持续3秒。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124101946_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    },
+    {
+      "id": "fact:accessory:shenqi-daoqiao:pc-20261124-description",
+      "key": "accessory.description",
+      "valueType": "string",
+      "value": "曾于暗魔天堡覆灭之夜散佚的诸多珍奇之一。今虽配刀已失，但这遗存的双鞘，仍可代刀而御，护主周全。",
+      "status": "observation",
+      "sourceIds": [
+        "source:owner-pc-items-2026-11-24"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-24",
+      "gameVersionId": "version:release-pc-items-2026-11-24",
+      "scope": {
+        "platforms": {
+          "mode": "include",
+          "ids": [
+            "platform:pc"
+          ]
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-pc-items-2026-11-24",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "spoilerLevel": "none",
+      "reviewNote": "20261124101946_1.jpg；只转写当前界面，不推定补丁号、其他等级、获取方式或上限。"
+    }
+  ]
+}

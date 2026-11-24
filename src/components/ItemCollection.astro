@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EntityCard from './EntityCard.astro';
+import SpoilerDisclosure from './SpoilerDisclosure.astro';
+import { loadKnowledge } from '../lib/knowledge.mjs';
+import { getProductionCardMedia } from '../lib/media.mjs';
+import { itemCollections, itemCard, itemFact, publishedItems } from '../lib/items.mjs';
+
+const { type } = Astro.props;
+const spec = itemCollections[type];
+const entities = publishedItems(await loadKnowledge(), type);
+const cards = await Promise.all(entities.map(async (entity) => ({ card: itemCard(entity), media: await getProductionCardMedia(entity.id, entity) })));
+const safeCards = cards.filter(({ card }) => !card.concealed);
+const concealedCards = cards.filter(({ card }) => card.concealed);
+const groups = spec.categories.map((label, index) => ({ label, id: `item-category-${index}`, cards: safeCards.filter(({ card }) => itemFact(card.entity, 'kind').value === label) })).filter((group) => group.cards.length);
+const intro = type === 'accessory' ? '按游戏内的生存、攻击、辅助分类，查看当前强化等级的完整效果。' : '按回复药与秘药分类，分别查看当前等级、可使用次数、恢复效果、增益与副作用。';
+const scope = type === 'accessory' ? '仅展示实机截图确认的当前强化效果。其他等级效果、获取方式、强化材料与最终强化上限尚未确认。' : '首批截图均显示等级6；等级与可使用次数分别记录。仅保留当前等级的效果原文，未明确即时或持续恢复时不作推断。其他等级效果、获取方式与强化材料尚未确认。';
+const canonical = `https://www.yingzhirenling.cn/${spec.directory}`;
+---
+<BaseLayout title={`${spec.label}图鉴 - 影之刃零攻略站`} description={`影之刃零${spec.label}图鉴。${intro}`} canonical={canonical} activeSection={spec.directory} atmosphere="weapon" pageSchemaType="CollectionPage">
+  <article class="collection-page item-collection" data-collection-system="rollout" data-entity-type={type}>
+    <header class="collection-hero">
+      <p class="collection-hero__eyebrow">{spec.label}图鉴</p>
+      <div class="collection-hero__heading"><h1>{spec.label}</h1><p class="collection-hero__count"><strong>{safeCards.length}</strong> 个已发布{spec.label}</p></div>
+      <p class="collection-hero__intro">{intro}</p>
+      <nav class="item-categories" aria-label={`${spec.label}分类`}>{groups.map((group) => <a href={`#${group.id}`}>{group.label}<span>{group.cards.length}</span></a>)}</nav>
+    </header>
+    {groups.map((group) => <section class="collection-inventory" aria-labelledby={group.id}>
+      <header class="collection-section-heading"><p>游戏内分类</p><h2 id={group.id}>{group.label}</h2></header>
+      <div class="entity-grid">{group.cards.map(({ card, media }) => <EntityCard card={card} media={media} />)}</div>
+    </section>)}
+    {concealedCards.length > 0 && <SpoilerDisclosure><div class="entity-grid">{concealedCards.map(({ card, media }) => <EntityCard card={card} media={media} />)}</div></SpoilerDisclosure>}
+    <section class="collection-supporting" aria-labelledby="item-scope"><h2 id="item-scope">资料范围</h2><p>{scope}</p></section>
+  </article>
+</BaseLayout>

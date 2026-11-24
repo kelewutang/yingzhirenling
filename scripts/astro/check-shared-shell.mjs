@@ -5,6 +5,10 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '../..');
 const pages = [
   'index.html',
+  'accessories.html',
+  'flasks.html',
+  'accessories/kaiguang-yupei.html',
+  'flasks/shaqi-rongxue-cuihuaji.html',
   '404.html',
   'guide.html',
   'weapons.html',

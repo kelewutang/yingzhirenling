@@ -3648,3 +3648,13 @@ body[data-atmosphere="world"] .collection-hero {
   .video-card__actions { padding: 0 var(--space-4) var(--space-4); }
   .video-card__actions > * { flex: 1 1 auto; }
 }
+
+/* Source-backed accessory and flask collections. */
+.item-categories { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+.item-categories a { display: inline-flex; gap: .6rem; padding: .65rem 1rem; border: 1px solid var(--border-color, #42464b); border-radius: .25rem; color: inherit; }
+.item-categories span { opacity: .7; }
+.item-collection .collection-section-heading h2 { scroll-margin-top: 6rem; }
+.item-collection .entity-card__summary { white-space: pre-line; }
+.item-detail .detail-fact__value { white-space: pre-line; overflow-wrap: anywhere; }
+.item-detail .entity-hero__summary { font-size: 1.125rem; }
+.item-detail .collection-supporting { margin-bottom: 3rem; }

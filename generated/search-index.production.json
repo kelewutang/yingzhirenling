@@ -1,5 +1,226 @@
 [
   {
+    "id": "accessory:anyuan-fangkuai",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "anyuan-fangkuai",
+    "route": "/accessories/anyuan-fangkuai",
+    "displayName": "暗源方块",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "攻击类饰品",
+      "饰品"
+    ],
+    "summary": "所有影之武装造成的伤害+25%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:anyuan-xiaolong",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "anyuan-xiaolong",
+    "route": "/accessories/anyuan-xiaolong",
+    "displayName": "暗源小笼",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "辅助类饰品",
+      "饰品"
+    ],
+    "summary": "触发影之武装的追击招式时，有100%概率回复1暗源。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:bixue-yuntian",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "bixue-yuntian",
+    "route": "/accessories/bixue-yuntian",
+    "displayName": "碧血云天",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "攻击类饰品",
+      "饰品"
+    ],
+    "summary": "1秒内连续超过两次命中敌人，在随后2秒内对敌人的伤害+35%。有4秒的冷却时间。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:cimu-hufu",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "cimu-hufu",
+    "route": "/accessories/cimu-hufu",
+    "displayName": "慈母护符",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "生存类饰品",
+      "饰品"
+    ],
+    "summary": "被破防时，回复自身生命值的20%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:cucao-huangxin",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "cucao-huangxin",
+    "route": "/accessories/cucao-huangxin",
+    "displayName": "粗糙煌心",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "辅助类饰品",
+      "饰品"
+    ],
+    "summary": "任何△攻击击中敌人都会积蓄临时暗源，“武学”类影之武装将优先消耗临时暗源，且“武学”类影之武装伤害+7%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:gujia-canpian",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "gujia-canpian",
+    "route": "/accessories/gujia-canpian",
+    "displayName": "古甲残片",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "生存类饰品",
+      "饰品"
+    ],
+    "summary": "生命值越高，获得的伤害减免越高，生命值全满时伤害减免为40%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:hundun-kuangjie",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "hundun-kuangjie",
+    "route": "/accessories/hundun-kuangjie",
+    "displayName": "混沌狂戒",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "辅助类饰品",
+      "饰品"
+    ],
+    "summary": "混沌火焰对敌人造成杀气灼烧后，会使自身回复敌人杀气损失量的100%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:jihuang-huxinjing",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "jihuang-huxinjing",
+    "route": "/accessories/jihuang-huxinjing",
+    "displayName": "机簧护心镜",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "辅助类饰品",
+      "饰品"
+    ],
+    "summary": "按住L1保持架势时，杀气的自然流逝速度-90%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:jinli-bangdai",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "jinli-bangdai",
+    "route": "/accessories/jinli-bangdai",
+    "displayName": "筋力绑带",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "攻击类饰品",
+      "饰品"
+    ],
+    "summary": "对敌人的伤害+10%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:kaiguang-yupei",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "kaiguang-yupei",
+    "route": "/accessories/kaiguang-yupei",
+    "displayName": "开光玉佩",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "辅助类饰品",
+      "饰品"
+    ],
+    "summary": "喝药时会随机获得以下一种效果：\n1. 使自身与附近敌人陷入燃烧状态，且燃烧造成的火属性伤害更高。\n2. 使自身与附近敌人陷入中毒状态，且中毒造成的毒属性伤害更高。\n3. 凝聚强力混沌火球，并自动攻击附近的敌人。\n4. 立刻回复全部生命值和杀气值。\n5. 消耗30%最大生命值和最大杀气值，并引发自爆，对附近敌人造成伤害。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:miefa-fuchensi",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "miefa-fuchensi",
+    "route": "/accessories/miefa-fuchensi",
+    "displayName": "灭法拂尘丝",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "辅助类饰品",
+      "饰品"
+    ],
+    "summary": "对敌人造成火/冰/雷/毒效果时，大幅积攒元素能量，攒满时会回复1暗源。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:shenqi-daoqiao",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "shenqi-daoqiao",
+    "route": "/accessories/shenqi-daoqiao",
+    "displayName": "神奇刀鞘",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "生存类饰品",
+      "饰品"
+    ],
+    "summary": "切换主武器时，获得霸体及40%伤害减免，持续3秒。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "accessory:wuming-dashi-banzhi",
+    "documentType": "entity",
+    "entityType": "accessory",
+    "slug": "wuming-dashi-banzhi",
+    "route": "/accessories/wuming-dashi-banzhi",
+    "displayName": "无名大师的扳指",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "辅助类饰品",
+      "饰品"
+    ],
+    "summary": "精纯杀气积累速度+15%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "boss:a-hua",
     "documentType": "entity",
     "entityType": "boss",
@@ -196,6 +417,193 @@
       "角色"
     ],
     "summary": "与魂有昔日同伴关系的组织成员；本页区分序章人物资料与后续剧情，不展开结局身份。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:beiming-yao",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "beiming-yao",
+    "route": "/flasks/beiming-yao",
+    "displayName": "悲鸣药",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "秘药",
+      "药瓶"
+    ],
+    "summary": "持续40秒对敌人的伤害+20%，同时回复40%生命值。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:changsheng-yin",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "changsheng-yin",
+    "route": "/flasks/changsheng-yin",
+    "displayName": "长生饮",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "回复药",
+      "药瓶"
+    ],
+    "summary": "回复全部生命值，饮用后20秒内，生命值保持全满状态时，+20%对敌人造成的伤害。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:cihua-ganlu",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "cihua-ganlu",
+    "route": "/flasks/cihua-ganlu",
+    "displayName": "慈花甘露",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "回复药",
+      "药瓶"
+    ],
+    "summary": "10秒内回复80%生命值，同时在10秒内杀气自然恢复速度提升150%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:feijiu-niang",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "feijiu-niang",
+    "route": "/flasks/feijiu-niang",
+    "displayName": "沸酒酿",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "秘药",
+      "药瓶"
+    ],
+    "summary": "持续25秒杀气源源不断产生，杀气回复速度+100%，持续时间内缓缓回复50%生命值。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:guishen-tang",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "guishen-tang",
+    "route": "/flasks/guishen-tang",
+    "displayName": "归神汤",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "秘药",
+      "药瓶"
+    ],
+    "summary": "持续40秒破防力+15%，同时回复40%生命值。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:huanti-lingyao",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "huanti-lingyao",
+    "route": "/flasks/huanti-lingyao",
+    "displayName": "幻体灵药",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "回复药",
+      "药瓶"
+    ],
+    "summary": "回复70%生命值并且获得3秒“无形”状态，“无形”状态下无法被任何攻击击中。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:kuye-lu",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "kuye-lu",
+    "route": "/flasks/kuye-lu",
+    "displayName": "苦叶露",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "秘药",
+      "药瓶"
+    ],
+    "summary": "持续25秒伤害减免40%，同时10秒内回复60%生命值。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:ningfeng-dan",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "ningfeng-dan",
+    "route": "/flasks/ningfeng-dan",
+    "displayName": "凝锋丹",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "秘药",
+      "药瓶"
+    ],
+    "summary": "持续20秒所有杀气损耗-40%，持续时间内缓缓回复50%生命值。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:qingshe-yaoji",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "qingshe-yaoji",
+    "route": "/flasks/qingshe-yaoji",
+    "displayName": "青蛇药剂",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "秘药",
+      "药瓶"
+    ],
+    "summary": "移除所有异常状态，在25秒内+80%的异常状态抵抗，持续时间内缓缓回复40%生命值。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:rongqi-weihu-yeti",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "rongqi-weihu-yeti",
+    "route": "/flasks/rongqi-weihu-yeti",
+    "displayName": "容器维护液体",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "回复药",
+      "药瓶"
+    ],
+    "summary": "回复100%生命值，同时在10秒内杀气自然恢复速度+200%。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "flask:shaqi-rongxue-cuihuaji",
+    "documentType": "entity",
+    "entityType": "flask",
+    "slug": "shaqi-rongxue-cuihuaji",
+    "route": "/flasks/shaqi-rongxue-cuihuaji",
+    "displayName": "杀气溶血催化剂",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "秘药",
+      "药瓶"
+    ],
+    "summary": "持续25秒△杀气连招伤害+40%，并回复30%生命值，但是自身同时被点燃。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
