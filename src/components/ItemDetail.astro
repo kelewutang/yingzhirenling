@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EntityDetailLayout from './EntityDetailLayout.astro';
+import { getProductionHeroMedia } from '../lib/media.mjs';
+import { itemCollections, itemDetail, itemFact } from '../lib/items.mjs';
+import { entitySafeProjection } from '../lib/spoilers.mjs';
+
+const { entity } = Astro.props;
+const spec = itemCollections[entity.entityType];
+const facts = itemDetail(entity);
+const level = itemFact(entity, 'level').value;
+const safe = entitySafeProjection(entity);
+const titleName = entity.entityType === 'accessory' && !safe.concealed ? `${safe.displayName} ${level}` : safe.displayName;
+const canonical = `https://www.yingzhirenling.cn/${spec.directory}/${entity.slug}`;
+const media = await getProductionHeroMedia(entity.id, entity);
+// The Hero uses a short, source-derived identity; the complete effect remains below.
+const presentation = { ...entity, summary: safe.concealed ? safe.summary : `${itemFact(entity, 'kind').value} · ${entity.entityType === 'accessory' ? `当前强化 ${level}` : `等级 ${level} · 可使用 ${itemFact(entity, 'uses').value} 次`}` };
+---
+<BaseLayout title={`${titleName} - 影之刃零${spec.label}图鉴 | 影之刃零攻略站`} description={`${safe.displayName}：${safe.summary.replace(/\s+/g, ' ')}`} canonical={canonical} activeSection={spec.directory} atmosphere="weapon">
+  <div class="item-detail">
+    <EntityDetailLayout entity={presentation} collectionHref={`/${spec.directory}`} collectionLabel={`${spec.label}图鉴`} returnLabel={`${spec.label}图鉴`} eyebrow={spec.label} aliases={[]} facts={facts} media={media} canonical={canonical} />
+    <section class="collection-supporting" aria-labelledby="item-unknown"><h2 id="item-unknown">尚未确认的信息</h2><p>{entity.entityType === 'accessory' ? '其他强化等级的效果、获取方式、强化材料与最终强化上限尚未确认。' : '其他等级的效果、获取方式与强化材料尚未确认。效果原文未明确即时或持续恢复时，不另作推断。'}</p></section>
+  </div>
+</BaseLayout>

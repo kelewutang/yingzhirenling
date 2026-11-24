@@ -17,6 +17,8 @@ export const approvedCollectionNavigation = approvedCollectionSectionOrder.map((
 });
 
 export const secondaryNavigation = [
+  { href: '/accessories', label: '饰品图鉴', section: 'accessories' },
+  { href: '/flasks', label: '药瓶图鉴', section: 'flasks' },
   { href: '/', label: '首页', section: 'home' },
   { href: '/guide', label: '攻略中心', section: 'guide' },
   { href: '/videos', label: '视频中心', section: 'videos' },

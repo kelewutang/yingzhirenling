@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -7,7 +8,7 @@ const root = process.env.MEDIA_VALIDATION_ROOT
   : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const mediaFile = path.join(root, 'data', 'media.json');
 const assetsDirectory = path.join(root, 'assets', 'media');
-const entityDirectories = ['weapons', 'characters', 'bosses', 'locations'];
+const entityDirectories = ['weapons', 'characters', 'bosses', 'locations', 'accessories', 'flasks'];
 const sourceDirectory = path.join(root, 'data', 'sources');
 const mediaSchemaVersion = '1.0-media-pilot';
 const recordStates = new Set(['draft', 'published', 'retired']);
@@ -178,6 +179,16 @@ if (!isObject(document)) {
       const assetPath = path.join(assetsDirectory, media.src);
       try {
         const buffer = await fs.readFile(assetPath);
+        if (['accessory', 'flask'].includes(entity?.entityType) && media.recordState === 'published') {
+          const item = screenshotSource?.locator?.evidenceItems?.find((item) => item.entityId === entity.id && item.crop?.src === media.src);
+          const crop = item?.crop;
+          if (media.sourceType !== 'self-captured' || media.rightsStatus !== 'self-captured-reviewed' ||
+              !crop || !['left', 'top', 'width', 'height'].every((key) => Number.isInteger(crop[key]) && crop[key] >= (key === 'left' || key === 'top' ? 0 : 1)) ||
+              crop.width !== media.width || crop.height !== media.height || crop.sha256 !== createHash('sha256').update(buffer).digest('hex')) {
+            error(`${location}.src`, 'Item Media must match its registered original screenshot, crop coordinates, dimensions and byte hash');
+          }
+          if (media.usage.length !== 2 || !media.usage.includes('hero') || !media.usage.includes('card') || media.objectFit !== 'contain') error(`${location}.usage`, 'Item crop must serve both Hero and Card with contain');
+        }
         const info = imageInfo(buffer);
         if (!info) error(`${location}.src`, '图像签名无法识别或不受支持');
         else {

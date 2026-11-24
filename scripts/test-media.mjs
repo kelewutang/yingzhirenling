@@ -9,6 +9,8 @@ const execFile = promisify(execFileCallback);
 const root = resolve(import.meta.dirname, '..');
 const validator = resolve(root, 'scripts', 'validate-media.mjs');
 const astroCli = resolve(root, 'node_modules', 'astro', 'bin', 'astro.mjs');
+import { createHash } from 'node:crypto';
+
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
 function bitmap(width = 1200, height = 1800) {
@@ -47,13 +49,14 @@ function mediaRecord(overrides = {}) {
 
 async function writeValidationFixture({ records = [], assets = [], sources = [] }) {
   const fixture = await mkdtemp(join(tmpdir(), 'yingzhirenling-media-'));
-  for (const directory of ['weapons', 'characters', 'bosses', 'locations', 'sources']) {
+  for (const directory of ['weapons', 'characters', 'bosses', 'locations', 'accessories', 'flasks', 'sources']) {
     await mkdir(join(fixture, 'data', directory), { recursive: true });
   }
   await writeFile(join(fixture, 'data', 'weapons', 'tang-hengdao.json'), JSON.stringify({ id: 'weapon:tang-hengdao', entityType: 'weapon', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'characters', 'soul.json'), JSON.stringify({ id: 'character:soul', entityType: 'character', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'bosses', 'commander-cleave.json'), JSON.stringify({ id: 'boss:commander-cleave', entityType: 'boss', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'locations', 'pangzhen.json'), JSON.stringify({ id: 'location:pangzhen', entityType: 'location', recordState: 'published' }));
+  await writeFile(join(fixture, 'data', 'accessories', 'fixture-item.json'), JSON.stringify({ id: 'accessory:fixture-item', entityType: 'accessory', recordState: 'published' }));
   await writeFile(join(fixture, 'data', 'media.json'), JSON.stringify({ schemaVersion: '1.0-media-pilot', records }));
   for (const [index, source] of sources.entries()) await writeFile(join(fixture, 'data', 'sources', `source-${index}.json`), JSON.stringify(source));
   if (assets.length > 0) {
@@ -94,6 +97,16 @@ async function expectValidation(name, fixtureOptions, expectedCode, expectedText
     await rm(fixture, { recursive: true, force: true });
   }
 }
+
+const itemBitmap = bitmap(960, 960);
+const itemHash = createHash('sha256').update(itemBitmap).digest('hex');
+const itemMedia = mediaRecord({ id: 'media:fixture-item', entityId: 'accessory:fixture-item', src: 'fixture-item.png', sourceType: 'self-captured', sourceId: 'source:item-fixture', sourceUrl: null, rightsStatus: 'self-captured-reviewed', width: 960, height: 960 });
+const itemSource = { id: 'source:item-fixture', url: null, sourceType: 'user-game-screenshot', locator: { type: 'user-supplied-game-screenshot', evidenceItems: [{ entityId: 'accessory:fixture-item', crop: { src: itemMedia.src, left: 740, top: 240, width: 960, height: 960, sha256: itemHash } }] } };
+await expectValidation('item real crop must retain its exact byte hash', { records: [itemMedia], sources: [itemSource], assets: [{ name: itemMedia.src, contents: itemBitmap }] }, 0);
+const corruptSource = structuredClone(itemSource);
+corruptSource.locator.evidenceItems[0].crop.sha256 = '0'.repeat(64);
+await expectValidation('item crop hash drift fails closed', { records: [itemMedia], sources: [corruptSource], assets: [{ name: itemMedia.src, contents: itemBitmap }] }, 1, /byte hash/);
+await expectValidation('item crop cannot borrow another screenshot source', { records: [itemMedia], sources: [], assets: [{ name: itemMedia.src, contents: itemBitmap }] }, 1, /byte hash/);
 
 const base = mediaRecord();
 const screenshotSource = { id: 'source:owner-capture', sourceType: 'user-game-screenshot', url: null, locator: { type: 'user-supplied-game-screenshot' } };

@@ -1,0 +1,11 @@
+---
+import ItemDetail from '../../components/ItemDetail.astro';
+import { loadKnowledge } from '../../lib/knowledge.mjs';
+import { publishedItems } from '../../lib/items.mjs';
+
+export async function getStaticPaths() {
+  return publishedItems(await loadKnowledge(), 'flask').map((entity) => ({ params: { slug: entity.slug }, props: { entity } }));
+}
+const { entity } = Astro.props;
+---
+<ItemDetail entity={entity} />

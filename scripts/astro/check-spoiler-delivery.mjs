@@ -3,7 +3,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
-const directories = ['weapons', 'characters', 'bosses', 'locations'];
+const directories = ['weapons', 'characters', 'bosses', 'locations', 'accessories', 'flasks'];
 const entities = (await Promise.all(directories.map(async (directory) => Promise.all((await readdir(resolve(root, 'data', directory))).filter((file) => file.endsWith('.json')).map(async (file) => JSON.parse(await readFile(resolve(root, 'data', directory, file), 'utf8'))))))).flat();
 for (const entity of entities.filter((entity) => entity.recordState === 'published')) {
   assert.equal(entity.spoilerLevel, ['weapon:chizhe-canjian', 'boss:cangang', 'boss:peng-meng', 'boss:hua-qianxiao', 'boss:a-hua', 'boss:zhui-ming'].includes(entity.id) ? 'minor' : 'none', `${entity.id}: published Entity must explicitly classify spoilerLevel`);

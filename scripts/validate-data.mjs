@@ -1,3 +1,4 @@
+import { validateItem } from '../src/lib/item-validation.mjs';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -28,7 +29,7 @@ const STATUS_VALUES = new Set([
   'pending-review'
 ]);
 const AUTHORITY_VALUES = new Set(['official', 'third-party', 'community', 'internal']);
-const ENTITY_TYPES = new Set(['weapon', 'character', 'boss', 'location', 'system']);
+const ENTITY_TYPES = new Set(['weapon', 'character', 'boss', 'location', 'system', 'accessory', 'flask']);
 const RELATION_TYPES = new Set(['parentOf', 'formerCompanionOf', ...Object.keys(gameplayRelationEndpoints)]);
 const RECORD_STATES = new Set(['draft', 'published', 'archived']);
 const RESOLUTION_TYPES = new Set(['duplicate', 'merge', 'split', 'misidentified']);
@@ -634,7 +635,7 @@ if (FIXTURE_MODE) {
   process.exit(fixturesPassed ? 0 : 1);
 }
 
-const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locationFiles, systemFiles, relationFiles, factRegistryFile, platformRegistryFile, difficultyRegistryFile] = await Promise.all([
+const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locationFiles, systemFiles, accessoryFiles, flaskFiles, relationFiles, factRegistryFile, platformRegistryFile, difficultyRegistryFile] = await Promise.all([
   readRecordDirectory('sources'),
   readRecordDirectory('versions'),
   readRecordDirectory('weapons'),
@@ -642,6 +643,8 @@ const [sourceFiles, versionFiles, weaponFiles, characterFiles, bossFiles, locati
   readRecordDirectory('bosses'),
   readRecordDirectory('locations'),
   readRecordDirectory('systems'),
+  readRecordDirectory('accessories'),
+  readRecordDirectory('flasks'),
   readRecordDirectory('relations'),
   readJson(path.join(DATA_DIR, 'registries', 'fact-keys.json')),
   readJson(path.join(DATA_DIR, 'registries', 'platforms.json')),
@@ -800,7 +803,7 @@ const facts = new Map();
 const factOwners = new Map();
 const entitySlugs = new Map([...ENTITY_TYPES].map((entityType) => [entityType, new Map()]));
 
-for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ...bossFiles, ...locationFiles, ...systemFiles]) {
+for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ...bossFiles, ...locationFiles, ...systemFiles, ...accessoryFiles, ...flaskFiles]) {
   if (!isObject(entity)) {
     error(relative, 'Entity 顶层必须是对象');
     continue;
@@ -809,7 +812,7 @@ for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ..
   registerId(entity.id, `${relative}.id`);
   if (typeof entity.id === 'string') entities.set(entity.id, { relative, entity });
   if (!ENTITY_TYPES.has(entity.entityType)) {
-    error(`${relative}.entityType`, 'entityType 必须为 weapon、character、boss、location 或 system');
+    error(`${relative}.entityType`, 'entityType 必须为 weapon、character、boss、location、system、accessory 或 flask');
   }
   if (typeof entity.slug !== 'string' || !SLUG_PATTERN.test(entity.slug)) {
     error(`${relative}.slug`, '必须是 ASCII kebab-case');
@@ -837,6 +840,7 @@ for (const { relative, value: entity } of [...weaponFiles, ...characterFiles, ..
     continue;
   }
   validatePublishedWeaponTaxonomy(entity, relative);
+  validateItem(entity, sources, versions, error);
   for (const [index, fact] of entity.facts.entries()) {
     const location = `${relative}.facts[${index}]`;
     if (!isObject(fact)) {

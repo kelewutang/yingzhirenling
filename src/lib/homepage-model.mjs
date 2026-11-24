@@ -5,6 +5,7 @@ import {
   getPublishedWeapons,
   loadKnowledge
 } from './knowledge.mjs';
+import { publishedItems } from './items.mjs';
 import { isSafeForDiscovery } from './spoilers.mjs';
 
 const categoryDefinitions = [
@@ -60,6 +61,8 @@ export async function buildHomepageModel() {
   return {
     categories,
     secondaryLinks: [
+      { href: '/accessories', label: '饰品图鉴', description: `${publishedItems(knowledge, 'accessory').filter(isSafeForDiscovery).length}件饰品，按游戏分类查看当前强化效果。` },
+      { href: '/flasks', label: '药瓶图鉴', description: `${publishedItems(knowledge, 'flask').filter(isSafeForDiscovery).length}种药瓶，查看等级、使用次数与完整效果。` },
       { href: '/guide', label: '攻略中心', description: '按现有公开资料整理的入门与系统入口。' },
       { href: '/videos', label: '视频中心', description: '索引可追溯的公开影像与演示材料。' },
       { href: '/about-site', label: '关于本站', description: '了解资料范围、来源标注与项目说明。' }

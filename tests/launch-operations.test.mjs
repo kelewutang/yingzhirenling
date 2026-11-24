@@ -251,7 +251,9 @@ test('ordinary build guard source contains no network orchestration and post-dep
 
 test('current candidate includes one non-spoiler Guide and one minor-spoiler Weapon', async () => {
   const inventory = await loadProductionInventory(root);
-  assert.deepEqual(inventory.counts, { sitemap: 51, canonical: 51, pageHtml: 52, searchDocs: 42 });
+  const itemCount = inventory.publishedAccessories.length + inventory.publishedFlasks.length;
+  assert.deepEqual([inventory.publishedAccessories.length, inventory.publishedFlasks.length], [13, 11]);
+  assert.deepEqual(inventory.counts, { sitemap: 51 + itemCount + 2, canonical: 51 + itemCount + 2, pageHtml: 52 + itemCount + 2, searchDocs: 42 + itemCount });
   assert.equal(inventory.guides.length, 1);
   const families = {
     weapons: inventory.publishedWeapons.filter((item) => item.spoilerLevel !== 'major').length,

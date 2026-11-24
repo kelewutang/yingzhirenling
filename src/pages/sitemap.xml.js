@@ -1,6 +1,8 @@
 import { getPublishedBosses, getPublishedCharacters, getPublishedLocations, getPublishedWeapons, loadKnowledge } from '../lib/knowledge.mjs';
 import { getPublishedGuideEntries, guideRoute } from '../lib/guides.mjs';
 
+import { itemCollections, publishedItems } from '../lib/items.mjs';
+
 export const prerender = true;
 const site = 'https://www.yingzhirenling.cn';
 const legacyPages = [
@@ -15,6 +17,7 @@ export async function GET() {
   const guideLandingLastmod = guides.reduce((latest, guide) => guide.data.updatedAt > latest ? guide.data.updatedAt : latest, '2026-10-29');
   const entries = [
     ...legacyPages.slice(0, 1), ['/guide', guideLandingLastmod], ...legacyPages.slice(1),
+    ...Object.entries(itemCollections).flatMap(([type, spec]) => [[`/${spec.directory}`, '2026-11-24'], ...publishedItems(knowledge, type).map((entity) => [`/${spec.directory}/${entity.slug}`, entity.updatedAt])]),
     ...getPublishedWeapons(knowledge).map((weapon) => [`/weapons/${weapon.slug}`, weapon.updatedAt]),
     ...getPublishedCharacters(knowledge).map((character) => [`/characters/${character.slug}`, character.updatedAt]),
     ...getPublishedBosses(knowledge).map((boss) => [`/bosses/${boss.slug}`, boss.updatedAt]),

@@ -82,7 +82,7 @@ Source.authority ≠ Fact.status
 | `published` | 校验 | 进入 | 进入 |
 | `archived` | 校验 | 排除 active output | 排除 active output |
 
-状态变更由人工 Publication Gate 批准，build-time projection 不得自动修改 `recordState`。当前四类 Entity 都使用此 contract；draft 不得进入 Production Search、static detail output 或 sitemap。精确 operational inventory 以 [CURRENT-STATE.md](CURRENT-STATE.md) 为准。
+状态变更由人工 Publication Gate 批准，build-time projection 不得自动修改 `recordState`。当前六类 Entity 都使用此 contract；draft 不得进入 Production Search、static detail output 或 sitemap。精确 operational inventory 以 [CURRENT-STATE.md](CURRENT-STATE.md) 为准。
 
 # Search Architecture
 
@@ -104,7 +104,7 @@ Entity index 的网络、HTTP、JSON 或 contract 错误只使 enhancement 进�
 
 # Entity Detail Architecture
 
-所有四类 Entity 使用 shared Astro detail architecture：
+六类 Entity 使用 shared Astro detail architecture（饰品／药瓶以轻量 ItemDetail 复用同一 EntityDetailLayout）：
 
 ```text
 data/<entity-type>/*.json + Sources / Relations / Versions / Registries
@@ -152,8 +152,8 @@ Entity.slug
 
 # Routing Principle
 
-- Collection routes：`/weapons`、`/characters`、`/bosses`、`/world`
-- Entity detail routes：`/weapons/{slug}`、`/characters/{slug}`、`/bosses/{slug}`、`/world/{slug}`
+- Collection routes：`/weapons`、`/characters`、`/bosses`、`/world`、`/accessories`、`/flasks`
+- Entity detail routes：`/weapons/{slug}`、`/characters/{slug}`、`/bosses/{slug}`、`/world/{slug}`、`/accessories/{slug}`、`/flasks/{slug}`
 - `slug` 来自显式 `Entity.slug`
 - `displayName` 改变不自动改变稳定 Entity ID 或 slug
 - `.html` 物理路径不是独立 SEO 页面，应单跳归一到 canonical

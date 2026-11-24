@@ -39,6 +39,8 @@ async function publishedEntities(directory) {
 }
 
 const collections = [
+  { file: 'accessories.html', directory: 'data/accessories', type: 'accessory', title: '饰品', pageTitle: '饰品图鉴 - 影之刃零攻略站', route: '/accessories', detailRoute: (entity) => `/accessories/${entity.slug}` },
+  { file: 'flasks.html', directory: 'data/flasks', type: 'flask', title: '药瓶', pageTitle: '药瓶图鉴 - 影之刃零攻略站', route: '/flasks', detailRoute: (entity) => `/flasks/${entity.slug}` },
   { file: 'weapons.html', directory: 'data/weapons', type: 'weapon', title: '武器', pageTitle: '武器图鉴 - 影之刃零攻略站', route: '/weapons', detailRoute: (entity) => `/weapons/${entity.slug}` },
   { file: 'characters.html', directory: 'data/characters', type: 'character', title: '角色', pageTitle: '角色图鉴 - 影之刃零攻略站', route: '/characters', detailRoute: (entity) => `/characters/${entity.slug}` },
   { file: 'bosses.html', directory: 'data/bosses', type: 'boss', title: 'Boss资料', pageTitle: 'Boss资料 - 影之刃零攻略站', route: '/bosses', detailRoute: (entity) => `/bosses/${entity.slug}` },

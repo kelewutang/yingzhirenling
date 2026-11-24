@@ -41,14 +41,16 @@ export async function loadKnowledge() {
     readDirectory('data/bosses'),
     readDirectory('data/locations'),
     readDirectory('data/systems'),
+    readDirectory('data/accessories'),
+    readDirectory('data/flasks'),
     readDirectory('data/relations'),
     readDirectory('data/sources'),
     readDirectory('data/versions'),
     loadMediaRecords(),
     readFile(resolve(root, 'data/registries/platforms.json'), 'utf8').then(JSON.parse),
     readFile(resolve(root, 'data/registries/difficulties.json'), 'utf8').then(JSON.parse)
-  ]).then(([weapons, characters, bosses, locations, systems, relations, sources, versions, mediaRecords, platformRegistry, difficultyRegistry]) => {
-    const entities = [...weapons, ...characters, ...bosses, ...locations, ...systems];
+  ]).then(([weapons, characters, bosses, locations, systems, accessories, flasks, relations, sources, versions, mediaRecords, platformRegistry, difficultyRegistry]) => {
+    const entities = [...weapons, ...characters, ...bosses, ...locations, ...systems, ...accessories, ...flasks];
     const facts = entities.flatMap((entity) => entity.facts.map((fact) => ({ ...fact, entityId: entity.id, entityType: entity.entityType })));
     return {
       weapons,
@@ -56,6 +58,8 @@ export async function loadKnowledge() {
       bosses,
       locations,
       systems,
+      accessories,
+      flasks,
       relations,
       mediaRecords,
       sourceById: new Map(sources.map((item) => [item.id, item])),
