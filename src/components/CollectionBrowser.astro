@@ -28,7 +28,10 @@ const searchId = `collection-browser-${entityType}-search`;
         const reset = browser.querySelector('[data-collection-browser-reset]');
         const count = browser.querySelector('[data-collection-browser-count]');
         const empty = browser.querySelector('[data-collection-browser-empty]');
-        const items = Array.from(browser.querySelectorAll('[data-collection-browser-item]'));
+        const items = Array.from(browser.querySelectorAll('[data-collection-browser-item]')).map((item) => {
+          const link = item.querySelector('[data-entity-card]');
+          return { item, link, href: link?.getAttribute('href'), forgedSearch: link?.dataset.collectionForgedSearch || '' };
+        });
         const label = browser.querySelector('label')?.textContent?.replace(/^搜索已发布/, '') || '条目';
         const normalize = (value) => {
           const text = String(value ?? '');
@@ -38,9 +41,12 @@ const searchId = `collection-browser-${entityType}-search`;
         const update = () => {
           const query = normalize(input?.value);
           let visible = 0;
-          for (const item of items) {
-            const matches = !query || (item.dataset.collectionSearch || '').includes(query);
+          for (const { item, link, href, forgedSearch } of items) {
+            const baseMatch = (item.dataset.collectionSearch || '').includes(query);
+            const forgedMatch = Boolean(query) && forgedSearch.includes(query);
+            const matches = !query || baseMatch || forgedMatch;
             item.hidden = !matches;
+            if (link && href) link.setAttribute('href', forgedMatch && !baseMatch ? `${href}?form=soulForged` : href);
             if (matches) visible += 1;
           }
           count.textContent = `共 ${visible} 个已发布${label}`;
