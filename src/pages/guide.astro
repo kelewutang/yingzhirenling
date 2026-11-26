@@ -8,14 +8,14 @@ import { loadKnowledge } from '../lib/knowledge.mjs';
 import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
 import { siteLifecycle } from '../lib/site-lifecycle.mjs';
 import SpoilerDisclosure from '../components/SpoilerDisclosure.astro';
-import { isMajorSpoiler } from '../lib/spoilers.mjs';
+import { shouldConcealSpoiler } from '../lib/spoilers.mjs';
 
 const canonical = productionUrl('/guide');
 const knowledge = await loadKnowledge();
 const guides = await getPublishedGuideEntries(knowledge);
-const relatedEntities = (guide) => (guide.data.relatedEntityIds || []).map((id) => knowledge.entityById.get(id)).filter((entity) => entity && (isMajorSpoiler(guide.data) || !isMajorSpoiler(entity)));
-const safeGuides = guides.filter((guide) => !isMajorSpoiler(guide.data));
-const concealedGuides = guides.filter((guide) => isMajorSpoiler(guide.data));
+const relatedEntities = (guide) => (guide.data.relatedEntityIds || []).map((id) => knowledge.entityById.get(id)).filter((entity) => entity && (shouldConcealSpoiler(guide.data) || !shouldConcealSpoiler(entity)));
+const safeGuides = guides.filter((guide) => !shouldConcealSpoiler(guide.data));
+const concealedGuides = guides.filter((guide) => shouldConcealSpoiler(guide.data));
 const article = {
   '@context': 'https://schema.org', '@type': 'Article', headline: siteLifecycle.copy.guide.jsonLdHeadline,
   description: siteLifecycle.copy.guide.jsonLdDescription,

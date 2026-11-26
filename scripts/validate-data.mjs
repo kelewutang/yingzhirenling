@@ -1,3 +1,4 @@
+import { shouldConcealSpoiler } from '../src/lib/spoilers.mjs';
 import { validateItem } from '../src/lib/item-validation.mjs';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -398,7 +399,7 @@ function validateSpoilerClassification(record, location, report = error, { publi
     report(`${location}.spoilerLevel`, '只允许 none、minor 或 major');
     return;
   }
-  if (record.spoilerLevel === 'major') {
+  if (shouldConcealSpoiler(record)) {
     for (const field of ['safeDisplayName', 'safeSummary']) {
       if (typeof record[field] !== 'string' || record[field].trim().length === 0) {
         report(`${location}.${field}`, 'major Entity 必须提供非空安全展示文本');

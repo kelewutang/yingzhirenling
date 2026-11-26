@@ -270,11 +270,74 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": null
+    },
+    {
+      "id": "fact:boss:a-hua:research-20261126-combo-tells",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "连段中的红蓝光",
+        "description": "两份攻略均提醒留意连段中的蓝光攻击；红光投技也需单独警惕。中文攻略进一步记载，红光攻击可接在连段中，也可能单独释放。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-3-2026-10-29",
+        "source:pcgamer-a-hua-2026-11-26"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:release-guides-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后公开攻略文字核对，未观看或采集实机画面。来源未注明客户端版本；未注明的平台和难度不推定为已验证。"
+    },
+    {
+      "id": "fact:boss:a-hua:research-20261126-arena-advice",
+      "key": "boss.strategy",
+      "valueType": "object",
+      "value": {
+        "name": "编辑建议：先保留撤离空间",
+        "description": "场地花朵与近身连段会同时施压，建议优先给自己留出撤离花圈的空间，处理白花时继续观察阿花的贴身追击，再寻找反击机会。这是基于已记录机制的编辑建议，不是固定无伤打法。"
+      },
+      "status": "editorial",
+      "sourceIds": [],
+      "basisFactIds": [
+        "fact:boss:a-hua:release-flowers",
+        "fact:boss:a-hua:release-white-flowers",
+        "fact:boss:a-hua:research-20261126-combo-tells"
+      ],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:release-guides-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "基于已记录的红花、白花和连段提示提出的编辑建议；未进行本站实战测试，不推定对所有难度均有效。"
     }
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-11-16",
-  "updatedAt": "2026-11-16",
+  "updatedAt": "2026-11-26",
   "recordState": "published",
   "spoilerLevel": "minor",
   "resolution": null

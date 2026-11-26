@@ -1,5 +1,7 @@
 # Release State Transition
 
+2026-11-26 Owner decision: [released open guides](POST-RELEASE-OPEN-GUIDES-2026-11-26.md) supersedes the spoiler disclosure approval requirement below for the explicit released lifecycle. Historical approvals remain evidence; Collection Browser and all content/evidence/media checks remain active.
+
 ## Current release candidate state
 
 `src/lib/site-lifecycle.mjs` explicitly selects `released` for the Launch-2 candidate. The same `lifecycleState` selects both `siteLifecycle.state` and its copy. This candidate reflects the official October 29, 2026 release announcement; it does not claim first-party gameplay verification.

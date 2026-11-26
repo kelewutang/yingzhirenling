@@ -926,6 +926,600 @@ status = 200
   status = 200
 
 [[redirects]]
+  from = "/world/zhengdao-daying.html"
+  to = "/world/zhengdao-daying"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/world/zhengdao-daying"
+  to = "/world/zhengdao-daying.html"
+  status = 200
+
+[[redirects]]
+  from = "/world/meigu-hu.html"
+  to = "/world/meigu-hu"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/world/meigu-hu"
+  to = "/world/meigu-hu.html"
+  status = 200
+
+[[redirects]]
+  from = "/world/jialong-shan.html"
+  to = "/world/jialong-shan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/world/jialong-shan"
+  to = "/world/jialong-shan.html"
+  status = 200
+
+[[redirects]]
+  from = "/world/ximeng-shanzhuang.html"
+  to = "/world/ximeng-shanzhuang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/world/ximeng-shanzhuang"
+  to = "/world/ximeng-shanzhuang.html"
+  status = 200
+
+[[redirects]]
+  from = "/world/duanhun-shan.html"
+  to = "/world/duanhun-shan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/world/duanhun-shan"
+  to = "/world/duanhun-shan.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/jing-ye.html"
+  to = "/bosses/jing-ye"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/jing-ye"
+  to = "/bosses/jing-ye.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/tie-kuang.html"
+  to = "/bosses/tie-kuang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/tie-kuang"
+  to = "/bosses/tie-kuang.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/bai-chilian.html"
+  to = "/bosses/bai-chilian"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/bai-chilian"
+  to = "/bosses/bai-chilian.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/zhuo-bi.html"
+  to = "/bosses/zhuo-bi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/zhuo-bi"
+  to = "/bosses/zhuo-bi.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/bi-yuan.html"
+  to = "/bosses/bi-yuan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/bi-yuan"
+  to = "/bosses/bi-yuan.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/bi-hai.html"
+  to = "/bosses/bi-hai"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/bi-hai"
+  to = "/bosses/bi-hai.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/dang-hui.html"
+  to = "/bosses/dang-hui"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/dang-hui"
+  to = "/bosses/dang-hui.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/yu-zan.html"
+  to = "/bosses/yu-zan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/yu-zan"
+  to = "/bosses/yu-zan.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/mu-xiaokui.html"
+  to = "/bosses/mu-xiaokui"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/mu-xiaokui"
+  to = "/bosses/mu-xiaokui.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/huo-liuxing.html"
+  to = "/bosses/huo-liuxing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/huo-liuxing"
+  to = "/bosses/huo-liuxing.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/zhan-qi.html"
+  to = "/bosses/zhan-qi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/zhan-qi"
+  to = "/bosses/zhan-qi.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/wu-xuan.html"
+  to = "/bosses/wu-xuan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/wu-xuan"
+  to = "/bosses/wu-xuan.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/gu-wanyue.html"
+  to = "/bosses/gu-wanyue"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/gu-wanyue"
+  to = "/bosses/gu-wanyue.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/xie-qiudong.html"
+  to = "/bosses/xie-qiudong"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/xie-qiudong"
+  to = "/bosses/xie-qiudong.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/you-long.html"
+  to = "/bosses/you-long"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/you-long"
+  to = "/bosses/you-long.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/chang-hong.html"
+  to = "/bosses/chang-hong"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/chang-hong"
+  to = "/bosses/chang-hong.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/lie-yan.html"
+  to = "/bosses/lie-yan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/lie-yan"
+  to = "/bosses/lie-yan.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/gou-hun.html"
+  to = "/bosses/gou-hun"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/gou-hun"
+  to = "/bosses/gou-hun.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/xiao-xue.html"
+  to = "/bosses/xiao-xue"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/xiao-xue"
+  to = "/bosses/xiao-xue.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/wan-jun.html"
+  to = "/bosses/wan-jun"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/wan-jun"
+  to = "/bosses/wan-jun.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/wu-lengshuang.html"
+  to = "/bosses/wu-lengshuang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/wu-lengshuang"
+  to = "/bosses/wu-lengshuang.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/hongyi-jianke.html"
+  to = "/bosses/hongyi-jianke"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/hongyi-jianke"
+  to = "/bosses/hongyi-jianke.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/dashi-xiong.html"
+  to = "/bosses/dashi-xiong"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/dashi-xiong"
+  to = "/bosses/dashi-xiong.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/yu-bi.html"
+  to = "/bosses/yu-bi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/yu-bi"
+  to = "/bosses/yu-bi.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/zhu-yuan.html"
+  to = "/bosses/zhu-yuan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/zhu-yuan"
+  to = "/bosses/zhu-yuan.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/yan-qiansui.html"
+  to = "/bosses/yan-qiansui"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/yan-qiansui"
+  to = "/bosses/yan-qiansui.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/duyan-gongke.html"
+  to = "/bosses/duyan-gongke"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/duyan-gongke"
+  to = "/bosses/duyan-gongke.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/a-jin.html"
+  to = "/bosses/a-jin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/a-jin"
+  to = "/bosses/a-jin.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/duan-chang.html"
+  to = "/bosses/duan-chang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/duan-chang"
+  to = "/bosses/duan-chang.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/bi-feng.html"
+  to = "/bosses/bi-feng"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/bi-feng"
+  to = "/bosses/bi-feng.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/kui-yanyan.html"
+  to = "/bosses/kui-yanyan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/kui-yanyan"
+  to = "/bosses/kui-yanyan.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/tiemian-shashou.html"
+  to = "/bosses/tiemian-shashou"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/tiemian-shashou"
+  to = "/bosses/tiemian-shashou.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/yumian-langjun.html"
+  to = "/bosses/yumian-langjun"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/yumian-langjun"
+  to = "/bosses/yumian-langjun.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/sanmian-moou.html"
+  to = "/bosses/sanmian-moou"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/sanmian-moou"
+  to = "/bosses/sanmian-moou.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/yan-ru.html"
+  to = "/bosses/yan-ru"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/yan-ru"
+  to = "/bosses/yan-ru.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/lei-ting.html"
+  to = "/bosses/lei-ting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/lei-ting"
+  to = "/bosses/lei-ting.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/gu-he.html"
+  to = "/bosses/gu-he"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/gu-he"
+  to = "/bosses/gu-he.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/qingdaofu-hansui.html"
+  to = "/bosses/qingdaofu-hansui"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/qingdaofu-hansui"
+  to = "/bosses/qingdaofu-hansui.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/fengxue-daoke.html"
+  to = "/bosses/fengxue-daoke"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/fengxue-daoke"
+  to = "/bosses/fengxue-daoke.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/yu-cong.html"
+  to = "/bosses/yu-cong"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/yu-cong"
+  to = "/bosses/yu-cong.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/jinmianju-heiyiren.html"
+  to = "/bosses/jinmianju-heiyiren"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/jinmianju-heiyiren"
+  to = "/bosses/jinmianju-heiyiren.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/yu-ding.html"
+  to = "/bosses/yu-ding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/yu-ding"
+  to = "/bosses/yu-ding.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/qiu-feng.html"
+  to = "/bosses/qiu-feng"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/qiu-feng"
+  to = "/bosses/qiu-feng.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/lei-dang.html"
+  to = "/bosses/lei-dang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/lei-dang"
+  to = "/bosses/lei-dang.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/li-zhe-ju-zhe.html"
+  to = "/bosses/li-zhe-ju-zhe"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/li-zhe-ju-zhe"
+  to = "/bosses/li-zhe-ju-zhe.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/mengcha-shengmu.html"
+  to = "/bosses/mengcha-shengmu"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/mengcha-shengmu"
+  to = "/bosses/mengcha-shengmu.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/zuo-shang.html"
+  to = "/bosses/zuo-shang"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/zuo-shang"
+  to = "/bosses/zuo-shang.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/tie-sha-the-frenzy.html"
+  to = "/bosses/tie-sha-the-frenzy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/tie-sha-the-frenzy"
+  to = "/bosses/tie-sha-the-frenzy.html"
+  status = 200
+
+[[redirects]]
+  from = "/bosses/huangxing-sunken-pillar-kunlun.html"
+  to = "/bosses/huangxing-sunken-pillar-kunlun"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bosses/huangxing-sunken-pillar-kunlun"
+  to = "/bosses/huangxing-sunken-pillar-kunlun.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404

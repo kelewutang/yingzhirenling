@@ -5,22 +5,29 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 import { validateGuides } from '../src/lib/guide-publication.mjs';
-import { entitySafeProjection, factIsConcealed, isMajorSpoiler } from '../src/lib/spoilers.mjs';
+import { entitySafeProjection, factIsConcealed, isMajorSpoiler, shouldConcealSpoiler, spoilerProtectionApplies, postReleaseGuideDecision } from '../src/lib/spoilers.mjs';
+import { evaluateSpoilerPublicationGate } from '../scripts/check-launch-readiness.mjs';
 
 const root = new URL('../', import.meta.url);
 
-test('spoiler projections require safe fields and conceal major values', () => {
+test('released open guides retain historical classification and expose admitted content', () => {
   const major = { spoilerLevel: 'major', displayName: 'Late-game Boss', summary: 'Story result', safeDisplayName: '重大剧透资料', safeSummary: '需主动展开。' };
-  assert.deepEqual(entitySafeProjection(major), { displayName: '重大剧透资料', summary: '需主动展开。', concealed: true });
-  assert.equal(factIsConcealed({ spoilerLevel: 'major' }, { spoilerLevel: 'none' }), true);
+  assert.deepEqual(entitySafeProjection(major), { displayName: 'Late-game Boss', summary: 'Story result', concealed: false });
+  assert.equal(factIsConcealed({ spoilerLevel: 'major' }, { spoilerLevel: 'none' }), false);
+  assert.equal(isMajorSpoiler(major), true);
+  assert.equal(shouldConcealSpoiler(major), false);
+  assert.equal(shouldConcealSpoiler(major, 'pre-release'), true);
+  assert.equal(shouldConcealSpoiler(major, 'released', null), true);
+  assert.equal(spoilerProtectionApplies('released', { ...postReleaseGuideDecision, approvedBy: '' }), true);
   assert.equal(isMajorSpoiler({ spoilerLevel: 'minor' }), false);
 });
 
-test('Guide validation rejects missing classification and unsafe major Guides', () => {
+test('Guide validation retains classification and evidence while releasing safe-title requirements', () => {
   const knowledge = { sourceById: new Map([['source:test', {}]]), versionById: new Map(), factById: new Map(), entityById: new Map(), platformById: new Map(), difficultyById: new Map() };
   const base = { id: 'fixture-guide', body: '## Safe section', data: { title: 'Guide', description: 'Description', status: 'published', guideType: 'boss', publishedAt: '2026-10-30', updatedAt: '2026-10-30', sourceIds: ['source:test'] } };
   assert.throws(() => validateGuides([base], knowledge), /spoilerLevel/);
-  assert.throws(() => validateGuides([{ ...base, data: { ...base.data, spoilerLevel: 'major' } }], knowledge), /safeTitle/);
+  assert.doesNotThrow(() => validateGuides([{ ...base, data: { ...base.data, spoilerLevel: 'major' } }], knowledge));
+  assert.throws(() => validateGuides([{ ...base, data: { ...base.data, spoilerLevel: 'major', sourceIds: ['source:missing'] } }], knowledge), /Source/);
   assert.doesNotThrow(() => validateGuides([{ ...base, data: { ...base.data, spoilerLevel: 'major', safeTitle: '剧情相关攻略', safeDescription: '需主动展开。' } }], knowledge));
 });
 
@@ -28,7 +35,24 @@ test('published Entities classify the Broken Blade acquisition as minor and reta
   const directories = ['weapons', 'characters', 'bosses', 'locations'];
   const records = (await Promise.all(directories.map(async (directory) => Promise.all((await readdir(new URL(`../data/${directory}/`, import.meta.url))).filter((file) => file.endsWith('.json')).map(async (file) => JSON.parse(await readFile(new URL(`../data/${directory}/${file}`, import.meta.url), 'utf8'))))))).flat();
   for (const record of records.filter((record) => record.recordState === 'published')) {
+    if (record.facts.some((fact) => fact.gameVersionId === 'version:world-boss-catalog-2026-11-26')) {
+      const minor = ['boss:jing-ye', 'boss:tie-kuang', 'boss:bai-chilian', 'boss:zhuo-bi', 'boss:bi-yuan', 'boss:bi-hai', 'location:zhengdao-daying', 'location:meigu-hu', 'location:jialong-shan'];
+      assert.equal(record.spoilerLevel, minor.includes(record.id) ? 'minor' : 'major', record.id);
+      if (record.spoilerLevel === 'major') assert(!entitySafeProjection(record).concealed && record.safeDisplayName && record.safeSummary, record.id);
+      continue;
+    }
     assert.equal(record.spoilerLevel, ['weapon:chizhe-canjian', 'boss:cangang', 'boss:peng-meng', 'boss:hua-qianxiao', 'boss:a-hua', 'boss:zhui-ming'].includes(record.id) ? 'minor' : 'none', record.id);
+  }
+});
+
+test('Owner released decision supersedes old spoiler scope without skipping gates or concealing content', () => {
+  const state = { entities: [{ id: 'boss:published', recordState: 'published', spoilerLevel: 'major' }], renderedHtml: [] };
+  const approval = { contractVersion: 1, status: 'deferred', approvedAt: null, evidenceRef: null };
+  for (const enforcement of ['production', 'release-candidate']) {
+    assert.equal(evaluateSpoilerPublicationGate(state, { enforcement, approval }).status, 'PASS');
+    assert.equal(evaluateSpoilerPublicationGate(state, { enforcement, approval, lifecycle: 'pre-release' }).status, 'BLOCK');
+    assert.equal(evaluateSpoilerPublicationGate(state, { enforcement, approval, decision: null }).status, 'BLOCK');
+    assert.equal(evaluateSpoilerPublicationGate({ ...state, renderedHtml: ['<details data-spoiler-level="major">hidden</details>'] }, { enforcement, approval }).status, 'BLOCK');
   }
 });
 

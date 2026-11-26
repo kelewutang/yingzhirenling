@@ -1,3 +1,4 @@
+import { shouldConcealSpoiler } from './spoilers.mjs';
 import { isDeepStrictEqual } from 'node:util';
 import { relationWindowsOverlap } from './relations.mjs';
 import { isIndependentPcEffect, isPcResourceConfirmation, validatePcWeaponDetails } from './weapon-pc-details.mjs';
@@ -55,7 +56,7 @@ function verifyBatchEvidence(entity, set, baseIds, forgedIds, { sourceById, vers
   const source = sourceById.get(batchSourceId);
   const locator = source?.locator;
   const version = versionById.get(batchVersionId);
-  const isPublic = (record) => record && record.spoilerLevel !== 'major' && !['draft', 'archived'].includes(record.recordState);
+  const isPublic = (record) => record && !shouldConcealSpoiler(record) && !['draft', 'archived'].includes(record.recordState);
   const isBatchObservation = (fact, expectedSources = [batchSourceId]) => fact && activeFormFact(fact) && isPublic(fact) &&
     fact.status === 'observation' && fact.checkedAt === batchDate &&
     fact.gameVersionId === batchVersionId && fact.validFromVersionId === batchVersionId &&
@@ -162,7 +163,7 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
       const to = fact.validToVersionId ? versionById.get(fact.validToVersionId)?.sequence : Infinity;
       if (fact.status === 'pending-review' || fact.supersededBy !== null || !(from <= sequence && sequence < to) || !scopeContains(fact.scope, set.scope)) fail(`${set.id}: incompatible Fact status/version/scope ${id}`);
       if (!fact.sourceIds?.length || fact.sourceIds.some((id) => !sourceById.has(id))) fail(`${id}: missing Source`);
-      if (fact.spoilerLevel === 'major' && set.spoilerLevel !== 'major') fail(`${set.id}: form set cannot downgrade major spoiler ${id}`);
+      if (shouldConcealSpoiler(fact) && !shouldConcealSpoiler(set)) fail(`${set.id}: form set cannot downgrade major spoiler ${id}`);
       return fact;
     };
     const media = {};
@@ -184,7 +185,7 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
       if (!image || image.entityId !== entity.id || image.recordState !== 'published' || !rights.has(image.rightsStatus) ||
         !image.usage?.includes('hero') || (image.weaponForm || 'base') !== form || !sourceById.has(image.sourceId) ||
         sourceById.get(image.sourceId)?.locator?.type === 'user-supplied-statement') fail(`${set.id}: invalid independent ${form} Media`);
-      if (image?.spoilerLevel === 'major' && set.spoilerLevel !== 'major') fail(`${set.id}: form set cannot downgrade major Media`);
+      if (shouldConcealSpoiler(image) && !shouldConcealSpoiler(set)) fail(`${set.id}: form set cannot downgrade major Media`);
       media[form] = image;
     }
     const { base, soulForged } = media;
@@ -221,16 +222,16 @@ export function validateWeaponForms(entity, { sourceById, versionById, mediaReco
 const publicNameStatuses = new Set(['official', 'observation', 'release-verified']);
 
 function publicForgedNameFacts(entity, knowledge) {
-  if (!knowledge || !isSoulFormWeapon(entity) || entity.recordState !== 'published' || entity.spoilerLevel === 'major') return [];
+  if (!knowledge || !isSoulFormWeapon(entity) || entity.recordState !== 'published' || shouldConcealSpoiler(entity)) return [];
   return entity.facts.filter((fact) => {
     if (fact.key !== 'weapon.soulForgedName' || !activeFormFact(fact) || !publicNameStatuses.has(fact.status) ||
-      fact.spoilerLevel === 'major' || !text(fact.value) || fact.value.length > 80 || !fact.sourceIds?.length) return false;
+      shouldConcealSpoiler(fact) || !text(fact.value) || fact.value.length > 80 || !fact.sourceIds?.length) return false;
     const version = knowledge.versionById.get(fact.gameVersionId);
     const starts = knowledge.versionById.get(fact.validFromVersionId || fact.gameVersionId);
     return Number.isInteger(version?.sequence) && Number.isInteger(starts?.sequence) && starts.sequence <= version.sequence &&
       fact.sourceIds.every((id) => {
         const source = knowledge.sourceById.get(id);
-        return source && source.spoilerLevel !== 'major' && !['draft', 'archived'].includes(source.recordState);
+        return source && !shouldConcealSpoiler(source) && !['draft', 'archived'].includes(source.recordState);
       });
   });
 }
@@ -247,19 +248,19 @@ export function assertPublishableWeaponForms(entity, knowledge, mediaRecords = k
 
 /** Name + independently cleared screenshots permit a partial view, never technical inheritance. */
 export function resolveAppearanceForms(entity, knowledge, mediaRecords) {
-  if (entity.recordState !== 'published' || entity.spoilerLevel === 'major') return null;
+  if (entity.recordState !== 'published' || shouldConcealSpoiler(entity)) return null;
   const names = publicForgedNameFacts(entity, knowledge);
   if (!names.length) return null;
   const errors = validateWeaponForms(entity, { ...knowledge, mediaRecords: knowledge.mediaRecords ?? mediaRecords });
   if (errors.length) throw new Error(errors.join('\n'));
   const name = names[0];
-  const media = ['base', 'soulForged'].map((form) => mediaRecords.find((item) => item.entityId === entity.id && (item.weaponForm || 'base') === form && item.recordState === 'published' && rights.has(item.rightsStatus) && item.usage?.includes('hero') && item.spoilerLevel !== 'major' && knowledge.sourceById.get(item.sourceId)?.locator?.type === 'user-supplied-game-screenshot'));
+  const media = ['base', 'soulForged'].map((form) => mediaRecords.find((item) => item.entityId === entity.id && (item.weaponForm || 'base') === form && item.recordState === 'published' && rights.has(item.rightsStatus) && item.usage?.includes('hero') && !shouldConcealSpoiler(item) && knowledge.sourceById.get(item.sourceId)?.locator?.type === 'user-supplied-game-screenshot'));
   if (media.some((item) => !item) || media[0].src === media[1].src) return null;
   const platform = knowledge.sourceById.get(media[1].sourceId).locator.platformId;
   if (name.scope.platforms.mode !== 'all' && !name.scope.platforms.ids.includes(platform)) return null;
   const set = entity.facts.find((fact) => isBatchSet(entity, fact) && activeFormFact(fact));
   const value = set?.value;
-  if (value && (set.spoilerLevel === 'major' || value.soulForged.nameFactId !== name.id ||
+  if (value && (shouldConcealSpoiler(set) || value.soulForged.nameFactId !== name.id ||
       value.base.mediaId !== media[0].id || value.soulForged.mediaId !== media[1].id)) return null;
   const byId = new Map(entity.facts.map((fact) => [fact.id, fact]));
   const forgedFacts = value ? [

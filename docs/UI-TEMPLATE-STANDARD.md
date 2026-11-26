@@ -1,5 +1,7 @@
 # Scope
 
+2026-11-26 Owner批准[正式版全面开放攻略模式](POST-RELEASE-OPEN-GUIDES-2026-11-26.md)：已准入内容不再受本文件旧重大剧透展示保护限制；历史分类和其他内容准入要求保留。
+
 当前生产是 Astro static component system。本文件定义共享布局、组件、build-time static HTML 与 progressive enhancement 的 UI/Template 行为；它不批准引入平行 UI framework。
 
 # Shared Page Anatomy

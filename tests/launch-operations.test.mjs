@@ -19,6 +19,7 @@ import {
 } from '../scripts/check-launch-readiness.mjs';
 import { loadProductionInventory } from '../scripts/astro/production-inventory.mjs';
 import { siteLifecycle } from '../src/lib/site-lifecycle.mjs';
+import { isSafeForDiscovery } from '../src/lib/spoilers.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const fixtures = JSON.parse(await readFile(new URL('./fixtures/launch-operations-cases.json', import.meta.url), 'utf8'));
@@ -249,19 +250,19 @@ test('ordinary build guard source contains no network orchestration and post-dep
   assert.match(source, /options\.mode === 'post-deploy'/);
 });
 
-test('current candidate includes one non-spoiler Guide and one minor-spoiler Weapon', async () => {
+test('released candidate includes all admitted catalog identities and retains historical spoiler classifications', async () => {
   const inventory = await loadProductionInventory(root);
   const itemCount = inventory.publishedAccessories.length + inventory.publishedFlasks.length;
   assert.deepEqual([inventory.publishedAccessories.length, inventory.publishedFlasks.length], [13, 11]);
-  assert.deepEqual(inventory.counts, { sitemap: 51 + itemCount + 2, canonical: 51 + itemCount + 2, pageHtml: 52 + itemCount + 2, searchDocs: 42 + itemCount });
+  assert.deepEqual(inventory.counts, { sitemap: 51 + itemCount + 2 + 54, canonical: 51 + itemCount + 2 + 54, pageHtml: 52 + itemCount + 2 + 54, searchDocs: 42 + itemCount + 54 });
   assert.equal(inventory.guides.length, 1);
   const families = {
-    weapons: inventory.publishedWeapons.filter((item) => item.spoilerLevel !== 'major').length,
-    bosses: inventory.publishedBosses.filter((item) => item.spoilerLevel !== 'major').length,
-    characters: inventory.publishedCharacters.filter((item) => item.spoilerLevel !== 'major').length,
-    locations: inventory.publishedLocations.filter((item) => item.spoilerLevel !== 'major').length
+    weapons: inventory.publishedWeapons.filter(isSafeForDiscovery).length,
+    bosses: inventory.publishedBosses.filter(isSafeForDiscovery).length,
+    characters: inventory.publishedCharacters.filter(isSafeForDiscovery).length,
+    locations: inventory.publishedLocations.filter(isSafeForDiscovery).length
   };
-  assert.deepEqual(families, { weapons: 26, bosses: 5, characters: 6, locations: 4 });
+  assert.deepEqual(families, { weapons: 26, bosses: 54, characters: 6, locations: 9 });
   assert.equal(collectionTriggerFromCounts(families).triggered, true);
   const currentEntities = [...inventory.publishedWeapons, ...inventory.publishedBosses, ...inventory.publishedCharacters, ...inventory.publishedLocations];
   const guides = inventory.guides.map((guide) => ({ ...guide, status: 'published' }));

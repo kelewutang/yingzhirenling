@@ -1,7 +1,7 @@
 ---
 const { facts } = Astro.props;
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
-import { isMajorSpoiler } from '../lib/spoilers.mjs';
+import { shouldConcealSpoiler } from '../lib/spoilers.mjs';
 const sections = [...new Set(facts.map((fact) => fact.section))];
 ---
 {sections.map((section, index) => (
@@ -11,7 +11,7 @@ const sections = [...new Set(facts.map((fact) => fact.section))];
       <h2 id={`detail-fact-section-${index}`}>{section}</h2>
     </div>
     <div class="detail-fact-list">
-      {facts.filter((fact) => fact.section === section).map((fact) => isMajorSpoiler(fact) ? <SpoilerDisclosure class="fact-spoiler">
+      {facts.filter((fact) => fact.section === section).map((fact) => shouldConcealSpoiler(fact) ? <SpoilerDisclosure class="fact-spoiler">
         <article class="detail-fact" data-info-scope="fact" data-fact-id={fact.id} data-status={fact.status} aria-label="重大剧情资料">
           <div class="detail-fact__main"><div class="detail-fact__heading"><h3>{fact.title}</h3></div><p class="detail-fact__value">{fact.valueText}</p>{fact.description && <p class="detail-fact__description">{fact.description}</p>}</div>
         </article>

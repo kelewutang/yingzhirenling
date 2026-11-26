@@ -1,7 +1,7 @@
 import { getFact, loadKnowledge, statusLabel, versionLabel } from './knowledge.mjs';
 import { getProductionHeroMedia } from './media.mjs';
 import { assertPublishableWeaponForms, isForgedBatchFact, isSoulFormWeapon, isSoulResourceConfirmation, resolveAppearanceForms } from './weapon-forms.mjs';
-import { isMajorSpoiler } from './spoilers.mjs';
+import { shouldConcealSpoiler } from './spoilers.mjs';
 import { pcDetailsVersionId } from './weapon-pc-details.mjs';
 
 const specs = [
@@ -175,14 +175,14 @@ function isReviewedWeaponFact(fact, knowledge) {
   return Number.isInteger(version?.sequence) && Number.isInteger(start?.sequence) && start.sequence <= version.sequence &&
     fact.sourceIds.every((id) => {
       const source = knowledge.sourceById?.get(id);
-      return source && !isMajorSpoiler(source) && !['draft', 'archived'].includes(source.recordState) &&
+      return source && !shouldConcealSpoiler(source) && !['draft', 'archived'].includes(source.recordState) &&
         (source.locator?.type !== 'user-supplied-statement' || isSoulResourceConfirmation(fact, source));
     });
 }
 
 function summaryFromDescription(weapon, description, knowledge) {
   const support = new Set(weapon.summaryFactIds ?? []);
-  if (!description || isMajorSpoiler(description) || !support.has(description.id)) return weaponSummaryFallback;
+  if (!description || shouldConcealSpoiler(description) || !support.has(description.id)) return weaponSummaryFallback;
   if (![pcReleaseSnapshot, pcDetailsVersionId].includes(description.gameVersionId)) return description.value;
   const category = getFact(weapon, 'weapon.systemCategory');
   const grip = category?.value === '主武器' ? getFact(weapon, 'weapon.grip') : null;
@@ -191,7 +191,7 @@ function summaryFromDescription(weapon, description, knowledge) {
   const pcSource = description.sourceIds.find((id) => {
     const locator = knowledge.sourceById.get(id)?.locator;
     return locator?.type === 'user-supplied-game-screenshot' && locator.platformId === 'platform:pc' &&
-      appliesToPc(description) && basis.every((fact) => isReviewedWeaponFact(fact, knowledge) && !isMajorSpoiler(fact) &&
+      appliesToPc(description) && basis.every((fact) => isReviewedWeaponFact(fact, knowledge) && !shouldConcealSpoiler(fact) &&
         appliesToPc(fact) && fact.gameVersionId === description.gameVersionId && support.has(fact.id) && fact.sourceIds.includes(id));
   });
   if (!pcSource) return weaponSummaryFallback;
@@ -202,7 +202,7 @@ export function projectWeaponPublicContent(weapon, knowledge) {
   const fact = getFact(weapon, 'weapon.description');
   const reviewed = isReviewedWeaponFact(fact, knowledge) && typeof fact.value === 'string' && fact.value.trim() ? fact : null;
   const description = reviewed ? { id: reviewed.id, value: reviewed.value, spoilerLevel: reviewed.spoilerLevel } : null;
-  if (weapon.entityType !== 'weapon' || weapon.recordState !== 'published' || isMajorSpoiler(weapon)) {
+  if (weapon.entityType !== 'weapon' || weapon.recordState !== 'published' || shouldConcealSpoiler(weapon)) {
     return { description: null, summary: weaponSummaryFallback };
   }
   const summary = summaryFromDescription(weapon, reviewed, knowledge);

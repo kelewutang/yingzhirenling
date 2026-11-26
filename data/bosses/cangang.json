@@ -309,11 +309,42 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": null
+    },
+    {
+      "id": "fact:boss:cangang:research-20261126-barrier",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "红丝线前置",
+        "description": "公开攻略记录，先沿红丝线找到另一端解除障壁，再进入残钢所在的混战场地；不是在障壁前直接触发首领战。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-26",
+        "source:vgover-creek-bosses-2026-11-26"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:release-guides-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后公开攻略文字核对，未观看或采集实机画面。来源未注明客户端版本；未注明的平台和难度不推定为已验证。"
     }
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-11-16",
-  "updatedAt": "2026-11-16",
+  "updatedAt": "2026-11-26",
   "recordState": "published",
   "spoilerLevel": "minor",
   "resolution": null

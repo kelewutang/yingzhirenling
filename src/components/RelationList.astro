@@ -1,11 +1,11 @@
 ---
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
-import { isMajorSpoiler } from '../lib/spoilers.mjs';
+import { shouldConcealSpoiler } from '../lib/spoilers.mjs';
 const { relations } = Astro.props;
 ---
 {relations.length > 0 && <section class="relation-panel" aria-labelledby="relations-title">
   <div class="detail-section-heading"><p class="detail-section-heading__eyebrow">RELATIONSHIPS</p><h2 id="relations-title">人物关系</h2></div>
-  {relations.map((relation) => isMajorSpoiler(relation.otherEntity) ? <SpoilerDisclosure class="relation-panel__spoiler"><article class="relation-panel__item" data-info-scope="relation" data-relation-id={relation.id} data-status={relation.status}>
+  {relations.map((relation) => shouldConcealSpoiler(relation.otherEntity) ? <SpoilerDisclosure class="relation-panel__spoiler"><article class="relation-panel__item" data-info-scope="relation" data-relation-id={relation.id} data-status={relation.status}>
       <div class="info-provenance__intro"><div class="info-provenance__content"><h3 class="info-provenance__title">{relation.otherEntity.displayName}</h3><p class="info-provenance__description"><a href={`/characters/${relation.otherEntity.slug}`}>{relation.otherEntity.displayName}</a> — {relation.label}</p></div></div>
     </article></SpoilerDisclosure> : (
     <article class="relation-panel__item" data-info-scope="relation" data-relation-id={relation.id} data-status={relation.status}>

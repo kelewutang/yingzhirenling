@@ -1,0 +1,219 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "boss:jinmianju-heiyiren",
+  "entityType": "boss",
+  "slug": "jinmianju-heiyiren",
+  "displayName": "金面具黑衣人",
+  "aliases": [],
+  "summary": "悲泣溪谷遭遇的首领。",
+  "summaryFactIds": [
+    "fact:boss:jinmianju-heiyiren:catalog-exists",
+    "fact:boss:jinmianju-heiyiren:catalog-name",
+    "fact:boss:jinmianju-heiyiren:catalog-kind",
+    "fact:boss:jinmianju-heiyiren:catalog-location"
+  ],
+  "facts": [
+    {
+      "id": "fact:boss:jinmianju-heiyiren:catalog-exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jinmianju-heiyiren-20261126",
+        "source:keengamer-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jinmianju-heiyiren:catalog-name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "金面具黑衣人",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jinmianju-heiyiren-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jinmianju-heiyiren:catalog-kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jinmianju-heiyiren-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jinmianju-heiyiren:catalog-location",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "悲泣溪谷：龙柱。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jinmianju-heiyiren-20261126",
+        "source:keengamer-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jinmianju-heiyiren:catalog-location-xuese-senlin",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "血色森林：龙柱。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jinmianju-heiyiren-20261126",
+        "source:powerpyx-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jinmianju-heiyiren:catalog-location-meigu-hu",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "梅谷湖：湖中龙柱与幻术师遗迹龙柱（两次遭遇）。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jinmianju-heiyiren-20261126",
+        "source:powerpyx-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jinmianju-heiyiren:catalog-location-ximeng-shanzhuang",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "戏梦山庄：龙柱。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jinmianju-heiyiren-20261126",
+        "source:powerpyx-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-26",
+  "updatedAt": "2026-11-26",
+  "recordState": "published",
+  "spoilerLevel": "major",
+  "resolution": null,
+  "safeDisplayName": "后续首领（含剧透）",
+  "safeSummary": "展开剧透内容后查看名称与资料。"
+}

@@ -302,11 +302,72 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": null
+    },
+    {
+      "id": "fact:location:beiqi-xigu:research-20261126-red-thread",
+      "key": "location.route",
+      "valueType": "object",
+      "value": {
+        "name": "红丝线障壁绕行",
+        "description": "公开流程从红丝线障壁转向西面的残偶谷底，解除丝线后返回障壁，通过后才到残钢所在的混战场地与锈刃凉亭方向。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-26",
+        "source:vgover-creek-bosses-2026-11-26"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:release-guides-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后公开攻略文字核对，未观看或采集实机画面。来源未注明客户端版本；未注明的平台和难度不推定为已验证。"
+    },
+    {
+      "id": "fact:location:beiqi-xigu:research-20261126-chain-door",
+      "key": "location.route",
+      "valueType": "object",
+      "value": {
+        "name": "驿站铁链门回访",
+        "description": "公开攻略记载，击败斧老大取得巨凶斧后，可回驿站劈开铁链门；这条路线不涉及有卫兵把守的桥口开放条件。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-creek-route-2026-11-26"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:release-guides-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后公开攻略文字核对，未观看或采集实机画面。来源未注明客户端版本；未注明的平台和难度不推定为已验证。"
     }
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-11-16",
-  "updatedAt": "2026-11-16",
+  "updatedAt": "2026-11-26",
   "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null

@@ -11,12 +11,12 @@ import RelatedGuides from './RelatedGuides.astro';
 import StructuredData from './StructuredData.astro';
 import { createBreadcrumbList, productionUrl } from '../lib/structured-data.mjs';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
-import { entitySafeProjection, isMajorSpoiler } from '../lib/spoilers.mjs';
+import { entitySafeProjection, shouldConcealSpoiler } from '../lib/spoilers.mjs';
 import { loadPublishedWeaponForms } from '../lib/projections.mjs';
 
 const { entity, collectionHref, collectionLabel, returnLabel, eyebrow, aliases, heroTaxonomy = null, facts, media, relations = [], gameplayRelations = [], relatedGuides = [], weaponDetail = null, canonical } = Astro.props;
 const safe = entitySafeProjection(entity);
-const major = isMajorSpoiler(entity);
+const major = shouldConcealSpoiler(entity);
 const hasWeaponForms = entity.entityType === 'weapon' && !!await loadPublishedWeaponForms(entity.id);
 const breadcrumbStructuredData = createBreadcrumbList([
   { name: '首页', item: productionUrl('/') },

@@ -49,11 +49,10 @@ test('changed wording, cross-item evidence, missing claims, corrupt hashes and w
   const entity = clone(flask); entity.facts[0].gameVersionId = 'version:prelaunch-demo-2024'; assert(validate(entity).length > 0);
 });
 
-test('draft, archived and major-spoiler items do not enter production Search', () => {
+test('draft and archived items do not enter production Search', () => {
   for (const mutate of [
     (entity) => { entity.recordState = 'draft'; },
-    (entity) => { entity.recordState = 'archived'; },
-    (entity) => { entity.spoilerLevel = 'major'; entity.safeDisplayName = 'Hidden'; entity.safeSummary = 'Hidden'; }
+    (entity) => { entity.recordState = 'archived'; }
   ]) {
     const entity = clone(flask); mutate(entity);
     const result = buildSearchDocuments([{ entity, file: 'fixture:item' }], 'production', new Map([['flask', new Set([entity.slug])]]), knowledge);
@@ -69,4 +68,13 @@ test('item Search rejects a missing detail and a detail with a wrong canonical',
     await writeFile(join(directory, `${flask.slug}.html`), '<link rel="canonical" href="https://www.yingzhirenling.cn/incorrect">');
     await assert.rejects(resolvePublishedItemDetailPageSlugs(records, 'flask', directory), /canonical mismatch/);
   } finally { await rm(directory, { recursive: true, force: true }); }
+});
+
+test('admitted major-spoiler items retain real names in released Search', () => {
+  const entity = clone(flask);
+  entity.spoilerLevel = 'major';
+  entity.safeDisplayName = 'Hidden'; entity.safeSummary = 'Hidden';
+  const result = buildSearchDocuments([{ entity, file: 'fixture:item' }], 'production', new Map([['flask', new Set([entity.slug])]]), knowledge);
+  assert.equal(result.documents.length, 1);
+  assert.equal(result.documents[0].displayName, flask.displayName);
 });

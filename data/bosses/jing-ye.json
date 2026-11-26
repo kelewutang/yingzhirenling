@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "boss:jing-ye",
+  "entityType": "boss",
+  "slug": "jing-ye",
+  "displayName": "亡命徒：荆野",
+  "aliases": [],
+  "summary": "血色森林遭遇的首领。",
+  "summaryFactIds": [
+    "fact:boss:jing-ye:catalog-exists",
+    "fact:boss:jing-ye:catalog-name",
+    "fact:boss:jing-ye:catalog-kind",
+    "fact:boss:jing-ye:catalog-location"
+  ],
+  "facts": [
+    {
+      "id": "fact:boss:jing-ye:catalog-exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jing-ye-20261126",
+        "source:keengamer-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jing-ye:catalog-name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "亡命徒：荆野",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jing-ye-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jing-ye:catalog-kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jing-ye-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:jing-ye:catalog-location",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "血色森林：亡命徒陷阱。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-jing-ye-20261126",
+        "source:keengamer-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-26",
+  "updatedAt": "2026-11-26",
+  "recordState": "published",
+  "spoilerLevel": "minor",
+  "resolution": null
+}

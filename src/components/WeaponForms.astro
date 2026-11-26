@@ -2,14 +2,14 @@
 import EntityMedia from './EntityMedia.astro';
 import WeaponDetailPresentation from './WeaponDetailPresentation.astro';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
-import { isMajorSpoiler } from '../lib/spoilers.mjs';
+import { shouldConcealSpoiler } from '../lib/spoilers.mjs';
 import { isSoulFormWeapon } from '../lib/weapon-forms.mjs';
 import { loadPublishedWeaponForms } from '../lib/projections.mjs';
 const { weaponId } = Astro.props;
 const formSet = typeof weaponId === 'string' ? await loadPublishedWeaponForms(weaponId) : null;
 const base = formSet?.forms.base;
 const labels = { base: '铸魂前', soulForged: '铸魂后' };
-const major = isMajorSpoiler(formSet);
+const major = shouldConcealSpoiler(formSet);
 const Content = major ? SpoilerDisclosure : 'div';
 ---
 {formSet && <div class="weapon-forms" data-weapon-forms data-forms-concealed={major || undefined}>
@@ -22,7 +22,7 @@ const Content = major ? SpoilerDisclosure : 'div';
     {Object.entries(formSet.forms).map(([key, form]) => {
       const { description } = form;
       const taxonomy = form.detail.taxonomy;
-      const concealedTaxonomy = isMajorSpoiler(taxonomy?.systemCategory) || isMajorSpoiler(taxonomy?.weaponType);
+      const concealedTaxonomy = shouldConcealSpoiler(taxonomy?.systemCategory) || shouldConcealSpoiler(taxonomy?.weaponType);
       return <section id={`weapon-form-${key}`} data-form-panel={key} data-form-name={form.name} aria-label={`${labels[key]}：${form.name}`}>
         <h2 class="weapon-form-label">{labels[key]} · {form.name}</h2>
         <div class="weapon-form-layout">
@@ -31,7 +31,7 @@ const Content = major ? SpoilerDisclosure : 'div';
             {taxonomy && (concealedTaxonomy
               ? <SpoilerDisclosure><p class="entity-hero__taxonomy" data-weapon-hero-taxonomy>{taxonomy.valueText}</p></SpoilerDisclosure>
               : <p class="entity-hero__taxonomy" data-weapon-hero-taxonomy>{taxonomy.valueText}</p>)}
-            {description ? (isMajorSpoiler(description)
+            {description ? (shouldConcealSpoiler(description)
               ? <SpoilerDisclosure><p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p></SpoilerDisclosure>
               : <p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p>)
               : <p class="weapon-form-pending" data-form-pending="description">武器介绍待补充</p>}
