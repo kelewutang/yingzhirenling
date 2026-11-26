@@ -36,3 +36,18 @@ assert.equal(guide.includes('Build 攻略'), false, 'No production Build Guide m
 assert.equal(guide.includes('data-collection-browser'), false, 'Guide landing must not receive Collection Browser');
 
 console.log('Collection Browser dist verification passed: 26 server-rendered Weapon cards activate the existing Browser; other collections retain rich cards; no fixture leakage.');
+
+
+const weapons = await readFile(resolve(dist, 'weapons.html'), 'utf8');
+const forgedPairs = [['heishang', '黑魔伤'], ['heishang-shuangren', '绝影'], ['changxing-heishang', '炽刃'], ['luanying-jian', '天邈·乱莺']];
+assert.equal((weapons.match(/data-collection-forged-search=/g) || []).length, 4);
+for (const [slug, name] of forgedPairs) {
+  const card = weapons.match(new RegExp(`<a[^>]*href="/weapons/${slug}"[^>]*>[\\s\\S]*?</a>`))?.[0];
+  assert(card?.includes(`data-collection-forged-search="${name}"`), `${slug}: safe forged search metadata missing`);
+  assert(card.includes(`铸魂后：${name}`), `${slug}: forged label missing from the static card`);
+  const detail = await readFile(resolve(dist, `weapons/${slug}.html`), 'utf8');
+  assert.match(detail, /data-form-controls hidden/, `${slug}: controls must progressively enhance`);
+  assert.equal((detail.match(/<section[^>]*data-form-panel=/g) || []).length, 2);
+  assert.equal((detail.match(/<section[^>]*data-form-panel=[^>]* hidden/g) || []).length, 0, `${slug}: both forms must remain readable without JS`);
+}
+console.log('Forged-name static verification passed: four labeled cards, original detail paths and both no-JS forms.');

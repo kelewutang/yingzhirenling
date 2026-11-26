@@ -17,10 +17,10 @@ export const approvedCollectionNavigation = approvedCollectionSectionOrder.map((
 });
 
 export const secondaryNavigation = [
-  { href: '/accessories', label: '饰品图鉴', section: 'accessories' },
-  { href: '/flasks', label: '药瓶图鉴', section: 'flasks' },
   { href: '/', label: '首页', section: 'home' },
   { href: '/guide', label: '攻略中心', section: 'guide' },
+  { href: '/accessories', label: '饰品图鉴', section: 'accessories' },
+  { href: '/flasks', label: '药瓶图鉴', section: 'flasks' },
   { href: '/videos', label: '视频中心', section: 'videos' },
   { href: '/about', label: '购买指南', section: 'about' },
   { href: '/about-site', label: '关于本站', section: 'about-site' }
