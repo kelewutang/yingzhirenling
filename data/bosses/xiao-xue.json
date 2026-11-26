@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "boss:xiao-xue",
+  "entityType": "boss",
+  "slug": "xiao-xue",
+  "displayName": "吞噬尸体的小雪",
+  "aliases": [],
+  "summary": "正道大营遭遇的首领。",
+  "summaryFactIds": [
+    "fact:boss:xiao-xue:catalog-exists",
+    "fact:boss:xiao-xue:catalog-name",
+    "fact:boss:xiao-xue:catalog-kind",
+    "fact:boss:xiao-xue:catalog-location"
+  ],
+  "facts": [
+    {
+      "id": "fact:boss:xiao-xue:catalog-exists",
+      "key": "boss.exists",
+      "valueType": "boolean",
+      "value": true,
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-xiao-xue-20261126",
+        "source:keengamer-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:xiao-xue:catalog-name",
+      "key": "boss.name",
+      "valueType": "string",
+      "value": "吞噬尸体的小雪",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-xiao-xue-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:xiao-xue:catalog-kind",
+      "key": "boss.kind",
+      "valueType": "string",
+      "value": "Boss",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-xiao-xue-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    },
+    {
+      "id": "fact:boss:xiao-xue:catalog-location",
+      "key": "boss.location",
+      "valueType": "string",
+      "value": "正道大营：乱葬岗。",
+      "status": "third-party",
+      "sourceIds": [
+        "source:catalog-boss-xiao-xue-20261126",
+        "source:keengamer-catalog-20261126"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:world-boss-catalog-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。"
+    }
+  ],
+  "taxonomyIds": [],
+  "publishedAt": "2026-11-26",
+  "updatedAt": "2026-11-26",
+  "recordState": "published",
+  "spoilerLevel": "major",
+  "resolution": null,
+  "safeDisplayName": "后续首领（含剧透）",
+  "safeSummary": "展开剧透内容后查看名称与资料。"
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "relation:boss:hongyi-jianke:appearsIn:location:zhengdao-daying",
+  "sourceEntityId": "boss:hongyi-jianke",
+  "relationType": "appearsIn",
+  "targetEntityId": "location:zhengdao-daying",
+  "status": "third-party",
+  "sourceIds": [
+    "source:catalog-boss-hongyi-jianke-20261126",
+    "source:keengamer-catalog-20261126"
+  ],
+  "basisFactIds": [
+    "fact:boss:hongyi-jianke:catalog-location"
+  ],
+  "checkedAt": "2026-11-26",
+  "gameVersionId": "version:world-boss-catalog-2026-11-26",
+  "scope": {
+    "platforms": {
+      "mode": "all",
+      "ids": []
+    },
+    "difficulties": {
+      "mode": "all",
+      "ids": []
+    }
+  },
+  "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+  "validToVersionId": null,
+  "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。",
+  "spoilerLevel": "major"
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "version:release-guides-2026-11-26",
+  "track": "release",
+  "stage": "release-launch",
+  "displayName": "发售后公开攻略补充（查阅于2026-11-26，客户端版本未知）",
+  "versionLabel": null,
+  "sequence": 110,
+  "platformIds": [
+    "platform:pc",
+    "platform:playstation-5"
+  ],
+  "releasedAt": "2026-10-29",
+  "sourceIds": [
+    "source:gamersky-creek-route-2026-11-26",
+    "source:gamersky-pangzhen-route-2026-11-26",
+    "source:vgover-creek-bosses-2026-11-26",
+    "source:pcgamer-a-hua-2026-11-26",
+    "source:powerpyx-pangzhen-2026-11-26",
+    "source:gamersky-boss-3-2026-10-29",
+    "source:gamersky-boss-4-2026-10-29"
+  ],
+  "checkedAt": "2026-11-26",
+  "supersedesVersionId": null,
+  "supersededBy": null
+}

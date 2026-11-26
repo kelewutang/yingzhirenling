@@ -2,7 +2,7 @@
 import ControllerInput from './ControllerInput.astro';
 import WeaponDescription from './WeaponDescription.astro';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
-import { isMajorSpoiler } from '../lib/spoilers.mjs';
+import { shouldConcealSpoiler } from '../lib/spoilers.mjs';
 
 const { detail, idPrefix = '', pendingTechnicalDetails = false, showSoulForgePlaceholder = true, forged = false } = Astro.props;
 const sectionId = (id) => `${idPrefix}${id}`;
@@ -10,7 +10,7 @@ const { overview } = detail;
 const mechanics = pendingTechnicalDetails ? [] : detail.mechanics;
 const progressionNodes = pendingTechnicalDetails ? [] : detail.progressionNodes;
 const overviewNotes = overview.notes.filter((fact) => fact.key !== 'weapon.description');
-const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || isMajorSpoiler(overview.taxonomy?.weaponType);
+const concealedTaxonomy = shouldConcealSpoiler(overview.taxonomy?.systemCategory) || shouldConcealSpoiler(overview.taxonomy?.weaponType);
 ---
 <section class="weapon-detail-section weapon-detail-overview" aria-labelledby={sectionId('weapon-overview-title')} data-weapon-section="overview">
   <div class="detail-section-heading">
@@ -29,28 +29,28 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
     </div>}
     {overview.taxonomy?.grip && !overview.taxonomy.weaponType && <div data-weapon-overview-field="grip" data-fact-id={overview.taxonomy.grip.id}>
       <dt>持握方式</dt>
-      <dd>{isMajorSpoiler(overview.taxonomy.grip) ? <SpoilerDisclosure>{overview.taxonomy.grip.valueText}</SpoilerDisclosure> : overview.taxonomy.grip.valueText}</dd>
+      <dd>{shouldConcealSpoiler(overview.taxonomy.grip) ? <SpoilerDisclosure>{overview.taxonomy.grip.valueText}</SpoilerDisclosure> : overview.taxonomy.grip.valueText}</dd>
     </div>}
   </dl>}
   {!pendingTechnicalDetails && overview.baseStats.length > 0 && <section class="weapon-preview-stats" aria-labelledby={sectionId('weapon-base-stats-title')} data-weapon-base-stats>
     <h3 id={sectionId('weapon-base-stats-title')}>{forged ? '30级属性' : `Lv${overview.baseStats[0].value.displayedLevel} 基础属性`}</h3>
     <dl>{overview.baseStats.map((fact) => <div data-base-stat-id={fact.id} data-fact-id={fact.id}>
-      <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.value.statName}</dt>
-      <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
+      <dt>{shouldConcealSpoiler(fact) ? '重大剧情资料' : fact.value.statName}</dt>
+      <dd>{shouldConcealSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
     </div>)}</dl>
   </section>}
   {overviewNotes.length > 0 && <dl class="weapon-overview__notes">
     {overviewNotes.map((fact) => <div data-weapon-overview-note={fact.key} data-fact-id={fact.id}>
-      <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.title}</dt>
-      <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.valueText}{fact.description && <span>{fact.description}</span>}</SpoilerDisclosure> : <>{fact.valueText}{fact.description && <span>{fact.description}</span>}</>}</dd>
+      <dt>{shouldConcealSpoiler(fact) ? '重大剧情资料' : fact.title}</dt>
+      <dd>{shouldConcealSpoiler(fact) ? <SpoilerDisclosure>{fact.valueText}{fact.description && <span>{fact.description}</span>}</SpoilerDisclosure> : <>{fact.valueText}{fact.description && <span>{fact.description}</span>}</>}</dd>
     </div>)}
   </dl>}
   {!pendingTechnicalDetails && overview.previewStats.length > 0 && <section class="weapon-preview-stats" aria-labelledby={sectionId('weapon-preview-stats-title')} data-weapon-preview-stats>
     <h3 id={sectionId('weapon-preview-stats-title')}>预发布 Lv30 展示</h3>
     <dl>
     {overview.previewStats.map((fact) => <div data-preview-stat-id={fact.id}>
-        <dt>{isMajorSpoiler(fact) ? '重大剧情资料' : fact.value.statName}</dt>
-        <dd>{isMajorSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
+        <dt>{shouldConcealSpoiler(fact) ? '重大剧情资料' : fact.value.statName}</dt>
+        <dd>{shouldConcealSpoiler(fact) ? <SpoilerDisclosure>{fact.value.displayedValue}</SpoilerDisclosure> : fact.value.displayedValue}</dd>
       </div>)}
     </dl>
     <p>官方预发布界面展示值，正式版可能调整。</p>
@@ -63,7 +63,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
     <h2 id={sectionId('weapon-mechanics-title')}>招式与机制</h2>
   </div>
   <ol class="weapon-detail-list">
-    {mechanics.map((fact) => <li data-weapon-mechanic-id={fact.id}>{isMajorSpoiler(fact) ? <SpoilerDisclosure>
+    {mechanics.map((fact) => <li data-weapon-mechanic-id={fact.id}>{shouldConcealSpoiler(fact) ? <SpoilerDisclosure>
       <h3>{fact.valueText}</h3>
       {fact.input && <ControllerInput input={fact.input} factId={fact.id} />}
       {fact.description && <WeaponDescription description={fact.description} />}
@@ -107,7 +107,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
   </div>
   {!pendingTechnicalDetails && overview.baseStats.length > 0 && <p>以下为截图中可见的成长节点，等级仅按截图标注，不代表当前已全部解锁。</p>}
   <ol class="weapon-detail-list">
-    {progressionNodes.map((fact) => <li data-weapon-progression-node-id={fact.id}>{isMajorSpoiler(fact) ? <SpoilerDisclosure>
+    {progressionNodes.map((fact) => <li data-weapon-progression-node-id={fact.id}>{shouldConcealSpoiler(fact) ? <SpoilerDisclosure>
       {fact.level && <p class="weapon-progression-level" data-weapon-progression-level-for={fact.id}>Lv{fact.level}</p>}
       <h3>{fact.valueText}</h3>
       {fact.input && <ControllerInput input={fact.input} factId={fact.id} />}
@@ -124,7 +124,7 @@ const concealedTaxonomy = isMajorSpoiler(overview.taxonomy?.systemCategory) || i
     <h2 id={sectionId('weapon-soul-effect-title')}>铸魂效果（铸魂后解锁）</h2>
   </div>
   <ol class="weapon-detail-list">
-    {detail.soulForgeEffects.map((fact) => <li data-weapon-soul-effect-id={fact.id}>{isMajorSpoiler(fact) ? <SpoilerDisclosure><h3>{fact.valueText}</h3><WeaponDescription description={fact.description} /></SpoilerDisclosure> : <><h3>{fact.valueText}</h3><WeaponDescription description={fact.description} /></>}</li>)}
+    {detail.soulForgeEffects.map((fact) => <li data-weapon-soul-effect-id={fact.id}>{shouldConcealSpoiler(fact) ? <SpoilerDisclosure><h3>{fact.valueText}</h3><WeaponDescription description={fact.description} /></SpoilerDisclosure> : <><h3>{fact.valueText}</h3><WeaponDescription description={fact.description} /></>}</li>)}
   </ol>
 </section>}
 {pendingTechnicalDetails && showSoulForgePlaceholder && !detail.soulForgeEffects?.length && <section class="weapon-detail-section" data-weapon-section="soul-forge-effect" aria-labelledby={sectionId('weapon-soul-effect-title')}>

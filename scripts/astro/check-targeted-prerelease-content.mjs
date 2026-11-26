@@ -95,26 +95,29 @@ assert(!aboutHtml.includes('影之刃零支持手动存档'), '/about must not m
 const guideDocuments = search.filter((document) => document.documentType === 'guide');
 const itemCount = inventory.publishedAccessories.length + inventory.publishedFlasks.length;
 const itemRouteCount = itemCount + 2;
-assert.equal(search.filter((document) => !['accessory', 'flask'].includes(document.entityType)).length, 42, 'Existing production Search must retain its 42 documents');
-assert.equal(search.length, 42 + itemCount, 'Production Search must include the independent item inventory');
+// The catalog adds 54 detail routes; all admitted entries enter released discovery.
+const catalogRouteDelta = 54;
+const catalogSearchDelta = 54;
+assert.equal(search.filter((document) => !['accessory', 'flask'].includes(document.entityType)).length, 42 + catalogSearchDelta, 'Search must retain existing documents and the safe catalog additions');
+assert.equal(search.length, 42 + itemCount + catalogSearchDelta, 'Production Search must include items and safe catalog entries');
 assert.equal(guideDocuments.length, 1, 'Production Search must contain one Guide document');
 assert.deepEqual([guideDocuments[0].id, guideDocuments[0].route, guideDocuments[0].recordState], [`guide:${guideId}`, guideRoute, 'published']);
-assert.equal((sitemap.match(/<url>/g) || []).length, 51 + itemRouteCount, 'Sitemap must retain 51 existing URLs and add the item routes');
+assert.equal((sitemap.match(/<url>/g) || []).length, 51 + itemRouteCount + catalogRouteDelta, 'Sitemap must retain existing URLs and add catalog detail routes');
 assert(sitemap.includes(`<loc>https://www.yingzhirenling.cn${guideRoute}</loc><lastmod>2026-10-11</lastmod>`), 'Guide sitemap entry missing or stale');
-assert.deepEqual(inventory.counts, { sitemap: 51 + itemRouteCount, canonical: 51 + itemRouteCount, pageHtml: 52 + itemRouteCount, searchDocs: 42 + itemCount });
+assert.deepEqual(inventory.counts, { sitemap: 51 + itemRouteCount + catalogRouteDelta, canonical: 51 + itemRouteCount + catalogRouteDelta, pageHtml: 52 + itemRouteCount + catalogRouteDelta, searchDocs: 42 + itemCount + catalogSearchDelta });
 assert.deepEqual([
   inventory.publishedWeapons.length,
   inventory.publishedBosses.length,
   inventory.publishedCharacters.length,
   inventory.publishedLocations.length,
   inventory.guides.length
-], [26, 5, 6, 4, 1]);
+], [26, 54, 6, 9, 1]);
 
 const canonicalTagCount = (await Promise.all(distFiles.filter((file) => file.endsWith('.html')).map((file) => readFile(resolve(dist, file), 'utf8'))))
   .reduce((count, html) => count + (html.match(/<link\s+rel="canonical"\s+href="/gi) || []).length, 0);
 const pageHtmlCount = distFiles.filter((file) => file.endsWith('.html') && !file.startsWith('baidu_verify_')).length;
-assert.equal(canonicalTagCount, 51 + itemRouteCount, 'Rendered canonical tags must match existing and item routes');
-assert.equal(pageHtmlCount, 52 + itemRouteCount, 'Rendered page HTML must match existing and item routes');
+assert.equal(canonicalTagCount, 51 + itemRouteCount + catalogRouteDelta, 'Rendered canonical tags must match all existing, item and catalog routes');
+assert.equal(pageHtmlCount, 52 + itemRouteCount + catalogRouteDelta, 'Rendered page HTML must match all existing, item and catalog routes');
 
 assert.equal(await absent(resolve(dist, 'generated/guide-search-manifest.json')), true, 'Private Guide handoff manifest must not be deployed');
 assert.doesNotMatch([landingHtml, sitemap, JSON.stringify(search), ...distFiles].join('\n'), /growth-guide-[a-f]/, 'Synthetic growth fixtures must not leak into production landing, sitemap, Search or files');

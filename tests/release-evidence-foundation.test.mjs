@@ -87,7 +87,7 @@ async function withReleaseFixture(mutate, expectedMessage = null) {
     await writeJson(patchFile, patch);
     await writeJson(difficultyFile, {
       schemaVersion: '1.0-implementation',
-      difficulties: [{ id: 'difficulty:fixture-standard', displayName: 'Fixture Standard' }]
+      difficulties: [...(await readJson(difficultyFile)).difficulties, { id: 'difficulty:fixture-standard', displayName: 'Fixture Standard' }]
     });
     await writeJson(weaponFile, weapon);
     await mutate({ directory, sourceFile, launchFile, patchFile, difficultyFile, weaponFile });

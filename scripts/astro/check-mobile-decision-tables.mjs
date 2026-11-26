@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { cp, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
-import { dirname, join, resolve } from 'node:path';
+import { basename, dirname, join, resolve, sep } from 'node:path';
 import { tmpdir } from 'node:os';
 import { loadProductionInventory } from './production-inventory.mjs';
 
@@ -346,7 +346,7 @@ async function verifyFrozenCounts(dist) {
   ]);
   const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].map((match) => match[1]);
   const htmlFiles = files.filter((file) => file.endsWith('.html'));
-  const pageHtml = htmlFiles.filter((file) => !file.split('/').at(-1).startsWith('baidu_verify_'));
+  const pageHtml = htmlFiles.filter((file) => !basename(file).startsWith('baidu_verify_'));
   const canonical = (await Promise.all(htmlFiles.map((file) => readFile(file, 'utf8')))).reduce((count, html) => count + (html.match(/<link\s+rel="canonical"\s+href="/giu) || []).length, 0);
   const searchDocs = JSON.parse(searchIndex).length;
   const expected = (await loadProductionInventory(root)).counts;
@@ -372,10 +372,10 @@ async function stylesheetRulesInDocumentOrder(page, pageFile, dist) {
     const href = node.attrs.href?.split(/[?#]/u)[0];
     assert(href, `${pageFile}: stylesheet link has no href`);
     const physicalCandidate = href.startsWith('/') ? resolve(dist, `.${href}`) : resolve(dirname(pageFile), href);
-    const stylesheet = physicalCandidate === dist || physicalCandidate.startsWith(`${dist}/`)
+    const stylesheet = physicalCandidate === dist || physicalCandidate.startsWith(`${dist}${sep}`)
       ? physicalCandidate
       : resolve(dist, href.replace(/^(?:\.\.\/)+/u, ''));
-    assert(stylesheet === dist || stylesheet.startsWith(`${dist}/`), `${pageFile}: stylesheet must resolve inside dist`);
+    assert(stylesheet === dist || stylesheet.startsWith(`${dist}${sep}`), `${pageFile}: stylesheet must resolve inside dist`);
     rules.push(...readCssRules(await readFile(stylesheet, 'utf8'), [], state));
     stylesheetLinks += 1;
   }

@@ -13,6 +13,21 @@ import { buildSearchDocuments } from '../scripts/build-search-index.mjs';
 const weaponSummaryFallback = '武器介绍待补充';
 
 const targetPairs = [['heishang', '黑伤', '黑魔伤'], ['heishang-shuangren', '黑伤双刃', '绝影'], ['changxing-heishang', '长形黑伤', '炽刃'], ['luanying-jian', '乱莺剑', '天邈·乱莺']];
+
+test('historical major classification keeps admitted equipment facts, names, sources and Media available after release', async () => {
+  for (const target of ['entity', 'fact', 'source', 'media']) {
+    const knowledge = await loadKnowledge();
+    const entity = knowledge.entityById.get('weapon:heishang');
+    const media = JSON.parse(await readFile(new URL('../data/media.json', import.meta.url))).records;
+    const record = target === 'entity' ? entity : target === 'fact'
+      ? entity.facts.find((fact) => fact.key === 'weapon.soulForgedName') : target === 'source'
+        ? knowledge.sourceById.get('source:owner-pc-soul-forms-2026-11-23')
+        : media.find((item) => item.id === 'media:heishang-soul-forged-master');
+    record.spoilerLevel = 'major';
+    assert(projectWeaponFormDetails(entity, knowledge, media), target);
+    assert(searchableForgedNames(entity, knowledge).includes('黑魔伤'), target);
+  }
+});
 test('four renames retain canonical IDs, slugs and 26 published weapons; no typo alias', async () => {
   const k = await loadKnowledge(); assert.equal(getPublishedWeapons(k).length, 26);
   for (const [slug, original, forged] of targetPairs) {
@@ -42,7 +57,7 @@ test('four reviewed forged appearances keep base Hero/Card and independent scree
     const source = k.sourceById.get(forged.sourceId);
     assert.equal(source.locator.type, 'user-supplied-game-screenshot');
     assert(source.locator.evidenceItems.some((item) => forged.processing.includes(item.sha256)));
-    assert.equal(await getProductionHeroMedia(entity.id, { ...entity, spoilerLevel: 'major' }, 'soulForged'), null);
+    assert.equal((await getProductionHeroMedia(entity.id, { ...entity, spoilerLevel: 'major' }, 'soulForged')).id, forged.id);
   }
   assert.equal(await getProductionHeroMedia('weapon:white-shadow', k.entityById.get('weapon:white-shadow'), 'soulForged'), null);
 });
@@ -87,7 +102,7 @@ test('published forms expose only their own screenshot-backed technical Facts', 
     assert.equal(forms.forms.base.pendingTechnicalDetails, false);
     assert.equal(soul.entity.id, entity.id); assert.equal(soul.entity.slug, entity.slug);
     assert.equal(projectWeaponFormDetails({ ...entity, recordState: 'draft' }, knowledge, media), null);
-    assert.equal(projectWeaponFormDetails({ ...entity, spoilerLevel: 'major' }, knowledge, media), null);
+    assert(projectWeaponFormDetails({ ...entity, spoilerLevel: 'major' }, knowledge, media));
   }
   assert.equal(projectWeaponFormDetails(knowledge.entityById.get('weapon:white-shadow'), knowledge, media), null);
 });
@@ -255,10 +270,10 @@ test('unreviewed overview and technical prose do not survive a four-weapon proje
   assert(detail.mechanics.length > 0);
 });
 
-test('appearance-only projection rejects draft, concealed, unreviewed, foreign and statement-backed Media', async () => {
+test('appearance-only projection rejects draft, unreviewed, foreign and statement-backed Media', async () => {
   const knowledge = await loadKnowledge(), entity = knowledge.entityById.get('weapon:heishang');
   const records = JSON.parse(await readFile(new URL('../data/media.json', import.meta.url))).records;
-  for (const overrides of [{ recordState: 'draft' }, { rightsStatus: 'review-required' }, { entityId: 'weapon:other' }, { weaponForm: 'base' }, { spoilerLevel: 'major' }, { sourceId: 'source:owner-weapon-soul-names-2026-11-18' }, { src: 'heishang-master.jpg' }]) {
+  for (const overrides of [{ recordState: 'draft' }, { rightsStatus: 'review-required' }, { entityId: 'weapon:other' }, { weaponForm: 'base' }, { sourceId: 'source:owner-weapon-soul-names-2026-11-18' }, { src: 'heishang-master.jpg' }]) {
     const changed = records.map((item) => item.id === 'media:heishang-soul-forged-master' ? { ...item, ...overrides } : item);
     assert.equal(projectWeaponFormDetails(entity, knowledge, changed), null);
   }
@@ -312,8 +327,6 @@ const invalid = [
   ['mixed displayed levels within form', ({ entity }) => { const value = entity.facts.at(-1).value; value.base.baseStatFactIds.push(...value.soulForged.baseStatFactIds); }, /mixed displayed levels or repeated stats within base/],
   ['effect with invented unlock level', ({ entity }) => { entity.facts.find((f) => f.key === 'weapon.soulForgeEffect').value.level = 25; }, /effect requires only name and description/],
   ['conflicting current effect', ({ entity }) => { entity.facts.push({ ...structuredClone(entity.facts.find((f) => f.key === 'weapon.soulForgeEffect')), id: 'fact:weapon:fixture-soul:second-effect' }); }, /weapon\.soulForgeEffect: conflicting effective version\/scope/],
-  ['major skill downgraded', ({ entity }) => { entity.facts.find((f) => f.key === 'weapon.mechanic').spoilerLevel = 'major'; }, /form set cannot downgrade major spoiler/],
-  ['major Media downgraded', ({ knowledge }) => { knowledge.mediaRecords[1].spoilerLevel = 'major'; }, /form set cannot downgrade major Media/],
   ['pending technical Fact', ({ entity }) => { entity.facts.find((f) => f.key === 'weapon.mechanic').status = 'pending-review'; }, /incompatible Fact status\/version\/scope/],
   ['incompatible platform', ({ entity }) => { entity.facts.find((f) => f.key === 'weapon.mechanic').scope.platforms.ids = ['platform:playstation-5']; }, /incompatible Fact status\/version\/scope/],
   ['future Fact', ({ entity }) => { entity.facts.find((f) => f.key === 'weapon.mechanic').validFromVersionId = 'version:fixture-v3'; }, /incompatible Fact status\/version\/scope/],
@@ -341,8 +354,6 @@ test('historical and disjoint-scope effects do not conflict, overlapping current
 for (const [label, mutate] of [
   ['draft', (e) => { e.recordState = 'draft'; }],
   ['archived', (e) => { e.recordState = 'archived'; }],
-  ['major entity', (e) => { e.spoilerLevel = 'major'; }],
-  ['major name', (_, f) => { f.spoilerLevel = 'major'; }],
   ['pending-review', (_, f) => { f.status = 'pending-review'; }],
   ['editorial', (_, f) => { f.status = 'editorial'; }],
   ['ended', (_, f) => { f.validToVersionId = 'version:fixture-v2'; }],
@@ -405,7 +416,6 @@ test('PC screenshot claims reject altered facts, cross-weapon evidence and versi
     ({ claim }) => { claim.locations[0].evidenceItemId = 'pc-101916'; },
     ({ claim }) => { claim.locations[0].position = ''; },
     ({ source }) => { source.recordState = 'draft'; },
-    ({ source }) => { source.spoilerLevel = 'major'; },
     ({ version }) => { version.versionLabel = 'unverified-build'; }
   ]) {
     const knowledge = structuredClone(original);

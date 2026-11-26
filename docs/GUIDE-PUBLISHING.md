@@ -1,3 +1,7 @@
+# Current released publication policy
+
+Owner 已批准[正式版全面开放攻略模式](POST-RELEASE-OPEN-GUIDES-2026-11-26.md)。已准入内容不因剧透折叠、占位或排除搜索；本文件中冲突的旧剧透发布要求仅保留为历史规则，事实、来源、版本及 draft 准入继续执行。
+
 # Guide Publishing Foundation
 
 > P3-CN-7G-B implementation candidate. This document describes work on its feature branch; it does not claim a merge, deployment, or completed publication stage.

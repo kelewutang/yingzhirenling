@@ -119,6 +119,7 @@ assert.equal(brokenBladeSearch[0].route, '/weapons/chizhe-canjian', 'Broken Blad
 assert(brokenBladeSearch[0].aliases.includes("The Fanatic's Broken Blade"), 'Broken Blade English alias missing from Search');
 
 const bossHtml = await readFile(resolve(dist, 'bosses.html'), 'utf8');
-const bossSlugs = [...bossHtml.matchAll(/<a class="entity-card" href="\/bosses\/([^"]+)"/g)].map((match) => match[1]);
-assert.deepEqual(bossSlugs, ['cangang', 'peng-meng', 'a-hua', 'zhui-ming', 'hua-qianxiao'], 'Boss cards must follow the owner-approved five-name ordering');
-console.log(`Collection verification passed: ${collections.length} collections, ${weapons.length} Weapon, 6 Character, 5 Boss, and 4 Location cards.`);
+const bossSlugs = [...bossHtml.matchAll(/<a class="entity-card(?: entity-card--compact)?" href="\/bosses\/([^"]+)"/g)].map((match) => match[1]);
+assert.deepEqual(bossSlugs.slice(0, 5), ['cangang', 'peng-meng', 'a-hua', 'zhui-ming', 'hua-qianxiao'], 'Existing five Boss cards must retain their ordering');
+assert.deepEqual([...bossSlugs].sort(), (await publishedEntities('data/bosses')).map((entity) => entity.slug).sort(), 'Every published Boss must have exactly one card');
+console.log(`Collection verification passed: ${collections.length} collections, ${weapons.length} Weapon and ${bossSlugs.length} Boss cards; existing ordering retained.`);

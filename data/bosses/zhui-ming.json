@@ -209,11 +209,44 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": null
+    },
+    {
+      "id": "fact:boss:zhui-ming:research-20261126-phase-retry",
+      "key": "boss.mechanic",
+      "valueType": "object",
+      "value": {
+        "name": "第二阶段重试记录",
+        "description": "发售后攻略与破局者实战记录均写到：大瀑布一战进入第二阶段后，若在该阶段战败，再次挑战从第二阶段开始。此条按来源注明的破局者难度收录，其他难度和后续补丁仍待核对。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-boss-4-2026-10-29",
+        "source:vgover-creek-bosses-2026-11-26"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:release-guides-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "include",
+          "ids": [
+            "difficulty:pathbreaker"
+          ]
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "正文标明破局者；PC游戏分类不能确认实际游玩平台，平台范围未限定。具体客户端版本未知；未将作者记录升级为本站实测。"
     }
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-11-16",
-  "updatedAt": "2026-11-16",
+  "updatedAt": "2026-11-26",
   "recordState": "published",
   "spoilerLevel": "minor",
   "resolution": null

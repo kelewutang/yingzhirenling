@@ -1,11 +1,11 @@
 ---
 import { guideRoute, guideTypeLabel } from '../lib/guide-publication.mjs';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
-import { guideSafeProjection, isMajorSpoiler } from '../lib/spoilers.mjs';
+import { guideSafeProjection, shouldConcealSpoiler } from '../lib/spoilers.mjs';
 
 const { guides = [] } = Astro.props;
-const safeGuides = guides.filter((guide) => !isMajorSpoiler(guide.data));
-const concealedGuides = guides.filter((guide) => isMajorSpoiler(guide.data));
+const safeGuides = guides.filter((guide) => !shouldConcealSpoiler(guide.data));
+const concealedGuides = guides.filter((guide) => shouldConcealSpoiler(guide.data));
 ---
 {guides.length > 0 && <section class="related-guides" aria-labelledby="related-guides-title">
   <div class="detail-section-heading">

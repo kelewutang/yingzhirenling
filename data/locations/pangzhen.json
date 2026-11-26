@@ -131,11 +131,42 @@
       "validToVersionId": null,
       "supersededBy": null,
       "reviewNote": null
+    },
+    {
+      "id": "fact:location:pangzhen:research-20261126-first-visit",
+      "key": "location.route",
+      "valueType": "object",
+      "value": {
+        "name": "初访东部主街",
+        "description": "发售后攻略以废弃酒窖、景炀轩、市集、黄家宅邸前路口作为东部主街的定位点，按此顺序推进。本条为主路摘要，铃铛之间仍有战斗和岔路，不是无战斗直达路线。"
+      },
+      "status": "third-party",
+      "sourceIds": [
+        "source:gamersky-pangzhen-route-2026-11-26",
+        "source:powerpyx-pangzhen-2026-11-26"
+      ],
+      "basisFactIds": [],
+      "checkedAt": "2026-11-26",
+      "gameVersionId": "version:release-guides-2026-11-26",
+      "scope": {
+        "platforms": {
+          "mode": "all",
+          "ids": []
+        },
+        "difficulties": {
+          "mode": "all",
+          "ids": []
+        }
+      },
+      "validFromVersionId": "version:release-guides-2026-11-26",
+      "validToVersionId": null,
+      "supersededBy": null,
+      "reviewNote": "发售后公开攻略文字核对，未观看或采集实机画面。来源未注明客户端版本；未注明的平台和难度不推定为已验证。"
     }
   ],
   "taxonomyIds": [],
   "publishedAt": "2026-08-30",
-  "updatedAt": "2026-08-30",
+  "updatedAt": "2026-11-26",
   "recordState": "published",
   "spoilerLevel": "none",
   "resolution": null

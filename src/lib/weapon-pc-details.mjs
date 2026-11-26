@@ -1,3 +1,4 @@
+import { shouldConcealSpoiler } from './spoilers.mjs';
 import { isDeepStrictEqual } from 'node:util';
 
 export const pcDetailsSourceId = 'source:owner-pc-baiying-lingshe-2026-11-23';
@@ -29,7 +30,7 @@ export function validatePcWeaponDetails(entity, { sourceById, versionById }) {
   const errors = [], fail = (message) => errors.push(`${entity.id}: ${message}`);
   const source = sourceById?.get(pcDetailsSourceId), version = versionById?.get(pcDetailsVersionId);
   const locator = source?.locator;
-  const publicRecord = (record) => record && !['draft', 'archived'].includes(record.recordState) && record.spoilerLevel !== 'major';
+  const publicRecord = (record) => record && !['draft', 'archived'].includes(record.recordState) && !shouldConcealSpoiler(record);
   if (!weaponIds.has(entity.id) || source?.sourceType !== 'user-game-screenshot' || source.authority !== 'community' || !publicRecord(source) ||
       locator?.type !== 'user-supplied-game-screenshot' || locator.platformId !== 'platform:pc' ||
       locator.versionLabel !== null || locator.suppliedAt !== '2026-11-23' ||

@@ -5,7 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { isMajorSpoiler } from '../src/lib/spoilers.mjs';
+import { shouldConcealSpoiler } from '../src/lib/spoilers.mjs';
 
 const SCRIPT_FILE = fileURLToPath(import.meta.url);
 const SCRIPT_DIR = path.dirname(SCRIPT_FILE);
@@ -280,7 +280,8 @@ function assertUniqueDocuments(documents, detailPageSlugs) {
   for (const field of ['id', 'slug', 'displayName']) {
     const owners = new Map();
     for (const document of documents) {
-      const key = document[field].normalize('NFKC').toLocaleLowerCase('en-US');
+      const normalized = document[field].normalize('NFKC').toLocaleLowerCase('en-US');
+      const key = field === 'id' ? normalized : `${document.entityType}:${normalized}`;
       if (owners.has(key)) {
         throw new Error(`重复 Search Document ${field}：${document[field]}（${owners.get(key)} / ${document.id}）`);
       }
@@ -309,7 +310,7 @@ export function buildSearchDocuments(records, mode, detailPageSlugs = new Set(),
   for (const record of records) {
     const entity = record.entity ?? record.weapon;
     requireSearchShape(entity, record.file);
-    if (isMajorSpoiler(entity)) {
+    if (shouldConcealSpoiler(entity)) {
       skippedByState.set('major-spoiler', (skippedByState.get('major-spoiler') ?? 0) + 1);
       continue;
     }
@@ -340,7 +341,7 @@ function requireGuideSearchShape(guide, file) {
 }
 
 export function buildGuideSearchDocuments(guides, detailPageSlugs = new Set()) {
-  const documents = guides.filter((guide) => !isMajorSpoiler(guide)).map((guide) => {
+  const documents = guides.filter((guide) => !shouldConcealSpoiler(guide)).map((guide) => {
     requireGuideSearchShape(guide, `Guide ${guide.id}`);
     if (!detailPageSlugs.has(guide.id)) throw new Error(`Guide ${guide.id}: 已发布 Guide 缺少详情页`);
     const expectedRoute = `/guide/${guide.id}`;

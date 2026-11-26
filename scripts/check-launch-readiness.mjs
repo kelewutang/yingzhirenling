@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { COLLECTION_BROWSER_ACTIVATION_THRESHOLD } from '../src/lib/collection-browser.mjs';
 import { loadKnowledge } from '../src/lib/knowledge.mjs';
 import { siteLifecycle } from '../src/lib/site-lifecycle.mjs';
-import { isSafeForDiscovery, spoilerLevel } from '../src/lib/spoilers.mjs';
+import { isSafeForDiscovery, spoilerLevel, spoilerProtectionApplies, postReleaseGuideDecision } from '../src/lib/spoilers.mjs';
 import { loadProductionInventory } from './astro/production-inventory.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -158,6 +158,20 @@ export function evaluateBrowserGate({ id, triggered, approval, enforcement }) {
   if (approval.status === 'passed') return finding(category, 'PASS', `${id}: trigger is true and Browser evidence is approved`);
   if (['release-candidate', 'production'].includes(enforcement)) return finding(category, 'BLOCK', `${id}: Browser Gate approval is required`);
   return finding(category, 'WARN', `${id}: Browser Gate required; local/Deploy Preview build may continue`);
+}
+
+export function evaluateSpoilerPublicationGate(state, { lifecycle = siteLifecycle.state, decision = postReleaseGuideDecision, approval, enforcement } = {}) {
+  if (!spoilerProtectionApplies(lifecycle, decision)) {
+    const hidden = (state.renderedHtml || []).some((html) => /data-spoiler-level=["']major["']|含部分剧情信息/.test(html));
+    return finding('Spoiler gate', hidden ? 'BLOCK' : 'PASS', hidden
+      ? 'Owner-approved open guides must not retain spoiler disclosures'
+      : `Released open guides approved by Owner on ${decision.approvedAt}; historical spoiler approvals are superseded (${decision.evidenceRef})`);
+  }
+  const result = evaluateBrowserGate({ id: GATE_IDS[1], triggered: spoilerTriggerFromState(state).triggered, approval, enforcement });
+  const scopeApproved = approval?.scopeId === 'release-world-2026-11-16'
+    ? approvedReleaseWorldSpoilerScope(state) : approvedP3Cn8gSpoilerScope(state);
+  if (approval?.status === 'passed' && !scopeApproved) return finding('Spoiler gate', 'BLOCK', 'Historical spoiler approval does not cover current records or disclosure markup');
+  return result;
 }
 
 export function evaluateInventory(expected, actual) {
@@ -343,19 +357,10 @@ export async function runPostDeploySmoke({ baseUrl, expectedInventory, lifecycle
 async function evaluateRepositoryGates(config, enforcement, requireDist) {
   const state = await productionState({ requireDist });
   const collection = collectionTriggerFromCounts(state.publishedByFamily);
-  const spoiler = spoilerTriggerFromState(state);
   const results = [
     evaluateBrowserGate({ id: GATE_IDS[0], triggered: collection.triggered, approval: config.browserGates[GATE_IDS[0]], enforcement }),
-    evaluateBrowserGate({ id: GATE_IDS[1], triggered: spoiler.triggered, approval: config.browserGates[GATE_IDS[1]], enforcement })
+    evaluateSpoilerPublicationGate(state, { approval: config.browserGates[GATE_IDS[1]], enforcement })
   ];
-  const spoilerApproval = config.browserGates[GATE_IDS[1]];
-  const scopeApproved = spoilerApproval.scopeId === 'release-world-2026-11-16'
-    ? approvedReleaseWorldSpoilerScope(state) : approvedP3Cn8gSpoilerScope(state);
-  if (spoilerApproval.status === 'passed' && !scopeApproved) {
-    results.push(finding('Spoiler gate', 'BLOCK', spoilerApproval.scopeId
-      ? 'Release world approval does not cover the current spoiler records or disclosure markup'
-      : 'P3-CN-8G approval covers only the current minor-spoiler Broken Blade Entity and acquisition Fact'));
-  }
   if (requireDist) {
     const leakage = findFixtureLeakage(state.renderedHtml);
     results.push(leakage.length ? finding('Content validity', 'BLOCK', `fixture leakage detected: ${leakage.join(', ')}`) : finding('Content validity', 'PASS', 'No known fixture markers occur in rendered HTML'));

@@ -1,3 +1,4 @@
+import { shouldConcealSpoiler } from './spoilers.mjs';
 export const GUIDE_TYPES = Object.freeze(['walkthrough', 'boss', 'weapon', 'system', 'performance', 'build']);
 export const GUIDE_TYPE_LABELS = Object.freeze({
   walkthrough: '流程攻略',
@@ -58,7 +59,7 @@ export function validateGuides(guides, knowledge) {
     if (!GUIDE_TYPES.includes(data.guideType)) errors.push(`${prefix}: guideType 不受支持`);
     if (hasMarkdownH1(guide.body)) errors.push(`${prefix}: Markdown body 不得包含 H1；页面模板负责唯一 H1`);
     if (!SPOILER_LEVELS.has(data.spoilerLevel)) errors.push(`${prefix}: spoilerLevel 必须显式为 none、minor 或 major`);
-    if (data.spoilerLevel === 'major' && (!data.safeTitle || !data.safeDescription)) {
+    if (shouldConcealSpoiler(data) && (!data.safeTitle || !data.safeDescription)) {
       errors.push(`${prefix}: major Guide 必须提供 safeTitle 和 safeDescription`);
     }
     if (!hasValidSpoilerBlocks(guide.body)) errors.push(`${prefix}: major spoiler block 必须使用含 data-nosnippet 的原生 details/summary`);

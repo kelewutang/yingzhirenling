@@ -19,9 +19,12 @@ test('release content has sourced independent facts and preserves the three exis
     assert.equal(e.slug, slug);
     assert(e.facts.length >= 5);
     const current = project[type](e, k);
-    assert(current.every((f) => f.status === 'third-party' || f.status === 'official'));
-    assert(current.every((f) => f.sourceIds.length && f.sourceIds.every((id) => k.sourceById.has(id))));
-    assert(current.every((f) => f.versionText === '发售后公开攻略（截至2026-11-16）'));
+    assert(current.every((f) => f.status === 'third-party' || f.status === 'official' ||
+      (f.id === 'fact:boss:a-hua:research-20261126-arena-advice' && f.status === 'editorial' && f.basisFactIds.length === 3)));
+    assert(current.every((f) => f.sourceIds.every((id) => k.sourceById.has(id)) &&
+      (f.sourceIds.length || (f.status === 'editorial' && f.basisFactIds.every((id) => k.factById.has(id))))));
+    assert(current.every((f) => f.versionText === (f.id.includes(':research-20261126-')
+      ? '发售后公开攻略补充（查阅于2026-11-26，客户端版本未知）' : '发售后公开攻略（截至2026-11-16）')));
     assert(current.every((f) => !f.valueText.includes('[object Object]')));
     assert(current.some((f) => f.key === `${type}.exists` && f.valueText.includes('发售后')));
     for (const id of e.summaryFactIds) assert(!factIsConcealed(k.factById.get(id), e), `${e.id}: concealed Fact in summary support`);
@@ -37,7 +40,7 @@ test('release content has sourced independent facts and preserves the three exis
   }
 });
 
-test('repeatable details retain every active entry and the major-spoiler boundary', () => {
+test('repeatable details retain every active entry including historical major spoilers', () => {
   const fact = (id, extra = {}) => ({ id, key: 'boss.mechanic', valueType: 'object', value: { name: id, description: `${id} description` }, status: 'third-party', sourceIds: [], gameVersionId: 'release', checkedAt: '2026-11-16', supersededBy: null, validToVersionId: null, ...extra });
   const e = { entityType: 'boss', facts: [fact('first'), fact('second', { spoilerLevel: 'major' }), fact('old', { validToVersionId: 'release' }), fact('superseded', { supersededBy: 'first' }), fact('pending', { status: 'pending-review', value: null })] };
   const k = { versionById: new Map([['release', { track: 'release' }]]) };
@@ -45,7 +48,7 @@ test('repeatable details retain every active entry and the major-spoiler boundar
   assert.deepEqual(result.map((f) => f.id), ['first', 'second']);
   assert.equal(result[0].title, 'first');
   assert.equal(result[0].valueText, 'first description');
-  assert(factIsConcealed(result[1], e));
+  assert.equal(factIsConcealed(result[1], e), false);
 });
 
 test('only the exact official patch statement gains official status', async () => {

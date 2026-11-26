@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0-implementation",
+  "id": "relation:boss:li-zhe-ju-zhe:appearsIn:location:duanhun-shan",
+  "sourceEntityId": "boss:li-zhe-ju-zhe",
+  "relationType": "appearsIn",
+  "targetEntityId": "location:duanhun-shan",
+  "status": "third-party",
+  "sourceIds": [
+    "source:catalog-boss-li-zhe-ju-zhe-20261126",
+    "source:keengamer-catalog-20261126"
+  ],
+  "basisFactIds": [
+    "fact:boss:li-zhe-ju-zhe:catalog-location"
+  ],
+  "checkedAt": "2026-11-26",
+  "gameVersionId": "version:world-boss-catalog-2026-11-26",
+  "scope": {
+    "platforms": {
+      "mode": "all",
+      "ids": []
+    },
+    "difficulties": {
+      "mode": "all",
+      "ids": []
+    }
+  },
+  "validFromVersionId": "version:world-boss-catalog-2026-11-26",
+  "validToVersionId": null,
+  "reviewNote": "发售后攻略文本交叉核对；未读取游戏内名称画面，未进行本站实机验证。客户端补丁、实际游玩平台和难度未知；scope未限定不代表逐平台或逐难度实测。未知攻略字段省略。",
+  "spoilerLevel": "major"
+}

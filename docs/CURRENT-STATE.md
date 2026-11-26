@@ -1,5 +1,11 @@
 # Current Project State
 
+## 2026-11-26 本地候选：正式版全面开放攻略
+
+本节仅描述隔离分支 `content/world-boss-evidence-20261126` 的本地候选，不声明已提交或部署。HEAD/main 基线为 `3b38fe534cd6081fb45750657964c83904a0c6a4`；以下旧快照保留为历史记录。
+
+Owner 已批准[正式版全面开放攻略模式](POST-RELEASE-OPEN-GUIDES-2026-11-26.md)：9 地点、54 组 Boss 及其他已准入实体正常展示、搜索与索引。当前派生预期为 131 canonical / sitemap、132 内容 HTML、120 Search 文档（66 基线 + 54）；另有 1 个百度验证 HTML。8 核心地图、戏梦山庄层级仍未核实，54 组不代表精确总数，8 项身份/计数问题未新增正式实体。历史事实、分类、证据和其他内容准入继续保留。
+
 ## 1. Snapshot
 
 - **Project:** 影之刃零攻略站

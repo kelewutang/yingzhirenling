@@ -1,12 +1,12 @@
 import { getFact } from './knowledge.mjs';
-import { entitySafeProjection, isMajorSpoiler } from './spoilers.mjs';
+import { entitySafeProjection, shouldConcealSpoiler } from './spoilers.mjs';
 
 const typeLabels = { weapon: '武器', character: '角色', boss: 'Boss', location: '地点' };
 const appearanceLabels = { demo: '公开试玩记录', 'gameplay-video': '公开实机记录', 'official-showcase': '官方场景展示' };
 
 function factValue(entity, key) {
   const fact = getFact(entity, key);
-  return fact && !isMajorSpoiler(fact) ? String(fact.value) : null;
+  return fact && !shouldConcealSpoiler(fact) ? String(fact.value) : null;
 }
 
 function compactAppearance(entity, key) {
@@ -26,7 +26,7 @@ function weaponTaxonomy(entity) {
 
 function baseCard(entity, href, secondary, context) {
   const safe = entitySafeProjection(entity);
-  return { entity, href, typeLabel: typeLabels[entity.entityType], displayName: safe.displayName, aliases: safe.concealed ? [] : publicCardAliases(entity), summary: safe.summary, secondary: safe.concealed ? null : secondary, context: safe.concealed ? null : context, concealed: isMajorSpoiler(entity) };
+  return { entity, href, typeLabel: typeLabels[entity.entityType], displayName: safe.displayName, aliases: safe.concealed ? [] : publicCardAliases(entity), summary: safe.summary, secondary: safe.concealed ? null : secondary, context: safe.concealed ? null : context, concealed: shouldConcealSpoiler(entity) };
 }
 
 export function buildWeaponCollectionCard(entity) {

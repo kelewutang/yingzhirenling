@@ -1,7 +1,7 @@
 ---
 import { statusLabel, versionLabel } from '../lib/knowledge.mjs';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
-import { isMajorSpoiler } from '../lib/spoilers.mjs';
+import { shouldConcealSpoiler } from '../lib/spoilers.mjs';
 
 const { facts = [], knowledge } = Astro.props;
 ---
@@ -11,7 +11,7 @@ const { facts = [], knowledge } = Astro.props;
     <h2 id="guide-fact-references-title">关联资料</h2>
   </div>
   <ul class="guide-fact-references__list">
-    {facts.map((fact) => isMajorSpoiler(fact) ? <li><SpoilerDisclosure><div data-fact-id={fact.id} data-status={fact.status}>
+    {facts.map((fact) => shouldConcealSpoiler(fact) ? <li><SpoilerDisclosure><div data-fact-id={fact.id} data-status={fact.status}>
       <p><strong>{fact.key}</strong><span class="info-status" data-status={fact.status}>{statusLabel(fact.status)}</span></p><p>{typeof fact.value === 'string' ? fact.value : JSON.stringify(fact.value)}</p><small>{versionLabel(fact.gameVersionId, knowledge)} · <time datetime={fact.checkedAt}>{fact.checkedAt}</time></small>
     </div></SpoilerDisclosure></li> : <li data-fact-id={fact.id} data-status={fact.status}>
       <p><strong>{fact.key}</strong><span class="info-status" data-status={fact.status}>{statusLabel(fact.status)}</span></p>

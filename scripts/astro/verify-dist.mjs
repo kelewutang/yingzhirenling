@@ -1,3 +1,4 @@
+import { shouldConcealSpoiler } from '../../src/lib/spoilers.mjs';
 import assert from 'node:assert/strict';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -468,8 +469,8 @@ assert.equal(homepageStructuredData['@type'], 'WebSite', 'Homepage JSON-LD type 
 const homepageCategoryAssertions = [
   ['/weapons', '武器', publishedWeapons.length],
   ['/characters', '角色', publishedCharacters.length],
-  ['/bosses', 'Boss', publishedBosses.length],
-  ['/world', '世界', publishedLocations.length]
+  ['/bosses', 'Boss', publishedBosses.filter((entity) => !shouldConcealSpoiler(entity)).length],
+  ['/world', '世界', publishedLocations.filter((entity) => !shouldConcealSpoiler(entity)).length]
 ];
 for (const [route, label, count] of homepageCategoryAssertions) {
   assert(homepage.includes(`href="${route}"`), `Homepage category link missing: ${route}`);
@@ -613,9 +614,9 @@ for (const entity of [...inventory.publishedAccessories, ...inventory.publishedF
 const search = JSON.parse(await readFile(resolve(dist, 'generated/search-index.production.json'), 'utf8'));
 const entitySearch = search.filter((item) => item.documentType === 'entity');
 assert.deepEqual(entitySearch.map((item) => item.id), [
-  ...publishedBosses.map((boss) => boss.id),
+  ...publishedBosses.filter((boss) => !shouldConcealSpoiler(boss)).map((boss) => boss.id),
   ...publishedWeapons.map((weapon) => weapon.id),
-  ...publishedLocations.map((location) => location.id),
+  ...publishedLocations.filter((location) => !shouldConcealSpoiler(location)).map((location) => location.id),
   ...publishedCharacters.map((character) => character.id),
   ...inventory.publishedAccessories.map((entity) => entity.id),
   ...inventory.publishedFlasks.map((entity) => entity.id)
@@ -631,16 +632,24 @@ for (const weapon of publishedWeapons) {
 }
 for (const weapon of draftWeapons) assert(!search.some((item) => item.id === weapon.id), `Production Search must exclude draft ${weapon.id}`);
 const bossDocuments = search.filter((item) => item.entityType === 'boss');
-assert.equal(bossDocuments.length, publishedBosses.length, 'Production Search Boss count must match published Boss data');
+assert.equal(bossDocuments.length, publishedBosses.filter((boss) => !shouldConcealSpoiler(boss)).length, 'Production Search Boss count must match public Boss data');
 for (const boss of publishedBosses) {
+  if (shouldConcealSpoiler(boss)) {
+    assert(!bossDocuments.some((item) => item.id === boss.id), `Search must exclude major Boss ${boss.id}`);
+    continue;
+  }
   const document = bossDocuments.find((item) => item.id === boss.id);
   assert(document, `Production Search missing ${boss.id}`);
   assert.equal(document.route, `/bosses/${boss.slug}`, `${boss.id}: Search route must be canonical`);
 }
 for (const boss of draftBosses) assert(!search.some((item) => item.id === boss.id), `Production Search must exclude draft ${boss.id}`);
 const locationDocuments = search.filter((item) => item.entityType === 'location');
-assert.equal(locationDocuments.length, publishedLocations.length, 'Production Search Location count must match published Location data');
+assert.equal(locationDocuments.length, publishedLocations.filter((location) => !shouldConcealSpoiler(location)).length, 'Production Search Location count must match public Location data');
 for (const location of publishedLocations) {
+  if (shouldConcealSpoiler(location)) {
+    assert(!locationDocuments.some((item) => item.id === location.id), `Search must exclude major Location ${location.id}`);
+    continue;
+  }
   const document = locationDocuments.find((item) => item.id === location.id);
   assert(document, `Production Search missing ${location.id}`);
   assert.equal(document.route, `/world/${location.slug}`, `${location.id}: Search route must be canonical`);

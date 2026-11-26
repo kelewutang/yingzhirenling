@@ -2,12 +2,12 @@
 import EntityMedia from './EntityMedia.astro';
 import SpoilerDisclosure from './SpoilerDisclosure.astro';
 import { getFact } from '../lib/knowledge.mjs';
-import { entitySafeProjection, isMajorSpoiler, mediaIsConcealed } from '../lib/spoilers.mjs';
+import { entitySafeProjection, shouldConcealSpoiler, mediaIsConcealed } from '../lib/spoilers.mjs';
 
 const { entity, aliases = [], eyebrow, taxonomy = null, media = null, heading = 'h1' } = Astro.props;
 const Heading = heading;
 const safe = entitySafeProjection(entity);
-const major = isMajorSpoiler(entity);
+const major = shouldConcealSpoiler(entity);
 const revealMedia = mediaIsConcealed(media, entity);
 const showSummary = entity.entityType !== 'weapon';
 const releaseWeapon = !showSummary && !!getFact(entity, 'weapon.baseStat');
@@ -21,7 +21,7 @@ const description = descriptionFact && !['pending-review', 'editorial'].includes
     {!major && taxonomy && <p class="entity-hero__taxonomy" data-weapon-hero-taxonomy>{taxonomy}</p>}
     {!major && !releaseWeapon && aliases.length > 0 && <p class="entity-hero__aliases">{aliases.join('、')}</p>}
     {showSummary && <p class="entity-hero__summary">{safe.summary}</p>}
-    {!major && description && (isMajorSpoiler(description) ? <SpoilerDisclosure><p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p></SpoilerDisclosure> : <p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p>)}
+    {!major && description && (shouldConcealSpoiler(description) ? <SpoilerDisclosure><p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p></SpoilerDisclosure> : <p class="entity-hero__summary" data-weapon-hero-description={description.id}>{description.value}</p>)}
   </div>
   <EntityMedia entity={entity} media={media} variant="hero" showSourceLink={true} />
 </header>

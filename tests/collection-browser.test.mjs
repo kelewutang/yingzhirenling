@@ -1,3 +1,4 @@
+import { shouldConcealSpoiler } from '../src/lib/spoilers.mjs';
 import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
 import test from 'node:test';
@@ -90,18 +91,18 @@ test('result model covers reset, visible counts, and zero results', () => {
   assert.equal(collectionBrowserResult(model.items, resetCollectionBrowserQuery()).count, 20);
 });
 
-test('only the 26-weapon collection activates the existing browser', async () => {
+test('released Weapon and Boss collections activate the existing browser', async () => {
   const families = [
     ['weapons', 26],
-    ['bosses', 5],
+    ['bosses', 54],
     ['characters', 6],
-    ['locations', 4]
+    ['locations', 9]
   ];
   for (const [directory, expectedCount] of families) {
     const records = await Promise.all((await readdir(new URL(`../data/${directory}/`, import.meta.url)))
       .filter((name) => name.endsWith('.json'))
       .map(async (name) => JSON.parse(await readFile(new URL(`../data/${directory}/${name}`, import.meta.url), 'utf8'))));
-    const published = records.filter((record) => record.recordState === 'published' && record.spoilerLevel !== 'major');
+    const published = records.filter((record) => record.recordState === 'published' && !shouldConcealSpoiler(record));
     assert.equal(published.length, expectedCount, directory);
     const model = buildCollectionBrowserModel(published.map((record, index) => card(index + 1, {
       entity: record,
@@ -110,7 +111,7 @@ test('only the 26-weapon collection activates the existing browser', async () =>
       aliases: record.aliases.map((alias) => alias.value),
       concealed: false
     })));
-    assert.equal(model.active, directory === 'weapons', directory);
+    assert.equal(model.active, ['weapons', 'bosses'].includes(directory), directory);
   }
 });
 
@@ -147,7 +148,7 @@ function browserRuntime(items) {
 
 test('weapon Browser matches four public forged names and partials, restores base links and resets', async () => {
   const knowledge = await loadKnowledge();
-  const cards = knowledge.weapons.filter((entity) => entity.recordState === 'published' && entity.spoilerLevel !== 'major')
+  const cards = knowledge.weapons.filter((entity) => entity.recordState === 'published' && !shouldConcealSpoiler(entity))
     .map((entity) => ({ card: buildWeaponCollectionCard(entity) }));
   const model = buildCollectionBrowserModel(cards);
   const items = model.items.map((item, index) => {

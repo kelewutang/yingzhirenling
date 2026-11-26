@@ -1,3 +1,4 @@
+import { shouldConcealSpoiler } from './spoilers.mjs';
 import { getFact } from './knowledge.mjs';
 
 export const itemCollections = {
@@ -25,7 +26,7 @@ export function itemCard(entity) {
     displayName: name, aliases: [], summary: type === 'accessory' && entity.slug === 'kaiguang-yupei' ? '喝药时随机获得五种效果之一，包含对自身的影响。查看完整效果。' : entity.summary,
     secondary: itemFact(entity, 'kind').value,
     context: type === 'flask' ? `等级 ${level} · 可使用 ${itemFact(entity, 'uses').value} 次` : `当前强化 ${level}`,
-    concealed: entity.spoilerLevel === 'major' };
+    concealed: shouldConcealSpoiler(entity) };
 }
 
 export function itemDetail(entity) {

@@ -1,7 +1,7 @@
 ---
 const { facts = [] } = Astro.props;
-import { isMajorSpoiler } from '../lib/spoilers.mjs';
-const safeFacts = facts.filter((fact) => !isMajorSpoiler(fact));
+import { shouldConcealSpoiler } from '../lib/spoilers.mjs';
+const safeFacts = facts.filter((fact) => !shouldConcealSpoiler(fact));
 ---
 {safeFacts.length > 0 && <section class="quick-facts" aria-labelledby="quick-facts-title">
   <div class="detail-section-heading">

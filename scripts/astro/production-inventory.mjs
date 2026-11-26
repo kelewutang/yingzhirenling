@@ -1,3 +1,4 @@
+import { shouldConcealSpoiler } from '../../src/lib/spoilers.mjs';
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -57,7 +58,7 @@ export async function loadProductionInventory(root) {
       sitemap: canonicalRoutes.length,
       canonical: canonicalRoutes.length + COMPATIBILITY_CANONICAL_FILES,
       pageHtml: canonicalRoutes.length + COMPATIBILITY_CANONICAL_FILES + NON_CANONICAL_HTML_FILES,
-      searchDocs: publishedEntities.length + guides.length
+      searchDocs: publishedEntities.filter((entity) => !shouldConcealSpoiler(entity)).length + guides.length
     }
   };
 }

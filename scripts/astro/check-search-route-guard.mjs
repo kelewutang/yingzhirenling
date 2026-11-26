@@ -100,8 +100,12 @@ assert.equal(
 const productionSearch = JSON.parse(await readFile(join(import.meta.dirname, '../../generated/search-index.production.json'), 'utf8'));
 assert(productionSearch.every((document) => document.recordState === 'published'), 'Production Entity Search must contain only published documents');
 assert(!productionSearch.some((document) => document.id === 'weapon:qinglong-lueyue-dao'), 'Production Entity Search must exclude draft Qinglong');
-for (const id of ['weapon:tang-hengdao', 'weapon:ya-hengdao', 'boss:commander-cleave', 'boss:huangxing-sunken-pillar-kunlun', 'boss:tie-sha-the-frenzy']) {
+for (const id of ['weapon:tang-hengdao', 'weapon:ya-hengdao', 'boss:commander-cleave']) {
   assert(!productionSearch.some((document) => document.id === id), `Retired Entity must not appear in production Search: ${id}`);
+}
+// Catalog evidence admits these existing identities without changing their stable URLs.
+for (const slug of ['huangxing-sunken-pillar-kunlun', 'tie-sha-the-frenzy']) {
+  assert(productionSearch.some((document) => document.id === `boss:${slug}` && document.route === `/bosses/${slug}`), `Admitted catalog identity must be searchable: ${slug}`);
 }
 
 function publishedEntityResultKeys(entityType) {
@@ -150,7 +154,7 @@ assertResultKeys('视频', ['视频中心\t/videos\tpage']);
 assertResultKeys('购买', ['购买指南\t/about\tpage']);
 assertResultKeys('唐横刀', []);
 assertResultKeys('牙横刀', []);
-assertResultKeys('魂', ['魂\t/characters/soul\tentity']);
+assertResultKeys('魂', ['魂\t/characters/soul\tentity', '鬼差高手：勾魂\t/bosses/gou-hun\tentity', '断魂山\t/world/duanhun-shan\tentity']);
 assertResultKeys('Soul', ['魂\t/characters/soul\tentity']);
 assertResultKeys('Commander Cleave', []);
 assertResultKeys('  commander   cleave  ', []);

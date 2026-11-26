@@ -237,6 +237,86 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "boss:a-jin",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "a-jin",
+    "route": "/bosses/a-jin",
+    "displayName": "悲痛欲绝的阿瑾",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "梅谷湖遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:bai-chilian",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "bai-chilian",
+    "route": "/bosses/bai-chilian",
+    "displayName": "双蛇夫人：白赤练",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "血色森林遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:bi-feng",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "bi-feng",
+    "route": "/bosses/bi-feng",
+    "displayName": "横刀：毕峰",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "枷笼山遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:bi-hai",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "bi-hai",
+    "route": "/bosses/bi-hai",
+    "displayName": "枯叶寺：碧海大师残躯",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "陆家村遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:bi-yuan",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "bi-yuan",
+    "route": "/bosses/bi-yuan",
+    "displayName": "天玄派：毕远掌门残躯",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "陆家村遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "boss:cangang",
     "documentType": "entity",
     "entityType": "boss",
@@ -253,6 +333,166 @@
       "Boss"
     ],
     "summary": "悲泣溪谷红丝线障壁之后遭遇的首领，可先利用混战观察，再围绕杀气与破防展开攻防。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:chang-hong",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "chang-hong",
+    "route": "/bosses/chang-hong",
+    "displayName": "雷枪：长鸿",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:dang-hui",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "dang-hui",
+    "route": "/bosses/dang-hui",
+    "displayName": "操偶师：荡秽",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "陆家村遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:dashi-xiong",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "dashi-xiong",
+    "route": "/bosses/dashi-xiong",
+    "displayName": "七星剑阵：大师兄",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "正道大营遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:duan-chang",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "duan-chang",
+    "route": "/bosses/duan-chang",
+    "displayName": "鬼差高手：断肠",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "梅谷湖遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:duyan-gongke",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "duyan-gongke",
+    "route": "/bosses/duyan-gongke",
+    "displayName": "独眼弓客",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "梅谷湖遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:fengxue-daoke",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "fengxue-daoke",
+    "route": "/bosses/fengxue-daoke",
+    "displayName": "风雪刀客",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "梅谷湖遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:gou-hun",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "gou-hun",
+    "route": "/bosses/gou-hun",
+    "displayName": "鬼差高手：勾魂",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:gu-he",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "gu-he",
+    "route": "/bosses/gu-he",
+    "displayName": "灭法之法：蛊鹤",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "梅谷湖遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:gu-wanyue",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "gu-wanyue",
+    "route": "/bosses/gu-wanyue",
+    "displayName": "女妖骨婉约",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:hongyi-jianke",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "hongyi-jianke",
+    "route": "/bosses/hongyi-jianke",
+    "displayName": "红衣女剑客",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "正道大营遭遇的首领。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -277,6 +517,182 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "boss:huangxing-sunken-pillar-kunlun",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "huangxing-sunken-pillar-kunlun",
+    "route": "/bosses/huangxing-sunken-pillar-kunlun",
+    "displayName": "昆仑叛教者：荒行子",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "枷笼山遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:huo-liuxing",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "huo-liuxing",
+    "route": "/bosses/huo-liuxing",
+    "displayName": "鬼差队长：火流星",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:jing-ye",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "jing-ye",
+    "route": "/bosses/jing-ye",
+    "displayName": "亡命徒：荆野",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "血色森林遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:jinmianju-heiyiren",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "jinmianju-heiyiren",
+    "route": "/bosses/jinmianju-heiyiren",
+    "displayName": "金面具黑衣人",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "悲泣溪谷遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:kui-yanyan",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "kui-yanyan",
+    "route": "/bosses/kui-yanyan",
+    "displayName": "疯婆子奎艳艳",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "枷笼山遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:lei-dang",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "lei-dang",
+    "route": "/bosses/lei-dang",
+    "displayName": "雷当",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "戏梦山庄遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:lei-ting",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "lei-ting",
+    "route": "/bosses/lei-ting",
+    "displayName": "灭法之法：雷婷",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:li-zhe-ju-zhe",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "li-zhe-ju-zhe",
+    "route": "/bosses/li-zhe-ju-zhe",
+    "displayName": "力者和锯者",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "断魂山遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:lie-yan",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "lie-yan",
+    "route": "/bosses/lie-yan",
+    "displayName": "舞狮尊主：烈焰",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:mengcha-shengmu",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "mengcha-shengmu",
+    "route": "/bosses/mengcha-shengmu",
+    "displayName": "梦差与圣母娘娘",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "断魂山遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:mu-xiaokui",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "mu-xiaokui",
+    "route": "/bosses/mu-xiaokui",
+    "displayName": "沐小葵",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "陆家村遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "boss:peng-meng",
     "documentType": "entity",
     "entityType": "boss",
@@ -297,6 +713,342 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "boss:qingdaofu-hansui",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "qingdaofu-hansui",
+    "route": "/bosses/qingdaofu-hansui",
+    "displayName": "活人偶清道夫与灭法之法：寒岁",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "悲泣溪谷遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:qiu-feng",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "qiu-feng",
+    "route": "/bosses/qiu-feng",
+    "displayName": "囚锋",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "戏梦山庄遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:sanmian-moou",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "sanmian-moou",
+    "route": "/bosses/sanmian-moou",
+    "displayName": "三张脸的诡异魔偶",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "悲泣溪谷遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:tie-kuang",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "tie-kuang",
+    "route": "/bosses/tie-kuang",
+    "displayName": "拳痴：铁狂",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "血色森林遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:tie-sha-the-frenzy",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "tie-sha-the-frenzy",
+    "route": "/bosses/tie-sha-the-frenzy",
+    "displayName": "癫狂暴徒：铁杀",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "枷笼山遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:tiemian-shashou",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "tiemian-shashou",
+    "route": "/bosses/tiemian-shashou",
+    "displayName": "铁面杀手",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "枷笼山遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:wan-jun",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "wan-jun",
+    "route": "/bosses/wan-jun",
+    "displayName": "巨锤客：万钧",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "正道大营遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:wu-lengshuang",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "wu-lengshuang",
+    "route": "/bosses/wu-lengshuang",
+    "displayName": "软剑：乌冷霜",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "正道大营遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:wu-xuan",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "wu-xuan",
+    "route": "/bosses/wu-xuan",
+    "displayName": "堕落将军：武轩",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:xiao-xue",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "xiao-xue",
+    "route": "/bosses/xiao-xue",
+    "displayName": "吞噬尸体的小雪",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "正道大营遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:xie-qiudong",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "xie-qiudong",
+    "route": "/bosses/xie-qiudong",
+    "displayName": "神医：谢秋冬",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:yan-qiansui",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "yan-qiansui",
+    "route": "/bosses/yan-qiansui",
+    "displayName": "烟千岁",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "梅谷湖遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:yan-ru",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "yan-ru",
+    "route": "/bosses/yan-ru",
+    "displayName": "灭法之法：炎茹",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "陆家村遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:you-long",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "you-long",
+    "route": "/bosses/you-long",
+    "displayName": "水行帮主：游龙",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:yu-bi",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "yu-bi",
+    "route": "/bosses/yu-bi",
+    "displayName": "廿一号剑偶：玉璧",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "正道大营遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:yu-cong",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "yu-cong",
+    "route": "/bosses/yu-cong",
+    "displayName": "混沌魔偶：玉琮",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "血色森林遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:yu-ding",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "yu-ding",
+    "route": "/bosses/yu-ding",
+    "displayName": "十二号偃月刀偶：玉鼎",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "戏梦山庄遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:yu-zan",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "yu-zan",
+    "route": "/bosses/yu-zan",
+    "displayName": "三号乐偶师：玉瓒",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "陆家村遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:yumian-langjun",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "yumian-langjun",
+    "route": "/bosses/yumian-langjun",
+    "displayName": "玉面郎君",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "枷笼山遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:zhan-qi",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "zhan-qi",
+    "route": "/bosses/zhan-qi",
+    "displayName": "鬼差高手：斩骑",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:zhu-yuan",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "zhu-yuan",
+    "route": "/bosses/zhu-yuan",
+    "displayName": "火刀：祝原",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "庞镇遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "boss:zhui-ming",
     "documentType": "entity",
     "entityType": "boss",
@@ -309,6 +1061,38 @@
       "Boss"
     ],
     "summary": "悲泣溪谷主线首领；大瀑布一战包含连续阶段，锁链落点和龙卷风是应对重点。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:zhuo-bi",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "zhuo-bi",
+    "route": "/bosses/zhuo-bi",
+    "displayName": "守门人：拙壁",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "陆家村遭遇的首领。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "boss:zuo-shang",
+    "documentType": "entity",
+    "entityType": "boss",
+    "slug": "zuo-shang",
+    "route": "/bosses/zuo-shang",
+    "displayName": "左殇",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "Boss"
+    ],
+    "summary": "断魂山遭遇的首领。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -625,6 +1409,40 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "location:duanhun-shan",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "duanhun-shan",
+    "route": "/world/duanhun-shan",
+    "displayName": "断魂山",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "区域",
+      "地点"
+    ],
+    "summary": "断魂山区域资料。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "location:jialong-shan",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "jialong-shan",
+    "route": "/world/jialong-shan",
+    "displayName": "枷笼山",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "区域",
+      "地点"
+    ],
+    "summary": "枷笼山区域资料。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "location:lujia-cun",
     "documentType": "entity",
     "entityType": "location",
@@ -638,6 +1456,23 @@
       "村落区域"
     ],
     "summary": "以梦醒之地、岔路口、三人偶水井与幽蓝萤火之庙为探索节点，包含记忆之花、村民委托和需要回访的分支。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "location:meigu-hu",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "meigu-hu",
+    "route": "/world/meigu-hu",
+    "displayName": "梅谷湖",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "区域",
+      "地点"
+    ],
+    "summary": "梅谷湖区域资料。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },
@@ -666,6 +1501,23 @@
     "sourceSchemaVersion": "1.0-implementation"
   },
   {
+    "id": "location:ximeng-shanzhuang",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "ximeng-shanzhuang",
+    "route": "/world/ximeng-shanzhuang",
+    "displayName": "戏梦山庄",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "区域",
+      "地点"
+    ],
+    "summary": "戏梦山庄区域资料。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
     "id": "location:xuese-senlin",
     "documentType": "entity",
     "entityType": "location",
@@ -679,6 +1531,23 @@
       "地点"
     ],
     "summary": "从大瀑布接续进入的区域，包含荒废官道、远眺庞镇之桥、飞贼营地和镜林等探索节点。",
+    "recordState": "published",
+    "sourceSchemaVersion": "1.0-implementation"
+  },
+  {
+    "id": "location:zhengdao-daying",
+    "documentType": "entity",
+    "entityType": "location",
+    "slug": "zhengdao-daying",
+    "route": "/world/zhengdao-daying",
+    "displayName": "正道大营",
+    "aliases": [],
+    "displayAliases": [],
+    "keywords": [
+      "区域",
+      "地点"
+    ],
+    "summary": "正道大营区域资料。",
     "recordState": "published",
     "sourceSchemaVersion": "1.0-implementation"
   },

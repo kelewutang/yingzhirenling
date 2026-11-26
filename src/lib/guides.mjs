@@ -1,10 +1,12 @@
 import { getCollection } from 'astro:content';
 import { readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { getPublishedGuides, guideRoute, validateGuides } from './guide-publication.mjs';
 
 let cachedGuides;
-const guideDirectory = resolve(process.cwd(), process.env.PBZ_GUIDE_CONTENT_DIR || 'src/content/guides');
+const guideBase = process.env.PBZ_GUIDE_CONTENT_DIR || 'src/content/guides';
+const guideDirectory = guideBase.startsWith('file:') ? fileURLToPath(guideBase) : resolve(process.cwd(), guideBase);
 
 async function getCollectionOrEmpty() {
   const entries = await readdir(guideDirectory, { withFileTypes: true }).catch(() => []);
