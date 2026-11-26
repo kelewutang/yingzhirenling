@@ -3326,6 +3326,44 @@ body[data-atmosphere="world"] .collection-hero {
   font-size: var(--text-lg);
 }
 
+/* Boss cards reserve a stable visual area and at most two lines per name. */
+.entity-card[data-entity-type="boss"] {
+  height: 21rem;
+}
+
+.entity-card[data-entity-type="boss"] .entity-media {
+  flex: 0 0 11rem;
+  overflow: hidden;
+}
+
+.entity-card[data-entity-type="boss"] .entity-media > img,
+.entity-card[data-entity-type="boss"] .entity-media__fallback {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.entity-card[data-entity-type="boss"] .entity-card__body {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.entity-card[data-entity-type="boss"] .entity-card__title,
+.entity-card[data-entity-type="boss"] .entity-card__aliases {
+  display: -webkit-box;
+  flex-shrink: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.entity-card[data-entity-type="boss"] .entity-card__title {
+  height: 2.56em;
+}
+
+.entity-card[data-entity-type="boss"] .entity-card__aliases {
+  max-height: 3em;
+}
+
 .collection-supporting {
   max-width: var(--width-reading);
   margin-top: var(--space-16);

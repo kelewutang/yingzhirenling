@@ -16,6 +16,16 @@ for (const [file, expectedCards] of pages) {
   const active = ['weapons.html', 'bosses.html'].includes(file);
   assert.equal(html.includes('data-collection-browser'), active, `${file}: Browser activation must follow the current collection size`);
   assert.equal((html.match(/data-entity-card="true"/g) || []).length, expectedCards, `${file}: safe card count changed`);
+  if (file === 'bosses.html') {
+    const cards = [...html.matchAll(/<a\b[^>]*data-entity-card="true"[^>]*>[\s\S]*?<\/a>/g)].map(([card]) => card);
+    for (const card of cards) {
+      const media = card.match(/<figure\b[\s\S]*?<\/figure>/)?.[0];
+      assert(media && !media.includes('entity-media__name'), 'Boss visual area must not repeat its name');
+      assert(media.includes('entity-media__mark') && media.includes('entity-media__type'), 'Boss visual mark and type must remain');
+      assert.equal((card.match(/class="entity-card__title"/g) || []).length, 1, 'Boss card must retain one information title');
+      assert(card.includes('class="entity-card__eyebrow">Boss</span>'), 'Boss information type must remain');
+    }
+  }
   assert.equal(html.includes('data-collection-browser-filter'), false, `${file}: filter UI must not exist`);
   assert.equal(html.includes('data-collection-browser-sort'), false, `${file}: sort UI must not exist`);
   if (active) {
